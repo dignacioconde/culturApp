@@ -1,0 +1,237 @@
+import { useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import dayjs from 'dayjs'
+import { TrendingUp, Wallet, Receipt, PiggyBank, Clock, FolderOpen, ChevronLeft, ChevronRight } from 'lucide-react'
+import { PageWrapper } from '../../components/layout/PageWrapper'
+import { Card } from '../../components/ui/Card'
+import { StatusBadge } from '../../components/ui/Badge'
+import { KpiCard } from './KpiCard'
+import { useAuth } from '../../hooks/useAuth'
+import { useProjects } from '../../hooks/useProjects'
+import { useEvents } from '../../hooks/useEvents'
+import { useIncomes } from '../../hooks/useIncomes'
+import { useExpenses } from '../../hooks/useExpenses'
+import { formatCurrency, formatDate } from '../../lib/formatters'
+
+const YEARS = Array.from({ length: 6 }, (_, i) => dayjs().year() - 2 + i)
+
+export default function Dashboard() {
+  const navigate = useNavigate()
+  const { user } = useAuth()
+  const { projects } = useProjects(user?.id)
+  const { events } = useEvents(user?.id)
+  const { incomes } = useIncomes(user?.id)
+  const { expenses } = useExpenses(user?.id)
+
+  const [selectedDate, setSelectedDate] = useState(dayjs())
+  const [criteria, setCriteria] = useState('cash_flow')
+
+  const startOfMonth = selectedDate.startOf('month').format('YYYY-MM-DD')
+  const endOfMonth = selectedDate.endOf('month').format('YYYY-MM-DD')
+  const today = dayjs().format('YYYY-MM-DD')
+  const in30Days = dayjs().add(30, 'day').format('YYYY-MM-DD')
+
+  const prevMonth = () => setSelectedDate((d) => d.subtract(1, 'month'))
+  const nextMonth = () => setSelectedDate((d) => d.add(1, 'month'))
+
+  // IDs de proyectos activos en el mes seleccionado
+  const activeProjectIds = useMemo(() => {
+    if (criteria !== 'project_active') return null
+    return new Set(
+      projects
+        .filter((p) => {
+          const end = p.end_date ?? p.start_date
+          return p.start_date <= endOfMonth && end >= startOfMonth
+        })
+        .map((p) => p.id)
+    )
+  }, [projects, criteria, startOfMonth, endOfMonth])
+
+  // IDs de eventos que pertenecen a proyectos activos
+  const activeEventIds = useMemo(() => {
+    if (criteria !== 'project_active' || !activeProjectIds) return null
+    return new Set(events.filter((e) => activeProjectIds.has(e.project_id)).map((e) => e.id))
+  }, [events, criteria, activeProjectIds])
+
+  const relevantIncomes = useMemo(() => {
+    if (criteria === 'cash_flow')
+      return incomes.filter((i) => i.expected_date >= startOfMonth && i.expected_date <= endOfMonth)
+    return incomes.filter((i) =>
+      (i.project_id && activeProjectIds.has(i.project_id)) ||
+      (i.event_id && activeEventIds.has(i.event_id))
+    )
+  }, [incomes, criteria, startOfMonth, endOfMonth, activeProjectIds, activeEventIds])
+
+  const relevantExpenses = useMemo(() => {
+    if (criteria === 'cash_flow')
+      return expenses.filter((e) => e.expense_date >= startOfMonth && e.expense_date <= endOfMonth)
+    return expenses.filter((e) =>
+      (e.project_id && activeProjectIds.has(e.project_id)) ||
+      (e.event_id && activeEventIds.has(e.event_id))
+    )
+  }, [expenses, criteria, startOfMonth, endOfMonth, activeProjectIds, activeEventIds])
+
+  const kpis = useMemo(() => {
+    const grossExpected = relevantIncomes.reduce((acc, i) => acc + Number(i.amount), 0)
+    const paidIncomes = relevantIncomes.filter((i) => i.is_paid)
+    const grossPaid = paidIncomes.reduce((acc, i) => acc + Number(i.amount), 0)
+    const totalRetentions = paidIncomes.reduce((acc, i) => acc + Number(i.amount) * (Number(i.tax_rate) / 100), 0)
+    const totalExpenses = relevantExpenses.reduce((acc, e) => acc + Number(e.amount), 0)
+    const netProfit = grossPaid - totalRetentions - totalExpenses
+    return { grossExpected, grossPaid, totalRetentions, totalExpenses, netProfit }
+  }, [relevantIncomes, relevantExpenses])
+
+  const pendingIncomes = useMemo(() =>
+    incomes
+      .filter((i) => !i.is_paid && i.expected_date >= today && i.expected_date <= in30Days)
+      .sort((a, b) => a.expected_date.localeCompare(b.expected_date))
+  , [incomes, today, in30Days])
+
+  const activeProjects = useMemo(() =>
+    projects.filter((p) => p.status === 'confirmed' || p.status === 'in_progress')
+  , [projects])
+
+  const navigateToIncome = (income) => {
+    if (income.event_id) navigate(`/events/${income.event_id}`)
+    else if (income.project_id) navigate(`/projects/${income.project_id}`)
+  }
+
+  const getIncomeName = (income) => {
+    if (income.event_id) {
+      const event = events.find((e) => e.id === income.event_id)
+      return event?.name ?? '—'
+    }
+    const project = projects.find((p) => p.id === income.project_id)
+    return project?.name ?? '—'
+  }
+
+  return (
+    <PageWrapper title="Dashboard">
+      <div className="flex flex-col gap-6">
+
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <button onClick={prevMonth} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-500 transition-colors">
+              <ChevronLeft size={18} />
+            </button>
+            <span className="text-sm font-semibold text-gray-900 w-32 text-center capitalize">
+              {selectedDate.format('MMMM YYYY')}
+            </span>
+            <button onClick={nextMonth} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-500 transition-colors">
+              <ChevronRight size={18} />
+            </button>
+            <select
+              value={selectedDate.year()}
+              onChange={(e) => setSelectedDate((d) => d.year(Number(e.target.value)))}
+              className="ml-2 text-sm border border-gray-300 rounded-lg px-2 py-1.5 outline-none focus:border-indigo-500 bg-white"
+            >
+              {YEARS.map((y) => <option key={y} value={y}>{y}</option>)}
+            </select>
+          </div>
+
+          <div className="flex rounded-lg border border-gray-200 overflow-hidden text-sm">
+            <button
+              onClick={() => setCriteria('cash_flow')}
+              className={`px-3 py-1.5 transition-colors ${criteria === 'cash_flow' ? 'bg-indigo-600 text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
+            >
+              Por fecha de cobro
+            </button>
+            <button
+              onClick={() => setCriteria('project_active')}
+              className={`px-3 py-1.5 border-l border-gray-200 transition-colors ${criteria === 'project_active' ? 'bg-indigo-600 text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
+            >
+              Por proyecto activo
+            </button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <KpiCard
+            title="Ingresos previstos"
+            value={formatCurrency(kpis.grossExpected)}
+            subtitle={criteria === 'cash_flow' ? 'Fecha de cobro en el mes' : 'Proyectos activos en el mes'}
+            icon={TrendingUp}
+            color="indigo"
+          />
+          <KpiCard
+            title="Ingresos cobrados"
+            value={formatCurrency(kpis.grossPaid)}
+            subtitle={`Retenciones: ${formatCurrency(kpis.totalRetentions)}`}
+            icon={Wallet}
+            color="green"
+          />
+          <KpiCard
+            title="Gastos totales"
+            value={formatCurrency(kpis.totalExpenses)}
+            icon={Receipt}
+            color="amber"
+          />
+          <KpiCard
+            title="Beneficio neto"
+            value={formatCurrency(kpis.netProfit)}
+            subtitle="Cobrado – retenciones – gastos"
+            icon={PiggyBank}
+            color={kpis.netProfit >= 0 ? 'green' : 'red'}
+          />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Card className="p-5">
+            <div className="flex items-center gap-2 mb-4">
+              <Clock size={16} className="text-amber-500" />
+              <h2 className="text-sm font-semibold text-gray-900">Cobros pendientes (próximos 30 días)</h2>
+            </div>
+            {pendingIncomes.length === 0 ? (
+              <p className="text-sm text-gray-400">No hay cobros pendientes próximos.</p>
+            ) : (
+              <div className="flex flex-col gap-2">
+                {pendingIncomes.map((income) => (
+                  <button
+                    key={income.id}
+                    onClick={() => navigateToIncome(income)}
+                    className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0 hover:bg-gray-50 -mx-2 px-2 rounded-lg transition-colors text-left w-full"
+                  >
+                    <div>
+                      <p className="text-sm font-medium text-gray-900">{income.concept}</p>
+                      <p className="text-xs text-gray-400">{getIncomeName(income)} · {formatDate(income.expected_date)}</p>
+                    </div>
+                    <span className="text-sm font-semibold text-gray-900">{formatCurrency(income.amount)}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </Card>
+
+          <Card className="p-5">
+            <div className="flex items-center gap-2 mb-4">
+              <FolderOpen size={16} className="text-indigo-500" />
+              <h2 className="text-sm font-semibold text-gray-900">Proyectos activos</h2>
+            </div>
+            {activeProjects.length === 0 ? (
+              <p className="text-sm text-gray-400">No hay proyectos activos.</p>
+            ) : (
+              <div className="flex flex-col gap-2">
+                {activeProjects.map((project) => (
+                  <button
+                    key={project.id}
+                    onClick={() => navigate(`/projects/${project.id}`)}
+                    className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0 hover:bg-gray-50 -mx-2 px-2 rounded-lg transition-colors text-left w-full"
+                  >
+                    <div className="flex items-center gap-2">
+                      <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: project.color ?? '#4f98a3' }} />
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">{project.name}</p>
+                        <p className="text-xs text-gray-400">{project.client}</p>
+                      </div>
+                    </div>
+                    <StatusBadge status={project.status} />
+                  </button>
+                ))}
+              </div>
+            )}
+          </Card>
+        </div>
+      </div>
+    </PageWrapper>
+  )
+}
