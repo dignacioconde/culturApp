@@ -25,7 +25,7 @@ export function useEvents(userId, projectId = null) {
 
   useEffect(() => {
     if (!userId) return
-    fetchEvents()
+    queueMicrotask(fetchEvents)
   }, [userId, fetchEvents])
 
   const createEvent = async (eventData) => {

@@ -9,7 +9,7 @@ import { StatusBadge } from '../../components/ui/Badge'
 import { useAuth } from '../../hooks/useAuth'
 import { useProjects } from '../../hooks/useProjects'
 import { formatDate } from '../../lib/formatters'
-import { Plus, X } from 'lucide-react'
+import { AlertCircle, FolderOpen, X } from 'lucide-react'
 
 const localizer = dayjsLocalizer(dayjs)
 
@@ -31,7 +31,7 @@ const messages = {
 
 export default function CalendarView() {
   const { user } = useAuth()
-  const { projects } = useProjects(user?.id)
+  const { projects, loading, error } = useProjects(user?.id)
   const [selectedProject, setSelectedProject] = useState(null)
 
   const events = useMemo(() =>
@@ -57,30 +57,53 @@ export default function CalendarView() {
 
   return (
     <PageWrapper title="Calendario">
-      <div className="flex gap-4 h-[calc(100vh-8rem)]">
-        <div className="flex-1 bg-white rounded-xl border border-gray-200 p-4">
-          <div className="flex justify-end mb-3">
-            <Link to="/projects/new">
-              <Button size="sm">
-                <Plus size={16} />
-                Nuevo proyecto
+      <div className="flex flex-col gap-4 lg:flex-row lg:h-[calc(100vh-8rem)]">
+        <div className="flex min-h-[620px] flex-1 flex-col rounded-xl border border-gray-200 bg-white p-3 sm:p-4">
+          <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-900">{projects.length} proyectos</p>
+              <p className="text-xs text-gray-400">Vista interna por rango de fechas.</p>
+            </div>
+            <Link to="/projects" className="w-full sm:w-auto">
+              <Button size="sm" variant="secondary" className="w-full justify-center sm:w-auto">
+                Ver proyectos
               </Button>
             </Link>
           </div>
-          <Calendar
-            localizer={localizer}
-            events={events}
-            defaultView="month"
-            views={['month', 'week']}
-            messages={messages}
-            eventPropGetter={eventStyleGetter}
-            onSelectEvent={(event) => setSelectedProject(event.resource)}
-            style={{ height: 'calc(100% - 44px)' }}
-          />
+          {error && (
+            <div className="mb-3 flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+              <AlertCircle size={18} className="mt-0.5 flex-shrink-0" />
+              <p>No se han podido cargar los proyectos del calendario.</p>
+            </div>
+          )}
+          {loading ? (
+            <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed border-gray-200 bg-gray-50 text-sm text-gray-400">
+              Cargando calendario...
+            </div>
+          ) : projects.length === 0 ? (
+            <div className="flex flex-1 flex-col items-center justify-center rounded-lg border border-dashed border-gray-200 bg-gray-50 px-4 text-center">
+              <FolderOpen size={36} className="text-gray-300" />
+              <p className="mt-3 text-sm font-medium text-gray-700">Todavía no hay proyectos</p>
+              <p className="mt-1 max-w-sm text-sm text-gray-400">Crea un proyecto para visualizar su rango en el calendario.</p>
+            </div>
+          ) : (
+            <div className="min-h-0 flex-1 overflow-hidden">
+              <Calendar
+                localizer={localizer}
+                events={events}
+                defaultView="month"
+                views={['month', 'week']}
+                messages={messages}
+                eventPropGetter={eventStyleGetter}
+                onSelectEvent={(event) => setSelectedProject(event.resource)}
+                style={{ height: '100%' }}
+              />
+            </div>
+          )}
         </div>
 
         {selectedProject && (
-          <div className="w-72 bg-white rounded-xl border border-gray-200 p-5 flex flex-col gap-4">
+          <div className="w-full lg:w-80 bg-white rounded-xl border border-gray-200 p-5 flex flex-col gap-4">
             <div className="flex items-start justify-between">
               <div
                 className="w-3 h-3 rounded-full mt-1 flex-shrink-0"
@@ -89,33 +112,34 @@ export default function CalendarView() {
               <button
                 onClick={() => setSelectedProject(null)}
                 className="text-gray-400 hover:text-gray-600"
+                aria-label="Cerrar panel"
               >
                 <X size={18} />
               </button>
             </div>
-            <div>
-              <h3 className="font-semibold text-gray-900">{selectedProject.name}</h3>
+            <div className="min-w-0">
+              <h3 className="font-semibold text-gray-900 break-words">{selectedProject.name}</h3>
               {selectedProject.client && (
-                <p className="text-sm text-gray-500 mt-0.5">{selectedProject.client}</p>
+                <p className="text-sm text-gray-500 mt-0.5 break-words">{selectedProject.client}</p>
               )}
             </div>
             <div className="flex flex-col gap-2 text-sm text-gray-600">
-              <div className="flex justify-between">
+              <div className="flex items-center justify-between gap-3">
                 <span>Estado</span>
                 <StatusBadge status={selectedProject.status} />
               </div>
-              <div className="flex justify-between">
+              <div className="flex items-center justify-between gap-3">
                 <span>Categoría</span>
-                <span className="capitalize">{selectedProject.category}</span>
+                <span className="capitalize text-right">{selectedProject.category}</span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex items-start justify-between gap-3">
                 <span>Inicio</span>
-                <span>{formatDate(selectedProject.start_date)}</span>
+                <span className="text-right">{formatDate(selectedProject.start_date)}</span>
               </div>
               {selectedProject.end_date && (
-                <div className="flex justify-between">
+                <div className="flex items-start justify-between gap-3">
                   <span>Fin</span>
-                  <span>{formatDate(selectedProject.end_date)}</span>
+                  <span className="text-right">{formatDate(selectedProject.end_date)}</span>
                 </div>
               )}
             </div>

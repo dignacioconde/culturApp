@@ -1,6 +1,6 @@
-# CLAUDE.md — CulturaApp
+# AGENTS.md — CulturaApp
 
-Archivo de contexto para Claude Code. Léelo completo antes de tocar cualquier archivo.
+Archivo de contexto para Codex. Léelo completo antes de tocar cualquier archivo.
 
 ---
 
@@ -38,8 +38,8 @@ La herramienta les permite:
 ## Preferencias de trabajo
 
 - Ahorrar palabras y tokens: responder de forma concisa salvo que el usuario pida detalle.
-- Para Codex, `AGENTS.md` es la fuente principal de contexto.
-- Este archivo se mantiene como espejo para Claude Code; si diverge, priorizar `AGENTS.md`.
+- Para Codex, este archivo (`AGENTS.md`) es la fuente principal de contexto.
+- `CLAUDE.md` se mantiene como espejo para Claude Code; si diverge, priorizar `AGENTS.md`.
 
 ---
 
@@ -57,7 +57,7 @@ Hay dos niveles de entidades:
 
 ```
 culturaapp/
-├── CLAUDE.md
+├── AGENTS.md
 ├── README.md
 ├── index.html
 ├── vite.config.js

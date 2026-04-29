@@ -1,53 +1,78 @@
-export function Input({ label, error, className = '', ...props }) {
+import { useId } from 'react'
+
+const fieldBaseClass = 'w-full rounded-lg border bg-white px-3 py-2.5 text-sm text-gray-900 shadow-sm transition-colors placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500'
+
+function FieldWrapper({ label, error, inputId, errorId, children }) {
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex min-w-0 flex-col gap-1.5">
       {label && (
-        <label className="text-sm font-medium text-gray-700">{label}</label>
+        <label htmlFor={inputId} className="text-sm font-medium text-gray-700">{label}</label>
       )}
-      <input
-        className={`rounded-lg border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 transition-colors outline-none
-          ${error ? 'border-red-400 focus:border-red-500' : 'border-gray-300 focus:border-indigo-500'}
-          ${className}`}
-        {...props}
-      />
-      {error && <p className="text-xs text-red-500">{error}</p>}
+      {children}
+      {error && <p id={errorId} className="text-xs font-medium text-red-600">{error}</p>}
     </div>
   )
 }
 
-export function Select({ label, error, children, className = '', ...props }) {
+function getFieldStateClass(error) {
+  return error
+    ? 'border-red-400 focus-visible:border-red-500 focus-visible:ring-red-500'
+    : 'border-gray-300 focus-visible:border-indigo-500'
+}
+
+export function Input({ label, error, className = '', id, 'aria-describedby': ariaDescribedBy, ...props }) {
+  const generatedId = useId()
+  const inputId = id ?? generatedId
+  const errorId = error ? `${inputId}-error` : undefined
+
   return (
-    <div className="flex flex-col gap-1">
-      {label && (
-        <label className="text-sm font-medium text-gray-700">{label}</label>
-      )}
+    <FieldWrapper label={label} error={error} inputId={inputId} errorId={errorId}>
+      <input
+        id={inputId}
+        aria-invalid={error ? 'true' : undefined}
+        aria-describedby={[ariaDescribedBy, errorId].filter(Boolean).join(' ') || undefined}
+        className={`${fieldBaseClass} ${getFieldStateClass(error)} ${className}`}
+        {...props}
+      />
+    </FieldWrapper>
+  )
+}
+
+export function Select({ label, error, children, className = '', id, 'aria-describedby': ariaDescribedBy, ...props }) {
+  const generatedId = useId()
+  const inputId = id ?? generatedId
+  const errorId = error ? `${inputId}-error` : undefined
+
+  return (
+    <FieldWrapper label={label} error={error} inputId={inputId} errorId={errorId}>
       <select
-        className={`rounded-lg border px-3 py-2 text-sm text-gray-900 transition-colors outline-none bg-white
-          ${error ? 'border-red-400 focus:border-red-500' : 'border-gray-300 focus:border-indigo-500'}
-          ${className}`}
+        id={inputId}
+        aria-invalid={error ? 'true' : undefined}
+        aria-describedby={[ariaDescribedBy, errorId].filter(Boolean).join(' ') || undefined}
+        className={`${fieldBaseClass} pr-9 ${getFieldStateClass(error)} ${className}`}
         {...props}
       >
         {children}
       </select>
-      {error && <p className="text-xs text-red-500">{error}</p>}
-    </div>
+    </FieldWrapper>
   )
 }
 
-export function Textarea({ label, error, className = '', ...props }) {
+export function Textarea({ label, error, className = '', id, 'aria-describedby': ariaDescribedBy, ...props }) {
+  const generatedId = useId()
+  const inputId = id ?? generatedId
+  const errorId = error ? `${inputId}-error` : undefined
+
   return (
-    <div className="flex flex-col gap-1">
-      {label && (
-        <label className="text-sm font-medium text-gray-700">{label}</label>
-      )}
+    <FieldWrapper label={label} error={error} inputId={inputId} errorId={errorId}>
       <textarea
-        className={`rounded-lg border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 transition-colors outline-none resize-none
-          ${error ? 'border-red-400 focus:border-red-500' : 'border-gray-300 focus:border-indigo-500'}
-          ${className}`}
+        id={inputId}
+        aria-invalid={error ? 'true' : undefined}
+        aria-describedby={[ariaDescribedBy, errorId].filter(Boolean).join(' ') || undefined}
+        className={`${fieldBaseClass} min-h-24 resize-y ${getFieldStateClass(error)} ${className}`}
         rows={3}
         {...props}
       />
-      {error && <p className="text-xs text-red-500">{error}</p>}
-    </div>
+    </FieldWrapper>
   )
 }

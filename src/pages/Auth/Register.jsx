@@ -17,15 +17,23 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
+    if (!form.fullName.trim()) {
+      setError('Indica tu nombre para crear el perfil.')
+      return
+    }
+    if (!form.email.trim()) {
+      setError('Introduce un email válido.')
+      return
+    }
     if (form.password.length < 6) {
       setError('La contraseña debe tener al menos 6 caracteres.')
       return
     }
     setLoading(true)
-    const { error } = await signUp(form.email, form.password, form.fullName, form.profession)
+    const { error } = await signUp(form.email.trim(), form.password, form.fullName.trim(), form.profession.trim())
     setLoading(false)
     if (error) {
-      setError(error.message)
+      setError('No hemos podido crear la cuenta. Revisa los datos e inténtalo de nuevo.')
       return
     }
     navigate('/dashboard')
@@ -33,23 +41,24 @@ export default function Register() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 w-full max-w-sm p-8">
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 w-full max-w-md p-6 sm:p-8">
         <div className="flex flex-col items-center gap-2 mb-8">
           <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center">
             <Music size={20} className="text-white" />
           </div>
           <h1 className="text-xl font-semibold text-gray-900">CulturaApp</h1>
-          <p className="text-sm text-gray-500">Crea tu cuenta</p>
+          <p className="text-sm text-gray-500 text-center">Crea tu espacio para organizar proyectos, eventos y cobros.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <Input
-            label="Nombre completo"
+            label="Nombre completo *"
             type="text"
             name="fullName"
             value={form.fullName}
             onChange={handleChange}
             placeholder="Ana García"
+            autoComplete="name"
             required
           />
           <Input
@@ -58,27 +67,31 @@ export default function Register() {
             name="profession"
             value={form.profession}
             onChange={handleChange}
-            placeholder="Músico, Fotógrafo, Actor..."
+            placeholder="Música, fotógrafa, actriz..."
+            autoComplete="organization-title"
           />
           <Input
-            label="Email"
+            label="Email *"
             type="email"
             name="email"
             value={form.email}
             onChange={handleChange}
             placeholder="tu@email.com"
+            autoComplete="email"
             required
           />
           <Input
-            label="Contraseña"
+            label="Contraseña *"
             type="password"
             name="password"
             value={form.password}
             onChange={handleChange}
             placeholder="Mínimo 6 caracteres"
+            autoComplete="new-password"
             required
           />
-          {error && <p className="text-sm text-red-500">{error}</p>}
+          <p className="text-xs text-gray-500">La contraseña debe tener al menos 6 caracteres.</p>
+          {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>}
           <Button type="submit" disabled={loading} className="w-full justify-center mt-1">
             {loading ? 'Creando cuenta...' : 'Crear cuenta'}
           </Button>

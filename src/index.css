@@ -10,19 +10,103 @@
   html {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
   body {
-    background-color: #f8f7f4;
-    color: #1a1a2e;
+    min-width: 320px;
+    background-color: #f6f7f9;
+    color: #111827;
   }
 
   #root {
     min-height: 100vh;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  ::selection {
+    background-color: #c7d2fe;
+    color: #111827;
   }
 }
 
 /* React Big Calendar base styles */
 .rbc-calendar {
   font-family: inherit;
+  color: #1f2937;
+}
+
+.rbc-toolbar {
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.rbc-toolbar button {
+  border-color: #d1d5db;
+  color: #374151;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.rbc-toolbar button:hover,
+.rbc-toolbar button:focus {
+  background-color: #f3f4f6;
+  border-color: #9ca3af;
+  color: #111827;
+}
+
+.rbc-toolbar button.rbc-active {
+  background-color: #eef2ff;
+  border-color: #818cf8;
+  color: #3730a3;
+  box-shadow: none;
+}
+
+.rbc-header {
+  padding: 0.625rem 0.5rem;
+  color: #4b5563;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.rbc-event,
+.rbc-day-slot .rbc-background-event {
+  border-radius: 0.375rem;
+  border: 0;
+  padding: 0.125rem 0.375rem;
+}
+
+.rbc-today {
+  background-color: #f5f3ff;
+}
+
+@media (max-width: 640px) {
+  .rbc-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .rbc-btn-group {
+    display: flex;
+  }
+
+  .rbc-btn-group button {
+    flex: 1 1 0;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
 }

@@ -12,29 +12,33 @@ const navItems = [
 
 export function Sidebar() {
   return (
-    <aside className="w-56 min-h-screen bg-white border-r border-gray-200 flex flex-col">
-      <div className="flex items-center gap-2 px-5 py-5 border-b border-gray-200">
-        <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+    <aside className="w-full shrink-0 border-b border-gray-200 bg-white lg:sticky lg:top-0 lg:h-screen lg:w-60 lg:border-r lg:border-b-0">
+      <div className="flex items-center gap-2 border-b border-gray-200 px-4 py-4 lg:px-5">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-indigo-600 shadow-sm">
           <Music size={16} className="text-white" />
         </div>
-        <span className="font-semibold text-gray-900 text-sm">CulturaApp</span>
+        <span className="truncate text-sm font-semibold text-gray-950">CulturaApp</span>
       </div>
 
-      <nav className="flex-1 px-3 py-4 flex flex-col gap-1">
+      <nav
+        aria-label="Navegación principal"
+        className="flex gap-1 overflow-x-auto px-3 py-3 lg:flex-col lg:overflow-visible lg:py-4"
+      >
         {navItems.map(({ to, icon: Icon, label }) => (
           <NavLink
             key={to}
             to={to}
             className={({ isActive }) =>
-              `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors
+              `flex min-h-10 shrink-0 items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 lg:shrink
               ${isActive
-                ? 'bg-indigo-50 text-indigo-700'
-                : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                ? 'bg-indigo-50 text-indigo-700 ring-1 ring-inset ring-indigo-100'
+                : 'text-gray-600 hover:bg-gray-100 hover:text-gray-950'
               }`
             }
+            title={label}
           >
-            <Icon size={18} />
-            {label}
+            <Icon size={18} className="shrink-0" />
+            <span className="whitespace-nowrap">{label}</span>
           </NavLink>
         ))}
       </nav>

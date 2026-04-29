@@ -1,6 +1,6 @@
 # TECHDOC — CulturaApp
 
-Documento técnico de referencia del estado real del proyecto. Para contexto de desarrollo con Claude Code, ver `CLAUDE.md`.
+Documento técnico de referencia del estado real del proyecto. Para Codex, la fuente principal de contexto es `AGENTS.md`; `CLAUDE.md` se mantiene como espejo para Claude Code.
 
 ---
 
@@ -15,7 +15,7 @@ Documento técnico de referencia del estado real del proyecto. Para contexto de 
 | Calendario | React Big Calendar | 1.19.4 |
 | Fechas | Day.js | 1.11.20 |
 | Routing | React Router DOM | 7.14.2 |
-| Backend/Auth | Supabase | latest |
+| Backend/Auth | Supabase JS | 2.104.1 |
 | Deploy | Vercel | — |
 
 ---
@@ -65,10 +65,11 @@ Documento técnico de referencia del estado real del proyecto. Para contexto de 
 |------|--------|-----------------|
 | `useAuth.js` | 40 | Sesión, signIn, signUp, signOut, listener onAuthStateChange |
 | `useProjects.js` | 57 | CRUD proyectos + refetch callback |
-| `useIncomes.js` | 56 | CRUD ingresos, filtro opcional por projectId + refetch |
-| `useExpenses.js` | 56 | CRUD gastos, filtro opcional por projectId + refetch |
+| `useEvents.js` | 63 | CRUD eventos, filtro opcional por projectId + refetch |
+| `useIncomes.js` | 66 | CRUD ingresos, filtros por projectId, eventId y eventIds |
+| `useExpenses.js` | 66 | CRUD gastos, filtros por projectId, eventId y eventIds |
 
-Todos los hooks exponen: `{ data, loading, error, methods, refetch }`.
+Todos los hooks exponen `loading`, `error`, métodos CRUD y `refetch`. Los datos se devuelven con nombres específicos: `projects`, `events`, `incomes` o `expenses`.
 
 ### Páginas (`src/pages/`)
 
@@ -76,11 +77,16 @@ Todos los hooks exponen: `{ data, loading, error, methods, refetch }`.
 |--------|--------|--------|
 | `Auth/Login.jsx` | 75 | Completo |
 | `Auth/Register.jsx` | 96 | Completo |
-| `Dashboard/Dashboard.jsx` | 213 | Completo (ver gap del gráfico) |
+| `Dashboard/Dashboard.jsx` | 237 | Completo |
 | `Dashboard/KpiCard.jsx` | 25 | Completo |
 | `Calendar/CalendarView.jsx` | 132 | Completo |
+| `Calendar/CalendarEvents.jsx` | 163 | Completo |
+| `Calendar/CalendarProjects.jsx` | 149 | Completo |
+| `Events/EventList.jsx` | 153 | Completo |
+| `Events/EventDetail.jsx` | 422 | Completo |
+| `Events/EventForm.jsx` | 130 | Completo |
 | `Projects/ProjectList.jsx` | 139 | Completo |
-| `Projects/ProjectDetail.jsx` | 422 | Completo |
+| `Projects/ProjectDetail.jsx` | 372 | Completo |
 | `Projects/ProjectForm.jsx` | 108 | Completo |
 | `Settings/Settings.jsx` | 97 | Completo |
 
@@ -88,8 +94,8 @@ Todos los hooks exponen: `{ data, loading, error, methods, refetch }`.
 
 | Archivo | Función |
 |---------|---------|
-| `constants.js` | PROJECT_STATUSES, PROJECT_CATEGORIES, EXPENSE_CATEGORIES, STATUS_COLORS, DEFAULT_PROJECT_COLORS |
-| `formatters.js` | `formatCurrency` (EUR, es-ES), `formatDate` (DD/MM/YYYY), `formatDateRange` |
+| `constants.js` | PROJECT_STATUSES, EVENT_STATUSES, PROJECT_CATEGORIES, EVENT_CATEGORIES, EXPENSE_CATEGORIES, STATUS_COLORS, DEFAULT_PROJECT_COLORS |
+| `formatters.js` | `formatCurrency` (EUR, es-ES), `formatDate`, `formatDateRange`, `formatDatetime`, `toDatetimeLocal` |
 
 ---
 
@@ -97,12 +103,12 @@ Todos los hooks exponen: `{ data, loading, error, methods, refetch }`.
 
 | Métrica | Valor |
 |---------|-------|
-| Líneas totales de código fuente | ~1.889 |
-| Componentes React | 16 |
-| Hooks personalizados | 4 |
-| Vistas/Páginas | 7 |
-| Tablas en base de datos | 4 |
-| Rutas definidas | 7 |
+| Líneas totales de código fuente | ~2.986 |
+| Componentes React | 24 |
+| Hooks personalizados | 5 |
+| Vistas/Páginas | 12 |
+| Tablas en base de datos | 5 |
+| Rutas definidas | 12 |
 
 ---
 
@@ -112,22 +118,58 @@ Todos los hooks exponen: `{ data, loading, error, methods, refetch }`.
 
 - Autenticación completa (login, registro, sesión persistente)
 - CRUD completo de proyectos (crear, leer, editar, eliminar)
+- CRUD completo de eventos (crear, leer, editar, eliminar)
 - CRUD completo de ingresos (añadir, editar, marcar como cobrado con `paid_date`)
 - CRUD completo de gastos (añadir, editar, marcar como deducible)
 - Dashboard con 4 KPIs + filtro por período + criterio de agrupación
 - Lista de cobros pendientes (próximos 30 días)
 - Lista de proyectos activos
-- Calendario mensual/semanal con colores por proyecto
-- Panel lateral en calendario con resumen rápido
+- Calendario de eventos con fecha/hora exacta
+- Calendario de proyectos con rangos de fecha
+- Panel lateral en calendarios con resumen rápido
+- Lista y detalle de eventos con ingresos/gastos propios
 - Detalle de proyecto con resumen financiero (bruto, retenciones, gastos, neto)
-- Búsqueda y filtros en lista de proyectos
+- ProjectDetail agrega ingresos/gastos del proyecto y de sus eventos en KPIs
+- ProjectDetail mantiene tablas editables solo para ingresos/gastos directos del proyecto
+- Búsqueda y filtros en listas de proyectos y eventos
 - Gestión de perfil (nombre, profesión, tipo IRPF por defecto)
 - Sistema de notificaciones toast (éxito/error)
 - RLS habilitado en todas las tablas
+- Agentes OpenCode especializados en `.opencode/agents` para frontend, datos, testing, review, release y documentacion
 
-### Gap identificado: gráfico del Dashboard
+### Agentes OpenCode
 
-`Dashboard.jsx` **no implementa** el gráfico de barras de ingresos vs. gastos por los últimos 6 meses mencionado en CLAUDE.md. La vista muestra KPIs, lista de cobros pendientes y proyectos activos, pero no el gráfico. Si quieres añadirlo, el stack recomendado sería [Recharts](https://recharts.org/) o [Chart.js](https://www.chartjs.org/), que encajan bien con React y Tailwind.
+La carpeta `.opencode/` contiene el agente principal `cultura-lead` y siete subagentes especializados:
+
+| Agente | Modo | Estado |
+|--------|------|--------|
+| `cultura-lead` | primary | Verificado |
+| `cultura-frontend` | subagent | Verificado via `cultura-lead` |
+| `cultura-data` | subagent | Verificado via `cultura-lead` |
+| `cultura-testing` | subagent | Verificado via `cultura-lead` |
+| `cultura-review` | subagent | Verificado via `cultura-lead` |
+| `cultura-release` | subagent | Verificado via `cultura-lead` |
+| `cultura-docs` | subagent | Verificado via `cultura-lead` |
+
+Verificacion realizada el 29/04/2026 con OpenCode `1.14.29`. El modelo `opencode/minimax-m2.5-free` aparece en `opencode models opencode` y fue usado por `cultura-lead` y los subagentes.
+
+Uso recomendado:
+
+```bash
+opencode run --agent cultura-lead "Describe la tarea"
+```
+
+Los subagentes no se lanzan directamente con `opencode run --agent cultura-testing`; deben invocarse desde `cultura-lead` mediante menciones como `@cultura-testing`. La documentacion operativa completa esta en `.opencode/README.md`.
+
+Para ejecutar revisiones en paralelo se incluye el script:
+
+```bash
+npm run agents:parallel -- "Describe la tarea"
+```
+
+El script lanza varios procesos `opencode run --agent cultura-lead` a la vez, cada uno delegado a un unico subagente. Por defecto usa `cultura-data`, `cultura-testing`, `cultura-review` y `cultura-security` en modo solo lectura, y guarda resultados en `.opencode/runs/<timestamp>/`. Para escritura paralela existe `--write`, pero solo debe usarse con ownership disjunto por archivos o modulos.
+
+La coordinacion entre agentes usa `.opencode/AGENT_STATE.md` como pizarra compartida. Cada agente la lee al arrancar y puede publicar senales como `schema_changed`, `api_changed`, `ui_changed`, `needs_review`, `verified` o `bloqueo`. Esto permite que, por ejemplo, `cultura-frontend` reaccione a un cambio publicado por `cultura-data` sin esperar a una nueva instruccion del lead. El archivo es solo coordinacion operativa: la fuente de verdad siguen siendo `AGENTS.md`, el codigo y las pruebas.
 
 ### No implementado (fuera del alcance del MVP)
 
@@ -145,13 +187,13 @@ Todos los hooks exponen: `{ data, loading, error, methods, refetch }`.
 
 ### 1. Supabase (hacer antes de deploy)
 
-- [ ] Ejecutar el SQL de creación de tablas (`profiles`, `projects`, `incomes`, `expenses`)
-- [ ] Ejecutar políticas RLS en las 4 tablas
+- [ ] Ejecutar el SQL de creación de tablas (`profiles`, `projects`, `events`, `incomes`, `expenses`)
+- [ ] Ejecutar políticas RLS en las 5 tablas
 - [ ] Ejecutar el trigger `on_auth_user_created` para crear perfiles automáticamente
 - [ ] Verificar que el trigger funciona registrando un usuario de prueba
-- [ ] Probar CRUD de proyecto, ingreso y gasto con ese usuario
+- [ ] Probar CRUD de proyecto, evento, ingreso y gasto con ese usuario
 
-El SQL completo está en `CLAUDE.md` → sección "SQL de inicialización de Supabase".
+El SQL completo está en `AGENTS.md` → sección "SQL de inicialización de Supabase".
 
 ### 2. Variables de entorno en Vercel
 
@@ -177,7 +219,7 @@ VITE_SUPABASE_ANON_KEY=<tu_anon_key>
 
 **`user_id` duplicado en `incomes` y `expenses`**: Además de `project_id`, estas tablas guardan `user_id` para poder aplicar RLS directamente sin hacer joins. Esto es intencional.
 
-**No se usa localStorage**: Supabase gestiona la sesión internamente. No almacenar datos sensibles en el navegador.
+**No acceder a localStorage manualmente**: Supabase JS gestiona la persistencia de sesión del cliente. No almacenar datos sensibles propios en el navegador.
 
 **Fechas**: almacenamiento en ISO 8601 (`YYYY-MM-DD`) en Supabase, presentación en `DD/MM/YYYY` via `formatDate()` de `lib/formatters.js`. No mezclar formatos.
 

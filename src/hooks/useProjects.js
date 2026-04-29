@@ -21,7 +21,7 @@ export function useProjects(userId) {
 
   useEffect(() => {
     if (!userId) return
-    fetchProjects()
+    queueMicrotask(fetchProjects)
   }, [userId, fetchProjects])
 
   const createProject = async (projectData) => {

@@ -23,11 +23,11 @@ export default function ProjectDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
   const { user } = useAuth()
-  const { projects, updateProject, deleteProject } = useProjects(user?.id)
-  const { events } = useEvents(user?.id, id)
+  const { projects, loading: projectsLoading, error: projectsError, updateProject, deleteProject } = useProjects(user?.id)
+  const { events, loading: eventsLoading } = useEvents(user?.id, id)
   const eventIds = useMemo(() => events.map((e) => e.id), [events])
-  const { incomes, createIncome, updateIncome, deleteIncome } = useIncomes(user?.id, { projectId: id, eventIds })
-  const { expenses, createExpense, updateExpense, deleteExpense } = useExpenses(user?.id, { projectId: id, eventIds })
+  const { incomes, loading: incomesLoading, createIncome, updateIncome, deleteIncome } = useIncomes(user?.id, { projectId: id, eventIds })
+  const { expenses, loading: expensesLoading, createExpense, updateExpense, deleteExpense } = useExpenses(user?.id, { projectId: id, eventIds })
   const { toasts, addToast, removeToast } = useToast()
 
   const project = projects.find((p) => p.id === id)
@@ -48,10 +48,28 @@ export default function ProjectDetail() {
   const [expenseForm, setExpenseForm] = useState(EMPTY_EXPENSE)
   const [savingExpense, setSavingExpense] = useState(false)
 
+  if (projectsLoading) {
+    return (
+      <PageWrapper title="Proyecto">
+        <p className="text-sm text-gray-400">Cargando proyecto...</p>
+      </PageWrapper>
+    )
+  }
+
   if (!project) {
     return (
       <PageWrapper title="Proyecto">
-        <p className="text-sm text-gray-400">Proyecto no encontrado.</p>
+        <div className="max-w-xl">
+          <Card className="p-6">
+            <p className="text-sm font-medium text-gray-900">{projectsError ? 'No hemos podido cargar el proyecto.' : 'Proyecto no encontrado.'}</p>
+            <p className="text-sm text-gray-500 mt-1">Vuelve al listado para revisar tus proyectos disponibles.</p>
+            <Link to="/projects" className="inline-flex mt-4">
+              <Button variant="secondary" size="sm">
+                <ArrowLeft size={14} /> Volver a proyectos
+              </Button>
+            </Link>
+          </Card>
+        </div>
       </PageWrapper>
     )
   }
@@ -62,6 +80,7 @@ export default function ProjectDetail() {
   const totalGross = incomes.reduce((acc, i) => acc + Number(i.amount), 0)
   const paidIncomes = incomes.filter((i) => i.is_paid)
   const totalPaid = paidIncomes.reduce((acc, i) => acc + Number(i.amount), 0)
+  const pendingAmount = totalGross - totalPaid
   const totalRetentions = paidIncomes.reduce((acc, i) => acc + Number(i.amount) * (Number(i.tax_rate) / 100), 0)
   const totalExpenses = expenses.reduce((acc, e) => acc + Number(e.amount), 0)
   const netProfit = totalPaid - totalRetentions - totalExpenses
@@ -97,6 +116,10 @@ export default function ProjectDetail() {
 
   const handleSubmitIncome = async (e) => {
     e.preventDefault()
+    if (!incomeForm.concept.trim() || Number(incomeForm.amount) <= 0) {
+      addToast('Completa el concepto y un importe mayor que 0.', 'error')
+      return
+    }
     setSavingIncome(true)
     const { error } = editingIncome
       ? await updateIncome(editingIncome.id, incomeForm)
@@ -116,6 +139,10 @@ export default function ProjectDetail() {
 
   const handleSubmitExpense = async (e) => {
     e.preventDefault()
+    if (!expenseForm.concept.trim() || Number(expenseForm.amount) <= 0) {
+      addToast('Completa el concepto y un importe mayor que 0.', 'error')
+      return
+    }
     setSavingExpense(true)
     const { error } = editingExpense
       ? await updateExpense(editingExpense.id, expenseForm)
@@ -129,7 +156,7 @@ export default function ProjectDetail() {
   return (
     <PageWrapper title={project.name}>
       <div className="flex flex-col gap-6 max-w-4xl">
-        <div className="flex items-start justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
           <div className="flex items-center gap-3">
             <Link to="/projects" className="text-gray-400 hover:text-gray-700">
               <ArrowLeft size={20} />
@@ -146,7 +173,7 @@ export default function ProjectDetail() {
               </p>
             </div>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2 sm:justify-end">
             <Button variant="secondary" size="sm" onClick={() => setEditModal(true)}>
               <Edit size={14} /> Editar
             </Button>
@@ -156,27 +183,38 @@ export default function ProjectDetail() {
           </div>
         </div>
 
-        {/* KPIs — solo ingresos/gastos directos del proyecto */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <Card className="p-5 bg-gray-50">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+            <div>
+              <h3 className="text-sm font-semibold text-gray-900">Resumen financiero</h3>
+              <p className="text-xs text-gray-500 mt-1">Incluye ingresos y gastos directos del proyecto y sus eventos.</p>
+            </div>
+            <p className="text-xs text-gray-500">Cobrado: {formatCurrency(totalPaid)} · Pendiente: {formatCurrency(pendingAmount)}</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {[
-            { label: 'Ingresos brutos (proyecto)', value: formatCurrency(totalGross) },
-            { label: 'Retenciones (cobrado)', value: formatCurrency(totalRetentions) },
-            { label: 'Gastos (proyecto)', value: formatCurrency(totalExpenses) },
+            { label: 'Ingresos previstos', value: formatCurrency(totalGross) },
+            { label: 'IRPF sobre cobrado', value: formatCurrency(totalRetentions) },
+            { label: 'Gastos registrados', value: formatCurrency(totalExpenses) },
             { label: 'Beneficio neto', value: formatCurrency(netProfit), highlight: true },
           ].map(({ label, value, highlight }) => (
-            <Card key={label} className={`p-4 ${highlight ? 'bg-indigo-50 border-indigo-200' : ''}`}>
+            <div key={label} className={`rounded-lg border p-4 ${highlight ? 'bg-indigo-50 border-indigo-200' : 'bg-white border-gray-200'}`}>
               <p className="text-xs text-gray-500">{label}</p>
               <p className={`text-lg font-semibold mt-1 ${highlight ? 'text-indigo-700' : 'text-gray-900'}`}>{value}</p>
-            </Card>
+            </div>
           ))}
-        </div>
+          </div>
+        </Card>
 
         {/* Eventos asociados */}
         <Card className="p-5">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
             <div className="flex items-center gap-2">
               <CalendarDays size={16} className="text-indigo-500" />
-              <h3 className="text-sm font-semibold text-gray-900">Eventos</h3>
+              <div>
+                <h3 className="text-sm font-semibold text-gray-900">Eventos asociados</h3>
+                <p className="text-xs text-gray-500 mt-1">Ocurrencias concretas dentro de este proyecto.</p>
+              </div>
             </div>
             <Link to={`/events?project=${id}`}>
               <Button size="sm" variant="secondary">
@@ -184,8 +222,17 @@ export default function ProjectDetail() {
               </Button>
             </Link>
           </div>
-          {events.length === 0 ? (
-            <p className="text-sm text-gray-400">No hay eventos asociados a este proyecto.</p>
+          {eventsLoading ? (
+            <p className="text-sm text-gray-400">Cargando eventos...</p>
+          ) : events.length === 0 ? (
+            <div className="rounded-lg border border-dashed border-gray-200 p-4 text-sm text-gray-500">
+              <p>No hay eventos asociados a este proyecto todavía.</p>
+              <Link to={`/events?project=${id}`} className="inline-flex mt-3">
+                <Button size="sm" variant="secondary">
+                  <Plus size={14} /> Crear primer evento
+                </Button>
+              </Link>
+            </div>
           ) : (
             <div className="flex flex-col gap-2">
               {events.map((event) => (
@@ -210,7 +257,7 @@ export default function ProjectDetail() {
 
         {/* Ingresos directos del proyecto */}
         <Card className="p-5">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
             <div>
               <h3 className="text-sm font-semibold text-gray-900">Ingresos del proyecto</h3>
               <p className="text-xs text-gray-400 mt-0.5">No atribuibles a un evento concreto</p>
@@ -219,10 +266,18 @@ export default function ProjectDetail() {
               <Plus size={14} /> Añadir ingreso
             </Button>
           </div>
-          {directIncomes.length === 0 ? (
-            <p className="text-sm text-gray-400">No hay ingresos de proyecto registrados.</p>
+          {incomesLoading ? (
+            <p className="text-sm text-gray-400">Cargando ingresos...</p>
+          ) : directIncomes.length === 0 ? (
+            <div className="rounded-lg border border-dashed border-gray-200 p-4 text-sm text-gray-500">
+              <p>No hay ingresos directos del proyecto registrados.</p>
+              <Button size="sm" className="mt-3" onClick={openNewIncome}>
+                <Plus size={14} /> Añadir primer ingreso
+              </Button>
+            </div>
           ) : (
-            <table className="w-full text-sm">
+            <div className="overflow-x-auto">
+            <table className="w-full min-w-[680px] text-sm">
               <thead>
                 <tr className="text-xs text-gray-400 border-b border-gray-100">
                   <th className="text-left pb-2 font-medium">Concepto</th>
@@ -258,12 +313,13 @@ export default function ProjectDetail() {
                 ))}
               </tbody>
             </table>
+            </div>
           )}
         </Card>
 
         {/* Gastos directos del proyecto */}
         <Card className="p-5">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
             <div>
               <h3 className="text-sm font-semibold text-gray-900">Gastos del proyecto</h3>
               <p className="text-xs text-gray-400 mt-0.5">No atribuibles a un evento concreto</p>
@@ -272,10 +328,18 @@ export default function ProjectDetail() {
               <Plus size={14} /> Añadir gasto
             </Button>
           </div>
-          {directExpenses.length === 0 ? (
-            <p className="text-sm text-gray-400">No hay gastos de proyecto registrados.</p>
+          {expensesLoading ? (
+            <p className="text-sm text-gray-400">Cargando gastos...</p>
+          ) : directExpenses.length === 0 ? (
+            <div className="rounded-lg border border-dashed border-gray-200 p-4 text-sm text-gray-500">
+              <p>No hay gastos directos del proyecto registrados.</p>
+              <Button size="sm" className="mt-3" onClick={openNewExpense}>
+                <Plus size={14} /> Añadir primer gasto
+              </Button>
+            </div>
           ) : (
-            <table className="w-full text-sm">
+            <div className="overflow-x-auto">
+            <table className="w-full min-w-[640px] text-sm">
               <thead>
                 <tr className="text-xs text-gray-400 border-b border-gray-100">
                   <th className="text-left pb-2 font-medium">Concepto</th>
@@ -311,6 +375,7 @@ export default function ProjectDetail() {
                 ))}
               </tbody>
             </table>
+            </div>
           )}
         </Card>
 

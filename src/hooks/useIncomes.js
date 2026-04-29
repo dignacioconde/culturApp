@@ -30,7 +30,7 @@ export function useIncomes(userId, { projectId = null, eventId = null, eventIds 
 
   useEffect(() => {
     if (!userId) return
-    fetchIncomes()
+    queueMicrotask(fetchIncomes)
   }, [userId, fetchIncomes])
 
   const createIncome = async (incomeData) => {

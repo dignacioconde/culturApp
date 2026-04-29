@@ -17,8 +17,12 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
+    if (!form.email.trim() || !form.password) {
+      setError('Introduce tu email y contraseña para entrar.')
+      return
+    }
     setLoading(true)
-    const { error } = await signIn(form.email, form.password)
+    const { error } = await signIn(form.email.trim(), form.password)
     setLoading(false)
     if (error) {
       setError('Email o contraseña incorrectos.')
@@ -29,13 +33,13 @@ export default function Login() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 w-full max-w-sm p-8">
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 w-full max-w-md p-6 sm:p-8">
         <div className="flex flex-col items-center gap-2 mb-8">
           <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center">
             <Music size={20} className="text-white" />
           </div>
           <h1 className="text-xl font-semibold text-gray-900">CulturaApp</h1>
-          <p className="text-sm text-gray-500">Inicia sesión en tu cuenta</p>
+          <p className="text-sm text-gray-500 text-center">Accede a tus proyectos, eventos y previsión económica.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -46,6 +50,7 @@ export default function Login() {
             value={form.email}
             onChange={handleChange}
             placeholder="tu@email.com"
+            autoComplete="email"
             required
           />
           <Input
@@ -54,10 +59,11 @@ export default function Login() {
             name="password"
             value={form.password}
             onChange={handleChange}
-            placeholder="••••••••"
+            placeholder="Tu contraseña"
+            autoComplete="current-password"
             required
           />
-          {error && <p className="text-sm text-red-500">{error}</p>}
+          {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>}
           <Button type="submit" disabled={loading} className="w-full justify-center mt-1">
             {loading ? 'Entrando...' : 'Iniciar sesión'}
           </Button>

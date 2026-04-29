@@ -30,7 +30,7 @@ export function useExpenses(userId, { projectId = null, eventId = null, eventIds
 
   useEffect(() => {
     if (!userId) return
-    fetchExpenses()
+    queueMicrotask(fetchExpenses)
   }, [userId, fetchExpenses])
 
   const createExpense = async (expenseData) => {

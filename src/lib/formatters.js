@@ -3,7 +3,11 @@ export const formatCurrency = (amount) =>
 
 export const formatDate = (dateStr) => {
   if (!dateStr) return '—'
-  return new Intl.DateTimeFormat('es-ES').format(new Date(dateStr))
+  return new Intl.DateTimeFormat('es-ES', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(new Date(dateStr))
 }
 
 export const formatDateRange = (startDate, endDate) => {

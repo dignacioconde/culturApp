@@ -1,0 +1,132 @@
+# Agentes OpenCode para CulturaApp
+
+Esta carpeta define agentes especializados para ejecutar CulturaApp con OpenCode.
+Todos usan `opencode/minimax-m2.5-free` como modelo por defecto.
+
+## Agente principal
+
+```bash
+opencode --agent cultura-lead
+```
+
+Usa este agente para coordinar trabajo completo de producto: priorizar, dividir tareas, pedir apoyo a subagentes y cerrar con verificacion.
+
+Para ejecuciones no interactivas:
+
+```bash
+opencode run --agent cultura-lead "Tu tarea aqui"
+```
+
+## Subagentes disponibles
+
+| Agente | Uso |
+| --- | --- |
+| `cultura-frontend` | React, rutas, formularios, UI, calendario y experiencia en espanol |
+| `cultura-data` | Supabase, RLS, SQL, hooks de datos, ingresos/gastos y modelo conceptual |
+| `cultura-testing` | Lint, build, smoke tests, casos borde y regresiones |
+| `cultura-review` | Revision tecnica, riesgos, seguridad, accesibilidad y mantenibilidad |
+| `cultura-security` | Auth, RLS, secretos, privacidad, exposicion de datos y riesgos de deploy |
+| `cultura-release` | Deploy en Vercel, variables de entorno, checklist pre-release |
+| `cultura-docs` | README, TECHDOC, AGENTS.md y documentacion operativa |
+
+Ejemplo dentro de OpenCode:
+
+```text
+@cultura-data revisa si el modelo de ingresos/gastos cubre eventos independientes y proyectos.
+@cultura-testing prepara una matriz de pruebas para el flujo proyecto -> evento -> ingreso.
+@cultura-security revisa si hay riesgos de fuga de datos entre usuarios o secretos expuestos.
+```
+
+## Ejecucion paralela
+
+Para tareas de revision o exploracion, puedes lanzar varios agentes a la vez desde procesos independientes:
+
+```bash
+npm run agents:parallel -- "Revisa riesgos antes del deploy"
+```
+
+Por defecto ejecuta `cultura-data`, `cultura-testing`, `cultura-review` y `cultura-security` en modo solo lectura. Cada proceso usa `cultura-lead` y le pide delegar en un unico subagente, porque OpenCode no ejecuta directamente los archivos con `mode: subagent`.
+
+Puedes elegir agentes concretos:
+
+```bash
+npm run agents:parallel -- --agents frontend,data,testing "Evalua esta mejora de formularios"
+```
+
+Los resultados se guardan en `.opencode/runs/<timestamp>/`, con un archivo Markdown por agente.
+
+Para cambios de codigo en paralelo, usa `--write` solo cuando la tarea ya este dividida por ownership de archivos o modulos:
+
+```bash
+npm run agents:parallel -- --write --agents frontend,data "Frontend toca src/pages/Events; data toca src/hooks. Implementad la mejora sin modificar archivos fuera de vuestro ownership."
+```
+
+Flujo recomendado:
+
+1. Ejecuta exploracion paralela sin `--write`.
+2. Integra las recomendaciones en una unica decision de implementacion.
+3. Si necesitas escritura paralela, reparte ownership disjunto por archivos.
+4. Cierra con `cultura-testing` y `cultura-review`.
+
+## Estado compartido entre agentes
+
+`.opencode/AGENT_STATE.md` funciona como pizarra compartida. Todos los agentes deben leerla al empezar y pueden actualizarla para publicar senales sin esperar a `cultura-lead`.
+
+Ejemplo: si `cultura-data` cambia el schema o la firma de un hook, publica `schema_changed` o `api_changed`. Entonces `cultura-frontend`, `cultura-testing` y `cultura-security` pueden reaccionar directamente al leer esa senal.
+
+Reglas de uso:
+
+- Actualiza solo tu bloque en `Estado por agente`.
+- Anade una entrada breve en `Eventos`.
+- Antes de escribir, relee el archivo.
+- No guardes secretos ni valores de `.env.local`.
+- Usa la pizarra para coordinacion; la fuente de verdad siguen siendo `AGENTS.md`, el codigo y las pruebas.
+
+## Prueba de agentes
+
+Estado verificado el 29/04/2026:
+
+- `opencode --version`: `1.14.29`
+- `opencode models opencode` incluye `opencode/minimax-m2.5-free`
+- `opencode agent list` reconoce `cultura-lead` y los siete subagentes
+- `cultura-lead` carga correctamente con `opencode/minimax-m2.5-free`
+- Desde `cultura-lead`, cargan correctamente:
+  - `cultura-frontend`
+  - `cultura-data`
+  - `cultura-testing`
+  - `cultura-review`
+  - `cultura-security`
+  - `cultura-release`
+  - `cultura-docs`
+
+Comando usado para la prueba completa:
+
+```bash
+opencode run --agent cultura-lead "Haz una prueba de carga de estos subagentes: @cultura-frontend, @cultura-data, @cultura-testing, @cultura-review, @cultura-security, @cultura-release y @cultura-docs. Cada subagente debe responder solo 'OK <nombre> cargado'. No ejecutes comandos ni edites archivos. Devuelve una lista breve con los siete resultados."
+```
+
+Resultado esperado:
+
+```text
+OK cultura-frontend cargado
+OK cultura-data cargado
+OK cultura-testing cargado
+OK cultura-review cargado
+OK cultura-security cargado
+OK cultura-release cargado
+OK cultura-docs cargado
+```
+
+Nota: los archivos con `mode: subagent` no se lanzan directamente con `opencode run --agent cultura-testing`. OpenCode avisa que son subagentes y vuelve al agente por defecto. La ruta correcta es ejecutar `cultura-lead` y pedirle que invoque los subagentes con `@cultura-*`.
+
+Si `opencode agent list` falla con `PRAGMA wal_checkpoint(PASSIVE)` o `attempt to write a readonly database`, no es un problema de estos agentes: OpenCode necesita escribir en su estado local (`~/.local/share/opencode` y `~/.local/state/opencode`). Ejecuta el comando desde un entorno con permiso de escritura para esas rutas.
+
+## Nota sobre el modelo
+
+Si tu instalacion de OpenCode lista MiniMax M2.5 Free con otro identificador, compruebalo con:
+
+```bash
+opencode models opencode
+```
+
+Y cambia el campo `model` en los agentes.
