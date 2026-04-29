@@ -11,7 +11,7 @@ import { useProjects } from '../../hooks/useProjects'
 import { useEvents } from '../../hooks/useEvents'
 import { useIncomes } from '../../hooks/useIncomes'
 import { useExpenses } from '../../hooks/useExpenses'
-import { formatCurrency, formatCurrencyPerHour, formatDate, formatHours } from '../../lib/formatters'
+import { formatCurrency, formatCurrencyPerHour, formatDate, formatDateRange, formatHours } from '../../lib/formatters'
 
 const YEARS = Array.from({ length: 6 }, (_, i) => dayjs().year() - 2 + i)
 
@@ -131,7 +131,6 @@ export default function Dashboard() {
           <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
             <div>
               <p className="text-xs font-medium uppercase tracking-wide text-gray-400">Resumen económico</p>
-              <h2 className="mt-1 text-lg font-semibold text-gray-900 capitalize">{selectedDate.format('MMMM YYYY')}</h2>
               <p className="mt-1 text-sm text-gray-500">
                 {criteria === 'cash_flow'
                   ? 'Importes por fecha prevista o real de cobro y gasto.'
@@ -185,42 +184,60 @@ export default function Dashboard() {
           </div>
         )}
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-          <KpiCard
-            title="Ingresos previstos"
-            value={formatCurrency(kpis.grossExpected)}
-            subtitle={criteria === 'cash_flow' ? 'Fecha de cobro en el mes' : 'Proyectos activos en el mes'}
-            icon={TrendingUp}
-            color="indigo"
-          />
-          <KpiCard
-            title="Ingresos cobrados"
-            value={formatCurrency(kpis.grossPaid)}
-            subtitle={`Retenciones: ${formatCurrency(kpis.totalRetentions)}`}
-            icon={Wallet}
-            color="green"
-          />
-          <KpiCard
-            title="Gastos totales"
-            value={formatCurrency(kpis.totalExpenses)}
-            icon={Receipt}
-            color="amber"
-          />
-          <KpiCard
-            title="Cobro bruto/hora"
-            value={kpis.billableHours > 0 ? formatCurrencyPerHour(kpis.grossHourlyRate) : '—'}
-            subtitle={`Solo eventos cobrados · ${formatHours(kpis.billableHours)} h`}
-            icon={Timer}
-            color="indigo"
-          />
-          <KpiCard
-            title="Beneficio neto"
-            value={formatCurrency(kpis.netProfit)}
-            subtitle="Cobrado – retenciones – gastos"
-            icon={PiggyBank}
-            color={kpis.netProfit >= 0 ? 'green' : 'red'}
-          />
-        </div>
+        {loading ? (
+          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <div key={i} className="rounded-xl border border-gray-100 bg-white p-4 sm:p-5 animate-pulse">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-gray-200 flex-shrink-0" />
+                  <div className="flex-1 min-w-0 space-y-2">
+                    <div className="h-3 bg-gray-200 rounded w-3/4" />
+                    <div className="h-6 bg-gray-200 rounded w-full" />
+                    <div className="h-2.5 bg-gray-100 rounded w-1/2" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+            <KpiCard
+              title="Ingresos previstos"
+              value={formatCurrency(kpis.grossExpected)}
+              subtitle={criteria === 'cash_flow' ? 'Fecha de cobro en el mes' : 'Proyectos activos en el mes'}
+              icon={TrendingUp}
+              color="indigo"
+            />
+            <KpiCard
+              title="Ingresos cobrados"
+              value={formatCurrency(kpis.grossPaid)}
+              subtitle={`Retenciones: ${formatCurrency(kpis.totalRetentions)}`}
+              icon={Wallet}
+              color="green"
+              progress={kpis.grossExpected > 0 ? kpis.grossPaid / kpis.grossExpected : 0}
+            />
+            <KpiCard
+              title="Gastos totales"
+              value={formatCurrency(kpis.totalExpenses)}
+              icon={Receipt}
+              color="amber"
+            />
+            <KpiCard
+              title="Cobro bruto/hora"
+              value={kpis.billableHours > 0 ? formatCurrencyPerHour(kpis.grossHourlyRate) : '—'}
+              subtitle={`Solo eventos cobrados · ${formatHours(kpis.billableHours)} h`}
+              icon={Timer}
+              color="indigo"
+            />
+            <KpiCard
+              title="Beneficio neto"
+              value={formatCurrency(kpis.netProfit)}
+              subtitle="Cobrado – retenciones – gastos"
+              icon={PiggyBank}
+              color={kpis.netProfit >= 0 ? 'green' : 'red'}
+            />
+          </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <Card className="p-5">
@@ -243,7 +260,17 @@ export default function Dashboard() {
               </select>
             </div>
             {loading ? (
-              <p className="text-sm text-gray-400">Cargando cobros...</p>
+              <div className="flex flex-col gap-3 animate-pulse">
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <div key={i} className="flex items-center justify-between py-3 border-b border-gray-100 last:border-0">
+                    <div className="space-y-2 flex-1 min-w-0 mr-4">
+                      <div className="h-4 bg-gray-200 rounded w-3/4" />
+                      <div className="h-3 bg-gray-100 rounded w-1/2" />
+                    </div>
+                    <div className="h-4 bg-gray-200 rounded w-16 flex-shrink-0" />
+                  </div>
+                ))}
+              </div>
             ) : pendingIncomes.length === 0 ? (
               <div className="rounded-lg border border-dashed border-gray-200 bg-gray-50 px-4 py-8 text-center">
                 <p className="text-sm font-medium text-gray-700">Sin cobros próximos</p>
@@ -251,19 +278,31 @@ export default function Dashboard() {
               </div>
             ) : (
               <div className="flex flex-col gap-2">
-                {pendingIncomes.map((income) => (
-                  <button
-                    key={income.id}
-                    onClick={() => navigateToIncome(income)}
-                    className="flex items-start justify-between gap-4 py-3.5 border-b border-gray-100 last:border-0 hover:bg-gray-50 -mx-2 px-2 rounded-xl transition-colors text-left w-full"
-                  >
-                    <div className="min-w-0">
-                      <p className="text-base font-medium text-gray-900 truncate">{income.concept}</p>
-                      <p className="text-sm text-gray-500 truncate mt-0.5">{getIncomeName(income)} · {formatDate(income.expected_date)}</p>
-                    </div>
-                    <span className="text-base font-semibold text-gray-900 whitespace-nowrap">{formatCurrency(income.amount)}</span>
-                  </button>
-                ))}
+                {pendingIncomes.map((income) => {
+                  const daysLeft = dayjs(income.expected_date).diff(dayjs(), 'day')
+                  const isUrgent = daysLeft <= 7
+                  const isWarning = !isUrgent && daysLeft <= 14
+                  const dotColor = isUrgent ? '#ef4444' : isWarning ? '#f59e0b' : '#d1d5db'
+                  const dateClass = isUrgent ? 'text-red-500' : isWarning ? 'text-amber-500' : 'text-gray-500'
+                  return (
+                    <button
+                      key={income.id}
+                      onClick={() => navigateToIncome(income)}
+                      className="flex items-start justify-between gap-4 py-3.5 border-b border-gray-100 last:border-0 hover:bg-gray-50 -mx-2 px-2 rounded-xl transition-colors text-left w-full"
+                    >
+                      <div className="min-w-0">
+                        <p className="text-base font-medium text-gray-900 truncate">{income.concept}</p>
+                        <div className="flex items-center gap-1.5 mt-0.5">
+                          <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: dotColor }} />
+                          <p className={`text-sm truncate ${dateClass}`}>
+                            {getIncomeName(income)} · {formatDate(income.expected_date)} · en {daysLeft}d
+                          </p>
+                        </div>
+                      </div>
+                      <span className="text-base font-semibold text-gray-900 whitespace-nowrap">{formatCurrency(income.amount)}</span>
+                    </button>
+                  )
+                })}
               </div>
             )}
           </Card>
@@ -279,7 +318,20 @@ export default function Dashboard() {
               </span>
             </div>
             {loading ? (
-              <p className="text-sm text-gray-400">Cargando proyectos...</p>
+              <div className="flex flex-col gap-3 animate-pulse">
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <div key={i} className="flex items-center justify-between py-3 border-b border-gray-100 last:border-0">
+                    <div className="flex items-start gap-2 flex-1 min-w-0 mr-4">
+                      <div className="w-2.5 h-2.5 rounded-full bg-gray-200 flex-shrink-0 mt-1" />
+                      <div className="space-y-2 flex-1 min-w-0">
+                        <div className="h-4 bg-gray-200 rounded w-3/4" />
+                        <div className="h-3 bg-gray-100 rounded w-1/2" />
+                      </div>
+                    </div>
+                    <div className="h-5 bg-gray-200 rounded-full w-20 flex-shrink-0" />
+                  </div>
+                ))}
+              </div>
             ) : activeProjects.length === 0 ? (
               <div className="rounded-lg border border-dashed border-gray-200 bg-gray-50 px-4 py-8 text-center">
                 <p className="text-sm font-medium text-gray-700">Sin proyectos activos</p>
@@ -294,10 +346,15 @@ export default function Dashboard() {
                     className="flex items-start justify-between gap-3 py-3 border-b border-gray-100 last:border-0 hover:bg-gray-50 -mx-2 px-2 rounded-xl transition-colors text-left w-full"
                   >
                     <div className="flex items-start gap-2 min-w-0">
-                      <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: project.color ?? '#4f98a3' }} />
+                      <div className="w-2.5 h-2.5 rounded-full flex-shrink-0 mt-1" style={{ backgroundColor: project.color ?? '#4f98a3' }} />
                       <div className="min-w-0">
                         <p className="text-base font-medium text-gray-900 truncate">{project.name}</p>
                         <p className="text-sm text-gray-500 truncate">{project.client || 'Sin cliente'}</p>
+                        <p className="text-xs text-gray-400 mt-0.5">
+                          {project.end_date
+                            ? formatDateRange(project.start_date, project.end_date)
+                            : formatDate(project.start_date)}
+                        </p>
                       </div>
                     </div>
                     <StatusBadge status={project.status} />
