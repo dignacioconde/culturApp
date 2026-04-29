@@ -41,7 +41,6 @@ export default function Dashboard() {
   const prevMonth = () => setSelectedDate((d) => d.subtract(1, 'month'))
   const nextMonth = () => setSelectedDate((d) => d.add(1, 'month'))
 
-  // IDs de proyectos activos en el mes seleccionado
   const activeProjectIds = useMemo(() => {
     if (criteria !== 'project_active') return null
     return new Set(
@@ -54,7 +53,6 @@ export default function Dashboard() {
     )
   }, [projects, criteria, startOfMonth, endOfMonth])
 
-  // IDs de eventos que pertenecen a proyectos activos
   const activeEventIds = useMemo(() => {
     if (criteria !== 'project_active' || !activeProjectIds) return null
     return new Set(events.filter((e) => activeProjectIds.has(e.project_id)).map((e) => e.id))
@@ -144,14 +142,14 @@ export default function Dashboard() {
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between xl:justify-end">
               <div className="flex items-center gap-2">
                 <button onClick={prevMonth} className="p-2 rounded-lg hover:bg-gray-100 text-gray-500 transition-colors" aria-label="Mes anterior">
-              <ChevronLeft size={18} />
-            </button>
+                  <ChevronLeft size={18} />
+                </button>
                 <span className="text-sm font-semibold text-gray-900 w-32 text-center capitalize">
-              {selectedDate.format('MMMM YYYY')}
-            </span>
+                  {selectedDate.format('MMMM YYYY')}
+                </span>
                 <button onClick={nextMonth} className="p-2 rounded-lg hover:bg-gray-100 text-gray-500 transition-colors" aria-label="Mes siguiente">
-              <ChevronRight size={18} />
-            </button>
+                  <ChevronRight size={18} />
+                </button>
                 <select
                   value={selectedDate.year()}
                   onChange={(e) => setSelectedDate((d) => d.year(Number(e.target.value)))}
@@ -187,7 +185,7 @@ export default function Dashboard() {
           </div>
         )}
 
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
           <KpiCard
             title="Ingresos previstos"
             value={formatCurrency(kpis.grossExpected)}
@@ -228,8 +226,8 @@ export default function Dashboard() {
           <Card className="p-5">
             <div className="flex items-start justify-between gap-3 mb-4">
               <div className="flex items-center gap-2 min-w-0">
-                <Clock size={16} className="text-amber-500 flex-shrink-0" />
-                <h2 className="text-sm font-semibold text-gray-900">Cobros pendientes</h2>
+                <Clock size={18} className="text-amber-500 flex-shrink-0" />
+                <h2 className="text-base font-semibold text-gray-900">Cobros pendientes</h2>
               </div>
               <select
                 value={pendingDays}
@@ -257,13 +255,13 @@ export default function Dashboard() {
                   <button
                     key={income.id}
                     onClick={() => navigateToIncome(income)}
-                    className="flex items-start justify-between gap-4 py-3 border-b border-gray-100 last:border-0 hover:bg-gray-50 -mx-2 px-2 rounded-lg transition-colors text-left w-full"
+                    className="flex items-start justify-between gap-4 py-3.5 border-b border-gray-100 last:border-0 hover:bg-gray-50 -mx-2 px-2 rounded-xl transition-colors text-left w-full"
                   >
                     <div className="min-w-0">
-                      <p className="text-sm font-medium text-gray-900 truncate">{income.concept}</p>
-                      <p className="text-xs text-gray-400 truncate">{getIncomeName(income)} · {formatDate(income.expected_date)}</p>
+                      <p className="text-base font-medium text-gray-900 truncate">{income.concept}</p>
+                      <p className="text-sm text-gray-500 truncate mt-0.5">{getIncomeName(income)} · {formatDate(income.expected_date)}</p>
                     </div>
-                    <span className="text-sm font-semibold text-gray-900 whitespace-nowrap">{formatCurrency(income.amount)}</span>
+                    <span className="text-base font-semibold text-gray-900 whitespace-nowrap">{formatCurrency(income.amount)}</span>
                   </button>
                 ))}
               </div>
@@ -273,8 +271,8 @@ export default function Dashboard() {
           <Card className="p-5">
             <div className="flex items-start justify-between gap-3 mb-4">
               <div className="flex items-center gap-2 min-w-0">
-                <FolderOpen size={16} className="text-indigo-500 flex-shrink-0" />
-                <h2 className="text-sm font-semibold text-gray-900">Proyectos activos</h2>
+                <FolderOpen size={18} className="text-indigo-500 flex-shrink-0" />
+                <h2 className="text-base font-semibold text-gray-900">Proyectos activos</h2>
               </div>
               <span className="rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-medium text-indigo-700 whitespace-nowrap">
                 {activeProjects.length}
@@ -293,13 +291,13 @@ export default function Dashboard() {
                   <button
                     key={project.id}
                     onClick={() => navigate(`/projects/${project.id}`)}
-                    className="flex items-start justify-between gap-3 py-3 border-b border-gray-100 last:border-0 hover:bg-gray-50 -mx-2 px-2 rounded-lg transition-colors text-left w-full"
+                    className="flex items-start justify-between gap-3 py-3 border-b border-gray-100 last:border-0 hover:bg-gray-50 -mx-2 px-2 rounded-xl transition-colors text-left w-full"
                   >
                     <div className="flex items-start gap-2 min-w-0">
                       <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: project.color ?? '#4f98a3' }} />
                       <div className="min-w-0">
-                        <p className="text-sm font-medium text-gray-900 truncate">{project.name}</p>
-                        <p className="text-xs text-gray-400 truncate">{project.client || 'Sin cliente'}</p>
+                        <p className="text-base font-medium text-gray-900 truncate">{project.name}</p>
+                        <p className="text-sm text-gray-500 truncate">{project.client || 'Sin cliente'}</p>
                       </div>
                     </div>
                     <StatusBadge status={project.status} />
