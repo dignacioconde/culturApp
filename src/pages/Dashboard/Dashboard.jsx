@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import dayjs from 'dayjs'
-import { TrendingUp, Wallet, Receipt, PiggyBank, Clock, FolderOpen, ChevronLeft, ChevronRight, AlertCircle } from 'lucide-react'
+import { TrendingUp, Wallet, Receipt, PiggyBank, Clock, FolderOpen, ChevronLeft, ChevronRight, AlertCircle, Timer } from 'lucide-react'
 import { PageWrapper } from '../../components/layout/PageWrapper'
 import { Card } from '../../components/ui/Card'
 import { StatusBadge } from '../../components/ui/Badge'
@@ -11,9 +11,15 @@ import { useProjects } from '../../hooks/useProjects'
 import { useEvents } from '../../hooks/useEvents'
 import { useIncomes } from '../../hooks/useIncomes'
 import { useExpenses } from '../../hooks/useExpenses'
-import { formatCurrency, formatDate } from '../../lib/formatters'
+import { formatCurrency, formatCurrencyPerHour, formatDate, formatHours } from '../../lib/formatters'
 
 const YEARS = Array.from({ length: 6 }, (_, i) => dayjs().year() - 2 + i)
+
+const getEventHours = (event) => {
+  if (!event.end_datetime) return 0
+  const minutes = dayjs(event.end_datetime).diff(dayjs(event.start_datetime), 'minute')
+  return minutes > 0 ? minutes / 60 : 0
+}
 
 export default function Dashboard() {
   const navigate = useNavigate()
@@ -55,7 +61,10 @@ export default function Dashboard() {
 
   const relevantIncomes = useMemo(() => {
     if (criteria === 'cash_flow')
-      return incomes.filter((i) => i.expected_date >= startOfMonth && i.expected_date <= endOfMonth)
+      return incomes.filter((i) => {
+        const incomeDate = i.is_paid ? (i.paid_date ?? i.expected_date) : i.expected_date
+        return incomeDate >= startOfMonth && incomeDate <= endOfMonth
+      })
     return incomes.filter((i) =>
       (i.project_id && activeProjectIds.has(i.project_id)) ||
       (i.event_id && activeEventIds.has(i.event_id))
@@ -74,12 +83,19 @@ export default function Dashboard() {
   const kpis = useMemo(() => {
     const grossExpected = relevantIncomes.reduce((acc, i) => acc + Number(i.amount), 0)
     const paidIncomes = relevantIncomes.filter((i) => i.is_paid)
+    const paidEventIncomes = paidIncomes.filter((i) => i.event_id)
+    const paidEventIds = new Set(paidEventIncomes.map((i) => i.event_id))
     const grossPaid = paidIncomes.reduce((acc, i) => acc + Number(i.amount), 0)
+    const grossPaidFromEvents = paidEventIncomes.reduce((acc, i) => acc + Number(i.amount), 0)
     const totalRetentions = paidIncomes.reduce((acc, i) => acc + Number(i.amount) * (Number(i.tax_rate) / 100), 0)
     const totalExpenses = relevantExpenses.reduce((acc, e) => acc + Number(e.amount), 0)
+    const billableHours = events
+      .filter((event) => paidEventIds.has(event.id))
+      .reduce((acc, event) => acc + getEventHours(event), 0)
+    const grossHourlyRate = billableHours > 0 ? grossPaidFromEvents / billableHours : 0
     const netProfit = grossPaid - totalRetentions - totalExpenses
-    return { grossExpected, grossPaid, totalRetentions, totalExpenses, netProfit }
-  }, [relevantIncomes, relevantExpenses])
+    return { grossExpected, grossPaid, totalRetentions, totalExpenses, billableHours, grossHourlyRate, netProfit }
+  }, [relevantIncomes, relevantExpenses, events])
 
   const pendingIncomes = useMemo(() =>
     incomes
@@ -170,7 +186,7 @@ export default function Dashboard() {
           </div>
         )}
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
           <KpiCard
             title="Ingresos previstos"
             value={formatCurrency(kpis.grossExpected)}
@@ -190,6 +206,13 @@ export default function Dashboard() {
             value={formatCurrency(kpis.totalExpenses)}
             icon={Receipt}
             color="amber"
+          />
+          <KpiCard
+            title="Cobro bruto/hora"
+            value={kpis.billableHours > 0 ? formatCurrencyPerHour(kpis.grossHourlyRate) : '—'}
+            subtitle={`Solo eventos cobrados · ${formatHours(kpis.billableHours)} h`}
+            icon={Timer}
+            color="indigo"
           />
           <KpiCard
             title="Beneficio neto"

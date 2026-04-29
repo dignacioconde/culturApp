@@ -75,27 +75,27 @@ Todos los hooks exponen `loading`, `error`, métodos CRUD y `refetch`. Los datos
 
 | Página | Líneas | Estado |
 |--------|--------|--------|
-| `Auth/Login.jsx` | 75 | Completo |
-| `Auth/Register.jsx` | 96 | Completo |
-| `Dashboard/Dashboard.jsx` | 237 | Completo |
-| `Dashboard/KpiCard.jsx` | 25 | Completo |
-| `Calendar/CalendarView.jsx` | 132 | Completo |
-| `Calendar/CalendarEvents.jsx` | 163 | Completo |
-| `Calendar/CalendarProjects.jsx` | 149 | Completo |
-| `Events/EventList.jsx` | 153 | Completo |
-| `Events/EventDetail.jsx` | 422 | Completo |
-| `Events/EventForm.jsx` | 130 | Completo |
-| `Projects/ProjectList.jsx` | 139 | Completo |
-| `Projects/ProjectDetail.jsx` | 372 | Completo |
-| `Projects/ProjectForm.jsx` | 108 | Completo |
-| `Settings/Settings.jsx` | 97 | Completo |
+| `Auth/Login.jsx` | 81 | Completo |
+| `Auth/Register.jsx` | 109 | Completo |
+| `Dashboard/Dashboard.jsx` | 305 | Completo |
+| `Dashboard/KpiCard.jsx` | 27 | Completo |
+| `Calendar/CalendarView.jsx` | 156 | Completo |
+| `Calendar/CalendarEvents.jsx` | 227 | Completo |
+| `Calendar/CalendarProjects.jsx` | 208 | Completo |
+| `Events/EventList.jsx` | 220 | Completo |
+| `Events/EventDetail.jsx` | 492 | Completo |
+| `Events/EventForm.jsx` | 174 | Completo |
+| `Projects/ProjectList.jsx` | 198 | Completo |
+| `Projects/ProjectDetail.jsx` | 452 | Completo |
+| `Projects/ProjectForm.jsx` | 159 | Completo |
+| `Settings/Settings.jsx` | 131 | Completo |
 
 ### Utilidades (`src/lib/`)
 
 | Archivo | Función |
 |---------|---------|
 | `constants.js` | PROJECT_STATUSES, EVENT_STATUSES, PROJECT_CATEGORIES, EVENT_CATEGORIES, EXPENSE_CATEGORIES, STATUS_COLORS, DEFAULT_PROJECT_COLORS |
-| `formatters.js` | `formatCurrency` (EUR, es-ES), `formatDate`, `formatDateRange`, `formatDatetime`, `toDatetimeLocal` |
+| `formatters.js` | `formatCurrency` (EUR, es-ES), `formatCurrencyPerHour`, `formatHours`, `formatDate`, `formatDateRange`, `formatDatetime`, `toDatetimeLocal` |
 
 ---
 
@@ -103,7 +103,7 @@ Todos los hooks exponen `loading`, `error`, métodos CRUD y `refetch`. Los datos
 
 | Métrica | Valor |
 |---------|-------|
-| Líneas totales de código fuente | ~2.986 |
+| Líneas totales de código fuente | ~3.812 |
 | Componentes React | 24 |
 | Hooks personalizados | 5 |
 | Vistas/Páginas | 12 |
@@ -121,11 +121,12 @@ Todos los hooks exponen `loading`, `error`, métodos CRUD y `refetch`. Los datos
 - CRUD completo de eventos (crear, leer, editar, eliminar)
 - CRUD completo de ingresos (añadir, editar, marcar como cobrado con `paid_date`)
 - CRUD completo de gastos (añadir, editar, marcar como deducible)
-- Dashboard con 4 KPIs + filtro por período + criterio de agrupación
+- Dashboard con 5 KPIs + filtro por período + criterio de agrupación
+- Métrica de cobro bruto/hora: ingresos cobrados asociados a eventos, antes de IRPF, divididos entre horas de eventos con `end_datetime`
 - Lista de cobros pendientes (próximos 30 días)
 - Lista de proyectos activos
-- Calendario de eventos con fecha/hora exacta
-- Calendario de proyectos con rangos de fecha
+- Calendario de eventos con fecha/hora exacta, navegación controlada y creación desde huecos
+- Calendario de proyectos con rangos de fecha, navegación controlada y creación desde selección de días
 - Panel lateral en calendarios con resumen rápido
 - Lista y detalle de eventos con ingresos/gastos propios
 - Detalle de proyecto con resumen financiero (bruto, retenciones, gastos, neto)
@@ -227,6 +228,6 @@ VITE_SUPABASE_ANON_KEY=<tu_anon_key>
 
 ## Puntos a vigilar si se escala
 
-- `ProjectDetail.jsx` (422 líneas) tiene tres formularios inline que podrían extraerse a componentes separados si la vista sigue creciendo.
+- `ProjectDetail.jsx` (452 líneas) tiene tres formularios inline que podrían extraerse a componentes separados si la vista sigue creciendo.
 - No hay confirmación de borrado para ingresos y gastos (sí para proyectos). Considerar añadirlo.
 - Sin capa de caché: cada cambio de vista hace una petición a Supabase. Aceptable para MVP.

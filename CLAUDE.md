@@ -371,23 +371,28 @@ create trigger on_auth_user_created
 
 ### 2. `/dashboard` — Resumen económico
 
-KPIs del mes seleccionado (ingresos previstos, cobrados, gastos, beneficio neto).
+KPIs del mes seleccionado (ingresos previstos, cobrados, gastos, cobro bruto/hora, beneficio neto).
 Agrega ingresos y gastos de **ambos niveles** (evento + proyecto directo).
 
 - Cobros pendientes próximos 30 días → enlaza a `/events/:id` o `/projects/:id` según corresponda
 - Proyectos activos (status confirmed o in_progress)
+- Cobro bruto/hora: ingresos **cobrados** vinculados a eventos, antes de IRPF, divididos entre las horas de esos eventos (`end_datetime - start_datetime`). Los ingresos directos de proyecto no se incluyen en esta métrica para no inflar el €/h.
 
 ### 3. `/calendar/events` — Calendario de eventos
 
 - React Big Calendar con `start_datetime` / `end_datetime` (hora exacta)
 - Es el calendario que se comparte hacia afuera
 - Click en evento → panel lateral con datos del evento y enlace al detalle
+- Navegación de fecha/vista controlada; visible aunque no haya eventos
+- Seleccionar un hueco del calendario abre el formulario con fecha/hora precargadas
 
 ### 4. `/calendar/projects` — Calendario de proyectos
 
 - React Big Calendar con `start_date` / `end_date` (rango de días)
 - Solo uso interno
 - Click en proyecto → panel lateral con datos y enlace al detalle
+- Navegación de fecha/vista controlada; visible aunque no haya proyectos
+- Seleccionar días del calendario abre el formulario con rango precargado
 
 ### 5. `/events` — Gestión de eventos
 
@@ -453,6 +458,8 @@ if (error) { /* mostrar mensaje */ return }
 
 ```js
 formatCurrency(amount)       // → "1.200,00 €"
+formatCurrencyPerHour(rate)  // → "75,00 €/h"
+formatHours(hours)           // → "7,5"
 formatDate(dateStr)          // → "15/05/2025" (para campos date de BD)
 formatDatetime(isoStr)       // → "15/05/2025, 20:00" (para timestamptz)
 toDatetimeLocal(isoStr)      // → "2025-05-15T20:00" (para input datetime-local)
@@ -500,10 +507,10 @@ npm run lint     # Linting
 - [x] Trigger `on_auth_user_created` con `public.profiles` explícito (crítico — sin schema falla silenciosamente)
 - [x] Hook `useEvents.js` — CRUD, filtra por `projectId` opcional
 - [x] `useIncomes` y `useExpenses` actualizados: `{ projectId, eventId, eventIds }` con filtro OR
-- [x] Vista Dashboard — KPIs mes seleccionado, cobros pendientes 30 días, proyectos activos
+- [x] Vista Dashboard — KPIs mes seleccionado, cobro bruto/hora, cobros pendientes 30 días, proyectos activos
 - [x] Dashboard agrega ingresos/gastos de eventos Y de proyecto directo (ambos niveles)
-- [x] Calendario de eventos (`/calendar/events`) — React Big Calendar con datetime exacto
-- [x] Calendario de proyectos (`/calendar/projects`) — React Big Calendar con rangos de fecha
+- [x] Calendario de eventos (`/calendar/events`) — React Big Calendar con datetime exacto, navegación controlada y creación desde huecos
+- [x] Calendario de proyectos (`/calendar/projects`) — React Big Calendar con rangos de fecha, navegación controlada y creación desde selección de días
 - [x] Vista Events — lista con filtros, EventDetail con ingresos/gastos propios, EventForm
 - [x] Vista Projects — lista y detalle con sección de eventos asociados
 - [x] ProjectDetail KPIs agregan ingresos/gastos del proyecto + todos sus eventos
@@ -526,5 +533,6 @@ npm run lint     # Linting
 - **Formato fechas en BD**: ISO 8601 — Supabase lo maneja automáticamente
 - **Moneda**: euros (€) — usar siempre `formatCurrency()`
 - **Calendario de eventos**: es el que se comparte hacia afuera. El de proyectos es solo interno.
+- **Cobro bruto/hora**: usar solo ingresos cobrados asociados a eventos (`event_id`) y horas de eventos con `end_datetime`. No mezclar ingresos directos de proyecto en el numerador de esta métrica.
 - **Error 409 al crear proyectos/eventos**: si aparece, significa que el perfil del usuario no existe en `profiles` (el trigger falló antes del fix). Solución: ejecutar en Supabase SQL `INSERT INTO public.profiles (id) SELECT id FROM auth.users WHERE id NOT IN (SELECT id FROM public.profiles);`
 - **ProjectDetail — separación de datos**: `incomes` y `expenses` del hook incluyen todo (proyecto + eventos); `directIncomes`/`directExpenses` filtran solo los de `project_id = id` para las tablas editables. Los KPIs usan el total combinado.

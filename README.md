@@ -18,9 +18,9 @@ Herramienta de gestión económica y de proyectos para trabajadores del sector c
 ### Calendario
 
 **Como trabajador cultural independiente,**
-- quiero ver todos mis proyectos en un calendario mensual para tener una visión global de mi agenda.
-- quiero hacer clic en un proyecto del calendario y ver su información básica sin salir de la vista, para consultar rápidamente sin perder el contexto.
-- quiero poder crear un proyecto nuevo directamente desde la vista de calendario.
+- quiero ver todos mis eventos y proyectos en calendarios navegables para tener una visión global de mi agenda.
+- quiero hacer clic en un evento o proyecto del calendario y ver su información básica sin salir de la vista, para consultar rápidamente sin perder el contexto.
+- quiero poder crear un evento o proyecto nuevo seleccionando un hueco o rango directamente desde la vista de calendario.
 
 ### Ingresos
 
@@ -42,6 +42,7 @@ Herramienta de gestión económica y de proyectos para trabajadores del sector c
 **Como trabajador cultural independiente,**
 - quiero ver un resumen de mis ingresos previstos y cobrados de este mes para saber cómo va el mes.
 - quiero ver mis gastos del mes y el beneficio neto estimado (cobrado menos gastos) para tener una foto rápida de mi situación económica.
+- quiero ver mi cobro bruto por hora antes de IRPF para entender cuánto estoy cobrando realmente por las horas de eventos ya cobrados.
 - quiero ver qué proyectos tengo activos ahora mismo sin tener que ir a la lista completa.
 
 ### Perfil y configuración
@@ -77,10 +78,9 @@ Ve a [supabase.com](https://supabase.com), crea un nuevo proyecto y anota la **U
 
 ### 2. Crear las tablas
 
-En el **editor SQL** de Supabase ejecuta:
+En el **editor SQL** de Supabase ejecuta el esquema actual. Si vienes de una versión anterior, borra antes las tablas existentes como indica `AGENTS.md`.
 
 ```sql
--- Perfiles (extiende auth.users)
 create table profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   full_name text,
@@ -89,10 +89,9 @@ create table profiles (
   created_at timestamptz default now()
 );
 
--- Proyectos
 create table projects (
   id uuid primary key default gen_random_uuid(),
-  user_id uuid references profiles(id) on delete cascade not null,
+  user_id uuid references public.profiles(id) on delete cascade not null,
   name text not null,
   client text,
   category text default 'otros',
@@ -104,31 +103,48 @@ create table projects (
   created_at timestamptz default now()
 );
 
--- Ingresos
+create table events (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references public.profiles(id) on delete cascade not null,
+  project_id uuid references public.projects(id) on delete set null,
+  name text not null,
+  client text,
+  category text default 'otros',
+  status text default 'draft',
+  start_datetime timestamptz not null,
+  end_datetime timestamptz,
+  color text default '#4f98a3',
+  notes text,
+  created_at timestamptz default now()
+);
+
 create table incomes (
   id uuid primary key default gen_random_uuid(),
-  project_id uuid references projects(id) on delete cascade not null,
-  user_id uuid references profiles(id) on delete cascade not null,
+  user_id uuid references public.profiles(id) on delete cascade not null,
+  project_id uuid references public.projects(id) on delete cascade,
+  event_id uuid references public.events(id) on delete cascade,
   concept text not null,
   amount numeric not null,
   tax_rate numeric default 15,
   expected_date date,
   paid_date date,
   is_paid boolean default false,
-  created_at timestamptz default now()
+  created_at timestamptz default now(),
+  constraint chk_income_link check (project_id is not null or event_id is not null)
 );
 
--- Gastos
 create table expenses (
   id uuid primary key default gen_random_uuid(),
-  project_id uuid references projects(id) on delete cascade not null,
-  user_id uuid references profiles(id) on delete cascade not null,
+  user_id uuid references public.profiles(id) on delete cascade not null,
+  project_id uuid references public.projects(id) on delete cascade,
+  event_id uuid references public.events(id) on delete cascade,
   concept text not null,
   amount numeric not null,
   category text default 'otros',
   expense_date date,
   is_deductible boolean default true,
-  created_at timestamptz default now()
+  created_at timestamptz default now(),
+  constraint chk_expense_link check (project_id is not null or event_id is not null)
 );
 ```
 
@@ -137,6 +153,7 @@ create table expenses (
 ```sql
 alter table profiles enable row level security;
 alter table projects enable row level security;
+alter table events enable row level security;
 alter table incomes enable row level security;
 alter table expenses enable row level security;
 
@@ -144,6 +161,9 @@ create policy "profiles: usuario propio" on profiles
   for all using (auth.uid() = id);
 
 create policy "projects: usuario propio" on projects
+  for all using (auth.uid() = user_id);
+
+create policy "events: usuario propio" on events
   for all using (auth.uid() = user_id);
 
 create policy "incomes: usuario propio" on incomes
@@ -156,10 +176,13 @@ create policy "expenses: usuario propio" on expenses
 ### 4. Trigger para crear el perfil al registrarse
 
 ```sql
+drop trigger if exists on_auth_user_created on auth.users;
+drop function if exists handle_new_user();
+
 create or replace function handle_new_user()
 returns trigger as $$
 begin
-  insert into profiles (id, full_name, profession)
+  insert into public.profiles (id, full_name, profession)
   values (
     new.id,
     new.raw_user_meta_data->>'full_name',

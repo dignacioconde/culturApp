@@ -1,6 +1,11 @@
 export const formatCurrency = (amount) =>
   new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(amount ?? 0)
 
+export const formatCurrencyPerHour = (amount) => `${formatCurrency(amount)}/h`
+
+export const formatHours = (hours) =>
+  new Intl.NumberFormat('es-ES', { maximumFractionDigits: 1 }).format(hours ?? 0)
+
 export const formatDate = (dateStr) => {
   if (!dateStr) return '—'
   return new Intl.DateTimeFormat('es-ES', {
@@ -22,5 +27,7 @@ export const formatDatetime = (isoStr) => {
 
 export const toDatetimeLocal = (isoStr) => {
   if (!isoStr) return ''
-  return new Date(isoStr).toISOString().slice(0, 16)
+  const date = new Date(isoStr)
+  const offsetMs = date.getTimezoneOffset() * 60 * 1000
+  return new Date(date.getTime() - offsetMs).toISOString().slice(0, 16)
 }

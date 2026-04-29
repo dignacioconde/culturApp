@@ -14,10 +14,16 @@ import { useProjects } from '../../hooks/useProjects'
 import { useEvents } from '../../hooks/useEvents'
 import { useIncomes } from '../../hooks/useIncomes'
 import { useExpenses } from '../../hooks/useExpenses'
-import { formatCurrency, formatDate, formatDatetime } from '../../lib/formatters'
+import { formatCurrency, formatCurrencyPerHour, formatDate, formatDatetime, formatHours } from '../../lib/formatters'
 import { EXPENSE_CATEGORIES } from '../../lib/constants'
 
 const EMPTY_EXPENSE = { concept: '', amount: '', category: 'otros', expense_date: '', is_deductible: true }
+
+const getEventHours = (event) => {
+  if (!event.end_datetime) return 0
+  const minutes = (new Date(event.end_datetime).getTime() - new Date(event.start_datetime).getTime()) / 60000
+  return minutes > 0 ? minutes / 60 : 0
+}
 
 export default function ProjectDetail() {
   const { id } = useParams()
@@ -79,10 +85,17 @@ export default function ProjectDetail() {
 
   const totalGross = incomes.reduce((acc, i) => acc + Number(i.amount), 0)
   const paidIncomes = incomes.filter((i) => i.is_paid)
+  const paidEventIncomes = paidIncomes.filter((i) => i.event_id)
+  const paidEventIds = new Set(paidEventIncomes.map((i) => i.event_id))
   const totalPaid = paidIncomes.reduce((acc, i) => acc + Number(i.amount), 0)
+  const totalPaidFromEvents = paidEventIncomes.reduce((acc, i) => acc + Number(i.amount), 0)
   const pendingAmount = totalGross - totalPaid
   const totalRetentions = paidIncomes.reduce((acc, i) => acc + Number(i.amount) * (Number(i.tax_rate) / 100), 0)
   const totalExpenses = expenses.reduce((acc, e) => acc + Number(e.amount), 0)
+  const projectHours = events
+    .filter((event) => paidEventIds.has(event.id))
+    .reduce((acc, event) => acc + getEventHours(event), 0)
+  const grossHourlyRate = projectHours > 0 ? totalPaidFromEvents / projectHours : 0
   const netProfit = totalPaid - totalRetentions - totalExpenses
 
   const openNewIncome = () => { setEditingIncome(null); setIncomeForm(emptyIncomeForm); setIncomeModal(true) }
@@ -191,16 +204,18 @@ export default function ProjectDetail() {
             </div>
             <p className="text-xs text-gray-500">Cobrado: {formatCurrency(totalPaid)} · Pendiente: {formatCurrency(pendingAmount)}</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {[
             { label: 'Ingresos previstos', value: formatCurrency(totalGross) },
             { label: 'IRPF sobre cobrado', value: formatCurrency(totalRetentions) },
             { label: 'Gastos registrados', value: formatCurrency(totalExpenses) },
+            { label: 'Cobro bruto/hora', value: projectHours > 0 ? formatCurrencyPerHour(grossHourlyRate) : '—', detail: `Solo eventos cobrados · ${formatHours(projectHours)} h` },
             { label: 'Beneficio neto', value: formatCurrency(netProfit), highlight: true },
-          ].map(({ label, value, highlight }) => (
+          ].map(({ label, value, detail, highlight }) => (
             <div key={label} className={`rounded-lg border p-4 ${highlight ? 'bg-indigo-50 border-indigo-200' : 'bg-white border-gray-200'}`}>
               <p className="text-xs text-gray-500">{label}</p>
               <p className={`text-lg font-semibold mt-1 ${highlight ? 'text-indigo-700' : 'text-gray-900'}`}>{value}</p>
+              {detail && <p className="mt-1 text-xs text-gray-400">{detail}</p>}
             </div>
           ))}
           </div>

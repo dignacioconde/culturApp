@@ -19,8 +19,8 @@ const localizer = dayjsLocalizer(dayjs)
 
 const messages = {
   allDay: 'Todo el día',
-  previous: '‹',
-  next: '›',
+  previous: 'Anterior',
+  next: 'Siguiente',
   today: 'Hoy',
   month: 'Mes',
   week: 'Semana',
@@ -37,8 +37,11 @@ export default function CalendarEvents() {
   const { user } = useAuth()
   const { events, loading, error, createEvent } = useEvents(user?.id)
   const { projects, loading: projectsLoading, error: projectsError } = useProjects(user?.id)
+  const [calendarDate, setCalendarDate] = useState(() => new Date())
+  const [calendarView, setCalendarView] = useState('month')
   const [selectedEvent, setSelectedEvent] = useState(null)
   const [newModal, setNewModal] = useState(false)
+  const [newEventInitialData, setNewEventInitialData] = useState(null)
   const [saving, setSaving] = useState(false)
   const { toasts, addToast, removeToast } = useToast()
 
@@ -72,6 +75,34 @@ export default function CalendarEvents() {
     setNewModal(false)
   }
 
+  const openNewEvent = (initialData = null) => {
+    setNewEventInitialData(initialData)
+    setNewModal(true)
+  }
+
+  const closeNewEvent = () => {
+    setNewModal(false)
+    setNewEventInitialData(null)
+  }
+
+  const handleSelectSlot = ({ start, end }) => {
+    const slotStart = dayjs(start)
+    const startsAtMidnight = slotStart.hour() === 0 && slotStart.minute() === 0
+    const eventStart = startsAtMidnight && calendarView === 'month'
+      ? slotStart.hour(9)
+      : slotStart
+    const eventEnd = calendarView === 'month'
+      ? eventStart.add(1, 'hour')
+      : dayjs(end).isAfter(eventStart)
+      ? dayjs(end)
+      : eventStart.add(1, 'hour')
+
+    openNewEvent({
+      start_datetime: eventStart.toDate().toISOString(),
+      end_datetime: eventEnd.toDate().toISOString(),
+    })
+  }
+
   return (
     <PageWrapper title="Calendario de eventos">
       <div className="flex flex-col gap-4 lg:flex-row lg:h-[calc(100vh-8rem)]">
@@ -81,7 +112,7 @@ export default function CalendarEvents() {
               <p className="text-sm font-medium text-gray-900">{events.length} eventos</p>
               <p className="text-xs text-gray-400">Calendario compartible con fecha y hora exactas.</p>
             </div>
-            <Button size="sm" onClick={() => setNewModal(true)} className="w-full justify-center sm:w-auto">
+            <Button size="sm" onClick={() => openNewEvent()} className="w-full justify-center sm:w-auto">
               <Plus size={16} />
               Nuevo evento
             </Button>
@@ -96,24 +127,32 @@ export default function CalendarEvents() {
             <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed border-gray-200 bg-gray-50 text-sm text-gray-400">
               Cargando calendario...
             </div>
-          ) : events.length === 0 ? (
-            <div className="flex flex-1 flex-col items-center justify-center rounded-lg border border-dashed border-gray-200 bg-gray-50 px-4 text-center">
-              <CalendarDays size={36} className="text-gray-300" />
-              <p className="mt-3 text-sm font-medium text-gray-700">Todavía no hay eventos</p>
-              <p className="mt-1 max-w-sm text-sm text-gray-400">Crea un evento para verlo colocado en el calendario.</p>
-            </div>
           ) : (
-            <div className="min-h-0 flex-1 overflow-hidden">
-              <Calendar
-                localizer={localizer}
-                events={calendarEvents}
-                defaultView="month"
-                views={['month', 'week', 'day']}
-                messages={messages}
-                eventPropGetter={eventStyleGetter}
-                onSelectEvent={(event) => setSelectedEvent(event.resource)}
-                style={{ height: '100%' }}
-              />
+            <div className="flex min-h-0 flex-1 flex-col">
+              <div className="min-h-0 flex-1 overflow-hidden">
+                <Calendar
+                  localizer={localizer}
+                  events={calendarEvents}
+                  date={calendarDate}
+                  view={calendarView}
+                  views={['month', 'week', 'day']}
+                  messages={messages}
+                  selectable
+                  eventPropGetter={eventStyleGetter}
+                  onNavigate={setCalendarDate}
+                  onView={setCalendarView}
+                  onSelectEvent={(event) => setSelectedEvent(event.resource)}
+                  onSelectSlot={handleSelectSlot}
+                  popup
+                  style={{ height: '100%' }}
+                />
+              </div>
+              {events.length === 0 && (
+                <div className="mt-3 flex items-center gap-2 rounded-lg border border-dashed border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-500">
+                  <CalendarDays size={16} className="text-gray-400" />
+                  No hay eventos en esta cuenta. Puedes moverte por meses o seleccionar un hueco para crear el primero.
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -172,11 +211,12 @@ export default function CalendarEvents() {
         )}
       </div>
 
-      <Modal isOpen={newModal} onClose={() => setNewModal(false)} title="Nuevo evento">
+      <Modal isOpen={newModal} onClose={closeNewEvent} title="Nuevo evento">
         <EventForm
+          initialData={newEventInitialData}
           projects={projects}
           onSubmit={handleCreate}
-          onCancel={() => setNewModal(false)}
+          onCancel={closeNewEvent}
           loading={saving}
         />
       </Modal>

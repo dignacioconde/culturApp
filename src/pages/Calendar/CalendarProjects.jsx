@@ -18,8 +18,8 @@ const localizer = dayjsLocalizer(dayjs)
 
 const messages = {
   allDay: 'Todo el día',
-  previous: '‹',
-  next: '›',
+  previous: 'Anterior',
+  next: 'Siguiente',
   today: 'Hoy',
   month: 'Mes',
   week: 'Semana',
@@ -35,8 +35,11 @@ const messages = {
 export default function CalendarProjects() {
   const { user } = useAuth()
   const { projects, loading, error, createProject } = useProjects(user?.id)
+  const [calendarDate, setCalendarDate] = useState(() => new Date())
+  const [calendarView, setCalendarView] = useState('month')
   const [selectedProject, setSelectedProject] = useState(null)
   const [newModal, setNewModal] = useState(false)
+  const [newProjectInitialData, setNewProjectInitialData] = useState(null)
   const [saving, setSaving] = useState(false)
   const { toasts, addToast, removeToast } = useToast()
 
@@ -70,6 +73,29 @@ export default function CalendarProjects() {
     setNewModal(false)
   }
 
+  const openNewProject = (initialData = null) => {
+    setNewProjectInitialData(initialData)
+    setNewModal(true)
+  }
+
+  const closeNewProject = () => {
+    setNewModal(false)
+    setNewProjectInitialData(null)
+  }
+
+  const handleSelectSlot = ({ start, end }) => {
+    const startDate = dayjs(start).format('YYYY-MM-DD')
+    const exclusiveEnd = dayjs(end)
+    const inclusiveEnd = exclusiveEnd.isAfter(dayjs(start), 'day')
+      ? exclusiveEnd.subtract(1, 'day')
+      : dayjs(start)
+
+    openNewProject({
+      start_date: startDate,
+      end_date: inclusiveEnd.format('YYYY-MM-DD'),
+    })
+  }
+
   return (
     <PageWrapper title="Calendario de proyectos">
       <div className="flex flex-col gap-4 lg:flex-row lg:h-[calc(100vh-8rem)]">
@@ -79,7 +105,7 @@ export default function CalendarProjects() {
               <p className="text-sm font-medium text-gray-900">{projects.length} proyectos</p>
               <p className="text-xs text-gray-400">Vista interna por rango de fechas.</p>
             </div>
-            <Button size="sm" onClick={() => setNewModal(true)} className="w-full justify-center sm:w-auto">
+            <Button size="sm" onClick={() => openNewProject()} className="w-full justify-center sm:w-auto">
               <Plus size={16} />
               Nuevo proyecto
             </Button>
@@ -94,24 +120,32 @@ export default function CalendarProjects() {
             <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed border-gray-200 bg-gray-50 text-sm text-gray-400">
               Cargando calendario...
             </div>
-          ) : projects.length === 0 ? (
-            <div className="flex flex-1 flex-col items-center justify-center rounded-lg border border-dashed border-gray-200 bg-gray-50 px-4 text-center">
-              <FolderOpen size={36} className="text-gray-300" />
-              <p className="mt-3 text-sm font-medium text-gray-700">Todavía no hay proyectos</p>
-              <p className="mt-1 max-w-sm text-sm text-gray-400">Crea un proyecto para visualizar su rango en el calendario interno.</p>
-            </div>
           ) : (
-            <div className="min-h-0 flex-1 overflow-hidden">
-              <Calendar
-                localizer={localizer}
-                events={calendarEvents}
-                defaultView="month"
-                views={['month', 'week']}
-                messages={messages}
-                eventPropGetter={eventStyleGetter}
-                onSelectEvent={(event) => setSelectedProject(event.resource)}
-                style={{ height: '100%' }}
-              />
+            <div className="flex min-h-0 flex-1 flex-col">
+              <div className="min-h-0 flex-1 overflow-hidden">
+                <Calendar
+                  localizer={localizer}
+                  events={calendarEvents}
+                  date={calendarDate}
+                  view={calendarView}
+                  views={['month', 'week']}
+                  messages={messages}
+                  selectable
+                  eventPropGetter={eventStyleGetter}
+                  onNavigate={setCalendarDate}
+                  onView={setCalendarView}
+                  onSelectEvent={(event) => setSelectedProject(event.resource)}
+                  onSelectSlot={handleSelectSlot}
+                  popup
+                  style={{ height: '100%' }}
+                />
+              </div>
+              {projects.length === 0 && (
+                <div className="mt-3 flex items-center gap-2 rounded-lg border border-dashed border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-500">
+                  <FolderOpen size={16} className="text-gray-400" />
+                  No hay proyectos en esta cuenta. Puedes moverte por meses o seleccionar días para crear el primero.
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -159,10 +193,11 @@ export default function CalendarProjects() {
         )}
       </div>
 
-      <Modal isOpen={newModal} onClose={() => setNewModal(false)} title="Nuevo proyecto">
+      <Modal isOpen={newModal} onClose={closeNewProject} title="Nuevo proyecto">
         <ProjectForm
+          initialData={newProjectInitialData}
           onSubmit={handleCreate}
-          onCancel={() => setNewModal(false)}
+          onCancel={closeNewProject}
           loading={saving}
         />
       </Modal>

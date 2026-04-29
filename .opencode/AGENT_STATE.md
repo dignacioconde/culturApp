@@ -27,10 +27,10 @@ Estados sugeridos: `info`, `bloqueo`, `schema_changed`, `api_changed`, `ui_chang
 
 ### cultura-frontend
 
-- Estado: idle
+- Estado: done
 - Ownership actual: -
 - Depende de: `schema_changed`, `api_changed`
-- Ultima actualizacion: -
+- Ultima actualizacion: revision metricas cobro/hora corregida
 
 ### cultura-data
 
@@ -41,10 +41,10 @@ Estados sugeridos: `info`, `bloqueo`, `schema_changed`, `api_changed`, `ui_chang
 
 ### cultura-testing
 
-- Estado: idle
+- Estado: done
 - Ownership actual: -
 - Depende de: `schema_changed`, `api_changed`, `ui_changed`, `needs_review`
-- Ultima actualizacion: -
+- Ultima actualizacion: revisar metricas financieras
 
 ### cultura-review
 
@@ -83,3 +83,7 @@ Formato:
 ```
 
 <!-- Nuevos eventos encima de esta linea. -->
+
+- 2026-04-29 18:50 CET - cultura-frontend - done - Metrica cobro bruto/hora ajustada: solo ingresos cobrados vinculados a eventos / horas de esos eventos.
+- 2026-04-29 18:45 CET - cultura-testing - done - Revision metricas cobro/hora: veredicto con problemas, 3 riesgos (ProjectDetail infla tasa, Dashboard desfase, UX "-_" frecuente).
+- 2026-04-29 18:30 CET - cultura-frontend - needs_review - Revision metricas cobro bruto/hora: 6 hallazgos, 2 riesgos altos (ProjectDetail mezcla ingresos, Dashboard desfase temporal).
