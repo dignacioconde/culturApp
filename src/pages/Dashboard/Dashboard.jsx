@@ -31,11 +31,12 @@ export default function Dashboard() {
 
   const [selectedDate, setSelectedDate] = useState(dayjs())
   const [criteria, setCriteria] = useState('cash_flow')
+  const [pendingDays, setPendingDays] = useState(30)
 
   const startOfMonth = selectedDate.startOf('month').format('YYYY-MM-DD')
   const endOfMonth = selectedDate.endOf('month').format('YYYY-MM-DD')
   const today = dayjs().format('YYYY-MM-DD')
-  const in30Days = dayjs().add(30, 'day').format('YYYY-MM-DD')
+  const inPendingDays = dayjs().add(pendingDays, 'day').format('YYYY-MM-DD')
 
   const prevMonth = () => setSelectedDate((d) => d.subtract(1, 'month'))
   const nextMonth = () => setSelectedDate((d) => d.add(1, 'month'))
@@ -99,9 +100,9 @@ export default function Dashboard() {
 
   const pendingIncomes = useMemo(() =>
     incomes
-      .filter((i) => !i.is_paid && i.expected_date >= today && i.expected_date <= in30Days)
+      .filter((i) => !i.is_paid && i.expected_date >= today && i.expected_date <= inPendingDays)
       .sort((a, b) => a.expected_date.localeCompare(b.expected_date))
-  , [incomes, today, in30Days])
+  , [incomes, today, inPendingDays])
 
   const activeProjects = useMemo(() =>
     projects.filter((p) => p.status === 'confirmed' || p.status === 'in_progress')
@@ -230,16 +231,25 @@ export default function Dashboard() {
                 <Clock size={16} className="text-amber-500 flex-shrink-0" />
                 <h2 className="text-sm font-semibold text-gray-900">Cobros pendientes</h2>
               </div>
-              <span className="rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700 whitespace-nowrap">
-                30 días
-              </span>
+              <select
+                value={pendingDays}
+                onChange={(e) => setPendingDays(Number(e.target.value))}
+                className="text-xs border border-gray-200 rounded-full px-2.5 py-1 bg-white font-medium text-amber-700 outline-none focus:border-amber-400"
+                aria-label="Días para cobros pendientes"
+              >
+                <option value={7}>7 días</option>
+                <option value={14}>14 días</option>
+                <option value={30}>30 días</option>
+                <option value={60}>60 días</option>
+                <option value={90}>90 días</option>
+              </select>
             </div>
             {loading ? (
               <p className="text-sm text-gray-400">Cargando cobros...</p>
             ) : pendingIncomes.length === 0 ? (
               <div className="rounded-lg border border-dashed border-gray-200 bg-gray-50 px-4 py-8 text-center">
                 <p className="text-sm font-medium text-gray-700">Sin cobros próximos</p>
-                <p className="mt-1 text-sm text-gray-400">No hay importes pendientes en los próximos 30 días.</p>
+                <p className="mt-1 text-sm text-gray-400">No hay importes pendientes en los próximos {pendingDays} días.</p>
               </div>
             ) : (
               <div className="flex flex-col gap-2">

@@ -13,6 +13,7 @@ Mantienes la documentacion fiel al estado real del codigo y facil de usar para a
 
 ## Responsabilidades
 
+- Actua como owner de documentacion cuando el lead te mencione. Mantén docs sincronizadas con el estado real, no con intenciones.
 - Lee `.opencode/AGENT_STATE.md` al empezar. Si hay senales sobre arquitectura, SQL, scripts, agentes o deploy, revisa si la documentacion debe actualizarse.
 - Publica `done` cuando documentes una senal y `bloqueo` si falta validacion manual.
 - Actualizar `README.md`, `TECHDOC.md` y `AGENTS.md` cuando cambie arquitectura o flujo.

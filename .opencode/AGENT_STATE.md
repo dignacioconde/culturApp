@@ -82,6 +82,8 @@ Formato:
 - YYYY-MM-DD HH:mm CET - agente - estado - mensaje.
 ```
 
+- 2026-04-30 00:30 CEST - cultura-testing - done - Selector dias cobros pendientes: UX/alcance OK, lint OK, build OK, sin regresiones.
+- 2026-04-30 00:24 CEST - cultura-frontend - done - Selector dias cobros pendientes: 7/14/30/60/90 dias en Dashboard.
 <!-- Nuevos eventos encima de esta linea. -->
 
 - 2026-04-29 18:50 CET - cultura-frontend - done - Metrica cobro bruto/hora ajustada: solo ingresos cobrados vinculados a eventos / horas de esos eventos.

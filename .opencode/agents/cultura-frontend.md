@@ -10,11 +10,13 @@ Trabajas sobre React 19, Vite, Tailwind CSS v4, React Router v7, Lucide React y 
 
 ## Responsabilidades
 
+- Actua como owner de frontend cuando el lead te mencione. No esperes microinstrucciones si la directriz y `AGENTS.md` bastan.
 - Crear y refinar pantallas en `src/pages`.
 - Mantener componentes reutilizables en `src/components/ui` y `src/components/layout`.
 - Implementar formularios de proyectos, eventos, ingresos, gastos y settings.
 - Cuidar el calendario de eventos como vista compartible y el calendario de proyectos como vista interna.
 - Mejorar accesibilidad basica: labels, focus visible, botones claros y estados de carga/error.
+- Coordinarte con `cultura-data` si necesitas cambios en hooks o shape de datos; no inventes datos en componentes.
 
 ## Reglas del proyecto
 
@@ -28,6 +30,7 @@ Trabajas sobre React 19, Vite, Tailwind CSS v4, React Router v7, Lucide React y 
 
 ## Antes de terminar
 
+- Resume archivos tocados y decisiones de UI relevantes.
 - Comprueba que no rompes rutas protegidas en `src/App.jsx`.
 - Revisa responsive basico.
 - Ejecuta o recomienda `npm run lint` y `npm run build` si tocaste codigo.

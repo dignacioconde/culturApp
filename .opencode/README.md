@@ -3,18 +3,50 @@
 Esta carpeta define agentes especializados para ejecutar CulturaApp con OpenCode.
 Todos usan `opencode/minimax-m2.5-free` como modelo por defecto.
 
+## Ejecucion recomendada
+
+La entrada por defecto debe ser el lanzador estandar:
+
+```bash
+npm run agents:run -- "Describe la tarea"
+```
+
+Este comando envuelve la peticion en un contrato operativo con objetivo, autonomia, contexto, alcance, ownership, verificacion y salida esperada. Internamente usa `cultura-lead`, pero `cultura-lead` debe actuar como dispatcher minimo: enruta a subagentes, coordina dependencias y cierra con verificacion.
+
+Ejemplo con alcance explicito:
+
+```bash
+npm run agents:run -- --scope "src/pages/Events,src/hooks" --ownership "frontend: src/pages/Events; data: src/hooks" "Implementa filtros avanzados de eventos"
+```
+
+Usa `opencode run` directamente solo para depuracion o pruebas de agentes.
+
 ## Agente principal
 
 ```bash
 opencode --agent cultura-lead
 ```
 
-Usa este agente para coordinar trabajo completo de producto: priorizar, dividir tareas, pedir apoyo a subagentes y cerrar con verificacion.
+`cultura-lead` existe por una limitacion practica: OpenCode no ejecuta directamente los archivos con `mode: subagent`. No debe ser el implementador principal. Su funcion es enrutar:
+
+- UI -> `@cultura-frontend`
+- Datos/hooks/Supabase -> `@cultura-data`
+- Verificacion -> `@cultura-testing`
+- Revision tecnica -> `@cultura-review`
+- Seguridad -> `@cultura-security`
+- Release -> `@cultura-release`
+- Docs/agentes -> `@cultura-docs`
 
 Para ejecuciones no interactivas:
 
 ```bash
 opencode run --agent cultura-lead "Tu tarea aqui"
+```
+
+Preferible:
+
+```bash
+npm run agents:run -- "Tu tarea aqui"
 ```
 
 ## Subagentes disponibles
@@ -67,6 +99,52 @@ Flujo recomendado:
 2. Integra las recomendaciones en una unica decision de implementacion.
 3. Si necesitas escritura paralela, reparte ownership disjunto por archivos.
 4. Cierra con `cultura-testing` y `cultura-review`.
+
+## Plantilla de directriz
+
+Para maxima autonomia, escribe tareas con esta forma. Tambien esta disponible como `.opencode/AGENT_TASK_TEMPLATE.md`.
+
+```text
+OBJETIVO:
+Que debe quedar funcionando.
+
+AUTONOMIA:
+No preguntes salvo bloqueo real. Decide con AGENTS.md, codigo y pruebas.
+
+ALCANCE:
+Archivos, carpetas o modulos que se pueden tocar. Indica tambien lo que queda fuera.
+
+OWNERSHIP:
+Si hay varios agentes escribiendo, reparte ownership disjunto por archivos o modulos.
+
+VERIFICACION:
+Comandos esperados, por ejemplo npm run lint y npm run build.
+
+SALIDA:
+Subagentes usados, cambios, verificacion y riesgos/bloqueos.
+```
+
+Ejemplo:
+
+```text
+OBJETIVO:
+Anadir exportacion CSV de ingresos y gastos.
+
+AUTONOMIA:
+No preguntes salvo bloqueo real. No tocar Supabase remoto.
+
+ALCANCE:
+src/pages, src/hooks, src/lib. Fuera de alcance: deploy y migraciones SQL.
+
+OWNERSHIP:
+frontend: pantallas y botones; data: hooks/export helpers; testing: lint/build.
+
+VERIFICACION:
+npm run lint y npm run build.
+
+SALIDA:
+Resumen breve con archivos tocados, pruebas y riesgos.
+```
 
 ## Estado compartido entre agentes
 

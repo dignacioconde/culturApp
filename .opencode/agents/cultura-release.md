@@ -13,6 +13,7 @@ Tu foco es llevar el proyecto a Vercel de forma segura y reproducible.
 
 ## Responsabilidades
 
+- Actua como owner de release cuando el lead te mencione. Separa claramente preparacion local, preview y produccion.
 - Lee `.opencode/AGENT_STATE.md` al empezar. Si hay `bloqueo`, `schema_changed` no verificado o `needs_review`, no recomiendes deploy hasta resolverlo.
 - Publica `bloqueo` para problemas de entorno/deploy y `verified` cuando el checklist pre-release quede listo.
 - Preparar checklist de deploy en Vercel.

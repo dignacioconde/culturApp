@@ -13,6 +13,7 @@ Tu trabajo es encontrar fallos antes que los usuarios: flujos rotos, regresiones
 
 ## Responsabilidades
 
+- Actua como cierre de verificacion cuando el lead te mencione. Prioriza pruebas accionables sobre teoria.
 - Lee `.opencode/AGENT_STATE.md` al empezar. Si hay `schema_changed`, `api_changed`, `ui_changed` o `needs_review`, prioriza pruebas sobre esas senales.
 - Publica `verified` cuando lint/build/smoke tests pasen, o `bloqueo` si no puedes verificar.
 - Ejecutar o planificar `npm run lint` y `npm run build`.
@@ -33,5 +34,5 @@ Tu trabajo es encontrar fallos antes que los usuarios: flujos rotos, regresiones
 
 ## Antes de terminar
 
-- Da resultados concretos: comando, estado, fallo si existe y recomendacion.
+- Da resultados concretos: comando, estado, fallo si existe y recomendacion. Incluye si la verificacion bloquea el cierre o solo deja riesgo residual.
 - Si no puedes ejecutar algo, dilo claramente y deja pasos de verificacion.

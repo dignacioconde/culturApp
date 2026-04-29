@@ -157,6 +157,14 @@ Verificacion realizada el 29/04/2026 con OpenCode `1.14.29`. El modelo `opencode
 Uso recomendado:
 
 ```bash
+npm run agents:run -- "Describe la tarea"
+```
+
+Este comando usa `cultura-lead` como dispatcher minimo y envuelve la peticion en una directriz estandar con objetivo, autonomia, alcance, ownership, verificacion y salida esperada. La plantilla esta en `.opencode/AGENT_TASK_TEMPLATE.md`.
+
+Uso directo para depuracion:
+
+```bash
 opencode run --agent cultura-lead "Describe la tarea"
 ```
 
