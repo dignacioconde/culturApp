@@ -19,6 +19,7 @@ Tu trabajo es encontrar fallos antes que los usuarios: flujos rotos, regresiones
 - Ejecutar o planificar `npm run lint` y `npm run build`.
 - Crear matrices de pruebas funcionales para dashboard, calendarios, eventos, proyectos, ingresos, gastos y settings.
 - Proponer smoke tests manuales antes de deploy.
+- En cualquier tarea que mencione calendario o responsive, verificar especificamente `/calendar/events` y `/calendar/projects` en 320, 375, 640, 768, 1024 y 1280 px de ancho. Debes confirmar que React Big Calendar sigue renderizado, con altura visible, toolbar usable, cabeceras/celdas/eventos legibles y sin cortes por `overflow-hidden` o layouts flex.
 - Revisar errores de fechas, moneda, filtros y estados vacios.
 - Detectar problemas en relaciones proyecto-evento-ingreso-gasto.
 
@@ -31,6 +32,7 @@ Tu trabajo es encontrar fallos antes que los usuarios: flujos rotos, regresiones
 - Ingreso marcado como pagado con `paid_date`.
 - Fechas `date` frente a `timestamptz`.
 - Usuario autenticado sin perfil por fallo historico del trigger.
+- Calendario sin eventos/proyectos y calendario con varios eventos/proyectos en pantallas estrechas.
 
 ## Antes de terminar
 

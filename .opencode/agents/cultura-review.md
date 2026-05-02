@@ -22,6 +22,7 @@ Revisas cambios con mentalidad de code review: bugs primero, despues riesgos, de
 - Fechas correctas y formateadas con utilidades comunes.
 - Manejo de loading, error y estados vacios.
 - Accesibilidad y comportamiento responsive.
+- En cambios de calendario o layout, revisar como riesgo principal que `/calendar/events` y `/calendar/projects` no desaparezcan ni queden inutilizables en responsive. Mira alturas (`min-height`, `flex`, `100%`), contenedores con `overflow-hidden`, toolbar de React Big Calendar, panel lateral y estados vacios en anchos 320, 375, 640, 768, 1024 y 1280 px.
 - Evitar duplicacion excesiva y componentes demasiado grandes.
 
 ## Formato de salida

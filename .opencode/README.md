@@ -13,6 +13,8 @@ npm run agents:run -- "Describe la tarea"
 
 Este comando envuelve la peticion en un contrato operativo con objetivo, autonomia, contexto, alcance, ownership, verificacion y salida esperada. Internamente usa `cultura-lead`, pero `cultura-lead` debe actuar como dispatcher minimo: enruta a subagentes, coordina dependencias y cierra con verificacion.
 
+Cuando el usuario pida ejecutar agentes, no hagas una revision manual previa del codigo salvo que sea imprescindible para construir el comando, definir ownership seguro o resolver un bloqueo real. Los agentes deben leer `AGENTS.md`, `.opencode/AGENT_STATE.md` y el codigo necesario, diagnosticar y devolver hallazgos o cambios por si mismos.
+
 Ejemplo con alcance explicito:
 
 ```bash
@@ -84,6 +86,20 @@ Puedes elegir agentes concretos:
 ```bash
 npm run agents:parallel -- --agents frontend,data,testing "Evalua esta mejora de formularios"
 ```
+
+Para revisar problemas responsive de calendarios, incluye siempre frontend, testing y review:
+
+```bash
+npm run agents:parallel -- --agents frontend,testing,review "Revisa que /calendar/events y /calendar/projects sigan visibles y usables en responsive"
+```
+
+Para bugs visuales, no pidas solo "revisa responsividad". Incluye ruta, viewport, captura o descripcion visual exacta y criterio de aceptacion. Ejemplo:
+
+```text
+En /calendar/events con ventana compacta, React Big Calendar muestra toolbar y cabecera Sun-Mon-Tue, pero no pinta las filas del mes. Inspecciona alturas computadas de .rbc-calendar, .rbc-month-view y .rbc-month-row. No basta con cambiar min-h del card; verifica con screenshot que las semanas son visibles.
+```
+
+Nota especifica de calendarios: `react-big-calendar` necesita una altura real en su contenedor interno. `height: 100%` dentro de padres con solo `min-height`, `flex-1`, `min-h-0` u `overflow-hidden` puede dejar visibles toolbar/cabecera y colapsar la rejilla del mes.
 
 Los resultados se guardan en `.opencode/runs/<timestamp>/`, con un archivo Markdown por agente.
 

@@ -82,19 +82,32 @@ export default function Dashboard() {
   const kpis = useMemo(() => {
     const grossExpected = relevantIncomes.reduce((acc, i) => acc + Number(i.amount), 0)
     const paidIncomes = relevantIncomes.filter((i) => i.is_paid)
-    const paidEventIncomes = paidIncomes.filter((i) => i.event_id)
+    // Ingresos cobrados de eventos del mes seleccionado (filtrar por fecha de cobro)
+    const paidEventIncomes = paidIncomes.filter((i) => {
+      if (!i.event_id) return false
+      const incomeDate = i.paid_date ?? i.expected_date
+      return incomeDate >= startOfMonth && incomeDate <= endOfMonth
+    })
     const paidEventIds = new Set(paidEventIncomes.map((i) => i.event_id))
     const grossPaid = paidIncomes.reduce((acc, i) => acc + Number(i.amount), 0)
+    // Solo ingresos cobrados de eventos del mes para el cálculo de €/h
     const grossPaidFromEvents = paidEventIncomes.reduce((acc, i) => acc + Number(i.amount), 0)
     const totalRetentions = paidIncomes.reduce((acc, i) => acc + Number(i.amount) * (Number(i.tax_rate) / 100), 0)
     const totalExpenses = relevantExpenses.reduce((acc, e) => acc + Number(e.amount), 0)
+    // Horas de eventos del mes seleccionado que tienen ingresos cobrados asociados
     const billableHours = events
-      .filter((event) => paidEventIds.has(event.id))
+      .filter((event) => {
+        if (!paidEventIds.has(event.id)) return false
+        // El evento debe tener horas dentro del mes seleccionado (start o end dentro del rango)
+        const eventStart = dayjs(event.start_datetime).format('YYYY-MM-DD')
+        const eventEnd = event.end_datetime ? dayjs(event.end_datetime).format('YYYY-MM-DD') : eventStart
+        return eventStart <= endOfMonth && eventEnd >= startOfMonth
+      })
       .reduce((acc, event) => acc + getEventHours(event), 0)
     const grossHourlyRate = billableHours > 0 ? grossPaidFromEvents / billableHours : 0
     const netProfit = grossPaid - totalRetentions - totalExpenses
     return { grossExpected, grossPaid, totalRetentions, totalExpenses, billableHours, grossHourlyRate, netProfit }
-  }, [relevantIncomes, relevantExpenses, events])
+  }, [relevantIncomes, relevantExpenses, events, startOfMonth, endOfMonth])
 
   const pendingIncomes = useMemo(() =>
     incomes

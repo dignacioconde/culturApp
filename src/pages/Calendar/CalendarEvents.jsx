@@ -106,7 +106,7 @@ export default function CalendarEvents() {
   return (
     <PageWrapper title="Calendario de eventos">
       <div className="flex flex-col gap-4 lg:flex-row lg:h-[calc(100vh-8rem)]">
-        <div className="flex min-h-[620px] flex-1 flex-col rounded-xl border border-gray-200 bg-white p-3 sm:p-4">
+        <div className="flex flex-1 flex-col rounded-xl border border-gray-200 bg-white p-3 sm:p-4 lg:min-h-0">
           <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-sm font-medium text-gray-900">{events.length} eventos</p>
@@ -128,8 +128,8 @@ export default function CalendarEvents() {
               Cargando calendario...
             </div>
           ) : (
-            <div className="flex min-h-0 flex-1 flex-col">
-              <div className="min-h-0 flex-1 overflow-hidden">
+            <div className="flex flex-1 flex-col">
+              <div className="h-[560px] min-h-[560px] overflow-hidden sm:h-[640px] sm:min-h-[640px] lg:h-full lg:min-h-0">
                 <Calendar
                   localizer={localizer}
                   events={calendarEvents}

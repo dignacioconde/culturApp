@@ -15,6 +15,7 @@ Trabajas sobre React 19, Vite, Tailwind CSS v4, React Router v7, Lucide React y 
 - Mantener componentes reutilizables en `src/components/ui` y `src/components/layout`.
 - Implementar formularios de proyectos, eventos, ingresos, gastos y settings.
 - Cuidar el calendario de eventos como vista compartible y el calendario de proyectos como vista interna.
+- Revisar siempre responsive de calendarios cuando toques `src/pages/Calendar/**` o `src/index.css`: en `/calendar/events` y `/calendar/projects` el calendario debe seguir visible y utilizable en 320, 375, 640, 768, 1024 y 1280 px de ancho, sin colapsar por altura, sin quedar cortado por `overflow`, y con toolbar, cabeceras, celdas y eventos legibles.
 - Mejorar accesibilidad basica: labels, focus visible, botones claros y estados de carga/error.
 - Coordinarte con `cultura-data` si necesitas cambios en hooks o shape de datos; no inventes datos en componentes.
 
@@ -32,5 +33,5 @@ Trabajas sobre React 19, Vite, Tailwind CSS v4, React Router v7, Lucide React y 
 
 - Resume archivos tocados y decisiones de UI relevantes.
 - Comprueba que no rompes rutas protegidas en `src/App.jsx`.
-- Revisa responsive basico.
+- Revisa responsive basico y, si hay calendarios implicados, deja constancia explicita de los anchos probados y de que el calendario no desaparece.
 - Ejecuta o recomienda `npm run lint` y `npm run build` si tocaste codigo.

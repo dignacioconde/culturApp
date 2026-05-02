@@ -1,60 +1,35 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { PageWrapper } from '../../components/layout/PageWrapper'
 import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
 import { Input } from '../../components/ui/Input'
 import { useToast, ToastContainer } from '../../components/ui/Toast'
 import { useAuth } from '../../hooks/useAuth'
-import { supabase } from '../../supabaseClient'
+import { useProfile } from '../../hooks/useProfile'
 
 export default function Settings() {
   const { user, signOut } = useAuth()
   const { toasts, addToast, removeToast } = useToast()
-  const [form, setForm] = useState({ full_name: '', profession: '', tax_rate: 15 })
-  const [loading, setLoading] = useState(true)
+  const { profile, loading, error: profileError, updateProfile } = useProfile(user?.id)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
 
-  useEffect(() => {
-    if (!user) return
-    supabase
-      .from('profiles')
-      .select('full_name, profession, tax_rate')
-      .eq('id', user.id)
-      .single()
-      .then(({ data, error }) => {
-        if (error) {
-          setError('No hemos podido cargar tu perfil.')
-          setLoading(false)
-          return
-        }
-        if (data) setForm({ full_name: data.full_name ?? '', profession: data.profession ?? '', tax_rate: data.tax_rate ?? 15 })
-        setLoading(false)
-      })
-  }, [user])
-
-  const handleChange = (e) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-    setError('')
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (Number(form.tax_rate) < 0 || Number(form.tax_rate) > 100) {
+    const formData = new FormData(e.currentTarget)
+    const taxRate = Number(formData.get('tax_rate'))
+    if (taxRate < 0 || taxRate > 100) {
       setError('La retención IRPF debe estar entre 0 y 100.')
       return
     }
     setSaving(true)
-    const { error } = await supabase
-      .from('profiles')
-      .update({
-        full_name: form.full_name.trim(),
-        profession: form.profession.trim(),
-        tax_rate: Number(form.tax_rate),
-      })
-      .eq('id', user.id)
+    const { error: updateError } = await updateProfile({
+      full_name: formData.get('full_name').trim(),
+      profession: formData.get('profession').trim(),
+      tax_rate: taxRate,
+    })
     setSaving(false)
-    if (error) { addToast('Error al guardar los ajustes.', 'error'); return }
+    if (updateError) { addToast('Error al guardar los ajustes.', 'error'); return }
     addToast('Ajustes guardados correctamente.')
   }
 
@@ -68,22 +43,24 @@ export default function Settings() {
           </div>
           {loading ? (
             <p className="text-sm text-gray-400">Cargando...</p>
+          ) : profileError ? (
+            <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">No hemos podido cargar tu perfil.</p>
           ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <form key={profile?.id ?? user?.id} onSubmit={handleSubmit} className="flex flex-col gap-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Input
                   label="Nombre completo"
                   name="full_name"
-                  value={form.full_name}
-                  onChange={handleChange}
+                  defaultValue={profile?.full_name ?? ''}
+                  onChange={() => setError('')}
                   placeholder="Ana García"
                   autoComplete="name"
                 />
                 <Input
                   label="Profesión"
                   name="profession"
-                  value={form.profession}
-                  onChange={handleChange}
+                  defaultValue={profile?.profession ?? ''}
+                  onChange={() => setError('')}
                   placeholder="Música, fotógrafa, actriz..."
                   autoComplete="organization-title"
                 />
@@ -96,8 +73,8 @@ export default function Settings() {
                   max="100"
                   step="0.01"
                   name="tax_rate"
-                  value={form.tax_rate}
-                  onChange={handleChange}
+                  defaultValue={profile?.tax_rate ?? 15}
+                  onChange={() => setError('')}
                 />
               </div>
               <p className="text-xs text-gray-400">
@@ -106,7 +83,7 @@ export default function Settings() {
               {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>}
               <div className="flex justify-end">
                 <Button type="submit" disabled={saving} className="justify-center">
-                {saving ? 'Guardando...' : 'Guardar cambios'}
+                  {saving ? 'Guardando...' : 'Guardar cambios'}
                 </Button>
               </div>
             </form>

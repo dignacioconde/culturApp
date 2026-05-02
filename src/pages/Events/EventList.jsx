@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { AlertCircle, CalendarDays, FilterX, Plus, Search } from 'lucide-react'
 import { PageWrapper } from '../../components/layout/PageWrapper'
 import { Card } from '../../components/ui/Card'
@@ -19,6 +19,7 @@ export default function EventList() {
   const { events, loading, error, createEvent } = useEvents(user?.id)
   const { projects, loading: projectsLoading, error: projectsError } = useProjects(user?.id)
   const { toasts, addToast, removeToast } = useToast()
+  const [searchParams, setSearchParams] = useSearchParams()
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [saving, setSaving] = useState(false)
@@ -27,7 +28,15 @@ export default function EventList() {
   const [filterCategory, setFilterCategory] = useState('')
   const [filterProject, setFilterProject] = useState('')
 
-  const hasFilters = Boolean(search || filterStatus || filterCategory || filterProject)
+  const effectiveFilterProject = useMemo(() => {
+    const projectParam = searchParams.get('project')
+    if (projectParam) {
+      return projectParam
+    }
+    return filterProject
+  }, [searchParams, filterProject])
+
+  const hasFilters = Boolean(search || filterStatus || filterCategory || effectiveFilterProject)
   const categoryLabels = useMemo(() => Object.fromEntries(EVENT_CATEGORIES.map((c) => [c.value, c.label])), [])
   const projectById = useMemo(() => Object.fromEntries(projects.map((p) => [p.id, p])), [projects])
 
@@ -42,8 +51,8 @@ export default function EventList() {
     if (!matchesSearch) return false
     if (filterStatus && e.status !== filterStatus) return false
     if (filterCategory && e.category !== filterCategory) return false
-    if (filterProject === '__none__' && e.project_id) return false
-    if (filterProject && filterProject !== '__none__' && e.project_id !== filterProject) return false
+    if (effectiveFilterProject === '__none__' && e.project_id) return false
+    if (effectiveFilterProject && effectiveFilterProject !== '__none__' && e.project_id !== effectiveFilterProject) return false
     return true
   })
 
@@ -52,6 +61,11 @@ export default function EventList() {
     setFilterStatus('')
     setFilterCategory('')
     setFilterProject('')
+    if (searchParams.get('project')) {
+      const newParams = new URLSearchParams(searchParams)
+      newParams.delete('project')
+      setSearchParams(newParams)
+    }
   }
 
   const handleCreate = async (formData) => {
@@ -112,8 +126,15 @@ export default function EventList() {
               ))}
             </select>
             <select
-              value={filterProject}
-              onChange={(e) => setFilterProject(e.target.value)}
+              value={effectiveFilterProject}
+              onChange={(e) => {
+                setFilterProject(e.target.value)
+                if (searchParams.get('project')) {
+                  const newParams = new URLSearchParams(searchParams)
+                  newParams.delete('project')
+                  setSearchParams(newParams)
+                }
+              }}
               className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 outline-none focus:border-indigo-500 bg-white"
             >
               <option value="">Todos los proyectos</option>

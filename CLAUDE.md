@@ -40,6 +40,77 @@ La herramienta les permite:
 - Ahorrar palabras y tokens: responder de forma concisa salvo que el usuario pida detalle.
 - Para Codex, `AGENTS.md` es la fuente principal de contexto.
 - Este archivo se mantiene como espejo para Claude Code; si diverge, priorizar `AGENTS.md`.
+- Cuando el usuario pida ejecutar agentes/OpenCode, no hacer una investigacion manual previa por defecto. Lanzar los agentes con el flujo estipulado (`npm run agents:run` o `npm run agents:parallel`) y dejar que ellos lean contexto, diagnostiquen y propongan/ejecuten segun la tarea. Solo hacer trabajo previo minimo si es necesario para construir el comando, definir ownership seguro o resolver un bloqueo real.
+
+---
+
+## Flujo de trabajo con agentes OpenCode
+
+Este proyecto debe evolucionar mediante agentes OpenCode cuando el usuario lo pida. Tratar a los agentes como un equipo de desarrollo con tareas cerradas, ownership claro y verificacion obligatoria.
+
+### Principios
+
+- `AGENTS.md` es el contrato principal: cada agente debe leerlo completo antes de tocar archivos.
+- Dar a los agentes objetivos concretos, no misiones amplias tipo "mejora toda la app".
+- Separar investigacion, implementacion y revision cuando la tarea tenga riesgo o varias areas afectadas.
+- No hacer investigacion manual previa por defecto: lanzar agentes y dejar que diagnostiquen, salvo que haga falta definir ownership, preparar el comando o resolver un bloqueo.
+- Trabajar con ramas/PRs cuando el cambio sea integrable en GitHub; no meter cambios grandes directos en `main`.
+
+### Roles recomendados
+
+- **Explorer**: lee codigo, diagnostica y propone. No edita archivos.
+- **Worker**: implementa una tarea concreta. Debe tener ownership explicito de archivos o modulos.
+- **Reviewer**: revisa el diff desde postura de code review: bugs, regresiones, inconsistencias con `AGENTS.md` y pruebas faltantes.
+
+### Uso de comandos
+
+Usar el flujo estipulado:
+
+```bash
+npm run agents:run -- "Tarea concreta..."
+npm run agents:parallel -- "Explorer: ..." "Worker: ..."
+```
+
+Cuando haya agentes en paralelo, asignar ownership disjunto:
+
+- `src/pages/Events/*`
+- `src/hooks/useEvents.js`
+- `src/pages/Projects/*`
+- Solo revision, sin editar
+
+### Definition of Done
+
+Una tarea de agente se considera terminada solo cuando:
+
+- Respeta `AGENTS.md`.
+- Mantiene la UI en espanol de Espana y el tuteo.
+- No rompe rutas existentes.
+- No llama a Supabase directamente desde componentes; usa hooks.
+- Ejecuta `npm run build` correctamente si toca codigo de app.
+- Ejecuta `npm run lint` si esta disponible y aplica al cambio.
+- Si toca logica financiera, explica el calculo afectado.
+- Si toca datos, respeta RLS, `user_id` y el modelo evento/proyecto.
+- Entrega resumen corto: archivos tocados, cambios hechos y pruebas ejecutadas.
+
+### Issues visuales y responsive
+
+Cuando una tarea sea visual, responsive o dependa de un componente de terceros con layout propio (especialmente `react-big-calendar`), no basta con inspeccionar clases Tailwind o ejecutar lint/build.
+
+El prompt para agentes debe incluir:
+
+- Ruta exacta afectada, por ejemplo `/calendar/events`.
+- Viewport o condicion de reproduccion: ancho, alto, zoom o "ventana compacta".
+- Sintoma visual concreto: que se ve y que deberia verse.
+- Captura si existe.
+- Criterio de aceptacion visual verificable.
+
+Ejemplo de prompt util:
+
+```text
+Reproduce en navegador con viewport compacto. En /calendar/events, al reducir la ventana, React Big Calendar muestra toolbar y cabecera Sun-Mon-Tue, pero no pinta las filas del mes. Inspecciona alturas computadas de .rbc-calendar, .rbc-month-view y .rbc-month-row. No basta con cambiar min-h del card; verifica con screenshot que las semanas son visibles.
+```
+
+Para calendarios, recordar: `react-big-calendar` necesita una altura real calculable en el contenedor interno. Si se usa `style={{ height: '100%' }}` dentro de padres con `min-height`, `flex-1`, `min-h-0` u `overflow-hidden`, puede renderizar toolbar/cabecera pero colapsar las filas del mes. La verificacion debe confirmar que se ven las semanas, no solo que desaparece el overflow.
 
 ---
 

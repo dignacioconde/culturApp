@@ -180,6 +180,14 @@ El script lanza varios procesos `opencode run --agent cultura-lead` a la vez, ca
 
 La coordinacion entre agentes usa `.opencode/AGENT_STATE.md` como pizarra compartida. Cada agente la lee al arrancar y puede publicar senales como `schema_changed`, `api_changed`, `ui_changed`, `needs_review`, `verified` o `bloqueo`. Esto permite que, por ejemplo, `cultura-frontend` reaccione a un cambio publicado por `cultura-data` sin esperar a una nueva instruccion del lead. El archivo es solo coordinacion operativa: la fuente de verdad siguen siendo `AGENTS.md`, el codigo y las pruebas.
 
+### Leccion tecnica: bugs visuales en calendarios
+
+Los bugs visuales y responsive deben entregarse a agentes con reproduccion concreta, no solo como "revisa responsividad". El prompt debe incluir ruta, viewport/condicion, captura si existe, sintoma visual y criterio de aceptacion.
+
+Caso registrado: en `/calendar/events`, con ventana compacta, `react-big-calendar` podia mostrar toolbar y cabecera de dias pero no las filas del mes. La causa no era solo una clase `min-h-*` demasiado grande: el calendario tenia `style={{ height: '100%' }}` dentro de padres con altura no suficientemente calculable (`min-height`, `flex-1`, `min-h-0`, `overflow-hidden`). En esa combinacion, la libreria puede calcular espacio para toolbar/cabecera y colapsar la rejilla.
+
+Criterio de aceptacion para calendarios: verificar visualmente que se ven toolbar, cabecera y semanas/filas del mes en viewport compacto y desktop. Lint/build no validan este caso.
+
 ### No implementado (fuera del alcance del MVP)
 
 - Paginación o virtualización de listas
