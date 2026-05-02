@@ -184,6 +184,11 @@ export default function EventDetail() {
   return (
     <PageWrapper title={event.name}>
       <div className="flex flex-col gap-6 max-w-4xl">
+        <nav className="flex items-center gap-1.5 text-xs text-gray-400 breadcrumbs">
+          <Link to="/events" className="hover:text-gray-600">Eventos</Link>
+          <span>/</span>
+          <span className="text-gray-600">{event.name}</span>
+        </nav>
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
           <div className="flex items-center gap-3">
             <Link to="/events" className="text-gray-400 hover:text-gray-700">
@@ -212,10 +217,10 @@ export default function EventDetail() {
             </div>
           </div>
           <div className="flex flex-wrap gap-2 sm:justify-end">
-            <Button variant="secondary" size="sm" onClick={() => setEditModal(true)}>
+            <Button variant="secondary" size="sm" onClick={() => setEditModal(true)} className="min-h-11 min-w-[5.5rem]">
               <Edit size={14} /> Editar
             </Button>
-            <Button variant="danger" size="sm" onClick={handleDeleteEvent}>
+            <Button variant="danger" size="sm" onClick={handleDeleteEvent} className="min-h-11 min-w-[5.5rem]">
               <Trash2 size={14} /> Eliminar
             </Button>
           </div>
@@ -266,9 +271,9 @@ export default function EventDetail() {
                 <Plus size={14} /> Añadir primer ingreso
               </Button>
             </div>
-          ) : (
-            <div className="overflow-x-auto">
-            <table className="w-full min-w-[680px] text-sm">
+) : (
+            <div className="relative overflow-x-auto">
+              <table className="w-full min-w-[680px] text-sm">
               <thead>
                 <tr className="text-xs text-gray-400 border-b border-gray-100">
                   <th className="text-left pb-2 font-medium">Concepto</th>
@@ -331,46 +336,46 @@ export default function EventDetail() {
                 <Plus size={14} /> Añadir primer gasto
               </Button>
             </div>
-          ) : (
-            <div className="overflow-x-auto">
-            <table className="w-full min-w-[640px] text-sm">
-              <thead>
-                <tr className="text-xs text-gray-400 border-b border-gray-100">
-                  <th className="text-left pb-2 font-medium">Concepto</th>
-                  <th className="text-right pb-2 font-medium">Importe</th>
-                  <th className="text-right pb-2 font-medium">Categoría</th>
-                  <th className="text-right pb-2 font-medium">Fecha</th>
-                  <th className="text-center pb-2 font-medium">Deducible</th>
-                  <th className="pb-2" />
-                </tr>
-              </thead>
-              <tbody>
-                {expenses.map((expense) => (
-                  <tr key={expense.id} className="border-b border-gray-50 last:border-0 group">
-                    <td className="py-2">
-                      <button
-                        onClick={() => openEditExpense(expense)}
-                        className="text-gray-900 hover:text-indigo-600 hover:underline text-left transition-colors"
-                      >
-                        {expense.concept}
-                      </button>
-                    </td>
-                    <td className="py-2 text-right font-medium">{formatCurrency(expense.amount)}</td>
-                    <td className="py-2 text-right text-gray-500 capitalize">{expense.category}</td>
-                    <td className="py-2 text-right text-gray-500">{formatDate(expense.expense_date)}</td>
-                    <td className="py-2 text-center">
-                      {expense.is_deductible
-                        ? <CheckCircle size={14} className="text-green-500 mx-auto" />
-                        : <Circle size={14} className="text-gray-300 mx-auto" />}
-                    </td>
-                    <td className="py-2 text-right">
-                      <button onClick={() => deleteExpense(expense.id)} className="text-gray-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100">
-                        <Trash2 size={14} />
-                      </button>
-                    </td>
+) : (
+            <div className="relative overflow-x-auto">
+              <table className="w-full min-w-[640px] text-sm">
+                <thead>
+                  <tr className="text-xs text-gray-400 border-b border-gray-100">
+                    <th className="text-left pb-2 font-medium">Concepto</th>
+                    <th className="text-right pb-2 font-medium">Importe</th>
+                    <th className="text-right pb-2 font-medium">Categoría</th>
+                    <th className="text-right pb-2 font-medium">Fecha</th>
+                    <th className="text-center pb-2 font-medium">Deducible</th>
+                    <th className="pb-2" />
                   </tr>
-                ))}
-              </tbody>
+                </thead>
+                <tbody>
+                  {expenses.map((expense) => (
+                    <tr key={expense.id} className="border-b border-gray-50 last:border-0 group">
+                      <td className="py-2">
+                        <button
+                          onClick={() => openEditExpense(expense)}
+                          className="text-gray-900 hover:text-indigo-600 hover:underline text-left transition-colors"
+                        >
+                          {expense.concept}
+                        </button>
+                      </td>
+                      <td className="py-2 text-right font-medium">{formatCurrency(expense.amount)}</td>
+                      <td className="py-2 text-right text-gray-500 capitalize">{expense.category}</td>
+                      <td className="py-2 text-right text-gray-500">{formatDate(expense.expense_date)}</td>
+                      <td className="py-2 text-center">
+                        {expense.is_deductible
+                          ? <CheckCircle size={14} className="text-green-500 mx-auto" />
+                          : <Circle size={14} className="text-gray-300 mx-auto" />}
+                      </td>
+                      <td className="py-2 text-right">
+                        <button onClick={() => deleteExpense(expense.id)} className="text-gray-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100">
+                          <Trash2 size={14} />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
             </table>
             </div>
           )}
@@ -403,7 +408,7 @@ export default function EventDetail() {
             placeholder="Actuación principal"
             required
           />
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <Input
               label="Importe (€) *"
               type="number" min="0" step="0.01"
@@ -417,18 +422,18 @@ export default function EventDetail() {
               value={incomeForm.tax_rate}
               onChange={(e) => setIncomeForm((p) => ({ ...p, tax_rate: e.target.value }))}
             />
-          </div>
-          <Input
-            label="Fecha prevista de cobro"
-            type="date"
-            value={incomeForm.expected_date}
-            onChange={(e) => setIncomeForm((p) => ({ ...p, expected_date: e.target.value }))}
-          />
-          <div className="flex items-center gap-2">
-            <input type="checkbox" id="is_paid" checked={incomeForm.is_paid}
-              onChange={(e) => setIncomeForm((p) => ({ ...p, is_paid: e.target.checked }))}
-              className="rounded" />
-            <label htmlFor="is_paid" className="text-sm text-gray-700">Ya está cobrado</label>
+            <Input
+              label="Fecha prevista de cobro"
+              type="date"
+              value={incomeForm.expected_date}
+              onChange={(e) => setIncomeForm((p) => ({ ...p, expected_date: e.target.value }))}
+            />
+            <div className="flex items-center gap-2">
+              <input type="checkbox" id="is_paid" checked={incomeForm.is_paid}
+                onChange={(e) => setIncomeForm((p) => ({ ...p, is_paid: e.target.checked }))}
+                className="h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+              <label htmlFor="is_paid" className="text-sm text-gray-700">Ya está cobrado</label>
+            </div>
           </div>
           <div className="flex gap-3 justify-end">
             <Button type="button" variant="secondary" onClick={() => setIncomeModal(false)}>Cancelar</Button>
@@ -448,7 +453,7 @@ export default function EventDetail() {
             placeholder="Alquiler sala de ensayo"
             required
           />
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <Input
               label="Importe (€) *"
               type="number" min="0" step="0.01"
@@ -463,19 +468,19 @@ export default function EventDetail() {
             >
               {EXPENSE_CATEGORIES.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}
             </Select>
-          </div>
-          <Input
-            label="Fecha *"
-            type="date"
-            value={expenseForm.expense_date}
-            onChange={(e) => setExpenseForm((p) => ({ ...p, expense_date: e.target.value }))}
-            required
-          />
-          <div className="flex items-center gap-2">
-            <input type="checkbox" id="is_deductible" checked={expenseForm.is_deductible}
-              onChange={(e) => setExpenseForm((p) => ({ ...p, is_deductible: e.target.checked }))}
-              className="rounded" />
-            <label htmlFor="is_deductible" className="text-sm text-gray-700">Gasto deducible fiscalmente</label>
+            <Input
+              label="Fecha *"
+              type="date"
+              value={expenseForm.expense_date}
+              onChange={(e) => setExpenseForm((p) => ({ ...p, expense_date: e.target.value }))}
+              required
+            />
+            <div className="flex items-center gap-2">
+              <input type="checkbox" id="is_deductible" checked={expenseForm.is_deductible}
+                onChange={(e) => setExpenseForm((p) => ({ ...p, is_deductible: e.target.checked }))}
+                className="h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+              <label htmlFor="is_deductible" className="text-sm text-gray-700">Gasto deducible fiscalmente</label>
+            </div>
           </div>
           <div className="flex gap-3 justify-end">
             <Button type="button" variant="secondary" onClick={() => setExpenseModal(false)}>Cancelar</Button>

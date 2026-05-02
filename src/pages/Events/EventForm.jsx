@@ -65,7 +65,7 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
       <section className="flex flex-col gap-4">
         <div>
           <h3 className="text-sm font-semibold text-gray-900">Información básica</h3>
-          <p className="text-xs text-gray-500 mt-1">Nombre, cliente y clasificación para encontrarlo rápido.</p>
+          <p className="text-sm text-gray-600 mt-1">Nombre, cliente y clasificación para encontrarlo rápido.</p>
         </div>
         <Input
           label="Nombre del evento *"
@@ -83,7 +83,7 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
           placeholder="Ayuntamiento de Madrid"
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <Select label="Categoría" name="category" value={form.category} onChange={handleChange}>
             {EVENT_CATEGORIES.map((c) => (
               <option key={c.value} value={c.value}>{c.label}</option>
@@ -100,7 +100,7 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
       <section className="flex flex-col gap-4 border-t border-gray-100 pt-5">
         <div>
           <h3 className="text-sm font-semibold text-gray-900">Planificación</h3>
-          <p className="text-xs text-gray-500 mt-1">El calendario de eventos usa fecha y hora exactas.</p>
+          <p className="text-sm text-gray-600 mt-1">El calendario de eventos usa fecha y hora exactas.</p>
         </div>
 
         <Select label="Proyecto relacionado" name="project_id" value={form.project_id} onChange={handleChange}>
@@ -110,13 +110,14 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
           ))}
         </Select>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <Input
             label="Inicio *"
             type="datetime-local"
             name="start_datetime"
             value={form.start_datetime}
             onChange={handleChange}
+            defaultTime="08:00"
             required
           />
           <Input
@@ -125,6 +126,7 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
             name="end_datetime"
             value={form.end_datetime}
             onChange={handleChange}
+            defaultTime={form.start_datetime?.slice(11, 16) || '08:00'}
           />
         </div>
       </section>
@@ -132,7 +134,7 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
       <section className="flex flex-col gap-4 border-t border-gray-100 pt-5">
         <div>
           <h3 className="text-sm font-semibold text-gray-900">Notas y calendario</h3>
-          <p className="text-xs text-gray-500 mt-1">El color ayuda a distinguirlo en las vistas de calendario.</p>
+          <p className="text-sm text-gray-600 mt-1">El color ayuda a distinguirlo en las vistas de calendario.</p>
         </div>
         <div className="flex flex-col gap-2">
           <label className="text-sm font-medium text-gray-700">Color en calendario</label>
@@ -143,7 +145,7 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
                 type="button"
                 aria-label={`Usar color ${color}`}
                 onClick={() => setForm((prev) => ({ ...prev, color }))}
-                className={`w-8 h-8 rounded-full transition-transform ${form.color === color ? 'scale-110 ring-2 ring-offset-2 ring-gray-500' : 'hover:scale-105'}`}
+                className={`h-10 w-10 rounded-full transition-transform ${form.color === color ? 'scale-110 ring-2 ring-offset-2 ring-gray-500' : 'hover:scale-105'}`}
                 style={{ backgroundColor: color }}
               />
             ))}

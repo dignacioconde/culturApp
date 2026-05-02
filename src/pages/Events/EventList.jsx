@@ -6,6 +6,7 @@ import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
 import { StatusBadge } from '../../components/ui/Badge'
 import { Modal } from '../../components/ui/Modal'
+import { Select } from '../../components/ui/Input'
 import { useToast, ToastContainer } from '../../components/ui/Toast'
 import { EventForm } from './EventForm'
 import { useAuth } from '../../hooks/useAuth'
@@ -105,27 +106,25 @@ export default function EventList() {
                 className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-gray-300 outline-none focus:border-indigo-500"
               />
             </div>
-            <select
+            <Select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 outline-none focus:border-indigo-500 bg-white"
             >
               <option value="">Todos los estados</option>
               {EVENT_STATUSES.map((s) => (
                 <option key={s.value} value={s.value}>{s.label}</option>
               ))}
-            </select>
-            <select
+            </Select>
+            <Select
               value={filterCategory}
               onChange={(e) => setFilterCategory(e.target.value)}
-              className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 outline-none focus:border-indigo-500 bg-white"
             >
               <option value="">Todas las categorías</option>
               {EVENT_CATEGORIES.map((c) => (
                 <option key={c.value} value={c.value}>{c.label}</option>
               ))}
-            </select>
-            <select
+            </Select>
+            <Select
               value={effectiveFilterProject}
               onChange={(e) => {
                 setFilterProject(e.target.value)
@@ -135,14 +134,13 @@ export default function EventList() {
                   setSearchParams(newParams)
                 }
               }}
-              className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 outline-none focus:border-indigo-500 bg-white"
             >
               <option value="">Todos los proyectos</option>
               <option value="__none__">Sin proyecto</option>
               {projects.map((p) => (
                 <option key={p.id} value={p.id}>{p.name}</option>
               ))}
-            </select>
+            </Select>
             {hasFilters && (
               <Button variant="ghost" onClick={clearFilters} className="justify-center whitespace-nowrap">
                 <FilterX size={16} />
@@ -170,18 +168,25 @@ export default function EventList() {
             ))}
           </div>
         ) : filtered.length === 0 ? (
-          <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-gray-200 bg-gray-50 px-4 py-16 text-center">
+          <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-gray-200 bg-gray-50 px-4 py-8 text-center">
             <CalendarDays size={36} className="text-gray-300" />
             <p className="mt-3 text-sm font-medium text-gray-700">
-              {hasFilters ? 'No hay eventos que coincidan' : 'Todavía no hay eventos'}
+              {hasFilters ? 'No hay eventos que coincidan' : 'No hay eventos todavía'}
             </p>
             <p className="mt-1 max-w-sm text-sm text-gray-400">
-              {hasFilters ? 'Ajusta la búsqueda o limpia los filtros para ver más resultados.' : 'Crea tu primer evento para verlo en la lista y en el calendario compartible.'}
+              {hasFilters 
+                ? 'Ajusta la búsqueda o limpia los filtros para ver más resultados.' 
+                : 'Crea tu primer evento para verlo en la lista y en el calendario compartible.'}
             </p>
-            {hasFilters && (
+            {hasFilters ? (
               <Button variant="secondary" size="sm" onClick={clearFilters} className="mt-4">
                 <FilterX size={16} />
                 Limpiar filtros
+              </Button>
+            ) : (
+              <Button size="sm" onClick={() => setIsModalOpen(true)} className="mt-4">
+                <Plus size={16} />
+                Crear evento
               </Button>
             )}
           </div>

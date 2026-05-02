@@ -5,6 +5,7 @@ import { TrendingUp, Wallet, Receipt, PiggyBank, Clock, FolderOpen, ChevronLeft,
 import { PageWrapper } from '../../components/layout/PageWrapper'
 import { Card } from '../../components/ui/Card'
 import { StatusBadge } from '../../components/ui/Badge'
+import { Select } from '../../components/ui/Input'
 import { KpiCard } from './KpiCard'
 import { useAuth } from '../../hooks/useAuth'
 import { useProjects } from '../../hooks/useProjects'
@@ -162,14 +163,13 @@ export default function Dashboard() {
                 <button onClick={nextMonth} className="p-2 rounded-lg hover:bg-gray-100 text-gray-500 transition-colors" aria-label="Mes siguiente">
                   <ChevronRight size={18} />
                 </button>
-                <select
+                <Select
                   value={selectedDate.year()}
                   onChange={(e) => setSelectedDate((d) => d.year(Number(e.target.value)))}
-                  className="text-sm border border-gray-300 rounded-lg px-2 py-2 outline-none focus:border-indigo-500 bg-white"
                   aria-label="Año"
                 >
                   {YEARS.map((y) => <option key={y} value={y}>{y}</option>)}
-                </select>
+                </Select>
               </div>
 
               <div className="grid grid-cols-2 rounded-lg border border-gray-200 overflow-hidden text-sm sm:w-auto">
@@ -198,7 +198,7 @@ export default function Dashboard() {
         )}
 
         {loading ? (
-          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
             {Array.from({ length: 5 }).map((_, i) => (
               <div key={i} className="rounded-xl border border-gray-100 bg-white p-4 sm:p-5 animate-pulse">
                 <div className="flex items-start gap-3">
@@ -213,7 +213,7 @@ export default function Dashboard() {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
             <KpiCard
               title="Ingresos previstos"
               value={formatCurrency(kpis.grossExpected)}
@@ -259,10 +259,10 @@ export default function Dashboard() {
                 <Clock size={18} className="text-amber-500 flex-shrink-0" />
                 <h2 className="text-base font-semibold text-gray-900">Cobros pendientes</h2>
               </div>
-              <select
+              <Select
                 value={pendingDays}
                 onChange={(e) => setPendingDays(Number(e.target.value))}
-                className="text-xs border border-gray-200 rounded-full px-2.5 py-1 bg-white font-medium text-amber-700 outline-none focus:border-amber-400"
+                className="min-h-10 rounded-full px-3 py-2 text-sm font-medium text-amber-700"
                 aria-label="Días para cobros pendientes"
               >
                 <option value={7}>7 días</option>
@@ -270,7 +270,7 @@ export default function Dashboard() {
                 <option value={30}>30 días</option>
                 <option value={60}>60 días</option>
                 <option value={90}>90 días</option>
-              </select>
+              </Select>
             </div>
             {loading ? (
               <div className="flex flex-col gap-3 animate-pulse">
@@ -285,7 +285,7 @@ export default function Dashboard() {
                 ))}
               </div>
             ) : pendingIncomes.length === 0 ? (
-              <div className="rounded-lg border border-dashed border-gray-200 bg-gray-50 px-4 py-8 text-center">
+              <div className="rounded-lg border border-dashed border-gray-200 bg-gray-50 px-4 py-4 text-center">
                 <p className="text-sm font-medium text-gray-700">Sin cobros próximos</p>
                 <p className="mt-1 text-sm text-gray-400">No hay importes pendientes en los próximos {pendingDays} días.</p>
               </div>
@@ -346,7 +346,7 @@ export default function Dashboard() {
                 ))}
               </div>
             ) : activeProjects.length === 0 ? (
-              <div className="rounded-lg border border-dashed border-gray-200 bg-gray-50 px-4 py-8 text-center">
+              <div className="rounded-lg border border-dashed border-gray-200 bg-gray-50 px-4 py-4 text-center">
                 <p className="text-sm font-medium text-gray-700">Sin proyectos activos</p>
                 <p className="mt-1 text-sm text-gray-400">Los proyectos confirmados o en curso aparecerán aquí.</p>
               </div>

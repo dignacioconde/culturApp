@@ -16,6 +16,14 @@ import { formatDatetime } from '../../lib/formatters'
 import { AlertCircle, CalendarDays, Plus, X } from 'lucide-react'
 
 const localizer = dayjsLocalizer(dayjs)
+const calendarMinTime = new Date(1970, 0, 1, 8, 0)
+const calendarMaxTime = new Date(1970, 0, 1, 23, 0)
+const calendarFormats = {
+  timeGutterFormat: 'HH:mm',
+  dayFormat: (date) => dayjs(date).format('D ddd'),
+  dayHeaderFormat: (date) => dayjs(date).format('dddd D MMMM'),
+  dayRangeHeaderFormat: ({ start, end }) => `${dayjs(start).format('D MMM')} – ${dayjs(end).format('D MMM')}`,
+}
 
 const messages = {
   allDay: 'Todo el día',
@@ -44,6 +52,7 @@ export default function CalendarEvents() {
   const [newEventInitialData, setNewEventInitialData] = useState(null)
   const [saving, setSaving] = useState(false)
   const { toasts, addToast, removeToast } = useToast()
+  const timeGridMinWidth = calendarView === 'week' ? 'min-w-[46rem]' : calendarView === 'day' ? 'min-w-[22rem]' : 'min-w-full'
 
   const calendarEvents = useMemo(() =>
     events.map((e) => ({
@@ -89,7 +98,7 @@ export default function CalendarEvents() {
     const slotStart = dayjs(start)
     const startsAtMidnight = slotStart.hour() === 0 && slotStart.minute() === 0
     const eventStart = startsAtMidnight && calendarView === 'month'
-      ? slotStart.hour(9)
+      ? slotStart.hour(8)
       : slotStart
     const eventEnd = calendarView === 'month'
       ? eventStart.add(1, 'hour')
@@ -129,27 +138,32 @@ export default function CalendarEvents() {
             </div>
           ) : (
             <div className="flex flex-1 flex-col">
-              <div className="h-[560px] min-h-[560px] overflow-hidden sm:h-[640px] sm:min-h-[640px] lg:h-full lg:min-h-0">
-                <Calendar
-                  localizer={localizer}
-                  events={calendarEvents}
-                  date={calendarDate}
-                  view={calendarView}
-                  views={['month', 'week', 'day']}
-                  messages={messages}
-                  selectable
-                  eventPropGetter={eventStyleGetter}
-                  onNavigate={setCalendarDate}
-                  onView={setCalendarView}
-                  onSelectEvent={(event) => setSelectedEvent(event.resource)}
-                  onSelectSlot={handleSelectSlot}
-                  popup
-                  style={{ height: '100%' }}
-                />
+              <div className="h-[560px] min-h-[560px] overflow-x-auto overflow-y-hidden sm:h-[640px] sm:min-h-[640px] lg:h-full lg:min-h-0">
+                <div className={`h-full ${timeGridMinWidth}`}>
+                  <Calendar
+                    localizer={localizer}
+                    events={calendarEvents}
+                    date={calendarDate}
+                    view={calendarView}
+                    views={['month', 'week', 'day']}
+                    messages={messages}
+                    formats={calendarFormats}
+                    selectable
+                    eventPropGetter={eventStyleGetter}
+                    onNavigate={setCalendarDate}
+                    onView={setCalendarView}
+                    onSelectEvent={(event) => setSelectedEvent(event.resource)}
+                    onSelectSlot={handleSelectSlot}
+                    min={calendarMinTime}
+                    max={calendarMaxTime}
+                    popup
+                    style={{ height: '100%' }}
+                  />
+                </div>
               </div>
               {events.length === 0 && (
-                <div className="mt-3 flex items-center gap-2 rounded-lg border border-dashed border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-500">
-                  <CalendarDays size={16} className="text-gray-400" />
+                <div className="mt-3 flex items-center gap-2 rounded-lg border border-dashed border-gray-200 bg-gray-50 px-4 py-4 text-sm text-gray-500">
+                  <CalendarDays size={16} className="text-gray-400 flex-shrink-0" />
                   No hay eventos en esta cuenta. Puedes moverte por meses o seleccionar un hueco para crear el primero.
                 </div>
               )}
@@ -161,8 +175,8 @@ export default function CalendarEvents() {
           <div className="w-full lg:w-80 bg-white rounded-xl border border-gray-200 p-5 flex flex-col gap-4">
             <div className="flex items-start justify-between">
               <div className="w-3 h-3 rounded-full mt-1 flex-shrink-0" style={{ backgroundColor: selectedEvent.color ?? '#4f98a3' }} />
-              <button onClick={() => setSelectedEvent(null)} className="text-gray-400 hover:text-gray-600" aria-label="Cerrar panel">
-                <X size={18} />
+              <button onClick={() => setSelectedEvent(null)} className="text-gray-400 hover:text-gray-600 -mr-1 -mt-1 p-1.5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500" aria-label="Cerrar panel">
+                <X size={20} />
               </button>
             </div>
             <div className="min-w-0">

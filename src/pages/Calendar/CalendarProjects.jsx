@@ -15,6 +15,10 @@ import { formatDate } from '../../lib/formatters'
 import { AlertCircle, FolderOpen, Plus, X } from 'lucide-react'
 
 const localizer = dayjsLocalizer(dayjs)
+const calendarFormats = {
+  dayFormat: (date) => dayjs(date).format('D ddd'),
+  dayRangeHeaderFormat: ({ start, end }) => `${dayjs(start).format('D MMM')} – ${dayjs(end).format('D MMM')}`,
+}
 
 const messages = {
   allDay: 'Todo el día',
@@ -42,6 +46,7 @@ export default function CalendarProjects() {
   const [newProjectInitialData, setNewProjectInitialData] = useState(null)
   const [saving, setSaving] = useState(false)
   const { toasts, addToast, removeToast } = useToast()
+  const calendarMinWidth = calendarView === 'week' ? 'min-w-[46rem]' : 'min-w-full'
 
   const calendarEvents = useMemo(() =>
     projects.map((p) => ({
@@ -122,27 +127,30 @@ export default function CalendarProjects() {
             </div>
           ) : (
             <div className="flex flex-1 flex-col">
-              <div className="h-[560px] min-h-[560px] overflow-hidden sm:h-[640px] sm:min-h-[640px] lg:h-full lg:min-h-0">
-                <Calendar
-                  localizer={localizer}
-                  events={calendarEvents}
-                  date={calendarDate}
-                  view={calendarView}
-                  views={['month', 'week']}
-                  messages={messages}
-                  selectable
-                  eventPropGetter={eventStyleGetter}
-                  onNavigate={setCalendarDate}
-                  onView={setCalendarView}
-                  onSelectEvent={(event) => setSelectedProject(event.resource)}
-                  onSelectSlot={handleSelectSlot}
-                  popup
-                  style={{ height: '100%' }}
-                />
+              <div className="h-[560px] min-h-[560px] overflow-x-auto overflow-y-hidden sm:h-[640px] sm:min-h-[640px] lg:h-full lg:min-h-0">
+                <div className={`h-full ${calendarMinWidth}`}>
+                  <Calendar
+                    localizer={localizer}
+                    events={calendarEvents}
+                    date={calendarDate}
+                    view={calendarView}
+                    views={['month', 'week']}
+                    messages={messages}
+                    formats={calendarFormats}
+                    selectable
+                    eventPropGetter={eventStyleGetter}
+                    onNavigate={setCalendarDate}
+                    onView={setCalendarView}
+                    onSelectEvent={(event) => setSelectedProject(event.resource)}
+                    onSelectSlot={handleSelectSlot}
+                    popup
+                    style={{ height: '100%' }}
+                  />
+                </div>
               </div>
               {projects.length === 0 && (
-                <div className="mt-3 flex items-center gap-2 rounded-lg border border-dashed border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-500">
-                  <FolderOpen size={16} className="text-gray-400" />
+                <div className="mt-3 flex items-center gap-2 rounded-lg border border-dashed border-gray-200 bg-gray-50 px-4 py-4 text-sm text-gray-500">
+                  <FolderOpen size={16} className="text-gray-400 flex-shrink-0" />
                   No hay proyectos en esta cuenta. Puedes moverte por meses o seleccionar días para crear el primero.
                 </div>
               )}
@@ -154,8 +162,8 @@ export default function CalendarProjects() {
           <div className="w-full lg:w-80 bg-white rounded-xl border border-gray-200 p-5 flex flex-col gap-4">
             <div className="flex items-start justify-between">
               <div className="w-3 h-3 rounded-full mt-1 flex-shrink-0" style={{ backgroundColor: selectedProject.color ?? '#4f98a3' }} />
-              <button onClick={() => setSelectedProject(null)} className="text-gray-400 hover:text-gray-600" aria-label="Cerrar panel">
-                <X size={18} />
+              <button onClick={() => setSelectedProject(null)} className="text-gray-400 hover:text-gray-600 -mr-1 -mt-1 p-1.5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500" aria-label="Cerrar panel">
+                <X size={20} />
               </button>
             </div>
             <div className="min-w-0">

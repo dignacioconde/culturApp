@@ -6,6 +6,7 @@ import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
 import { StatusBadge } from '../../components/ui/Badge'
 import { Modal } from '../../components/ui/Modal'
+import { Select } from '../../components/ui/Input'
 import { useToast, ToastContainer } from '../../components/ui/Toast'
 import { ProjectForm } from './ProjectForm'
 import { useAuth } from '../../hooks/useAuth'
@@ -84,26 +85,24 @@ export default function ProjectList() {
                 className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-gray-300 outline-none focus:border-indigo-500"
               />
             </div>
-            <select
+            <Select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 outline-none focus:border-indigo-500 bg-white"
             >
               <option value="">Todos los estados</option>
               {PROJECT_STATUSES.map((s) => (
                 <option key={s.value} value={s.value}>{s.label}</option>
               ))}
-            </select>
-            <select
+            </Select>
+            <Select
               value={filterCategory}
               onChange={(e) => setFilterCategory(e.target.value)}
-              className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 outline-none focus:border-indigo-500 bg-white"
             >
               <option value="">Todas las categorías</option>
               {PROJECT_CATEGORIES.map((c) => (
                 <option key={c.value} value={c.value}>{c.label}</option>
               ))}
-            </select>
+            </Select>
             {hasFilters && (
               <Button variant="ghost" onClick={clearFilters} className="justify-center whitespace-nowrap">
                 <FilterX size={16} />
@@ -134,15 +133,22 @@ export default function ProjectList() {
           <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-gray-200 bg-gray-50 px-4 py-16 text-center">
             <FolderOpen size={36} className="text-gray-300" />
             <p className="mt-3 text-sm font-medium text-gray-700">
-              {hasFilters ? 'No hay proyectos que coincidan' : 'Todavía no hay proyectos'}
+              {hasFilters ? 'No hay proyectos que coincidan' : 'No hay proyectos todavía'}
             </p>
             <p className="mt-1 max-w-sm text-sm text-gray-400">
-              {hasFilters ? 'Ajusta la búsqueda o limpia los filtros para ver más resultados.' : 'Crea tu primer proyecto para agrupar eventos, ingresos y gastos.'}
+              {hasFilters 
+                ? 'Ajusta la búsqueda o limpia los filtros para ver más resultados.' 
+                : 'Crea un proyecto para agrupar eventos, gestionar ingresos y gastos.'}
             </p>
-            {hasFilters && (
+            {hasFilters ? (
               <Button variant="secondary" size="sm" onClick={clearFilters} className="mt-4">
                 <FilterX size={16} />
                 Limpiar filtros
+              </Button>
+            ) : (
+              <Button size="sm" onClick={() => setIsModalOpen(true)} className="mt-4">
+                <Plus size={16} />
+                Crear proyecto
               </Button>
             )}
           </div>
