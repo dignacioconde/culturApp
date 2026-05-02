@@ -56,6 +56,19 @@ Este proyecto debe evolucionar mediante agentes OpenCode cuando el usuario lo pi
 - No hacer investigacion manual previa por defecto: lanzar agentes y dejar que diagnostiquen, salvo que haga falta definir ownership, preparar el comando o resolver un bloqueo.
 - Trabajar con ramas/PRs cuando el cambio sea integrable en GitHub; no meter cambios grandes directos en `main`.
 
+### Metodo ante problemas descubiertos
+
+Cuando se descubra un problema nuevo que requiera seguimiento, usar este flujo por defecto:
+
+1. Abrir o localizar una issue en GitHub con contexto, alcance y criterios de aceptacion.
+2. Ejecutar agentes OpenCode con esa issue como contexto, ownership claro y verificacion obligatoria.
+3. Implementar/ajustar el fix y ejecutar `npm run lint` y `npm run build` si toca codigo de app.
+4. Crear un commit con los cambios relacionados.
+5. Comentar la issue con resumen, commit y verificaciones ejecutadas.
+6. Cerrar la issue como completada solo despues del commit y del comentario.
+
+Si el problema es visual, incluir tambien ruta, viewport, captura/sintoma y criterio visual de aceptacion.
+
 ### Roles recomendados
 
 - **Explorer**: lee codigo, diagnostica y propone. No edita archivos.
