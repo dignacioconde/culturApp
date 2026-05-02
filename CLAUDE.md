@@ -64,8 +64,9 @@ Cuando se descubra un problema nuevo que requiera seguimiento, usar este flujo p
 2. Ejecutar agentes OpenCode con esa issue como contexto, ownership claro y verificacion obligatoria.
 3. Implementar/ajustar el fix y ejecutar `npm run lint` y `npm run build` si toca codigo de app.
 4. Crear un commit con los cambios relacionados.
-5. Comentar la issue con resumen, commit y verificaciones ejecutadas.
-6. Cerrar la issue como completada solo despues del commit y del comentario.
+5. Hacer push del commit a GitHub.
+6. Comentar la issue con resumen, commit y verificaciones ejecutadas.
+7. Cerrar la issue como completada solo despues del push, el commit y el comentario.
 
 Si el problema es visual, incluir tambien ruta, viewport, captura/sintoma y criterio visual de aceptacion.
 

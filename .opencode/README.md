@@ -15,7 +15,7 @@ Este comando envuelve la peticion en un contrato operativo con objetivo, autonom
 
 Cuando el usuario pida ejecutar agentes, no hagas una revision manual previa del codigo salvo que sea imprescindible para construir el comando, definir ownership seguro o resolver un bloqueo real. Los agentes deben leer `AGENTS.md`, `.opencode/AGENT_STATE.md` y el codigo necesario, diagnosticar y devolver hallazgos o cambios por si mismos.
 
-Cuando se descubra un problema nuevo, el flujo por defecto es: issue en GitHub -> agentes con contexto de la issue -> fix verificado -> commit -> comentario en la issue con resumen/commit/verificaciones -> cerrar issue como completada. No cierres issues antes de comentar el commit y las verificaciones.
+Cuando se descubra un problema nuevo, el flujo por defecto es: issue en GitHub -> agentes con contexto de la issue -> fix verificado -> commit -> push -> comentario en la issue con resumen/commit/verificaciones -> cerrar issue como completada. No cierres issues antes de pushear y comentar el commit y las verificaciones.
 
 Ejemplo con alcance explicito:
 

@@ -23,7 +23,7 @@ Estados sugeridos: `info`, `bloqueo`, `schema_changed`, `api_changed`, `ui_chang
 
 - [verified] cultura-review -> cultura-frontend: Revisión responsividad calendarios: BLOQUEO resuelto. min-h-[620px] → min-h-[350px] sm:min-h-[450px] en CalendarEvents y CalendarProjects. Filtro URL ?project= implementado en EventList. Build OK, lint OK.
 Archivos: CalendarEvents.jsx:109, CalendarProjects.jsx:102, EventList.jsx.
-- [info] cultura-docs -> all: Metodo operativo consolidado para problemas nuevos: issue GitHub -> agentes -> fix verificado -> commit -> comentario en issue con resumen/commit/verificaciones -> cerrar issue.
+- [info] cultura-docs -> all: Metodo operativo consolidado para problemas nuevos: issue GitHub -> agentes -> fix verificado -> commit -> push -> comentario en issue con resumen/commit/verificaciones -> cerrar issue.
 Archivos: AGENTS.md, CLAUDE.md, .opencode/README.md, .opencode/AGENT_STATE.md.
 - [info] cultura-docs -> all: Leccion consolidada: bugs visuales/responsive deben incluir ruta, viewport, captura/sintoma exacto y criterio de aceptacion visual. En react-big-calendar verificar alturas computadas y que se ven las filas del mes; lint/build no bastan.
 Archivos: AGENTS.md, CLAUDE.md, TECHDOC.md, .opencode/README.md.
@@ -97,7 +97,7 @@ Archivos: CalendarEvents.jsx:109, CalendarProjects.jsx:102, Settings.jsx:20-55, 
 - Estado: done
 - Ownership actual: -
 - Depende de: cambios de arquitectura, scripts, agentes, SQL o flujo de deploy
-- Ultima actualizacion: Consolidado metodo operativo para problemas nuevos: issue -> agentes -> fix verificado -> commit -> comentario -> cierre.
+- Ultima actualizacion: Consolidado metodo operativo para problemas nuevos: issue -> agentes -> fix verificado -> commit -> push -> comentario -> cierre.
 
 ## Eventos
 
@@ -108,6 +108,7 @@ Formato:
 ```
 
 - 2026-05-02 14:45 CEST - cultura-docs - done - Documentado flujo estandar ante problemas nuevos: abrir/localizar issue, ejecutar agentes, verificar fix, comitear, comentar issue con commit/verificaciones y cerrar como completada.
+- 2026-05-02 14:50 CEST - cultura-docs - done - Ajustado flujo estandar: tras commit, hacer push antes de comentar y cerrar la issue.
 - 2026-05-02 14:35 CEST - cultura-docs - done - Documentada leccion de bugs visuales: agentes necesitan reproduccion visual concreta; para react-big-calendar verificar alturas internas y filas del mes visibles, no solo lint/build.
 - 2026-05-02 14:15 CEST - cultura-review - done - Code review final: 4 cambios verificados. Calendarios: heights 350/450px (verificar breakpoints 320-1280px). EventList: filtro URL OK. useProfile.js: hook correcto. Settings: sin Supabase directo. Dashboard KPI: filtra por mes + ingresos cobrados event_id. Veredicto: OK, ejecutar lint/build antes de merge.
 - 2026-05-02 14:00 CEST - cultura-frontend - done - Fix responsividad calendarios: min-h-[620px] reemplazado por altura responsive (350/450px). Implementado filtro URL ?project= en EventList con useSearchParams. Build OK, lint OK.
