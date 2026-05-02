@@ -36,6 +36,8 @@ Archivos: useProfile.js, Settings.jsx, Dashboard.jsx:86-107.
 
 - [verified] cultura-frontend -> all: Fix responsividad calendarios completado. min-h-[350px] sm:min-h-[450px] OK. EventList filtro URL ?project= implementado.
 - [verified] cultura-data -> all: useProfile.js creado, Settings ahora usa hook, KPI cobro/hora corregido: filtra horas por mes seleccionado + solo ingresos cobrados event_id.
+- [info] cultura-docs -> all: Lecciones UX actualizadas: usar wrappers de `Input.jsx` para Select/fecha/fecha+hora; eventos empiezan en 08:00 y formato 24h; vista semana móvil de `/calendar/events` sigue pendiente en issue #3.
+Archivos: AGENTS.md, CLAUDE.md, TECHDOC.md, README.md, .opencode/README.md, .opencode/agents/*.md.
 
 ## Estado por agente
 
@@ -123,7 +125,7 @@ Archivos: useProfile.js, Settings.jsx, Dashboard.jsx:86-107.
 - Estado: done
 - Ownership actual: -
 - Depende de: cambios de arquitectura, scripts, agentes, SQL o flujo de deploy
-- Ultima actualizacion: Consolidado metodo operativo para problemas nuevos: issue -> agentes -> fix verificado -> commit -> push -> comentario -> cierre.
+- Ultima actualizacion: Documentadas lecciones recientes: selectores propios, fecha/hora custom, 08:00 como default de eventos y pendiente UX de semana móvil (#3).
 
 - 2026-05-02 15:15 CEST - dispatcher - info - UX Worker completado: breadcrumbs en EventDetail/ProjectDetail, estados vacíos con CTA en EventList/ProjectList, verificación lint+build OK.
 - 2026-05-02 15:00 CEST - dispatcher - info - UX Explorer + Visual/Responsive Review completado por @cultura-testing. 2 CRÍTICOS (breadcrumbs+modales en desktop, bottom-nav en mobile), 3 ALTOS (estados vacíos sin CTA, sidebar móvil, tablas overflow), 5 MEDIOS (filtros mobile, formularios touch). Recomendaciones priorizadas: 1) verificar fix alturas 350/450px, 2) bottom-nav móvil, 3) breadcrumbs, 4) estados vacíos con CTA.
@@ -139,6 +141,7 @@ Formato:
 ```
 
 - 2026-05-02 12:54 CEST - cultura-docs - done - Integrados agentes UX mobile/desktop como revisores de criterio: permisos read-only, enrutado lead, aliases agents:parallel, README y bloques de pizarra.
+- 2026-05-02 17:45 CEST - cultura-docs - done - Actualizada documentación y agentes con últimos cambios: Select/DateInput/DateTimeInput compartidos, default 08:00, formato 24h, mejoras móvil y issue #3 para semana móvil.
 - 2026-05-02 14:45 CEST - cultura-docs - done - Documentado flujo estandar ante problemas nuevos: abrir/localizar issue, ejecutar agentes, verificar fix, comitear, comentar issue con commit/verificaciones y cerrar como completada.
 - 2026-05-02 14:50 CEST - cultura-docs - done - Ajustado flujo estandar: tras commit, hacer push antes de comentar y cerrar la issue.
 - 2026-05-02 14:35 CEST - cultura-docs - done - Documentada leccion de bugs visuales: agentes necesitan reproduccion visual concreta; para react-big-calendar verificar alturas internas y filas del mes visibles, no solo lint/build.

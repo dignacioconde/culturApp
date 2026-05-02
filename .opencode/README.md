@@ -110,6 +110,13 @@ En /calendar/events con ventana compacta, React Big Calendar muestra toolbar y c
 
 Nota especifica de calendarios: `react-big-calendar` necesita una altura real en su contenedor interno. `height: 100%` dentro de padres con solo `min-height`, `flex-1`, `min-h-0` u `overflow-hidden` puede dejar visibles toolbar/cabecera y colapsar la rejilla del mes.
 
+Lecciones recientes de UX móvil:
+
+- No usar `<select>` nativo ni `input type="date"` / `input type="datetime-local"` directamente en pantallas o modales. En móvil los menús nativos salieron demasiado pequeños. Usar los wrappers compartidos de `src/components/ui/Input.jsx`.
+- `Select` debe mostrar opciones completas, sin truncar años o rangos como `2...` o `30 ...`, y al abrir debe hacer scroll hasta el valor seleccionado cuando haya muchas opciones.
+- Los eventos deben partir de un horario útil: `08:00` como hora inicial por defecto y formato 24h. Evitar que formularios o calendarios empiecen visualmente en horas de madrugada salvo selección explícita.
+- La vista semana móvil de `/calendar/events` sigue abierta como issue `#3`. El scroll horizontal actual evita el aplastamiento, pero no es una solución UX definitiva. Los agentes deben evaluar alternativas como agenda móvil, 3 días, carrusel por días o fallback a día/agenda.
+
 Los resultados se guardan en `.opencode/runs/<timestamp>/`, con un archivo Markdown por agente.
 
 Para cambios de codigo en paralelo, usa `--write` solo cuando la tarea ya este dividida por ownership de archivos o modulos:

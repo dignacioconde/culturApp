@@ -36,28 +36,28 @@ Documento técnico de referencia del estado real del proyecto. Para Codex, la fu
 | Archivo | Líneas | Función |
 |---------|--------|---------|
 | `src/main.jsx` | 10 | Entry point React con StrictMode |
-| `src/App.jsx` | 40 | Router + guardas PrivateRoute/PublicRoute |
-| `src/index.css` | 29 | Estilos globales + overrides React Big Calendar |
+| `src/App.jsx` | 47 | Router + guardas PrivateRoute/PublicRoute |
+| `src/index.css` | 142 | Estilos globales + overrides React Big Calendar |
 | `src/supabaseClient.js` | 6 | Singleton de Supabase |
 
 ### Componentes UI (`src/components/ui/`)
 
 | Componente | Líneas | Variantes/Notas |
 |-----------|--------|-----------------|
-| `Button.jsx` | 23 | Variantes: primary, secondary, danger, ghost / Tamaños: sm, md, lg |
-| `Input.jsx` | 53 | Input, Select, Textarea — con label y estado de error |
+| `Button.jsx` | 27 | Variantes: primary, secondary, danger, ghost / Tamaños: sm, md, lg |
+| `Input.jsx` | 476 | Input, Select custom, DateInput, DateTimeInput, Textarea — con label y estado de error |
 | `Card.jsx` | 10 | Wrapper básico con borde y sombra |
 | `Badge.jsx` | 17 | Badge genérico + StatusBadge para estados de proyecto |
-| `Modal.jsx` | 36 | Cierre con Escape y click fuera, contenido scrollable |
-| `Toast.jsx` | 38 | Hook `useToast` + ToastContainer, auto-dismiss a 3.5s |
+| `Modal.jsx` | 50 | Cierre con Escape y click fuera, contenido scrollable |
+| `Toast.jsx` | 49 | Hook `useToast` + ToastContainer, auto-dismiss a 3.5s |
 
 ### Layout (`src/components/layout/`)
 
 | Componente | Líneas | Función |
 |-----------|--------|---------|
-| `Sidebar.jsx` | 41 | Navegación principal con NavLink activo |
-| `TopBar.jsx` | 25 | Título de página + email usuario + botón salir |
-| `PageWrapper.jsx` | 16 | Composición Sidebar + TopBar + área de contenido |
+| `Sidebar.jsx` | 47 | Navegación principal con NavLink activo |
+| `TopBar.jsx` | 27 | Título de página + email usuario + botón salir |
+| `PageWrapper.jsx` | 18 | Composición Sidebar + TopBar + área de contenido |
 
 ### Hooks (`src/hooks/`)
 
@@ -68,6 +68,7 @@ Documento técnico de referencia del estado real del proyecto. Para Codex, la fu
 | `useEvents.js` | 63 | CRUD eventos, filtro opcional por projectId + refetch |
 | `useIncomes.js` | 66 | CRUD ingresos, filtros por projectId, eventId y eventIds |
 | `useExpenses.js` | 66 | CRUD gastos, filtros por projectId, eventId y eventIds |
+| `useProfile.js` | 44 | Perfil profesional: lectura y actualización de `profiles` |
 
 Todos los hooks exponen `loading`, `error`, métodos CRUD y `refetch`. Los datos se devuelven con nombres específicos: `projects`, `events`, `incomes` o `expenses`.
 
@@ -77,18 +78,18 @@ Todos los hooks exponen `loading`, `error`, métodos CRUD y `refetch`. Los datos
 |--------|--------|--------|
 | `Auth/Login.jsx` | 81 | Completo |
 | `Auth/Register.jsx` | 109 | Completo |
-| `Dashboard/Dashboard.jsx` | 305 | Completo |
-| `Dashboard/KpiCard.jsx` | 27 | Completo |
+| `Dashboard/Dashboard.jsx` | 383 | Completo |
+| `Dashboard/KpiCard.jsx` | 42 | Completo |
 | `Calendar/CalendarView.jsx` | 156 | Completo |
-| `Calendar/CalendarEvents.jsx` | 227 | Completo |
-| `Calendar/CalendarProjects.jsx` | 208 | Completo |
-| `Events/EventList.jsx` | 220 | Completo |
-| `Events/EventDetail.jsx` | 492 | Completo |
-| `Events/EventForm.jsx` | 174 | Completo |
-| `Projects/ProjectList.jsx` | 198 | Completo |
-| `Projects/ProjectDetail.jsx` | 452 | Completo |
+| `Calendar/CalendarEvents.jsx` | 241 | Completo |
+| `Calendar/CalendarProjects.jsx` | 216 | Completo |
+| `Events/EventList.jsx` | 246 | Completo |
+| `Events/EventDetail.jsx` | 497 | Completo |
+| `Events/EventForm.jsx` | 176 | Completo |
+| `Projects/ProjectList.jsx` | 204 | Completo |
+| `Projects/ProjectDetail.jsx` | 457 | Completo |
 | `Projects/ProjectForm.jsx` | 159 | Completo |
-| `Settings/Settings.jsx` | 131 | Completo |
+| `Settings/Settings.jsx` | 108 | Completo |
 
 ### Utilidades (`src/lib/`)
 
@@ -103,9 +104,9 @@ Todos los hooks exponen `loading`, `error`, métodos CRUD y `refetch`. Los datos
 
 | Métrica | Valor |
 |---------|-------|
-| Líneas totales de código fuente | ~3.812 |
+| Líneas totales de código fuente | ~4.420 |
 | Componentes React | 24 |
-| Hooks personalizados | 5 |
+| Hooks personalizados | 6 |
 | Vistas/Páginas | 12 |
 | Tablas en base de datos | 5 |
 | Rutas definidas | 12 |
@@ -126,7 +127,11 @@ Todos los hooks exponen `loading`, `error`, métodos CRUD y `refetch`. Los datos
 - Lista de cobros pendientes (próximos 30 días)
 - Lista de proyectos activos
 - Calendario de eventos con fecha/hora exacta, navegación controlada y creación desde huecos
+- Calendario de eventos con horario útil desde las 08:00, formato 24h y semana/día con scroll horizontal en móvil
 - Calendario de proyectos con rangos de fecha, navegación controlada y creación desde selección de días
+- Selectores propios grandes para estados, categorías, proyectos, fechas y horas; no quedan `<select>` nativos en páginas
+- Date picker y datetime picker custom que mantienen valores compatibles con Supabase (`YYYY-MM-DD`, `YYYY-MM-DDTHH:mm`)
+- Mejoras UX móvil en modales, CTAs de estados vacíos, breadcrumbs, tablas con overflow horizontal y KPIs del dashboard
 - Panel lateral en calendarios con resumen rápido
 - Lista y detalle de eventos con ingresos/gastos propios
 - Detalle de proyecto con resumen financiero (bruto, retenciones, gastos, neto)
@@ -187,6 +192,20 @@ Los bugs visuales y responsive deben entregarse a agentes con reproduccion concr
 Caso registrado: en `/calendar/events`, con ventana compacta, `react-big-calendar` podia mostrar toolbar y cabecera de dias pero no las filas del mes. La causa no era solo una clase `min-h-*` demasiado grande: el calendario tenia `style={{ height: '100%' }}` dentro de padres con altura no suficientemente calculable (`min-height`, `flex-1`, `min-h-0`, `overflow-hidden`). En esa combinacion, la libreria puede calcular espacio para toolbar/cabecera y colapsar la rejilla.
 
 Criterio de aceptacion para calendarios: verificar visualmente que se ven toolbar, cabecera y semanas/filas del mes en viewport compacto y desktop. Lint/build no validan este caso.
+
+### Leccion UX: selectores nativos y móvil
+
+Los controles nativos (`<select>`, `input type="date"`, `input type="datetime-local"`) pueden verse demasiado pequeños o poco controlables en móvil, especialmente dentro de modales. En CulturaApp se sustituyeron por wrappers compartidos en `src/components/ui/Input.jsx`:
+
+- `Select`: listbox propio con filas grandes, check de selección y scroll automático al valor seleccionado.
+- `Input type="date"`: calendario propio, muestra `DD/MM/YYYY` y emite `YYYY-MM-DD`.
+- `Input type="datetime-local"`: compone fecha + hora, emite `YYYY-MM-DDTHH:mm`, usa `08:00` como hora inicial por defecto para eventos y preselecciona la hora seleccionada al abrir.
+
+Regla operativa: no introducir selectores nativos directamente en páginas o modales. Si se necesita otro tipo de selector, extender `Input.jsx` o crear un componente UI compartido.
+
+### Pendiente UX: semana móvil
+
+La vista semana de `/calendar/events` sigue abierta como mejora en GitHub issue `#3`. El scroll horizontal actual evita que la cuadrícula se aplaste, pero no se considera solución UX definitiva. Alternativas a evaluar: agenda móvil, vista de 3 días, carrusel por días, semana con día seleccionado o fallback móvil a `Día`/`Agenda`.
 
 ### No implementado (fuera del alcance del MVP)
 

@@ -154,7 +154,7 @@ culturaapp/
 │   ├── components/
 │   │   ├── ui/
 │   │   │   ├── Button.jsx     ← Variantes: primary, secondary, danger, ghost
-│   │   │   ├── Input.jsx      ← Input, Select, Textarea
+│   │   │   ├── Input.jsx      ← Input, Select, DateInput, DateTimeInput, Textarea
 │   │   │   ├── Badge.jsx      ← Badge, StatusBadge
 │   │   │   ├── Card.jsx
 │   │   │   ├── Modal.jsx      ← Cierre con Escape y click fuera
@@ -470,6 +470,8 @@ Agrega ingresos y gastos de **ambos niveles** (evento + proyecto directo).
 - Click en evento → panel lateral con datos del evento y enlace al detalle
 - Navegación de fecha/vista controlada; visible aunque no haya eventos
 - Seleccionar un hueco del calendario abre el formulario con fecha/hora precargadas
+- Vista semana/día limitada a horario útil desde las 08:00 y formato 24h.
+- En móvil la vista semana sigue siendo un punto pendiente de UX: no darla por resuelta solo porque tenga scroll horizontal. Issue abierta: `#3`.
 
 ### 4. `/calendar/projects` — Calendario de proyectos
 
@@ -509,6 +511,15 @@ Agrega ingresos y gastos de **ambos niveles** (evento + proyecto directo).
 
 - Un componente por archivo, PascalCase
 - Los componentes de UI no contienen lógica de negocio ni llamadas a Supabase
+
+### Selectores, fechas y formularios
+
+- No usar `<select>` nativo en pantallas de app: el menú del navegador/SO se ve demasiado pequeño en móvil. Usar siempre `Select` de `src/components/ui/Input.jsx`.
+- No usar `input type="date"` ni `input type="datetime-local"` directamente en páginas. Usar `Input type="date"` o `Input type="datetime-local"`, que renderizan selectores propios grandes y mantienen el valor compatible con BD.
+- `Input type="date"` devuelve `YYYY-MM-DD` y muestra `DD/MM/YYYY`.
+- `Input type="datetime-local"` compone fecha + hora y devuelve `YYYY-MM-DDTHH:mm`; el selector de hora hace scroll hasta la hora seleccionada.
+- Para eventos, la hora por defecto de inicio debe ser `08:00`. La hora de fin debe usar como referencia la hora de inicio cuando el usuario no haya elegido otra.
+- Mantener targets táctiles de selectores, checkboxes y swatches de color en torno a 40-44px mínimo.
 
 ### Hooks personalizados
 
@@ -595,14 +606,18 @@ npm run lint     # Linting
 - [x] Vista Dashboard — KPIs mes seleccionado, cobro bruto/hora, cobros pendientes 30 días, proyectos activos
 - [x] Dashboard agrega ingresos/gastos de eventos Y de proyecto directo (ambos niveles)
 - [x] Calendario de eventos (`/calendar/events`) — React Big Calendar con datetime exacto, navegación controlada y creación desde huecos
+- [x] Calendario de eventos usa 08:00 como hora inicial útil, formato 24h y selectores propios en formularios
 - [x] Calendario de proyectos (`/calendar/projects`) — React Big Calendar con rangos de fecha, navegación controlada y creación desde selección de días
 - [x] Vista Events — lista con filtros, EventDetail con ingresos/gastos propios, EventForm
 - [x] Vista Projects — lista y detalle con sección de eventos asociados
 - [x] ProjectDetail KPIs agregan ingresos/gastos del proyecto + todos sus eventos
 - [x] ProjectDetail tablas editables muestran solo ingresos/gastos directos (sin mezclar los de eventos)
 - [x] Formularios de proyectos, eventos, ingresos y gastos
+- [x] Selectores nativos sustituidos por controles propios grandes (`Select`, fecha, fecha+hora)
+- [x] Mejoras UX móvil en modales, estados vacíos, breadcrumbs, tablas con overflow y KPIs del dashboard
 - [x] Vista Settings
 - [ ] Deploy en Vercel
+- [ ] Mejorar UX móvil de la vista semana de `/calendar/events` — issue `#3`
 
 ---
 
@@ -618,6 +633,9 @@ npm run lint     # Linting
 - **Formato fechas en BD**: ISO 8601 — Supabase lo maneja automáticamente
 - **Moneda**: euros (€) — usar siempre `formatCurrency()`
 - **Calendario de eventos**: es el que se comparte hacia afuera. El de proyectos es solo interno.
+- **Vista semana móvil**: `react-big-calendar` en semana comprime demasiado la información en móvil. El scroll horizontal actual es parche aceptable, no solución final. Antes de cerrar cualquier fix de este punto, verificar con captura en viewport móvil real.
+- **Selectores nativos**: evitar `<select>`, `input type="date"` y `input type="datetime-local"` directos en páginas; usar los wrappers de `Input.jsx` para que los menús no salgan pequeños.
+- **Horas de eventos**: la experiencia normal empieza en `08:00`; evitar defaults de madrugada salvo que el usuario seleccione explícitamente esa hora.
 - **Cobro bruto/hora**: usar solo ingresos cobrados asociados a eventos (`event_id`) y horas de eventos con `end_datetime`. No mezclar ingresos directos de proyecto en el numerador de esta métrica.
 - **Error 409 al crear proyectos/eventos**: si aparece, significa que el perfil del usuario no existe en `profiles` (el trigger falló antes del fix). Solución: ejecutar en Supabase SQL `INSERT INTO public.profiles (id) SELECT id FROM auth.users WHERE id NOT IN (SELECT id FROM public.profiles);`
 - **ProjectDetail — separación de datos**: `incomes` y `expenses` del hook incluyen todo (proyecto + eventos); `directIncomes`/`directExpenses` filtran solo los de `project_id = id` para las tablas editables. Los KPIs usan el total combinado.

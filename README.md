@@ -53,6 +53,15 @@ Herramienta de gestión económica y de proyectos para trabajadores del sector c
 
 ---
 
+## Estado UX actual
+
+- La app usa selectores propios grandes para categorías, estados, proyectos, fechas y horas. Esto evita los menús nativos pequeños del navegador en móvil.
+- Los eventos usan horario en formato 24h. La creación de eventos toma `08:00` como hora inicial habitual y la hora de fin parte de la hora de inicio cuando no hay otra selección.
+- El calendario de eventos limita la vista semana/día a horario útil desde las 08:00.
+- La vista semana móvil de `/calendar/events` sigue pendiente de una solución UX mejor que el scroll horizontal actual. Seguimiento: GitHub issue `#3`.
+
+---
+
 ## Requisitos previos
 
 - Node.js 18 o superior

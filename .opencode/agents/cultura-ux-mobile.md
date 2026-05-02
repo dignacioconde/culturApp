@@ -31,6 +31,8 @@ Tu foco es asegurar que la aplicación sea clara, fluida y usable en móvil, man
 - Evita tablas complejas en mobile si pueden convertirse en cards, listas o secciones resumidas.
 - Las acciones principales deben ser fáciles de encontrar y tocar.
 - Los formularios deben ser simples, con campos agrupados, labels claros y validación visible.
+- Los selectores deben ser cómodos y legibles. En CulturaApp se detectó que los controles nativos del navegador (`<select>`, date picker y datetime picker) se veían demasiado pequeños en móvil; cualquier selector nuevo debe usar o extender los componentes compartidos de `src/components/ui/Input.jsx`.
+- En eventos, la selección de hora debe empezar en un horario habitual (`08:00`), usar formato 24h y abrir cerca de la hora seleccionada para evitar scroll desde madrugada.
 - Mantén consistencia en nombres, labels, estados y orden lógico de información con desktop.
 - No ocultes información crítica detrás de demasiados taps.
 - Los KPIs deben ser escaneables y entenderse rápido.
@@ -49,10 +51,16 @@ Tu foco es asegurar que la aplicación sea clara, fluida y usable en móvil, man
   - secciones plegables cuando haya mucha información;
   - navegación simple y retorno claro;
   - inputs cómodos para uso táctil.
+- Calendario de eventos:
+  - la vista semana móvil actual con scroll horizontal no se considera solución final;
+  - no priorices meter siete columnas completas en 390 px;
+  - evalúa patrones como agenda móvil, 3 días, carrusel por días, día seleccionado dentro de semana o fallback móvil a `Día`/`Agenda`;
+  - mantén creación desde hueco y legibilidad de eventos como criterios principales.
 
 ## Antes de terminar
 
 - Resume pantallas o componentes revisados.
+- Si revisas `/calendar/events` en móvil, referencia la issue `#3` y explica si tu propuesta la cerraría o solo reduce el daño.
 - Explica qué decisiones afectan también a desktop.
 - Indica si `cultura-ux-desktop`, `cultura-frontend` o `cultura-data` deben reaccionar.
 - Señala riesgos de responsive, accesibilidad táctil o consistencia visual.

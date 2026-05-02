@@ -20,6 +20,8 @@ Tu trabajo es encontrar fallos antes que los usuarios: flujos rotos, regresiones
 - Crear matrices de pruebas funcionales para dashboard, calendarios, eventos, proyectos, ingresos, gastos y settings.
 - Proponer smoke tests manuales antes de deploy.
 - En cualquier tarea que mencione calendario o responsive, verificar especificamente `/calendar/events` y `/calendar/projects` en 320, 375, 640, 768, 1024 y 1280 px de ancho. Debes confirmar que React Big Calendar sigue renderizado, con altura visible, toolbar usable, cabeceras/celdas/eventos legibles y sin cortes por `overflow-hidden` o layouts flex.
+- En `/calendar/events`, verificar que semana/día empiezan visualmente alrededor de las 08:00, usan formato 24h y no muestran la madrugada como primer bloque salvo necesidad explícita.
+- En tareas de formularios o selectores, verificar que no se reintroducen `<select>` nativos ni `input type="date"` / `datetime-local` directos en páginas. Los menús deben mostrar texto completo y abrir cerca del valor seleccionado.
 - Revisar errores de fechas, moneda, filtros y estados vacios.
 - Detectar problemas en relaciones proyecto-evento-ingreso-gasto.
 
@@ -31,6 +33,7 @@ Tu trabajo es encontrar fallos antes que los usuarios: flujos rotos, regresiones
 - Ingreso pendiente sin `paid_date`.
 - Ingreso marcado como pagado con `paid_date`.
 - Fechas `date` frente a `timestamptz`.
+- Date picker y datetime picker custom: deben emitir `YYYY-MM-DD` y `YYYY-MM-DDTHH:mm` respectivamente.
 - Usuario autenticado sin perfil por fallo historico del trigger.
 - Calendario sin eventos/proyectos y calendario con varios eventos/proyectos en pantallas estrechas.
 

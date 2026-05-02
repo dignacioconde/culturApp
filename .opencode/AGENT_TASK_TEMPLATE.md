@@ -11,6 +11,7 @@ No preguntes salvo bloqueo real: credenciales, accion destructiva, cambio remoto
 
 CONTEXTO:
 Lee AGENTS.md y .opencode/AGENT_STATE.md. AGENTS.md es la fuente principal.
+Si la tarea toca formularios, selectores o calendarios, revisa tambien las lecciones documentadas sobre `Input.jsx`, horarios desde 08:00 y la issue #3 de semana movil.
 
 ALCANCE:
 Indica archivos, carpetas o modulos permitidos. Indica tambien lo que queda fuera.
