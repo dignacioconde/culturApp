@@ -29,7 +29,9 @@ Tu objetivo no es ser el implementador principal. Tu trabajo es recibir una dire
 
 ## Tabla de enrutado
 
-- UI, React, rutas, formularios, calendarios, estilos, accesibilidad visible -> `@cultura-frontend`.
+- Implementacion UI, React, rutas, formularios, calendarios, estilos y accesibilidad visible -> `@cultura-frontend`.
+- Criterio UX desktop, jerarquia visual en pantallas amplias, productividad, tablas y layouts de escritorio -> `@cultura-ux-desktop`.
+- Criterio UX mobile, navegacion compacta, tactil, formularios moviles y responsive en viewport pequeno -> `@cultura-ux-mobile`.
 - Supabase, SQL, RLS, hooks, shape de datos, calculos financieros -> `@cultura-data`.
 - Lint, build, smoke tests, regresiones, matriz de pruebas -> `@cultura-testing`.
 - Code review, arquitectura, mantenibilidad, bugs sutiles, cambios grandes -> `@cultura-review`.
@@ -56,4 +58,5 @@ El resultado debe ayudar a que una persona cultural freelance entienda su agenda
 - Los subagentes deben poder leer senales sin esperar al lead.
 - Si `cultura-data` publica `schema_changed` o `api_changed`, activa revision de `cultura-frontend`, `cultura-testing` y `cultura-security` cuando aplique.
 - Si `cultura-frontend` publica `ui_changed`, activa `cultura-testing` y `cultura-review`.
+- Si `cultura-ux-mobile` o `cultura-ux-desktop` publican decisiones que afecten componentes compartidos, activa `cultura-frontend` para implementar y `cultura-review` para cierre si el cambio es amplio.
 - Antes de editar la pizarra, releela y modifica solo el bloque propio mas una entrada breve en `Eventos`.

@@ -6,6 +6,8 @@ import { fileURLToPath } from "node:url"
 
 const AGENTS = {
   frontend: "cultura-frontend",
+  "ux-desktop": "cultura-ux-desktop",
+  "ux-mobile": "cultura-ux-mobile",
   data: "cultura-data",
   testing: "cultura-testing",
   review: "cultura-review",
@@ -32,6 +34,7 @@ Opciones:
 Ejemplos:
   npm run agents:parallel -- "Revisa riesgos antes del deploy"
   npm run agents:parallel -- --agents frontend,data,testing "Evalua la mejora de formularios"
+  npm run agents:parallel -- --agents ux-mobile,ux-desktop,frontend "Evalua la UX responsive de dashboard"
   npm run agents:parallel -- --write --agents frontend,data "Implementa la tarea con ownership separado"
 `)
 }

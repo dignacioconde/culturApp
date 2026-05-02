@@ -57,6 +57,20 @@ Archivos: CalendarEvents.jsx:109, CalendarProjects.jsx:102, Settings.jsx:20-55, 
 - Depende de: -
 - Ultima actualizacion: Fix responsividad calendarios: min-h-[620px] reemplazado por valores responsive en CalendarEvents y CalendarProjects. Filtro URL ?project= implementado en EventList con useSearchParams y clearFilters. Build OK, lint OK (1 error preexistente en Settings.jsx).
 
+### cultura-ux-desktop
+
+- Estado: idle
+- Ownership actual: criterio UX/UI desktop, sin edicion directa por defecto
+- Depende de: `ui_changed`, cambios de layout amplio, tablas, dashboard, ProjectDetail, calendarios desktop
+- Ultima actualizacion: agente integrado como revisor de criterio UX desktop; `cultura-frontend` implementa los cambios propuestos.
+
+### cultura-ux-mobile
+
+- Estado: idle
+- Ownership actual: criterio UX/UI mobile, sin edicion directa por defecto
+- Depende de: `ui_changed`, cambios responsive, formularios moviles, navegacion tactil, calendarios en viewport pequeno
+- Ultima actualizacion: agente integrado como revisor de criterio UX mobile; `cultura-frontend` implementa los cambios propuestos.
+
 ### cultura-data
 
 - Estado: idle
@@ -107,6 +121,7 @@ Formato:
 - YYYY-MM-DD HH:mm CET - agente - estado - mensaje.
 ```
 
+- 2026-05-02 12:54 CEST - cultura-docs - done - Integrados agentes UX mobile/desktop como revisores de criterio: permisos read-only, enrutado lead, aliases agents:parallel, README y bloques de pizarra.
 - 2026-05-02 14:45 CEST - cultura-docs - done - Documentado flujo estandar ante problemas nuevos: abrir/localizar issue, ejecutar agentes, verificar fix, comitear, comentar issue con commit/verificaciones y cerrar como completada.
 - 2026-05-02 14:50 CEST - cultura-docs - done - Ajustado flujo estandar: tras commit, hacer push antes de comentar y cerrar la issue.
 - 2026-05-02 14:35 CEST - cultura-docs - done - Documentada leccion de bugs visuales: agentes necesitan reproduccion visual concreta; para react-big-calendar verificar alturas internas y filas del mes visibles, no solo lint/build.

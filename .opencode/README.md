@@ -58,6 +58,8 @@ npm run agents:run -- "Tu tarea aqui"
 | Agente | Uso |
 | --- | --- |
 | `cultura-frontend` | React, rutas, formularios, UI, calendario y experiencia en espanol |
+| `cultura-ux-desktop` | Criterio UX/UI desktop, layouts amplios, jerarquia visual, tablas y productividad |
+| `cultura-ux-mobile` | Criterio UX/UI mobile, navegacion tactil, formularios compactos y responsive |
 | `cultura-data` | Supabase, RLS, SQL, hooks de datos, ingresos/gastos y modelo conceptual |
 | `cultura-testing` | Lint, build, smoke tests, casos borde y regresiones |
 | `cultura-review` | Revision tecnica, riesgos, seguridad, accesibilidad y mantenibilidad |
@@ -69,6 +71,8 @@ Ejemplo dentro de OpenCode:
 
 ```text
 @cultura-data revisa si el modelo de ingresos/gastos cubre eventos independientes y proyectos.
+@cultura-ux-mobile revisa si el flujo de alta de evento es claro en 375 px.
+@cultura-ux-desktop revisa si ProjectDetail aprovecha bien el espacio sin saturar la vista.
 @cultura-testing prepara una matriz de pruebas para el flujo proyecto -> evento -> ingreso.
 @cultura-security revisa si hay riesgos de fuga de datos entre usuarios o secretos expuestos.
 ```
@@ -87,13 +91,16 @@ Puedes elegir agentes concretos:
 
 ```bash
 npm run agents:parallel -- --agents frontend,data,testing "Evalua esta mejora de formularios"
+npm run agents:parallel -- --agents ux-mobile,ux-desktop,frontend "Evalua la UX responsive de dashboard y propone ajustes accionables"
 ```
 
-Para revisar problemas responsive de calendarios, incluye siempre frontend, testing y review:
+Para revisar problemas responsive de calendarios, incluye siempre ux-mobile, ux-desktop, frontend, testing y review:
 
 ```bash
-npm run agents:parallel -- --agents frontend,testing,review "Revisa que /calendar/events y /calendar/projects sigan visibles y usables en responsive"
+npm run agents:parallel -- --agents ux-mobile,ux-desktop,frontend,testing,review "Revisa que /calendar/events y /calendar/projects sigan visibles y usables en responsive"
 ```
+
+Los agentes UX son revisores de criterio visual y experiencia, no implementadores por defecto. Deben entregar decisiones y tareas accionables; `cultura-frontend` implementa los cambios en React/Tailwind.
 
 Para bugs visuales, no pidas solo "revisa responsividad". Incluye ruta, viewport, captura o descripcion visual exacta y criterio de aceptacion. Ejemplo:
 
@@ -180,7 +187,7 @@ Reglas de uso:
 
 ## Prueba de agentes
 
-Estado verificado el 29/04/2026:
+Estado verificado el 02/05/2026:
 
 - `opencode --version`: `1.14.29`
 - `opencode models opencode` incluye `opencode/minimax-m2.5-free`
@@ -188,6 +195,8 @@ Estado verificado el 29/04/2026:
 - `cultura-lead` carga correctamente con `opencode/minimax-m2.5-free`
 - Desde `cultura-lead`, cargan correctamente:
   - `cultura-frontend`
+  - `cultura-ux-desktop`
+  - `cultura-ux-mobile`
   - `cultura-data`
   - `cultura-testing`
   - `cultura-review`
@@ -198,13 +207,15 @@ Estado verificado el 29/04/2026:
 Comando usado para la prueba completa:
 
 ```bash
-opencode run --agent cultura-lead "Haz una prueba de carga de estos subagentes: @cultura-frontend, @cultura-data, @cultura-testing, @cultura-review, @cultura-security, @cultura-release y @cultura-docs. Cada subagente debe responder solo 'OK <nombre> cargado'. No ejecutes comandos ni edites archivos. Devuelve una lista breve con los siete resultados."
+opencode run --agent cultura-lead "Haz una prueba de carga de estos subagentes: @cultura-frontend, @cultura-ux-desktop, @cultura-ux-mobile, @cultura-data, @cultura-testing, @cultura-review, @cultura-security, @cultura-release y @cultura-docs. Cada subagente debe responder solo 'OK <nombre> cargado'. No ejecutes comandos ni edites archivos. Devuelve una lista breve con los nueve resultados."
 ```
 
 Resultado esperado:
 
 ```text
 OK cultura-frontend cargado
+OK cultura-ux-desktop cargado
+OK cultura-ux-mobile cargado
 OK cultura-data cargado
 OK cultura-testing cargado
 OK cultura-review cargado
