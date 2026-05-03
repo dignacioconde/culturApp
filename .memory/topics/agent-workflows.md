@@ -23,3 +23,9 @@
 - Context: Calendar responsive work showed that lint/build were insufficient for `react-big-calendar` layout regressions.
 - Durable memory: prompts for visual/responsive agents must include route, viewport or condition, symptom/capture, and a visual acceptance criterion; for calendars, require evidence that toolbar, header, and month rows are visible.
 - Source: commit `2efe2b6`; `AGENTS.md`; `.opencode/README.md`; `TECHDOC.md`.
+
+## 2026-05-03 - Memory Gate Before Pull Requests
+
+- Context: The user asked that memory be filled before PR creation, for OpenCode agents and also for Codex or Claude Code when they work without agents.
+- Durable memory: no PR should be opened until the worker has reviewed issue/context, branch diff, and commits against base, then either updated `.memory/` with durable preferences, product decisions, recurring gotchas, or workflow rules, or explicitly declared `Memoria: no aplica`. The PR body must include the memory status. OpenCode should route durable memory writes through `cultura-docs`; Codex and Claude Code may update `.memory/` directly when not using agents.
+- Source: user instruction on 2026-05-03; issue `#13`; `AGENTS.md`; `.github/pull_request_template.md`; `.opencode/README.md`.

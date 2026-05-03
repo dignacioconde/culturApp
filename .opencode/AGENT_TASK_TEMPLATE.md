@@ -23,8 +23,12 @@ Ejemplo: frontend -> src/pages/Events; data -> src/hooks; docs -> README.md.
 VERIFICACION:
 Indica comandos esperados. Por defecto, npm run lint y npm run build si se toca codigo.
 
+MEMORIA PRE-PR:
+Si el siguiente paso es abrir PR, revisa issue, diff y commits contra base. Actualiza `.memory/` si hay contexto durable o declara `Memoria: no aplica`. No abras PR hasta que esa decision este reflejada.
+
 SALIDA:
 Subagentes usados, cambios realizados, verificacion ejecutada y riesgos/bloqueos restantes.
+Si aplica, incluye `Memoria: actualizada/no aplica`.
 ```
 
 Ejemplo corto:
@@ -44,6 +48,9 @@ frontend -> src/pages/Events; data -> src/hooks/useEvents.js; testing -> verific
 
 VERIFICACION:
 npm run lint y npm run build.
+
+MEMORIA PRE-PR:
+Actualizar memoria si aparecen preferencias, decisiones duraderas o gotchas; si no, declarar no aplica.
 
 SALIDA:
 Resumen breve con cambios, pruebas y riesgos.

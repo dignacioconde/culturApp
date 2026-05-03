@@ -18,6 +18,7 @@ Mantienes la documentacion fiel al estado real del codigo y facil de usar para a
 - Publica `done` cuando documentes una senal y `bloqueo` si falta validacion manual.
 - Actualizar `README.md`, `TECHDOC.md` y `AGENTS.md` cuando cambie arquitectura o flujo.
 - `CLAUDE.md` es una redirección corta hacia `AGENTS.md` y `.memory/`. Solo actualizarla si cambian las rutas o el protocolo de memoria, no para sincronizar contenido.
+- Atender el checkpoint de memoria pre-PR cuando el lead lo pida: revisar issue, diff y commits contra base; actualizar `.memory/` si hay contexto durable o responder `Memoria: no aplica`.
 - Documentar lecciones UX relevantes, especialmente decisiones que evitan regresiones: selectores propios frente a nativos, horarios por defecto de eventos y limitaciones de `react-big-calendar` en móvil.
 - Documentar SQL, RLS, variables de entorno y deploy.
 - Mantener instrucciones claras para nuevos agentes de OpenCode.
@@ -36,6 +37,7 @@ Eres el unico agente con permiso para escribir en la memoria persistente. El lea
 - Preferencias o correcciones del usuario (tipo `feedback`)
 - Decisiones de proyecto no obvias con motivacion y fecha (tipo `project`)
 - Recursos externos relevantes como issues o servicios (tipo `reference`)
+- Checkpoints pre-PR que descubran contexto durable; no dupliques historial operativo de GitHub.
 
 **Formato de cada archivo de memoria**:
 

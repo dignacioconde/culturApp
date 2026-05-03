@@ -14,6 +14,8 @@ El proyecto tiene un sistema de memoria persistente en `.memory/` (directorio en
 
 **Durante la tarea**: si se descubre algo nuevo sobre preferencias del usuario, decisiones no obvias o contexto del proyecto, delegarlo a `@cultura-docs` para que lo persista.
 
+**Gate obligatorio antes de abrir PR**: ningun agente, Codex o Claude Code debe abrir una PR sin hacer un checkpoint de memoria. Revisar issue relacionada, diff y commits de la rama contra la base; guardar en `.memory/` solo preferencias, decisiones duraderas, gotchas recurrentes o reglas de trabajo. Si no hay nada durable que guardar, declararlo explicitamente como `Memoria: no aplica`. Si se actualiza `.memory/`, esos cambios deben quedar commiteados y pusheados antes de crear la PR. Incluir siempre en la descripcion de la PR una seccion `Memoria` con `actualizada` o `no aplica`.
+
 **Tipos de memoria**:
 - `feedback`: correcciones o validaciones de decisiones ("no hagas X", "sí, exactamente así")
 - `project`: decisiones de producto, bugs conocidos, iniciativas activas con fecha
@@ -86,10 +88,12 @@ Cuando se descubra un problema nuevo que requiera seguimiento, usar este flujo p
 1. Abrir o localizar una issue en GitHub con contexto, alcance y criterios de aceptacion.
 2. Ejecutar agentes OpenCode con esa issue como contexto, ownership claro y verificacion obligatoria.
 3. Implementar/ajustar el fix y ejecutar `npm run lint` y `npm run build` si toca codigo de app.
-4. Crear un commit con los cambios relacionados.
-5. Hacer push del commit a GitHub.
-6. Comentar la issue con resumen, commit y verificaciones ejecutadas.
-7. Cerrar la issue como completada solo despues del push, el commit y el comentario.
+4. Hacer checkpoint de memoria pre-PR: issue, diff y commits contra base. Activar `@cultura-docs` si hay que persistir memoria; si no, documentar `Memoria: no aplica`.
+5. Crear commit(s) con los cambios relacionados, incluyendo `.memory/` si se actualizo.
+6. Hacer push del commit a GitHub.
+7. Abrir PR solo cuando la memoria este actualizada o marcada como no aplicable, usando la plantilla de PR.
+8. Comentar la issue con resumen, commit/PR y verificaciones ejecutadas.
+9. Cerrar la issue como completada solo despues del push, el comentario y la PR creada o mergeada segun proceda.
 
 Si el problema es visual, incluir tambien ruta, viewport, captura/sintoma y criterio visual de aceptacion.
 
@@ -127,7 +131,24 @@ Una tarea de agente se considera terminada solo cuando:
 - Ejecuta `npm run lint` si esta disponible y aplica al cambio.
 - Si toca logica financiera, explica el calculo afectado.
 - Si toca datos, respeta RLS, `user_id` y el modelo evento/proyecto.
+- Si va a abrir PR, completa el checkpoint de memoria pre-PR y lo refleja en la descripcion de la PR.
 - Entrega resumen corto: archivos tocados, cambios hechos y pruebas ejecutadas.
+
+### Checkpoint de memoria pre-PR
+
+Aplica a **OpenCode agents**, **Codex trabajando directo** y **Claude Code trabajando directo**. No es opcional cuando el siguiente paso sea abrir una PR.
+
+1. Leer `.memory/MEMORY.md` y los archivos relevantes enlazados.
+2. Revisar la issue o contexto de la tarea, el diff actual y los commits de la rama contra la base.
+3. Decidir si surgio memoria durable:
+   - preferencias o correcciones del usuario;
+   - decisiones de producto o arquitectura no obvias;
+   - gotchas recurrentes que evitaran redescubrimiento;
+   - reglas de workflow o referencias externas utiles.
+4. No guardar historial operativo, rutas sueltas, listas de commits, estado temporal, secretos ni datos sensibles.
+5. Si aplica, actualizar `.memory/` antes del commit final de la rama. En OpenCode, el lead debe activar `@cultura-docs`; Codex y Claude Code pueden editar `.memory/` directamente siguiendo `memory-protocol`.
+6. Si no aplica, dejar constancia en el cierre y en la PR: `Memoria: no aplica`.
+7. La descripcion de la PR debe incluir `Memoria: actualizada en ...` o `Memoria: no aplica`.
 
 ### Issues visuales y responsive
 

@@ -27,7 +27,8 @@ Tu objetivo no es ser el implementador principal. Tu trabajo es recibir una dire
 5. Si un subagente publica `schema_changed`, `api_changed`, `ui_changed`, `needs_review` o `bloqueo`, activa los agentes dependientes.
 6. Para cambios de codigo, cierra siempre con `@cultura-testing`; para cambios medianos/grandes o sensibles, tambien con `@cultura-review`.
 7. Si durante la tarea se detecta una preferencia nueva, una correccion del usuario o una decision de proyecto no obvia, activa `@cultura-docs` para que la persista en memoria antes de cerrar.
-8. Devuelve un resumen final con: subagentes usados, cambios realizados, verificacion y riesgos/bloqueos.
+8. Antes de abrir o preparar una PR, ejecuta el checkpoint de memoria pre-PR: revisa issue, diff y commits contra base; activa `@cultura-docs` si hay memoria durable que guardar, o declara `Memoria: no aplica`.
+9. Devuelve un resumen final con: subagentes usados, cambios realizados, verificacion, memoria pre-PR y riesgos/bloqueos.
 
 ## Tabla de enrutado
 
@@ -47,6 +48,7 @@ Tu objetivo no es ser el implementador principal. Tu trabajo es recibir una dire
 - No edites `src/**`, SQL, README, TECHDOC ni configuracion de app directamente. Si un cambio toca esas rutas, delegalo.
 - Pregunta solo ante bloqueo real: credenciales, accion destructiva, cambio remoto, decision de producto irreversible o ownership ambiguo en escritura paralela.
 - No ejecutes cambios remotos en Supabase, Vercel o GitHub sin confirmacion explicita.
+- No abras PR hasta que la memoria pre-PR este actualizada o declarada como no aplicable.
 - No leas ni publiques secretos de `.env.local`.
 - Si la directriz no trae ownership y hay riesgo de conflicto, delega primero una exploracion sin escritura y luego pide o define ownership antes de implementar.
 
