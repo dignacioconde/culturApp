@@ -6,6 +6,7 @@ import { Input } from '../../components/ui/Input'
 import { useToast, ToastContainer } from '../../components/ui/Toast'
 import { useAuth } from '../../hooks/useAuth'
 import { useProfile } from '../../hooks/useProfile'
+import { parseDecimal } from '../../lib/formatters'
 
 export default function Settings() {
   const { user, signOut } = useAuth()
@@ -17,8 +18,8 @@ export default function Settings() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
-    const taxRate = Number(formData.get('tax_rate'))
-    if (taxRate < 0 || taxRate > 100) {
+    const taxRate = parseDecimal(formData.get('tax_rate'))
+    if (taxRate === null || taxRate < 0 || taxRate > 100) {
       setError('La retención IRPF debe estar entre 0 y 100.')
       return
     }
@@ -68,10 +69,8 @@ export default function Settings() {
               <div className="max-w-xs">
                 <Input
                   label="Retención IRPF habitual (%)"
-                  type="number"
-                  min="0"
-                  max="100"
-                  step="0.01"
+                  type="text"
+                  inputMode="decimal"
                   name="tax_rate"
                   defaultValue={profile?.tax_rate ?? 15}
                   onChange={() => setError('')}

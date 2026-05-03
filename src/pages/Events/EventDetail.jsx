@@ -7,6 +7,7 @@ import { Button } from '../../components/ui/Button'
 import { StatusBadge } from '../../components/ui/Badge'
 import { Modal } from '../../components/ui/Modal'
 import { Input, Select } from '../../components/ui/Input'
+import { parseDecimal } from '../../lib/formatters'
 import { useToast, ToastContainer } from '../../components/ui/Toast'
 import { EventForm } from './EventForm'
 import { useAuth } from '../../hooks/useAuth'
@@ -147,14 +148,26 @@ export default function EventDetail() {
 
   const handleSubmitIncome = async (e) => {
     e.preventDefault()
-    if (!incomeForm.concept.trim() || Number(incomeForm.amount) <= 0) {
+    const amount = parseDecimal(incomeForm.amount)
+    const rawTaxRate = String(incomeForm.tax_rate ?? '').trim()
+    const taxRate = rawTaxRate === '' ? defaultTaxRate : parseDecimal(rawTaxRate)
+    if (!incomeForm.concept.trim() || !amount || amount <= 0) {
       addToast('Completa el concepto y un importe mayor que 0.', 'error')
       return
     }
+    if (taxRate === null || taxRate < 0 || taxRate > 100) {
+      addToast('La retención IRPF debe estar entre 0 y 100.', 'error')
+      return
+    }
+    const payload = {
+      ...incomeForm,
+      amount: amount,
+      tax_rate: taxRate,
+    }
     setSavingIncome(true)
     const { error } = editingIncome
-      ? await updateIncome(editingIncome.id, incomeForm)
-      : await createIncome({ ...incomeForm, event_id: id })
+      ? await updateIncome(editingIncome.id, payload)
+      : await createIncome({ ...payload, event_id: id })
     setSavingIncome(false)
     if (error) { addToast('Error al guardar el ingreso.', 'error'); return }
     addToast(editingIncome ? 'Ingreso actualizado.' : 'Ingreso añadido.')
@@ -455,7 +468,8 @@ export default function EventDetail() {
             />
             <Input
               label="Retención IRPF (%)"
-              type="number" min="0" max="100"
+              type="text"
+              inputMode="decimal"
               value={incomeForm.tax_rate}
               onChange={(e) => setIncomeForm((p) => ({ ...p, tax_rate: e.target.value }))}
             />

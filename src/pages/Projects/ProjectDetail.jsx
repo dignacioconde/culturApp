@@ -7,6 +7,7 @@ import { Button } from '../../components/ui/Button'
 import { StatusBadge } from '../../components/ui/Badge'
 import { Modal } from '../../components/ui/Modal'
 import { Input, Select } from '../../components/ui/Input'
+import { parseDecimal } from '../../lib/formatters'
 import { useToast, ToastContainer } from '../../components/ui/Toast'
 import { ProjectForm } from './ProjectForm'
 import { useAuth } from '../../hooks/useAuth'
@@ -132,14 +133,26 @@ export default function ProjectDetail() {
 
   const handleSubmitIncome = async (e) => {
     e.preventDefault()
-    if (!incomeForm.concept.trim() || Number(incomeForm.amount) <= 0) {
+    const amount = parseDecimal(incomeForm.amount)
+    const rawTaxRate = String(incomeForm.tax_rate ?? '').trim()
+    const taxRate = rawTaxRate === '' ? defaultTaxRate : parseDecimal(rawTaxRate)
+    if (!incomeForm.concept.trim() || !amount || amount <= 0) {
       addToast('Completa el concepto y un importe mayor que 0.', 'error')
       return
     }
+    if (taxRate === null || taxRate < 0 || taxRate > 100) {
+      addToast('La retención IRPF debe estar entre 0 y 100.', 'error')
+      return
+    }
+    const payload = {
+      ...incomeForm,
+      amount: amount,
+      tax_rate: taxRate,
+    }
     setSavingIncome(true)
     const { error } = editingIncome
-      ? await updateIncome(editingIncome.id, incomeForm)
-      : await createIncome({ ...incomeForm, project_id: id })
+      ? await updateIncome(editingIncome.id, payload)
+      : await createIncome({ ...payload, project_id: id })
     setSavingIncome(false)
     if (error) { addToast('Error al guardar el ingreso.', 'error'); return }
     addToast(editingIncome ? 'Ingreso actualizado.' : 'Ingreso añadido.')
@@ -435,7 +448,7 @@ export default function ProjectDetail() {
           <Input label="Concepto *" value={incomeForm.concept} onChange={(e) => setIncomeForm((p) => ({ ...p, concept: e.target.value }))} placeholder="Producción general" required />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <Input label="Importe (€) *" type="number" min="0" step="0.01" value={incomeForm.amount} onChange={(e) => setIncomeForm((p) => ({ ...p, amount: e.target.value }))} required />
-            <Input label="Retención IRPF (%)" type="number" min="0" max="100" value={incomeForm.tax_rate} onChange={(e) => setIncomeForm((p) => ({ ...p, tax_rate: e.target.value }))} />
+            <Input label="Retención IRPF (%)" type="text" inputMode="decimal" value={incomeForm.tax_rate} onChange={(e) => setIncomeForm((p) => ({ ...p, tax_rate: e.target.value }))} />
             <Input label="Fecha prevista de cobro" type="date" value={incomeForm.expected_date} onChange={(e) => setIncomeForm((p) => ({ ...p, expected_date: e.target.value }))} />
             <div className="flex items-center gap-2">
               <input type="checkbox" id="is_paid" checked={incomeForm.is_paid} onChange={(e) => setIncomeForm((p) => ({ ...p, is_paid: e.target.checked }))} className="h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />

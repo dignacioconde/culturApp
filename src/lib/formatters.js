@@ -6,6 +6,14 @@ export const formatCurrencyPerHour = (amount) => `${formatCurrency(amount)}/h`
 export const formatHours = (hours) =>
   new Intl.NumberFormat('es-ES', { maximumFractionDigits: 1 }).format(hours ?? 0)
 
+// Parses a numeric string allowing both comma and dot as decimal separators.
+export const parseDecimal = (value) => {
+  if (!value && value !== 0) return null
+  const normalized = String(value).trim().replace(',', '.')
+  const parsed = Number(normalized)
+  return isNaN(parsed) ? null : parsed
+}
+
 export const formatDate = (dateStr) => {
   if (!dateStr) return '—'
   return new Intl.DateTimeFormat('es-ES', {
