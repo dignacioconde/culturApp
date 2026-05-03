@@ -15,7 +15,7 @@
 ## 2026-05-03 - Remaining Product/Release Gaps
 
 - Context: Project docs consistently mark Vercel deploy and mobile week UX as not fully done.
-- Durable memory: do not describe the project as deployed; Vercel remains pending. Do not mark mobile week view for `/calendar/events` as solved; issue `#3` remains open conceptually and the current horizontal scroll is only an acceptable patch.
+- Durable memory: Vercel production deploy has since been verified; see [routing-deploy.md](routing-deploy.md). Do not mark mobile week view for `/calendar/events` as solved; issue `#3` remains open conceptually and the current horizontal scroll is only an acceptable patch.
 - Source: `AGENTS.md`; `README.md`; `TECHDOC.md`; `.opencode/README.md`.
 
 ## 2026-05-03 - Work Grouping First Iteration
