@@ -16,6 +16,32 @@ const EMPTY_FORM = {
   notes: '',
 }
 
+const getDefaultEndDatetime = (startDatetime, multiDay = false) => {
+  if (!startDatetime) return ''
+
+  const [date, time = '08:00'] = startDatetime.split('T')
+  const [hours = 8, minutes = 0] = time.split(':').map(Number)
+  const endDate = new Date(`${date}T${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`)
+  endDate.setHours(endDate.getHours() + 1)
+  if (multiDay) {
+    endDate.setDate(endDate.getDate() + 1)
+  }
+
+  const localEndDate = `${endDate.getFullYear()}-${String(endDate.getMonth() + 1).padStart(2, '0')}-${String(endDate.getDate()).padStart(2, '0')}`
+  if (!multiDay && localEndDate !== date) {
+    return `${date}T23:59`
+  }
+
+  const year = endDate.getFullYear()
+  const month = String(endDate.getMonth() + 1).padStart(2, '0')
+  const day = String(endDate.getDate()).padStart(2, '0')
+  const endHours = String(endDate.getHours()).padStart(2, '0')
+  const endMinutes = String(endDate.getMinutes()).padStart(2, '0')
+  const endDatePart = multiDay ? `${year}-${month}-${day}` : date
+
+  return `${endDatePart}T${endHours}:${endMinutes}`
+}
+
 export function EventForm({ initialData, projects = [], onSubmit, onCancel, loading }) {
   const [form, setForm] = useState({
     ...EMPTY_FORM,
@@ -28,11 +54,42 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
     notes: initialData?.notes ?? '',
   })
   const [error, setError] = useState('')
+  const [isMultiDay, setIsMultiDay] = useState(() => {
+    if (!initialData?.end_datetime) return false
+    const startDate = initialData.start_datetime?.split('T')[0]
+    const endDate = initialData.end_datetime?.split('T')[0]
+    return startDate !== endDate
+  })
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    setForm((prev) => ({ ...prev, [name]: value }))
+    setForm((prev) => {
+      const updated = { ...prev, [name]: value }
+
+      if (name === 'start_datetime' && !isMultiDay && value) {
+        updated.end_datetime = getDefaultEndDatetime(value)
+      }
+
+      return updated
+    })
     setError('')
+  }
+
+  const handleMultiDayChange = (checked) => {
+    setIsMultiDay(checked)
+    if (!form.start_datetime) return
+
+    if (!checked) {
+      setForm((prev) => ({
+        ...prev,
+        end_datetime: getDefaultEndDatetime(form.start_datetime),
+      }))
+    } else {
+      setForm((prev) => ({
+        ...prev,
+        end_datetime: getDefaultEndDatetime(form.start_datetime, true),
+      }))
+    }
   }
 
   const handleSubmit = (e) => {
@@ -120,15 +177,27 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
             defaultTime="08:00"
             required
           />
-          <Input
-            label="Fin"
-            type="datetime-local"
-            name="end_datetime"
-            value={form.end_datetime}
-            onChange={handleChange}
-            defaultTime={form.start_datetime?.slice(11, 16) || '08:00'}
-          />
+          {isMultiDay && (
+            <Input
+              label="Fin"
+              type="datetime-local"
+              name="end_datetime"
+              value={form.end_datetime}
+              onChange={handleChange}
+              defaultTime={form.start_datetime?.slice(11, 16) || '08:00'}
+            />
+          )}
         </div>
+        <label htmlFor="is_multi_day" className="flex min-h-11 cursor-pointer items-center gap-3 text-sm text-gray-700">
+          <input
+            type="checkbox"
+            id="is_multi_day"
+            checked={isMultiDay}
+            onChange={(e) => handleMultiDayChange(e.target.checked)}
+            className="h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+          />
+          <span>Evento de varios días</span>
+        </label>
       </section>
 
       <section className="flex flex-col gap-4 border-t border-gray-100 pt-5">

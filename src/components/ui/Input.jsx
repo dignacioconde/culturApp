@@ -3,7 +3,6 @@ import { CalendarDays, Check, ChevronDown, ChevronLeft, ChevronRight } from 'luc
 
 const fieldBaseClass = 'w-full rounded-lg border bg-white px-3 py-3 text-sm text-gray-900 shadow-sm transition-colors placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500'
 const monthFormatter = new Intl.DateTimeFormat('es-ES', { month: 'long', year: 'numeric' })
-const dayFormatter = new Intl.DateTimeFormat('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' })
 const weekDays = ['L', 'M', 'X', 'J', 'V', 'S', 'D']
 const timeOptions = Array.from({ length: 96 }, (_, index) => {
   const hours = String(Math.floor(index / 4)).padStart(2, '0')
@@ -31,9 +30,15 @@ function getFieldStateClass(error) {
 
 function parseDateValue(value) {
   if (!value) return null
-  const [year, month, day] = String(value).split('-').map(Number)
+  const rawValue = String(value).trim()
+  const parts = rawValue.includes('/')
+    ? rawValue.split('/').reverse()
+    : rawValue.split('-')
+  const [year, month, day] = parts.map(Number)
   if (!year || !month || !day) return null
-  return new Date(year, month - 1, day)
+  const date = new Date(year, month - 1, day)
+  if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) return null
+  return date
 }
 
 function formatDateValue(date) {
@@ -41,6 +46,13 @@ function formatDateValue(date) {
   const month = String(date.getMonth() + 1).padStart(2, '0')
   const day = String(date.getDate()).padStart(2, '0')
   return `${year}-${month}-${day}`
+}
+
+function formatDateDisplay(date) {
+  const day = String(date.getDate()).padStart(2, '0')
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const year = date.getFullYear()
+  return `${day}/${month}/${year}`
 }
 
 function getCalendarDays(monthDate) {
@@ -73,26 +85,28 @@ function DateInput({
   const generatedId = useId()
   const inputId = id ?? generatedId
   const errorId = error ? `${inputId}-error` : undefined
-  const [isOpen, setIsOpen] = useState(false)
+  const [showCalendar, setShowCalendar] = useState(false)
   const selectedDate = parseDateValue(value)
   const [visibleMonth, setVisibleMonth] = useState(() => selectedDate ?? new Date())
-  const rootRef = useRef(null)
+  const [manualInput, setManualInput] = useState(() => (selectedDate ? formatDateDisplay(selectedDate) : ''))
   const days = useMemo(() => getCalendarDays(visibleMonth), [visibleMonth])
   const todayValue = formatDateValue(new Date())
   const selectedValue = selectedDate ? formatDateValue(selectedDate) : ''
+  const selectedDisplayValue = selectedDate ? formatDateDisplay(selectedDate) : ''
+  const rootRef = useRef(null)
 
   useEffect(() => {
-    if (!isOpen) return undefined
+    if (!showCalendar) return
 
     const handlePointerDown = (event) => {
       if (!rootRef.current?.contains(event.target)) {
-        setIsOpen(false)
+        setShowCalendar(false)
       }
     }
 
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
-        setIsOpen(false)
+        setShowCalendar(false)
       }
     }
 
@@ -102,7 +116,7 @@ function DateInput({
       document.removeEventListener('pointerdown', handlePointerDown)
       document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [isOpen])
+  }, [showCalendar])
 
   const emitChange = (nextValue) => {
     onChange?.({
@@ -111,45 +125,93 @@ function DateInput({
     })
   }
 
+  const handleManualChange = (e) => {
+    const input = e.target.value
+    setManualInput(input)
+    const parsed = parseDateValue(input)
+    if (parsed) {
+      emitChange(formatDateValue(parsed))
+    } else if (input === '') {
+      emitChange('')
+    }
+  }
+
+  const handleManualBlur = () => {
+    const parsed = parseDateValue(manualInput)
+    if (parsed) {
+      setManualInput(formatDateDisplay(parsed))
+      emitChange(formatDateValue(parsed))
+    } else if (selectedDisplayValue) {
+      setManualInput(selectedDisplayValue)
+    } else {
+      setManualInput('')
+    }
+    setShowCalendar(false)
+  }
+
+  const handleManualKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      handleManualBlur()
+    } else if (e.key === 'Escape') {
+      setManualInput(selectedDisplayValue)
+      setShowCalendar(false)
+    }
+  }
+
   const moveMonth = (amount) => {
     setVisibleMonth((current) => new Date(current.getFullYear(), current.getMonth() + amount, 1))
   }
 
   const selectDate = (date) => {
     emitChange(formatDateValue(date))
-    setIsOpen(false)
+    setManualInput(formatDateDisplay(date))
+    setShowCalendar(false)
   }
 
   const clearDate = () => {
     emitChange('')
-    setIsOpen(false)
+    setManualInput('')
+    setShowCalendar(false)
   }
 
   return (
     <FieldWrapper label={label} error={error} inputId={inputId} errorId={errorId}>
       <div ref={rootRef} className="relative">
-        <button
-          id={inputId}
-          type="button"
-          aria-haspopup="dialog"
-          aria-expanded={isOpen}
-          aria-invalid={error ? 'true' : undefined}
-          aria-required={required ? 'true' : undefined}
-          aria-describedby={[ariaDescribedBy, errorId].filter(Boolean).join(' ') || undefined}
-          disabled={disabled}
-          onClick={() => {
-            setVisibleMonth(selectedDate ?? new Date())
-            setIsOpen((prev) => !prev)
-          }}
-          className={`${fieldBaseClass} flex min-h-12 items-center justify-between gap-3 pr-3 text-left text-base ${getFieldStateClass(error)} ${className}`}
-          {...props}
-        >
-          <span className={`min-w-0 truncate ${selectedDate ? 'text-gray-900' : 'text-gray-400'}`}>
-            {selectedDate ? dayFormatter.format(selectedDate) : 'dd/mm/aaaa'}
-          </span>
-          <CalendarDays size={18} className="shrink-0 text-gray-700" />
-        </button>
-        {isOpen && (
+        <div className="relative">
+          <input
+            type="text"
+            id={inputId}
+            value={manualInput || selectedDisplayValue}
+            onChange={handleManualChange}
+            onBlur={handleManualBlur}
+            onKeyDown={handleManualKeyDown}
+            onFocus={() => setVisibleMonth(selectedDate ?? new Date())}
+            disabled={disabled}
+            aria-invalid={error ? 'true' : undefined}
+            aria-required={required ? 'true' : undefined}
+            aria-describedby={[ariaDescribedBy, errorId].filter(Boolean).join(' ') || undefined}
+            placeholder="dd/mm/aaaa"
+            className={`${fieldBaseClass} min-h-12 w-full text-left text-base pr-10 ${getFieldStateClass(error)} ${className}`}
+            {...props}
+          />
+          <button
+            type="button"
+            aria-haspopup="dialog"
+            aria-expanded={showCalendar}
+            aria-label="Abrir calendario"
+            disabled={disabled}
+            onClick={(e) => {
+              e.stopPropagation()
+              setVisibleMonth(selectedDate ?? new Date())
+              setShowCalendar((prev) => !prev)
+            }}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded"
+          >
+            <CalendarDays size={18} />
+          </button>
+        </div>
+        {showCalendar && (
           <div className="absolute left-0 top-[calc(100%+0.375rem)] z-[90] w-full min-w-[20rem] max-w-[calc(100vw-2rem)] rounded-lg border border-gray-200 bg-white p-3 text-sm shadow-xl ring-1 ring-gray-950/5">
             <div className="mb-3 flex items-center justify-between gap-2">
               <button

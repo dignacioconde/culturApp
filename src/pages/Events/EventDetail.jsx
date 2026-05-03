@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { ArrowLeft, Plus, Trash2, CheckCircle, Circle, Edit, FolderOpen } from 'lucide-react'
+import { ArrowLeft, Plus, Trash2, CheckCircle, Circle, Edit, FolderOpen, ChevronDown } from 'lucide-react'
 import { PageWrapper } from '../../components/layout/PageWrapper'
 import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
@@ -55,6 +55,7 @@ export default function EventDetail() {
   const [editingExpense, setEditingExpense] = useState(null)
   const [expenseForm, setExpenseForm] = useState(EMPTY_EXPENSE)
   const [savingExpense, setSavingExpense] = useState(false)
+  const [financialSummaryExpanded, setFinancialSummaryExpanded] = useState(false)
 
   if (eventsLoading) {
     return (
@@ -229,14 +230,21 @@ export default function EventDetail() {
         </div>
 
         <Card className="p-5 bg-gray-50">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-            <div>
+          <button
+            type="button"
+            onClick={() => setFinancialSummaryExpanded((prev) => !prev)}
+            className="w-full flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4"
+          >
+            <div className="flex flex-col items-start text-left">
               <h3 className="text-sm font-semibold text-gray-900">Resumen financiero</h3>
               <p className="text-xs text-gray-500 mt-1">Calculado con ingresos y gastos vinculados a este evento.</p>
             </div>
-            <p className="text-xs text-gray-500">Cobrado: {formatCurrency(totalPaid)} · Pendiente: {formatCurrency(pendingAmount)}</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+            <div className="flex items-center justify-between w-full sm:w-auto sm:justify-end gap-3">
+              <p className="text-xs text-gray-500">Cobrado: {formatCurrency(totalPaid)} · Pendiente: {formatCurrency(pendingAmount)}</p>
+              <ChevronDown size={16} className={`shrink-0 text-gray-400 transition-transform sm:hidden ${financialSummaryExpanded ? 'rotate-180' : ''}`} />
+            </div>
+          </button>
+          <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 ${financialSummaryExpanded ? 'block' : 'hidden sm:grid'}`}>
           {[
             { label: 'Ingresos previstos', value: formatCurrency(totalGross) },
             { label: 'IRPF sobre cobrado', value: formatCurrency(totalRetentions) },
@@ -251,6 +259,15 @@ export default function EventDetail() {
             </div>
           ))}
           </div>
+          {!financialSummaryExpanded && (
+            <button
+              type="button"
+              onClick={() => setFinancialSummaryExpanded(true)}
+              className="w-full sm:hidden mt-2 py-2 text-xs text-indigo-600 font-medium hover:text-indigo-700"
+            >
+              Ver resumen completo
+            </button>
+          )}
         </Card>
 
         {/* Ingresos */}
