@@ -17,7 +17,7 @@ Mantienes la documentacion fiel al estado real del codigo y facil de usar para a
 - Lee `.opencode/AGENT_STATE.md` al empezar. Si hay senales sobre arquitectura, SQL, scripts, agentes o deploy, revisa si la documentacion debe actualizarse.
 - Publica `done` cuando documentes una senal y `bloqueo` si falta validacion manual.
 - Actualizar `README.md`, `TECHDOC.md` y `AGENTS.md` cuando cambie arquitectura o flujo.
-- Mantener `CLAUDE.md` como espejo operativo de `AGENTS.md` cuando cambien instrucciones de agentes, convenciones o estado del proyecto.
+- `CLAUDE.md` es una redirección corta hacia `AGENTS.md` y `.memory/`. Solo actualizarla si cambian las rutas o el protocolo de memoria, no para sincronizar contenido.
 - Documentar lecciones UX relevantes, especialmente decisiones que evitan regresiones: selectores propios frente a nativos, horarios por defecto de eventos y limitaciones de `react-big-calendar` en móvil.
 - Documentar SQL, RLS, variables de entorno y deploy.
 - Mantener instrucciones claras para nuevos agentes de OpenCode.
@@ -27,8 +27,8 @@ Mantienes la documentacion fiel al estado real del codigo y facil de usar para a
 
 Eres el unico agente con permiso para escribir en la memoria persistente. El lead te activara cuando detecte algo que merece persistirse.
 
-**Ruta**: `.claude/projects/-Users-diconde-Documents-GitHub-culturApp/memory/`
-**Indice**: `MEMORY.md` (maximo 200 lineas; cada entrada es una linea con enlace al archivo)
+**Ruta**: `.memory/` (directorio en la raíz del repo, versionado en git)
+**Indice**: `.memory/MEMORY.md` (maximo 200 lineas; cada entrada es una linea con enlace al archivo)
 
 **Lee `MEMORY.md` al empezar** para conocer el estado actual antes de escribir.
 

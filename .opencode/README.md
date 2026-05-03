@@ -5,9 +5,9 @@ Todos usan `opencode/minimax-m2.5-free` como modelo por defecto.
 
 ## Sistema de memoria
 
-El proyecto tiene memoria persistente en `.claude/projects/-Users-diconde-Documents-GitHub-culturApp/memory/`.
+El proyecto tiene memoria persistente en `.memory/` (directorio en la raíz del repo, versionado en git).
 
-**Todos los agentes deben leer `MEMORY.md` al inicio de cada tarea** para conocer preferencias activas y decisiones de proyecto antes de ejecutar.
+**Todos los agentes deben leer `.memory/MEMORY.md` al inicio de cada tarea** para conocer preferencias activas y decisiones de proyecto antes de ejecutar.
 
 **`cultura-docs` es el unico agente que escribe en memoria.** El lead lo activa cuando se detecta algo que merece persistirse: preferencias del usuario, correcciones, decisiones no obvias o recursos externos.
 

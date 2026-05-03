@@ -2,13 +2,13 @@
 
 Archivo de contexto para Codex. Léelo completo antes de tocar cualquier archivo.
 
-**OBLIGATORIO al inicio de cada conversación (Claude Code)**: leer `.claude/projects/-Users-diconde-Documents-GitHub-culturApp/memory/MEMORY.md` y los archivos de memoria enlazados que sean relevantes. Guardar proactivamente cualquier preferencia, decisión o contexto nuevo sin que el usuario lo pida.
+**OBLIGATORIO al inicio de cada conversación (Claude Code)**: leer `.memory/MEMORY.md` y los archivos de memoria enlazados que sean relevantes. Guardar proactivamente cualquier preferencia, decisión o contexto nuevo sin que el usuario lo pida.
 
 ---
 
 ## Sistema de memoria
 
-El proyecto tiene un sistema de memoria persistente en `.claude/projects/-Users-diconde-Documents-GitHub-culturApp/memory/`. Es la fuente de preferencias, decisiones y contexto acumulado del usuario que debe sobrevivir entre conversaciones y sesiones de agentes.
+El proyecto tiene un sistema de memoria persistente en `.memory/` (directorio en la raíz del repo, no versionado). Es la fuente de preferencias, decisiones y contexto acumulado del usuario que debe sobrevivir entre conversaciones y sesiones de agentes.
 
 **Al inicio de cada tarea**: leer `MEMORY.md` para conocer preferencias activas y contexto del proyecto antes de tomar decisiones.
 

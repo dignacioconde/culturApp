@@ -18,6 +18,4 @@ dist/
 # IDE
 .vscode/
 .idea/
-
-# Vercel
-.vercel/
+.vercel
