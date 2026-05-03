@@ -30,6 +30,7 @@ Do not copy the same skill into both `.agents` and `.claude`. If a tool cannot f
 | `cultura-testing-release-check` | Lint/build, smoke tests, regression matrices, Vercel readiness. |
 | `cultura-code-review` | Cross-cutting code review of diffs, PRs, architecture, risk, and maintainability. |
 | `memory-protocol` | File-based Markdown memory for durable agent context, recall, curation, and forgetting. |
+| `caveman` | Ultra-concise communication mode adapted for CulturaApp, with safety fallbacks for reviews, data, finance, RLS, and irreversible actions. |
 
 This is intentionally small. Add a new skill only when a workflow repeats and cannot be captured by one of these without becoming vague.
 
