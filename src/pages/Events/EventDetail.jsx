@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { ArrowLeft, Plus, Trash2, CheckCircle, Circle, Edit, FolderOpen, ChevronDown } from 'lucide-react'
+import { ArrowLeft, Plus, Trash2, CheckCircle, Circle, Edit, FolderOpen, ChevronDown, ExternalLink } from 'lucide-react'
 import { PageWrapper } from '../../components/layout/PageWrapper'
 import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
@@ -208,17 +208,35 @@ export default function EventDetail() {
                 {event.category} · {formatDatetime(event.start_datetime)}
                 {event.end_datetime && ` – ${formatDatetime(event.end_datetime)}`}
               </p>
-              {project && (
-                <Link
-                  to={`/projects/${project.id}`}
-                  className="inline-flex items-center gap-1 text-xs text-indigo-600 hover:underline mt-1"
-                >
-                  <FolderOpen size={12} />
-                  {project.name}
-                </Link>
-              )}
             </div>
           </div>
+
+          {/* Proyecto asociado - más prominente */}
+          {project && (
+            <Card className="p-4 bg-gradient-to-r from-indigo-50 to-purple-50 border-indigo-100">
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-indigo-100 flex items-center justify-center">
+                    <FolderOpen size={20} className="text-indigo-600" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-indigo-600 font-medium">Pertenece al proyecto</p>
+                    <Link
+                      to={`/projects/${project.id}`}
+                      className="text-sm font-semibold text-gray-900 hover:text-indigo-700 hover:underline flex items-center gap-1"
+                    >
+                      {project.name}
+                      <ExternalLink size={12} className="text-indigo-400" />
+                    </Link>
+                  </div>
+                </div>
+                <Link to={`/projects/${project.id}`}>
+                  <Button size="sm" variant="secondary">Ver proyecto</Button>
+                </Link>
+              </div>
+            </Card>
+          )}
+
           <div className="flex flex-wrap gap-2 sm:justify-end">
             <Button variant="secondary" size="sm" onClick={() => setEditModal(true)} className="min-h-11 min-w-[5.5rem]">
               <Edit size={14} /> Editar

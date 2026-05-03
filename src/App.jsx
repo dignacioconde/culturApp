@@ -9,6 +9,7 @@ import EventList from './pages/Events/EventList'
 import EventDetail from './pages/Events/EventDetail'
 import ProjectList from './pages/Projects/ProjectList'
 import ProjectDetail from './pages/Projects/ProjectDetail'
+import Work from './pages/Work/Work'
 import Settings from './pages/Settings/Settings'
 
 function PrivateRoute({ children }) {
@@ -38,6 +39,7 @@ export default function App() {
         <Route path="/events/:id" element={<PrivateRoute><EventDetail /></PrivateRoute>} />
         <Route path="/projects" element={<PrivateRoute><ProjectList /></PrivateRoute>} />
         <Route path="/projects/:id" element={<PrivateRoute><ProjectDetail /></PrivateRoute>} />
+        <Route path="/work" element={<PrivateRoute><Work /></PrivateRoute>} />
         <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>} />
         <Route path="/calendar" element={<Navigate to="/calendar/events" replace />} />
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
