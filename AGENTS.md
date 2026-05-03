@@ -2,6 +2,8 @@
 
 Archivo de contexto para Codex. Léelo completo antes de tocar cualquier archivo.
 
+**OBLIGATORIO al inicio de cada conversación (Claude Code)**: leer `.claude/projects/-Users-diconde-Documents-GitHub-culturApp/memory/MEMORY.md` y los archivos de memoria enlazados que sean relevantes. Guardar proactivamente cualquier preferencia, decisión o contexto nuevo sin que el usuario lo pida.
+
 ---
 
 ## Qué es este proyecto
