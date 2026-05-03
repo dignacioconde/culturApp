@@ -29,6 +29,7 @@ Do not copy the same skill into both `.agents` and `.claude`. If a tool cannot f
 | `cultura-security-privacy-review` | Auth, RLS, secrets, privacy, dependency risk, and agent skill safety. |
 | `cultura-testing-release-check` | Lint/build, smoke tests, regression matrices, Vercel readiness. |
 | `cultura-code-review` | Cross-cutting code review of diffs, PRs, architecture, risk, and maintainability. |
+| `memory-protocol` | File-based Markdown memory for durable agent context, recall, curation, and forgetting. |
 
 This is intentionally small. Add a new skill only when a workflow repeats and cannot be captured by one of these without becoming vague.
 
@@ -42,6 +43,7 @@ Current portable-skill setup:
 - Added a short pointer in `AGENTS.md` and mirrored it in `CLAUDE.md`.
 - Documented the user-facing overview in `README.md`.
 - Documented the technical inventory and validation status in `TECHDOC.md`.
+- Added `memory-protocol` as a portable Markdown memory workflow with `.memory/` as the auditable local store.
 
 No third-party skill text, scripts, dependencies, or external scanner code were imported.
 
@@ -113,6 +115,7 @@ Validation status for the current setup:
 | `cultura-security-privacy-review` | Valid |
 | `cultura-testing-release-check` | Valid |
 | `cultura-code-review` | Valid |
+| `memory-protocol` | Valid |
 | `.agents/templates/portable-skill` | Valid |
 | `git diff --check` | Pass |
 
@@ -125,6 +128,7 @@ Validation status for the current setup:
 - `securityfortech/awesome-security-skills`: used to identify security review categories worth covering locally, especially secure code review, OWASP-oriented checks, and agent security.
 - `MV1-him/agent-audit-kit`: used for agent-supply-chain ideas such as skill poisoning, tool drift, secret exposure, local-first scanning, severity thresholds, and avoiding cloud dependency by default.
 - `Kalitone/claude-code-review-skill`: attempted, but the referenced public repo/path was not accessible through GitHub search/API during this review. No content was used.
+- `hanfang/claude-memory-skill`: used only as conceptual inspiration for simple hierarchical Markdown memory; MIT license confirmed. No upstream skill text, commands, install scripts, or implementation files were imported.
 
 External material was used only as inspiration for structure, categories, severity, and safety posture. No external scripts or third-party skill text were imported.
 
