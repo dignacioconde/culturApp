@@ -12,6 +12,12 @@
 - Durable memory: do not close a tracked issue just because the local fix exists; the commit must be pushed and the issue must receive a summary with commit and verification before closure.
 - Source: commits `62b247e` and `c67348e`; `AGENTS.md`; `.opencode/README.md`.
 
+## 2026-05-03 - GitHub Is The Operational History
+
+- Context: The user clarified that memory was not being updated after issue work and asked whether agents can use PRs and commits for context.
+- Durable memory: use `.memory/` for durable preferences, product decisions, recurring gotchas, and workflow lessons; use GitHub issues, PRs, and commits for detailed task history and implementation context instead of mirroring every change into memory.
+- Source: user clarification on 2026-05-03.
+
 ## 2026-05-03 - Visual Bugs Need Reproduction Details
 
 - Context: Calendar responsive work showed that lint/build were insufficient for `react-big-calendar` layout regressions.
