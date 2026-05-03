@@ -17,3 +17,9 @@
 - Context: Project docs consistently mark Vercel deploy and mobile week UX as not fully done.
 - Durable memory: do not describe the project as deployed; Vercel remains pending. Do not mark mobile week view for `/calendar/events` as solved; issue `#3` remains open conceptually and the current horizontal scroll is only an acceptable patch.
 - Source: `AGENTS.md`; `README.md`; `TECHDOC.md`; `.opencode/README.md`.
+
+## 2026-05-03 - Work Grouping First Iteration
+
+- Context: GitHub issue `#9` implemented the proposal from `#8` for grouping projects and events.
+- Durable memory: the app now has `/work` as an incremental unified "Trabajos" entry point for projects and events. Existing routes `/projects`, `/events`, `/calendar/events`, and `/calendar/projects` remain valid. `EventDetail` makes the associated project more prominent.
+- Source: commit `8b2d1a4` plus follow-up fix for `/work` links.

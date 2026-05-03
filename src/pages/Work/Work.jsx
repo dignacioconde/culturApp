@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FolderOpen, Ticket, Plus, ChevronRight, Calendar } from 'lucide-react'
+import { FolderOpen, Ticket, ChevronRight, Calendar } from 'lucide-react'
 import { PageWrapper } from '../../components/layout/PageWrapper'
 import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
@@ -150,9 +150,9 @@ export default function Work() {
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <h2 className="text-sm font-semibold text-gray-700">Proyectos</h2>
-              <Link to="/projects/new">
+              <Link to="/projects">
                 <Button size="sm" variant="ghost">
-                  <Plus size={14} /> Nuevo
+                  <FolderOpen size={14} /> Ver proyectos
                 </Button>
               </Link>
             </div>
@@ -173,9 +173,9 @@ export default function Work() {
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <h2 className="text-sm font-semibold text-gray-700">Eventos</h2>
-              <Link to="/events/new">
+              <Link to="/events">
                 <Button size="sm" variant="ghost">
-                  <Plus size={14} /> Nuevo
+                  <Ticket size={14} /> Ver eventos
                 </Button>
               </Link>
             </div>
@@ -196,10 +196,10 @@ export default function Work() {
           <Card className="p-8 text-center">
             <p className="text-sm text-gray-500 mb-4">No tienes ningún trabajo registrado.</p>
             <div className="flex flex-wrap justify-center gap-3">
-              <Link to="/projects/new">
+              <Link to="/projects">
                 <Button><FolderOpen size={16} /> Crear proyecto</Button>
               </Link>
-              <Link to="/events/new">
+              <Link to="/events">
                 <Button variant="secondary"><Ticket size={16} /> Crear evento</Button>
               </Link>
             </div>
