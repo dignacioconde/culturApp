@@ -30,6 +30,10 @@ Documento técnico de referencia del estado real del proyecto. Para Codex, la fu
 | `vite.config.js` | 7 | Build config con plugins React + Tailwind |
 | `eslint.config.js` | — | Linting |
 | `.env.local` | — | Variables de entorno (no en git) |
+| `.agents/skills/` | — | Fuente real de skills portables para Codex |
+| `.agents/templates/portable-skill/` | — | Plantilla base para nuevas skills `SKILL.md` |
+| `.claude/skills/` | — | Symlinks para que Claude Code descubra las mismas skills |
+| `docs/agent-skills-strategy.md` | — | Estrategia, gobernanza, fuentes revisadas y uso de skills |
 
 ### Core de la aplicación
 
@@ -110,6 +114,7 @@ Todos los hooks exponen `loading`, `error`, métodos CRUD y `refetch`. Los datos
 | Vistas/Páginas | 12 |
 | Tablas en base de datos | 5 |
 | Rutas definidas | 12 |
+| Skills portables | 6 |
 
 ---
 
@@ -141,7 +146,37 @@ Todos los hooks exponen `loading`, `error`, métodos CRUD y `refetch`. Los datos
 - Gestión de perfil (nombre, profesión, tipo IRPF por defecto)
 - Sistema de notificaciones toast (éxito/error)
 - RLS habilitado en todas las tablas
+- Skills portables para Codex y Claude Code en `.agents/skills` con symlinks desde `.claude/skills`
 - Agentes OpenCode especializados en `.opencode/agents` para frontend, datos, testing, review, release y documentacion
+
+### Skills portables Codex/Claude
+
+La carpeta `.agents/skills/` contiene la fuente única de workflows portables basados en `SKILL.md`. Claude Code descubre las mismas skills mediante symlinks en `.claude/skills/`, evitando duplicar instrucciones entre herramientas.
+
+| Skill | Objetivo |
+|-------|----------|
+| `portable-skill-authoring` | Crear, revisar y mantener skills portables sin convertir contexto global en skills. |
+| `cultura-frontend-review` | Revisar o implementar cambios de frontend con foco en UI, formularios, calendarios, responsive y accesibilidad. |
+| `cultura-data-finance-review` | Revisar hooks, Supabase, RLS, relaciones evento/proyecto e impacto financiero. |
+| `cultura-security-privacy-review` | Revisar auth, RLS, secretos, privacidad, dependencias y seguridad de instrucciones de agentes. |
+| `cultura-testing-release-check` | Definir y ejecutar checks de lint/build, smoke tests, regresión y predeploy. |
+| `cultura-code-review` | Hacer code review transversal de diffs o PRs con severidades y hallazgos accionables. |
+
+Reglas de mantenimiento:
+
+- La fuente real vive siempre en `.agents/skills/<skill-name>/SKILL.md`.
+- `.claude/skills/<skill-name>` debe ser un symlink relativo a `../../.agents/skills/<skill-name>`.
+- Nuevas skills deben partir de `.agents/templates/portable-skill/SKILL.md`.
+- No mover a skills reglas globales que pertenezcan a `AGENTS.md`, `CLAUDE.md`, `README.md` o `TECHDOC.md`.
+- Preferir skills instruction-only salvo que un script aporte seguridad o reproducibilidad clara.
+- Validar cada skill con `quick_validate.py` cuando `PyYAML` esté disponible.
+
+Validación realizada:
+
+- `quick_validate.py` pasa para las 6 skills.
+- `quick_validate.py` pasa para la plantilla.
+- `git diff --check` pasa.
+- No se añadieron dependencias ni scripts externos.
 
 ### Agentes OpenCode
 

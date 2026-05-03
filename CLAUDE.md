@@ -40,6 +40,7 @@ La herramienta les permite:
 - Ahorrar palabras y tokens: responder de forma concisa salvo que el usuario pida detalle.
 - Para Codex, `AGENTS.md` es la fuente principal de contexto.
 - Este archivo se mantiene como espejo para Claude Code; si diverge, priorizar `AGENTS.md`.
+- Las skills portables viven en `.agents/skills/<skill-name>/SKILL.md`. Claude Code las descubre mediante symlinks en `.claude/skills/<skill-name>`. La estrategia y plantilla estan en `docs/agent-skills-strategy.md` y `.agents/templates/portable-skill/SKILL.md`.
 - Cuando el usuario pida ejecutar agentes/OpenCode, no hacer una investigacion manual previa por defecto. Lanzar los agentes con el flujo estipulado (`npm run agents:run` o `npm run agents:parallel`) y dejar que ellos lean contexto, diagnostiquen y propongan/ejecuten segun la tarea. Solo hacer trabajo previo minimo si es necesario para construir el comando, definir ownership seguro o resolver un bloqueo real.
 
 ---

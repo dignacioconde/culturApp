@@ -233,6 +233,30 @@ npm run dev
 
 ---
 
+## Skills portables para agentes
+
+El repositorio incluye skills portables basadas en carpetas `SKILL.md` para reutilizar workflows entre Codex y Claude Code sin duplicar instrucciones.
+
+- Fuente real para Codex: `.agents/skills/<skill-name>/SKILL.md`
+- Exposición para Claude Code: `.claude/skills/<skill-name>` como symlink a `.agents/skills/<skill-name>`
+- Plantilla para nuevas skills: `.agents/templates/portable-skill/SKILL.md`
+- Estrategia y mantenimiento: `docs/agent-skills-strategy.md`
+
+Skills disponibles:
+
+| Skill | Uso |
+|-------|-----|
+| `portable-skill-authoring` | Crear, revisar o mantener skills portables. |
+| `cultura-frontend-review` | Revisar UI, formularios, calendarios, responsive, accesibilidad y performance frontend. |
+| `cultura-data-finance-review` | Revisar Supabase, hooks, RLS, modelo evento/proyecto y cálculos financieros. |
+| `cultura-security-privacy-review` | Revisar auth, RLS, secretos, privacidad, dependencias y seguridad de skills/agentes. |
+| `cultura-testing-release-check` | Preparar lint/build, smoke tests, matrices de regresión y readiness de Vercel. |
+| `cultura-code-review` | Revisar diffs de forma transversal: bugs, arquitectura, seguridad, performance y tests. |
+
+Las skills son instruction-only por defecto. No incluyen scripts externos, dependencias nuevas ni comandos destructivos.
+
+---
+
 ## Deploy en Vercel
 
 1. Sube el repositorio a GitHub
