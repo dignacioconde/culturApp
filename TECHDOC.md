@@ -114,7 +114,7 @@ Todos los hooks exponen `loading`, `error`, métodos CRUD y `refetch`. Los datos
 | Vistas/Páginas | 12 |
 | Tablas en base de datos | 5 |
 | Rutas definidas | 12 |
-| Skills portables | 6 |
+| Skills portables | 7 |
 
 ---
 
@@ -161,6 +161,7 @@ La carpeta `.agents/skills/` contiene la fuente única de workflows portables ba
 | `cultura-security-privacy-review` | Revisar auth, RLS, secretos, privacidad, dependencias y seguridad de instrucciones de agentes. |
 | `cultura-testing-release-check` | Definir y ejecutar checks de lint/build, smoke tests, regresión y predeploy. |
 | `cultura-code-review` | Hacer code review transversal de diffs o PRs con severidades y hallazgos accionables. |
+| `memory-protocol` | Mantener memoria local auditable en Markdown bajo `.memory/`. |
 
 Reglas de mantenimiento:
 
@@ -173,14 +174,14 @@ Reglas de mantenimiento:
 
 Validación realizada:
 
-- `quick_validate.py` pasa para las 6 skills.
+- `quick_validate.py` pasa para las 7 skills.
 - `quick_validate.py` pasa para la plantilla.
 - `git diff --check` pasa.
 - No se añadieron dependencias ni scripts externos.
 
 ### Agentes OpenCode
 
-La carpeta `.opencode/` contiene el agente principal `cultura-lead` y siete subagentes especializados:
+La carpeta `.opencode/` contiene el agente principal `cultura-lead` y nueve subagentes especializados:
 
 | Agente | Modo | Estado |
 |--------|------|--------|
@@ -191,8 +192,10 @@ La carpeta `.opencode/` contiene el agente principal `cultura-lead` y siete suba
 | `cultura-review` | subagent | Verificado via `cultura-lead` |
 | `cultura-release` | subagent | Verificado via `cultura-lead` |
 | `cultura-docs` | subagent | Verificado via `cultura-lead` |
+| `cultura-ux-desktop` | subagent | Verificado via `cultura-lead` |
+| `cultura-ux-mobile` | subagent | Verificado via `cultura-lead` |
 
-Verificacion realizada el 29/04/2026 con OpenCode `1.14.29`. El modelo `opencode/minimax-m2.5-free` aparece en `opencode models opencode` y fue usado por `cultura-lead` y los subagentes.
+Verificacion inicial realizada el 29/04/2026 y set completo con agentes UX verificado el 02/05/2026 con OpenCode `1.14.29`. El modelo `opencode/minimax-m2.5-free` aparece en `opencode models opencode` y fue usado por `cultura-lead` y los subagentes.
 
 Uso recomendado:
 

@@ -252,6 +252,7 @@ Skills disponibles:
 | `cultura-security-privacy-review` | Revisar auth, RLS, secretos, privacidad, dependencias y seguridad de skills/agentes. |
 | `cultura-testing-release-check` | Preparar lint/build, smoke tests, matrices de regresión y readiness de Vercel. |
 | `cultura-code-review` | Revisar diffs de forma transversal: bugs, arquitectura, seguridad, performance y tests. |
+| `memory-protocol` | Mantener memoria local en Markdown bajo `.memory/` para contexto durable de agentes. |
 
 Las skills son instruction-only por defecto. No incluyen scripts externos, dependencias nuevas ni comandos destructivos.
 

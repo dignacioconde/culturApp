@@ -1,0 +1,19 @@
+# Agent Workflow Memory
+
+## 2026-05-03 - OpenCode Agents Are The Preferred Execution Path When Requested
+
+- Context: Commits `71ff8fa`, `5ce937f`, `1033955`, `62b247e` and `c67348e` added and refined the `.opencode/` workflow, `npm run agents:run`, `npm run agents:parallel`, task template, shared state board, and issue-resolution process.
+- Durable memory: when the user asks to run OpenCode agents, launch the repository workflow directly instead of doing broad manual investigation first; do only the minimum needed to form a safe command, scope, and ownership.
+- Source: `AGENTS.md`, `.opencode/README.md`, `.opencode/AGENT_TASK_TEMPLATE.md`, `.opencode/AGENT_STATE.md`, git log through `37ff950`.
+
+## 2026-05-03 - Issue Resolution Requires Push And Comment Before Closure
+
+- Context: The issue workflow was documented and then tightened so new problems flow through GitHub issue, agents, fix, verification, commit, push, issue comment, then closure.
+- Durable memory: do not close a tracked issue just because the local fix exists; the commit must be pushed and the issue must receive a summary with commit and verification before closure.
+- Source: commits `62b247e` and `c67348e`; `AGENTS.md`; `.opencode/README.md`.
+
+## 2026-05-03 - Visual Bugs Need Reproduction Details
+
+- Context: Calendar responsive work showed that lint/build were insufficient for `react-big-calendar` layout regressions.
+- Durable memory: prompts for visual/responsive agents must include route, viewport or condition, symptom/capture, and a visual acceptance criterion; for calendars, require evidence that toolbar, header, and month rows are visible.
+- Source: commit `2efe2b6`; `AGENTS.md`; `.opencode/README.md`; `TECHDOC.md`.

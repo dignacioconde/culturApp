@@ -198,7 +198,7 @@ Estado verificado el 02/05/2026:
 
 - `opencode --version`: `1.14.29`
 - `opencode models opencode` incluye `opencode/minimax-m2.5-free`
-- `opencode agent list` reconoce `cultura-lead` y los siete subagentes
+- `opencode agent list` reconoce `cultura-lead` y los nueve subagentes
 - `cultura-lead` carga correctamente con `opencode/minimax-m2.5-free`
 - Desde `cultura-lead`, cargan correctamente:
   - `cultura-frontend`
