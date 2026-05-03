@@ -27,6 +27,8 @@ Cuando el usuario pida ejecutar agentes, no hagas una revision manual previa del
 
 Cuando se descubra un problema nuevo, el flujo por defecto es: issue en GitHub -> agentes con contexto de la issue -> fix verificado -> commit -> push -> comentario en la issue con resumen/commit/verificaciones -> cerrar issue como completada. No cierres issues antes de pushear y comentar el commit y las verificaciones.
 
+Antes de abrir una PR, todos los agentes deben completar el **checkpoint de memoria pre-PR**: revisar issue, diff y commits contra la base; activar `@cultura-docs` si hay preferencias, decisiones duraderas, gotchas recurrentes o reglas de trabajo que guardar; o declarar `Memoria: no aplica`. Si `.memory/` cambia, esos archivos deben quedar commiteados y pusheados antes de crear la PR. La descripcion de PR debe incluir `Memoria: actualizada` o `Memoria: no aplica`.
+
 Ejemplo con alcance explicito:
 
 ```bash
@@ -164,6 +166,7 @@ Comandos esperados, por ejemplo npm run lint y npm run build.
 
 SALIDA:
 Subagentes usados, cambios, verificacion y riesgos/bloqueos.
+Si la tarea termina en PR, incluye tambien `Memoria: actualizada/no aplica`.
 ```
 
 Ejemplo:

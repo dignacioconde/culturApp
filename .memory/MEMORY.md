@@ -1,8 +1,12 @@
 # Memory — CulturaApp
 
+Mapa estructurado ampliado: [core.md](core.md)
+
 ## Proyecto
 
 - [Memoria centralizada en .memory/](project_memory_centralization.md) — Memoria movida de ruta Claude a .memory/ en el repo (2026-05-03)
+- [Routing/deploy](projects/routing-deploy.md) — Vercel necesita fallback SPA para recargas de rutas protegidas; deploy real sigue pendiente
+- [Estado general](projects/culturaapp-status.md) — Estado implementado del MVP, `/work` y brechas pendientes
 
 ## Referencias
 
@@ -11,6 +15,7 @@
 ## Comportamiento obligatorio
 
 - [Leer y actualizar memoria siempre](feedback_memory_always.md) — Leer MEMORY.md al inicio y guardar proactivamente sin que el usuario lo pida
+- [Checkpoint de memoria pre-PR](topics/agent-workflows.md) — Antes de abrir PR, actualizar `.memory/` o declarar `Memoria: no aplica`
 
 ## Feedback y preferencias
 
