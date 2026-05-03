@@ -3,6 +3,16 @@
 Esta carpeta define agentes especializados para ejecutar CulturaApp con OpenCode.
 Todos usan `opencode/minimax-m2.5-free` como modelo por defecto.
 
+## Sistema de memoria
+
+El proyecto tiene memoria persistente en `.claude/projects/-Users-diconde-Documents-GitHub-culturApp/memory/`.
+
+**Todos los agentes deben leer `MEMORY.md` al inicio de cada tarea** para conocer preferencias activas y decisiones de proyecto antes de ejecutar.
+
+**`cultura-docs` es el unico agente que escribe en memoria.** El lead lo activa cuando se detecta algo que merece persistirse: preferencias del usuario, correcciones, decisiones no obvias o recursos externos.
+
+No guardes en memoria: convenciones de codigo, rutas de archivos, historial git o estado efimero de la tarea. Eso vive en `AGENTS.md`, el codigo y `AGENT_STATE.md`.
+
 ## Ejecucion recomendada
 
 La entrada por defecto debe ser el lanzador estandar:

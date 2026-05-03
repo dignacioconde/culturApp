@@ -6,6 +6,26 @@ Archivo de contexto para Codex. Léelo completo antes de tocar cualquier archivo
 
 ---
 
+## Sistema de memoria
+
+El proyecto tiene un sistema de memoria persistente en `.claude/projects/-Users-diconde-Documents-GitHub-culturApp/memory/`. Es la fuente de preferencias, decisiones y contexto acumulado del usuario que debe sobrevivir entre conversaciones y sesiones de agentes.
+
+**Al inicio de cada tarea**: leer `MEMORY.md` para conocer preferencias activas y contexto del proyecto antes de tomar decisiones.
+
+**Durante la tarea**: si se descubre algo nuevo sobre preferencias del usuario, decisiones no obvias o contexto del proyecto, delegarlo a `@cultura-docs` para que lo persista.
+
+**Tipos de memoria**:
+- `feedback`: correcciones o validaciones de decisiones ("no hagas X", "sí, exactamente así")
+- `project`: decisiones de producto, bugs conocidos, iniciativas activas con fecha
+- `reference`: recursos externos (issues GitHub, dashboards, servicios)
+- `user`: rol, conocimiento y objetivos del usuario
+
+**Quién escribe**: `cultura-docs` es el responsable de escribir y actualizar los archivos de memoria. El lead lo activa cuando detecta algo que merece persistirse.
+
+**No guardar en memoria**: convenciones de código, rutas de archivos, historial git o estado efímero de la tarea actual. Eso vive en `AGENTS.md`, el código y `AGENT_STATE.md`.
+
+---
+
 ## Qué es este proyecto
 
 **CulturaApp** es una herramienta web para trabajadores del sector cultural (músicos, actores, diseñadores, fotógrafos, gestores culturales, etc.) que trabajan de forma independiente con múltiples proyectos simultáneos.

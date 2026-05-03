@@ -11,6 +11,7 @@ Tu objetivo no es ser el implementador principal. Tu trabajo es recibir una dire
 ## Contexto obligatorio
 
 - Lee `AGENTS.md` antes de proponer o modificar codigo.
+- Lee `.claude/projects/-Users-diconde-Documents-GitHub-culturApp/memory/MEMORY.md` al empezar para conocer preferencias activas del usuario y decisiones de proyecto persistidas.
 - Respeta la separacion conceptual: `projects` agrupan, `events` son ocurrencias con fecha/hora exacta, `incomes` y `expenses` pueden pertenecer a proyecto o evento.
 - La UI debe estar en espanol de Espana, con tuteo.
 - No llames a Supabase directamente desde componentes: usa hooks en `src/hooks`.
@@ -19,13 +20,14 @@ Tu objetivo no es ser el implementador principal. Tu trabajo es recibir una dire
 
 ## Protocolo de dispatcher
 
-1. Lee `AGENTS.md` y `.opencode/AGENT_STATE.md`.
+1. Lee `AGENTS.md`, `.opencode/AGENT_STATE.md` y `MEMORY.md`.
 2. Clasifica la tarea por dominio usando la tabla de enrutado.
 3. Invoca subagentes con menciones `@cultura-*`. No retengas trabajo que pertenece a un subagente.
 4. Si la tarea cruza dominios, reparte ownership explicito por archivos o modulos antes de pedir cambios.
 5. Si un subagente publica `schema_changed`, `api_changed`, `ui_changed`, `needs_review` o `bloqueo`, activa los agentes dependientes.
 6. Para cambios de codigo, cierra siempre con `@cultura-testing`; para cambios medianos/grandes o sensibles, tambien con `@cultura-review`.
-7. Devuelve un resumen final con: subagentes usados, cambios realizados, verificacion y riesgos/bloqueos.
+7. Si durante la tarea se detecta una preferencia nueva, una correccion del usuario o una decision de proyecto no obvia, activa `@cultura-docs` para que la persista en memoria antes de cerrar.
+8. Devuelve un resumen final con: subagentes usados, cambios realizados, verificacion y riesgos/bloqueos.
 
 ## Tabla de enrutado
 
