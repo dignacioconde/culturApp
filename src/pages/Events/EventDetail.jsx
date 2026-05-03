@@ -10,6 +10,7 @@ import { Input, Select } from '../../components/ui/Input'
 import { useToast, ToastContainer } from '../../components/ui/Toast'
 import { EventForm } from './EventForm'
 import { useAuth } from '../../hooks/useAuth'
+import { useProfile } from '../../hooks/useProfile'
 import { useEvents } from '../../hooks/useEvents'
 import { useProjects } from '../../hooks/useProjects'
 import { useIncomes } from '../../hooks/useIncomes'
@@ -29,6 +30,7 @@ export default function EventDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
   const { user } = useAuth()
+  const { profile } = useProfile(user?.id)
   const { events, loading: eventsLoading, error: eventsError, updateEvent, deleteEvent } = useEvents(user?.id)
   const { projects } = useProjects(user?.id)
   const { incomes, loading: incomesLoading, createIncome, updateIncome, deleteIncome } = useIncomes(user?.id, { eventId: id })
@@ -41,7 +43,7 @@ export default function EventDetail() {
   const [editModal, setEditModal] = useState(false)
   const [savingEvent, setSavingEvent] = useState(false)
 
-  const defaultTaxRate = user?.user_metadata?.tax_rate ?? 15
+  const defaultTaxRate = profile?.tax_rate ?? 15
   const emptyIncomeForm = { concept: '', amount: '', tax_rate: defaultTaxRate, expected_date: '', is_paid: false }
 
   const [incomeModal, setIncomeModal] = useState(false)

@@ -31,6 +31,8 @@ Archivos: AGENTS.md, CLAUDE.md, .opencode/README.md, .opencode/AGENT_STATE.md.
 Archivos: AGENTS.md, CLAUDE.md, TECHDOC.md, .opencode/README.md.
 - [verified] cultura-review -> cultura-data: Settings.jsx ahora usa useProfile (no Supabase directo). KPI cobro/hora filtra por mes seleccionado + solo ingresos cobrados event_id. Hook nuevo useProfile.js funciona.
 Archivos: useProfile.js, Settings.jsx, Dashboard.jsx:86-107.
+- [verified] dispatcher -> all: Fix tax_rate bug en EventDetail/ProjectDetail: ahora usan useProfile().profile?.tax_rate en lugar de user?.user_metadata?.tax_rate. CalendarView.jsx huérfano eliminado.
+Archivos: EventDetail.jsx, ProjectDetail.jsx, CalendarView.jsx (borrado).
 - [bloqueo] cultura-security -> cultura-data: KPI cobro bruto/hora CRITICO - no filtra por mes seleccionado. Dashboard.jsx:91-94 toma TODOS los eventos con ingresos cobrados, no solo los del mes. Calculo incorrecto. requiere fix urgente.
 - [info] dispatcher -> all: Revisión UX Explorer + Visual/Responsive completada. cultura-ux-desktop (15 hallazgos), cultura-ux-mobile (16 hallazgos), cultura-testing (2 prob). lint OK, build OK.
 

@@ -10,6 +10,7 @@ import { Input, Select } from '../../components/ui/Input'
 import { useToast, ToastContainer } from '../../components/ui/Toast'
 import { ProjectForm } from './ProjectForm'
 import { useAuth } from '../../hooks/useAuth'
+import { useProfile } from '../../hooks/useProfile'
 import { useProjects } from '../../hooks/useProjects'
 import { useEvents } from '../../hooks/useEvents'
 import { useIncomes } from '../../hooks/useIncomes'
@@ -29,6 +30,7 @@ export default function ProjectDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
   const { user } = useAuth()
+  const { profile } = useProfile(user?.id)
   const { projects, loading: projectsLoading, error: projectsError, updateProject, deleteProject } = useProjects(user?.id)
   const { events, loading: eventsLoading } = useEvents(user?.id, id)
   const eventIds = useMemo(() => events.map((e) => e.id), [events])
@@ -41,7 +43,7 @@ export default function ProjectDetail() {
   const [editModal, setEditModal] = useState(false)
   const [savingProject, setSavingProject] = useState(false)
 
-  const defaultTaxRate = user?.user_metadata?.tax_rate ?? 15
+  const defaultTaxRate = profile?.tax_rate ?? 15
   const emptyIncomeForm = { concept: '', amount: '', tax_rate: defaultTaxRate, expected_date: '', is_paid: false }
 
   const [incomeModal, setIncomeModal] = useState(false)
