@@ -26,6 +26,10 @@ Indica comandos esperados. Por defecto, npm run lint y npm run build si se toca 
 MEMORIA PRE-PR:
 Si el siguiente paso es abrir PR, revisa issue, diff y commits contra base. Actualiza `.memory/` si hay contexto durable o declara `Memoria: no aplica`. No abras PR hasta que esa decision este reflejada.
 
+CIERRE DE ISSUE:
+- Si hay PR abierta: issue permanece ABIERTA hasta merge. Cerrar solo cuando la PR se mergee a main.
+- Si no hay PR: cerrar tras commit pusheado + comentario con resumen/commit/verificacion + memoria/docs declarada.
+
 SALIDA:
 Subagentes usados, cambios realizados, verificacion ejecutada y riesgos/bloqueos restantes.
 Si aplica, incluye `Memoria: actualizada/no aplica`.

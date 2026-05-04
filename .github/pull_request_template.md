@@ -1,12 +1,20 @@
 ## Resumen
 
-- 
+-
+
+## Issues enlazadas
+
+<!-- Indica las issues relacionadas con esta PR -->
 
 ## Verificacion
 
 - [ ] `npm run lint` si aplica
 - [ ] `npm run build` si aplica
 - [ ] Verificacion visual/manual si aplica
+
+## Cierre de issues
+
+Las issues enlazadas se cerraran automaticamente al hacer merge de esta PR. No cerrar issues manualmente antes del merge aunque la implementacion este completa en la rama.
 
 ## Memoria
 

@@ -25,7 +25,9 @@ Este comando envuelve la peticion en un contrato operativo con objetivo, autonom
 
 Cuando el usuario pida ejecutar agentes, no hagas una revision manual previa del codigo salvo que sea imprescindible para construir el comando, definir ownership seguro o resolver un bloqueo real. Los agentes deben leer `AGENTS.md`, `.opencode/AGENT_STATE.md` y el codigo necesario, diagnosticar y devolver hallazgos o cambios por si mismos.
 
-Cuando se descubra un problema nuevo, el flujo por defecto es: issue en GitHub -> agentes con contexto de la issue -> fix verificado -> commit -> push -> comentario en la issue con resumen/commit/verificaciones -> cerrar issue como completada. No cierres issues antes de pushear y comentar el commit y las verificaciones.
+Cuando se descubra un problema nuevo, el flujo por defecto es: issue en GitHub -> agentes con contexto de la issue -> fix verificado -> commit -> push -> comentario en la issue con resumen/commit/verificaciones. Cerrar segun criterio:
+- **Si hay PR abierta**: issue permanece ABIERTA hasta merge. Cerrar solo despues de que la PR se mergee a main.
+- **Si no hay PR**: cerrar tras commit pusheado + comentario con resumen/commit/verificacion + memoria/docs declarada.
 
 Antes de abrir una PR, todos los agentes deben completar el **checkpoint de memoria pre-PR**: revisar issue, diff y commits contra la base; activar `@cultura-docs` si hay preferencias, decisiones duraderas, gotchas recurrentes o reglas de trabajo que guardar; o declarar `Memoria: no aplica`. Si `.memory/` cambia, esos archivos deben quedar commiteados y pusheados antes de crear la PR. La descripcion de PR debe incluir `Memoria: actualizada` o `Memoria: no aplica`.
 

@@ -94,7 +94,10 @@ Cuando se descubra un problema nuevo que requiera seguimiento, usar este flujo p
 6. Hacer push del commit a GitHub.
 7. Abrir PR solo cuando la memoria este actualizada o marcada como no aplicable, usando la plantilla de PR.
 8. Comentar la issue con resumen, commit/PR y verificaciones ejecutadas.
-9. Cerrar la issue como completada solo despues del push, el comentario y la PR creada o mergeada segun proceda.
+9. Cerrar la issue segun el criterio:
+   - **Si hay PR abierta**: las issues enlazadas permanecen ABIERTAS hasta el merge. No cerrar la issue solo porque este implementada en una rama; cerrar manualmente o automaticamente solo despues de que la PR se mergee a main.
+   - **Si no hay PR**: cerrar solo despues de commit pusheado + comentario con resumen/commit/verificacion + memoria/docs declarada (actualizada en `.memory/` o `no aplica`).
+10. Incluir en el comentario de cierre: resumen, commit(s), verificacion ejecutada y estado de memoria.
 
 Si el problema es visual, incluir tambien ruta, viewport, captura/sintoma y criterio visual de aceptacion.
 
