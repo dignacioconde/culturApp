@@ -1,5 +1,233 @@
 @import "tailwindcss";
 
+:root {
+  /* ─────────────────────────────────────────
+     BRAND / PRIMARY — Indigo
+  ───────────────────────────────────────── */
+  --color-primary-50:  #eef2ff;
+  --color-primary-100: #e0e7ff;
+  --color-primary-200: #c7d2fe;
+  --color-primary-300: #a5b4fc;
+  --color-primary-400: #818cf8;
+  --color-primary-500: #6366f1;
+  --color-primary-600: #4f46e5;   /* primary action bg */
+  --color-primary-700: #4338ca;   /* hover */
+  --color-primary-800: #3730a3;   /* active / calendar active text */
+  --color-primary-900: #312e81;
+
+  /* Brand logo accent — only used in logo SVG */
+  --color-brand-logo:  #863bff;
+
+  /* ─────────────────────────────────────────
+     NEUTRAL — Gray
+  ───────────────────────────────────────── */
+  --color-gray-50:  #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+  --color-gray-950: #030712;
+
+  /* Page background — slightly cool off-white */
+  --color-bg-page:  #f6f7f9;
+  --color-bg-card:  #ffffff;
+  --color-bg-sidebar: #ffffff;
+
+  /* ─────────────────────────────────────────
+     SEMANTIC — Status & Feedback
+  ───────────────────────────────────────── */
+  /* Success / Paid */
+  --color-success-50:  #f0fdf4;
+  --color-success-100: #dcfce7;
+  --color-success-500: #22c55e;
+  --color-success-600: #16a34a;
+  --color-success-700: #15803d;
+
+  /* Warning / Pending */
+  --color-warning-50:  #fffbeb;
+  --color-warning-100: #fef3c7;
+  --color-warning-500: #f59e0b;
+  --color-warning-600: #d97706;
+  --color-warning-700: #b45309;
+
+  /* Danger / Error / Cancelled */
+  --color-danger-50:  #fef2f2;
+  --color-danger-100: #fee2e2;
+  --color-danger-400: #f87171;
+  --color-danger-500: #ef4444;
+  --color-danger-600: #dc2626;
+  --color-danger-700: #b91c1c;
+
+  /* Info / Confirmed */
+  --color-info-100: #dbeafe;
+  --color-info-700: #1d4ed8;
+
+  /* Status: draft */
+  --color-status-draft-bg:   #f3f4f6;
+  --color-status-draft-text: #4b5563;
+  /* Status: confirmed */
+  --color-status-confirmed-bg:   #dbeafe;
+  --color-status-confirmed-text: #1d4ed8;
+  /* Status: in_progress */
+  --color-status-inprogress-bg:   #fef3c7;
+  --color-status-inprogress-text: #b45309;
+  /* Status: completed */
+  --color-status-completed-bg:   #dcfce7;
+  --color-status-completed-text: #15803d;
+  /* Status: cancelled */
+  --color-status-cancelled-bg:   #fee2e2;
+  --color-status-cancelled-text: #dc2626;
+
+  /* ─────────────────────────────────────────
+     PROJECT / EVENT PALETTE (user-assigned)
+  ───────────────────────────────────────── */
+  --color-project-1:  #4f98a3;  /* teal */
+  --color-project-2:  #7c6dc7;  /* violet */
+  --color-project-3:  #e07c5a;  /* terracotta */
+  --color-project-4:  #5aaa7c;  /* sage */
+  --color-project-5:  #c76d8f;  /* rose */
+  --color-project-6:  #a3944f;  /* khaki */
+  --color-project-7:  #5a7ce0;  /* periwinkle */
+  --color-project-8:  #c7a36d;  /* sand */
+  --color-project-9:  #6dc7b8;  /* aqua */
+  --color-project-10: #e05a7c;  /* pink */
+
+  /* Calendar today */
+  --color-calendar-today: #f5f3ff;  /* violet-50 */
+  /* Text selection */
+  --color-selection-bg:   #c7d2fe;
+  --color-selection-text: #111827;
+
+  /* ─────────────────────────────────────────
+     TYPOGRAPHY
+  ───────────────────────────────────────── */
+  /* Font stack — system fonts (no custom webfont in production) */
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
+
+  /* Size scale */
+  --text-xs:   0.75rem;    /* 12px — captions, meta, badge text */
+  --text-sm:   0.875rem;   /* 14px — body, labels, nav items */
+  --text-base: 1rem;       /* 16px — card content, section heads */
+  --text-lg:   1.125rem;   /* 18px — page titles */
+  --text-xl:   1.25rem;    /* 20px */
+  --text-2xl:  1.5rem;     /* 24px — KPI values */
+  --text-3xl:  1.875rem;   /* 30px */
+
+  /* Weight scale */
+  --font-regular:   400;
+  --font-medium:    500;
+  --font-semibold:  600;
+  --font-bold:      700;
+
+  /* Line heights */
+  --leading-none:   1;
+  --leading-tight:  1.25;
+  --leading-snug:   1.375;
+  --leading-normal: 1.5;
+  --leading-7:      1.75rem;  /* page title */
+
+  /* Letter spacing */
+  --tracking-normal: 0;
+  --tracking-wide:   0.025em;  /* uppercase section supertitles */
+  --tracking-wider:  0.05em;
+
+  /* ─────────────────────────────────────────
+     SEMANTIC TYPE ROLES
+  ───────────────────────────────────────── */
+  /* h1 — page title (TopBar) */
+  --type-h1-size:    var(--text-lg);
+  --type-h1-weight:  var(--font-semibold);
+  --type-h1-color:   var(--color-gray-950);
+  --type-h1-leading: var(--leading-7);
+
+  /* h2 — section header (within cards) */
+  --type-h2-size:    var(--text-base);
+  --type-h2-weight:  var(--font-semibold);
+  --type-h2-color:   var(--color-gray-900);
+
+  /* kpi-value — large metric numbers */
+  --type-kpi-size:   var(--text-2xl);
+  --type-kpi-weight: var(--font-semibold);
+  --type-kpi-color:  var(--color-gray-900);
+
+  /* label — form labels, nav items */
+  --type-label-size:   var(--text-sm);
+  --type-label-weight: var(--font-medium);
+  --type-label-color:  var(--color-gray-700);
+
+  /* body — descriptions, list content */
+  --type-body-size:  var(--text-sm);
+  --type-body-color: var(--color-gray-500);
+
+  /* caption — dates, metadata, subtitles */
+  --type-caption-size:  var(--text-xs);
+  --type-caption-color: var(--color-gray-400);
+
+  /* supertitle — small uppercase section labels */
+  --type-super-size:    var(--text-xs);
+  --type-super-weight:  var(--font-medium);
+  --type-super-color:   var(--color-gray-400);
+  --type-super-transform: uppercase;
+  --type-super-tracking:  var(--tracking-wide);
+
+  /* ─────────────────────────────────────────
+     SPACING
+  ───────────────────────────────────────── */
+  --space-1:   0.25rem;   /* 4px */
+  --space-1_5: 0.375rem;  /* 6px */
+  --space-2:   0.5rem;    /* 8px */
+  --space-2_5: 0.625rem;  /* 10px */
+  --space-3:   0.75rem;   /* 12px */
+  --space-4:   1rem;      /* 16px */
+  --space-5:   1.25rem;   /* 20px */
+  --space-6:   1.5rem;    /* 24px */
+  --space-8:   2rem;      /* 32px */
+  --space-10:  2.5rem;    /* 40px */
+  --space-12:  3rem;      /* 48px */
+  --space-16:  4rem;      /* 64px */
+
+  /* ─────────────────────────────────────────
+     BORDER RADIUS
+  ───────────────────────────────────────── */
+  --radius-sm:   0.25rem;   /* 4px — rare/inner */
+  --radius-md:   0.375rem;  /* 6px — calendar day buttons */
+  --radius-lg:   0.5rem;    /* 8px — buttons, inputs, nav items, dropdowns */
+  --radius-xl:   0.75rem;   /* 12px — cards, modals */
+  --radius-full: 9999px;    /* badges, color dots, icon containers */
+
+  /* ─────────────────────────────────────────
+     SHADOWS
+  ───────────────────────────────────────── */
+  --shadow-sm:  0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md:  0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-xl:  0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+
+  /* Focus ring */
+  --focus-ring: 0 0 0 2px #ffffff, 0 0 0 4px var(--color-primary-500);
+
+  /* ─────────────────────────────────────────
+     TOUCH TARGETS
+  ───────────────────────────────────────── */
+  --touch-sm: 2rem;    /* 32px — min-h-8 */
+  --touch-md: 2.5rem;  /* 40px — min-h-10, nav items */
+  --touch-lg: 2.75rem; /* 44px — min-h-11, large buttons */
+  --touch-xl: 3rem;    /* 48px — min-h-12, inputs */
+
+  /* ─────────────────────────────────────────
+     LAYOUT
+  ───────────────────────────────────────── */
+  --sidebar-width: 15rem;  /* 240px = w-60 */
+  --topbar-height: 4rem;   /* 64px = min-h-16 */
+  --modal-max-width: 42rem; /* max-w-2xl */
+}
+
 @layer base {
   * {
     box-sizing: border-box;
@@ -8,15 +236,17 @@
   }
 
   html {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: var(--font-sans);
+    font-size: 16px;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
 
   body {
+    background-color: var(--color-bg-page);
+    color: var(--color-gray-900);
     min-width: 320px;
-    background-color: #f6f7f9;
-    color: #111827;
   }
 
   #root {
@@ -28,6 +258,7 @@
   select,
   textarea {
     font: inherit;
+    -webkit-tap-highlight-color: transparent;
   }
 
   button,
@@ -39,8 +270,8 @@
   }
 
   ::selection {
-    background-color: #c7d2fe;
-    color: #111827;
+    background-color: var(--color-selection-bg);
+    color: var(--color-selection-text);
   }
 }
 
@@ -128,6 +359,81 @@
     overflow-y: auto;
   }
 }
+
+/* ─────────────────────────────────────────
+   UTILITY CLASSES (non-Tailwind contexts)
+───────────────────────────────────────── */
+
+/* Type roles */
+.type-h1       { font-size: var(--type-h1-size); font-weight: var(--type-h1-weight); color: var(--type-h1-color); line-height: var(--type-h1-leading); }
+.type-h2       { font-size: var(--type-h2-size); font-weight: var(--type-h2-weight); color: var(--type-h2-color); }
+.type-kpi      { font-size: var(--type-kpi-size); font-weight: var(--type-kpi-weight); color: var(--type-kpi-color); }
+.type-label    { font-size: var(--type-label-size); font-weight: var(--type-label-weight); color: var(--type-label-color); }
+.type-body     { font-size: var(--type-body-size); color: var(--type-body-color); }
+.type-caption  { font-size: var(--type-caption-size); color: var(--type-caption-color); }
+.type-super    { font-size: var(--type-super-size); font-weight: var(--type-super-weight); color: var(--type-super-color); text-transform: var(--type-super-transform); letter-spacing: var(--type-super-tracking); }
+
+/* Card shell */
+.card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-gray-100);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.5rem;
+  padding: 0.125rem 0.625rem;
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  line-height: 1;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.05);
+}
+
+.badge-draft       { background: var(--color-status-draft-bg);       color: var(--color-status-draft-text); }
+.badge-confirmed   { background: var(--color-status-confirmed-bg);   color: var(--color-status-confirmed-text); }
+.badge-in-progress { background: var(--color-status-inprogress-bg);  color: var(--color-status-inprogress-text); }
+.badge-completed   { background: var(--color-status-completed-bg);   color: var(--color-status-completed-text); }
+.badge-cancelled   { background: var(--color-status-cancelled-bg);   color: var(--color-status-cancelled-text); }
+
+/* Button base */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-lg);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  line-height: 1;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.btn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+.btn-sm  { min-height: var(--touch-sm);  padding: 0.375rem 0.75rem; }
+.btn-md  { min-height: var(--touch-md);  padding: 0.5rem 1rem; }
+.btn-lg  { min-height: var(--touch-lg);  padding: 0.625rem 1.25rem; font-size: var(--text-base); }
+
+.btn-primary   { background: var(--color-primary-600); color: #fff; box-shadow: var(--shadow-sm); }
+.btn-primary:hover  { background: var(--color-primary-700); }
+.btn-primary:active { background: var(--color-primary-800); }
+
+.btn-secondary { background: #fff; color: var(--color-gray-700); border: 1px solid var(--color-gray-300); box-shadow: var(--shadow-sm); }
+.btn-secondary:hover  { background: var(--color-gray-50); color: var(--color-gray-950); }
+
+.btn-danger  { background: var(--color-danger-600); color: #fff; box-shadow: var(--shadow-sm); }
+.btn-danger:hover  { background: var(--color-danger-700); }
+
+.btn-ghost   { background: transparent; color: var(--color-gray-600); }
+.btn-ghost:hover  { background: var(--color-gray-100); color: var(--color-gray-950); }
 
 /* Breadcrumbs */
 .breadcrumbs {
