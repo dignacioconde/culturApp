@@ -53,10 +53,16 @@ El usuario necesita consultar y actuar rápido desde móvil. La densidad financi
 - Tablas convertibles a cards/listas en viewport móvil.
 - Botones de editar/eliminar menos dominantes.
 - Cobro rápido sin entrar al detalle completo.
+- Cards y cajas más compactas sin bajar de targets táctiles seguros.
+- Dashboard mobile tan escaneable como Events y Projects.
+- Padding/gaps deben revisarse desde legibilidad real, no solo desde densidad.
 
 ## Relacionado Con
 
-- [[../issues/CACH-B002]]
-- [[../issues/CACH-B003]]
-- [[../issues/CACH-B007]]
-- [[../plans/backlog-mayo-2026]]
+- [[../issues/CACH-B0002|CACH-B0002]]
+- [[../issues/CACH-B0003|CACH-B0003]]
+- [[../issues/CACH-B0007|CACH-B0007]]
+- [[../plans/backlog-mayo-2026|backlog-mayo-2026]]
+- [[ui-direction-v3-20260504|ui-direction-v3-20260504]]
+- [[../decisions/ADR-0005-custom-form-controls-and-date-inputs|ADR-0005-custom-form-controls-and-date-inputs]]
+- [[../knowledge/PB-ZK-20260504-rbc-height|PB-ZK-20260504-rbc-height]]

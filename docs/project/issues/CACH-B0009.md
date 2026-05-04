@@ -15,7 +15,7 @@ tags:
   - pro
 ---
 
-# CACH-B009 — Inteligencia financiera y features Pro
+# CACH-B0009 — Inteligencia financiera y features Pro
 
 ## Summary
 
@@ -47,5 +47,5 @@ El valor diferencial de Cachés no es solo registrar datos, sino ayudar a decidi
 
 ## Related
 
-- [[CACH-B004]]
+- [[CACH-B0004|CACH-B0004]]
 

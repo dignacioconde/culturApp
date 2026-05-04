@@ -15,7 +15,7 @@ tags:
   - beta
 ---
 
-# CACH-B005 — Importación, exportación y portabilidad de datos
+# CACH-B0005 — Importación, exportación y portabilidad de datos
 
 ## Summary
 
@@ -45,5 +45,5 @@ Antes de pedir confianza a usuarios beta, Cachés debe permitir sacar sus datos 
 
 ## Related
 
-- [[CACH-B006]]
+- [[CACH-B0006|CACH-B0006]]
 

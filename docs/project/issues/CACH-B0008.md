@@ -15,7 +15,7 @@ tags:
   - mobile
 ---
 
-# CACH-B008 — PWA, notificaciones y offline
+# CACH-B0008 — PWA, notificaciones y offline
 
 ## Summary
 
@@ -47,6 +47,6 @@ Recordatorios y resumen semanal dependen de canales de notificación. La experie
 
 ## Related
 
-- [[CACH-B003]]
-- [[CACH-B007]]
+- [[CACH-B0003|CACH-B0003]]
+- [[CACH-B0007|CACH-B0007]]
 

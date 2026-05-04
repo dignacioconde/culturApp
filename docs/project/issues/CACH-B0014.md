@@ -14,7 +14,7 @@ tags:
   - hardening
 ---
 
-# CACH-B014 — Endurecer agenda, cobros y captura del MVP
+# CACH-B0014 — Endurecer agenda, cobros y captura del MVP
 
 ## Summary
 
@@ -55,8 +55,13 @@ Tratarlo como una pasada de confianza del MVP:
 
 ## Related
 
-- [[../knowledge/PB-ZK-20260504-technical-audit]]
-- [[CACH-B003]]
-- [[CACH-B005]]
-- [[../context/data-finance-model-20260504]]
-- [[../context/beta-readiness-risk-map-20260504]]
+- [[../knowledge/PB-ZK-20260504-technical-audit|PB-ZK-20260504-technical-audit]]
+- [[../knowledge/PB-ZK-20260504-profile-409|PB-ZK-20260504-profile-409]]
+- [[../knowledge/PB-ZK-20260504-rbc-height|PB-ZK-20260504-rbc-height]]
+- [[../decisions/ADR-0004-profile-data-source-and-hooks|ADR-0004-profile-data-source-and-hooks]]
+- [[../decisions/ADR-0005-custom-form-controls-and-date-inputs|ADR-0005-custom-form-controls-and-date-inputs]]
+- [[../decisions/ADR-0006-gross-cache-per-hour|ADR-0006-gross-cache-per-hour]]
+- [[CACH-B0003|CACH-B0003]]
+- [[CACH-B0005|CACH-B0005]]
+- [[../context/data-finance-model-20260504|data-finance-model-20260504]]
+- [[../context/beta-readiness-risk-map-20260504|beta-readiness-risk-map-20260504]]
