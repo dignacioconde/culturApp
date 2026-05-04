@@ -11,12 +11,12 @@ const navItems = [
 
 export function Sidebar() {
   return (
-    <aside className="w-full shrink-0 border-b border-gray-200 bg-white lg:sticky lg:top-0 lg:h-screen lg:w-60 lg:border-r lg:border-b-0">
-      <div className="flex items-center gap-2 border-b border-gray-200 px-4 py-4 lg:px-5">
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-indigo-600 shadow-sm">
-          <Music size={16} className="text-white" />
+    <aside className="w-full shrink-0 border-b border-[rgba(245,239,224,.08)] bg-[#2C2420] lg:sticky lg:top-0 lg:h-screen lg:w-60 lg:border-r lg:border-b-0">
+      <div className="flex items-center gap-2 border-b border-[rgba(245,239,224,.08)] px-4 py-4 lg:px-5">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#C94035] shadow-sm">
+          <Music size={16} className="text-[#F5EFE0]" />
         </div>
-        <span className="truncate text-sm font-semibold text-gray-950">Cachés</span>
+        <span className="truncate text-sm font-semibold text-[#F5EFE0]">Cachés</span>
       </div>
 
       <nav
@@ -28,10 +28,10 @@ export function Sidebar() {
             key={to}
             to={to}
             className={({ isActive }) =>
-              `flex min-h-10 shrink-0 items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 lg:shrink
+              `flex min-h-10 shrink-0 items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2 lg:shrink
               ${isActive
-                ? 'bg-indigo-50 text-indigo-700 ring-1 ring-inset ring-indigo-100'
-                : 'text-gray-600 hover:bg-gray-100 hover:text-gray-950'
+                ? 'bg-[#C94035] text-[#F5EFE0]'
+                : 'text-[rgba(245,239,224,.75)] hover:bg-[rgba(245,239,224,.08)] hover:text-[#F5EFE0]'
               }`
             }
             title={label}

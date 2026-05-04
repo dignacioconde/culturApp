@@ -1,8 +1,8 @@
 const variants = {
-  primary: 'bg-indigo-600 text-white shadow-sm hover:bg-indigo-700 active:bg-indigo-800 disabled:bg-indigo-300',
-  secondary: 'border border-gray-300 bg-white text-gray-700 shadow-sm hover:bg-gray-50 hover:text-gray-950 active:bg-gray-100 disabled:bg-gray-50 disabled:text-gray-400',
-  danger: 'bg-red-600 text-white shadow-sm hover:bg-red-700 active:bg-red-800 disabled:bg-red-300',
-  ghost: 'text-gray-600 hover:bg-gray-100 hover:text-gray-950 active:bg-gray-200 disabled:text-gray-400',
+  primary: 'bg-[#C94035] text-white shadow-sm hover:bg-[#A8342B] active:bg-[#8f2b23] disabled:bg-[#ef8580]',
+  secondary: 'border border-[#E2D9C2] bg-[#F5EFE0] text-[#211C18] shadow-sm hover:bg-[#EBE3CE] hover:text-[#211C18] active:bg-[#E2D9C2] disabled:bg-[#EBE3CE] disabled:text-[#5C5149]',
+  danger: 'bg-[#C94035] text-white shadow-sm hover:bg-[#A8342B] active:bg-[#8f2b23] disabled:bg-[#ef8580]',
+  ghost: 'text-[#5C5149] hover:bg-[#EBE3CE] hover:text-[#211C18] active:bg-[#E2D9C2] disabled:text-[#5C5149]',
 }
 
 const sizes = {
@@ -18,7 +18,7 @@ export function Button({ children, variant = 'primary', size = 'md', className =
   return (
     <button
       type={type}
-      className={`inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-lg font-medium leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:shadow-none ${variantClass} ${sizeClass} ${className}`}
+      className={`inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-lg font-medium leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:shadow-none ${variantClass} ${sizeClass} ${className}`}
       {...props}
     >
       {children}
