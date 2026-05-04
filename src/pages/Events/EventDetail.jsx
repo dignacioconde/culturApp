@@ -226,20 +226,20 @@ export default function EventDetail() {
 
           {/* Proyecto asociado - más prominente */}
           {project && (
-            <Card className="p-4 bg-gradient-to-r from-indigo-50 to-purple-50 border-indigo-100">
+            <Card className="p-4 bg-[#fef3f2] border-[var(--color-primary-200)]">
               <div className="flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-indigo-100 flex items-center justify-center">
-                    <FolderOpen size={20} className="text-indigo-600" />
+                  <div className="w-10 h-10 rounded-lg bg-[#fef3f2] flex items-center justify-center">
+                    <FolderOpen size={20} className="text-[var(--color-primary-500)]" />
                   </div>
                   <div>
-                    <p className="text-xs text-indigo-600 font-medium">Pertenece al proyecto</p>
+                    <p className="text-xs text-[var(--color-primary-500)] font-medium">Pertenece al proyecto</p>
                     <Link
                       to={`/projects/${project.id}`}
-                      className="text-sm font-semibold text-gray-900 hover:text-indigo-700 hover:underline flex items-center gap-1"
+                      className="text-sm font-semibold text-gray-900 hover:text-[var(--color-primary-600)] hover:underline flex items-center gap-1"
                     >
                       {project.name}
-                      <ExternalLink size={12} className="text-indigo-400" />
+                      <ExternalLink size={12} className="text-gray-400" />
                     </Link>
                   </div>
                 </div>
@@ -283,9 +283,9 @@ export default function EventDetail() {
             { label: 'Cobro bruto/hora', value: eventHours > 0 ? formatCurrencyPerHour(grossHourlyRate) : '—', detail: `${formatHours(eventHours)} h` },
             { label: 'Beneficio neto', value: formatCurrency(netProfit), highlight: true },
           ].map(({ label, value, detail, highlight }) => (
-            <div key={label} className={`rounded-lg border p-4 ${highlight ? 'bg-indigo-50 border-indigo-200' : 'bg-white border-gray-200'}`}>
+            <div key={label} className={`rounded-lg border p-4 ${highlight ? 'bg-[#fef3f2] border-[var(--color-primary-200)]' : 'bg-white border-gray-200'}`}>
               <p className="text-xs text-gray-500">{label}</p>
-              <p className={`text-lg font-semibold mt-1 ${highlight ? 'text-indigo-700' : 'text-gray-900'}`}>{value}</p>
+              <p className={`text-lg font-semibold mt-1 ${highlight ? 'text-[var(--color-primary-600)]' : 'text-gray-900'}`}>{value}</p>
               {detail && <p className="mt-1 text-xs text-gray-400">{detail}</p>}
             </div>
           ))}
@@ -294,7 +294,7 @@ export default function EventDetail() {
             <button
               type="button"
               onClick={() => setFinancialSummaryExpanded(true)}
-              className="w-full sm:hidden mt-2 py-2 text-xs text-indigo-600 font-medium hover:text-indigo-700"
+              className="w-full sm:hidden mt-2 py-2 text-xs text-[var(--color-primary-500)] font-medium hover:text-[var(--color-primary-600)]"
             >
               Ver resumen completo
             </button>
@@ -340,7 +340,7 @@ export default function EventDetail() {
                     <td className="py-2">
                       <button
                         onClick={() => openEditIncome(income)}
-                        className="text-gray-900 hover:text-indigo-600 hover:underline text-left transition-colors"
+                        className="text-gray-900 hover:text-[var(--color-primary-500)] hover:underline text-left transition-colors"
                       >
                         {income.concept}
                       </button>
@@ -405,7 +405,7 @@ export default function EventDetail() {
                       <td className="py-2">
                         <button
                           onClick={() => openEditExpense(expense)}
-                          className="text-gray-900 hover:text-indigo-600 hover:underline text-left transition-colors"
+                          className="text-gray-900 hover:text-[var(--color-primary-500)] hover:underline text-left transition-colors"
                         >
                           {expense.concept}
                         </button>
@@ -482,7 +482,7 @@ export default function EventDetail() {
             <div className="flex items-center gap-2">
               <input type="checkbox" id="is_paid" checked={incomeForm.is_paid}
                 onChange={(e) => setIncomeForm((p) => ({ ...p, is_paid: e.target.checked }))}
-                className="h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                className="h-5 w-5 rounded border-gray-300 text-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]" />
               <label htmlFor="is_paid" className="text-sm text-gray-700">Ya está cobrado</label>
             </div>
           </div>
@@ -529,7 +529,7 @@ export default function EventDetail() {
             <div className="flex items-center gap-2">
               <input type="checkbox" id="is_deductible" checked={expenseForm.is_deductible}
                 onChange={(e) => setExpenseForm((p) => ({ ...p, is_deductible: e.target.checked }))}
-                className="h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                className="h-5 w-5 rounded border-gray-300 text-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]" />
               <label htmlFor="is_deductible" className="text-sm text-gray-700">Gasto deducible fiscalmente</label>
             </div>
           </div>

@@ -26,6 +26,12 @@ Estados sugeridos: `info`, `bloqueo`, `schema_changed`, `api_changed`, `ui_chang
 
 ## Estado por agente
 
+### cultura-lead
+
+- Estado: in_progress
+- Ownership actual: issue #45 - rediseño visual backstage
+- Ultima actualizacion: 2026-05-05T12:00 CET
+
 ### cultura-data
 
 - Estado: idle

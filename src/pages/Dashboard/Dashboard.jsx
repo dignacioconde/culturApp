@@ -175,13 +175,13 @@ export default function Dashboard() {
               <div className="grid grid-cols-2 rounded-lg border border-gray-200 overflow-hidden text-sm sm:w-auto">
                 <button
                   onClick={() => setCriteria('cash_flow')}
-                  className={`px-3 py-2 transition-colors ${criteria === 'cash_flow' ? 'bg-indigo-600 text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
+                  className={`px-3 py-2 transition-colors ${criteria === 'cash_flow' ? 'bg-[var(--color-primary-500)] text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
                 >
                   Cobros
                 </button>
                 <button
                   onClick={() => setCriteria('project_active')}
-                  className={`px-3 py-2 border-l border-gray-200 transition-colors ${criteria === 'project_active' ? 'bg-indigo-600 text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
+                  className={`px-3 py-2 border-l border-gray-200 transition-colors ${criteria === 'project_active' ? 'bg-[var(--color-primary-500)] text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
                 >
                   Proyectos
                 </button>
@@ -219,7 +219,7 @@ export default function Dashboard() {
               value={formatCurrency(kpis.grossExpected)}
               subtitle={criteria === 'cash_flow' ? 'Fecha de cobro en el mes' : 'Proyectos activos en el mes'}
               icon={TrendingUp}
-              color="indigo"
+              color="red"
             />
             <KpiCard
               title="Ingresos cobrados"
@@ -240,7 +240,7 @@ export default function Dashboard() {
               value={kpis.billableHours > 0 ? formatCurrencyPerHour(kpis.grossHourlyRate) : '—'}
               subtitle={`Solo eventos cobrados · ${formatHours(kpis.billableHours)} h`}
               icon={Timer}
-              color="indigo"
+              color="red"
             />
             <KpiCard
               title="Beneficio neto"
@@ -323,10 +323,10 @@ export default function Dashboard() {
           <Card className="p-5">
             <div className="flex items-start justify-between gap-3 mb-4">
               <div className="flex items-center gap-2 min-w-0">
-                <FolderOpen size={18} className="text-indigo-500 flex-shrink-0" />
+                <FolderOpen size={18} className="text-[var(--color-primary-500)] flex-shrink-0" />
                 <h2 className="text-base font-semibold text-gray-900">Proyectos activos</h2>
               </div>
-              <span className="rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-medium text-indigo-700 whitespace-nowrap">
+              <span className="rounded-full bg-[#fef3f2] px-2.5 py-1 text-xs font-medium text-[var(--color-primary-600)] whitespace-nowrap">
                 {activeProjects.length}
               </span>
             </div>

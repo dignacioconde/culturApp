@@ -162,7 +162,7 @@ export default function CalendarProjects() {
           <div className="w-full lg:w-80 bg-white rounded-xl border border-gray-200 p-5 flex flex-col gap-4">
             <div className="flex items-start justify-between">
               <div className="w-3 h-3 rounded-full mt-1 flex-shrink-0" style={{ backgroundColor: selectedProject.color ?? '#4f98a3' }} />
-              <button onClick={() => setSelectedProject(null)} className="text-gray-400 hover:text-gray-600 -mr-1 -mt-1 p-1.5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500" aria-label="Cerrar panel">
+              <button onClick={() => setSelectedProject(null)} className="text-gray-400 hover:text-gray-600 -mr-1 -mt-1 p-1.5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)]" aria-label="Cerrar panel">
                 <X size={20} />
               </button>
             </div>

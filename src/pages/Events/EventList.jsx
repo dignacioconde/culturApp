@@ -103,7 +103,7 @@ export default function EventList() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Buscar evento, cliente o proyecto"
-                className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-gray-300 outline-none focus:border-indigo-500"
+                className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-gray-300 outline-none focus:border-[var(--color-primary-500)]"
               />
             </div>
             <Select
@@ -218,7 +218,7 @@ export default function EventList() {
                           </span>
                           <span className="text-gray-400">{formatDatetime(event.start_datetime)}</span>
                         </div>
-                        <p className="mt-3 text-xs font-medium text-indigo-600 truncate">
+                        <p className="mt-3 text-xs font-medium text-[var(--color-primary-500)] truncate">
                           {project ? project.name : 'Sin proyecto'}
                         </p>
                       </div>

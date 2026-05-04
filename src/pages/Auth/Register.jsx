@@ -43,7 +43,7 @@ export default function Register() {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 w-full max-w-md p-6 sm:p-8">
         <div className="flex flex-col items-center gap-2 mb-8">
-          <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center">
+          <div className="w-10 h-10 bg-[var(--color-primary-500)] rounded-xl flex items-center justify-center">
             <Music size={20} className="text-white" />
           </div>
           <h1 className="text-xl font-semibold text-gray-900">Cachés</h1>
@@ -99,7 +99,7 @@ export default function Register() {
 
         <p className="text-sm text-center text-gray-500 mt-6">
           ¿Ya tienes cuenta?{' '}
-          <Link to="/login" className="text-indigo-600 font-medium hover:underline">
+          <Link to="/login" className="text-[var(--color-primary-500)] font-medium hover:underline">
             Inicia sesión
           </Link>
         </p>

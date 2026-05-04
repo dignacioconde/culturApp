@@ -1,7 +1,7 @@
 import { Children, isValidElement, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { CalendarDays, Check, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react'
 
-const fieldBaseClass = 'w-full rounded-lg border bg-white px-3 py-3 text-sm text-gray-900 shadow-sm transition-colors placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500'
+const fieldBaseClass = 'w-full rounded-lg border bg-white px-3 py-3 text-sm text-gray-900 shadow-sm transition-colors placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500'
 const monthFormatter = new Intl.DateTimeFormat('es-ES', { month: 'long', year: 'numeric' })
 const weekDays = ['L', 'M', 'X', 'J', 'V', 'S', 'D']
 const timeOptions = Array.from({ length: 96 }, (_, index) => {
@@ -25,7 +25,7 @@ function FieldWrapper({ label, error, inputId, errorId, children }) {
 function getFieldStateClass(error) {
   return error
     ? 'border-red-400 focus-visible:border-red-500 focus-visible:ring-red-500'
-    : 'border-gray-300 focus-visible:border-indigo-500'
+    : 'border-gray-300 focus-visible:border-[var(--color-primary-500)]'
 }
 
 function parseDateValue(value) {
@@ -206,7 +206,7 @@ function DateInput({
               setVisibleMonth(selectedDate ?? new Date())
               setShowCalendar((prev) => !prev)
             }}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)] rounded"
           >
             <CalendarDays size={18} />
           </button>
@@ -218,7 +218,7 @@ function DateInput({
                 type="button"
                 onClick={() => moveMonth(-1)}
                 aria-label="Mes anterior"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)]"
               >
                 <ChevronLeft size={20} />
               </button>
@@ -227,7 +227,7 @@ function DateInput({
                 type="button"
                 onClick={() => moveMonth(1)}
                 aria-label="Mes siguiente"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)]"
               >
                 <ChevronRight size={20} />
               </button>
@@ -246,11 +246,11 @@ function DateInput({
                     key={dayValue}
                     type="button"
                     onClick={() => selectDate(date)}
-                    className={`flex h-10 items-center justify-center rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 ${
+                    className={`flex h-10 items-center justify-center rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)] ${
                       isSelected
-                        ? 'bg-indigo-600 text-white hover:bg-indigo-700'
-                        : 'text-gray-800 hover:bg-indigo-50 hover:text-indigo-700'
-                    } ${isOutsideMonth && !isSelected ? 'text-gray-400' : ''} ${isToday && !isSelected ? 'ring-1 ring-indigo-200' : ''}`}
+                        ? 'bg-[var(--color-primary-500)] text-white hover:bg-[var(--color-primary-600)]'
+                        : 'text-gray-800 hover:bg-[#fef3f2] hover:text-[var(--color-primary-600)]'
+                    } ${isOutsideMonth && !isSelected ? 'text-gray-400' : ''} ${isToday && !isSelected ? 'ring-1 ring-[var(--color-primary-200)]' : ''}`}
                   >
                     {date.getDate()}
                   </button>
@@ -261,7 +261,7 @@ function DateInput({
               <button type="button" onClick={clearDate} className="min-h-10 rounded-lg px-3 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">
                 Borrar
               </button>
-              <button type="button" onClick={() => selectDate(new Date())} className="min-h-10 rounded-lg px-3 text-sm font-medium text-indigo-600 hover:bg-indigo-50">
+              <button type="button" onClick={() => selectDate(new Date())} className="min-h-10 rounded-lg px-3 text-sm font-medium text-[var(--color-primary-500)] hover:bg-[#fef3f2]">
                 Hoy
               </button>
             </div>
@@ -504,9 +504,9 @@ export function Select({
                   aria-selected={isSelected}
                   disabled={option.disabled}
                   onClick={() => handleSelect(option.value)}
-                  className="flex min-h-11 w-full items-center gap-3 rounded-md px-3 py-2.5 text-left text-gray-800 transition-colors hover:bg-indigo-50 hover:text-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:cursor-not-allowed disabled:text-gray-400"
+                  className="flex min-h-11 w-full items-center gap-3 rounded-md px-3 py-2.5 text-left text-gray-800 transition-colors hover:bg-[#fef3f2] hover:text-[var(--color-primary-600)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)] disabled:cursor-not-allowed disabled:text-gray-400"
                 >
-                  <Check size={16} className={`shrink-0 ${isSelected ? 'text-indigo-600' : 'text-transparent'}`} />
+                  <Check size={16} className={`shrink-0 ${isSelected ? 'text-[var(--color-primary-500)]' : 'text-transparent'}`} />
                   <span className="min-w-0 flex-1 whitespace-nowrap">{option.label}</span>
                 </button>
               )

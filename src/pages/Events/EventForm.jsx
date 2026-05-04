@@ -194,7 +194,7 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
             id="is_multi_day"
             checked={isMultiDay}
             onChange={(e) => handleMultiDayChange(e.target.checked)}
-            className="h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+            className="h-5 w-5 rounded border-gray-300 text-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]"
           />
           <span>Evento de varios días</span>
         </label>
