@@ -44,6 +44,6 @@
 
 ## 2026-05-04 - Branch Cleanup After Merge
 
-- Context: Issue `#22` added automation to clean up merged branches automatically.
-- Durable memory: After merging a PR to main, the workflow `.github/workflows/delete-branch.yml` automatically deletes the remote branch. Run `git checkout main && git branch -D <branch>` locally or use `npm run postmerge` to clean the local branch.
-- Source: issue `#22`; PR `#23`; `.github/workflows/delete-branch.yml`; `package.json`.
+- Context: The user asked to add branch cleanup to the standard flow after a PR is merged correctly into `main`; issue `#24` corrected the initial automation from issue `#22`.
+- Durable memory: After merging a PR to `main`, the remote branch should be deleted automatically by `.github/workflows/delete-branch.yml` when it belongs to the same repository. The local branch must be deleted only after switching to up-to-date `main`; do not use scripts that try to delete the currently checked-out branch.
+- Source: user instruction on 2026-05-04; issues `#22` and `#24`; PR `#23`; `.github/workflows/delete-branch.yml`; `AGENTS.md`; `.opencode/README.md`.

@@ -1,6 +1,6 @@
 ---
 name: Usar flujo obligatorio de issues y planner para implementación
-description: Ante tareas de implementación, usar issue + rama desde main + agents:plan + PR a main + merge + verificación de producción. Excepción solo si el usuario lo dice explícitamente o es pregunta/revisión sin implementación.
+description: Ante tareas de implementación, usar issue + rama desde main + agents:plan + PR a main + merge + verificación de producción + borrado de rama. Excepción solo si el usuario lo dice explícitamente o es pregunta/revisión sin implementación.
 type: feedback
 updated: 2026-05-04
 ---
@@ -16,6 +16,7 @@ Ante cualquier tarea de implementacion (nueva funcionalidad, fix, mejora), Codex
 5. **Abrir PR a `main`** cuando la memoria pre-PR esté actualizada o marcada como no aplicable.
 6. **Mergear la PR a `main`** cuando las verificaciones pasen y no haya bloqueo.
 7. **Verificar producción** si el cambio debe verse en la app publicada. Un preview de Vercel no cuenta como producción.
+8. **Borrar la rama de trabajo** una vez mergeada correctamente contra `main`: la remota debe quedar eliminada y la local debe borrarse solo después de cambiar a `main` actualizado.
 
 ### Excepciones
 
@@ -37,7 +38,8 @@ Si `agents:plan` falla por bloqueo técnico (no por decisión del usuario):
 - Evita trabajo duplicado y asegura trazabilidad entre problema → rama → PR → merge → producción.
 - Si el planner no está disponible o falla, el fallback mantiene la regla: issue + agentes, nunca implementación directa sin issue.
 - Vercel genera previews para ramas de PR; producción solo cambia al mergear `main` o al promocionar explícitamente un deployment.
+- Las ramas de trabajo no deben quedar huérfanas tras merge correcto contra `main`; limpiar remoto y local forma parte del cierre.
 
-**How to apply:** Siempre que el usuario pida implementar algo. Crear o reutilizar una rama desde `main`, ejecutar `npm run agents:plan -- "prompt"` en lugar de `agents:run` directamente cuando no hay issue estructurada, abrir PR a `main`, mergearla si está lista y verificar producción si aplica. Ver skill `cultura-issue-launch` para más detalles.
+**How to apply:** Siempre que el usuario pida implementar algo. Crear o reutilizar una rama desde `main`, ejecutar `npm run agents:plan -- "prompt"` en lugar de `agents:run` directamente cuando no hay issue estructurada, abrir PR a `main`, mergearla si está lista, verificar producción si aplica y borrar la rama de trabajo tras merge correcto. Ver skill `cultura-issue-launch` para más detalles.
 
 **Excepciones:** Solo si el usuario dice explícitamente "hazlo tú", "sin issue", o si es una pregunta/revisión sin implementación.

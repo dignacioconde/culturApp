@@ -92,7 +92,7 @@ Antes de lanzar agentes, asegúrate de que el trabajo va a una rama de tarea cre
 Después ejecuta `npm run agents:run` pasando como tarea el contenido del OBJETIVO más la URL de la issue y el contrato de PR:
 
 ```bash
-npm run agents:run -- "<contenido del OBJETIVO>. Issue: <URL>. Trabaja en esta rama creada desde main, abre PR a main, mergea cuando las verificaciones pasen y verifica produccion si aplica."
+npm run agents:run -- "<contenido del OBJETIVO>. Issue: <URL>. Trabaja en esta rama creada desde main, abre PR a main, mergea cuando las verificaciones pasen, verifica produccion si aplica y borra la rama tras merge correcto contra main."
 ```
 
 Si la issue no se pudo crear, usa el OBJETIVO directamente sin URL.

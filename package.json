@@ -10,8 +10,7 @@
     "agents:plan": "node .opencode/scripts/run-planner.mjs",
     "agents:run": "node .opencode/scripts/run-agent.mjs",
     "agents:parallel": "node .opencode/scripts/run-parallel-agents.mjs",
-    "preview": "vite preview",
-    "postmerge": "git branch -D $(git rev-parse --abbrev-ref HEAD) 2>/dev/null || true"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.104.1",

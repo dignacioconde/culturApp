@@ -17,7 +17,7 @@ ALCANCE:
 Indica archivos, carpetas o modulos permitidos. Indica tambien lo que queda fuera.
 
 RAMA Y PR:
-Parte de `main` actualizado y trabaja en una rama de tarea. La PR debe apuntar a `main`. No apiles cambios en ramas antiguas salvo instruccion explicita.
+Parte de `main` actualizado y trabaja en una rama de tarea. La PR debe apuntar a `main`. No apiles cambios en ramas antiguas salvo instruccion explicita. Tras merge correcto contra `main`, borra la rama remota y borra la rama local solo despues de cambiar a `main` actualizado.
 
 OWNERSHIP:
 Si hay varios agentes escribiendo, reparte ownership disjunto.
@@ -34,9 +34,10 @@ CIERRE DE ISSUE:
 - Si hay PR abierta: enlazar la issue en la descripcion de la PR con `Closes #N`, `Fixes #N` o equivalente; issue permanece ABIERTA hasta merge y se cierra solo cuando la PR se mergee a `main`.
 - Si no hay PR: enlazar desde commit o comentario y cerrar tras commit pusheado + comentario con resumen/commit/verificacion + memoria/docs declarada.
 - Si el cambio debe verse en la app publicada, mergea la PR a `main` cuando las verificaciones pasen y verifica produccion. Un preview de Vercel no cuenta como produccion.
+- Tras merge correcto contra `main`, confirma que la rama remota fue eliminada y borra la rama local desde `main` actualizado.
 
 SALIDA:
-Subagentes usados, cambios realizados, verificacion ejecutada, PR/merge/produccion y riesgos/bloqueos restantes.
+Subagentes usados, cambios realizados, verificacion ejecutada, PR/merge/produccion, limpieza de rama y riesgos/bloqueos restantes.
 Si aplica, incluye `Memoria: actualizada/no aplica`.
 ```
 
