@@ -15,7 +15,7 @@ tags:
   - ux
 ---
 
-# CACH-B007 — Calendario unificado e interacción rápida
+# CACH-B0007 — Calendario unificado e interacción rápida
 
 ## Summary
 
@@ -46,6 +46,7 @@ Tener calendarios separados y detalles lentos puede dificultar la visión global
 
 ## Related
 
-- [[CACH-B001]]
-- [[CACH-B008]]
-
+- [[CACH-B0001|CACH-B0001]]
+- [[CACH-B0008|CACH-B0008]]
+- [[../context/ux-mobile-guardrails-20260504|ux-mobile-guardrails-20260504]]
+- [[../knowledge/PB-ZK-20260504-rbc-height|PB-ZK-20260504-rbc-height]]

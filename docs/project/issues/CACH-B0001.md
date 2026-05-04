@@ -14,7 +14,7 @@ tags:
   - ux
 ---
 
-# CACH-B001 — Rediseñar Trabajos y jerarquía proyecto-evento
+# CACH-B0001 — Rediseñar Trabajos y jerarquía proyecto-evento
 
 ## Summary
 
@@ -47,4 +47,4 @@ La vista actual puede duplicar trabajos y dar el mismo peso visual a contenedore
 ## Related
 
 - [[../plans/backlog-mayo-2026]]
-
+- [[../context/ui-direction-v3-20260504]]

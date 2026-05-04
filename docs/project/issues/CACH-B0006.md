@@ -15,7 +15,7 @@ tags:
   - gtm
 ---
 
-# CACH-B006 — Onboarding y acceso beta
+# CACH-B0006 — Onboarding y acceso beta
 
 ## Summary
 
@@ -46,5 +46,5 @@ La beta necesita control de acceso, explicación rápida del modelo mental y una
 
 ## Related
 
-- [[CACH-B005]]
+- [[CACH-B0005|CACH-B0005]]
 

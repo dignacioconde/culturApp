@@ -15,7 +15,7 @@ tags:
   - data
 ---
 
-# CACH-B004 — Contratantes, facturación y liquidación neta
+# CACH-B0004 — Contratantes, facturación y liquidación neta
 
 ## Summary
 
@@ -32,7 +32,7 @@ El modelo actual cubre ingresos/gastos por proyecto o evento, pero no expresa bi
 ## Proposed Solution
 
 - Crear entidad contratante con datos de facturación.
-- Permitir herencia de contratante desde proyecto a evento.
+- Permitir herencia/inferencia de contratante desde proyecto a evento cuando el evento no define uno propio.
 - Explorar ingresos/gastos unificados por proyecto como opción.
 - Asociar gastos a ingresos para calcular cobro neto real.
 - Tratar CRM ligero y cooperativa como spikes estratégicos antes de modelo multiusuario.
@@ -46,6 +46,6 @@ El modelo actual cubre ingresos/gastos por proyecto o evento, pero no expresa bi
 
 ## Related
 
-- [[CACH-B003]]
-- [[CACH-B009]]
-
+- [[CACH-B0003|CACH-B0003]]
+- [[CACH-B0009|CACH-B0009]]
+- [[../context/data-finance-model-20260504|data-finance-model-20260504]]

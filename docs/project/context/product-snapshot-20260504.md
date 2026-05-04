@@ -27,6 +27,12 @@ El usuario principal no está gestionando una empresa grande: está sobreviviend
 - Necesitan poca fricción en mobile porque muchas acciones ocurren alrededor de ensayos, bolos, sesiones, viajes o reuniones.
 - Valoran control económico práctico antes que contabilidad completa.
 
+## Sensacion De Producto
+
+Cachés debe sentirse cálida, editorial, clara, cultural, artesanal y profesional sin volverse corporativa.
+
+No debe parecer un SaaS genérico, un CRM enterprise, una app bancaria ni un dashboard startup de gradientes. La direccion visual v3 queda recogida en [[ui-direction-v3-20260504]].
+
 ## Modelo Mental Actual
 
 - **Proyecto**: contenedor con rango de fechas. Agrupa eventos y también puede tener ingresos/gastos directos.
@@ -49,16 +55,17 @@ La distinción proyecto/evento es el centro cognitivo del producto. Cualquier re
 
 ## Tensiones De Producto Activas
 
-- `/work` existe, pero [[../issues/CACH-B001|CACH-B001]] sigue siendo el rediseño pendiente para jerarquía real y evitar duplicidades.
-- Los calendarios separados funcionan, pero [[../issues/CACH-B007|CACH-B007]] apunta a una vista unificada con filtros e interacción rápida.
-- Finanzas funcionan para MVP, pero contratante, facturación, liquidación neta y CRM ligero viven en [[../issues/CACH-B004|CACH-B004]].
-- La app registra datos; el salto diferencial será convertirlos en decisiones económicas, cubierto por [[../issues/CACH-B009|CACH-B009]].
+- `/work` existe, pero [[../issues/CACH-B0001|CACH-B0001]] sigue siendo el rediseño pendiente para jerarquía real y evitar duplicidades.
+- Los calendarios separados funcionan, pero [[../issues/CACH-B0007|CACH-B0007]] apunta a una vista unificada con filtros e interacción rápida.
+- Finanzas funcionan para MVP, pero contratante, facturación, liquidación neta y CRM ligero viven en [[../issues/CACH-B0004|CACH-B0004]].
+- La app registra datos; el salto diferencial será convertirlos en decisiones económicas, cubierto por [[../issues/CACH-B0009|CACH-B0009]].
 
 ## Relacionado Con
 
-- [[../plans/backlog-mayo-2026]]
-- [[../issues/CACH-B001]]
-- [[../issues/CACH-B003]]
-- [[../issues/CACH-B004]]
-- [[../issues/CACH-B007]]
-- [[../issues/CACH-B009]]
+- [[../plans/backlog-mayo-2026|backlog-mayo-2026]]
+- [[../issues/CACH-B0001|CACH-B0001]]
+- [[../issues/CACH-B0003|CACH-B0003]]
+- [[../issues/CACH-B0004|CACH-B0004]]
+- [[../issues/CACH-B0007|CACH-B0007]]
+- [[../issues/CACH-B0009|CACH-B0009]]
+- [[ui-direction-v3-20260504]]

@@ -41,9 +41,9 @@ Verificación ejecutada:
 
 ## Relacionado Con
 
-- [[../context/data-finance-model-20260504]]
-- [[../context/ux-mobile-guardrails-20260504]]
-- [[../issues/CACH-B002]]
-- [[../issues/CACH-B003]]
-- [[../issues/CACH-B007]]
-- [[../issues/CACH-B010]]
+- [[../context/data-finance-model-20260504|data-finance-model-20260504]]
+- [[../context/ux-mobile-guardrails-20260504|ux-mobile-guardrails-20260504]]
+- [[../issues/CACH-B0002|CACH-B0002]]
+- [[../issues/CACH-B0003|CACH-B0003]]
+- [[../issues/CACH-B0007|CACH-B0007]]
+- [[../issues/CACH-B0010|CACH-B0010]]

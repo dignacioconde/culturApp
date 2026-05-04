@@ -15,7 +15,7 @@ tags:
   - agents
 ---
 
-# CACH-B010 — Tooling de agentes y modelos de desarrollo
+# CACH-B0010 — Tooling de agentes y modelos de desarrollo
 
 ## Summary
 
@@ -46,6 +46,7 @@ El proyecto depende cada vez más de rituales de agentes. Hace falta reducir fri
 
 ## Related
 
-- [[CACH-026]]
-- [[CACH-028]]
-
+- [[CACH-0026|CACH-0026]]
+- [[CACH-0028|CACH-0028]]
+- [[../context/agent-workflow-guardrails-20260504|agent-workflow-guardrails-20260504]]
+- [[../decisions/ADR-0007-product-brain-sync-delete|ADR-0007-product-brain-sync-delete]]

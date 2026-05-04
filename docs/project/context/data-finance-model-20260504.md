@@ -40,6 +40,8 @@ La UI no debería llamar a Supabase directamente desde páginas o componentes. E
 
 El modo `projectId + eventIds` es importante para ProjectDetail: suma ingresos/gastos directos del proyecto y también los de sus eventos asociados mediante filtro OR.
 
+Para perfil, `profiles.tax_rate` es la fuente canónica del IRPF habitual. No usar `auth.user_metadata.tax_rate` como fuente de formularios ni settings. Ver [[../decisions/ADR-0004-profile-data-source-and-hooks]].
+
 ## Cálculos Financieros Implementados
 
 Dashboard:
@@ -72,16 +74,23 @@ ProjectDetail:
 - No hay presupuestos por categoría, objetivos, escenarios ni salud financiera.
 - Categorías están predefinidas en frontend y no hay taxonomía por usuario.
 
+## Gotchas Operativos
+
+- Un 409 al crear proyecto o evento para un usuario autenticado puede indicar que falta su fila en `public.profiles`. Ver [[../knowledge/PB-ZK-20260504-profile-409]].
+- El trigger `handle_new_user` debe insertar en `public.profiles` de forma explicita.
+
 ## Decisiones Que No Conviene Romper
 
-- Los ingresos y gastos pueden vivir en proyecto o evento; no forzar todo a un único nivel sin resolver [[../issues/CACH-B004|CACH-B004]].
+- Los ingresos y gastos pueden vivir en proyecto o evento; no forzar todo a un único nivel sin resolver [[../issues/CACH-B0004|CACH-B0004]].
 - El bruto/hora no debe incluir ingresos directos de proyecto porque inflaría la métrica.
 - El usuario necesita importación/exportación antes de beta para confiar sus datos a la app.
 
 ## Relacionado Con
 
-- [[../issues/CACH-B003]]
-- [[../issues/CACH-B004]]
-- [[../issues/CACH-B005]]
-- [[../issues/CACH-B009]]
-- [[../issues/CACH-B011]]
+- [[../issues/CACH-B0003|CACH-B0003]]
+- [[../issues/CACH-B0004|CACH-B0004]]
+- [[../issues/CACH-B0005|CACH-B0005]]
+- [[../issues/CACH-B0009|CACH-B0009]]
+- [[../issues/CACH-B0011|CACH-B0011]]
+- [[../decisions/ADR-0004-profile-data-source-and-hooks|ADR-0004-profile-data-source-and-hooks]]
+- [[../decisions/ADR-0006-gross-cache-per-hour|ADR-0006-gross-cache-per-hour]]

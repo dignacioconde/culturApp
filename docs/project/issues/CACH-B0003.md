@@ -14,7 +14,7 @@ tags:
   - finance
 ---
 
-# CACH-B003 — Cobro rápido y gestión de pendientes
+# CACH-B0003 — Cobro rápido y gestión de pendientes
 
 ## Summary
 
@@ -44,7 +44,7 @@ El cobro es una acción frecuente y de baja fricción esperada justo al terminar
 
 ## Related
 
-- [[PB-ZK-20260504-2005]]
-- [[CACH-B004]]
-- [[CACH-B008]]
+- [[PB-ZK-20260504-2005|PB-ZK-20260504-2005]]
+- [[CACH-B0004|CACH-B0004]]
+- [[CACH-B0008|CACH-B0008]]
 
