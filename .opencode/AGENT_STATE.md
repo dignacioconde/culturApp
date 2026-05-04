@@ -98,4 +98,4 @@ Formato:
 
 <!-- Nuevos eventos encima de esta linea. -->
 
-- 2026-05-04 18:30 CET - lead - done - Regla cierre de issues documentada en AGENTS.md, .opencode/README.md, cultura-lead.md, AGENT_TASK_TEMPLATE.md, PR template. Issue #21 cerrada, #20 revisada (cumple criterio).
+- 2026-05-04 18:30 CET - lead - info - Regla cierre de issues documentada inicialmente; corregida despues para exigir enlace permanente issue->PR/commit y no cerrar issues con PR abierta antes del merge.

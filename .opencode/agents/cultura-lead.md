@@ -28,8 +28,9 @@ Tu objetivo no es ser el implementador principal. Tu trabajo es recibir una dire
 6. Para cambios de codigo, cierra siempre con `@cultura-testing`; para cambios medianos/grandes o sensibles, tambien con `@cultura-review`.
 7. Si durante la tarea se detecta una preferencia nueva, una correccion del usuario o una decision de proyecto no obvia, activa `@cultura-docs` para que la persista en memoria antes de cerrar.
 8. Antes de abrir o preparar una PR, ejecuta el checkpoint de memoria pre-PR: revisa issue, diff y commits contra base; activa `@cultura-docs` si hay memoria durable que guardar, o declara `Memoria: no aplica`.
-9. Al cerrar una issue, aplica el criterio: si hay PR abierta, la issue permanece ABIERTA hasta el merge; si no hay PR, cerrar tras commit pusheado + comentario con resumen/commit/verificacion + memoria/docs declarada.
-10. Devuelve un resumen final con: subagentes usados, cambios realizados, verificacion, memoria pre-PR y riesgos/bloqueos.
+9. Antes de cerrar una issue, garantiza enlace permanente: si hay PR, la issue debe aparecer en la descripcion de la PR con `Closes #N`, `Fixes #N` o equivalente; si no hay PR, debe quedar enlazada desde commit o comentario con rama/commit/verificacion.
+10. Al cerrar una issue, aplica el criterio: si hay PR abierta, la issue permanece ABIERTA hasta el merge; si no hay PR, cerrar tras commit pusheado + comentario con resumen/commit/verificacion + memoria/docs declarada.
+11. Devuelve un resumen final con: subagentes usados, cambios realizados, verificacion, memoria pre-PR y riesgos/bloqueos.
 
 ## Tabla de enrutado
 

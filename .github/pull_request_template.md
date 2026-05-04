@@ -4,7 +4,7 @@
 
 ## Issues enlazadas
 
-<!-- Indica las issues relacionadas con esta PR -->
+<!-- Usa referencias de cierre para mantener el enlace historico y cerrar al merge: Closes #N / Fixes #N -->
 
 ## Verificacion
 
@@ -14,7 +14,7 @@
 
 ## Cierre de issues
 
-Las issues enlazadas se cerraran automaticamente al hacer merge de esta PR. No cerrar issues manualmente antes del merge aunque la implementacion este completa en la rama.
+Las issues enlazadas deben permanecer abiertas mientras esta PR este abierta. Se cerraran automaticamente al merge si estan referenciadas con `Closes #N`, `Fixes #N` o equivalente. No cerrar issues manualmente antes del merge aunque la implementacion este completa en la rama.
 
 ## Memoria
 

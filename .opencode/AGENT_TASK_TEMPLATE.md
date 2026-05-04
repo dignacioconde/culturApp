@@ -27,8 +27,9 @@ MEMORIA PRE-PR:
 Si el siguiente paso es abrir PR, revisa issue, diff y commits contra base. Actualiza `.memory/` si hay contexto durable o declara `Memoria: no aplica`. No abras PR hasta que esa decision este reflejada.
 
 CIERRE DE ISSUE:
-- Si hay PR abierta: issue permanece ABIERTA hasta merge. Cerrar solo cuando la PR se mergee a main.
-- Si no hay PR: cerrar tras commit pusheado + comentario con resumen/commit/verificacion + memoria/docs declarada.
+- Toda issue resuelta debe quedar enlazada permanentemente al trabajo que la resuelve.
+- Si hay PR abierta: enlazar la issue en la descripcion de la PR con `Closes #N`, `Fixes #N` o equivalente; issue permanece ABIERTA hasta merge y se cierra solo cuando la PR se mergee a `main`.
+- Si no hay PR: enlazar desde commit o comentario y cerrar tras commit pusheado + comentario con resumen/commit/verificacion + memoria/docs declarada.
 
 SALIDA:
 Subagentes usados, cambios realizados, verificacion ejecutada y riesgos/bloqueos restantes.
