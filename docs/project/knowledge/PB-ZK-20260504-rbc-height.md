@@ -39,5 +39,5 @@ En bugs visuales de calendario:
 ## Relacionado Con
 
 - [[../context/ux-mobile-guardrails-20260504]]
-- [[../issues/CACH-B007]]
-- [[../issues/CACH-B014]]
+- [[../issues/CACH-B0007]]
+- [[../issues/CACH-B0014]]

@@ -15,7 +15,7 @@ tags:
   - data
 ---
 
-# CACH-B011 — Categorías, etiquetas y taxonomía
+# CACH-B0011 — Categorías, etiquetas y taxonomía
 
 ## Summary
 
@@ -45,5 +45,5 @@ Las categorías afectan a proyectos, eventos, ingresos, gastos, presupuestos y f
 
 ## Related
 
-- [[CACH-B009]]
+- [[CACH-B0009]]
 

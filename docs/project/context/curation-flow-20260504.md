@@ -44,7 +44,7 @@ Cuando capturas una idea rápida con `/product-brain-capture` o directamente en 
 
 ```markdown
 ---
-id: CACH-026
+id: CACH-0026
 type: issue
 status: Backlog
 priority: High
@@ -53,7 +53,7 @@ created: 2026-05-04
 updated: 2026-05-04
 ---
 
-# CACH-026 — Título descriptivo
+# CACH-0026 — Título descriptivo
 
 ## Summary
 Una línea con el qué y el para qué.

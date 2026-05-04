@@ -47,6 +47,6 @@ No forzar todos los ingresos/gastos a evento ni todos a proyecto sin una decisio
 
 - [[../context/product-snapshot-20260504]]
 - [[../context/data-finance-model-20260504]]
-- [[../issues/CACH-B001]]
-- [[../issues/CACH-B004]]
-- [[../issues/CACH-B007]]
+- [[../issues/CACH-B0001]]
+- [[../issues/CACH-B0004]]
+- [[../issues/CACH-B0007]]

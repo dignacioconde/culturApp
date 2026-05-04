@@ -46,4 +46,4 @@ Las paginas y componentes no deben llamar a Supabase directamente para datos de 
 
 - [[../context/data-finance-model-20260504]]
 - [[../knowledge/PB-ZK-20260504-profile-409]]
-- [[../issues/CACH-B014]]
+- [[../issues/CACH-B0014]]

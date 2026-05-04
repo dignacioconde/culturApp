@@ -24,13 +24,13 @@ La beta no busca parecer completa. Busca que Cachés sea fiable para probar con 
 
 ## Scope
 
-- [[../issues/CACH-B014]] — Endurecer agenda, cobros y captura del MVP
-- [[../issues/CACH-B005]] — Importacion, exportacion y portabilidad de datos
-- [[../issues/CACH-B006]] — Onboarding y acceso beta
-- [[../issues/CACH-B002]] — Simplificar experiencia mobile financiera
-- [[../issues/CACH-B003]] — Cobro rapido y gestion de pendientes
-- [[../issues/CACH-B001]] — Rediseñar Trabajos y jerarquia proyecto-evento
-- [[../issues/CACH-B007]] — Calendario unificado e interaccion rapida
+- [[../issues/CACH-B0014]] — Endurecer agenda, cobros y captura del MVP
+- [[../issues/CACH-B0005]] — Importacion, exportacion y portabilidad de datos
+- [[../issues/CACH-B0006]] — Onboarding y acceso beta
+- [[../issues/CACH-B0002]] — Simplificar experiencia mobile financiera
+- [[../issues/CACH-B0003]] — Cobro rapido y gestion de pendientes
+- [[../issues/CACH-B0001]] — Rediseñar Trabajos y jerarquia proyecto-evento
+- [[../issues/CACH-B0007]] — Calendario unificado e interaccion rapida
 
 ## Out Of Scope
 

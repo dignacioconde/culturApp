@@ -12,6 +12,7 @@
     "agents:parallel": "node .opencode/scripts/run-parallel-agents.mjs",
     "pb:init": "node scripts/product-brain-sync.mjs init",
     "pb:status": "node scripts/product-brain-sync.mjs status",
+    "pb:check": "node scripts/product-brain-check.mjs",
     "pb:pull": "node scripts/product-brain-sync.mjs pull",
     "pb:push": "node scripts/product-brain-sync.mjs push",
     "pb:capture": "node scripts/product-brain-capture.mjs",

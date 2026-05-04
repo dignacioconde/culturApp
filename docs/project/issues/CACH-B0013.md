@@ -14,7 +14,7 @@ tags:
   - data
 ---
 
-# CACH-B013 — Gestión documental por proyecto/evento
+# CACH-B0013 — Gestión documental por proyecto/evento
 
 ## Summary
 
@@ -43,5 +43,5 @@ Los documentos forman parte del flujo real de trabajo cultural, pero añaden cos
 
 ## Related
 
-- [[CACH-B004]]
+- [[CACH-B0004]]
 

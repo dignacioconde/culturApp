@@ -255,7 +255,7 @@ Hacer:
 
 ## Relacionado Con
 
-- [[../issues/CACH-B001]]
-- [[../issues/CACH-B002]]
-- [[../issues/CACH-B007]]
+- [[../issues/CACH-B0001]]
+- [[../issues/CACH-B0002]]
+- [[../issues/CACH-B0007]]
 - [[ux-mobile-guardrails-20260504]]

@@ -14,6 +14,6 @@ tags:
 
 # Issues
 
-Backlog ejecutable en Markdown. Las issues usan prefijo `CACH`, por ejemplo [[CACH-026]].
+Backlog ejecutable en Markdown. Las issues usan prefijo `CACH`, por ejemplo [[CACH-0026]].
 
 GitHub Issues se crean solo cuando una issue vaya a implementarse.
