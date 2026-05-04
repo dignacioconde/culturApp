@@ -11,8 +11,8 @@ Provide Codex/Claude with a finite workflow to capture thoughts into the Product
 
 ## When to use this skill
 
-- Use when the user says "PB inbox:", "PB idea:", "PB issue:", "PB decisión:", "PB contexto:", "mete esto en el brain", "captura esto"
-- Use to classify and persist product thoughts, not implementation tasks
+- Use when the user says "mete esto en el brain", "captura esto", "inbox:", o cualquier variante que indique capturar una idea
+- Use para capturar ideas, observaciones, contexto, decisiones o anything que no sea código/implementación
 - Do NOT use for purely technical notes better stored in code comments or AGENTS.md
 
 ## When not to use this skill
@@ -28,17 +28,29 @@ Provide Codex/Claude with a finite workflow to capture thoughts into the Product
 
 ## Procedure
 
+**Principio**: TODO entra por el **inbox** primero. Luego en curaduría se mueve a issue, ZK, ADR, contexto, etc.
+
 1. **Read the reference**: `cat docs/project/START_HERE.md` — understand the structure and prefix convention (CACH-*)
 2. **Check current state**: Run `npm run pb:status` — detect any drift or conflicts before capturing
 3. **If drift/conflict detected**: Stop. Report the conflict and ask user how to resolve instead of overwriting
-4. **Capture**: Run `npm run pb:capture -- "CONTENT"` with the proper prefix:
-   - `PB inbox: algo` → captures as inbox item
-   - `PB idea: algo` → captures as idea
-   - `PB issue: algo` → captures as product issue
-   - `PB decisión: algo` → captures as decision
-   - `PB contexto: algo` → captures as context note
+4. **Capture**: Run `npm run pb:capture -- "PB inbox: CONTENIDO"` — siempre con prefijo `PB inbox:`
+   - `PB inbox: Idea rápida sin procesar` → crea inbox item
+   - Todas las capturas van aquí, sin importar el tipo
 5. **Optional push**: If the user wants it visible in Obsidian iCloud, run `npm run pb:push`
 6. **Report outcome**: What was captured, which file, and the result of pb:push if executed
+
+## Flujo completo de Product Brain
+
+```
+INBOX (captura rápida)
+  ↓
+CURADURÍA (revisar, deduplicar, refinar)
+  ↓
+ISSUE (CACH-*) → implementar con agentes
+KNOWLEDGE (ZK) → investigación/referencia
+DECISIONS (ADR) → decisiones importantes
+CONTEXT → contexto estable del producto
+```
 
 ## Output format
 
@@ -62,10 +74,12 @@ pb:push: ejecutado / no ejecutado
 
 ## Common mistakes to avoid
 
+- **Capturar directamente a ZK/Issue/ADR**: TODO entra por inbox primero — la curaduría lo mueve después
 - Skipping pb:status — causes duplicate or conflicting captures
 - Using GitHub Issues for product thoughts (that's the anti-pattern)
 - Capturing implementation tasks — they go through the normal flow with agents
 - Using .memory/ for backlog — memory is for durable context, not backlog
+- Duplicados en Product Brain — revisar que no exista la idea antes de capturar
 
 ## Safety notes
 
