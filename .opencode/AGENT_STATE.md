@@ -21,7 +21,7 @@ Formato recomendado:
 
 Estados sugeridos: `info`, `bloqueo`, `schema_changed`, `api_changed`, `ui_changed`, `needs_review`, `verified`, `done`.
 
-- [in_progress] lead -> cultura-frontend: Rediseño paper/tinta #43. index.html (fonts), index.css (tokens), Sidebar/TopBar/Button/Badge/KpiCard (tema Rojo/Cálido).
+- [verified] lead -> all: Rediseño paper/tinta #43 mergeado. Build OK. PR #44 cerrada.
 
 ## Estado por agente
 
