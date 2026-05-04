@@ -14,3 +14,5 @@ tags:
 # Plans
 
 Planes estratégicos y operativos. El backlog vive en [[../issues/README|Issues]], no aquí.
+
+- [[backlog-mayo-2026|Backlog completo — Mayo 2026]]

@@ -51,6 +51,10 @@ npm run pb:push     # Exportar cambios al vault de iCloud
 - [[indexes/decisions.index|Decisions]]
 - [[indexes/releases.index|Releases]]
 
+## Planes activos
+
+- [[plans/backlog-mayo-2026|Backlog completo — Mayo 2026]]
+
 ## GitHub Issues
 
 Product Brain es la fuente de verdad de producto. GitHub Issues se crean solo cuando una issue vaya a implementarse con rama, agentes, PR y merge.

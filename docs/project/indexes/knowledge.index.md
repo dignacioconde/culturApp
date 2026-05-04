@@ -13,4 +13,4 @@ tags:
 
 # Knowledge Index
 
-Sin notas ZK todavía.
+- [[../knowledge/PB-ZK-20260504-2005|PB-ZK-20260504-2005]] — Marcar evento como cobrado rápido
