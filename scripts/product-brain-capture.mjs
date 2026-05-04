@@ -17,6 +17,7 @@
 import { readFileSync, readdirSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { createHash } from 'crypto';
 import { dirname, join, relative, resolve } from 'path';
+import { createInterface } from 'readline';
 
 const PROJECT_ROOT = process.cwd();
 const REPO_BRAIN_PATH = process.env.PRODUCT_BRAIN_REPO_PATH
@@ -89,6 +90,19 @@ function log(message) {
 function fail(message) {
   console.error(`[pb:capture] ERROR: ${message}`);
   process.exit(1);
+}
+
+function readFromStdin() {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    const rl = createInterface({
+      input: process.stdin,
+      crlfDelay: Infinity,
+    });
+    rl.on('line', (line) => chunks.push(line));
+    rl.on('close', () => resolve(chunks.join('\n').trim()));
+    rl.on('error', reject);
+  });
 }
 
 function getPrefix(text) {
@@ -309,9 +323,21 @@ if (options.help) {
   process.exit(0);
 }
 
-if (cleanArgs.length === 0) {
-  fail('Falta contenido. Usar --help para ayuda.');
+async function main() {
+  let input = cleanArgs.join(' ');
+
+  if (!input) {
+    // Try to read from stdin only if stdin is not a TTY (i.e., piped data)
+    if (!process.stdin.isTTY) {
+      input = await readFromStdin();
+    }
+  }
+
+  if (!input) {
+    fail('Falta contenido. Usar --help para ayuda o passar un argumento, o usar: echo "PB ..." | npm run pb:capture');
+  }
+
+  commandCapture(input, options);
 }
 
-const input = cleanArgs.join(' ');
-commandCapture(input, options);
+main().catch(err => fail(err.message));
