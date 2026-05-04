@@ -14,7 +14,7 @@ tags:
   - gtm
 ---
 
-# CACH-B012 — Perfil público, viralidad y referidos
+# CACH-B0012 — Perfil público, viralidad y referidos
 
 ## Summary
 
@@ -44,6 +44,6 @@ Cada perfil público puede ser una puerta de entrada a Cachés, pero también in
 
 ## Related
 
-- [[CACH-B006]]
-- [[CACH-B007]]
+- [[CACH-B0006]]
+- [[CACH-B0007]]
 

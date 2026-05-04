@@ -41,9 +41,25 @@ docs/project/
 ```bash
 npm run pb:init      # Inicializar Product Brain (primera vez)
 npm run pb:status   # Ver estado actual y archivos pendientes
+npm run pb:check    # Validar frontmatter, índices y wikilinks internos
 npm run pb:pull     # Importar cambios del vault de iCloud
 npm run pb:push     # Exportar cambios al vault de iCloud
 ```
+
+## Ruta Mínima Para Agentes
+
+Para orientar una tarea sin leer todo el Product Brain:
+
+1. Leer este archivo.
+2. Leer solo el índice del tipo de trabajo:
+   - Backlog: [[indexes/issues.index|Issues Index]]
+   - Decisiones: [[indexes/decisions.index|Decisions Index]]
+   - Conocimiento técnico: [[indexes/knowledge.index|Knowledge Index]]
+   - Release: [[indexes/releases.index|Releases Index]]
+3. Abrir únicamente los archivos enlazados que afecten a la tarea.
+4. Ejecutar `npm run pb:check` antes de cerrar cambios en `docs/project/`.
+
+Los IDs canónicos de issues son los nombres de archivo completos, por ejemplo `CACH-0026` y `CACH-B0001`. No usar formas cortas como `CACH-026` o `CACH-B001` en wikilinks.
 
 ## Índices
 
@@ -60,7 +76,7 @@ npm run pb:push     # Exportar cambios al vault de iCloud
 
 Product Brain es la fuente de verdad de producto. GitHub Issues se crean solo cuando una issue vaya a implementarse con rama, agentes, PR y merge.
 
-Las issues Markdown usan el prefijo `CACH`, por ejemplo [[issues/CACH-026|CACH-026]].
+Las issues Markdown usan el prefijo `CACH`, por ejemplo [[issues/CACH-0026|CACH-0026]].
 
 ## Normas De Sync
 

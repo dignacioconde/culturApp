@@ -23,11 +23,11 @@ La beta debería priorizar confianza, comprensión rápida y reversibilidad de d
 
 ## Bloqueadores Antes De Beta
 
-1. Confianza del MVP: horas de agenda, fechas reales de cobro, decimales y pendientes vencidos. Ver [[../issues/CACH-B014|CACH-B014]].
-2. Portabilidad de datos: exportación e importación mínima. Ver [[../issues/CACH-B005|CACH-B005]].
-3. Onboarding y acceso beta: invitaciones, explicación del modelo mental y consentimiento de analítica. Ver [[../issues/CACH-B006|CACH-B006]].
-4. Mobile financiero: reducir fricción en detalles, tablas y formularios. Ver [[../issues/CACH-B002|CACH-B002]].
-5. Cobro rápido: acción frecuente y de alto valor para uso real. Ver [[../issues/CACH-B003|CACH-B003]].
+1. Confianza del MVP: horas de agenda, fechas reales de cobro, decimales y pendientes vencidos. Ver [[../issues/CACH-B0014|CACH-B0014]].
+2. Portabilidad de datos: exportación e importación mínima. Ver [[../issues/CACH-B0005|CACH-B0005]].
+3. Onboarding y acceso beta: invitaciones, explicación del modelo mental y consentimiento de analítica. Ver [[../issues/CACH-B0006|CACH-B0006]].
+4. Mobile financiero: reducir fricción en detalles, tablas y formularios. Ver [[../issues/CACH-B0002|CACH-B0002]].
+5. Cobro rápido: acción frecuente y de alto valor para uso real. Ver [[../issues/CACH-B0003|CACH-B0003]].
 
 ## Riesgos De Producto
 
@@ -39,10 +39,10 @@ La beta debería priorizar confianza, comprensión rápida y reversibilidad de d
 
 ## Cosas Que Pueden Esperar
 
-- Perfil público, referidos y viralidad: después de beta funcional. Ver [[../issues/CACH-B012|CACH-B012]].
-- Gestión documental: post-MVP salvo evidencia fuerte. Ver [[../issues/CACH-B013|CACH-B013]].
-- PWA/offline/notificaciones completas: valiosas, pero no deben bloquear la portabilidad ni el onboarding. Ver [[../issues/CACH-B008|CACH-B008]].
-- Inteligencia financiera Pro: depende de datos fiables y de decisiones de liquidación. Ver [[../issues/CACH-B009|CACH-B009]].
+- Perfil público, referidos y viralidad: después de beta funcional. Ver [[../issues/CACH-B0012|CACH-B0012]].
+- Gestión documental: post-MVP salvo evidencia fuerte. Ver [[../issues/CACH-B0013|CACH-B0013]].
+- PWA/offline/notificaciones completas: valiosas, pero no deben bloquear la portabilidad ni el onboarding. Ver [[../issues/CACH-B0008|CACH-B0008]].
+- Inteligencia financiera Pro: depende de datos fiables y de decisiones de liquidación. Ver [[../issues/CACH-B0009|CACH-B0009]].
 
 ## Criterio De Salida Para Primera Beta
 
@@ -54,11 +54,11 @@ La beta debería priorizar confianza, comprensión rápida y reversibilidad de d
 
 ## Relacionado Con
 
-- [[../issues/CACH-B002]]
-- [[../issues/CACH-B003]]
-- [[../issues/CACH-B005]]
-- [[../issues/CACH-B006]]
-- [[../issues/CACH-B008]]
-- [[../issues/CACH-B009]]
-- [[../issues/CACH-B012]]
-- [[../issues/CACH-B013]]
+- [[../issues/CACH-B0002]]
+- [[../issues/CACH-B0003]]
+- [[../issues/CACH-B0005]]
+- [[../issues/CACH-B0006]]
+- [[../issues/CACH-B0008]]
+- [[../issues/CACH-B0009]]
+- [[../issues/CACH-B0012]]
+- [[../issues/CACH-B0013]]

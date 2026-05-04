@@ -42,6 +42,6 @@ El Product Brain vive en `docs/project/` y se sincroniza manualmente con el vaul
 ## Related
 
 - [[../START_HERE]]
-- [[../issues/CACH-026]]
-- [[../issues/CACH-028]]
-- [[../issues/CACH-B010]]
+- [[../issues/CACH-0026]]
+- [[../issues/CACH-0028]]
+- [[../issues/CACH-B0010]]
