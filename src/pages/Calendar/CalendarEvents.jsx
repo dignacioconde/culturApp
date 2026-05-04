@@ -175,7 +175,7 @@ export default function CalendarEvents() {
           <div className="w-full lg:w-80 bg-white rounded-xl border border-gray-200 p-5 flex flex-col gap-4">
             <div className="flex items-start justify-between">
               <div className="w-3 h-3 rounded-full mt-1 flex-shrink-0" style={{ backgroundColor: selectedEvent.color ?? '#4f98a3' }} />
-              <button onClick={() => setSelectedEvent(null)} className="text-gray-400 hover:text-gray-600 -mr-1 -mt-1 p-1.5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500" aria-label="Cerrar panel">
+              <button onClick={() => setSelectedEvent(null)} className="text-gray-400 hover:text-gray-600 -mr-1 -mt-1 p-1.5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)]" aria-label="Cerrar panel">
                 <X size={20} />
               </button>
             </div>
@@ -209,7 +209,7 @@ export default function CalendarEvents() {
                 return project ? (
                   <div className="flex items-start justify-between gap-3">
                     <span>Proyecto</span>
-                    <Link to={`/projects/${project.id}`} className="max-w-44 truncate text-right text-indigo-600 hover:underline">
+                    <Link to={`/projects/${project.id}`} className="max-w-44 truncate text-right text-[var(--color-primary-500)] hover:underline">
                       {project.name}
                     </Link>
                   </div>

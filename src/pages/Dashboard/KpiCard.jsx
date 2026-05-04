@@ -5,14 +5,12 @@ export function KpiCard({ title, value, subtitle, icon: Icon, color = 'red', pro
     red: 'bg-[#F9EDEB] text-[#C94035] ring-[#F9EDEB]',
     green: 'bg-[#E8F4EF] text-[#2D6A4F] ring-[#E8F4EF]',
     amber: 'bg-[#FDF5E4] text-[#D4921A] ring-[#FDF5E4]',
-    indigo: 'bg-[#eef2ff] text-[#6366f1] ring-[#eef2ff]',
   }
 
   const progressBg = {
     red: 'bg-[#C94035]',
     green: 'bg-[#2D6A4F]',
     amber: 'bg-[#D4921A]',
-    indigo: 'bg-[#6366f1]',
   }
 
   return (

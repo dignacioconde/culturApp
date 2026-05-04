@@ -15,8 +15,8 @@ function ProjectCard({ project, eventCount = 0 }) {
   return (
     <Link
       to={`/projects/${project.id}`}
-      className={`block p-4 rounded-lg border transition-all hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 ${
-        isActive ? 'bg-indigo-50 border-indigo-100' : 'bg-white border-gray-200 hover:border-indigo-200'
+      className={`block p-4 rounded-lg border transition-all hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)] ${
+        isActive ? 'bg-[#fef3f2] border-[var(--color-primary-200)]' : 'bg-white border-gray-200 hover:border-[var(--color-primary-200)]'
       }`}
     >
       <div className="flex items-start justify-between gap-3">
@@ -50,8 +50,8 @@ function EventCard({ event, projectName = null }) {
   return (
     <Link
       to={`/events/${event.id}`}
-      className={`block p-4 rounded-lg border transition-all hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 ${
-        isActive ? 'bg-indigo-50 border-indigo-100' : 'bg-white border-gray-200 hover:border-indigo-200'
+      className={`block p-4 rounded-lg border transition-all hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)] ${
+        isActive ? 'bg-[#fef3f2] border-[var(--color-primary-200)]' : 'bg-white border-gray-200 hover:border-[var(--color-primary-200)]'
       }`}
     >
       <div className="flex items-start justify-between gap-3">
@@ -68,7 +68,7 @@ function EventCard({ event, projectName = null }) {
               <span>{formatDatetime(event.start_datetime)}{event.end_datetime && ` – ${formatDatetime(event.end_datetime)}`}</span>
             </div>
             {projectName && (
-              <p className="text-xs text-indigo-600 mt-1">Proyecto: {projectName}</p>
+              <p className="text-xs text-[var(--color-primary-500)] mt-1">Proyecto: {projectName}</p>
             )}
           </div>
         </div>

@@ -82,7 +82,7 @@ export default function ProjectList() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Buscar proyecto o cliente"
-                className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-gray-300 outline-none focus:border-indigo-500"
+                className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-gray-300 outline-none focus:border-[var(--color-primary-500)]"
               />
             </div>
             <Select
