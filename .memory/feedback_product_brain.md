@@ -42,5 +42,6 @@ npm run pb:capture # Capturar nota (argumento o stdin)
 - El flujo de captura es: leer `docs/project/START_HERE.md`, ejecutar `npm run pb:status`, parar ante drift/conflicto raro, ejecutar `npm run pb:capture -- "..."` y hacer `npm run pb:push` solo si el usuario quiere verlo en Obsidian.
 - No crear GitHub Issues salvo que el usuario pida implementación. No usar `.memory/` como backlog del Product Brain.
 - No capturar secretos ni datos sensibles de clientes sin confirmación explícita.
+- En barridos del Product Brain, revisar tambien que `decisions/` y `releases/` tengan las decisiones y cortes de producto realmente duraderos; no quedarse solo en `context/`, `knowledge/` e `issues/`.
 
 Actualizado: 2026-05-04

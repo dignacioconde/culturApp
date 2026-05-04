@@ -31,6 +31,7 @@ Curación del backlog bruto de 52 ideas/issues. GitHub Issues solo se crearán c
 - [[../issues/CACH-B011|CACH-B011]] — Categorías, etiquetas y taxonomía
 - [[../issues/CACH-B012|CACH-B012]] — Perfil público, viralidad y referidos
 - [[../issues/CACH-B013|CACH-B013]] — Gestión documental por proyecto/evento
+- [[../issues/CACH-B014|CACH-B014]] — Endurecer agenda, cobros y captura del MVP
 
 ## Clasificación de las 52 entradas
 
@@ -98,11 +99,14 @@ Curación del backlog bruto de 52 ideas/issues. GitHub Issues solo se crearán c
 - #31, #35, #41, #42, #44 y #45 forman la columna de PWA/notificaciones/offline.
 - #26 y #52 son el bloque de portabilidad de datos previo a beta.
 
+## Entradas Añadidas Desde Barrido Técnico
+
+- [[../issues/CACH-B014|CACH-B014]] recoge los hallazgos de [[../knowledge/PB-ZK-20260504-technical-audit|PB-ZK-20260504-TECH-AUDIT]] que afectan a confianza del MVP antes de beta.
+
 ## Priorización sugerida
 
-1. Beta segura: [[../issues/CACH-B005|CACH-B005]] y [[../issues/CACH-B006|CACH-B006]].
+1. Confianza del MVP: [[../issues/CACH-B014|CACH-B014]], [[../issues/CACH-B005|CACH-B005]] y [[../issues/CACH-B006|CACH-B006]].
 2. UX core: [[../issues/CACH-B001|CACH-B001]], [[../issues/CACH-B002|CACH-B002]] y [[../issues/CACH-B007|CACH-B007]].
 3. Cobro y datos financieros reales: [[../issues/CACH-B003|CACH-B003]] y [[../issues/CACH-B004|CACH-B004]].
 4. Infra de experiencia móvil: [[../issues/CACH-B008|CACH-B008]].
 5. Pro/GTM: [[../issues/CACH-B009|CACH-B009]] y [[../issues/CACH-B012|CACH-B012]].
-

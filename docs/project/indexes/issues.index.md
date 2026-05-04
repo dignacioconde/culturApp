@@ -28,3 +28,4 @@ tags:
 - [[../issues/CACH-B011|CACH-B011]] — Categorías, etiquetas y taxonomía
 - [[../issues/CACH-B012|CACH-B012]] — Perfil público, viralidad y referidos
 - [[../issues/CACH-B013|CACH-B013]] — Gestión documental por proyecto/evento
+- [[../issues/CACH-B014|CACH-B014]] — Endurecer agenda, cobros y captura del MVP

@@ -13,4 +13,4 @@ tags:
 
 # Releases Index
 
-Sin releases definidas todavía.
+- [[../releases/RELEASE-0.1-beta|RELEASE-0.1-beta]] — Primera beta privada

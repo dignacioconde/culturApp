@@ -14,3 +14,7 @@ tags:
 # Releases
 
 Agrupaciones de issues con un objetivo de producto y criterios de salida.
+
+## Releases Planificadas
+
+- [[RELEASE-0.1-beta|RELEASE-0.1-beta]] — Primera beta privada

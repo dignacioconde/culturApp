@@ -15,6 +15,13 @@ tags:
 
 Contexto estable de producto para Cachés: usuarios, propuesta de valor, restricciones y estado general.
 
+## Notas Activas
+
+- [[product-snapshot-20260504|Snapshot producto — 2026-05-04]]
+- [[data-finance-model-20260504|Modelo de datos y finanzas — 2026-05-04]]
+- [[ux-mobile-guardrails-20260504|Guardrails UX y mobile — 2026-05-04]]
+- [[beta-readiness-risk-map-20260504|Beta readiness y mapa de riesgos — 2026-05-04]]
+
 ## Regla
 
 Solo guardar información estable o semiestable. Las ideas inciertas van primero a [[../inbox/README|Inbox]] o a una nota ZK.
