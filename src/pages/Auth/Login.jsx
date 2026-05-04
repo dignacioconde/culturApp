@@ -38,7 +38,7 @@ export default function Login() {
           <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center">
             <Music size={20} className="text-white" />
           </div>
-          <h1 className="text-xl font-semibold text-gray-900">CulturaApp</h1>
+          <h1 className="text-xl font-semibold text-gray-900">Cachés</h1>
           <p className="text-sm text-gray-500 text-center">Accede a tus proyectos, eventos y previsión económica.</p>
         </div>
 

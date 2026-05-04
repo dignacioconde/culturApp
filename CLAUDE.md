@@ -1,4 +1,4 @@
-# CLAUDE.md — CulturaApp
+# CLAUDE.md — Cachés
 
 Archivo de contexto para Claude Code.
 

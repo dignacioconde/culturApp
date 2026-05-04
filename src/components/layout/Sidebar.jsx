@@ -16,7 +16,7 @@ export function Sidebar() {
         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-indigo-600 shadow-sm">
           <Music size={16} className="text-white" />
         </div>
-        <span className="truncate text-sm font-semibold text-gray-950">CulturaApp</span>
+        <span className="truncate text-sm font-semibold text-gray-950">Cachés</span>
       </div>
 
       <nav

@@ -1,4 +1,4 @@
-# AGENTS.md — CulturaApp
+# AGENTS.md — Cachés
 
 Archivo de contexto para Codex. Léelo completo antes de tocar cualquier archivo.
 

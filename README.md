@@ -1,4 +1,4 @@
-# CulturaApp
+# Cachés
 
 Herramienta de gestión económica y de proyectos para trabajadores del sector cultural independiente: músicos, fotógrafos, actores, diseñadores, gestores culturales y cualquier persona que trabaje por cuenta propia con múltiples proyectos simultáneos.
 
