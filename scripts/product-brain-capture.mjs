@@ -126,6 +126,7 @@ function generateId(type, folderPath) {
   const day = String(now.getDate()).padStart(2, '0');
   const hour = String(now.getHours()).padStart(2, '0');
   const minute = String(now.getMinutes()).padStart(2, '0');
+  const second = String(now.getSeconds()).padStart(2, '0');
 
   if (type === 'issue') {
     const files = readdirSync(folderPath).filter(f => f.endsWith('.md'));
@@ -139,7 +140,11 @@ function generateId(type, folderPath) {
     return `CACH-${next.toString().padStart(3, '0')}`;
   }
 
-  return `${ID_PATTERN[type]}-${year}${month}${day}-${hour}${minute}`;
+  const base = `${ID_PATTERN[type]}-${year}${month}${day}-${hour}${minute}${second}`;
+  if (!existsSync(join(folderPath, `${base}.md`))) return base;
+  let counter = 2;
+  while (existsSync(join(folderPath, `${base}-${counter}.md`))) counter++;
+  return `${base}-${counter}`;
 }
 
 function extractTitle(content, maxLen = 60) {
