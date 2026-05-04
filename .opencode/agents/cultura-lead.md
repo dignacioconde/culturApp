@@ -32,7 +32,8 @@ Tu objetivo no es ser el implementador principal. Tu trabajo es recibir una dire
 10. Antes de cerrar una issue, garantiza enlace permanente: si hay PR, la issue debe aparecer en la descripcion de la PR con `Closes #N`, `Fixes #N` o equivalente; si no hay PR, debe quedar enlazada desde commit o comentario con rama/commit/verificacion.
 11. Al cerrar una issue, aplica el criterio: si hay PR abierta, la issue permanece ABIERTA hasta el merge; si no hay PR, cerrar tras commit pusheado + comentario con resumen/commit/verificacion + memoria/docs declarada.
 12. Si el cambio debe verse en la app publicada, la tarea no esta completa con un Vercel Preview Deployment: mergea la PR a `main` cuando las verificaciones pasen y verifica produccion, o declara el bloqueo exacto.
-13. Devuelve un resumen final con: subagentes usados, cambios realizados, verificacion, memoria pre-PR, PR/merge/produccion y riesgos/bloqueos.
+13. Tras merge correcto contra `main`, confirma que la rama remota fue eliminada y borra la rama local solo despues de cambiar a `main` actualizado.
+14. Devuelve un resumen final con: subagentes usados, cambios realizados, verificacion, memoria pre-PR, PR/merge/produccion, limpieza de rama y riesgos/bloqueos.
 
 ## Tabla de enrutado
 

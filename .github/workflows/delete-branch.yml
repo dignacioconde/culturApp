@@ -6,16 +6,24 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   delete-branch:
-    if: github.event.pull_request.merged == true
+    if: >
+      github.event.pull_request.merged == true &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.head.ref != 'main'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-      - name: Delete merged branch
+      - name: Delete merged branch ref
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
         run: |
-          echo "Deleting branch: ${{ github.event.pull_request.head.ref }}"
-          git push origin :${{ github.event.pull_request.head.ref }} --force
+          echo "Deleting merged branch: ${HEAD_REF}"
+          if ! gh api --method DELETE "repos/${REPO}/git/refs/heads/${HEAD_REF}"; then
+            echo "Branch was already deleted, protected, or unavailable for cleanup."
+          fi
