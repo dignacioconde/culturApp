@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
+    "agents:plan": "node .opencode/scripts/run-planner.mjs",
     "agents:run": "node .opencode/scripts/run-agent.mjs",
     "agents:parallel": "node .opencode/scripts/run-parallel-agents.mjs",
     "preview": "vite preview"

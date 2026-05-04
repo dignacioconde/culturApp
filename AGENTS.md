@@ -66,6 +66,7 @@ La herramienta les permite:
 - `CLAUDE.md` se mantiene como espejo para Claude Code; si diverge, priorizar `AGENTS.md`.
 - Las skills portables viven en `.agents/skills/<skill-name>/SKILL.md`. Claude Code las descubre mediante symlinks en `.claude/skills/<skill-name>`. La estrategia y plantilla estan en `docs/agent-skills-strategy.md` y `.agents/templates/portable-skill/SKILL.md`.
 - Cuando el usuario pida ejecutar agentes/OpenCode, no hacer una investigacion manual previa por defecto. Lanzar los agentes con el flujo estipulado (`npm run agents:run` o `npm run agents:parallel`) y dejar que ellos lean contexto, diagnostiquen y propongan/ejecuten segun la tarea. Solo hacer trabajo previo minimo si es necesario para construir el comando, definir ownership seguro o resolver un bloqueo real.
+- **Flujo obligatorio para implementacion**: Ante cualquier tarea de implementacion (nueva funcionalidad, fix, mejora), Codex y Claude Code deben usar el flujo: (1) crear o localizar una issue en GitHub, (2) usar `npm run agents:plan -- "prompt"` para que el planner genere la issue estructurada y lance agentes, (3) ejecutar los agentes. NO ejecutar `agents:run` directamente sin pasar por el planner cuando no hay issue. La excepcion es solo cuando el usuario lo diga explicitamente o cuando la tarea sea puremente una pregunta, revision o consulta sin implementacion. Si el planner falla por bloqueo tecnico, declarar el bloqueo y usar fallback explicito (issue estructurada + agentes) sin derivada a implementacion manual silenciosa.
 
 ---
 

@@ -20,4 +20,4 @@ Mapa estructurado ampliado: [core.md](core.md)
 ## Feedback y preferencias
 
 - [Sin co-authoring de IA en commits](feedback_no_coauthoring.md) — No añadir Co-Authored-By de IA en commits git
-- [Usar agentes OpenCode para implementación](feedback_opencode_agents.md) — Usar npm run agents:run/parallel, no sub-agentes internos de Claude
+- [Flujo obligatorio de issues y planner](feedback_opencode_agents.md) — Usar issue + agents:plan + agentes para implementación; excepción solo si usuario lo dice explícitamente
