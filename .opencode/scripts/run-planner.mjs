@@ -9,8 +9,9 @@ function usage() {
   console.log(`Uso:
   node .opencode/scripts/run-planner.mjs "prompt rough de la tarea"
 
-El planificador convierte el prompt en una issue de GitHub estructurada
-y lanza automáticamente los agentes de implementación con el modelo barato.
+El planificador convierte el prompt en una issue de GitHub estructurada,
+prepara una rama desde main y lanza automáticamente los agentes de implementación
+con el modelo barato.
 
 Ejemplos:
   npm run agents:plan -- "quiero que los eventos se puedan filtrar por categoría y estado"
@@ -44,7 +45,8 @@ async function main() {
     "2. Clasifica el dominio y carga solo la memoria relevante.",
     "3. Genera la issue estructurada.",
     "4. Crea la issue en GitHub con gh.",
-    "5. Lanza npm run agents:run con el objetivo y la URL.",
+    "5. Prepara una rama de tarea desde main actualizado; si el worktree esta sucio, reporta bloqueo.",
+    "6. Lanza npm run agents:run con el objetivo, la URL, PR a main, merge y verificacion de produccion si aplica.",
   ].join("\n")
 
   const child = spawn(

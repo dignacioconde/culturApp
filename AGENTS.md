@@ -66,7 +66,7 @@ La herramienta les permite:
 - `CLAUDE.md` se mantiene como espejo para Claude Code; si diverge, priorizar `AGENTS.md`.
 - Las skills portables viven en `.agents/skills/<skill-name>/SKILL.md`. Claude Code las descubre mediante symlinks en `.claude/skills/<skill-name>`. La estrategia y plantilla estan en `docs/agent-skills-strategy.md` y `.agents/templates/portable-skill/SKILL.md`.
 - Cuando el usuario pida ejecutar agentes/OpenCode, no hacer una investigacion manual previa por defecto. Lanzar los agentes con el flujo estipulado (`npm run agents:run` o `npm run agents:parallel`) y dejar que ellos lean contexto, diagnostiquen y propongan/ejecuten segun la tarea. Solo hacer trabajo previo minimo si es necesario para construir el comando, definir ownership seguro o resolver un bloqueo real.
-- **Flujo obligatorio para implementacion**: Ante cualquier tarea de implementacion (nueva funcionalidad, fix, mejora), Codex y Claude Code deben usar el flujo: (1) crear o localizar una issue en GitHub, (2) usar `npm run agents:plan -- "prompt"` para que el planner genere la issue estructurada y lance agentes, (3) ejecutar los agentes. NO ejecutar `agents:run` directamente sin pasar por el planner cuando no hay issue. La excepcion es solo cuando el usuario lo diga explicitamente o cuando la tarea sea puremente una pregunta, revision o consulta sin implementacion. Si el planner falla por bloqueo tecnico, declarar el bloqueo y usar fallback explicito (issue estructurada + agentes) sin derivada a implementacion manual silenciosa.
+- **Flujo obligatorio para implementacion**: Ante cualquier tarea de implementacion (nueva funcionalidad, fix, mejora), Codex y Claude Code deben usar el flujo: (1) crear o localizar una issue en GitHub, (2) partir siempre de `main` actualizado y crear una rama de trabajo para esa issue, (3) usar `npm run agents:plan -- "prompt"` para que el planner genere la issue estructurada si falta y lance agentes, (4) ejecutar los agentes, (5) abrir PR a `main`, (6) mergear la PR cuando las verificaciones pasen y no haya bloqueo, y (7) verificar produccion. NO ejecutar `agents:run` directamente sin pasar por el planner cuando no hay issue. La excepcion es solo cuando el usuario lo diga explicitamente o cuando la tarea sea puremente una pregunta, revision o consulta sin implementacion. Si el planner falla por bloqueo tecnico, declarar el bloqueo y usar fallback explicito (issue estructurada + agentes) sin derivada a implementacion manual silenciosa.
 
 ---
 
@@ -80,27 +80,30 @@ Este proyecto debe evolucionar mediante agentes OpenCode cuando el usuario lo pi
 - Dar a los agentes objetivos concretos, no misiones amplias tipo "mejora toda la app".
 - Separar investigacion, implementacion y revision cuando la tarea tenga riesgo o varias areas afectadas.
 - No hacer investigacion manual previa por defecto: lanzar agentes y dejar que diagnostiquen, salvo que haga falta definir ownership, preparar el comando o resolver un bloqueo.
-- Trabajar con ramas/PRs cuando el cambio sea integrable en GitHub; no meter cambios grandes directos en `main`.
+- Trabajar siempre con una rama de tarea creada desde `main` actualizado cuando el cambio sea integrable en GitHub. La PR debe apuntar a `main`; no apilar trabajo en ramas viejas salvo que el usuario pida una rama dependiente concreta.
+- Un preview de Vercel no cuenta como despliegue de produccion. Si el usuario espera ver el cambio en la app publicada, la tarea no esta terminada hasta que la PR se mergee a `main` y el alias de produccion quede verificado.
 
 ### Metodo ante problemas descubiertos
 
 Cuando se descubra un problema nuevo que requiera seguimiento, usar este flujo por defecto:
 
 1. Abrir o localizar una issue en GitHub con contexto, alcance y criterios de aceptacion.
-2. Ejecutar agentes OpenCode con esa issue como contexto, ownership claro y verificacion obligatoria.
-3. Implementar/ajustar el fix y ejecutar `npm run lint` y `npm run build` si toca codigo de app.
-4. Hacer checkpoint de memoria pre-PR: issue, diff y commits contra base. Activar `@cultura-docs` si hay que persistir memoria; si no, documentar `Memoria: no aplica`.
-5. Crear commit(s) con los cambios relacionados, incluyendo `.memory/` si se actualizo.
-6. Hacer push del commit a GitHub.
-7. Abrir PR solo cuando la memoria este actualizada o marcada como no aplicable, usando la plantilla de PR.
-8. Comentar la issue con resumen, commit/PR y verificaciones ejecutadas.
-9. Mantener enlace permanente entre issue y trabajo que la resuelve:
+2. Asegurar `main` actualizado y crear una rama de tarea desde `main` para esa issue. Si ya existe una rama valida desde `main`, reutilizarla; si hay cambios sin commitear, parar y declararlo.
+3. Ejecutar agentes OpenCode con esa issue como contexto, ownership claro y verificacion obligatoria.
+4. Implementar/ajustar el fix y ejecutar `npm run lint` y `npm run build` si toca codigo de app.
+5. Hacer checkpoint de memoria pre-PR: issue, diff y commits contra base. Activar `@cultura-docs` si hay que persistir memoria; si no, documentar `Memoria: no aplica`.
+6. Crear commit(s) con los cambios relacionados, incluyendo `.memory/` si se actualizo.
+7. Hacer push del commit a GitHub.
+8. Abrir PR a `main` solo cuando la memoria este actualizada o marcada como no aplicable, usando la plantilla de PR. No dejarla en draft salvo bloqueo real; si queda en draft, no declarar la tarea como lista ni visible en produccion.
+9. Comentar la issue con resumen, commit/PR y verificaciones ejecutadas.
+10. Mantener enlace permanente entre issue y trabajo que la resuelve:
    - Si hay PR: enlazar la issue en la descripcion de la PR con una referencia de cierre (`Closes #N`, `Fixes #N` o equivalente) para que GitHub conserve el vinculo historico y la cierre al merge.
    - Si no hay PR: enlazar la issue desde el commit o desde un comentario de cierre con commit/branch/verificacion.
-10. Cerrar la issue segun el criterio:
+11. Cerrar la issue segun el criterio:
    - **Si hay PR abierta**: la issue enlazada permanece ABIERTA hasta el merge. No cerrarla solo porque este implementada en una rama; cerrar manualmente o automaticamente solo despues de que la PR se mergee a `main`.
    - **Si no hay PR**: cerrar solo despues de commit pusheado + comentario con resumen/commit/verificacion + memoria/docs declarada (actualizada en `.memory/` o `no aplica`).
-11. Incluir en el comentario de cierre: resumen, commit(s), PR o rama, verificacion ejecutada y estado de memoria/docs.
+12. Mergear la PR a `main` cuando las verificaciones pasen y no haya bloqueo. Tras el merge, verificar el deploy de produccion o declarar exactamente que queda pendiente.
+13. Incluir en el comentario de cierre: resumen, commit(s), PR o rama, verificacion ejecutada, estado de memoria/docs y estado de produccion.
 
 Si el problema es visual, incluir tambien ruta, viewport, captura/sintoma y criterio visual de aceptacion.
 
@@ -115,6 +118,7 @@ Si el problema es visual, incluir tambien ruta, viewport, captura/sintoma y crit
 Usar el flujo estipulado:
 
 ```bash
+npm run agents:plan -- "Tarea concreta de implementacion sin issue estructurada"
 npm run agents:run -- "Tarea concreta..."
 npm run agents:parallel -- "Explorer: ..." "Worker: ..."
 ```
@@ -139,6 +143,7 @@ Una tarea de agente se considera terminada solo cuando:
 - Si toca logica financiera, explica el calculo afectado.
 - Si toca datos, respeta RLS, `user_id` y el modelo evento/proyecto.
 - Si va a abrir PR, completa el checkpoint de memoria pre-PR y lo refleja en la descripcion de la PR.
+- Si el cambio debe verse en produccion, mergea la PR a `main` y verifica el alias de produccion; un preview no es suficiente.
 - Entrega resumen corto: archivos tocados, cambios hechos y pruebas ejecutadas.
 
 ### Checkpoint de memoria pre-PR

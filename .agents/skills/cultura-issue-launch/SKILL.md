@@ -1,13 +1,13 @@
 ---
 name: cultura-issue-launch
-description: Lanzar una tarea de CulturaApp convirtiendo un prompt rough en una issue de GitHub estructurada y arrancando los agentes de implementación con el modelo barato. Usar cuando el usuario diga "lanza esto", "crea una issue para", "quiero que los agentes hagan", "implementa X" o similar. No usar para revisiones, auditorías ni preguntas de contexto puro.
+description: Lanzar una tarea de CulturaApp convirtiendo un prompt rough en una issue de GitHub estructurada, creando rama desde main y arrancando agentes con el modelo barato. Usar cuando el usuario diga "lanza esto", "crea una issue para", "quiero que los agentes hagan", "implementa X" o similar. No usar para revisiones, auditorías ni preguntas de contexto puro.
 ---
 
 # Cultura Issue Launch
 
 ## Purpose
 
-Convierte el prompt del usuario en una issue de GitHub estructurada y lanza los agentes de implementación sin que el usuario tenga que formatear nada manualmente. El paso de planificación lo ejecuta el agente `cultura-planner` con el modelo barato (Kimi), no Claude Code.
+Convierte el prompt del usuario en una issue de GitHub estructurada, prepara una rama de tarea desde `main` y lanza los agentes de implementación sin que el usuario tenga que formatear nada manualmente. El paso de planificación lo ejecuta el agente `cultura-planner` con el modelo barato (Kimi), no Claude Code.
 
 ## When to use this skill
 
@@ -18,7 +18,7 @@ Convierte el prompt del usuario en una issue de GitHub estructurada y lanza los 
 ## When not to use this skill
 
 - El usuario solo quiere una revisión de código (usa `cultura-code-review`).
-- La tarea ya tiene issue abierta con estructura completa — en ese caso usar `agents:run` directamente.
+- La tarea ya tiene issue abierta con estructura completa — en ese caso crear o reutilizar una rama desde `main` para esa issue y usar `agents:run` con la URL de la issue.
 - El usuario quiere solo consultar contexto o hacer preguntas.
 - La tarea afecta secretos, producción remota o es destructiva — confirmar antes de lanzar.
 
@@ -38,13 +38,15 @@ Ninguno. No investigues el repo antes de lanzar. El agente `cultura-planner` lee
    - Cargar solo la memoria relevante para ese dominio
    - Generar la issue estructurada
    - Crear la issue en GitHub con `gh`
-   - Lanzar `npm run agents:run` con el objetivo y la URL
-4. Informa al usuario del resultado: URL de la issue creada y confirmación de que los agentes arrancaron.
+   - Crear una rama de tarea desde `main` actualizado
+   - Lanzar `npm run agents:run` con el objetivo, la URL y el contrato de PR a `main`
+4. Informa al usuario del resultado: URL de la issue creada, rama creada y confirmación de que los agentes arrancaron.
 
 ## Output format
 
 ```
 Issue creada: <URL>
+Rama: <branch>
 Agentes lanzados con: <OBJETIVO resumido>
 ```
 
@@ -54,6 +56,8 @@ Si `gh` no está disponible, `cultura-planner` mostrará la issue generada para 
 
 - El prompt se pasa sin modificar — no hay que "mejorar" el input, eso lo hace el planificador.
 - No se hace ningún trabajo de código ni exploración antes de llamar al script.
+- El resultado debe terminar en PR a `main` y merge cuando las verificaciones pasen, salvo bloqueo o instrucción explícita de dejar la PR abierta.
+- Si el cambio debe verse en la app publicada, un Vercel Preview Deployment no es suficiente: hay que verificar producción después del merge.
 - Si el usuario da un prompt de menos de 5 palabras sin verbo claro, pedir una aclaración mínima antes de lanzar.
 
 ## Common mistakes to avoid
@@ -67,4 +71,4 @@ Si `gh` no está disponible, `cultura-planner` mostrará la issue generada para 
 
 - No ejecutar si la tarea implica cambios remotos en Supabase, Vercel o credenciales sin confirmación explícita del usuario.
 - No pasar secretos ni valores de `.env.local` en el prompt.
-- `agents:plan` lanza `agents:run` automáticamente al final — confirmar con el usuario si hay duda sobre si debe arrancar inmediatamente.
+- `agents:plan` crea rama desde `main` y lanza `agents:run` automáticamente al final — confirmar con el usuario si hay duda sobre si debe arrancar inmediatamente.

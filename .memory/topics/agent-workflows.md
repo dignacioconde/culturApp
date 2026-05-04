@@ -35,3 +35,9 @@
 - Context: Issue close handling around PR `#19` showed that implemented issues can be commented and pushed while still needing a durable PR/issue link.
 - Durable memory: closing an issue is a state transition, not the historical link. Every resolved issue must stay permanently linked to the PR or commit that resolved it. If there is an open PR, keep the issue open and include `Closes #N`, `Fixes #N`, or equivalent in the PR body so GitHub closes it on merge and preserves the relationship. If there is no PR, close only after a pushed commit plus a comment containing summary, commit or branch, verification, and memory/docs status.
 - Source: user clarification on 2026-05-04; issue `#21`; PR `#19`; `AGENTS.md`; `.opencode/README.md`; `.github/pull_request_template.md`.
+
+## 2026-05-04 - Implementation Ends At Main Merge And Production Verification
+
+- Context: The visible rename to `Cachés` was implemented in PR `#19`, but the user still saw `CulturApp` because the branch only produced Vercel preview deployments while production continued serving `main`.
+- Durable memory: for implementation tasks, create a task branch from up-to-date `main`, open a PR targeting `main`, merge it when checks pass and there is no blocker, then verify the production alias if the user expects the change in the live app. A Vercel preview deployment is useful for review but does not satisfy "fixed in the application" or "deployed to production".
+- Source: user correction on 2026-05-04; PR `#19`; production alias `https://culturapp-rho.vercel.app`; `AGENTS.md`; `.opencode/README.md`.

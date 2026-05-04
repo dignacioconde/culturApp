@@ -16,6 +16,9 @@ Si la tarea toca formularios, selectores o calendarios, revisa tambien las lecci
 ALCANCE:
 Indica archivos, carpetas o modulos permitidos. Indica tambien lo que queda fuera.
 
+RAMA Y PR:
+Parte de `main` actualizado y trabaja en una rama de tarea. La PR debe apuntar a `main`. No apiles cambios en ramas antiguas salvo instruccion explicita.
+
 OWNERSHIP:
 Si hay varios agentes escribiendo, reparte ownership disjunto.
 Ejemplo: frontend -> src/pages/Events; data -> src/hooks; docs -> README.md.
@@ -30,9 +33,10 @@ CIERRE DE ISSUE:
 - Toda issue resuelta debe quedar enlazada permanentemente al trabajo que la resuelve.
 - Si hay PR abierta: enlazar la issue en la descripcion de la PR con `Closes #N`, `Fixes #N` o equivalente; issue permanece ABIERTA hasta merge y se cierra solo cuando la PR se mergee a `main`.
 - Si no hay PR: enlazar desde commit o comentario y cerrar tras commit pusheado + comentario con resumen/commit/verificacion + memoria/docs declarada.
+- Si el cambio debe verse en la app publicada, mergea la PR a `main` cuando las verificaciones pasen y verifica produccion. Un preview de Vercel no cuenta como produccion.
 
 SALIDA:
-Subagentes usados, cambios realizados, verificacion ejecutada y riesgos/bloqueos restantes.
+Subagentes usados, cambios realizados, verificacion ejecutada, PR/merge/produccion y riesgos/bloqueos restantes.
 Si aplica, incluye `Memoria: actualizada/no aplica`.
 ```
 
