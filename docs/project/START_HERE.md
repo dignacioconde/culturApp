@@ -10,6 +10,7 @@ aliases:
 tags:
   - product-brain
   - caches
+  - navigation
 ---
 
 # Product Brain de Cachés
@@ -46,9 +47,9 @@ npm run pb:push     # Exportar cambios al vault de iCloud
 
 ## Índices
 
-- [[indexes/issues.index|Issues]]
-- [[indexes/knowledge.index|Knowledge]]
-- [[indexes/decisions.index|Decisions]]
+- [[indexes/issues.index|Issues (CACH)]]
+- [[indexes/knowledge.index|Knowledge (ZK)]]
+- [[indexes/decisions.index|Decisions (ADR)]]
 - [[indexes/releases.index|Releases]]
 
 ## Planes activos

@@ -21,6 +21,7 @@ Contexto estable de producto para Cachés: usuarios, propuesta de valor, restric
 - [[data-finance-model-20260504|Modelo de datos y finanzas — 2026-05-04]]
 - [[ux-mobile-guardrails-20260504|Guardrails UX y mobile — 2026-05-04]]
 - [[beta-readiness-risk-map-20260504|Beta readiness y mapa de riesgos — 2026-05-04]]
+- [[curation-flow-20260504|Flujo de curation del inbox — 2026-05-04]]
 
 ## Regla
 
