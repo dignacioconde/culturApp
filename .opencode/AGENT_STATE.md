@@ -21,7 +21,7 @@ Formato recomendado:
 
 Estados sugeridos: `info`, `bloqueo`, `schema_changed`, `api_changed`, `ui_changed`, `needs_review`, `verified`, `done`.
 
-- [info] lead -> all: Cambio de nombre CulturaApp → Cachés verificado. UI ya muestra "Cachés" en index.html y Sidebar. Actualizados README.md, AGENTS.md, CLAUDE.md. Lint/build OK. Archivos: index.html, src/components/layout/Sidebar.jsx, README.md, AGENTS.md, CLAUDE.md.
+- [in_progress] lead -> cultura-frontend: Rediseño paper/tinta #43. index.html (fonts), index.css (tokens), Sidebar/TopBar/Button/Badge/KpiCard (tema Rojo/Cálido).
 
 ## Estado por agente
 

@@ -2,24 +2,37 @@
 
 :root {
   /* ─────────────────────────────────────────
-     BRAND / PRIMARY — Indigo
+     PAPER / INKA / RED (warm editorial palette)
   ───────────────────────────────────────── */
-  --color-primary-50:  #eef2ff;
-  --color-primary-100: #e0e7ff;
-  --color-primary-200: #c7d2fe;
-  --color-primary-300: #a5b4fc;
-  --color-primary-400: #818cf8;
-  --color-primary-500: #6366f1;
-  --color-primary-600: #4f46e5;   /* primary action bg */
-  --color-primary-700: #4338ca;   /* hover */
-  --color-primary-800: #3730a3;   /* active / calendar active text */
-  --color-primary-900: #312e81;
+  /* Paper — background */
+  --color-paper:        #F5EFE0;
+  --color-paper-dark:  #EBE3CE;
+  --color-paper-mid:   #E2D9C2;
 
-  /* Brand logo accent — only used in logo SVG */
-  --color-brand-logo:  #863bff;
+  /* Ink — texto y borders */
+  --color-ink:         #211C18;
+  --color-ink-muted:   #5C5149;
+  --color-ink-light:  #3D4A5C;
+
+  /* Red — primary action, activo */
+  --color-red:         #C94035;
+  --color-red-hover:    #A8342B;
+  --color-red-light:   #F9EDEB;
+
+  /* Amber — warning/pending */
+  --color-amber:       #D4921A;
+  --color-amber-light: #FDF5E4;
+
+  /* Green — success/paid */
+  --color-green:       #2D6A4F;
+  --color-green-light: #E8F4EF;
+
+  /* Surface — cards, modals */
+  --color-surface:    #FFFFFF;
+  --color-surface-alt: #FAF7F2;
 
   /* ─────────────────────────────────────────
-     NEUTRAL — Gray
+     NEUTRAL — legacy support / fallback
   ───────────────────────────────────────── */
   --color-gray-50:  #f9fafb;
   --color-gray-100: #f3f4f6;
@@ -31,93 +44,105 @@
   --color-gray-700: #374151;
   --color-gray-800: #1f2937;
   --color-gray-900: #111827;
-  --color-gray-950: #030712;
 
-  /* Page background — slightly cool off-white */
-  --color-bg-page:  #f6f7f9;
-  --color-bg-card:  #ffffff;
-  --color-bg-sidebar: #ffffff;
+  /* ─────────────────────────────────────────
+     BRAND / PRIMARY — Red (replaces Indigo)
+  ───────────────────────────────────────── */
+  --color-primary-50:  var(--color-red-light);
+  --color-primary-100: #fce9e7;
+  --color-primary-200: #fad5d2;
+  --color-primary-300: #f5b5b0;
+  --color-primary-400: #ef8580;
+  --color-primary-500: var(--color-red);
+  --color-primary-600: var(--color-red);
+  --color-primary-700: var(--color-red-hover);
+  --color-primary-800: #8f2b23;
+  --color-primary-900: #6d221b;
+
+  /* Brand logo accent */
+  --color-brand-logo:  #C94035;
+
+  /* Page background */
+  --color-bg-page:  var(--color-paper);
+  --color-bg-card:  var(--color-surface);
+  --color-bg-sidebar: var(--color-ink);
 
   /* ─────────────────────────────────────────
      SEMANTIC — Status & Feedback
   ───────────────────────────────────────── */
   /* Success / Paid */
-  --color-success-50:  #f0fdf4;
-  --color-success-100: #dcfce7;
-  --color-success-500: #22c55e;
-  --color-success-600: #16a34a;
-  --color-success-700: #15803d;
+  --color-success-50:  var(--color-green-light);
+  --color-success-500: var(--color-green);
+  --color-success-600: #236541;
 
   /* Warning / Pending */
-  --color-warning-50:  #fffbeb;
-  --color-warning-100: #fef3c7;
-  --color-warning-500: #f59e0b;
-  --color-warning-600: #d97706;
-  --color-warning-700: #b45309;
+  --color-warning-50:  var(--color-amber-light);
+  --color-warning-500: var(--color-amber);
+  --color-warning-600: #b07a14;
 
   /* Danger / Error / Cancelled */
-  --color-danger-50:  #fef2f2;
-  --color-danger-100: #fee2e2;
-  --color-danger-400: #f87171;
-  --color-danger-500: #ef4444;
-  --color-danger-600: #dc2626;
-  --color-danger-700: #b91c1c;
+  --color-danger-50:  var(--color-red-light);
+  --color-danger-400: #ef9995;
+  --color-danger-500: var(--color-red);
+  --color-danger-600: var(--color-red-hover);
+  --color-danger-700: #8f2b23;
 
   /* Info / Confirmed */
-  --color-info-100: #dbeafe;
+  --color-info-100: #E6EDF5;
+  --color-info-500: #2855A0;
   --color-info-700: #1d4ed8;
 
-  /* Status: draft */
-  --color-status-draft-bg:   #f3f4f6;
-  --color-status-draft-text: #4b5563;
-  /* Status: confirmed */
-  --color-status-confirmed-bg:   #dbeafe;
-  --color-status-confirmed-text: #1d4ed8;
-  /* Status: in_progress */
-  --color-status-inprogress-bg:   #fef3c7;
-  --color-status-inprogress-text: #b45309;
-  /* Status: completed */
-  --color-status-completed-bg:   #dcfce7;
-  --color-status-completed-text: #15803d;
-  /* Status: cancelled */
-  --color-status-cancelled-bg:   #fee2e2;
-  --color-status-cancelled-text: #dc2626;
+  /* Status pills — warm tones */
+  --color-status-draft-bg:   var(--color-paper-mid);
+  --color-status-draft-text: var(--color-ink-muted);
+  --color-status-confirmed-bg:   var(--color-info-100);
+  --color-status-confirmed-text: var(--color-info-500);
+  --color-status-inprogress-bg:   var(--color-amber-light);
+  --color-status-inprogress-text: #9B6210;
+  --color-status-completed-bg:   var(--color-green-light);
+  --color-status-completed-text: var(--color-green);
+  --color-status-cancelled-bg:   var(--color-red-light);
+  --color-status-cancelled-text: var(--color-red);
 
   /* ─────────────────────────────────────────
-     PROJECT / EVENT PALETTE (user-assigned)
+     PROJECT / EVENT PALETTE (user-assigned, preserved)
   ───────────────────────────────────────── */
-  --color-project-1:  #4f98a3;  /* teal */
-  --color-project-2:  #7c6dc7;  /* violet */
-  --color-project-3:  #e07c5a;  /* terracotta */
-  --color-project-4:  #5aaa7c;  /* sage */
-  --color-project-5:  #c76d8f;  /* rose */
-  --color-project-6:  #a3944f;  /* khaki */
-  --color-project-7:  #5a7ce0;  /* periwinkle */
-  --color-project-8:  #c7a36d;  /* sand */
-  --color-project-9:  #6dc7b8;  /* aqua */
-  --color-project-10: #e05a7c;  /* pink */
+  --color-project-1:  #4f98a3;
+  --color-project-2:  #7c6dc7;
+  --color-project-3:  #e07c5a;
+  --color-project-4:  #5aaa7c;
+  --color-project-5:  #c76d8f;
+  --color-project-6:  #a3944f;
+  --color-project-7:  #5a7ce0;
+  --color-project-8:  #c7a36d;
+  --color-project-9:  #6dc7b8;
+  --color-project-10: #e05a7c;
 
   /* Calendar today */
-  --color-calendar-today: #f5f3ff;  /* violet-50 */
+  --color-calendar-today: var(--color-amber-light);
   /* Text selection */
-  --color-selection-bg:   #c7d2fe;
-  --color-selection-text: #111827;
+  --color-selection-bg:   var(--color-amber);
+  --color-selection-text: var(--color-ink);
 
   /* ─────────────────────────────────────────
-     TYPOGRAPHY
+     TYPOGRAPHY — con webfonts
   ───────────────────────────────────────── */
-  /* Font stack — system fonts (no custom webfont in production) */
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
+  /* Font stack — DM Serif Display para títulos, Instrument Sans UI, DM Mono datos */
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-ui:      'Instrument Sans', system-ui, sans-serif;
+  --font-mono:    'DM Mono', 'Cascadia Code', monospace;
+
+  --font-sans: var(--font-ui);
+  --font-mono: var(--font-mono);
 
   /* Size scale */
-  --text-xs:   0.75rem;    /* 12px — captions, meta, badge text */
-  --text-sm:   0.875rem;   /* 14px — body, labels, nav items */
-  --text-base: 1rem;       /* 16px — card content, section heads */
-  --text-lg:   1.125rem;   /* 18px — page titles */
-  --text-xl:   1.25rem;    /* 20px */
-  --text-2xl:  1.5rem;     /* 24px — KPI values */
-  --text-3xl:  1.875rem;   /* 30px */
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  1.875rem;
 
   /* Weight scale */
   --font-regular:   400;

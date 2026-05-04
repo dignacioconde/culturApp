@@ -10,7 +10,7 @@ export function Badge({ children, className = '' }) {
 
 export function StatusBadge({ status }) {
   return (
-    <Badge className={STATUS_COLORS[status] ?? 'bg-gray-100 text-gray-700'}>
+    <Badge className={STATUS_COLORS[status] ?? 'bg-[#E2D9C2] text-[#5C5149]'}>
       {STATUS_LABELS[status] ?? status}
     </Badge>
   )
