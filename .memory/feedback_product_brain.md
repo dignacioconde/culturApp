@@ -2,6 +2,8 @@
 
 El Product Brain vive en `docs/project/` del repo, sincronizado manualmente con el vault de Obsidian en iCloud.
 
+Nombre canónico del producto: **Cachés**. Usar `CACH` como prefijo de issues Markdown.
+
 ## Scripts npm
 
 ```bash
@@ -30,6 +32,7 @@ npm run pb:push     # Exportar cambios al vault de iCloud
 - Sync manual: `pb:pull` antes de trabajar, `pb:push` al terminar
 - Conflictos: aviso y no se borra nada automáticamente en v1
 - Excluidos: `.obsidian/`, `.DS_Store`, `*.tmp`, temporales de iCloud
-- Variable: `ICL_OBSIDIAN_VAULT` para ruta del vault (por defecto: `~/Library/Mobile Documents/iCloud~md~obsidian/Documents/CulturaApp`)
+- Vault por defecto: `/Users/diconde/Library/Mobile Documents/iCloud~md~obsidian/Documents/Product Brain Caches.es`
+- Variable opcional: `ICLOUD_OBSIDIAN_VAULT` o `ICL_OBSIDIAN_VAULT`
 
 Actualizado: 2026-05-04

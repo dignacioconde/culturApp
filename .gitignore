@@ -22,3 +22,4 @@ dist/
 
 # Product Brain
 docs/project/.obsidian/
+.product-brain-sync-state.json
