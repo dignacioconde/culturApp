@@ -36,4 +36,11 @@ npm run pb:capture # Capturar nota (argumento o stdin)
 - Vault por defecto: `/Users/diconde/Library/Mobile Documents/iCloud~md~obsidian/Documents/Product Brain Caches.es`
 - Variable opcional: `ICLOUD_OBSIDIAN_VAULT` o `ICL_OBSIDIAN_VAULT`
 
+## Captura por agentes
+
+- Usar la skill portable `product-brain-capture` cuando el usuario diga `PB inbox:`, `PB idea:`, `PB issue:`, `PB decisión:`, `PB contexto:`, "mete esto en el brain" o "captura esto".
+- El flujo de captura es: leer `docs/project/START_HERE.md`, ejecutar `npm run pb:status`, parar ante drift/conflicto raro, ejecutar `npm run pb:capture -- "..."` y hacer `npm run pb:push` solo si el usuario quiere verlo en Obsidian.
+- No crear GitHub Issues salvo que el usuario pida implementación. No usar `.memory/` como backlog del Product Brain.
+- No capturar secretos ni datos sensibles de clientes sin confirmación explícita.
+
 Actualizado: 2026-05-04
