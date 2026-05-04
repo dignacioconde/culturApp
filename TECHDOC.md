@@ -259,13 +259,15 @@ La vista semana de `/calendar/events` sigue abierta como mejora en GitHub issue 
 
 ## Checklist pre-deploy en Vercel
 
+> ⚠️ **El proyecto ya está desplegado en Vercel.** Este checklist sirve de referencia para futuros despliegues o migraciones.
+
 ### 1. Supabase (hacer antes de deploy)
 
-- [ ] Ejecutar el SQL de creación de tablas (`profiles`, `projects`, `events`, `incomes`, `expenses`)
-- [ ] Ejecutar políticas RLS en las 5 tablas
-- [ ] Ejecutar el trigger `on_auth_user_created` para crear perfiles automáticamente
-- [ ] Verificar que el trigger funciona registrando un usuario de prueba
-- [ ] Probar CRUD de proyecto, evento, ingreso y gasto con ese usuario
+- [x] Ejecutar el SQL de creación de tablas (`profiles`, `projects`, `events`, `incomes`, `expenses`)
+- [x] Ejecutar políticas RLS en las 5 tablas
+- [x] Ejecutar el trigger `on_auth_user_created` para crear perfiles automáticamente
+- [x] Verificar que el trigger funciona registrando un usuario de prueba
+- [x] Probar CRUD de proyecto, evento, ingreso y gasto con ese usuario
 
 El SQL completo está en `AGENTS.md` → sección "SQL de inicialización de Supabase".
 
@@ -280,10 +282,18 @@ VITE_SUPABASE_ANON_KEY=<tu_anon_key>
 
 ### 3. Build y deploy
 
-- [ ] `npm run build` sin errores en local
-- [ ] Conectar repo de GitHub a Vercel
-- [ ] Verificar que Vercel detecta Vite como framework
-- [ ] Primer deploy y smoke test del flujo de registro → login → crear proyecto
+- [x] `npm run build` sin errores en local
+- [x] Conectar repo de GitHub a Vercel
+- [x] Verificar que Vercel detecta Vite como framework
+- [x] Primer deploy y smoke test del flujo de registro → login → crear proyecto
+
+---
+
+## Notas del deploy
+
+- **URL de producción**: https://culturapp.vercel.app (o similar)
+- **Variables configuradas en Vercel**: `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`
+- **Build automático**: GitHub Actions conectado a Vercel (deploy en cada push a main)
 
 ---
 

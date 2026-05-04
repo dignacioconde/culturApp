@@ -661,7 +661,7 @@ npm run lint     # Linting
 - [x] Selectores nativos sustituidos por controles propios grandes (`Select`, fecha, fecha+hora)
 - [x] Mejoras UX móvil en modales, estados vacíos, breadcrumbs, tablas con overflow y KPIs del dashboard
 - [x] Vista Settings
-- [ ] Deploy en Vercel
+- [x] Deploy en Vercel
 - [ ] Mejorar UX móvil de la vista semana de `/calendar/events` — issue `#3`
 
 ---
