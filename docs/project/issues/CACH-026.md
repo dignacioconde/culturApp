@@ -1,18 +1,24 @@
 ---
-title: '[CACH-026] Setup inicial Product Brain'
+id: CACH-026
 type: issue
-status: completed
+status: Done
+priority: High
+release: Unassigned
 created: 2026-05-04
-closed: 2026-05-04
+updated: 2026-05-04
 github: https://github.com/dignacioconde/culturApp/issues/26
-owner: lead
+aliases:
+  - CACH-026
+tags:
+  - product-brain
+  - issue
 ---
 
-# [CACH-026] Setup inicial Product Brain
+# CACH-026 — Setup inicial Product Brain
 
 ## Problema
 
-Crear Product Brain repo-native en docs/project con sync manual al vault Obsidian de iCloud.
+Crear Product Brain repo-native en `docs/project/` con sync manual al vault Obsidian de iCloud.
 
 ## Solución
 
@@ -22,11 +28,18 @@ Crear Product Brain repo-native en docs/project con sync manual al vault Obsidia
 - Sync manual con aviso ante conflictos, sin borrar automáticamente en v1
 - START_HERE.md con frontmatter y wikilinks
 
-## Estado
+## Criterios De Aceptación
 
-✅ Completado
+- [x] Crear `docs/project/`.
+- [x] Añadir scripts npm de Product Brain.
+- [x] Mantener `.memory/` separado.
+- [x] Crear PR operativa enlazada a GitHub Issue.
+
+## Notas De Implementación
+
+La primera implementación se completó en la PR #27 y generó una corrección posterior en [[CACH-028]] para ajustar la ruta real del vault iCloud y versionar la estructura completa.
 
 ## Véase también
 
-- [[indexes/knowledge-index|]]
-- [[knowledge/stack-y-tecnologias|]]
+- [[START_HERE|Product Brain]]
+- [[CACH-028]]

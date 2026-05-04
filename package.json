@@ -10,10 +10,10 @@
     "agents:plan": "node .opencode/scripts/run-planner.mjs",
     "agents:run": "node .opencode/scripts/run-agent.mjs",
     "agents:parallel": "node .opencode/scripts/run-parallel-agents.mjs",
-    "pb:init": "node .opencode/scripts/product-brain.mjs init",
-    "pb:status": "node .opencode/scripts/product-brain.mjs status",
-    "pb:pull": "node .opencode/scripts/product-brain.mjs pull",
-    "pb:push": "node .opencode/scripts/product-brain.mjs push",
+    "pb:init": "node scripts/product-brain-sync.mjs init",
+    "pb:status": "node scripts/product-brain-sync.mjs status",
+    "pb:pull": "node scripts/product-brain-sync.mjs pull",
+    "pb:push": "node scripts/product-brain-sync.mjs push",
     "preview": "vite preview"
   },
   "dependencies": {
