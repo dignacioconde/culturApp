@@ -86,6 +86,9 @@ function buildContract(options) {
     "ALCANCE:",
     options.scope,
     "",
+    "RAMA Y PR:",
+    "Trabaja en una rama de tarea creada desde main actualizado. Si la tarea debe integrarse, abre PR a main, mergea cuando las verificaciones pasen y verifica produccion si aplica. Un preview de Vercel no cuenta como produccion.",
+    "",
     "OWNERSHIP:",
     options.ownership,
     "",
@@ -96,7 +99,7 @@ function buildContract(options) {
     options.verify,
     "",
     "SALIDA:",
-    "Resume subagentes usados, archivos/cambios principales, verificacion ejecutada y riesgos o bloqueos restantes.",
+    "Resume subagentes usados, archivos/cambios principales, verificacion ejecutada, PR/merge/produccion y riesgos o bloqueos restantes.",
   ].join("\n")
 }
 

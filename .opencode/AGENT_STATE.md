@@ -21,7 +21,7 @@ Formato recomendado:
 
 Estados sugeridos: `info`, `bloqueo`, `schema_changed`, `api_changed`, `ui_changed`, `needs_review`, `verified`, `done`.
 
-_(sin señales activas)_
+- [info] lead -> all: Cambio de nombre CulturaApp → Cachés verificado. UI ya muestra "Cachés" en index.html y Sidebar. Actualizados README.md, AGENTS.md, CLAUDE.md. Lint/build OK. Archivos: index.html, src/components/layout/Sidebar.jsx, README.md, AGENTS.md, CLAUDE.md.
 
 ## Estado por agente
 
@@ -97,3 +97,5 @@ Formato:
 ```
 
 <!-- Nuevos eventos encima de esta linea. -->
+
+- 2026-05-04 18:30 CET - lead - info - Regla cierre de issues documentada inicialmente; corregida despues para exigir enlace permanente issue->PR/commit y no cerrar issues con PR abierta antes del merge.

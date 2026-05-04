@@ -3,7 +3,7 @@
 ## 2026-05-03 - MVP App Shape Is Implemented Locally
 
 - Context: The initial app and subsequent commits built the React/Vite/Supabase MVP with auth, protected routes, dashboard, calendars, projects, events, incomes, expenses, settings, shared UI components, formatters, hooks, and Spanish UI.
-- Durable memory: current code is beyond scaffold: it has CRUD for projects/events/incomes/expenses, two calendars, dashboard KPIs, profile settings, toast notifications, custom selectors/date controls, and Supabase hooks. Deploy to Vercel remains pending.
+- Durable memory: current code is beyond scaffold: it has CRUD for projects/events/incomes/expenses, two calendars, dashboard KPIs, profile settings, toast notifications, custom selectors/date controls, Supabase hooks, and verified Vercel production deployment.
 - Source: commits `476870c`, `71ff8fa`, `48f8b89`, `9f6e1c`, `fc99c25`; `AGENTS.md`; `TECHDOC.md`; `README.md`.
 
 ## 2026-05-03 - Documentation Sources Were Reviewed Against Commits
@@ -14,8 +14,8 @@
 
 ## 2026-05-03 - Remaining Product/Release Gaps
 
-- Context: Project docs consistently mark Vercel deploy and mobile week UX as not fully done.
-- Durable memory: Vercel production deploy has since been verified; see [routing-deploy.md](routing-deploy.md). Do not mark mobile week view for `/calendar/events` as solved; issue `#3` remains open conceptually and the current horizontal scroll is only an acceptable patch.
+- Context: Project docs previously marked Vercel deploy and mobile week UX as not fully done.
+- Durable memory: Vercel production deploy has since been verified; see [routing-deploy.md](routing-deploy.md). Mobile week UX issue `#3` is closed and the current horizontal scroll is accepted for now; if the topic is reprioritized, open a new issue with a concrete mobile UX decision and screenshot criteria.
 - Source: `AGENTS.md`; `README.md`; `TECHDOC.md`; `.opencode/README.md`.
 
 ## 2026-05-03 - Work Grouping First Iteration

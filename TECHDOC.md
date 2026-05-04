@@ -241,9 +241,9 @@ Los controles nativos (`<select>`, `input type="date"`, `input type="datetime-lo
 
 Regla operativa: no introducir selectores nativos directamente en páginas o modales. Si se necesita otro tipo de selector, extender `Input.jsx` o crear un componente UI compartido.
 
-### Pendiente UX: semana móvil
+### UX: semana móvil
 
-La vista semana de `/calendar/events` sigue abierta como mejora en GitHub issue `#3`. El scroll horizontal actual evita que la cuadrícula se aplaste, pero no se considera solución UX definitiva. Alternativas a evaluar: agenda móvil, vista de 3 días, carrusel por días, semana con día seleccionado o fallback móvil a `Día`/`Agenda`.
+La vista semana de `/calendar/events` quedó aceptada con scroll horizontal tras la GitHub issue `#3`. Si se reabre una mejora más ambiciosa, conviene crear una issue nueva y evaluar alternativas como agenda móvil, vista de 3 días, carrusel por días, semana con día seleccionado o fallback móvil a `Día`/`Agenda`.
 
 ### No implementado (fuera del alcance del MVP)
 
@@ -259,13 +259,15 @@ La vista semana de `/calendar/events` sigue abierta como mejora en GitHub issue 
 
 ## Checklist pre-deploy en Vercel
 
+> ⚠️ **El proyecto ya está desplegado en Vercel.** Este checklist sirve de referencia para futuros despliegues o migraciones.
+
 ### 1. Supabase (hacer antes de deploy)
 
-- [ ] Ejecutar el SQL de creación de tablas (`profiles`, `projects`, `events`, `incomes`, `expenses`)
-- [ ] Ejecutar políticas RLS en las 5 tablas
-- [ ] Ejecutar el trigger `on_auth_user_created` para crear perfiles automáticamente
-- [ ] Verificar que el trigger funciona registrando un usuario de prueba
-- [ ] Probar CRUD de proyecto, evento, ingreso y gasto con ese usuario
+- [x] Ejecutar el SQL de creación de tablas (`profiles`, `projects`, `events`, `incomes`, `expenses`)
+- [x] Ejecutar políticas RLS en las 5 tablas
+- [x] Ejecutar el trigger `on_auth_user_created` para crear perfiles automáticamente
+- [x] Verificar que el trigger funciona registrando un usuario de prueba
+- [x] Probar CRUD de proyecto, evento, ingreso y gasto con ese usuario
 
 El SQL completo está en `AGENTS.md` → sección "SQL de inicialización de Supabase".
 
@@ -280,10 +282,18 @@ VITE_SUPABASE_ANON_KEY=<tu_anon_key>
 
 ### 3. Build y deploy
 
-- [ ] `npm run build` sin errores en local
-- [ ] Conectar repo de GitHub a Vercel
-- [ ] Verificar que Vercel detecta Vite como framework
-- [ ] Primer deploy y smoke test del flujo de registro → login → crear proyecto
+- [x] `npm run build` sin errores en local
+- [x] Conectar repo de GitHub a Vercel
+- [x] Verificar que Vercel detecta Vite como framework
+- [x] Primer deploy y smoke test del flujo de registro → login → crear proyecto
+
+---
+
+## Notas del deploy
+
+- **URL de producción**: https://culturapp-rho.vercel.app
+- **Variables configuradas en Vercel**: `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`
+- **Build automático**: integración GitHub de Vercel (deploy en cada push a `main`)
 
 ---
 

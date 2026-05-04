@@ -9,5 +9,5 @@
 ## 2026-05-03 - Event Calendar Week View Mobile Is Still A Product Decision
 
 - Context: Current implementation uses horizontal scroll to avoid crushing the week grid on mobile.
-- Durable memory: issue `#3` tracks a better mobile week UX; future fixes should evaluate agenda, 3-day view, carousel by day, selected-day week, or mobile fallback to day/agenda and verify with a real mobile viewport screenshot.
+- Durable memory: issue `#3` is closed and the current horizontal-scroll week view is accepted for now. If mobile week UX is reprioritized, open a new issue and evaluate agenda, 3-day view, carousel by day, selected-day week, or mobile fallback to day/agenda with a real mobile viewport screenshot.
 - Source: `AGENTS.md`; `README.md`; `TECHDOC.md`; `.opencode/README.md`.

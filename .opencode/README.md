@@ -15,7 +15,15 @@ No guardes en memoria: convenciones de codigo, rutas de archivos, historial git 
 
 ## Ejecucion recomendada
 
-La entrada por defecto debe ser el lanzador estandar:
+Para tareas de implementacion sin issue estructurada, la entrada por defecto debe ser el planner:
+
+```bash
+npm run agents:plan -- "Describe la tarea"
+```
+
+El planner crea o localiza la issue, prepara una rama desde `main` y lanza los agentes.
+
+Cuando ya existe issue estructurada y rama de tarea preparada, usa el lanzador estandar:
 
 ```bash
 npm run agents:run -- "Describe la tarea"
@@ -25,7 +33,11 @@ Este comando envuelve la peticion en un contrato operativo con objetivo, autonom
 
 Cuando el usuario pida ejecutar agentes, no hagas una revision manual previa del codigo salvo que sea imprescindible para construir el comando, definir ownership seguro o resolver un bloqueo real. Los agentes deben leer `AGENTS.md`, `.opencode/AGENT_STATE.md` y el codigo necesario, diagnosticar y devolver hallazgos o cambios por si mismos.
 
-Cuando se descubra un problema nuevo, el flujo por defecto es: issue en GitHub -> agentes con contexto de la issue -> fix verificado -> commit -> push -> comentario en la issue con resumen/commit/verificaciones -> cerrar issue como completada. No cierres issues antes de pushear y comentar el commit y las verificaciones.
+Cuando se descubra un problema nuevo, el flujo por defecto es: issue en GitHub -> rama de tarea desde `main` actualizado -> agentes con contexto de la issue -> fix verificado -> commit -> push -> PR a `main` -> merge -> verificacion de produccion si aplica -> comentario en la issue con resumen/commit/verificaciones. Toda issue resuelta debe quedar enlazada permanentemente al trabajo que la resuelve:
+- **Si hay PR abierta**: enlazar la issue en la descripcion de la PR con `Closes #N`, `Fixes #N` o equivalente; la issue permanece ABIERTA hasta merge y se cierra solo cuando la PR se mergee a `main`.
+- **Si no hay PR**: enlazarla desde el commit o comentario de cierre y cerrarla solo tras commit pusheado + comentario con resumen/commit/verificacion + memoria/docs declarada.
+
+Las ramas de PR generan Vercel Preview Deployments. Un preview no cuenta como produccion ni como cierre completo si el usuario espera ver el cambio en la app publicada. Salvo bloqueo real o instruccion explicita de dejar la PR abierta, la tarea debe terminar con PR mergeada a `main` y el alias de produccion verificado.
 
 Antes de abrir una PR, todos los agentes deben completar el **checkpoint de memoria pre-PR**: revisar issue, diff y commits contra la base; activar `@cultura-docs` si hay preferencias, decisiones duraderas, gotchas recurrentes o reglas de trabajo que guardar; o declarar `Memoria: no aplica`. Si `.memory/` cambia, esos archivos deben quedar commiteados y pusheados antes de crear la PR. La descripcion de PR debe incluir `Memoria: actualizada` o `Memoria: no aplica`.
 
@@ -127,7 +139,7 @@ Lecciones recientes de UX móvil:
 - No usar `<select>` nativo ni `input type="date"` / `input type="datetime-local"` directamente en pantallas o modales. En móvil los menús nativos salieron demasiado pequeños. Usar los wrappers compartidos de `src/components/ui/Input.jsx`.
 - `Select` debe mostrar opciones completas, sin truncar años o rangos como `2...` o `30 ...`, y al abrir debe hacer scroll hasta el valor seleccionado cuando haya muchas opciones.
 - Los eventos deben partir de un horario útil: `08:00` como hora inicial por defecto y formato 24h. Evitar que formularios o calendarios empiecen visualmente en horas de madrugada salvo selección explícita.
-- La vista semana móvil de `/calendar/events` sigue abierta como issue `#3`. El scroll horizontal actual evita el aplastamiento, pero no es una solución UX definitiva. Los agentes deben evaluar alternativas como agenda móvil, 3 días, carrusel por días o fallback a día/agenda.
+- La vista semana móvil de `/calendar/events` quedó aceptada con scroll horizontal tras la issue `#3`. Si se reabre, los agentes deben crear o usar una issue nueva y evaluar alternativas como agenda móvil, 3 días, carrusel por días o fallback a día/agenda.
 
 Los resultados se guardan en `.opencode/runs/<timestamp>/`, con un archivo Markdown por agente.
 
