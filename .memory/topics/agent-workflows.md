@@ -41,3 +41,9 @@
 - Context: The visible rename to `Cachés` was implemented in PR `#19`, but the user still saw `CulturApp` because the branch only produced Vercel preview deployments while production continued serving `main`.
 - Durable memory: for implementation tasks, create a task branch from up-to-date `main`, open a PR targeting `main`, merge it when checks pass and there is no blocker, then verify the production alias if the user expects the change in the live app. A Vercel preview deployment is useful for review but does not satisfy "fixed in the application" or "deployed to production".
 - Source: user correction on 2026-05-04; PR `#19`; production alias `https://culturapp-rho.vercel.app`; `AGENTS.md`; `.opencode/README.md`.
+
+## 2026-05-04 - Branch Cleanup After Merge
+
+- Context: Issue `#22` added automation to clean up merged branches automatically.
+- Durable memory: After merging a PR to main, the workflow `.github/workflows/delete-branch.yml` automatically deletes the remote branch. Run `git checkout main && git branch -D <branch>` locally or use `npm run postmerge` to clean the local branch.
+- Source: issue `#22`; PR `#23`; `.github/workflows/delete-branch.yml`; `package.json`.
