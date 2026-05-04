@@ -15,13 +15,6 @@ export function KpiCard({ title, value, subtitle, icon: Icon, color = 'red', pro
     indigo: 'bg-[#6366f1]',
   }
 
-  const borderTop = {
-    red: 'border-t-[#C94035]',
-    green: 'border-t-[#2D6A4F]',
-    amber: 'border-t-[#D4921A]',
-    indigo: 'border-t-[#6366f1]',
-  }
-
   return (
     <Card className="p-4 sm:p-5 min-w-0 border-t-2">
       <div className="flex items-start gap-3 sm:gap-4">
