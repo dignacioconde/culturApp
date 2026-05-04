@@ -9,8 +9,9 @@ Nombre canónico del producto: **Cachés**. Usar `CACH` como prefijo de issues M
 ```bash
 npm run pb:init     # Inicializar Product Brain (primera vez)
 npm run pb:status   # Ver estado actual
-npm run pb:pull     # Importar cambios del vault de iCloud
-npm run pb:push     # Exportar cambios al vault de iCloud
+npm run pb:pull    # Importar cambios del vault de iCloud
+npm run pb:push    # Exportar cambios al vault de iCloud
+npm run pb:capture # Capturar nota (argumento o stdin)
 ```
 
 ## Estructura
