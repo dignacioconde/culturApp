@@ -291,7 +291,7 @@ VITE_SUPABASE_ANON_KEY=<tu_anon_key>
 
 ## Notas del deploy
 
-- **URL de producción**: https://culturapp.vercel.app (o similar)
+- **URL de producción**: https://culturapp-rho.vercel.app
 - **Variables configuradas en Vercel**: `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`
 - **Build automático**: GitHub Actions conectado a Vercel (deploy en cada push a main)
 

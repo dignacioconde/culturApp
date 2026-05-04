@@ -25,4 +25,4 @@ Repository-local memory for CulturaApp agents. This file is a compact map; detai
 ## Maintenance
 
 - Created: 2026-05-03
-- Last curated: 2026-05-03 after reviewing GitHub issues `#1`-`#13`, local commits through `7835a83`, and confirming there are no recent PRs in `dignacioconde/culturApp`.
+- Last curated: 2026-05-04 after reviewing GitHub issues `#1`-`#20`, local commits through `6a2eb93`, and confirming there are no recent PRs in `dignacioconde/culturApp`.
