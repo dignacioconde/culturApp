@@ -6,7 +6,9 @@ import {
   mkdirSync,
   readFileSync,
   readdirSync,
+  rmdirSync,
   statSync,
+  unlinkSync,
   writeFileSync,
 } from 'fs';
 import { createHash } from 'crypto';
@@ -98,6 +100,60 @@ function shouldIgnore(name) {
 
 function ensureDir(path) {
   mkdirSync(path, { recursive: true });
+}
+
+function deleteFile(fullPath) {
+  if (existsSync(fullPath)) {
+    unlinkSync(fullPath);
+    log(`Eliminado: ${fullPath}`);
+  }
+}
+
+function deleteEmptyDirs(root) {
+  if (!existsSync(root)) return;
+
+  function walk(current, deleted) {
+    const entries = readdirSync(current, { withFileTypes: true });
+    for (const entry of entries) {
+      if (!entry.isDirectory()) continue;
+
+      const fullPath = join(current, entry.name);
+      walk(fullPath, deleted);
+
+      if (existsSync(fullPath)) {
+        const remaining = readdirSync(fullPath);
+        if (remaining.length === 0) {
+          try {
+            rmdirSync(fullPath);
+            deleted.push(fullPath);
+          } catch {
+            // Ignore errors when dir not empty or permission issues
+          }
+        }
+      }
+    }
+  }
+
+  const deleted = [];
+  for (const sub of REQUIRED_DIRS) {
+    const subPath = join(root, sub);
+    if (existsSync(subPath)) {
+      walk(subPath, deleted);
+      if (existsSync(subPath)) {
+        const remaining = readdirSync(subPath);
+        if (remaining.length === 0) {
+          try {
+            rmdirSync(subPath);
+            deleted.push(subPath);
+          } catch {
+            // Ignore
+          }
+        }
+      }
+    }
+  }
+
+  return deleted;
 }
 
 function ensureBaseDirs() {
@@ -306,7 +362,8 @@ function commandPull() {
   }
 }
 
-function commandPush() {
+function commandPush(options = {}) {
+  const shouldDelete = options.delete ?? false;
   ensureBaseDirs();
   const result = analyze();
   if (result.conflicts.length > 0) {
@@ -317,6 +374,16 @@ function commandPush() {
   const filesToPush = [...new Set([...result.repoOnly, ...result.changedInRepo])].sort();
   copyFiles(filesToPush, REPO_BRAIN_PATH, VAULT_PATH);
 
+  // Delete files that only exist in vault (when --delete flag is passed)
+  if (shouldDelete && result.vaultOnly.length > 0) {
+    for (const file of result.vaultOnly) {
+      const fullPath = join(VAULT_PATH, file);
+      deleteFile(fullPath);
+    }
+    // Try to clean empty dirs after deletes
+    deleteEmptyDirs(VAULT_PATH);
+  }
+
   const refreshedRepo = listFiles(REPO_BRAIN_PATH);
   const refreshedVault = listFiles(VAULT_PATH);
   updateStateForFiles(result.state, refreshedRepo, refreshedVault, [
@@ -325,8 +392,15 @@ function commandPush() {
   ]);
 
   log(`Exportados al vault: ${filesToPush.length}`);
+  if (shouldDelete && result.vaultOnly.length > 0) {
+    log(`Eliminados del vault: ${result.vaultOnly.length}`);
+  }
   if (result.vaultOnly.length > 0 || result.changedInVault.length > 0) {
-    log('Hay cambios del vault no importados. Usa pb:pull si quieres traerlos al repo.');
+    if (shouldDelete) {
+      log('Repo y vault estan sincronizados.');
+    } else if (result.vaultOnly.length > 0 && !shouldDelete) {
+      log('WARNING: Hay archivos en vault que no existen en repo. Usa pb:push --delete para borrarlos.')
+    }
   }
 }
 
@@ -337,12 +411,24 @@ const commands = {
   status: commandStatus,
 };
 
-const command = process.argv[2];
+const args = process.argv.slice(2);
+const command = args[0];
+const options = {};
+
+for (let i = 1; i < args.length; i++) {
+  const arg = args[i];
+  if (arg === '--delete') {
+    options.delete = true;
+  } else if (arg.startsWith('--')) {
+    log(`Opcion desconocida: ${arg}`);
+    process.exit(1);
+  }
+}
 
 if (!command || !commands[command]) {
   const script = relative(PROJECT_ROOT, resolve(process.argv[1]));
-  console.log(`Usage: node ${script} <init|status|pull|push>`);
+  console.log(`Usage: node ${script} <init|status|pull|push> [--delete]`);
   process.exit(1);
 }
 
-commands[command]();
+commands[command](options);
