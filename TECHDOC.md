@@ -241,9 +241,9 @@ Los controles nativos (`<select>`, `input type="date"`, `input type="datetime-lo
 
 Regla operativa: no introducir selectores nativos directamente en páginas o modales. Si se necesita otro tipo de selector, extender `Input.jsx` o crear un componente UI compartido.
 
-### Pendiente UX: semana móvil
+### UX: semana móvil
 
-La vista semana de `/calendar/events` sigue abierta como mejora en GitHub issue `#3`. El scroll horizontal actual evita que la cuadrícula se aplaste, pero no se considera solución UX definitiva. Alternativas a evaluar: agenda móvil, vista de 3 días, carrusel por días, semana con día seleccionado o fallback móvil a `Día`/`Agenda`.
+La vista semana de `/calendar/events` quedó aceptada con scroll horizontal tras la GitHub issue `#3`. Si se reabre una mejora más ambiciosa, conviene crear una issue nueva y evaluar alternativas como agenda móvil, vista de 3 días, carrusel por días, semana con día seleccionado o fallback móvil a `Día`/`Agenda`.
 
 ### No implementado (fuera del alcance del MVP)
 
@@ -293,7 +293,7 @@ VITE_SUPABASE_ANON_KEY=<tu_anon_key>
 
 - **URL de producción**: https://culturapp-rho.vercel.app
 - **Variables configuradas en Vercel**: `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`
-- **Build automático**: GitHub Actions conectado a Vercel (deploy en cada push a main)
+- **Build automático**: integración GitHub de Vercel (deploy en cada push a `main`)
 
 ---
 

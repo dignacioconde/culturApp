@@ -58,7 +58,7 @@ Herramienta de gestión económica y de proyectos para trabajadores del sector c
 - La app usa selectores propios grandes para categorías, estados, proyectos, fechas y horas. Esto evita los menús nativos pequeños del navegador en móvil.
 - Los eventos usan horario en formato 24h. La creación de eventos toma `08:00` como hora inicial habitual y la hora de fin parte de la hora de inicio cuando no hay otra selección.
 - El calendario de eventos limita la vista semana/día a horario útil desde las 08:00.
-- La vista semana móvil de `/calendar/events` sigue pendiente de una solución UX mejor que el scroll horizontal actual. Seguimiento: GitHub issue `#3`.
+- La vista semana móvil de `/calendar/events` quedó aceptada con scroll horizontal tras la issue `#3`; si se prioriza una mejora más ambiciosa, abrir nueva issue con patrón UX y captura móvil.
 
 ---
 
@@ -260,7 +260,6 @@ Las skills son instruction-only por defecto. No incluyen scripts externos, depen
 
 ## Deploy en Vercel
 
-1. Sube el repositorio a GitHub
-2. Importa el proyecto en [vercel.com](https://vercel.com)
-3. Añade `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` en las variables de entorno del proyecto
-4. Vercel desplegará automáticamente en cada push a `main`
+Producción verificada: https://culturapp-rho.vercel.app
+
+El proyecto está importado en Vercel y despliega automáticamente desde GitHub en cada push a `main`. Las variables necesarias son `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`.

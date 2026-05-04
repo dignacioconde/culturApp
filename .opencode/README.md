@@ -127,7 +127,7 @@ Lecciones recientes de UX móvil:
 - No usar `<select>` nativo ni `input type="date"` / `input type="datetime-local"` directamente en pantallas o modales. En móvil los menús nativos salieron demasiado pequeños. Usar los wrappers compartidos de `src/components/ui/Input.jsx`.
 - `Select` debe mostrar opciones completas, sin truncar años o rangos como `2...` o `30 ...`, y al abrir debe hacer scroll hasta el valor seleccionado cuando haya muchas opciones.
 - Los eventos deben partir de un horario útil: `08:00` como hora inicial por defecto y formato 24h. Evitar que formularios o calendarios empiecen visualmente en horas de madrugada salvo selección explícita.
-- La vista semana móvil de `/calendar/events` sigue abierta como issue `#3`. El scroll horizontal actual evita el aplastamiento, pero no es una solución UX definitiva. Los agentes deben evaluar alternativas como agenda móvil, 3 días, carrusel por días o fallback a día/agenda.
+- La vista semana móvil de `/calendar/events` quedó aceptada con scroll horizontal tras la issue `#3`. Si se reabre, los agentes deben crear o usar una issue nueva y evaluar alternativas como agenda móvil, 3 días, carrusel por días o fallback a día/agenda.
 
 Los resultados se guardan en `.opencode/runs/<timestamp>/`, con un archivo Markdown por agente.
 

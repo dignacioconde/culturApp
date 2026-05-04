@@ -52,7 +52,7 @@ Tu foco es asegurar que la aplicación sea clara, fluida y usable en móvil, man
   - navegación simple y retorno claro;
   - inputs cómodos para uso táctil.
 - Calendario de eventos:
-  - la vista semana móvil actual con scroll horizontal no se considera solución final;
+  - la vista semana móvil actual con scroll horizontal está aceptada por ahora, aunque puede mejorarse si se reabre el tema;
   - no priorices meter siete columnas completas en 390 px;
   - evalúa patrones como agenda móvil, 3 días, carrusel por días, día seleccionado dentro de semana o fallback móvil a `Día`/`Agenda`;
   - mantén creación desde hueco y legibilidad de eventos como criterios principales.
@@ -60,7 +60,7 @@ Tu foco es asegurar que la aplicación sea clara, fluida y usable en móvil, man
 ## Antes de terminar
 
 - Resume pantallas o componentes revisados.
-- Si revisas `/calendar/events` en móvil, referencia la issue `#3` y explica si tu propuesta la cerraría o solo reduce el daño.
+- Si revisas `/calendar/events` en móvil y propones cambiar la semana móvil, referencia que la issue `#3` está cerrada y abre o usa una issue nueva para la propuesta.
 - Explica qué decisiones afectan también a desktop.
 - Indica si `cultura-ux-desktop`, `cultura-frontend` o `cultura-data` deben reaccionar.
 - Señala riesgos de responsive, accesibilidad táctil o consistencia visual.

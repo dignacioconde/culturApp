@@ -516,7 +516,7 @@ Agrega ingresos y gastos de **ambos niveles** (evento + proyecto directo).
 - Navegación de fecha/vista controlada; visible aunque no haya eventos
 - Seleccionar un hueco del calendario abre el formulario con fecha/hora precargadas
 - Vista semana/día limitada a horario útil desde las 08:00 y formato 24h.
-- En móvil la vista semana sigue siendo un punto pendiente de UX: no darla por resuelta solo porque tenga scroll horizontal. Issue abierta: `#3`.
+- En móvil, la vista semana usa scroll horizontal como solución aceptada por ahora. Si se reabre la mejora, crear una issue nueva con criterio UX concreto y captura móvil real.
 
 ### 4. `/calendar/projects` — Calendario de proyectos
 
@@ -662,7 +662,7 @@ npm run lint     # Linting
 - [x] Mejoras UX móvil en modales, estados vacíos, breadcrumbs, tablas con overflow y KPIs del dashboard
 - [x] Vista Settings
 - [x] Deploy en Vercel
-- [ ] Mejorar UX móvil de la vista semana de `/calendar/events` — issue `#3`
+- [x] Mejora UX móvil inicial de la vista semana de `/calendar/events` — issue `#3` cerrada; futuras mejoras requieren issue nueva
 
 ---
 
@@ -678,7 +678,7 @@ npm run lint     # Linting
 - **Formato fechas en BD**: ISO 8601 — Supabase lo maneja automáticamente
 - **Moneda**: euros (€) — usar siempre `formatCurrency()`
 - **Calendario de eventos**: es el que se comparte hacia afuera. El de proyectos es solo interno.
-- **Vista semana móvil**: `react-big-calendar` en semana comprime demasiado la información en móvil. El scroll horizontal actual es parche aceptable, no solución final. Antes de cerrar cualquier fix de este punto, verificar con captura en viewport móvil real.
+- **Vista semana móvil**: `react-big-calendar` en semana puede comprimir demasiado la información en móvil. El scroll horizontal actual es una solución aceptada por ahora; si se reabre el tema, verificar con captura en viewport móvil real y una decisión UX concreta.
 - **Selectores nativos**: evitar `<select>`, `input type="date"` y `input type="datetime-local"` directos en páginas; usar los wrappers de `Input.jsx` para que los menús no salgan pequeños.
 - **Horas de eventos**: la experiencia normal empieza en `08:00`; evitar defaults de madrugada salvo que el usuario seleccione explícitamente esa hora.
 - **Cobro bruto/hora**: usar solo ingresos cobrados asociados a eventos (`event_id`) y horas de eventos con `end_datetime`. No mezclar ingresos directos de proyecto en el numerador de esta métrica.

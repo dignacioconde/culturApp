@@ -37,5 +37,5 @@ Trabajas sobre React 19, Vite, Tailwind CSS v4, React Router v7, Lucide React y 
 - Resume archivos tocados y decisiones de UI relevantes.
 - Comprueba que no rompes rutas protegidas en `src/App.jsx`.
 - Revisa responsive basico y, si hay calendarios implicados, deja constancia explicita de los anchos probados y de que el calendario no desaparece.
-- Si tocas `/calendar/events` vista semana móvil, no cierres como resuelto solo por añadir scroll horizontal; issue `#3` requiere una decisión UX mejor.
+- Si tocas `/calendar/events` vista semana móvil, recuerda que la issue `#3` está cerrada y el scroll horizontal está aceptado por ahora; si propones una mejora mayor, abre o referencia una issue nueva con decisión UX y captura móvil.
 - Ejecuta o recomienda `npm run lint` y `npm run build` si tocaste codigo.
