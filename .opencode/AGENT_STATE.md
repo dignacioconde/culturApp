@@ -96,6 +96,6 @@ Formato:
 - YYYY-MM-DD HH:mm CET - agente - estado - mensaje.
 ```
 
-<!-- Nuevos eventos encima de esta linea. -->
+- 2026-05-04 19:15 CET - lead - info - Issue #30: comando pb:capture creado. Script: scripts/product-brain-capture.mjs. Prefijos: inbox, idea, issue, decisión, contexto. Documentación: docs/project/prompts/product-brain-capture.md. Verificado: lint OK, agents:plan OK, agents:run OK.
 
 - 2026-05-04 18:30 CET - lead - info - Regla cierre de issues documentada inicialmente; corregida despues para exigir enlace permanente issue->PR/commit y no cerrar issues con PR abierta antes del merge.

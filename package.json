@@ -14,6 +14,7 @@
     "pb:status": "node scripts/product-brain-sync.mjs status",
     "pb:pull": "node scripts/product-brain-sync.mjs pull",
     "pb:push": "node scripts/product-brain-sync.mjs push",
+    "pb:capture": "node scripts/product-brain-capture.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
