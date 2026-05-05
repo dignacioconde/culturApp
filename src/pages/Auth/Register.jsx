@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 import { Button } from '../../components/ui/Button'
 import { Input } from '../../components/ui/Input'
-import { Music } from 'lucide-react'
+import { Drama } from 'lucide-react'
 
 export default function Register() {
   const { signUp } = useAuth()
@@ -44,7 +44,7 @@ export default function Register() {
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 w-full max-w-md p-6 sm:p-8">
         <div className="flex flex-col items-center gap-2 mb-8">
           <div className="w-10 h-10 bg-[var(--color-primary-500)] rounded-xl flex items-center justify-center">
-            <Music size={20} className="text-white" />
+            <Drama size={20} className="text-white" />
           </div>
           <h1 className="text-xl font-semibold text-gray-900">Cachés</h1>
           <p className="text-sm text-gray-500 text-center">Crea tu espacio para organizar proyectos, eventos y cobros.</p>
