@@ -12,7 +12,7 @@ import { useProjects } from '../../hooks/useProjects'
 import { useEvents } from '../../hooks/useEvents'
 import { useIncomes } from '../../hooks/useIncomes'
 import { useExpenses } from '../../hooks/useExpenses'
-import { formatCurrency, formatCurrencyPerHour, formatDate, formatDateRange, formatHours } from '../../lib/formatters'
+import { formatCurrency, formatCurrencyPerHour, formatDate, formatHours } from '../../lib/formatters'
 
 const YEARS = Array.from({ length: 6 }, (_, i) => dayjs().year() - 2 + i)
 
@@ -128,60 +128,44 @@ export default function Dashboard() {
   const loading = projectsLoading || eventsLoading || incomesLoading || expensesLoading
   const error = projectsError || eventsError || incomesError || expensesError
 
-  const getIncomeName = (income) => {
-    if (income.event_id) {
-      const event = events.find((e) => e.id === income.event_id)
-      return event?.name ?? '—'
-    }
-    const project = projects.find((p) => p.id === income.project_id)
-    return project?.name ?? '—'
-  }
-
   return (
     <PageWrapper title="Dashboard">
       <div className="flex flex-col gap-6">
 
-        <Card className="p-4 sm:p-5">
-          <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
-            <div>
-              <p className="text-xs font-medium uppercase tracking-wide text-gray-400">Resumen económico</p>
-              <p className="mt-1 text-sm text-gray-500">
-                {criteria === 'cash_flow'
-                  ? 'Importes por fecha prevista o real de cobro y gasto.'
-                  : 'Importes asociados a proyectos activos durante el mes.'}
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between xl:justify-end">
-              <div className="flex items-center gap-2">
-                <button onClick={prevMonth} className="p-2 rounded-lg hover:bg-gray-100 text-gray-500 transition-colors" aria-label="Mes anterior">
+        <Card className="p-3 sm:p-4">
+          <div className="flex flex-col gap-3">
+            {/* Selector de mes simplificado */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1">
+                <button onClick={prevMonth} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-500" aria-label="Mes anterior">
                   <ChevronLeft size={18} />
                 </button>
-                <span className="text-sm font-semibold text-gray-900 w-32 text-center capitalize">
-                  {selectedDate.format('MMMM YYYY')}
+                <span className="text-sm font-medium text-gray-900 min-w-[100px] text-center capitalize">
+                  {selectedDate.format('MMMM')}
                 </span>
-                <button onClick={nextMonth} className="p-2 rounded-lg hover:bg-gray-100 text-gray-500 transition-colors" aria-label="Mes siguiente">
+                <button onClick={nextMonth} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-500" aria-label="Mes siguiente">
                   <ChevronRight size={18} />
                 </button>
                 <Select
                   value={selectedDate.year()}
                   onChange={(e) => setSelectedDate((d) => d.year(Number(e.target.value)))}
+                  className="ml-2 text-xs py-1"
                   aria-label="Año"
                 >
                   {YEARS.map((y) => <option key={y} value={y}>{y}</option>)}
                 </Select>
               </div>
-
-              <div className="grid grid-cols-2 rounded-lg border border-gray-200 overflow-hidden text-sm sm:w-auto">
+              
+              <div className="flex rounded-lg border border-gray-200 overflow-hidden text-xs">
                 <button
                   onClick={() => setCriteria('cash_flow')}
-                  className={`px-3 py-2 transition-colors ${criteria === 'cash_flow' ? 'bg-[var(--color-primary-500)] text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
+                  className={`px-2.5 py-1.5 transition-colors ${criteria === 'cash_flow' ? 'bg-[var(--color-primary-500)] text-white' : 'bg-white text-gray-600'}`}
                 >
                   Cobros
                 </button>
                 <button
                   onClick={() => setCriteria('project_active')}
-                  className={`px-3 py-2 border-l border-gray-200 transition-colors ${criteria === 'project_active' ? 'bg-[var(--color-primary-500)] text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
+                  className={`px-2.5 py-1.5 border-l border-gray-200 transition-colors ${criteria === 'project_active' ? 'bg-[var(--color-primary-500)] text-white' : 'bg-white text-gray-600'}`}
                 >
                   Proyectos
                 </button>
@@ -252,24 +236,22 @@ export default function Dashboard() {
           </div>
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card className="p-5">
-            <div className="flex items-start justify-between gap-3 mb-4">
-              <div className="flex items-center gap-2 min-w-0">
-                <Clock size={18} className="text-amber-500 flex-shrink-0" />
-                <h2 className="text-base font-semibold text-gray-900">Cobros pendientes</h2>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <Card className="p-4">
+            <div className="flex items-center justify-between gap-2 mb-3">
+              <div className="flex items-center gap-2">
+                <Clock size={16} className="text-amber-500" />
+                <h2 className="text-sm font-semibold text-gray-900">Cobros próximos</h2>
               </div>
               <Select
                 value={pendingDays}
                 onChange={(e) => setPendingDays(Number(e.target.value))}
-                className="min-h-10 rounded-full px-3 py-2 text-sm font-medium text-amber-700"
-                aria-label="Días para cobros pendientes"
+                className="text-xs py-1.5"
+                aria-label="Días"
               >
                 <option value={7}>7 días</option>
                 <option value={14}>14 días</option>
                 <option value={30}>30 días</option>
-                <option value={60}>60 días</option>
-                <option value={90}>90 días</option>
               </Select>
             </div>
             {loading ? (
@@ -285,48 +267,42 @@ export default function Dashboard() {
                 ))}
               </div>
             ) : pendingIncomes.length === 0 ? (
-              <div className="rounded-lg border border-dashed border-gray-200 bg-gray-50 px-4 py-4 text-center">
-                <p className="text-sm font-medium text-gray-700">Sin cobros próximos</p>
-                <p className="mt-1 text-sm text-gray-400">No hay importes pendientes en los próximos {pendingDays} días.</p>
-              </div>
+              <p className="text-sm text-gray-400 text-center py-4">Sin cobros próximos</p>
             ) : (
-              <div className="flex flex-col gap-2">
-                {pendingIncomes.map((income) => {
+              <div className="flex flex-col gap-1">
+                {pendingIncomes.slice(0, 5).map((income) => {
                   const daysLeft = dayjs(income.expected_date).diff(dayjs(), 'day')
                   const isUrgent = daysLeft <= 7
-                  const isWarning = !isUrgent && daysLeft <= 14
-                  const dotColor = isUrgent ? '#ef4444' : isWarning ? '#f59e0b' : '#d1d5db'
-                  const dateClass = isUrgent ? 'text-red-500' : isWarning ? 'text-amber-500' : 'text-gray-500'
                   return (
                     <button
                       key={income.id}
                       onClick={() => navigateToIncome(income)}
-                      className="flex items-start justify-between gap-4 py-3.5 border-b border-gray-100 last:border-0 hover:bg-gray-50 -mx-2 px-2 rounded-xl transition-colors text-left w-full"
+                      className="flex items-center justify-between gap-2 py-2 hover:bg-gray-50 -mx-1 px-1 rounded-lg transition-colors text-left"
                     >
-                      <div className="min-w-0">
-                        <p className="text-base font-medium text-gray-900 truncate">{income.concept}</p>
-                        <div className="flex items-center gap-1.5 mt-0.5">
-                          <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: dotColor }} />
-                          <p className={`text-sm truncate ${dateClass}`}>
-                            {getIncomeName(income)} · {formatDate(income.expected_date)} · en {daysLeft}d
-                          </p>
-                        </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-medium text-gray-900 truncate">{income.concept}</p>
+                        <p className={`text-xs ${isUrgent ? 'text-red-500' : 'text-gray-400'}`}>
+                          {formatDate(income.expected_date)} · {daysLeft}d
+                        </p>
                       </div>
-                      <span className="text-base font-semibold text-gray-900 whitespace-nowrap">{formatCurrency(income.amount)}</span>
+                      <span className="text-sm font-medium text-gray-900">{formatCurrency(income.amount)}</span>
                     </button>
                   )
                 })}
+                {pendingIncomes.length > 5 && (
+                  <p className="text-xs text-gray-400 text-center pt-2">+ {pendingIncomes.length - 5} más</p>
+                )}
               </div>
             )}
           </Card>
 
-          <Card className="p-5">
-            <div className="flex items-start justify-between gap-3 mb-4">
-              <div className="flex items-center gap-2 min-w-0">
-                <FolderOpen size={18} className="text-[var(--color-primary-500)] flex-shrink-0" />
-                <h2 className="text-base font-semibold text-gray-900">Proyectos activos</h2>
+          <Card className="p-4">
+            <div className="flex items-center justify-between gap-2 mb-3">
+              <div className="flex items-center gap-2">
+                <FolderOpen size={16} className="text-[var(--color-primary-500)]" />
+                <h2 className="text-sm font-semibold text-gray-900">Proyectos activos</h2>
               </div>
-              <span className="rounded-full bg-[#fef3f2] px-2.5 py-1 text-xs font-medium text-[var(--color-primary-600)] whitespace-nowrap">
+              <span className="text-xs font-medium text-[var(--color-primary-600)]">
                 {activeProjects.length}
               </span>
             </div>
@@ -346,33 +322,28 @@ export default function Dashboard() {
                 ))}
               </div>
             ) : activeProjects.length === 0 ? (
-              <div className="rounded-lg border border-dashed border-gray-200 bg-gray-50 px-4 py-4 text-center">
-                <p className="text-sm font-medium text-gray-700">Sin proyectos activos</p>
-                <p className="mt-1 text-sm text-gray-400">Los proyectos confirmados o en curso aparecerán aquí.</p>
-              </div>
+              <p className="text-sm text-gray-400 text-center py-4">Sin proyectos activos</p>
             ) : (
-              <div className="flex flex-col gap-2">
-                {activeProjects.map((project) => (
+              <div className="flex flex-col gap-1">
+                {activeProjects.slice(0, 5).map((project) => (
                   <button
                     key={project.id}
                     onClick={() => navigate(`/projects/${project.id}`)}
-                    className="flex items-start justify-between gap-3 py-3 border-b border-gray-100 last:border-0 hover:bg-gray-50 -mx-2 px-2 rounded-xl transition-colors text-left w-full"
+                    className="flex items-center justify-between gap-2 py-2 hover:bg-gray-50 -mx-1 px-1 rounded-lg transition-colors text-left"
                   >
-                    <div className="flex items-start gap-2 min-w-0">
-                      <div className="w-2.5 h-2.5 rounded-full flex-shrink-0 mt-1" style={{ backgroundColor: project.color ?? '#4f98a3' }} />
+                    <div className="flex items-center gap-2 min-w-0 flex-1">
+                      <div className="w-2 h-2 rounded-full" style={{ backgroundColor: project.color ?? '#4f98a3' }} />
                       <div className="min-w-0">
-                        <p className="text-base font-medium text-gray-900 truncate">{project.name}</p>
-                        <p className="text-sm text-gray-500 truncate">{project.client || 'Sin cliente'}</p>
-                        <p className="text-xs text-gray-400 mt-0.5">
-                          {project.end_date
-                            ? formatDateRange(project.start_date, project.end_date)
-                            : formatDate(project.start_date)}
-                        </p>
+                        <p className="text-sm font-medium text-gray-900 truncate">{project.name}</p>
+                        <p className="text-xs text-gray-400 truncate">{project.client || 'Sin cliente'}</p>
                       </div>
                     </div>
-                    <StatusBadge status={project.status} />
+                    <StatusBadge status={project.status} size="sm" />
                   </button>
                 ))}
+                {activeProjects.length > 5 && (
+                  <p className="text-xs text-gray-400 text-center pt-2">+ {activeProjects.length - 5} más</p>
+                )}
               </div>
             )}
           </Card>
