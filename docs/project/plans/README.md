@@ -3,7 +3,7 @@ id: PB-PLANS
 type: index
 status: Active
 created: 2026-05-04
-updated: 2026-05-04
+updated: 2026-05-05
 aliases:
   - Plans
 tags:
@@ -15,4 +15,5 @@ tags:
 
 Planes estratégicos y operativos. El backlog vive en [[../issues/README|Issues]], no aquí.
 
+- [[CURRENT_PLAN|Current Plan]]
 - [[backlog-mayo-2026|Backlog completo — Mayo 2026]]

@@ -47,3 +47,9 @@
 - Context: The user asked to add branch cleanup to the standard flow after a PR is merged correctly into `main`; issue `#24` corrected the initial automation from issue `#22`.
 - Durable memory: After merging a PR to `main`, the remote branch should be deleted automatically by `.github/workflows/delete-branch.yml` when it belongs to the same repository. The local branch must be deleted only after switching to up-to-date `main`; do not use scripts that try to delete the currently checked-out branch.
 - Source: user instruction on 2026-05-04; issues `#22` and `#24`; PR `#23`; `.github/workflows/delete-branch.yml`; `AGENTS.md`; `.opencode/README.md`.
+
+## 2026-05-05 - Product Brain Governs Implementation Workflow
+
+- Context: The user asked to professionalize backlog, Markdown issues, releases, release branches, commits, validation and agent workflow around the repo-native Product Brain.
+- Durable memory: Product Brain is now the source of truth for implementation context. Before implementing, agents should read `START_HERE`, `CURRENT_RELEASE`, `CURRENT_PLAN`, `BACKLOG` and the related `CACH-*` issue. Work that belongs to a release branches from the active release branch, not directly from `main`; commits should use `<type>(CACH-XXXX): summary`. Releases should be small versioned cuts, for example `RELEASE-0.1.0-beta.1` -> `release/0.1.0-beta.1`, so they can merge to `main` and continue with `beta.2` if needed. `0.1` is the organizational/product cycle, `0.1.0-beta.N` are mergeable cuts, and `0.1.0` closes the cycle with a consolidated changelog.
+- Source: `docs/project/process/*`; `docs/project/releases/CURRENT_RELEASE.md`; `docs/project/decisions/ADR-0008-release-branching-product-brain-workflow.md`; `AGENTS.md`.

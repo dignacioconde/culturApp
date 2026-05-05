@@ -3,7 +3,7 @@ id: PB-RELEASES-INDEX
 type: index
 status: Active
 created: 2026-05-04
-updated: 2026-05-04
+updated: 2026-05-05
 aliases:
   - Releases Index
 tags:
@@ -13,4 +13,6 @@ tags:
 
 # Releases Index
 
-- [[../releases/RELEASE-0.1-beta|RELEASE-0.1-beta]] — Primera beta privada
+- [[../releases/CURRENT_RELEASE|CURRENT_RELEASE]] — Release activa
+- [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] — Primera beta privada
+- [[../releases/RELEASE_TEMPLATE|RELEASE_TEMPLATE]] — Acceso rapido a plantilla canonica

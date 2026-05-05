@@ -1,45 +1,82 @@
 ---
-name: Usar flujo obligatorio de issues y planner para implementación
-description: Ante tareas de implementación, usar issue + rama desde main + agents:plan + PR a main + merge + verificación de producción + borrado de rama. Excepción solo si el usuario lo dice explícitamente o es pregunta/revisión sin implementación.
+name: Usar Product Brain como fuente de verdad para implementación
+description: Ante tareas de implementación, usar issue Markdown CACH, release activa, rama de release, commits trazables y validación; GitHub queda como soporte técnico de PR/CI cuando aplique.
 type: feedback
-updated: 2026-05-04
+updated: 2026-05-05
 ---
 
 ## Flujo obligatorio para implementación
 
-Ante cualquier tarea de implementacion (nueva funcionalidad, fix, mejora), Codex y Claude Code deben seguir este flujo:
+Ante cualquier tarea de implementacion (nueva funcionalidad, fix, mejora), Codex y Claude Code deben seguir el flujo canonico documentado en:
 
-1. **Crear o localizar una issue** en GitHub con contexto, alcance y criterios de aceptación.
-2. **Partir de `main` actualizado y crear una rama de trabajo para la issue.** No apilar trabajo en ramas viejas salvo instrucción explícita.
-3. **Ejecutar `npm run agents:plan -- "prompt"`** para que el planner (`cultura-planner`) genere la issue estructurada (si no existe) y lance los agentes de implementación automáticamente.
-4. **Ejecutar los agentes** con ownership claro y verificación obligatoria.
-5. **Abrir PR a `main`** cuando la memoria pre-PR esté actualizada o marcada como no aplicable.
-6. **Mergear la PR a `main`** cuando las verificaciones pasen y no haya bloqueo.
-7. **Verificar producción** si el cambio debe verse en la app publicada. Un preview de Vercel no cuenta como producción.
-8. **Borrar la rama de trabajo** una vez mergeada correctamente contra `main`: la remota debe quedar eliminada y la local debe borrarse solo después de cambiar a `main` actualizado.
+- `docs/project/process/DEVELOPMENT_WORKFLOW.md`
+- `docs/project/process/AGENT_WORKFLOW.md`
+- `docs/project/process/BRANCHING_STRATEGY.md`
+- `docs/project/process/COMMIT_CONVENTION.md`
+- `docs/project/process/RELEASE_PROCESS.md`
 
-### Excepciones
+### Regla principal
 
-- Solo saltar este flujo si el usuario lo dice **explícitamente** (p.ej. "hazlo tú directamente", "no necesito issue").
-- Solo saltar este flujo si la tarea es **pura pregunta, revisión o consulta** sin implementación.
-- Solo dejar una PR en draft o sin mergear si hay bloqueo real o si el usuario pide explícitamente dejarla abierta.
+Product Brain (`docs/project/`) es la fuente principal de verdad para:
 
-### Fallback ante bloqueo técnico del planner
+- backlog;
+- issues internas `CACH-*`;
+- releases;
+- current release;
+- planes;
+- decisiones;
+- cierre de entregables.
 
-Si `agents:plan` falla por bloqueo técnico (no por decisión del usuario):
-- Declarar el bloqueo explícitamente.
-- Usar fallback: crear issue estructurada manualmente + ejecutar `agents:run` directamente.
-- **NO** derivar a implementación manual silenciosa sin issue.
+GitHub Issues ya no son la fuente principal de verdad. Se usan solo como soporte tecnico cuando haga falta PR, CI, milestone, release tecnica o trazabilidad externa.
 
-### Por qué es obligatorio
+## Antes de implementar
 
-- Las issues estructuradas dan contexto, ownership y criterios de aceptación a los agentes.
-- El planner (`cultura-planner`) usa modelo barato (Kimi) y carga solo memoria relevante.
-- Evita trabajo duplicado y asegura trazabilidad entre problema → rama → PR → merge → producción.
-- Si el planner no está disponible o falla, el fallback mantiene la regla: issue + agentes, nunca implementación directa sin issue.
-- Vercel genera previews para ramas de PR; producción solo cambia al mergear `main` o al promocionar explícitamente un deployment.
-- Las ramas de trabajo no deben quedar huérfanas tras merge correcto contra `main`; limpiar remoto y local forma parte del cierre.
+1. Leer `docs/project/START_HERE.md`.
+2. Leer `docs/project/releases/CURRENT_RELEASE.md`.
+3. Leer `docs/project/plans/CURRENT_PLAN.md`.
+4. Leer `docs/project/backlog/BACKLOG.md`.
+5. Leer la issue Markdown `CACH-*` relacionada.
+6. Si falta issue, crear o proponer una issue Markdown antes de implementar.
+7. Si falta release activa para una feature grande, parar y proponer crear/activar release.
 
-**How to apply:** Siempre que el usuario pida implementar algo. Crear o reutilizar una rama desde `main`, ejecutar `npm run agents:plan -- "prompt"` en lugar de `agents:run` directamente cuando no hay issue estructurada, abrir PR a `main`, mergearla si está lista, verificar producción si aplica y borrar la rama de trabajo tras merge correcto. Ver skill `cultura-issue-launch` para más detalles.
+## Ramas
 
-**Excepciones:** Solo si el usuario dice explícitamente "hazlo tú", "sin issue", o si es una pregunta/revisión sin implementación.
+- Si la tarea pertenece a una release, la rama de trabajo sale de la rama de release activa.
+- La rama de trabajo vuelve a la rama de release.
+- `main` queda estable hasta el cierre de release.
+- Hotfix urgente puede salir de `main`, y luego debe propagarse a la release activa si aplica.
+
+## Commits
+
+Usar:
+
+```text
+<type>(CACH-XXXX): summary
+```
+
+Ejemplo:
+
+```text
+docs(CACH-B0015): document Product Brain release workflow
+```
+
+## Validación
+
+- App: `npm run lint` y `npm run build`.
+- Product Brain: `npm run pb:check` y `npm run pb:status`.
+- UI: revisión visual/responsive/accesibilidad si aplica.
+- Datos/finanzas: explicar contrato o cálculo afectado.
+
+## Cierre
+
+Actualizar:
+
+- issue Markdown con resultado, commits, rama y validación;
+- release notes;
+- `CURRENT_RELEASE.md` si cambia alcance/estado;
+- `CURRENT_PLAN.md` si cambia el plan;
+- `BACKLOG.md` si cambia estado.
+
+Mantener el checkpoint de memoria pre-PR: actualizar `.memory/` solo si hay preferencias, decisiones duraderas, gotchas recurrentes o reglas de workflow nuevas; si no, declarar `Memoria: no aplica`.
+
+**How to apply:** Para implementación, orientar siempre desde Product Brain y no desde GitHub Issues. Si hay release activa, crear ramas desde `release/<version>` y usar commits trazables a `CACH-*`. Las releases deben ser cortes versionados pequeños, por ejemplo `RELEASE-0.1.0-beta.1` -> `release/0.1.0-beta.1`, para poder mergear a `main` y seguir con `beta.2` si hace falta. `0.1` es ciclo organizativo; `0.1.0-beta.N` son cortes mergeables; `0.1.0` cierra el ciclo con changelog consolidado.

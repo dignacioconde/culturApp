@@ -3,7 +3,7 @@ id: PB-START
 type: index
 status: Active
 created: 2026-05-04
-updated: 2026-05-04
+updated: 2026-05-05
 aliases:
   - Product Brain
   - Cachés Product Brain
@@ -25,12 +25,14 @@ Este es el centro de producto de **Cachés**. Vive versionado en el repo bajo `d
 docs/project/
 ├── START_HERE.md          ← Este archivo
 ├── inbox/                 ← Capturas rápidas pendientes de curar
+├── backlog/               ← Tablero operativo ligero
 ├── context/               ← Contexto estable del producto
 ├── knowledge/             ← Notas ZK e investigación
 ├── issues/                ← Backlog Markdown con prefijo CACH
 ├── decisions/             ← ADRs y decisiones importantes
 ├── releases/              ← Releases y criterios de salida
 ├── plans/                 ← Planes estratégicos y operativos
+├── process/               ← Flujo de desarrollo, ramas, commits y agentes
 ├── indexes/               ← Índices tipo MOC
 ├── templates/             ← Plantillas reutilizables
 └── prompts/               ← Prompts de trabajo
@@ -52,6 +54,8 @@ Para orientar una tarea sin leer todo el Product Brain:
 
 1. Leer este archivo.
 2. Leer solo el índice del tipo de trabajo:
+   - Flujo operativo: [[process/DEVELOPMENT_WORKFLOW|Development Workflow]]
+   - Backlog operativo: [[backlog/BACKLOG|Backlog]]
    - Backlog: [[indexes/issues.index|Issues Index]]
    - Decisiones: [[indexes/decisions.index|Decisions Index]]
    - Conocimiento técnico: [[indexes/knowledge.index|Knowledge Index]]
@@ -63,20 +67,29 @@ Los IDs canónicos de issues son los nombres de archivo completos, por ejemplo `
 
 ## Índices
 
+- [[backlog/BACKLOG|Backlog operativo]]
 - [[indexes/issues.index|Issues (CACH)]]
 - [[indexes/knowledge.index|Knowledge (ZK)]]
 - [[indexes/decisions.index|Decisions (ADR)]]
 - [[indexes/releases.index|Releases]]
+- [[process/README|Process]]
 
 ## Planes activos
 
+- [[plans/CURRENT_PLAN|Current Plan]]
 - [[plans/backlog-mayo-2026|Backlog completo — Mayo 2026]]
+
+## Release activa
+
+- [[releases/CURRENT_RELEASE|Current Release]]
 
 ## GitHub Issues
 
 Product Brain es la fuente de verdad de producto. GitHub Issues se crean solo cuando una issue vaya a implementarse con rama, agentes, PR y merge.
 
 Las issues Markdown usan el prefijo `CACH`, por ejemplo [[issues/CACH-0026|CACH-0026]].
+
+El flujo operativo completo vive en [[process/DEVELOPMENT_WORKFLOW|Development Workflow]]. Antes de implementar, los agentes deben confirmar release activa, rama esperada, issue relacionada y validacion.
 
 ## Normas De Sync
 

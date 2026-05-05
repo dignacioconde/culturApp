@@ -3,7 +3,7 @@ id: PB-ISSUES-INDEX
 type: index
 status: Active
 created: 2026-05-04
-updated: 2026-05-04
+updated: 2026-05-05
 aliases:
   - Issues Index
 tags:
@@ -29,3 +29,4 @@ tags:
 - [[../issues/CACH-B0012|CACH-B0012]] — Perfil público, viralidad y referidos
 - [[../issues/CACH-B0013|CACH-B0013]] — Gestión documental por proyecto/evento
 - [[../issues/CACH-B0014|CACH-B0014]] — Endurecer agenda, cobros y captura del MVP
+- [[../issues/CACH-B0015|CACH-B0015]] — Operativizar backlog, releases y ramas en Product Brain

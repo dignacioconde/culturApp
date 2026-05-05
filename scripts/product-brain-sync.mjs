@@ -42,12 +42,14 @@ const IGNORED_SUFFIXES = [
 
 const REQUIRED_DIRS = [
   'inbox',
+  'backlog',
   'context',
   'knowledge',
   'issues',
   'decisions',
   'releases',
   'plans',
+  'process',
   'indexes',
   'templates',
   'prompts',

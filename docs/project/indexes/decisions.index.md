@@ -3,7 +3,7 @@ id: PB-DECISIONS-INDEX
 type: index
 status: Active
 created: 2026-05-04
-updated: 2026-05-04
+updated: 2026-05-05
 aliases:
   - Decisions Index
 tags:
@@ -20,3 +20,4 @@ tags:
 - [[../decisions/ADR-0005-custom-form-controls-and-date-inputs|ADR-0005]] — Controles propios para selectores, fechas y decimales
 - [[../decisions/ADR-0006-gross-cache-per-hour|ADR-0006]] — Definición estricta de Caché bruto/hora
 - [[../decisions/ADR-0007-product-brain-sync-delete|ADR-0007]] — pb:push usa --delete para sincronizar borrados al vault
+- [[../decisions/ADR-0008-release-branching-product-brain-workflow|ADR-0008]] — Release branching gobernado por Product Brain
