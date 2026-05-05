@@ -4,11 +4,8 @@ Mapa estructurado ampliado: [core.md](core.md)
 
 ## Proyecto
 
-- [Memoria centralizada en .memory/](project_memory_centralization.md) — Memoria movida de ruta Claude a .memory/ en el repo (2026-05-03)
 - [Routing/deploy](projects/routing-deploy.md) — Vercel necesita fallback SPA para recargas de rutas protegidas; producción verificada en `culturapp-rho.vercel.app`
-- [Estado general](projects/culturaapp-status.md) — Estado implementado del MVP, `/work` y brechas pendientes
-- [Dashboard móvil](projects/dashboard-mobile.md) — En móvil, priorizar información operativa diaria sobre KPIs financieros
-- [Mobile detail UX](projects/mobile-detail-ux-2026-05-05.md) — Bottom bar, quick modals y listas minimalistas en EventDetail/ProjectDetail
+- [Estado general](projects/culturaapp-status.md) — Estado MVP, `/work`, brechas pendientes y prioridades móvil
 
 ## Referencias
 
@@ -17,12 +14,9 @@ Mapa estructurado ampliado: [core.md](core.md)
 ## Comportamiento obligatorio
 
 - [Leer y actualizar memoria siempre](feedback_memory_always.md) — Leer MEMORY.md al inicio y guardar proactivamente sin que el usuario lo pida
-- [Checkpoint de memoria pre-PR](topics/agent-workflows.md) — Antes de abrir PR, actualizar `.memory/` o declarar `Memoria: no aplica`
+- [Workflows de agentes y OpenCode](topics/agent-workflows.md) — Checkout de memoria pre-PR, supervisión de agentes, commits CACH, Product Brain como fuente de verdad
 
 ## Feedback y preferencias
 
-- [Sin co-authoring de IA en commits](feedback_no_coauthoring.md) — No añadir Co-Authored-By de IA en commits git
-- [Flujo Product Brain para implementación](feedback_opencode_agents.md) — Usar issue Markdown CACH, release activa, rama de release, commits trazables y validación
-- [Product Brain repo-native](feedback_product_brain.md) — docs/project/ con sync manual a Obsidian iCloud, scripts pb:init/status/pull/push, prefijo CACH
-- [AGENT_STATE.md no resetear](feedback_agent_state_write.md) — Agentes sobrescriben el archivo borrando secciones; verificar con git diff tras cada run
-- [Supervisión de agentes OpenCode](feedback_agent_background_supervision.md) — El output de agents:run va al JSONL, no stdout; verificar proceso vivo antes de relanzar
+- [Product Brain repo-native](feedback_product_brain.md) — docs/project/ con sync manual a Obsidian iCloud, scripts pb:init/status/pull/push, prefijo CACH, Thin PB rules
+- [Mobile modal/detail handling](lessons_mobile_modals.md) — Scroll lock con counter, touch-action CSS, viewport dinámico (dvh), bottom bar + quick modals, listas minimalistas

@@ -32,6 +32,10 @@
 - Durable memory: future UI fixes should verify the whole navigation loop, not only the screen where the bug is reported: list/tab -> detail -> related detail -> return path.
 - Source: CACH-B0001 feedback, PR `#75`, merge commit `9715736`.
 
+## 2026-05-05 - Mobile Dashboard Prioritizes Operational Awareness
+
+The mobile dashboard should answer day-to-day questions first: What do I have today or next? Which pending payments need attention? Which active projects are moving now? Financial KPIs remain useful but should be secondary and compact on mobile, not dominating the first screen.
+
 ## 2026-05-05 - Event Detail Must Prioritize Fast Editing Over Visual Weight
 
 - Context: User feedback on event editing reported that the detail screen felt too crowded and made simple edits harder than they should be, especially on mobile.

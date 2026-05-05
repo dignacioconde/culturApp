@@ -1,0 +1,1 @@
+../../.agents/skills/compact-memory/SKILL.md

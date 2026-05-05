@@ -54,6 +54,36 @@
 - Durable memory: existe `verification-agent` en `.opencode/agents/verification-agent.md` (mode: primary). Se llama con `npm run agents:verify -- "contexto"` o como `@verification-agent` desde una sesion interactiva. Solo se debe usar cuando se toca codigo de producto, UI, build/config/deploy o se prepara una PR mediana/grande. Produce un bloque estandar con status `Ready / Ready with warnings / Blocked`. No es obligatorio para cambios triviales, copy o documentacion menor.
 - Source: prompt de auditoria 2026-05-05; `AGENTS.md`; `.opencode/README.md`; `.opencode/agents/verification-agent.md`.
 
+## Commit Conventions
+
+- Do not add `Co-Authored-By: Claude` or any AI co-authoring lines to git commit messages.
+- **Why:** User explicitly rejected it during a commit.
+- **How to apply:** Whenever creating a commit in this project, omit any AI co-authoring.
+
+## AGENT_STATE.md Maintenance
+
+- The `## Senales activas` and `## Eventos` sections must be **left empty** after each completed task.
+- Permanent history lives in git and GitHub (commits, PRs, issues), not in this file.
+- This file is an operational scratchboard only.
+- **Do NOT delete:** the `## Estado por agente` section with the 9 agent blocks (must always remain).
+- **Why:** Before this rule, agents were preserving transient data across runs, polluting the state board.
+- **How to apply:** After each task, verify these sections are empty with `git diff .opencode/AGENT_STATE.md`.
+
+## OpenCode Agent Supervision
+
+When `npm run agents:run` executes, OpenCode may run in background and write output to a JSONL transcript instead of stdout. This can make the agent appear blocked even when it's actively working.
+
+**Rules:**
+- Before launching a second agent, verify no active one exists.
+- Before killing a process, identify which one is making progress.
+- Review the OpenCode transcript/log before assuming failure.
+- Avoid duplicate agents for the same task.
+- If no visible feedback: check the log instead of relaunching.
+
+**Why:** A duplicate agent led to killing the one making progress while keeping the zombie, losing control of the flow.
+
+**How to apply:** Before relaunching, run `ps aux | grep "agents:run\|opencode"` and review `~/.local/share/opencode/log/<timestamp>.log` to confirm real activity.
+
 ## 2026-05-05 - Product Brain Governs Implementation Workflow
 
 - Context: The user asked to professionalize backlog, Markdown issues, releases, release branches, commits, validation and agent workflow around the repo-native Product Brain.
