@@ -1,11 +1,15 @@
 ---
 id: CACH-B0004
-type: issue
-status: Backlog
-priority: High
-release: Unassigned
-created: 2026-05-04
-updated: 2026-05-04
+title: Contratantes facturacion y liquidacion neta
+type: feature
+status: backlog
+cycle: unassigned
+release: null
+priority: p1
+estimate: m
+area: db
+created_at: 2026-05-04
+updated_at: 2026-05-04
 aliases:
   - CACH-B0004
 tags:

@@ -46,6 +46,7 @@ npm run pb:capture # Capturar nota (argumento o stdin)
 - No crear GitHub Issues salvo que el usuario pida implementación. No usar `.memory/` como backlog del Product Brain.
 - No capturar secretos ni datos sensibles de clientes sin confirmación explícita.
 - En barridos del Product Brain, revisar tambien que `decisions/` y `releases/` tengan las decisiones y cortes de producto realmente duraderos; no quedarse solo en `context/`, `knowledge/` e `issues/`.
+- Si el usuario trae un prompt ejecutable y pide tirar directamente con el, tratarlo como implementacion directa; no desviarlo primero a `pb:capture`/inbox salvo que pida capturarlo.
 
 ## Lectura IA y consistencia
 

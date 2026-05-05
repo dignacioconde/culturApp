@@ -18,7 +18,7 @@ Plantillas para crear entradas consistentes en Obsidian.
 ## Canonicas
 
 - [[ISSUE_TEMPLATE]] — Issue Markdown `CACH-*`.
-- [[RELEASE_TEMPLATE]] — Release con rama, checklist y release notes.
+- [[./RELEASE_TEMPLATE|RELEASE_TEMPLATE]] — Release con rama, checklist y release notes.
 - [[ADR_TEMPLATE]] — Decision importante de producto, arquitectura, datos, UX o workflow.
 
 ## Compatibilidad

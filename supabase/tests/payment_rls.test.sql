@@ -1,0 +1,9 @@
+-- pgTAP placeholder for CACH-B0016.
+-- skip: the current Supabase schema in this repo is documented in AGENTS.md,
+-- but there are no versioned app migrations for payments/caches yet.
+--
+-- Target coverage once migrations are versioned:
+-- - tests.rls_enabled('public')
+-- - user A cannot SELECT rows owned by user B
+-- - user A cannot UPDATE paid_date rows owned by user B
+-- - user A can SELECT/UPDATE own payment rows
