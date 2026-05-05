@@ -27,5 +27,7 @@
 ## 2026-05-05 - Work Navigation Must Own Project/Event Details
 
 - Context: User feedback showed the previous `/work` iteration was not usable enough: after opening a project from "Trabajos", the detail pushed the user into `/projects` and forced browser-back navigation to return to the projects tab.
-- Durable memory: `/work` should be treated as the primary "Trabajos" workflow. Project and event detail pages must breadcrumb and return to `/work?view=projects` or `/work?view=events` when reached from this flow; tabs in `Trabajos` should be URL-addressable so navigation is recoverable on mobile and desktop.
-- Source: CACH-B0001 feedback and fix branch `fix/CACH-B0001-work-navigation-prod`.
+- Durable memory: `/work` should be treated as the primary "Trabajos" workflow, not a cosmetic shortcut to separate `/projects` and `/events` sections. Project and event detail pages must breadcrumb and return to `/work?view=projects` or `/work?view=events` when reached from this flow; tabs in `Trabajos` should be URL-addressable so navigation is recoverable on mobile and desktop.
+- Durable memory: for details reached from `Trabajos`, avoid large full-width CTAs and repeated empty-state buttons. Primary actions should be compact, aligned with the section header, and visually secondary to the work content unless they are the main task. Hide default `Confirmado` badges when they add noise rather than information.
+- Durable memory: future UI fixes should verify the whole navigation loop, not only the screen where the bug is reported: list/tab -> detail -> related detail -> return path.
+- Source: CACH-B0001 feedback, PR `#75`, merge commit `9715736`.
