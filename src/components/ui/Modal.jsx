@@ -38,7 +38,7 @@ export function Modal({ isOpen, onClose, title, children }) {
         role="dialog"
         aria-modal="true"
         aria-labelledby={title ? titleId : undefined}
-        className="relative flex max-h-[70dvh] sm:max-h-[90vh] w-full max-w-full md:max-w-2xl flex-col rounded-lg bg-white shadow-2xl ring-1 ring-[var(--color-ink)]/10 animate-scale-in"
+        className="relative flex max-h-[90vh] w-full max-w-full md:max-w-2xl flex-col rounded-lg bg-white shadow-2xl ring-1 ring-[var(--color-ink)]/10 animate-scale-in"
       >
         <div className="flex items-start justify-between gap-4 border-b border-[var(--color-paper-mid)] px-4 py-4 sm:px-6 shrink-0">
           <h2 id={titleId} className="min-w-0 text-base font-semibold leading-6 text-[var(--color-ink)]">{title}</h2>
