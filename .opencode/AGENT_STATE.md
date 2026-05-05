@@ -14,7 +14,7 @@ Pizarra operativa para que los agentes de CulturaApp se coordinen sin esperar si
 
 ## Senales activas
 
-- [done] cultura-lead -> cultura-frontend: Fix UI completado (lint+build OK)
+*(vacío — el historial vive en git y GitHub)*
 
 Formato recomendado:
 
