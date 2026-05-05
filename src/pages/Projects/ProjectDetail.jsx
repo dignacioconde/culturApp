@@ -60,11 +60,17 @@ export default function ProjectDetail() {
   const [editingIncome, setEditingIncome] = useState(null)
   const [incomeForm, setIncomeForm] = useState(emptyIncomeForm)
   const [savingIncome, setSavingIncome] = useState(false)
+  const [quickIncomeModal, setQuickIncomeModal] = useState(false)
+  const quickIncomeDefault = () => ({ amount: '', is_paid: true })
+  const [quickIncomeForm, setQuickIncomeForm] = useState(() => ({ amount: '', is_paid: true }))
 
   const [expenseModal, setExpenseModal] = useState(false)
   const [editingExpense, setEditingExpense] = useState(null)
   const [expenseForm, setExpenseForm] = useState(EMPTY_EXPENSE)
   const [savingExpense, setSavingExpense] = useState(false)
+  const [quickExpenseModal, setQuickExpenseModal] = useState(false)
+  const quickExpenseDefault = () => ({ amount: '', category: 'otros' })
+  const [quickExpenseForm, setQuickExpenseForm] = useState(() => ({ amount: '', category: 'otros' }))
   const [financialSummaryExpanded, setFinancialSummaryExpanded] = useState(false)
 
   if (projectsLoading) {
@@ -195,9 +201,58 @@ export default function ProjectDetail() {
     setExpenseModal(false)
   }
 
+  const handleQuickSubmitIncome = async (e) => {
+    e.preventDefault()
+    const amount = parseFloat(quickIncomeForm.amount)
+    if (!quickIncomeForm.amount || amount <= 0) {
+      addToast('Pon un importe mayor que 0.', 'error')
+      return
+    }
+    const projectDate = project?.start_date || ''
+    const payload = {
+      concept: project?.name || 'Ingreso',
+      amount: quickIncomeForm.amount,
+      tax_rate: defaultTaxRate,
+      expected_date: projectDate,
+      paid_date: quickIncomeForm.is_paid ? projectDate : null,
+      is_paid: quickIncomeForm.is_paid,
+    }
+    setSavingIncome(true)
+    const { error } = await createIncome({ ...payload, project_id: id })
+    setSavingIncome(false)
+    if (error) { addToast('Error al guardar.', 'error'); return }
+    addToast('Ingreso añadido.')
+    setQuickIncomeForm(quickIncomeDefault())
+    setQuickIncomeModal(false)
+  }
+
+  const handleQuickSubmitExpense = async (e) => {
+    e.preventDefault()
+    const amount = parseFloat(quickExpenseForm.amount)
+    if (!quickExpenseForm.amount || amount <= 0) {
+      addToast('Pon un importe mayor que 0.', 'error')
+      return
+    }
+    const projectDate = project?.start_date || ''
+    const payload = {
+      concept: project?.name || 'Gasto',
+      amount: quickExpenseForm.amount,
+      category: quickExpenseForm.category || 'otros',
+      expense_date: projectDate,
+      is_deductible: true,
+    }
+    setSavingExpense(true)
+    const { error } = await createExpense({ ...payload, project_id: id })
+    setSavingExpense(false)
+    if (error) { addToast('Error al guardar.', 'error'); return }
+    addToast('Gasto añadido.')
+    setQuickExpenseForm(quickExpenseDefault())
+    setQuickExpenseModal(false)
+  }
+
   return (
     <PageWrapper title={project.name}>
-      <div className="flex max-w-4xl flex-col gap-4 sm:gap-5">
+      <div className="flex max-w-4xl flex-col gap-4 sm:gap-5 pb-20 sm:pb-5">
         <nav className="flex items-center gap-1.5 text-xs text-gray-400 breadcrumbs">
           <Link to="/work" className="hover:text-gray-600">Trabajos</Link>
           <span>/</span>
@@ -205,30 +260,26 @@ export default function ProjectDetail() {
           <span>/</span>
           <span className="text-gray-600">{project.name}</span>
         </nav>
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-          <div className="flex items-center gap-3">
-            <Link to="/work?view=projects" className="text-gray-400 hover:text-gray-700" aria-label="Volver a proyectos en trabajos">
-              <ArrowLeft size={20} />
-            </Link>
-            <div>
-              <div className="flex min-w-0 flex-wrap items-center gap-2">
-                <div className="h-3 w-3 shrink-0 rounded-full" style={{ backgroundColor: project.color ?? '#4f98a3' }} />
-                <h2 className="min-w-0 text-lg font-semibold text-gray-900">{project.name}</h2>
-                <QuietStatusBadge status={project.status} />
+        <div className="rounded-2xl border border-[#E9E2D3] bg-white p-4 shadow-sm sm:p-5">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+            <div className="flex items-start gap-3 sm:items-start">
+              <Link to="/work?view=projects" className="mt-1 shrink-0 text-gray-400 hover:text-gray-700" aria-label="Volver a proyectos en trabajos">
+                <ArrowLeft size={20} />
+              </Link>
+              <div className="min-w-0">
+                <div className="flex min-w-0 flex-wrap items-center gap-2">
+                  <div className="h-3 w-3 shrink-0 rounded-full" style={{ backgroundColor: project.color ?? '#4f98a3' }} />
+                  <h2 className="min-w-0 truncate text-lg font-semibold text-gray-900">{project.name}</h2>
+                  <QuietStatusBadge status={project.status} />
+                </div>
+                {project.client && (
+                  <p className="mt-1 text-sm text-gray-500">{project.client}</p>
+                )}
+                <p className="mt-1 text-xs text-gray-400">
+                  {project.category} · {formatDate(project.start_date)}{project.end_date && ` – ${formatDate(project.end_date)}`}
+                </p>
               </div>
-              {project.client && <p className="text-sm text-gray-500 mt-0.5">{project.client}</p>}
-              <p className="text-xs text-gray-400 mt-1 capitalize">
-                {project.category} · {formatDate(project.start_date)}{project.end_date && ` – ${formatDate(project.end_date)}`}
-              </p>
             </div>
-          </div>
-          <div className="flex flex-wrap gap-2 sm:justify-end">
-            <button type="button" onClick={() => setEditModal(true)} className={compactSecondaryAction}>
-              <Edit size={14} /> Editar
-            </button>
-            <button type="button" onClick={handleDeleteProject} className={compactDangerAction}>
-              <Trash2 size={14} /> Eliminar
-            </button>
           </div>
         </div>
 
@@ -325,9 +376,6 @@ export default function ProjectDetail() {
               <h3 className="text-sm font-semibold text-gray-900">Ingresos del proyecto</h3>
               <p className="text-xs text-gray-400 mt-0.5">No atribuibles a un evento concreto</p>
             </div>
-            <button type="button" onClick={openNewIncome} className={compactPrimaryAction}>
-              <Plus size={14} /> Añadir ingreso
-            </button>
           </div>
           {incomesLoading ? (
             <p className="text-sm text-gray-400">Cargando ingresos...</p>
@@ -373,24 +421,12 @@ export default function ProjectDetail() {
                   ))}
                 </tbody>
               </table>
-              {/* Cards para móvil */}
-              <div className="md:hidden flex flex-col gap-2">
+              {/* Minimalista para móvil */}
+              <div className="md:hidden flex flex-col gap-1">
                 {directIncomes.map((income) => (
-                  <div key={income.id} className="rounded-lg border border-gray-100 p-3">
-                    <div className="flex items-start justify-between">
-                      <button onClick={() => openEditIncome(income)} className="text-gray-900 font-medium hover:text-[var(--color-primary-500)]">
-                        {income.concept}
-                      </button>
-                      <button onClick={() => deleteIncome(income.id)} className="text-gray-300 hover:text-red-500">
-                        <Trash2 size={14} />
-                      </button>
-                    </div>
-                    <div className="mt-2 grid grid-cols-2 gap-2 text-sm">
-                      <div><span className="text-gray-400 text-xs">Importe</span><p className="font-medium">{formatCurrency(income.amount)}</p></div>
-                      <div><span className="text-gray-400 text-xs">IRPF</span><p className="text-gray-500">{income.tax_rate}%</p></div>
-                      <div><span className="text-gray-400 text-xs">Fecha</span><p className="text-gray-500">{formatDate(income.expected_date)}</p></div>
-                      <div className="flex items-center"><span className="text-gray-400 text-xs mr-2">Cobrado</span><button onClick={() => handleTogglePaid(income)}>{isPaid(income) ? <CheckCircle size={18} className="text-green-500" /> : <Circle size={18} />}</button></div>
-                    </div>
+                  <div key={income.id} onClick={() => openEditIncome(income)} className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
+                    <span className="text-sm text-gray-900 truncate">{income.concept}</span>
+                    <span className="text-sm font-medium text-gray-900">{formatCurrency(income.amount)}</span>
                   </div>
                 ))}
               </div>
@@ -405,9 +441,6 @@ export default function ProjectDetail() {
               <h3 className="text-sm font-semibold text-gray-900">Gastos del proyecto</h3>
               <p className="text-xs text-gray-400 mt-0.5">No atribuibles a un evento concreto</p>
             </div>
-            <button type="button" onClick={openNewExpense} className={compactPrimaryAction}>
-              <Plus size={14} /> Añadir gasto
-            </button>
           </div>
           {expensesLoading ? (
             <p className="text-sm text-gray-400">Cargando gastos...</p>
@@ -453,24 +486,12 @@ export default function ProjectDetail() {
                   ))}
                 </tbody>
               </table>
-              {/* Cards para móvil */}
-              <div className="md:hidden flex flex-col gap-2">
+              {/* Minimalista para móvil */}
+              <div className="md:hidden flex flex-col gap-1">
                 {directExpenses.map((expense) => (
-                  <div key={expense.id} className="rounded-lg border border-gray-100 p-3">
-                    <div className="flex items-start justify-between">
-                      <button onClick={() => openEditExpense(expense)} className="text-gray-900 font-medium hover:text-[var(--color-primary-500)]">
-                        {expense.concept}
-                      </button>
-                      <button onClick={() => deleteExpense(expense.id)} className="text-gray-300 hover:text-red-500">
-                        <Trash2 size={14} />
-                      </button>
-                    </div>
-                    <div className="mt-2 grid grid-cols-2 gap-2 text-sm">
-                      <div><span className="text-gray-400 text-xs">Importe</span><p className="font-medium">{formatCurrency(expense.amount)}</p></div>
-                      <div><span className="text-gray-400 text-xs">Categoría</span><p className="text-gray-500 capitalize">{expense.category}</p></div>
-                      <div><span className="text-gray-400 text-xs">Fecha</span><p className="text-gray-500">{formatDate(expense.expense_date)}</p></div>
-                      <div className="flex items-center"><span className="text-gray-400 text-xs mr-2">Deducible</span>{expense.is_deductible ? <CheckCircle size={16} className="text-green-500" /> : <Circle size={16} className="text-gray-300" />}</div>
-                    </div>
+                  <div key={expense.id} onClick={() => openEditExpense(expense)} className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
+                    <span className="text-sm text-gray-900 truncate">{expense.concept}</span>
+                    <span className="text-sm font-medium text-gray-900">{formatCurrency(expense.amount)}</span>
                   </div>
                 ))}
               </div>
@@ -526,6 +547,95 @@ export default function ProjectDetail() {
           <div className="flex gap-3 justify-end">
             <Button type="button" variant="secondary" onClick={() => setExpenseModal(false)}>Cancelar</Button>
             <Button type="submit" disabled={savingExpense}>{editingExpense ? 'Guardar cambios' : 'Añadir gasto'}</Button>
+          </div>
+        </form>
+      </Modal>
+
+      {/* Bottom bar para móvil */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 flex gap-1 border-t border-gray-200 bg-white px-2 py-2 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] sm:static sm:border-0 sm:bg-transparent sm:p-0 sm:shadow-none">
+        <button type="button" onClick={() => setQuickIncomeModal(true)} className="flex-1 rounded-lg bg-[var(--color-primary-500)] py-2 text-xs font-medium text-white sm:hidden">
+          Cobro
+        </button>
+        <button type="button" onClick={() => setQuickExpenseModal(true)} className="flex-1 rounded-lg bg-[var(--color-primary-500)] py-2 text-xs font-medium text-white sm:hidden">
+          Gasto
+        </button>
+        <button type="button" onClick={() => setEditModal(true)} className="flex-1 rounded-lg bg-[#C94035] py-2 text-xs font-medium text-white sm:hidden">
+          Editar
+        </button>
+        <button type="button" onClick={handleDeleteProject} className="flex-1 rounded-lg border border-red-200 py-2 text-xs font-medium text-red-600 sm:hidden">
+          Eliminar
+        </button>
+        {/* Desktop - quick modals */}
+        <button type="button" onClick={() => setQuickIncomeModal(true)} className="hidden sm:inline-flex min-h-9 items-center justify-center gap-2 rounded-lg bg-[#C94035] px-3 py-1.5 text-sm font-medium text-white shadow-sm hover:bg-[#A8342B]">
+          <Plus size={14} /> Ingreso
+        </button>
+        <button type="button" onClick={() => setQuickExpenseModal(true)} className="hidden sm:inline-flex min-h-9 items-center justify-center gap-2 rounded-lg bg-[#C94035] px-3 py-1.5 text-sm font-medium text-white shadow-sm hover:bg-[#A8342B]">
+          <Plus size={14} /> Gasto
+        </button>
+        <button type="button" onClick={() => setEditModal(true)} className="hidden sm:inline-flex min-h-9 items-center justify-center gap-2 rounded-lg border border-[#E2D9C2] bg-[#F5EFE0] px-3 py-1.5 text-sm font-medium text-[#211C18] shadow-sm hover:bg-[#EBE3CE]">
+          <Edit size={14} /> Editar
+        </button>
+        <button type="button" onClick={handleDeleteProject} className="hidden sm:inline-flex min-h-9 items-center justify-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium text-[#C94035] hover:bg-red-50">
+          <Trash2 size={14} /> Eliminar
+        </button>
+      </div>
+
+      {/* Quick Income Modal */}
+      <Modal isOpen={quickIncomeModal} onClose={() => setQuickIncomeModal(false)} title="Cobro rápido">
+        <form onSubmit={handleQuickSubmitIncome} className="flex flex-col gap-4">
+          <p className="text-xs text-gray-500">
+            Concepto: <span className="font-medium text-gray-900">{project?.name || 'Ingreso'}</span>
+          </p>
+          <Input
+            label="Importe (€)"
+            type="text"
+            inputMode="decimal"
+            value={quickIncomeForm.amount}
+            onChange={(e) => setQuickIncomeForm((p) => ({ ...p, amount: e.target.value }))}
+            autoFocus
+            required
+          />
+          <label className="flex items-center gap-3 rounded-lg border border-gray-200 bg-gray-50 p-3">
+            <input
+              type="checkbox"
+              checked={quickIncomeForm.is_paid}
+              onChange={(e) => setQuickIncomeForm((p) => ({ ...p, is_paid: e.target.checked }))}
+              className="h-5 w-5 rounded border-gray-300 text-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]"
+            />
+            <span className="text-sm font-medium text-gray-700">Marcar como cobrado</span>
+          </label>
+          <div className="flex gap-3 justify-end">
+            <Button type="button" variant="secondary" onClick={() => setQuickIncomeModal(false)}>Cancelar</Button>
+            <Button type="submit" disabled={savingIncome}>Guardar</Button>
+          </div>
+        </form>
+      </Modal>
+
+      {/* Quick Expense Modal */}
+      <Modal isOpen={quickExpenseModal} onClose={() => setQuickExpenseModal(false)} title="Gasto rápido">
+        <form onSubmit={handleQuickSubmitExpense} className="flex flex-col gap-4">
+          <p className="text-xs text-gray-500">
+            Concepto: <span className="font-medium text-gray-900">{project?.name || 'Gasto'}</span>
+          </p>
+          <Input
+            label="Importe (€)"
+            type="text"
+            inputMode="decimal"
+            value={quickExpenseForm.amount}
+            onChange={(e) => setQuickExpenseForm((p) => ({ ...p, amount: e.target.value }))}
+            autoFocus
+            required
+          />
+          <Select
+            label="Categoría"
+            value={quickExpenseForm.category}
+            onChange={(e) => setQuickExpenseForm((p) => ({ ...p, category: e.target.value }))}
+          >
+            {EXPENSE_CATEGORIES.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}
+          </Select>
+          <div className="flex gap-3 justify-end">
+            <Button type="button" variant="secondary" onClick={() => setQuickExpenseModal(false)}>Cancelar</Button>
+            <Button type="submit" disabled={savingExpense}>Guardar</Button>
           </div>
         </form>
       </Modal>

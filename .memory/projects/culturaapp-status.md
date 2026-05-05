@@ -31,3 +31,11 @@
 - Durable memory: for details reached from `Trabajos`, avoid large full-width CTAs and repeated empty-state buttons. Primary actions should be compact, aligned with the section header, and visually secondary to the work content unless they are the main task. Hide default `Confirmado` badges when they add noise rather than information.
 - Durable memory: future UI fixes should verify the whole navigation loop, not only the screen where the bug is reported: list/tab -> detail -> related detail -> return path.
 - Source: CACH-B0001 feedback, PR `#75`, merge commit `9715736`.
+
+## 2026-05-05 - Event Detail Must Prioritize Fast Editing Over Visual Weight
+
+- Context: User feedback on event editing reported that the detail screen felt too crowded and made simple edits harder than they should be, especially on mobile.
+- Durable memory: `EventDetail` should present event identity, related project, and edit/delete actions in a compact header instead of using a large highlighted project block. Financial summary should open with only the most decision-useful figures (`Cobrado`, `Pendiente`, `Beneficio neto`) and keep secondary metrics behind a lighter "Ver detalle financiero" reveal.
+- Durable memory: income and expense sections should expose count and total in the section header and keep mobile rows tap-friendly and compact so editing individual items feels direct.
+- Durable memory: on mobile, `EventDetail` should prefer inline quick-add flows for incomes and expenses over modal-first creation. Quick income entry should allow concept + amount + paid toggle in one small form, and mobile income rows should expose a readable paid/pending toggle instead of icon-only status.
+- Source: direct user feedback during local UI simplification on `src/pages/Events/EventDetail.jsx`.
