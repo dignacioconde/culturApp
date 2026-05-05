@@ -1,11 +1,15 @@
 ---
 id: CACH-B0010
-type: issue
-status: Backlog
-priority: Medium
-release: Internal
-created: 2026-05-04
-updated: 2026-05-04
+title: Tooling de agentes y modelos de desarrollo
+type: chore
+status: backlog
+cycle: unassigned
+release: null
+priority: p2
+estimate: m
+area: infra
+created_at: 2026-05-04
+updated_at: 2026-05-04
 aliases:
   - CACH-B0010
 tags:

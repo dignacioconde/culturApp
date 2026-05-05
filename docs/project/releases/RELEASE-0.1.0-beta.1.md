@@ -1,7 +1,7 @@
 ---
 id: RELEASE-0.1.0-beta.1
 type: release
-status: Released
+status: Active
 created: 2026-05-04
 updated: 2026-05-05
 github_release: pending
@@ -19,7 +19,7 @@ tags:
 
 ## Estado
 
-Released
+Active
 
 ## Rama de release
 
@@ -36,12 +36,14 @@ El primer corte `0.1.0-beta.1` no entrega funcionalidad de usuario final; entreg
 ## Scope
 
 - [[../issues/CACH-B0015]] — Operativizar backlog, releases y ramas en Product Brain
+- [[../issues/CACH-B0016]] — Refundacion operativa del Product Brain y tests B0014
 
 ## Issues incluidas
 
 | Issue | Titulo | Estado | Rama |
 |---|---|---|---|
-| [[../issues/CACH-B0015|CACH-B0015]] | Operativizar backlog, releases y ramas en Product Brain | Ready for Release | `release/0.1.0-beta.1` |
+| [[../issues/CACH-B0015|CACH-B0015]] | Operativizar backlog, releases y ramas en Product Brain | done | `release/0.1.0-beta.1` |
+| [[../issues/CACH-B0016|CACH-B0016]] | Refundacion operativa del Product Brain y tests B0014 | done | `chore/cach-b0016-brain-refactor` |
 
 ## Out Of Scope
 
@@ -111,15 +113,19 @@ El primer corte `0.1.0-beta.1` no entrega funcionalidad de usuario final; entreg
 - Sistema operativo de Product Brain para backlog, releases, ramas, commits y agentes.
 - `CURRENT_RELEASE.md`, `CURRENT_PLAN.md`, backlog operativo, templates canonicas y docs de proceso.
 - Regla de ciclos: `0.1` como ciclo, `0.1.0-beta.N` como cortes mergeables, `0.1.0` como changelog consolidado.
+- Refundacion operativa del Product Brain: schema Zod, `pb:check` de coherencia, `pb:index`, captura a inbox y tablero de 5 columnas.
+- Tests unitarios de decimal, datetime y payment ejecutados en UTC y Europe/Madrid.
 
 ### Cambiado
 
 - Product Brain pasa a ser la fuente de verdad operativa para implementacion; GitHub queda como soporte tecnico de PR/CI.
 - La beta usa rama versionada `release/0.1.0-beta.1`.
+- Las releases de issues pasan a ser referencias tipadas a archivos reales o `null`.
 
 ### Corregido
 
 - Se evita que la release branch sea una rama larga indefinida.
+- Se eliminan strings libres de release en issues (`Unassigned`, `Beta`, `Internal`, `Pro`, `Growth`, `Post-MVP`, `0.1-cycle`).
 
 ### Eliminado
 
@@ -129,6 +135,7 @@ El primer corte `0.1.0-beta.1` no entrega funcionalidad de usuario final; entreg
 
 - ADR-0008 documenta release branching gobernado por Product Brain.
 - `scripts/product-brain-sync.mjs` conoce las carpetas `backlog/` y `process/`.
+- ADR-0009 a ADR-0014 documentan IDs, frontmatter, timestamps, decimales, testing y feedback beta.
 
 ## Resultado final
 

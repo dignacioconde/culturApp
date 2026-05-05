@@ -1,11 +1,15 @@
 ---
 id: CACH-XXXX
-type: issue
-status: Draft
-priority: Medium
-release: Unassigned
-created: YYYY-MM-DD
-updated: YYYY-MM-DD
+title: Titulo de la issue
+type: bug | feature | chore | spike | doc
+status: inbox | backlog | ready | in-progress | review | done | blocked | wontfix
+cycle: beta-2
+release: null
+priority: p1
+estimate: s
+area: frontend | backend | db | docs | infra | brain
+created_at: YYYY-MM-DD
+updated_at: YYYY-MM-DD
 aliases:
   - CACH-XXXX
 tags:
@@ -14,18 +18,6 @@ tags:
 ---
 
 # CACH-XXXX — Titulo de la issue
-
-## Estado
-
-Draft / Ready / In Progress / In Review / Ready for Release / Released / Cancelled
-
-## Tipo
-
-Feature / Fix / Refactor / Chore / Docs / Spike / Design / QA
-
-## Release
-
-RELEASE-X.Y.Z-name / Unassigned / Internal
 
 ## Rama sugerida
 

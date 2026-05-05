@@ -1,7 +1,7 @@
 ---
 id: PB-CURRENT-RELEASE
 type: release-status
-status: No Active Release
+status: Active
 created: 2026-05-05
 updated: 2026-05-05
 aliases:
@@ -16,19 +16,19 @@ tags:
 
 ## Release activa
 
-Ninguna.
+- [[RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]]
 
 ## Rama activa
 
-Ninguna.
+`release/0.1.0-beta.1`
 
 ## Estado
 
-No Active Release
+Active
 
 ## Ultimo corte
 
-- [[RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] — Sistema operativo de Product Brain, releases, backlog, ramas y agentes.
+Pendiente de cierre tras CACH-B0016.
 
 ## Siguiente corte esperado
 

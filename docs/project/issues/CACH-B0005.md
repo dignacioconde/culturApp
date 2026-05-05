@@ -1,11 +1,15 @@
 ---
 id: CACH-B0005
-type: issue
-status: Backlog
-priority: High
-release: Beta
-created: 2026-05-04
-updated: 2026-05-04
+title: Importacion exportacion y portabilidad de datos
+type: feature
+status: backlog
+cycle: unassigned
+release: null
+priority: p1
+estimate: m
+area: db
+created_at: 2026-05-04
+updated_at: 2026-05-04
 aliases:
   - CACH-B0005
 tags:
@@ -46,4 +50,3 @@ Antes de pedir confianza a usuarios beta, Cachés debe permitir sacar sus datos 
 ## Related
 
 - [[CACH-B0006|CACH-B0006]]
-
