@@ -1,11 +1,17 @@
 ---
-name: AGENT_STATE.md — agentes no deben resetear el archivo
-description: Los agentes tienden a sobrescribir AGENT_STATE.md borrando secciones enteras; revisar siempre tras un run de agentes
+name: AGENT_STATE.md — limpieza de secciones transitorias
+description: Tras cada tarea completada, limpiar Eventos y Señales activas; no borrar Estado por agente
 type: feedback
+updated: 2026-05-05
 ---
 
-Los agentes (especialmente cultura-lead al cerrar una issue) sobrescriben `.opencode/AGENT_STATE.md` y borran secciones enteras: la sección `## Estado por agente` con los 9 bloques de agentes y entradas antiguas de `## Señales activas`.
+**Regla actual (desde 2026-05-05):**
+- Las secciones `## Senales activas` y `## Eventos` deben QUEDAR VACÍAS tras cada tarea completada
+- El historial permanente vive en git y GitHub (commits, PRs, issues), no en este archivo
+- Este archivo es solo una pizarra operativa transitoria
 
-**Why:** El agente reescribe el archivo desde cero en lugar de añadir solo su bloque/señal, perdiendo el historial operativo.
+**Qué NO borrar:**
+- La sección `## Estado por agente` con los 9 bloques de agentes (debe mantenerse siempre)
 
-**How to apply:** Después de cualquier run de agentes que toque AGENT_STATE.md, verificar con `git diff HEAD~1 .opencode/AGENT_STATE.md` que no se hayan borrado secciones. Si se borraron, restaurar desde `git show HEAD~1:.opencode/AGENT_STATE.md`.
+**Regla antigua (obsoleta):**
+Antes se pensaba que los agentes no debían "resetear" el archivo (borrando todo), pero la práctica demostró que limpiar las secciones transitorias es correcto porque el historial ya vive en git/GitHub.
