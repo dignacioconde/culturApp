@@ -21,14 +21,14 @@ export function Modal({ isOpen, onClose, title, children }) {
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center p-3 sm:items-center sm:p-4">
       <div
-        className="absolute inset-0 bg-[var(--color-ink)]/50 backdrop-blur-[1px]"
+        className="absolute inset-0 bg-[var(--color-ink)]/50 backdrop-blur-[1px] animate-fade-in"
         onClick={onClose}
       />
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby={title ? titleId : undefined}
-        className="relative flex max-h-[90vh] w-full max-w-full md:max-w-2xl flex-col rounded-lg bg-white shadow-2xl ring-1 ring-[var(--color-ink)]/10"
+        className="relative flex max-h-[90vh] w-full max-w-full md:max-w-2xl flex-col rounded-lg bg-white shadow-2xl ring-1 ring-[var(--color-ink)]/10 animate-scale-in"
       >
         <div className="flex items-start justify-between gap-4 border-b border-[var(--color-paper-mid)] px-4 py-4 sm:px-6 shrink-0">
           <h2 id={titleId} className="min-w-0 text-base font-semibold leading-6 text-[var(--color-ink)]">{title}</h2>
