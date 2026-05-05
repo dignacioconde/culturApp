@@ -21,11 +21,19 @@ import { isPaid, markPaid, markUnpaid } from '../../lib/payment'
 import { EXPENSE_CATEGORIES } from '../../lib/constants'
 
 const EMPTY_EXPENSE = { concept: '', amount: '', category: 'otros', expense_date: '', is_deductible: true }
+const compactSecondaryAction = 'inline-flex min-h-9 items-center justify-center gap-2 rounded-lg border border-[#E2D9C2] bg-[#F5EFE0] px-3 py-1.5 text-sm font-medium leading-none text-[#211C18] shadow-sm transition-colors hover:bg-[#EBE3CE] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2'
+const compactPrimaryAction = 'inline-flex min-h-9 items-center justify-center gap-2 rounded-lg bg-[#C94035] px-3 py-1.5 text-sm font-medium leading-none text-white shadow-sm transition-colors hover:bg-[#A8342B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2'
+const compactDangerAction = 'inline-flex min-h-9 items-center justify-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium leading-none text-[#C94035] transition-colors hover:bg-red-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2'
 
 const getEventHours = (event) => {
   if (!event.end_datetime) return 0
   const minutes = (new Date(event.end_datetime).getTime() - new Date(event.start_datetime).getTime()) / 60000
   return minutes > 0 ? minutes / 60 : 0
+}
+
+function QuietStatusBadge({ status }) {
+  if (!status || status === 'confirmed') return null
+  return <StatusBadge status={status} />
 }
 
 export default function ProjectDetail() {
@@ -189,22 +197,24 @@ export default function ProjectDetail() {
 
   return (
     <PageWrapper title={project.name}>
-      <div className="flex flex-col gap-6 max-w-4xl">
+      <div className="flex max-w-4xl flex-col gap-4 sm:gap-5">
         <nav className="flex items-center gap-1.5 text-xs text-gray-400 breadcrumbs">
-          <Link to="/projects" className="hover:text-gray-600">Proyectos</Link>
+          <Link to="/work" className="hover:text-gray-600">Trabajos</Link>
+          <span>/</span>
+          <Link to="/work?view=projects" className="hover:text-gray-600">Proyectos</Link>
           <span>/</span>
           <span className="text-gray-600">{project.name}</span>
         </nav>
-        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex items-center gap-3">
-            <Link to="/projects" className="text-gray-400 hover:text-gray-700">
+            <Link to="/work?view=projects" className="text-gray-400 hover:text-gray-700" aria-label="Volver a proyectos en trabajos">
               <ArrowLeft size={20} />
             </Link>
             <div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: project.color ?? '#4f98a3' }} />
-                <h2 className="text-lg font-semibold text-gray-900">{project.name}</h2>
-                <StatusBadge status={project.status} />
+              <div className="flex min-w-0 flex-wrap items-center gap-2">
+                <div className="h-3 w-3 shrink-0 rounded-full" style={{ backgroundColor: project.color ?? '#4f98a3' }} />
+                <h2 className="min-w-0 text-lg font-semibold text-gray-900">{project.name}</h2>
+                <QuietStatusBadge status={project.status} />
               </div>
               {project.client && <p className="text-sm text-gray-500 mt-0.5">{project.client}</p>}
               <p className="text-xs text-gray-400 mt-1 capitalize">
@@ -213,16 +223,16 @@ export default function ProjectDetail() {
             </div>
           </div>
           <div className="flex flex-wrap gap-2 sm:justify-end">
-            <Button variant="secondary" size="sm" onClick={() => setEditModal(true)} className="min-h-11 min-w-[5.5rem]">
+            <button type="button" onClick={() => setEditModal(true)} className={compactSecondaryAction}>
               <Edit size={14} /> Editar
-            </Button>
-            <Button variant="danger" size="sm" onClick={handleDeleteProject} className="min-h-11 min-w-[5.5rem]">
+            </button>
+            <button type="button" onClick={handleDeleteProject} className={compactDangerAction}>
               <Trash2 size={14} /> Eliminar
-            </Button>
+            </button>
           </div>
         </div>
 
-        <Card className="p-5 bg-gray-50">
+        <Card className="bg-gray-50 p-4 sm:p-5">
           <button
             type="button"
             onClick={() => setFinancialSummaryExpanded((prev) => !prev)}
@@ -264,8 +274,8 @@ export default function ProjectDetail() {
         </Card>
 
         {/* Eventos asociados */}
-        <Card className="p-5">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+        <Card className="p-4 sm:p-5">
+          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-2">
               <CalendarDays size={16} className="text-[var(--color-primary-500)]" />
               <div>
@@ -273,10 +283,8 @@ export default function ProjectDetail() {
                 <p className="text-xs text-gray-500 mt-1">Ocurrencias concretas dentro de este proyecto.</p>
               </div>
             </div>
-            <Link to={`/events?project=${id}`}>
-              <Button size="sm" variant="secondary">
-                <Plus size={14} /> Nuevo evento
-              </Button>
+            <Link to={`/events?project=${id}`} className={compactSecondaryAction}>
+              <Plus size={14} /> Nuevo evento
             </Link>
           </div>
           {eventsLoading ? (
@@ -284,10 +292,8 @@ export default function ProjectDetail() {
           ) : events.length === 0 ? (
             <div className="rounded-lg border border-dashed border-gray-200 p-4 text-sm text-gray-500">
               <p>No hay eventos asociados a este proyecto todavía.</p>
-              <Link to={`/events?project=${id}`} className="inline-flex mt-3">
-                <Button size="sm" variant="secondary">
-                  <Plus size={14} /> Crear primer evento
-                </Button>
+              <Link to={`/events?project=${id}`} className={`${compactSecondaryAction} mt-3`}>
+                <Plus size={14} /> Crear evento
               </Link>
             </div>
           ) : (
@@ -296,16 +302,16 @@ export default function ProjectDetail() {
                 <Link
                   key={event.id}
                   to={`/events/${event.id}`}
-                  className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0 hover:bg-gray-50 -mx-2 px-2 rounded-lg transition-colors"
+                  className="-mx-2 flex min-w-0 items-center justify-between gap-3 rounded-lg border-b border-gray-100 px-2 py-2 transition-colors last:border-0 hover:bg-gray-50"
                 >
-                  <div className="flex items-center gap-2">
+                  <div className="flex min-w-0 items-center gap-2">
                     <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: event.color ?? '#4f98a3' }} />
-                    <div>
-                      <p className="text-sm font-medium text-gray-900">{event.name}</p>
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-medium text-gray-900">{event.name}</p>
                       <p className="text-xs text-gray-400">{formatDatetime(event.start_datetime)}</p>
                     </div>
                   </div>
-                  <StatusBadge status={event.status} />
+                  <QuietStatusBadge status={event.status} />
                 </Link>
               ))}
             </div>
@@ -313,24 +319,21 @@ export default function ProjectDetail() {
         </Card>
 
         {/* Ingresos directos del proyecto */}
-        <Card className="p-5">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+        <Card className="p-4 sm:p-5">
+          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h3 className="text-sm font-semibold text-gray-900">Ingresos del proyecto</h3>
               <p className="text-xs text-gray-400 mt-0.5">No atribuibles a un evento concreto</p>
             </div>
-            <Button size="sm" onClick={openNewIncome}>
+            <button type="button" onClick={openNewIncome} className={compactPrimaryAction}>
               <Plus size={14} /> Añadir ingreso
-            </Button>
+            </button>
           </div>
           {incomesLoading ? (
             <p className="text-sm text-gray-400">Cargando ingresos...</p>
           ) : directIncomes.length === 0 ? (
             <div className="rounded-lg border border-dashed border-gray-200 p-4 text-sm text-gray-500">
               <p>No hay ingresos directos del proyecto registrados.</p>
-              <Button size="sm" className="mt-3" onClick={openNewIncome}>
-                <Plus size={14} /> Añadir primer ingreso
-              </Button>
             </div>
 ) : (
             <div className="md:relative md:overflow-x-auto">
@@ -396,24 +399,21 @@ export default function ProjectDetail() {
         </Card>
 
         {/* Gastos directos del proyecto */}
-        <Card className="p-5">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+        <Card className="p-4 sm:p-5">
+          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h3 className="text-sm font-semibold text-gray-900">Gastos del proyecto</h3>
               <p className="text-xs text-gray-400 mt-0.5">No atribuibles a un evento concreto</p>
             </div>
-            <Button size="sm" onClick={openNewExpense}>
+            <button type="button" onClick={openNewExpense} className={compactPrimaryAction}>
               <Plus size={14} /> Añadir gasto
-            </Button>
+            </button>
           </div>
           {expensesLoading ? (
             <p className="text-sm text-gray-400">Cargando gastos...</p>
           ) : directExpenses.length === 0 ? (
             <div className="rounded-lg border border-dashed border-gray-200 p-4 text-sm text-gray-500">
               <p>No hay gastos directos del proyecto registrados.</p>
-              <Button size="sm" className="mt-3" onClick={openNewExpense}>
-                <Plus size={14} /> Añadir primer gasto
-              </Button>
             </div>
 ) : (
             <div className="md:relative md:overflow-x-auto">

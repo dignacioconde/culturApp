@@ -23,3 +23,9 @@
 - Context: GitHub issue `#9` implemented the proposal from `#8` for grouping projects and events.
 - Durable memory: the app now has `/work` as an incremental unified "Trabajos" entry point for projects and events. Existing routes `/projects`, `/events`, `/calendar/events`, and `/calendar/projects` remain valid. `EventDetail` makes the associated project more prominent.
 - Source: commit `8b2d1a4` plus follow-up fix for `/work` links.
+
+## 2026-05-05 - Work Navigation Must Own Project/Event Details
+
+- Context: User feedback showed the previous `/work` iteration was not usable enough: after opening a project from "Trabajos", the detail pushed the user into `/projects` and forced browser-back navigation to return to the projects tab.
+- Durable memory: `/work` should be treated as the primary "Trabajos" workflow. Project and event detail pages must breadcrumb and return to `/work?view=projects` or `/work?view=events` when reached from this flow; tabs in `Trabajos` should be URL-addressable so navigation is recoverable on mobile and desktop.
+- Source: CACH-B0001 feedback and fix branch `fix/CACH-B0001-work-navigation-prod`.

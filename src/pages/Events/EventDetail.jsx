@@ -21,11 +21,19 @@ import { isPaid, markPaid, markUnpaid } from '../../lib/payment'
 import { EXPENSE_CATEGORIES } from '../../lib/constants'
 
 const EMPTY_EXPENSE = { concept: '', amount: '', category: 'otros', expense_date: '', is_deductible: true }
+const compactSecondaryAction = 'inline-flex min-h-9 items-center justify-center gap-2 rounded-lg border border-[#E2D9C2] bg-[#F5EFE0] px-3 py-1.5 text-sm font-medium leading-none text-[#211C18] shadow-sm transition-colors hover:bg-[#EBE3CE] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2'
+const compactPrimaryAction = 'inline-flex min-h-9 items-center justify-center gap-2 rounded-lg bg-[#C94035] px-3 py-1.5 text-sm font-medium leading-none text-white shadow-sm transition-colors hover:bg-[#A8342B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2'
+const compactDangerAction = 'inline-flex min-h-9 items-center justify-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium leading-none text-[#C94035] transition-colors hover:bg-red-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2'
 
 const getEventHours = (event) => {
   if (!event.end_datetime) return 0
   const minutes = (new Date(event.end_datetime).getTime() - new Date(event.start_datetime).getTime()) / 60000
   return minutes > 0 ? minutes / 60 : 0
+}
+
+function QuietStatusBadge({ status }) {
+  if (!status || status === 'confirmed') return null
+  return <StatusBadge status={status} />
 }
 
 export default function EventDetail() {
@@ -198,22 +206,24 @@ export default function EventDetail() {
 
   return (
     <PageWrapper title={event.name}>
-      <div className="flex flex-col gap-6 max-w-4xl">
+      <div className="flex max-w-4xl flex-col gap-4 sm:gap-5">
         <nav className="flex items-center gap-1.5 text-xs text-gray-400 breadcrumbs">
-          <Link to="/events" className="hover:text-gray-600">Eventos</Link>
+          <Link to="/work" className="hover:text-gray-600">Trabajos</Link>
+          <span>/</span>
+          <Link to="/work?view=events" className="hover:text-gray-600">Eventos</Link>
           <span>/</span>
           <span className="text-gray-600">{event.name}</span>
         </nav>
-        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex items-center gap-3">
-            <Link to="/events" className="text-gray-400 hover:text-gray-700">
+            <Link to="/work?view=events" className="text-gray-400 hover:text-gray-700" aria-label="Volver a eventos en trabajos">
               <ArrowLeft size={20} />
             </Link>
             <div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: event.color ?? '#4f98a3' }} />
-                <h2 className="text-lg font-semibold text-gray-900">{event.name}</h2>
-                <StatusBadge status={event.status} />
+              <div className="flex min-w-0 flex-wrap items-center gap-2">
+                <div className="h-3 w-3 shrink-0 rounded-full" style={{ backgroundColor: event.color ?? '#4f98a3' }} />
+                <h2 className="min-w-0 text-lg font-semibold text-gray-900">{event.name}</h2>
+                <QuietStatusBadge status={event.status} />
               </div>
               {event.client && <p className="text-sm text-gray-500 mt-0.5">{event.client}</p>}
               <p className="text-xs text-gray-400 mt-1 capitalize">
@@ -242,24 +252,24 @@ export default function EventDetail() {
                     </Link>
                   </div>
                 </div>
-                <Link to={`/projects/${project.id}`}>
-                  <Button size="sm" variant="secondary">Ver proyecto</Button>
+                <Link to={`/projects/${project.id}`} className={compactSecondaryAction}>
+                  Ver proyecto
                 </Link>
               </div>
             </Card>
           )}
 
           <div className="flex flex-wrap gap-2 sm:justify-end">
-            <Button variant="secondary" size="sm" onClick={() => setEditModal(true)} className="min-h-11 min-w-[5.5rem]">
+            <button type="button" onClick={() => setEditModal(true)} className={compactSecondaryAction}>
               <Edit size={14} /> Editar
-            </Button>
-            <Button variant="danger" size="sm" onClick={handleDeleteEvent} className="min-h-11 min-w-[5.5rem]">
+            </button>
+            <button type="button" onClick={handleDeleteEvent} className={compactDangerAction}>
               <Trash2 size={14} /> Eliminar
-            </Button>
+            </button>
           </div>
         </div>
 
-        <Card className="p-5 bg-gray-50">
+        <Card className="bg-gray-50 p-4 sm:p-5">
           <button
             type="button"
             onClick={() => setFinancialSummaryExpanded((prev) => !prev)}
@@ -301,24 +311,21 @@ export default function EventDetail() {
         </Card>
 
         {/* Ingresos */}
-        <Card className="p-5">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+        <Card className="p-4 sm:p-5">
+          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h3 className="text-sm font-semibold text-gray-900">Ingresos</h3>
               <p className="text-xs text-gray-500 mt-1">Pagos previstos o cobrados por este evento.</p>
             </div>
-            <Button size="sm" onClick={openNewIncome}>
+            <button type="button" onClick={openNewIncome} className={compactPrimaryAction}>
               <Plus size={14} /> Añadir ingreso
-            </Button>
+            </button>
           </div>
           {incomesLoading ? (
             <p className="text-sm text-gray-400">Cargando ingresos...</p>
           ) : incomes.length === 0 ? (
             <div className="rounded-lg border border-dashed border-gray-200 p-4 text-sm text-gray-500">
               <p>No hay ingresos registrados para este evento.</p>
-              <Button size="sm" className="mt-3" onClick={openNewIncome}>
-                <Plus size={14} /> Añadir primer ingreso
-              </Button>
             </div>
 ) : (
             <div className="md:relative md:overflow-x-auto">
@@ -405,24 +412,21 @@ export default function EventDetail() {
         </Card>
 
         {/* Gastos */}
-        <Card className="p-5">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+        <Card className="p-4 sm:p-5">
+          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h3 className="text-sm font-semibold text-gray-900">Gastos</h3>
               <p className="text-xs text-gray-500 mt-1">Costes asociados directamente a este evento.</p>
             </div>
-            <Button size="sm" onClick={openNewExpense}>
+            <button type="button" onClick={openNewExpense} className={compactPrimaryAction}>
               <Plus size={14} /> Añadir gasto
-            </Button>
+            </button>
           </div>
           {expensesLoading ? (
             <p className="text-sm text-gray-400">Cargando gastos...</p>
           ) : expenses.length === 0 ? (
             <div className="rounded-lg border border-dashed border-gray-200 p-4 text-sm text-gray-500">
               <p>No hay gastos registrados para este evento.</p>
-              <Button size="sm" className="mt-3" onClick={openNewExpense}>
-                <Plus size={14} /> Añadir primer gasto
-              </Button>
             </div>
 ) : (
             <div className="md:relative md:overflow-x-auto">
