@@ -125,15 +125,33 @@ git switch release/0.1.0-beta.1
 git cherry-pick <hotfix-commit>
 ```
 
+## Caso E: tarea pequeña o sin release activa
+
+Para fixes, chores, mejoras menores o cualquier cambio que no agrupe con otras issues:
+
+```bash
+git switch main
+git pull
+git switch -c fix/my-small-fix   # o feature/, chore/, docs/
+```
+
+Al terminar:
+
+```bash
+git push -u origin fix/my-small-fix
+# Abrir PR a main
+```
+
+No se necesita release branch. No se necesita release activa. PR directa a `main`.
+
 ## Reglas
 
-- No trabajar directamente sobre `main`.
+- Las ramas de feature/fix salen de la release activa **solo si la tarea pertenece a esa release**.
+- Si no hay release activa, la rama sale de `main` y vuelve a `main` por PR.
 - No mezclar issues de releases distintas en la misma rama.
-- Las ramas de feature/fix salen de la release activa si pertenecen a ella.
-- Las ramas de feature/fix vuelven a la release activa.
-- La release se mergea a `main` cuando esta validada.
-- Los hotfixes urgentes pueden salir de `main`, pero deben propagarse a la release activa si el cambio tambien aplica.
-- Si no existe release activa y la tarea es grande, crear o activar release antes de implementar.
+- La release se mergea a `main` cuando está validada.
+- Los hotfixes urgentes salen siempre de `main` y se propagan a la release activa si el cambio también aplica.
+- No trabajar directamente sobre `main` (commits sin rama).
 
 ## Limpieza
 

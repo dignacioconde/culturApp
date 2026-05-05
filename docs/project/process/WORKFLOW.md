@@ -1,0 +1,169 @@
+---
+id: PB-PROCESS-WORKFLOW
+type: process
+status: Active
+created: 2026-05-05
+updated: 2026-05-05
+aliases:
+  - Workflow
+  - Thin Product Brain Workflow
+tags:
+  - product-brain
+  - process
+  - workflow
+---
+
+# Workflow
+
+Documento principal de proceso para Cachés. Reemplaza a `DEVELOPMENT_WORKFLOW.md` y `AGENT_WORKFLOW.md` como referencia operativa.
+
+---
+
+## Flujo mínimo — tarea pequeña
+
+Para fixes, chores, mejoras menores y features pequeñas que no pertenecen a ninguna release activa:
+
+```
+1. Leer AGENTS.md
+2. Leer .memory/MEMORY.md
+3. Leer docs/project/START_HERE.md
+4. Leer la issue CACH relacionada, si existe
+5. Crear rama desde main (feature/<slug> o fix/<slug> o chore/<slug>)
+6. Implementar el cambio
+7. Ejecutar validaciones relevantes
+8. Abrir PR hacia main
+```
+
+No leer CURRENT_RELEASE, CURRENT_PLAN ni BACKLOG salvo que la tarea pertenezca a una release activa o afecte planificación.
+
+### Cuándo aplica este flujo
+
+- Fixes puntuales.
+- Chores de tooling o mantenimiento.
+- Mejoras menores de UI o UX.
+- Documentación que no forma parte de una release.
+- Tareas exploratoras o spikes.
+- Cualquier cambio que no agrupe con otras issues bajo un objetivo de release.
+
+### Hotfix y chore sin issue CACH
+
+Un hotfix urgente o chore menor puede no tener issue CACH si:
+
+- Es obvio, pequeño y no afecta planificación.
+- El commit lo describe con suficiente claridad.
+- Se declara explícitamente en el commit: `hotfix:` o `chore:`.
+
+Si se descubre que el cambio tiene más alcance del esperado, crear issue CACH antes de continuar.
+
+---
+
+## Flujo de release multi-issue
+
+Usar release branch solo cuando:
+
+- Hay varias issues relacionadas que deben integrarse antes de llegar a main.
+- Hay una fase real de estabilización.
+- Hay un corte funcional agrupado con release notes.
+- Hay riesgo de integración entre issues.
+- Se necesita preparar una entrega con changelog.
+
+```
+main
+  ↓
+release/<version-or-name>
+  ↓
+feature/<issue-id>-<short-name>   (o fix/, chore/, docs/)
+  ↓
+release/<version-or-name>
+  ↓
+main
+```
+
+### Cuándo NO usar release branch
+
+- La tarea es un fix o mejora menor.
+- La tarea no agrupa con otras issues.
+- No hay necesidad de release notes específicas.
+- La issue puede cerrarse en una sola PR a main.
+
+### CURRENT_RELEASE.md
+
+Puede estar en estado `No active release`. Es válido y no bloquea trabajo.
+
+Si no hay release activa, las tareas van directamente a main por PR.
+
+---
+
+## Cuándo crear issue CACH
+
+Crear issue CACH cuando:
+
+- La tarea es suficientemente grande para necesitar criterios de aceptación.
+- La tarea pertenece a una release activa.
+- La tarea tiene dependencias o riesgos que vale la pena documentar.
+- Se quiere trazabilidad en el Product Brain.
+
+No es obligatorio para: hotfixes urgentes obvios, chores triviales, ajustes de copy, cambios de una línea.
+
+### Campos obligatorios de una issue CACH
+
+- Objetivo: qué debe quedar conseguido.
+- Alcance: qué está incluido y qué queda fuera.
+- Criterios de aceptación: verificables.
+- Validación: qué comandos o checks se ejecutarán.
+- Resultado: se rellena al cerrar.
+
+Campos opcionales: release, rama sugerida, riesgos, dependencias, notas técnicas, PR, commits.
+
+---
+
+## Cuándo crear ADR
+
+Solo para decisiones duraderas con impacto futuro:
+
+- Arquitectura o modelo de datos.
+- Estrategia de branching o releases.
+- Dependencias nuevas importantes.
+- Convenciones de producto o proceso que afecten trabajo futuro.
+- Decisiones de seguridad o privacidad con consecuencias duraderas.
+
+No crear ADR para: reglas menores de estilo, decisiones reversibles, convenciones temporales.
+
+---
+
+## Validaciones
+
+### Bloqueantes
+
+Son bloqueantes para PR o merge:
+
+- `npm run lint` — si se toca código JS/TS.
+- `npm run build` — si se toca código de app.
+- `npm run pb:check` — si se toca `docs/project/`.
+
+### Solo aviso (no bloquean merge)
+
+- `npm run test` — si los tests fallan por razones conocidas o cubren funcionalidad no afectada.
+- `npm run pb:status` — muestra estado de sync con Obsidian; no es criterio de merge.
+- `npm run pb:push` / `npm run pb:pull` — Obsidian sync; útil pero no bloquea.
+
+### Validación visual
+
+Si se toca UI: verificar en navegador en la ruta afectada, con viewport relevante. Para calendarios: verificar que toolbar, cabecera y filas del mes son visibles.
+
+---
+
+## Obsidian sync
+
+`pb:status` y `pb:push` / `pb:pull` son útiles para mantener el vault sincronizado.
+
+No son criterio bloqueante de merge. Si el repo está consistente (`pb:check` OK) y el vault tiene drift leve, el merge puede hacerse. Sincronizar con Obsidian después si aplica.
+
+---
+
+## Relacionado
+
+- [[BRANCHING_STRATEGY]] — tipos de rama y convenciones de nombre.
+- [[COMMIT_CONVENTION]] — formato de commits trazables.
+- [[RELEASE_PROCESS]] — crear, activar y cerrar releases multi-issue.
+- [[definition-of-done]] — salida mínima honesta de una issue.

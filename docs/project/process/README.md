@@ -19,14 +19,15 @@ Sistema operativo ligero para desarrollar Cachés desde el Product Brain.
 
 ## Documentos
 
-- [[DEVELOPMENT_WORKFLOW]] — flujo completo idea → release → main.
-- [[BRANCHING_STRATEGY]] — ramas, merges, hotfixes y release branches.
+- [[WORKFLOW]] — **documento principal**: flujo mínimo, release multi-issue, validaciones y Obsidian sync.
+- [[BRANCHING_STRATEGY]] — tipos de rama, PR directa a main y release branches.
 - [[COMMIT_CONVENTION]] — formato de commits trazables a issues.
 - [[RELEASE_PROCESS]] — crear, activar, estabilizar y cerrar releases.
-- [[AGENT_WORKFLOW]] — contrato operativo para Codex, Claude Code y OpenCode.
-- [[id-policy]] — politica unica de IDs `CACH-NNNN`.
-- [[frontmatter-schema]] — schema humano del frontmatter validado por Zod.
-- [[weekly-review]] — revision semanal ligera del brain.
 - [[definition-of-ready]] — INVEST aplicado a Cachés.
-- [[definition-of-done]] — salida minima honesta de una issue.
-- [[release-flow]] — cortes pequenos y mergeables.
+- [[definition-of-done]] — salida mínima honesta de una issue.
+- [[id-policy]] — política única de IDs `CACH-NNNN`.
+- [[frontmatter-schema]] — schema humano del frontmatter validado por Zod.
+- [[weekly-review]] — revisión semanal ligera del brain.
+- [[release-flow]] — cortes pequeños y mergeables.
+- [[DEVELOPMENT_WORKFLOW]] — consolidado en WORKFLOW (stub).
+- [[AGENT_WORKFLOW]] — consolidado en WORKFLOW (stub).

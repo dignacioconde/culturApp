@@ -51,18 +51,23 @@ npm run pb:push     # Exportar cambios al vault de iCloud
 
 ## Ruta Mínima Para Agentes
 
-Para orientar una tarea sin leer todo el Product Brain:
+Para tareas pequeñas (fixes, chores, mejoras menores):
 
-1. Leer este archivo.
-2. Leer solo el índice del tipo de trabajo:
-   - Flujo operativo: [[process/DEVELOPMENT_WORKFLOW|Development Workflow]]
-   - Backlog operativo: [[backlog/BACKLOG|Backlog]]
-   - Backlog: [[indexes/issues.index|Issues Index]]
-   - Decisiones: [[indexes/decisions.index|Decisions Index]]
-   - Conocimiento técnico: [[indexes/knowledge.index|Knowledge Index]]
-   - Release: [[indexes/releases.index|Releases Index]]
-3. Abrir únicamente los archivos enlazados que afecten a la tarea.
-4. Ejecutar `npm run pb:check` antes de cerrar cambios en `docs/project/`.
+1. Leer `AGENTS.md`.
+2. Leer `.memory/MEMORY.md`.
+3. Leer este archivo.
+4. Leer la issue `CACH-*` relacionada, si existe.
+5. Crear rama desde `main` y abrir PR a `main` al terminar.
+
+Leer además solo si aplica:
+
+- [[process/WORKFLOW|Workflow]] — si necesitas claridad sobre el flujo, validaciones o cuándo usar release branch.
+- [[releases/CURRENT_RELEASE|Current Release]] — si la tarea pertenece a una release activa.
+- [[plans/CURRENT_PLAN|Current Plan]] — si la tarea afecta planificación.
+- [[backlog/BACKLOG|Backlog]] — si necesitas ver el estado del tablero.
+- [[indexes/decisions.index|Decisions Index]] — si la tarea toca arquitectura, modelo de datos o decisiones duraderas.
+
+Ejecutar `npm run pb:check` antes de cerrar cambios en `docs/project/`.
 
 La coherencia issue-release, el tablero, los wikilinks e indices se validan con `pb:check`. Si se mueven issues, ADRs, knowledge o releases, ejecutar tambien `npm run pb:index`.
 

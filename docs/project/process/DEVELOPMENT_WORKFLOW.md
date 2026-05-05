@@ -15,6 +15,10 @@ tags:
 
 # Development Workflow
 
+Consolidado en [[WORKFLOW]].
+
+Ver [[WORKFLOW]] para el flujo completo: tarea pequeña, release multi-issue, validaciones, Obsidian sync y cuándo crear issues/ADRs.
+
 El Product Brain es la fuente de verdad. GitHub queda para PRs, checks, commits y releases tecnicas cuando haga falta, pero el por que y el estado de producto viven en `docs/project/`.
 
 ## Ciclo operativo

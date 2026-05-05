@@ -16,37 +16,32 @@ tags:
 
 ## Release activa
 
-- [[RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]]
+No active release.
 
-## Rama activa
-
-`release/0.1.0-beta.1`
-
-## Estado
-
-Active
+Las tareas actuales van directamente a `main` por PR.
 
 ## Ultimo corte
 
-Pendiente de cierre tras CACH-0029.
+`RELEASE-0.1.0-beta.1` — mergeada a `main`. Ver [[RELEASE-0.1.0-beta.1]].
 
-## Siguiente corte esperado
+## Siguiente release
 
-- `RELEASE-0.1.0-beta.2`
-- `release/0.1.0-beta.2`
+No definida. Activar solo si hay varias issues que deban integrarse antes de llegar a `main`.
 
-## Regla
+## Cuando activar una release
 
-- No implementar features grandes sin crear o activar una release.
-- Si una tarea pertenece al ciclo `0.1`, crear el siguiente corte `0.1.0-beta.N`.
-- Toda feature debe tener issue Markdown `CACH-*`.
-- Todo commit debe poder trazarse a una issue.
-- No se trabaja directamente sobre `main`.
+Usar release branch solo si:
+
+- Hay varias issues relacionadas que se integran antes de main.
+- Hay fase de estabilización real.
+- Se necesita release notes agrupadas.
+
+Para fixes, chores y mejoras menores: PR directa a `main` sin release branch.
 
 ## Como activar la siguiente release
 
 1. Crear `docs/project/releases/RELEASE-0.1.0-beta.2.md` desde [[../templates/RELEASE_TEMPLATE]].
-2. Definir scope concreto y pequeno.
+2. Definir scope concreto con al menos dos issues relacionadas.
 3. Crear rama `release/0.1.0-beta.2`.
-4. Actualizar este archivo con la nueva release activa.
+4. Actualizar este archivo con la nueva release activa y su rama.
 5. Actualizar [[../backlog/BACKLOG]] y [[../plans/CURRENT_PLAN]].

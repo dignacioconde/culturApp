@@ -1,3 +1,21 @@
+# Product Brain — Thin Product Brain v1
+
+Preferencia duradera: Thin Product Brain.
+
+Product Brain debe ayudar a implementar, no bloquear merges con proceso excesivo.
+
+- Las tareas pequeñas (fixes, chores, mejoras menores) van directamente de `main` a `main` por PR. No requieren release activa ni release branch.
+- Las release branches (`release/<version>`) se usan solo para releases multi-issue o estabilizaciones reales.
+- Obsidian sync (`pb:push`, `pb:pull`, `pb:status`) es útil pero no es criterio bloqueante de merge si `pb:check` pasa.
+- Los agentes solo deben leer `CURRENT_RELEASE`, `CURRENT_PLAN` y `BACKLOG` cuando la tarea pertenezca a una release activa o afecte planificación.
+- Los índices son secundarios/generados, no fuente de verdad manual.
+- La memoria solo guarda preferencias, decisiones duraderas y gotchas importantes, no historial operativo.
+
+**Why:** El proceso acumulado bloqueaba tareas pequeñas con burocracia pensada para releases grandes.
+**How to apply:** Ante cualquier duda sobre si hace falta release activa, issue CACH o release branch para una tarea pequeña: la respuesta por defecto es no. Proceder con PR directa a main.
+
+---
+
 # Product Brain repo-native
 
 El Product Brain vive en `docs/project/` del repo, sincronizado manualmente con el vault de Obsidian en iCloud.
