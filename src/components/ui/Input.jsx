@@ -1,7 +1,7 @@
 import { Children, isValidElement, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { CalendarDays, Check, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react'
 
-const fieldBaseClass = 'w-full rounded-lg border bg-white px-3 py-3 text-sm text-gray-900 shadow-sm transition-colors placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500'
+const fieldBaseClass = 'w-full rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-surface)] px-3 py-3 text-sm text-[var(--color-ink)] shadow-sm transition-colors placeholder:text-[var(--color-ink-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:border-[var(--color-paper-mid)] disabled:bg-[var(--color-surface)] disabled:text-[var(--color-ink-muted)]'
 const monthFormatter = new Intl.DateTimeFormat('es-ES', { month: 'long', year: 'numeric' })
 const weekDays = ['L', 'M', 'X', 'J', 'V', 'S', 'D']
 const timeOptions = Array.from({ length: 96 }, (_, index) => {
@@ -14,7 +14,7 @@ function FieldWrapper({ label, error, inputId, errorId, children }) {
   return (
     <div className="flex min-w-0 flex-col gap-1.5">
       {label && (
-        <label htmlFor={inputId} className="text-sm font-medium text-gray-700">{label}</label>
+        <label htmlFor={inputId} className="text-sm font-medium text-[var(--color-ink)]">{label}</label>
       )}
       {children}
       {error && <p id={errorId} className="text-xs font-medium text-red-600">{error}</p>}
@@ -24,8 +24,8 @@ function FieldWrapper({ label, error, inputId, errorId, children }) {
 
 function getFieldStateClass(error) {
   return error
-    ? 'border-red-400 focus-visible:border-red-500 focus-visible:ring-red-500'
-    : 'border-gray-300 focus-visible:border-[var(--color-primary-500)]'
+    ? 'border-[var(--color-red)] focus-visible:border-[var(--color-red-hover)] focus-visible:ring-[var(--color-red-hover)]'
+    : 'border-[var(--color-paper-mid)] focus-visible:border-[var(--color-red)]'
 }
 
 function parseDateValue(value) {
@@ -206,33 +206,33 @@ function DateInput({
               setVisibleMonth(selectedDate ?? new Date())
               setShowCalendar((prev) => !prev)
             }}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)] rounded"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)] rounded"
           >
             <CalendarDays size={18} />
           </button>
         </div>
         {showCalendar && (
-          <div className="absolute left-0 top-[calc(100%+0.375rem)] z-[90] w-full min-w-[20rem] max-w-[calc(100vw-2rem)] rounded-lg border border-gray-200 bg-white p-3 text-sm shadow-xl ring-1 ring-gray-950/5">
+          <div className="absolute left-0 top-[calc(100%+0.375rem)] z-[90] w-full min-w-[20rem] max-w-[calc(100vw-2rem)] rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-surface)] p-3 text-sm shadow-xl ring-1 ring-[var(--color-ink)]/5">
             <div className="mb-3 flex items-center justify-between gap-2">
               <button
                 type="button"
                 onClick={() => moveMonth(-1)}
                 aria-label="Mes anterior"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)]"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-[var(--color-ink-muted)] hover:bg-[var(--color-paper-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)]"
               >
                 <ChevronLeft size={20} />
               </button>
-              <p className="text-sm font-semibold text-gray-900 capitalize">{monthFormatter.format(visibleMonth)}</p>
+              <p className="text-sm font-semibold text-[var(--color-ink)] capitalize">{monthFormatter.format(visibleMonth)}</p>
               <button
                 type="button"
                 onClick={() => moveMonth(1)}
                 aria-label="Mes siguiente"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)]"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-[var(--color-ink-muted)] hover:bg-[var(--color-paper-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)]"
               >
                 <ChevronRight size={20} />
               </button>
             </div>
-            <div className="grid grid-cols-7 gap-1 text-center text-xs font-semibold text-gray-500">
+            <div className="grid grid-cols-7 gap-1 text-center text-xs font-semibold text-[var(--color-ink-muted)]">
               {weekDays.map((day) => <div key={day} className="py-1">{day}</div>)}
             </div>
             <div className="mt-1 grid grid-cols-7 gap-1">
@@ -249,16 +249,16 @@ function DateInput({
                     className={`flex h-10 items-center justify-center rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)] ${
                       isSelected
                         ? 'bg-[var(--color-primary-500)] text-white hover:bg-[var(--color-primary-600)]'
-                        : 'text-gray-800 hover:bg-[#fef3f2] hover:text-[var(--color-primary-600)]'
-                    } ${isOutsideMonth && !isSelected ? 'text-gray-400' : ''} ${isToday && !isSelected ? 'ring-1 ring-[var(--color-primary-200)]' : ''}`}
+                        : 'text-[var(--color-ink)] hover:bg-[var(--color-red-light)] hover:text-[var(--color-primary-600)]'
+                    } ${isOutsideMonth && !isSelected ? 'text-[var(--color-ink-muted)]' : ''} ${isToday && !isSelected ? 'ring-1 ring-[var(--color-primary-200)]' : ''}`}
                   >
                     {date.getDate()}
                   </button>
                 )
               })}
             </div>
-            <div className="mt-3 flex items-center justify-between border-t border-gray-100 pt-3">
-              <button type="button" onClick={clearDate} className="min-h-10 rounded-lg px-3 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">
+            <div className="mt-3 flex items-center justify-between border-t border-[var(--color-paper-mid)] pt-3">
+              <button type="button" onClick={clearDate} className="min-h-10 rounded-lg px-3 text-sm font-medium text-[var(--color-ink-muted)] hover:bg-[var(--color-paper-dark)] hover:text-[var(--color-ink)]">
                 Borrar
               </button>
               <button type="button" onClick={() => selectDate(new Date())} className="min-h-10 rounded-lg px-3 text-sm font-medium text-[var(--color-primary-500)] hover:bg-[#fef3f2]">
@@ -484,14 +484,14 @@ export function Select({
           {...props}
         >
           <span className="min-w-0 truncate">{selectedOption?.label}</span>
-          <ChevronDown size={18} className={`shrink-0 text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+          <ChevronDown size={18} className={`shrink-0 text-[var(--color-ink-muted)] transition-transform ${isOpen ? 'rotate-180' : ''}`} />
         </button>
         {isOpen && (
           <div
             id={listboxId}
             role="listbox"
             aria-labelledby={inputId}
-            className="absolute right-0 top-[calc(100%+0.375rem)] z-[80] max-h-72 min-w-full w-max max-w-[calc(100vw-2rem)] overflow-y-auto rounded-lg border border-gray-200 bg-white p-1.5 text-base shadow-xl ring-1 ring-gray-950/5"
+            className="absolute right-0 top-[calc(100%+0.375rem)] z-[80] max-h-72 min-w-full w-max max-w-[calc(100vw-2rem)] overflow-y-auto rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-surface)] p-1.5 text-base shadow-xl ring-1 ring-[var(--color-ink)]/5"
           >
             {options.map((option) => {
               const isSelected = option.value === String(value ?? '')
@@ -504,7 +504,7 @@ export function Select({
                   aria-selected={isSelected}
                   disabled={option.disabled}
                   onClick={() => handleSelect(option.value)}
-                  className="flex min-h-11 w-full items-center gap-3 rounded-md px-3 py-2.5 text-left text-gray-800 transition-colors hover:bg-[#fef3f2] hover:text-[var(--color-primary-600)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)] disabled:cursor-not-allowed disabled:text-gray-400"
+                  className="flex min-h-11 w-full items-center gap-3 rounded-md px-3 py-2.5 text-left text-[var(--color-ink)] transition-colors hover:bg-[var(--color-red-light)] hover:text-[var(--color-primary-600)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)] disabled:cursor-not-allowed disabled:text-[var(--color-ink-muted)]"
                 >
                   <Check size={16} className={`shrink-0 ${isSelected ? 'text-[var(--color-primary-500)]' : 'text-transparent'}`} />
                   <span className="min-w-0 flex-1 whitespace-nowrap">{option.label}</span>

@@ -303,7 +303,7 @@
 /* React Big Calendar base styles */
 .rbc-calendar {
   font-family: inherit;
-  color: #1f2937;
+  color: var(--color-ink);
 }
 
 .rbc-toolbar {
@@ -312,29 +312,29 @@
 }
 
 .rbc-toolbar button {
-  border-color: #d1d5db;
-  color: #374151;
+  border-color: var(--color-paper-dark);
+  color: var(--color-ink);
   font-size: 0.875rem;
   font-weight: 500;
 }
 
 .rbc-toolbar button:hover,
 .rbc-toolbar button:focus {
-  background-color: #f3f4f6;
-  border-color: #9ca3af;
-  color: #111827;
+  background-color: var(--color-paper);
+  border-color: var(--color-paper-dark);
+  color: var(--color-ink);
 }
 
 .rbc-toolbar button.rbc-active {
-  background-color: #eef2ff;
-  border-color: #818cf8;
-  color: #3730a3;
+  background-color: var(--color-red-light);
+  border-color: var(--color-red);
+  color: var(--color-red);
   box-shadow: none;
 }
 
 .rbc-header {
   padding: 0.625rem 0.5rem;
-  color: #4b5563;
+  color: var(--color-ink-muted);
   font-size: 0.75rem;
   font-weight: 700;
   white-space: nowrap;
@@ -348,7 +348,7 @@
 }
 
 .rbc-today {
-  background-color: #f5f3ff;
+  background-color: var(--color-amber-light);
 }
 
 @media (max-width: 640px) {

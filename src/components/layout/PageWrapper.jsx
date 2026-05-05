@@ -3,7 +3,7 @@ import { TopBar } from './TopBar'
 
 export function PageWrapper({ title, children }) {
   return (
-    <div className="flex min-h-screen flex-col bg-gray-50 lg:flex-row">
+    <div className="flex min-h-screen flex-col bg-[var(--color-surface-alt)] lg:flex-row">
       <Sidebar />
       <div className="flex min-w-0 flex-1 flex-col">
         <TopBar title={title} />
