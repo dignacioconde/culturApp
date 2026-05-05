@@ -3,7 +3,7 @@ id: PB-CTX-PRODUCT-SNAPSHOT-20260504
 type: context
 status: Active
 created: 2026-05-04
-updated: 2026-05-04
+updated: 2026-05-05
 aliases:
   - Snapshot producto Cachés 2026-05-04
 tags:
@@ -49,13 +49,13 @@ La distinción proyecto/evento es el centro cognitivo del producto. Cualquier re
 - Calendario de eventos con hora exacta y panel lateral.
 - Calendario de proyectos por rango de fechas.
 - Listados y detalles de eventos/proyectos con formularios, ingresos y gastos.
-- Vista `/work` como primer intento de agrupar proyectos y eventos bajo “Trabajos”.
+- Vista `/work` como flujo principal de “Trabajos”, con proyectos y eventos agrupados de forma jerárquica.
 - Ajustes de perfil: nombre, profesión e IRPF habitual.
 - Product Brain repo-native en `docs/project/`, separado de `.memory/`.
 
 ## Tensiones De Producto Activas
 
-- `/work` existe, pero [[../issues/CACH-B0001|CACH-B0001]] sigue siendo el rediseño pendiente para jerarquía real y evitar duplicidades.
+- [[../issues/CACH-B0001|CACH-B0001]] sigue siendo la guía de rediseño de “Trabajos”: la iteración actual ya corrige navegación básica, tabs en URL, jerarquía proyecto-evento y ruido visual, pero debe seguir evaluándose con uso real.
 - Los calendarios separados funcionan, pero [[../issues/CACH-B0007|CACH-B0007]] apunta a una vista unificada con filtros e interacción rápida.
 - Finanzas funcionan para MVP, pero contratante, facturación, liquidación neta y CRM ligero viven en [[../issues/CACH-B0004|CACH-B0004]].
 - La app registra datos; el salto diferencial será convertirlos en decisiones económicas, cubierto por [[../issues/CACH-B0009|CACH-B0009]].

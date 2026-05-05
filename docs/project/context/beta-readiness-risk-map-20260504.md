@@ -3,7 +3,7 @@ id: PB-CTX-BETA-RISK-20260504
 type: context
 status: Active
 created: 2026-05-04
-updated: 2026-05-04
+updated: 2026-05-05
 aliases:
   - Mapa beta y riesgos 2026-05-04
 tags:
@@ -32,6 +32,7 @@ La beta debería priorizar confianza, comprensión rápida y reversibilidad de d
 ## Riesgos De Producto
 
 - Si proyecto y evento no se distinguen bien, la app se convierte en otra lista confusa de trabajos.
+- Si `Trabajos` no conserva el contexto al entrar y salir de detalles, el usuario pierde orientación y la app parece inservible aunque cada ruta funcione por separado.
 - Si los datos no se pueden exportar, el usuario beta tendrá miedo razonable a depender de Cachés.
 - Si la hora de un evento o la fecha real de cobro cambia silenciosamente, la confianza en la app se rompe aunque la UI parezca correcta.
 - Si los cobros pendientes no son accionables, la app registra dinero pero no ayuda a cobrarlo.
@@ -47,6 +48,7 @@ La beta debería priorizar confianza, comprensión rápida y reversibilidad de d
 ## Criterio De Salida Para Primera Beta
 
 - Un usuario nuevo entiende evento, proyecto y cobro en pocos minutos.
+- Puede navegar de `Trabajos` a un proyecto o evento y volver a la pestaña correcta sin depender del historial del navegador.
 - Puede crear un primer trabajo real desde móvil sin pelearse con fechas o selectores.
 - Puede registrar un ingreso, marcarlo como cobrado y ver el impacto económico.
 - Puede exportar sus datos.

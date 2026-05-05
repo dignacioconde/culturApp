@@ -9,7 +9,7 @@ priority: p1
 estimate: m
 area: frontend
 created_at: 2026-05-04
-updated_at: 2026-05-04
+updated_at: 2026-05-05
 aliases:
   - CACH-B0001
 tags:
@@ -43,10 +43,28 @@ La vista actual puede duplicar trabajos y dar el mismo peso visual a contenedore
 
 ## Acceptance Criteria
 
-- [ ] Un evento asociado a un proyecto no aparece duplicado como trabajo independiente en la vista principal.
-- [ ] Proyecto y evento tienen jerarquía visual distinta.
-- [ ] El badge "Confirmado" no añade ruido si es el estado normal.
+- [x] Un evento asociado a un proyecto no aparece duplicado como trabajo independiente en la vista principal.
+- [x] Proyecto y evento tienen jerarquía visual distinta.
+- [x] El badge "Confirmado" no añade ruido si es el estado normal.
 - [ ] Las notas de evento/proyecto se pueden editar desde su contexto.
+
+## Iteración 2026-05-05
+
+PR `#75` corrigió la navegación básica de “Trabajos”:
+
+- `Trabajos` pasa a ser el flujo principal para proyectos y eventos.
+- Los tabs de `Trabajos` son direccionables por URL (`/work?view=projects`, `/work?view=events`).
+- Los detalles de proyecto y evento vuelven a la pestaña correcta de `Trabajos`, no a listados aislados ni al historial del navegador.
+- Los eventos asociados se agrupan bajo su proyecto y los eventos sin proyecto quedan separados.
+- Los CTAs en detalles se compactan y se elimina el ruido visual de badges `Confirmado`.
+
+## Lecciones Aprendidas
+
+- “Trabajos” no puede ser una pestaña decorativa encima de `/projects` y `/events`; debe tener ownership del flujo mental completo: listado, detalle, vuelta y navegación entre entidades relacionadas.
+- En móvil, una navegación que exige usar el botón atrás del navegador se siente rota aunque las rutas existan técnicamente.
+- Las acciones de gestión financiera y edición deben estar disponibles, pero no dominar visualmente la pantalla ni duplicarse en estados vacíos.
+- Los estados normales como `Confirmado` deben ocultarse o minimizarse cuando no aportan decisión.
+- Las futuras revisiones de esta zona deben probar el bucle completo: `Trabajos -> Proyectos/Eventos -> Detalle -> volver a la pestaña correcta`.
 
 ## Related
 
