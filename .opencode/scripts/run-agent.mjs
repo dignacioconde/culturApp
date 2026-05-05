@@ -2,8 +2,13 @@
 import { spawn } from "node:child_process"
 import { resolve } from "node:path"
 import { fileURLToPath } from "node:url"
+import { mkdir, writeFile } from "node:fs/promises"
+import { dirname } from "node:path"
 
 const repoRoot = resolve(fileURLToPath(new URL("../..", import.meta.url)))
+
+// Intervalo de checkpoint en ms (30 segundos)
+const CHECKPOINT_INTERVAL = 30000
 
 function usage() {
   console.log(`Uso:
@@ -70,6 +75,9 @@ function parseArgs(argv) {
   return options
 }
 
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const RUNS_DIR = resolve(__dirname, "../.opencode/runs")
+
 function buildContract(options) {
   return [
     "DIRECTRIZ ESTANDAR PARA CULTURAAPP",
@@ -113,14 +121,74 @@ async function main() {
   }
 
   const prompt = buildContract(options)
+
+  // Crear directorio de ejecución con timestamp
+  const timestamp = new Date().toISOString().replace(/[:.]/g, "-")
+  const runDir = resolve(RUNS_DIR, timestamp)
+  await mkdir(runDir, { recursive: true })
+  const outputPath = resolve(runDir, "output.txt")
+
+  console.log(`[${timestamp}] Starting: ${options.title}`)
+  console.log(`[${timestamp}] Output: ${outputPath}`)
+
   const child = spawn(
     "opencode",
     ["run", "--agent", options.agent, "--title", options.title, "--dir", repoRoot, "--dangerously-skip-permissions", prompt],
-    { cwd: repoRoot, stdio: "inherit" },
+    { cwd: repoRoot, stdio: ["ignore", "pipe", "pipe"] },
   )
 
-  child.on("close", (code) => {
+  let stdout = ""
+  let stderr = ""
+  let checkpointCount = 0
+  let lastSize = 0
+
+  // Escribir output en tiempo real
+  child.stdout.on("data", (chunk) => {
+    stdout += chunk.toString()
+    // Mostrar tail cada checkpoint
+    if (stdout.length - lastSize > 5000) {
+      lastSize = stdout.length
+      checkpointCount += 1
+      const lines = stdout.split("\n")
+      const tail = lines.slice(-10).join("\n")
+      console.log(`\n--- Checkpoint #${checkpointCount} ---`)
+      console.log(tail)
+      console.log(`-----------------------\n`)
+    }
+  })
+
+  child.stderr.on("data", (chunk) => {
+    stderr += chunk.toString()
+  })
+
+  // Checkpoint periódico como backup
+  const checkpointInterval = setInterval(() => {
+    if (!child.killed) {
+      checkpointCount += 1
+      const lines = stdout.split("\n")
+      const tail = lines.slice(-15).join("\n")
+      console.log(`\n[${new Date().toLocaleTimeString()}] Checkpoint #${checkpointCount} (tail):`)
+      console.log(tail)
+      console.log("-----------------------\n")
+    }
+  }, CHECKPOINT_INTERVAL)
+
+  child.on("close", async (code) => {
+    clearInterval(checkpointInterval)
+
+    // Escribir output final
+    await writeFile(outputPath, stdout, "utf-8")
+
+    console.log(`\n[${new Date().toLocaleTimeString()}] Finished with code: ${code}`)
+
     process.exitCode = code ?? 1
+  })
+
+  child.on("error", async (error) => {
+    clearInterval(checkpointInterval)
+    await writeFile(outputPath, `Error: ${error.message}\n${stderr}`, "utf-8")
+    console.error(`Error: ${error.message}`)
+    process.exitCode = 1
   })
 }
 
