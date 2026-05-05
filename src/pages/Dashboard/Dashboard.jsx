@@ -135,7 +135,7 @@ export default function Dashboard() {
         <Card className="p-3 sm:p-4">
           <div className="flex flex-col gap-3">
             {/* Selector de mes simplificado */}
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <div className="flex items-center gap-1">
                 <button onClick={prevMonth} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-500" aria-label="Mes anterior">
                   <ChevronLeft size={18} />
@@ -156,16 +156,16 @@ export default function Dashboard() {
                 </Select>
               </div>
               
-              <div className="flex rounded-lg border border-gray-200 overflow-hidden text-xs">
+              <div className="flex rounded-lg border border-gray-200 overflow-hidden text-sm self-start">
                 <button
                   onClick={() => setCriteria('cash_flow')}
-                  className={`px-2.5 py-1.5 transition-colors ${criteria === 'cash_flow' ? 'bg-[var(--color-primary-500)] text-white' : 'bg-white text-gray-600'}`}
+                  className={`px-3 sm:px-2.5 py-2 sm:py-1.5 min-h-[44px] sm:min-h-[unset] transition-colors ${criteria === 'cash_flow' ? 'bg-[var(--color-primary-500)] text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
                 >
                   Cobros
                 </button>
                 <button
                   onClick={() => setCriteria('project_active')}
-                  className={`px-2.5 py-1.5 border-l border-gray-200 transition-colors ${criteria === 'project_active' ? 'bg-[var(--color-primary-500)] text-white' : 'bg-white text-gray-600'}`}
+                  className={`px-3 sm:px-2.5 py-2 sm:py-1.5 min-h-[44px] sm:min-h-[unset] border-l border-gray-200 transition-colors ${criteria === 'project_active' ? 'bg-[var(--color-primary-500)] text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
                 >
                   Proyectos
                 </button>

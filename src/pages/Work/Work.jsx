@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { FolderOpen, Ticket } from 'lucide-react'
 import { PageWrapper } from '../../components/layout/PageWrapper'
@@ -48,22 +48,29 @@ export default function Work() {
   const { events, loading: eventsLoading } = useEvents(user?.id)
   const [tab, setTab] = useState('projects')
 
+  // Forzar renderizado consistente del tab activo
+  const activeTab = useMemo(() => tab, [tab])
+
   return (
     <PageWrapper title="Trabajos">
       {/* Tabs simplificados */}
-      <div className="flex gap-1 p-1 bg-gray-100 rounded-lg w-fit mb-4">
+      <div className="flex gap-1 p-1 bg-gray-100 rounded-lg w-fit mb-4" role="tablist" aria-label="Ver proyectos o eventos">
         <button
+          role="tab"
+          aria-selected={activeTab === 'projects'}
           onClick={() => setTab('projects')}
-          className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${
-            tab === 'projects' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500'
+          className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors min-w-[80px] ${
+            activeTab === 'projects' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'
           }`}
         >
           Proyectos
         </button>
         <button
+          role="tab"
+          aria-selected={activeTab === 'events'}
           onClick={() => setTab('events')}
-          className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${
-            tab === 'events' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500'
+          className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors min-w-[80px] ${
+            activeTab === 'events' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'
           }`}
         >
           Eventos
@@ -71,7 +78,7 @@ export default function Work() {
       </div>
 
       {/* Proyectos */}
-      {tab === 'projects' && (
+      {activeTab === 'projects' && (
         <div className="flex flex-col gap-3">
           {projectsLoading ? (
             <p className="text-sm text-gray-400">Cargando...</p>
@@ -93,7 +100,7 @@ export default function Work() {
       )}
 
       {/* Eventos */}
-      {tab === 'events' && (
+      {activeTab === 'events' && (
         <div className="flex flex-col gap-3">
           {eventsLoading ? (
             <p className="text-sm text-gray-400">Cargando...</p>
