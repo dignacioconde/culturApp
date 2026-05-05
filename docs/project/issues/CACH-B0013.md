@@ -1,11 +1,15 @@
 ---
 id: CACH-B0013
-type: issue
-status: Backlog
-priority: Low
-release: Post-MVP
-created: 2026-05-04
-updated: 2026-05-04
+title: Gestion documental por proyecto evento
+type: feature
+status: backlog
+cycle: unassigned
+release: null
+priority: p3
+estimate: m
+area: db
+created_at: 2026-05-04
+updated_at: 2026-05-04
 aliases:
   - CACH-B0013
 tags:
@@ -44,4 +48,3 @@ Los documentos forman parte del flujo real de trabajo cultural, pero añaden cos
 ## Related
 
 - [[CACH-B0004]]
-

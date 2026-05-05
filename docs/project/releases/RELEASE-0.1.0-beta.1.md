@@ -1,7 +1,7 @@
 ---
 id: RELEASE-0.1.0-beta.1
 type: release
-status: Released
+status: Active
 created: 2026-05-04
 updated: 2026-05-05
 github_release: pending
@@ -19,7 +19,7 @@ tags:
 
 ## Estado
 
-Released
+Active
 
 ## Rama de release
 
@@ -36,12 +36,16 @@ El primer corte `0.1.0-beta.1` no entrega funcionalidad de usuario final; entreg
 ## Scope
 
 - [[../issues/CACH-B0015]] — Operativizar backlog, releases y ramas en Product Brain
+- [[../issues/CACH-B0016]] — Refundacion operativa del Product Brain y tests B0014
+- [[../issues/CACH-0029]] — Integrar helpers CACH-B0016 en flujos reales
 
 ## Issues incluidas
 
 | Issue | Titulo | Estado | Rama |
 |---|---|---|---|
-| [[../issues/CACH-B0015|CACH-B0015]] | Operativizar backlog, releases y ramas en Product Brain | Ready for Release | `release/0.1.0-beta.1` |
+| [[../issues/CACH-B0015|CACH-B0015]] | Operativizar backlog, releases y ramas en Product Brain | done | `release/0.1.0-beta.1` |
+| [[../issues/CACH-B0016|CACH-B0016]] | Refundacion operativa del Product Brain y tests B0014 | done | `chore/cach-b0016-brain-refactor` |
+| [[../issues/CACH-0029|CACH-0029]] | Integrar helpers CACH-B0016 en flujos reales | review | `fix/CACH-0029-cerrar-huecos-b0016` |
 
 ## Out Of Scope
 
@@ -80,7 +84,7 @@ El primer corte `0.1.0-beta.1` no entrega funcionalidad de usuario final; entreg
 
 ## Checklist de desarrollo
 
-- [x] Todas las issues del corte estan cerradas o Ready for Release.
+- [ ] Todas las issues del corte estan cerradas o Ready for Release.
 - [x] Commits integrados en rama release.
 - [x] No hay cambios sueltos fuera de release.
 - [x] No hay issues sin estado.
@@ -89,9 +93,12 @@ El primer corte `0.1.0-beta.1` no entrega funcionalidad de usuario final; entreg
 ## Checklist de estabilizacion
 
 - [x] `npm run lint`.
-- [x] `npm run build` no aplica; no toca app React/runtime.
+- [x] `npm run build`.
 - [x] `npm run pb:check`.
 - [x] `npm run pb:status`.
+- [x] `npm run test`.
+- [x] `npm run test:e2e` con smoke skippeado por falta de seed/auth.
+- [x] `npm run test:db` con skip explicito por falta de Supabase CLI y migraciones financieras versionadas.
 - [x] Revision de documentacion.
 
 ## Checklist de salida
@@ -111,15 +118,21 @@ El primer corte `0.1.0-beta.1` no entrega funcionalidad de usuario final; entreg
 - Sistema operativo de Product Brain para backlog, releases, ramas, commits y agentes.
 - `CURRENT_RELEASE.md`, `CURRENT_PLAN.md`, backlog operativo, templates canonicas y docs de proceso.
 - Regla de ciclos: `0.1` como ciclo, `0.1.0-beta.N` como cortes mergeables, `0.1.0` como changelog consolidado.
+- Refundacion operativa del Product Brain: schema Zod, `pb:check` de coherencia, `pb:index`, captura a inbox y tablero de 5 columnas.
+- Tests unitarios de decimal, datetime y payment ejecutados en UTC y Europe/Madrid.
 
 ### Cambiado
 
 - Product Brain pasa a ser la fuente de verdad operativa para implementacion; GitHub queda como soporte tecnico de PR/CI.
 - La beta usa rama versionada `release/0.1.0-beta.1`.
+- Las releases de issues pasan a ser referencias tipadas a archivos reales o `null`.
 
 ### Corregido
 
 - Se evita que la release branch sea una rama larga indefinida.
+- Se eliminan strings libres de release en issues (`Unassigned`, `Beta`, `Internal`, `Pro`, `Growth`, `Post-MVP`, `0.1-cycle`).
+- CACH-0029 integra los helpers de decimales, datetime y cobros en los formularios reales de eventos/proyectos.
+- Los payloads de cobro mantienen `is_paid` y `paid_date` coherentes sin migracion destructiva.
 
 ### Eliminado
 
@@ -129,6 +142,9 @@ El primer corte `0.1.0-beta.1` no entrega funcionalidad de usuario final; entreg
 
 - ADR-0008 documenta release branching gobernado por Product Brain.
 - `scripts/product-brain-sync.mjs` conoce las carpetas `backlog/` y `process/`.
+- ADR-0009 a ADR-0014 documentan IDs, frontmatter, timestamps, decimales, testing y feedback beta.
+- Playwright tiene `webServer` configurado; el smoke sigue omitido hasta tener seed/auth e2e.
+- pgTAP/RLS documenta el bloqueo por falta de migraciones versionadas de tablas financieras.
 
 ## Resultado final
 

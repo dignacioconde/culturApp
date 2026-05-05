@@ -27,5 +27,11 @@
 ## 2026-05-03 - Decimal Inputs Should Accept Comma And Dot
 
 - Context: Issue `#11` found that IRPF values with decimals are real user inputs and native numeric controls can block comma decimals depending on browser/locale.
-- Durable memory: for decimal finance percentages such as `tax_rate`, prefer text inputs with `inputMode="decimal"` plus `parseDecimal()` from `src/lib/formatters.js`, accepting both `15,5` and `15.5`; validate IRPF in the `0-100` range before saving.
+- Durable memory: for decimal finance fields, including `tax_rate`, income amounts, and expense amounts, prefer text inputs with `inputMode="decimal"` plus the shared decimal parser, accepting comma and dot forms such as `15,5`, `12,50`, and `12.50`; validate IRPF in the `0-100` range and amounts as positive values before saving.
 - Source: issue `#11`; commit `ce89ea3`; `src/lib/formatters.js`; `src/pages/Settings/Settings.jsx`; income forms in event/project detail.
+
+## 2026-05-05 - Finance Form Payloads Use Shared Normalizers
+
+- Context: CACH-0029 integrated the CACH-B0016 helpers into real event/project income and expense forms.
+- Durable memory: when adding or changing financial forms, normalize payloads through shared helpers instead of ad hoc `Number(...)`, native `type="number"`, or manual `is_paid`/`paid_date` toggles. `paid_date` remains a date field, so compatibility payloads should send both `is_paid` and `paid_date` coherently.
+- Source: CACH-0029; ADR-0012; `src/lib/financeForms.ts`; `src/lib/payment.ts`; `src/pages/Events/EventDetail.jsx`; `src/pages/Projects/ProjectDetail.jsx`.

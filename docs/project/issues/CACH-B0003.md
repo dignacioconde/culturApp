@@ -1,11 +1,15 @@
 ---
 id: CACH-B0003
-type: issue
-status: Backlog
-priority: High
-release: Unassigned
-created: 2026-05-04
-updated: 2026-05-04
+title: Cobro rapido y gestion de pendientes
+type: feature
+status: backlog
+cycle: unassigned
+release: null
+priority: p1
+estimate: m
+area: frontend
+created_at: 2026-05-04
+updated_at: 2026-05-04
 aliases:
   - CACH-B0003
 tags:
@@ -47,4 +51,3 @@ El cobro es una acción frecuente y de baja fricción esperada justo al terminar
 - [[PB-ZK-20260504-2005|PB-ZK-20260504-2005]]
 - [[CACH-B0004|CACH-B0004]]
 - [[CACH-B0008|CACH-B0008]]
-

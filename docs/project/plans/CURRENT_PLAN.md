@@ -24,7 +24,7 @@ Cerrar [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] como primer cor
 
 ## Prioridades
 
-1. Mergear [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] a `main`.
+1. Cerrar [[../issues/CACH-0029|CACH-0029]] y mergear [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] a `main`.
 2. Abrir `RELEASE-0.1.0-beta.2` con scope pequeno, probablemente [[../issues/CACH-B0014|CACH-B0014]].
 3. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
 

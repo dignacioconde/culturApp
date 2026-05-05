@@ -3,6 +3,7 @@ import { Button } from '../../components/ui/Button'
 import { Input, Select, Textarea } from '../../components/ui/Input'
 import { EVENT_STATUSES, EVENT_CATEGORIES, DEFAULT_PROJECT_COLORS } from '../../lib/constants'
 import { toDatetimeLocal } from '../../lib/formatters'
+import { buildEventPayload } from '../../lib/eventPayload'
 
 const EMPTY_FORM = {
   name: '',
@@ -43,21 +44,23 @@ const getDefaultEndDatetime = (startDatetime, multiDay = false) => {
 }
 
 export function EventForm({ initialData, projects = [], onSubmit, onCancel, loading }) {
+  const initialStartDatetime = toDatetimeLocal(initialData?.start_datetime)
+  const initialEndDatetime = toDatetimeLocal(initialData?.end_datetime)
   const [form, setForm] = useState({
     ...EMPTY_FORM,
     ...initialData,
     name: initialData?.name ?? '',
     client: initialData?.client ?? '',
-    start_datetime: toDatetimeLocal(initialData?.start_datetime),
-    end_datetime: toDatetimeLocal(initialData?.end_datetime),
+    start_datetime: initialStartDatetime,
+    end_datetime: initialEndDatetime,
     project_id: initialData?.project_id ?? '',
     notes: initialData?.notes ?? '',
   })
   const [error, setError] = useState('')
   const [isMultiDay, setIsMultiDay] = useState(() => {
-    if (!initialData?.end_datetime) return false
-    const startDate = initialData.start_datetime?.split('T')[0]
-    const endDate = initialData.end_datetime?.split('T')[0]
+    if (!initialEndDatetime) return false
+    const startDate = initialStartDatetime.split('T')[0]
+    const endDate = initialEndDatetime.split('T')[0]
     return startDate !== endDate
   })
 
@@ -106,14 +109,14 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
       setError('La fecha de fin no puede ser anterior al inicio.')
       return
     }
-    const payload = {
+    const payload = buildEventPayload({
       ...form,
       name: form.name.trim(),
       client: form.client.trim(),
       project_id: form.project_id || null,
       end_datetime: form.end_datetime || null,
       notes: form.notes.trim(),
-    }
+    })
     onSubmit(payload)
   }
 

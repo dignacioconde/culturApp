@@ -1,11 +1,15 @@
 ---
 id: CACH-B0001
-type: issue
-status: Backlog
-priority: High
-release: Unassigned
-created: 2026-05-04
-updated: 2026-05-04
+title: Redisenar Trabajos y jerarquia proyecto-evento
+type: feature
+status: backlog
+cycle: unassigned
+release: null
+priority: p1
+estimate: m
+area: frontend
+created_at: 2026-05-04
+updated_at: 2026-05-04
 aliases:
   - CACH-B0001
 tags:

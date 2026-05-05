@@ -1,11 +1,15 @@
 ---
 id: CACH-B0011
-type: issue
-status: Backlog
-priority: Medium
-release: Unassigned
-created: 2026-05-04
-updated: 2026-05-04
+title: Categorias etiquetas y taxonomia
+type: feature
+status: backlog
+cycle: unassigned
+release: null
+priority: p2
+estimate: s
+area: frontend
+created_at: 2026-05-04
+updated_at: 2026-05-04
 aliases:
   - CACH-B0011
 tags:
@@ -46,4 +50,3 @@ Las categorías afectan a proyectos, eventos, ingresos, gastos, presupuestos y f
 ## Related
 
 - [[CACH-B0009]]
-

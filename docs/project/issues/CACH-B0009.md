@@ -1,11 +1,15 @@
 ---
 id: CACH-B0009
-type: issue
-status: Backlog
-priority: Medium
-release: Pro
-created: 2026-05-04
-updated: 2026-05-04
+title: Inteligencia financiera y features Pro
+type: feature
+status: backlog
+cycle: unassigned
+release: null
+priority: p2
+estimate: m
+area: frontend
+created_at: 2026-05-04
+updated_at: 2026-05-04
 aliases:
   - CACH-B0009
 tags:
@@ -48,4 +52,3 @@ El valor diferencial de Cachés no es solo registrar datos, sino ayudar a decidi
 ## Related
 
 - [[CACH-B0004|CACH-B0004]]
-

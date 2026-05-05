@@ -7,7 +7,6 @@ import { Button } from '../../components/ui/Button'
 import { StatusBadge } from '../../components/ui/Badge'
 import { Modal } from '../../components/ui/Modal'
 import { Input, Select } from '../../components/ui/Input'
-import { parseDecimal } from '../../lib/formatters'
 import { useToast, ToastContainer } from '../../components/ui/Toast'
 import { ProjectForm } from './ProjectForm'
 import { useAuth } from '../../hooks/useAuth'
@@ -17,6 +16,8 @@ import { useEvents } from '../../hooks/useEvents'
 import { useIncomes } from '../../hooks/useIncomes'
 import { useExpenses } from '../../hooks/useExpenses'
 import { formatCurrency, formatCurrencyPerHour, formatDate, formatDatetime, formatHours } from '../../lib/formatters'
+import { normalizeExpenseForm, normalizeIncomeForm } from '../../lib/financeForms'
+import { isPaid, markPaid, markUnpaid } from '../../lib/payment'
 import { EXPENSE_CATEGORIES } from '../../lib/constants'
 
 const EMPTY_EXPENSE = { concept: '', amount: '', category: 'otros', expense_date: '', is_deductible: true }
@@ -88,7 +89,7 @@ export default function ProjectDetail() {
   const directExpenses = expenses.filter((e) => e.project_id === id)
 
   const totalGross = incomes.reduce((acc, i) => acc + Number(i.amount), 0)
-  const paidIncomes = incomes.filter((i) => i.is_paid)
+  const paidIncomes = incomes.filter((i) => isPaid(i))
   const paidEventIncomes = paidIncomes.filter((i) => i.event_id)
   const paidEventIds = new Set(paidEventIncomes.map((i) => i.event_id))
   const totalPaid = paidIncomes.reduce((acc, i) => acc + Number(i.amount), 0)
@@ -105,7 +106,14 @@ export default function ProjectDetail() {
   const openNewIncome = () => { setEditingIncome(null); setIncomeForm(emptyIncomeForm); setIncomeModal(true) }
   const openEditIncome = (income) => {
     setEditingIncome(income)
-    setIncomeForm({ concept: income.concept, amount: income.amount, tax_rate: income.tax_rate, expected_date: income.expected_date ?? '', is_paid: income.is_paid })
+    setIncomeForm({
+      concept: income.concept,
+      amount: income.amount,
+      tax_rate: income.tax_rate,
+      expected_date: income.expected_date ?? '',
+      is_paid: isPaid(income),
+      paid_date: income.paid_date ?? null,
+    })
     setIncomeModal(true)
   }
   const openNewExpense = () => { setEditingExpense(null); setExpenseForm(EMPTY_EXPENSE); setExpenseModal(true) }
@@ -133,21 +141,17 @@ export default function ProjectDetail() {
 
   const handleSubmitIncome = async (e) => {
     e.preventDefault()
-    const amount = parseDecimal(incomeForm.amount)
-    const rawTaxRate = String(incomeForm.tax_rate ?? '').trim()
-    const taxRate = rawTaxRate === '' ? defaultTaxRate : parseDecimal(rawTaxRate)
-    if (!incomeForm.concept.trim() || !amount || amount <= 0) {
+    const { payload, error: validationError } = normalizeIncomeForm(incomeForm, {
+      defaultTaxRate,
+      existingIncome: editingIncome,
+    })
+    if (!incomeForm.concept.trim() || validationError === 'amount') {
       addToast('Completa el concepto y un importe mayor que 0.', 'error')
       return
     }
-    if (taxRate === null || taxRate < 0 || taxRate > 100) {
+    if (validationError === 'tax_rate') {
       addToast('La retención IRPF debe estar entre 0 y 100.', 'error')
       return
-    }
-    const payload = {
-      ...incomeForm,
-      amount: amount,
-      tax_rate: taxRate,
     }
     setSavingIncome(true)
     const { error } = editingIncome
@@ -160,22 +164,23 @@ export default function ProjectDetail() {
   }
 
   const handleTogglePaid = async (income) => {
-    await updateIncome(income.id, {
-      is_paid: !income.is_paid,
-      paid_date: !income.is_paid ? new Date().toISOString().split('T')[0] : null,
-    })
+    const currentPayment = { is_paid: income.is_paid, paid_date: income.paid_date ?? null }
+    const paymentState = isPaid(income) ? markUnpaid(currentPayment) : markPaid(currentPayment)
+    const { error } = await updateIncome(income.id, paymentState)
+    if (error) addToast('Error al actualizar el cobro.', 'error')
   }
 
   const handleSubmitExpense = async (e) => {
     e.preventDefault()
-    if (!expenseForm.concept.trim() || Number(expenseForm.amount) <= 0) {
+    const { payload, error: validationError } = normalizeExpenseForm(expenseForm)
+    if (!expenseForm.concept.trim() || validationError === 'amount') {
       addToast('Completa el concepto y un importe mayor que 0.', 'error')
       return
     }
     setSavingExpense(true)
     const { error } = editingExpense
-      ? await updateExpense(editingExpense.id, expenseForm)
-      : await createExpense({ ...expenseForm, project_id: id })
+      ? await updateExpense(editingExpense.id, payload)
+      : await createExpense({ ...payload, project_id: id })
     setSavingExpense(false)
     if (error) { addToast('Error al guardar el gasto.', 'error'); return }
     addToast(editingExpense ? 'Gasto actualizado.' : 'Gasto añadido.')
@@ -353,7 +358,7 @@ export default function ProjectDetail() {
                       <td className="py-2 text-right text-gray-500">{formatDate(income.expected_date)}</td>
                       <td className="py-2 text-center">
                         <button onClick={() => handleTogglePaid(income)} className="text-gray-400 hover:text-green-600 transition-colors">
-                          {income.is_paid ? <CheckCircle size={16} className="text-green-500" /> : <Circle size={16} />}
+                          {isPaid(income) ? <CheckCircle size={16} className="text-green-500" /> : <Circle size={16} />}
                         </button>
                       </td>
                       <td className="py-2 text-right">
@@ -447,7 +452,7 @@ export default function ProjectDetail() {
         <form onSubmit={handleSubmitIncome} className="flex flex-col gap-4">
           <Input label="Concepto *" value={incomeForm.concept} onChange={(e) => setIncomeForm((p) => ({ ...p, concept: e.target.value }))} placeholder="Producción general" required />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <Input label="Importe (€) *" type="number" min="0" step="0.01" value={incomeForm.amount} onChange={(e) => setIncomeForm((p) => ({ ...p, amount: e.target.value }))} required />
+            <Input label="Importe (€) *" type="text" inputMode="decimal" value={incomeForm.amount} onChange={(e) => setIncomeForm((p) => ({ ...p, amount: e.target.value }))} required />
             <Input label="Retención IRPF (%)" type="text" inputMode="decimal" value={incomeForm.tax_rate} onChange={(e) => setIncomeForm((p) => ({ ...p, tax_rate: e.target.value }))} />
             <Input label="Fecha prevista de cobro" type="date" value={incomeForm.expected_date} onChange={(e) => setIncomeForm((p) => ({ ...p, expected_date: e.target.value }))} />
             <div className="flex items-center gap-2">
@@ -466,7 +471,7 @@ export default function ProjectDetail() {
         <form onSubmit={handleSubmitExpense} className="flex flex-col gap-4">
           <Input label="Concepto *" value={expenseForm.concept} onChange={(e) => setExpenseForm((p) => ({ ...p, concept: e.target.value }))} placeholder="Material de producción" required />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <Input label="Importe (€) *" type="number" min="0" step="0.01" value={expenseForm.amount} onChange={(e) => setExpenseForm((p) => ({ ...p, amount: e.target.value }))} required />
+            <Input label="Importe (€) *" type="text" inputMode="decimal" value={expenseForm.amount} onChange={(e) => setExpenseForm((p) => ({ ...p, amount: e.target.value }))} required />
             <Select label="Categoría" value={expenseForm.category} onChange={(e) => setExpenseForm((p) => ({ ...p, category: e.target.value }))}>
               {EXPENSE_CATEGORIES.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}
             </Select>

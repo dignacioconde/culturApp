@@ -1,3 +1,6 @@
+import { parseDecimal as parseDecimalValue } from './decimal.ts'
+import { toLocalInputValue } from './datetime.ts'
+
 export const formatCurrency = (amount) =>
   new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(amount ?? 0)
 
@@ -6,13 +9,7 @@ export const formatCurrencyPerHour = (amount) => `${formatCurrency(amount)}/h`
 export const formatHours = (hours) =>
   new Intl.NumberFormat('es-ES', { maximumFractionDigits: 1 }).format(hours ?? 0)
 
-// Parses a numeric string allowing both comma and dot as decimal separators.
-export const parseDecimal = (value) => {
-  if (!value && value !== 0) return null
-  const normalized = String(value).trim().replace(',', '.')
-  const parsed = Number(normalized)
-  return isNaN(parsed) ? null : parsed
-}
+export const parseDecimal = (value) => parseDecimalValue(String(value ?? ''))
 
 export const formatDate = (dateStr) => {
   if (!dateStr) return '—'
@@ -35,7 +32,5 @@ export const formatDatetime = (isoStr) => {
 
 export const toDatetimeLocal = (isoStr) => {
   if (!isoStr) return ''
-  const date = new Date(isoStr)
-  const offsetMs = date.getTimezoneOffset() * 60 * 1000
-  return new Date(date.getTime() - offsetMs).toISOString().slice(0, 16)
+  return toLocalInputValue(new Date(isoStr))
 }

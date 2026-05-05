@@ -35,7 +35,8 @@ docs/project/
 ├── process/               ← Flujo de desarrollo, ramas, commits y agentes
 ├── indexes/               ← Índices tipo MOC
 ├── templates/             ← Plantillas reutilizables
-└── prompts/               ← Prompts de trabajo
+├── prompts/               ← Prompts de trabajo
+└── feedback/              ← Feedback cualitativo de beta
 ```
 
 ## Comandos npm
@@ -62,6 +63,8 @@ Para orientar una tarea sin leer todo el Product Brain:
    - Release: [[indexes/releases.index|Releases Index]]
 3. Abrir únicamente los archivos enlazados que afecten a la tarea.
 4. Ejecutar `npm run pb:check` antes de cerrar cambios en `docs/project/`.
+
+La coherencia issue-release, el tablero, los wikilinks e indices se validan con `pb:check`. Si se mueven issues, ADRs, knowledge o releases, ejecutar tambien `npm run pb:index`.
 
 Los IDs canónicos de issues son los nombres de archivo completos, por ejemplo `CACH-0026` y `CACH-B0001`. No usar formas cortas como `CACH-026` o `CACH-B001` en wikilinks.
 

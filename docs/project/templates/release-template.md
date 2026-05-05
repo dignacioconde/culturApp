@@ -1,3 +1,3 @@
 # release-template
 
-Plantilla legacy. Usar la version canonica: [[RELEASE_TEMPLATE]].
+Plantilla legacy. Usar la version canonica: [[./RELEASE_TEMPLATE|RELEASE_TEMPLATE]].

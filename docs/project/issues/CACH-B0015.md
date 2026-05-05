@@ -1,11 +1,15 @@
 ---
 id: CACH-B0015
-type: issue
-status: Ready for Release
-priority: High
+title: Operativizar backlog releases y ramas en Product Brain
+type: chore
+status: done
+cycle: beta-1
 release: RELEASE-0.1.0-beta.1
-created: 2026-05-05
-updated: 2026-05-05
+priority: p1
+estimate: s
+area: brain
+created_at: 2026-05-05
+updated_at: 2026-05-05
 aliases:
   - CACH-B0015
 tags:

@@ -1,11 +1,15 @@
 ---
 id: CACH-B0012
-type: issue
-status: Backlog
-priority: Low
-release: Growth
-created: 2026-05-04
-updated: 2026-05-04
+title: Perfil publico viralidad y referidos
+type: feature
+status: backlog
+cycle: unassigned
+release: null
+priority: p3
+estimate: m
+area: frontend
+created_at: 2026-05-04
+updated_at: 2026-05-04
 aliases:
   - CACH-B0012
 tags:
@@ -46,4 +50,3 @@ Cada perfil público puede ser una puerta de entrada a Cachés, pero también in
 
 - [[CACH-B0006]]
 - [[CACH-B0007]]
-
