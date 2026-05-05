@@ -1,7 +1,7 @@
 ---
 id: PB-CURRENT-RELEASE
 type: release-status
-status: Active
+status: No Active Release
 created: 2026-05-05
 updated: 2026-05-05
 aliases:
@@ -16,44 +16,37 @@ tags:
 
 ## Release activa
 
-[[RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]]
+Ninguna.
 
 ## Rama activa
 
-`release/0.1.0-beta.1`
+Ninguna.
 
 ## Estado
 
-Active
+No Active Release
 
-## Objetivo
+## Ultimo corte
 
-Permitir una primera beta privada fiable: agenda, cobros, gastos, datos portables y onboarding suficiente para probar Cachés con informacion real.
+- [[RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] — Sistema operativo de Product Brain, releases, backlog, ramas y agentes.
 
-## Issues incluidas
+## Siguiente corte esperado
 
-- [[../issues/CACH-B0014|CACH-B0014]] — Endurecer agenda, cobros y captura del MVP
-- [[../issues/CACH-B0005|CACH-B0005]] — Importacion, exportacion y portabilidad de datos
-- [[../issues/CACH-B0006|CACH-B0006]] — Onboarding y acceso beta
-- [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera
-- [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes
-- [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento
-- [[../issues/CACH-B0007|CACH-B0007]] — Calendario unificado e interaccion rapida
-- [[../issues/CACH-B0015|CACH-B0015]] — Operativizar backlog, releases y ramas en Product Brain
+- `RELEASE-0.1.0-beta.2`
+- `release/0.1.0-beta.2`
 
-## Reglas de trabajo
+## Regla
 
-- Toda feature de esta release debe salir de `release/0.1.0-beta.1`.
+- No implementar features grandes sin crear o activar una release.
+- Si una tarea pertenece al ciclo `0.1`, crear el siguiente corte `0.1.0-beta.N`.
 - Toda feature debe tener issue Markdown `CACH-*`.
 - Todo commit debe poder trazarse a una issue.
 - No se trabaja directamente sobre `main`.
-- No se anaden nuevas features a la release sin actualizar este archivo y la release.
-- Si un hotfix sale de `main`, propagarlo a esta rama si aplica.
 
-## Validacion minima para cerrar
+## Como activar la siguiente release
 
-- `npm run lint`
-- `npm run build`
-- `npm run pb:check` si cambia Product Brain
-- QA visual/responsive para cambios UI
-- Release notes completas en [[RELEASE-0.1.0-beta.1]]
+1. Crear `docs/project/releases/RELEASE-0.1.0-beta.2.md` desde [[../templates/RELEASE_TEMPLATE]].
+2. Definir scope concreto y pequeno.
+3. Crear rama `release/0.1.0-beta.2`.
+4. Actualizar este archivo con la nueva release activa.
+5. Actualizar [[../backlog/BACKLOG]] y [[../plans/CURRENT_PLAN]].

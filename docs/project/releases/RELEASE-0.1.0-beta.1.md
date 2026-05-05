@@ -1,25 +1,25 @@
 ---
 id: RELEASE-0.1.0-beta.1
 type: release
-status: Active
+status: Released
 created: 2026-05-04
 updated: 2026-05-05
 github_release: pending
 milestone: pending
 release_branch: release/0.1.0-beta.1
 aliases:
-  - Primera beta privada
+  - Sistema operativo Product Brain
 tags:
   - product-brain
   - release
   - beta
 ---
 
-# RELEASE-0.1.0-beta.1 — Primera beta privada
+# RELEASE-0.1.0-beta.1 — Sistema operativo Product Brain
 
 ## Estado
 
-Active
+Released
 
 ## Rama de release
 
@@ -27,56 +27,44 @@ Active
 
 ## Goal
 
-Permitir que una primera persona usuaria cree trabajos reales, registre cobros y gastos, entienda el estado economico basico y pueda recuperar/exportar sus datos.
+Dejar instalado el sistema operativo de producto e ingenieria: backlog, issues Markdown, releases versionadas, ramas, commits trazables, agentes y cierre de entregables.
 
 ## Product Outcome
 
-La beta no busca parecer completa. Busca que Cachés sea fiable para probar con datos reales sin miedo a perderlos ni malinterpretarlos.
+El primer corte `0.1.0-beta.1` no entrega funcionalidad de usuario final; entrega la base operativa para que los siguientes cortes del ciclo `0.1` puedan avanzar con trazabilidad y merge frecuente a `main`.
 
 ## Scope
 
-- [[../issues/CACH-B0014]] — Endurecer agenda, cobros y captura del MVP
-- [[../issues/CACH-B0005]] — Importacion, exportacion y portabilidad de datos
-- [[../issues/CACH-B0006]] — Onboarding y acceso beta
-- [[../issues/CACH-B0002]] — Simplificar experiencia mobile financiera
-- [[../issues/CACH-B0003]] — Cobro rapido y gestion de pendientes
-- [[../issues/CACH-B0001]] — Rediseñar Trabajos y jerarquia proyecto-evento
-- [[../issues/CACH-B0007]] — Calendario unificado e interaccion rapida
 - [[../issues/CACH-B0015]] — Operativizar backlog, releases y ramas en Product Brain
 
 ## Issues incluidas
 
-| Issue | Titulo | Estado | Rama sugerida |
+| Issue | Titulo | Estado | Rama |
 |---|---|---|---|
-| [[../issues/CACH-B0014|CACH-B0014]] | Endurecer agenda, cobros y captura del MVP | Ready for development | `fix/CACH-B0014-mvp-trust-pass` |
-| [[../issues/CACH-B0005|CACH-B0005]] | Importacion, exportacion y portabilidad de datos | Backlog refinado | `feature/CACH-B0005-data-portability` |
-| [[../issues/CACH-B0006|CACH-B0006]] | Onboarding y acceso beta | Backlog refinado | `feature/CACH-B0006-beta-onboarding` |
-| [[../issues/CACH-B0002|CACH-B0002]] | Simplificar experiencia mobile financiera | Backlog refinado | `feature/CACH-B0002-mobile-finance` |
-| [[../issues/CACH-B0003|CACH-B0003]] | Cobro rapido y gestion de pendientes | Backlog refinado | `feature/CACH-B0003-quick-paid-action` |
-| [[../issues/CACH-B0001|CACH-B0001]] | Redisenar Trabajos y jerarquia proyecto-evento | Backlog refinado | `feature/CACH-B0001-work-hierarchy` |
-| [[../issues/CACH-B0007|CACH-B0007]] | Calendario unificado e interaccion rapida | Backlog refinado | `feature/CACH-B0007-unified-calendar` |
-| [[../issues/CACH-B0015|CACH-B0015]] | Operativizar backlog, releases y ramas en Product Brain | Ready for Release | `docs/CACH-B0015-product-ops-workflow` |
+| [[../issues/CACH-B0015|CACH-B0015]] | Operativizar backlog, releases y ramas en Product Brain | Ready for Release | `release/0.1.0-beta.1` |
 
 ## Out Of Scope
 
-- Inteligencia financiera Pro.
-- Perfil publico, referidos y viralidad.
-- Gestion documental avanzada.
-- Offline completo y notificaciones complejas, salvo recordatorios minimos si son necesarios para cobros.
+- Cambios de producto usuario final.
+- Endurecimiento tecnico del MVP: [[../issues/CACH-B0014|CACH-B0014]].
+- Importacion/exportacion: [[../issues/CACH-B0005|CACH-B0005]].
+- Onboarding beta: [[../issues/CACH-B0006|CACH-B0006]].
+- Simplificacion mobile financiera: [[../issues/CACH-B0002|CACH-B0002]].
+- Cobro rapido: [[../issues/CACH-B0003|CACH-B0003]].
+- Redisenar Trabajos: [[../issues/CACH-B0001|CACH-B0001]].
+- Calendario unificado: [[../issues/CACH-B0007|CACH-B0007]].
 
 ## Success Criteria
 
-- [ ] Una persona nueva entiende proyecto, evento e ingreso sin explicacion externa larga.
-- [ ] Puede crear un primer trabajo real desde movil.
-- [ ] Puede registrar un ingreso, marcarlo como cobrado y verlo en dashboard correctamente.
-- [ ] Puede exportar sus datos antes de confiar mas informacion a Cachés.
-- [ ] No hay desfases de hora visibles al crear/editar eventos.
-- [ ] La app explica o pide consentimiento antes de capturar analitica de uso.
+- [x] Product Brain define backlog operativo.
+- [x] Product Brain define release activa/cortes.
+- [x] Product Brain define branch strategy.
+- [x] Product Brain define commit convention.
+- [x] Product Brain define agent workflow.
+- [x] Product Brain valida con `npm run pb:check`.
 
 ## Related
 
-- [[../context/beta-readiness-risk-map-20260504]]
-- [[../decisions/ADR-0002-beta-trust-before-pro]]
 - [[../decisions/ADR-0008-release-branching-product-brain-workflow]]
 - [[CURRENT_RELEASE]]
 - [[../process/RELEASE_PROCESS]]
@@ -85,64 +73,66 @@ La beta no busca parecer completa. Busca que Cachés sea fiable para probar con 
 
 - [x] Release creada.
 - [x] Rama local de release creada: `release/0.1.0-beta.1`.
-- [ ] Rama remota de release publicada.
+- [x] Rama remota de release publicada.
 - [x] Issues asociadas.
 - [x] Alcance definido.
 - [x] Criterios de validacion definidos.
 
 ## Checklist de desarrollo
 
-- [ ] Todas las issues estan en progreso o cerradas.
-- [ ] Commits integrados en rama release.
-- [ ] No hay cambios sueltos fuera de release.
-- [ ] No hay issues sin estado.
+- [x] Todas las issues del corte estan cerradas o Ready for Release.
+- [x] Commits integrados en rama release.
+- [x] No hay cambios sueltos fuera de release.
+- [x] No hay issues sin estado.
 - [x] Decisiones importantes de workflow documentadas.
 
 ## Checklist de estabilizacion
 
-- [ ] `npm run lint`.
-- [ ] `npm run build`.
-- [ ] `npm run pb:check`.
-- [ ] Revision visual.
-- [ ] Revision responsive.
-- [ ] Revision accesibilidad.
-- [ ] Revision de documentacion.
+- [x] `npm run lint`.
+- [x] `npm run build` no aplica; no toca app React/runtime.
+- [x] `npm run pb:check`.
+- [x] `npm run pb:status`.
+- [x] Revision de documentacion.
 
 ## Checklist de salida
 
 - [ ] Release mergeada a `main`.
-- [ ] Release notes actualizadas.
-- [ ] Issues marcadas como `Released`.
-- [ ] Current Release actualizado.
-- [ ] Current Plan actualizado.
-- [ ] Backlog actualizado.
-- [ ] Proximos pasos documentados.
+- [x] Release notes actualizadas.
+- [ ] Issues marcadas como `Released` tras merge.
+- [x] Current Release actualizado.
+- [x] Current Plan actualizado.
+- [x] Backlog actualizado.
+- [x] Proximos pasos documentados.
 
 ## Release notes
 
 ### Aniadido
 
 - Sistema operativo de Product Brain para backlog, releases, ramas, commits y agentes.
+- `CURRENT_RELEASE.md`, `CURRENT_PLAN.md`, backlog operativo, templates canonicas y docs de proceso.
+- Regla de ciclos: `0.1` como ciclo, `0.1.0-beta.N` como cortes mergeables, `0.1.0` como changelog consolidado.
 
 ### Cambiado
 
-- La beta declara rama versionada `release/0.1.0-beta.1`.
+- Product Brain pasa a ser la fuente de verdad operativa para implementacion; GitHub queda como soporte tecnico de PR/CI.
+- La beta usa rama versionada `release/0.1.0-beta.1`.
 
 ### Corregido
 
-- Pendiente.
+- Se evita que la release branch sea una rama larga indefinida.
 
 ### Eliminado
 
-- Pendiente.
+- Release legacy `RELEASE-0.1-beta`, sustituida por `RELEASE-0.1.0-beta.1`.
 
 ### Tecnico
 
 - ADR-0008 documenta release branching gobernado por Product Brain.
+- `scripts/product-brain-sync.mjs` conoce las carpetas `backlog/` y `process/`.
 
 ## Resultado final
 
-Pendiente hasta cerrar la release.
+Pendiente de merge a `main` mediante PR.
 
 ## Iteracion
 
@@ -159,37 +149,3 @@ Siguiente corte esperado si hace falta otra iteracion de beta:
 
 - `RELEASE-0.1.0-beta.2`
 - `release/0.1.0-beta.2`
-
-## Sync
-
-Las releases del Product Brain se vinculan a GitHub Release y Milestone.
-
-### Flujo actual (manual)
-
-1. Crear GitHub Release con `gh release create <tag> --title "..." --notes "..."`.
-2. Crear Milestone con `gh api repos/<owner>/<repo>/milestones --method POST -f title="..."`.
-3. Vincular issues al milestone desde GitHub UI o API.
-4. Actualizar documento del Product Brain con `github_release` y `milestone` en el frontmatter.
-5. Commitear y pushear cambios.
-
-### Mejora futura (automatica)
-
-Propuesta: crear script `scripts/github-release-sync.mjs` que:
-- Acepte tag de release como argumento
-- Cree GitHub Release automaticamente desde el tag de git
-- Cree Milestone si no existe
-- Pida issues a vincular (seleccion multiple)
-- Actualice el documento del Product Brain con los enlaces
-
-### Comandos utiles
-
-```bash
-# Listar releases
-gh release list
-
-# Ver milestone
-gh api repos/dignacioconde/culturApp/milestones
-
-# Vincular issue a milestone
-gh issue edit <num> --milestone "RELEASE-0.1.0-beta.1"
-```

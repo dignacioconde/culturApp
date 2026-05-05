@@ -16,7 +16,7 @@ tags:
 
 ## Foco actual
 
-Preparar [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] con un sistema operativo de producto e ingenieria que haga trazable cada cambio desde issue Markdown hasta release, rama, commit, validacion y estado final.
+Cerrar [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] como primer corte del ciclo `0.1` y preparar el siguiente corte mergeable para trabajo de producto.
 
 ## Release activa
 
@@ -24,9 +24,9 @@ Preparar [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] con un sistem
 
 ## Prioridades
 
-1. Estabilizar workflow Product Brain, backlog, releases y ramas: [[../issues/CACH-B0015|CACH-B0015]].
-2. Endurecer confianza MVP antes de ampliar producto: [[../issues/CACH-B0014|CACH-B0014]].
-3. Mantener beta enfocada en confianza, portabilidad y primera sesion: [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]].
+1. Mergear [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] a `main`.
+2. Abrir `RELEASE-0.1.0-beta.2` con scope pequeno, probablemente [[../issues/CACH-B0014|CACH-B0014]].
+3. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
 
 ## Plan operativo
 
@@ -39,4 +39,4 @@ Preparar [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] con un sistem
 
 ## Proximo checkpoint
 
-Publicar la rama `release/0.1.0-beta.1` antes de empezar la siguiente issue de beta si se va a trabajar con PRs/agentes remotos.
+Crear `RELEASE-0.1.0-beta.2` y `release/0.1.0-beta.2` antes de empezar la siguiente issue de beta.

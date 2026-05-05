@@ -43,18 +43,18 @@ Este archivo es el tablero ligero del Product Brain. No sustituye a las issues: 
 
 | ID | Titulo | Tipo | Prioridad | Release | Notas |
 |---|---|---|---|---|---|
-| [[../issues/CACH-B0001|CACH-B0001]] | Redisenar Trabajos y jerarquia proyecto-evento | Feature | Alta | [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] | Necesita partirse en issues pequenas antes de desarrollo. |
-| [[../issues/CACH-B0002|CACH-B0002]] | Simplificar experiencia mobile financiera | Feature | Alta | [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] | Validacion mobile obligatoria. |
-| [[../issues/CACH-B0003|CACH-B0003]] | Cobro rapido y gestion de pendientes | Feature | Media | [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] | Depende de coherencia de ingresos/cobros. |
-| [[../issues/CACH-B0005|CACH-B0005]] | Importacion, exportacion y portabilidad de datos | Feature | Alta | [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] | Necesario para confianza beta. |
-| [[../issues/CACH-B0006|CACH-B0006]] | Onboarding y acceso beta | Feature | Alta | [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] | Debe evitar friccion en primera sesion. |
-| [[../issues/CACH-B0007|CACH-B0007]] | Calendario unificado e interaccion rapida | Feature | Alta | [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] | Requiere QA visual y responsive. |
+| [[../issues/CACH-B0001|CACH-B0001]] | Redisenar Trabajos y jerarquia proyecto-evento | Feature | Alta | Ciclo 0.1 / corte pendiente | Necesita partirse en issues pequenas antes de desarrollo. |
+| [[../issues/CACH-B0002|CACH-B0002]] | Simplificar experiencia mobile financiera | Feature | Alta | Ciclo 0.1 / corte pendiente | Validacion mobile obligatoria. |
+| [[../issues/CACH-B0003|CACH-B0003]] | Cobro rapido y gestion de pendientes | Feature | Media | Ciclo 0.1 / corte pendiente | Depende de coherencia de ingresos/cobros. |
+| [[../issues/CACH-B0005|CACH-B0005]] | Importacion, exportacion y portabilidad de datos | Feature | Alta | Ciclo 0.1 / corte pendiente | Necesario para confianza beta. |
+| [[../issues/CACH-B0006|CACH-B0006]] | Onboarding y acceso beta | Feature | Alta | Ciclo 0.1 / corte pendiente | Debe evitar friccion en primera sesion. |
+| [[../issues/CACH-B0007|CACH-B0007]] | Calendario unificado e interaccion rapida | Feature | Alta | Ciclo 0.1 / corte pendiente | Requiere QA visual y responsive. |
 
 ## Ready for development
 
 | ID | Titulo | Rama sugerida | Dependencias |
 |---|---|---|---|
-| [[../issues/CACH-B0014|CACH-B0014]] | Endurecer agenda, cobros y captura del MVP | `fix/CACH-B0014-mvp-trust-pass` | Ninguna critica. |
+| [[../issues/CACH-B0014|CACH-B0014]] | Endurecer agenda, cobros y captura del MVP | `fix/CACH-B0014-mvp-trust-pass` | Crear corte `RELEASE-0.1.0-beta.2` antes de ejecutar. |
 
 ## In progress
 
@@ -72,7 +72,7 @@ Este archivo es el tablero ligero del Product Brain. No sustituye a las issues: 
 
 | ID | Titulo | Release | Validacion |
 |---|---|---|---|
-| [[../issues/CACH-B0015|CACH-B0015]] | Operativizar backlog, releases y ramas en Product Brain | [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] | `pb:check` y revision documental. |
+| [[../issues/CACH-B0015|CACH-B0015]] | Operativizar backlog, releases y ramas en Product Brain | [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] | PR pendiente a `main`. |
 
 ## Released
 
