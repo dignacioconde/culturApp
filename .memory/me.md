@@ -11,6 +11,7 @@ Durable collaboration preferences and user-provided context for CulturaApp agent
 - Before committing, pushing, closing an issue, or wrapping a meaningful session, explicitly check whether new durable preferences, product decisions, or workflow lessons should be saved in `.memory/`.
 - Before opening a PR, whether working through OpenCode agents or directly as Codex/Claude Code, complete the memory checkpoint: update `.memory/` with durable context or explicitly state `Memoria: no aplica`.
 - Do not duplicate every issue, PR, or commit in `.memory/`; use GitHub issues, PRs, and commits as the operational history when reconstructing task context. Save only durable preferences, product decisions, recurring gotchas, or workflow lessons.
+- For frontend or visual changes, start the local app when feasible and inspect the result instead of relying only on code review, lint, or build output.
 
 ## Privacy Boundary
 
