@@ -3,7 +3,7 @@ id: CACH-B0014
 type: issue
 status: Backlog
 priority: High
-release: RELEASE-0.1-beta
+release: RELEASE-0.1.0-beta.1
 created: 2026-05-04
 updated: 2026-05-04
 aliases:

@@ -65,8 +65,9 @@ La herramienta les permite:
 - Para Codex, este archivo (`AGENTS.md`) es la fuente principal de contexto.
 - `CLAUDE.md` se mantiene como espejo para Claude Code; si diverge, priorizar `AGENTS.md`.
 - Las skills portables viven en `.agents/skills/<skill-name>/SKILL.md`. Claude Code las descubre mediante symlinks en `.claude/skills/<skill-name>`. La estrategia y plantilla estan en `docs/agent-skills-strategy.md` y `.agents/templates/portable-skill/SKILL.md`.
-- Cuando el usuario pida ejecutar agentes/OpenCode, no hacer una investigacion manual previa por defecto. Lanzar los agentes con el flujo estipulado (`npm run agents:run` o `npm run agents:parallel`) y dejar que ellos lean contexto, diagnostiquen y propongan/ejecuten segun la tarea. Solo hacer trabajo previo minimo si es necesario para construir el comando, definir ownership seguro o resolver un bloqueo real.
-- **Flujo obligatorio para implementacion**: Ante cualquier tarea de implementacion (nueva funcionalidad, fix, mejora), Codex y Claude Code deben usar el flujo: (1) crear o localizar una issue en GitHub, (2) partir siempre de `main` actualizado y crear una rama de trabajo para esa issue, (3) usar `npm run agents:plan -- "prompt"` para que el planner genere la issue estructurada si falta y lance agentes, (4) ejecutar los agentes, (5) abrir PR a `main`, (6) mergear la PR cuando las verificaciones pasen y no haya bloqueo, (7) verificar produccion, y (8) borrar la rama de trabajo una vez mergeada correctamente contra `main`. NO ejecutar `agents:run` directamente sin pasar por el planner cuando no hay issue. La excepcion es solo cuando el usuario lo diga explicitamente o cuando la tarea sea puremente una pregunta, revision o consulta sin implementacion. Si el planner falla por bloqueo tecnico, declarar el bloqueo y usar fallback explicito (issue estructurada + agentes) sin derivada a implementacion manual silenciosa.
+- Cuando el usuario pida ejecutar agentes/OpenCode, no hacer una investigacion manual previa por defecto. Lanzar los agentes con el flujo estipulado y dejar que ellos lean contexto, diagnostiquen y propongan/ejecuten segun la tarea. Solo hacer trabajo previo minimo si es necesario para construir el comando, definir ownership seguro o resolver un bloqueo real.
+- **Product Brain es la fuente principal de verdad**: backlog, issues internas, releases, planes, decisiones y workflow viven en `docs/project/`. GitHub Issues son soporte tecnico cuando haga falta PR/CI/milestone, no el backlog canonico.
+- **Flujo obligatorio para implementacion**: Ante cualquier tarea de implementacion, Codex y Claude Code deben leer `docs/project/START_HERE.md`, `docs/project/releases/CURRENT_RELEASE.md`, `docs/project/plans/CURRENT_PLAN.md`, `docs/project/backlog/BACKLOG.md` y la issue Markdown `CACH-*` relacionada. Si falta issue, crear/proponer issue Markdown antes de implementar. Si falta release activa para una feature grande, parar y proponer crear/activar release. La rama de trabajo debe salir de la rama de release activa si la tarea pertenece a una release. Ver `docs/project/process/DEVELOPMENT_WORKFLOW.md` y `docs/project/process/AGENT_WORKFLOW.md`.
 
 ---
 
@@ -80,31 +81,28 @@ Este proyecto debe evolucionar mediante agentes OpenCode cuando el usuario lo pi
 - Dar a los agentes objetivos concretos, no misiones amplias tipo "mejora toda la app".
 - Separar investigacion, implementacion y revision cuando la tarea tenga riesgo o varias areas afectadas.
 - No hacer investigacion manual previa por defecto: lanzar agentes y dejar que diagnostiquen, salvo que haga falta definir ownership, preparar el comando o resolver un bloqueo.
-- Trabajar siempre con una rama de tarea creada desde `main` actualizado cuando el cambio sea integrable en GitHub. La PR debe apuntar a `main`; no apilar trabajo en ramas viejas salvo que el usuario pida una rama dependiente concreta.
+- Trabajar siempre con rama trazable a Product Brain. Si hay release activa, la rama de tarea sale de la rama de release, no directamente de `main`. La release branch se integra a `main` cuando este validada.
 - Un preview de Vercel no cuenta como despliegue de produccion. Si el usuario espera ver el cambio en la app publicada, la tarea no esta terminada hasta que la PR se mergee a `main`, el alias de produccion quede verificado y la rama de trabajo quede borrada.
 
 ### Metodo ante problemas descubiertos
 
 Cuando se descubra un problema nuevo que requiera seguimiento, usar este flujo por defecto:
 
-1. Abrir o localizar una issue en GitHub con contexto, alcance y criterios de aceptacion.
-2. Asegurar `main` actualizado y crear una rama de tarea desde `main` para esa issue. Si ya existe una rama valida desde `main`, reutilizarla; si hay cambios sin commitear, parar y declararlo.
-3. Ejecutar agentes OpenCode con esa issue como contexto, ownership claro y verificacion obligatoria.
-4. Implementar/ajustar el fix y ejecutar `npm run lint` y `npm run build` si toca codigo de app.
-5. Hacer checkpoint de memoria pre-PR: issue, diff y commits contra base. Activar `@cultura-docs` si hay que persistir memoria; si no, documentar `Memoria: no aplica`.
-6. Crear commit(s) con los cambios relacionados, incluyendo `.memory/` si se actualizo.
-7. Hacer push del commit a GitHub.
-8. Abrir PR a `main` solo cuando la memoria este actualizada o marcada como no aplicable, usando la plantilla de PR. No dejarla en draft salvo bloqueo real; si queda en draft, no declarar la tarea como lista ni visible en produccion.
-9. Comentar la issue con resumen, commit/PR y verificaciones ejecutadas.
-10. Mantener enlace permanente entre issue y trabajo que la resuelve:
-   - Si hay PR: enlazar la issue en la descripcion de la PR con una referencia de cierre (`Closes #N`, `Fixes #N` o equivalente) para que GitHub conserve el vinculo historico y la cierre al merge.
-   - Si no hay PR: enlazar la issue desde el commit o desde un comentario de cierre con commit/branch/verificacion.
-11. Cerrar la issue segun el criterio:
-   - **Si hay PR abierta**: la issue enlazada permanece ABIERTA hasta el merge. No cerrarla solo porque este implementada en una rama; cerrar manualmente o automaticamente solo despues de que la PR se mergee a `main`.
-   - **Si no hay PR**: cerrar solo despues de commit pusheado + comentario con resumen/commit/verificacion + memoria/docs declarada (actualizada en `.memory/` o `no aplica`).
-12. Mergear la PR a `main` cuando las verificaciones pasen y no haya bloqueo. Tras el merge, verificar el deploy de produccion o declarar exactamente que queda pendiente.
-13. Borrar la rama de trabajo una vez mergeada correctamente contra `main`: la rama remota debe quedar eliminada y la rama local debe borrarse despues de cambiar a `main` actualizado.
-14. Incluir en el comentario de cierre: resumen, commit(s), PR o rama, verificacion ejecutada, estado de memoria/docs, estado de produccion y estado de limpieza de rama.
+1. Abrir o localizar una issue Markdown `CACH-*` en `docs/project/issues/` con contexto, alcance y criterios de aceptacion.
+2. Asignarla a la release activa o declarar explicitamente que va fuera de release.
+3. Asegurar la rama de release activa y crear una rama de tarea desde ella. Si ya existe una rama valida, reutilizarla; si hay cambios sin commitear, parar y declararlo.
+4. Ejecutar agentes OpenCode con esa issue como contexto, ownership claro y verificacion obligatoria.
+5. Implementar/ajustar el fix y ejecutar `npm run lint` y `npm run build` si toca codigo de app.
+6. Ejecutar `npm run pb:check` si toca `docs/project/`.
+7. Actualizar issue Markdown, release, backlog y plan actual con resultado, commits, rama y validacion.
+8. Hacer checkpoint de memoria pre-PR: issue, diff y commits contra base. Activar `@cultura-docs` si hay que persistir memoria; si no, documentar `Memoria: no aplica`.
+9. Crear commit(s) con formato `<type>(CACH-XXXX): summary`, incluyendo `.memory/` si se actualizo.
+10. Hacer push de la rama.
+11. Abrir PR hacia la rama de release si es feature/fix de release; abrir PR hacia `main` solo para hotfix directo o cierre de release.
+12. Mergear la rama de tarea a la release branch cuando las verificaciones pasen.
+13. Cerrar la issue Markdown como `Ready for Release`; marcar `Released` solo cuando la release se mergee a `main`.
+14. Mergear la release a `main` cuando la release este validada. Tras el merge, verificar produccion si aplica y limpiar ramas.
+15. Incluir en el cierre: resumen, commit(s), PR o rama, verificacion ejecutada, estado de memoria/docs, estado de produccion y estado de limpieza de rama.
 
 Si el problema es visual, incluir tambien ruta, viewport, captura/sintoma y criterio visual de aceptacion.
 
@@ -119,8 +117,8 @@ Si el problema es visual, incluir tambien ruta, viewport, captura/sintoma y crit
 Usar el flujo estipulado:
 
 ```bash
-npm run agents:plan -- "Tarea concreta de implementacion sin issue estructurada"
-npm run agents:run -- "Tarea concreta..."
+npm run agents:plan -- "Tarea concreta vinculada a CACH-XXXX y release activa"
+npm run agents:run -- "Tarea concreta vinculada a CACH-XXXX"
 npm run agents:parallel -- "Explorer: ..." "Worker: ..."
 ```
 

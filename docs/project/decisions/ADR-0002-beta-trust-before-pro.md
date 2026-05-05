@@ -47,7 +47,7 @@ Las features Pro quedan despues de que el usuario pueda confiar en los datos bas
 ## Related
 
 - [[../context/beta-readiness-risk-map-20260504]]
-- [[../releases/RELEASE-0.1-beta]]
+- [[../releases/RELEASE-0.1.0-beta.1]]
 - [[../issues/CACH-B0014]]
 - [[../issues/CACH-B0005]]
 - [[../issues/CACH-B0006]]

@@ -19,12 +19,14 @@ npm run pb:capture # Capturar nota (argumento o stdin)
 
 - `START_HERE.md` — Índice principal con frontmatter y wikilinks
 - `inbox/` — Notas pendientes de procesar
+- `backlog/` — Tablero operativo ligero, ideas y triage
 - `context/` — Contexto del proyecto
 - `knowledge/` — Base de conocimiento técnico
 - `issues/` — Issues markdown con prefijo CACH
 - `decisions/` — Decisiones de producto
-- `releases/` — Notas de release
-- `plans/` — Planes a futuro
+- `releases/` — Releases, `CURRENT_RELEASE.md` y criterios de salida
+- `plans/` — Plan actual y planes a futuro
+- `process/` — Workflow de desarrollo, ramas, commits, releases y agentes
 - `indexes/` — Índices transversales
 - `templates/` — Plantillas reutilizables
 - `prompts/` — Prompts para agentes
@@ -50,5 +52,6 @@ npm run pb:capture # Capturar nota (argumento o stdin)
 - `docs/project/START_HERE.md` debe mantener una ruta mínima de lectura para agentes: leer START_HERE, elegir índice por tipo de tarea, abrir solo enlaces relevantes y ejecutar `npm run pb:check` antes de cerrar cambios.
 - Los IDs canónicos de issues Markdown son los nombres de archivo completos, por ejemplo `CACH-0026` y `CACH-B0001`. No usar wikilinks cortos como `CACH-026` o `CACH-B001`.
 - Antes de abrir PR que toque `docs/project/`, ejecutar `npm run pb:check`; el validador cubre frontmatter de issues, índices principales y wikilinks internos.
+- Para implementación, leer `CURRENT_RELEASE.md`, `CURRENT_PLAN.md`, `BACKLOG.md` y la issue `CACH-*` relacionada antes de tocar código. Si la tarea pertenece a una release, la rama sale de la rama de release activa.
 
-Actualizado: 2026-05-04
+Actualizado: 2026-05-05

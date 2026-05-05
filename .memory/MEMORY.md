@@ -20,6 +20,6 @@ Mapa estructurado ampliado: [core.md](core.md)
 ## Feedback y preferencias
 
 - [Sin co-authoring de IA en commits](feedback_no_coauthoring.md) — No añadir Co-Authored-By de IA en commits git
-- [Flujo obligatorio de issues y planner](feedback_opencode_agents.md) — Usar issue + rama desde main + agents:plan + PR a main + merge + verificación de producción
+- [Flujo Product Brain para implementación](feedback_opencode_agents.md) — Usar issue Markdown CACH, release activa, rama de release, commits trazables y validación
 - [Product Brain repo-native](feedback_product_brain.md) — docs/project/ con sync manual a Obsidian iCloud, scripts pb:init/status/pull/push, prefijo CACH
 - [AGENT_STATE.md no resetear](feedback_agent_state_write.md) — Agentes sobrescriben el archivo borrando secciones; verificar con git diff tras cada run
