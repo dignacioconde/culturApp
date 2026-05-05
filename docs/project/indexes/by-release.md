@@ -16,6 +16,8 @@ tags:
 
 - [[../issues/CACH-0026|CACH-0026]] — Setup inicial Product Brain
 - [[../issues/CACH-0028|CACH-0028]] — Corregir sync iCloud y estructura versionada
+- [[../issues/CACH-0030|CACH-0030]] — Homogeneizar diseno con nueva paleta de colores y fuentes
+- [[../issues/CACH-0031|CACH-0031]] — Corregir ajustes UX movil detectados en exploracion
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes

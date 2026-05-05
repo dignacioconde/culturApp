@@ -79,6 +79,7 @@ Sin issues en review.
 | [[../issues/CACH-B0015|CACH-B0015]] | Operativizar backlog, releases y ramas en Product Brain | [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] | Sistema operativo inicial. |
 | [[../issues/CACH-B0016|CACH-B0016]] | Refundacion operativa del Product Brain y tests B0014 | [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] | Validador, tests y politicas. |
 | [[../issues/CACH-0029|CACH-0029]] | Integrar helpers CACH-B0016 en flujos reales | [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] | Mergeada PR #59. Commit 5e2e601. |
+| [[../issues/CACH-0031|CACH-0031]] | Corregir ajustes UX movil detectados en exploracion | null | Mergeada PR #74. Ajustes mobile aplicados. |
 
 ## Regla de mantenimiento
 
