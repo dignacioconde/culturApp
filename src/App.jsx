@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuth } from './hooks/useAuth'
+import { ScrollLockProvider } from './hooks/useScrollLock'
 import Login from './pages/Auth/Login'
 import Register from './pages/Auth/Register'
 import Dashboard from './pages/Dashboard/Dashboard'
@@ -28,8 +29,9 @@ function PublicRoute({ children }) {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
+    <ScrollLockProvider>
+      <BrowserRouter>
+        <Routes>
         <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
         <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
         <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
@@ -45,5 +47,6 @@ export default function App() {
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </BrowserRouter>
+    </ScrollLockProvider>
   )
 }

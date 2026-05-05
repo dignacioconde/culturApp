@@ -1,30 +1,21 @@
 import { useEffect, useId } from 'react'
 import { X } from 'lucide-react'
+import { useScrollLock } from '../../hooks/useScrollLock'
 
 export function Modal({ isOpen, onClose, title, children }) {
   const titleId = useId()
+  const { lock, unlock } = useScrollLock()
 
   useEffect(() => {
     if (!isOpen) return
+    lock()
     const handleKey = (e) => { if (e.key === 'Escape') onClose() }
     document.addEventListener('keydown', handleKey)
-    const previousOverflow = document.body.style.overflow
-    const previousPosition = document.body.style.position
-    const previousTop = document.body.style.top
-    document.body.style.overflow = 'hidden'
-    document.body.style.position = 'fixed'
-    document.body.style.top = `-${window.scrollY}px`
-    document.body.style.width = '100%'
     return () => {
       document.removeEventListener('keydown', handleKey)
-      document.body.style.overflow = previousOverflow
-      document.body.style.position = previousPosition
-      const scrollY = document.body.style.top
-      document.body.style.top = ''
-      document.body.style.width = ''
-      if (scrollY) window.scrollTo(0, parseInt(scrollY.slice(1), 10))
+      unlock()
     }
-  }, [isOpen, onClose])
+  }, [isOpen, onClose, lock, unlock])
 
   if (!isOpen) return null
 
