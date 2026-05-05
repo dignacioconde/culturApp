@@ -21,7 +21,7 @@ export function PageWrapper({ title, children }) {
         fixed inset-y-0 left-0 z-50 w-64 transform bg-[#2C2420] transition-transform duration-200 ease-out lg:relative lg:translate-x-0 lg:transform-none lg:z-auto
         ${isDrawerOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
       `}>
-        <Sidebar onNavigate={() => setIsDrawerOpen(false)} />
+        <Sidebar onNavigate={() => setIsDrawerOpen(false)} isDrawer={true} />
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col">

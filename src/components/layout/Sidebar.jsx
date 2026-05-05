@@ -9,13 +9,19 @@ const navItems = [
   { to: '/settings', icon: Settings, label: 'Ajustes' },
 ]
 
-export function Sidebar({ onNavigate }) {
+export function Sidebar({ onNavigate, isDrawer = false }) {
   const handleNavClick = () => {
     if (onNavigate) onNavigate()
   }
 
   return (
-    <aside className="w-full shrink-0 border-b border-[rgba(245,239,224,.08)] bg-[#2C2420] lg:sticky lg:top-0 lg:h-screen lg:w-60 lg:border-r lg:border-b-0">
+    <aside className={`
+      w-full shrink-0 bg-[#2C2420]
+      ${isDrawer 
+        ? 'h-full flex flex-col' 
+        : 'border-b border-[rgba(245,239,224,.08)] lg:sticky lg:top-0 lg:h-screen lg:w-60 lg:border-r lg:border-b-0'
+      }
+    `}>
       <div className="flex items-center gap-2 border-b border-[rgba(245,239,224,.08)] px-4 py-4 lg:px-5">
         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#211C18] shadow-sm">
           <Drama size={24} strokeWidth={1.5} className="text-[#C94035]" />
@@ -25,7 +31,13 @@ export function Sidebar({ onNavigate }) {
 
       <nav
         aria-label="Navegación principal"
-        className="flex gap-1 overflow-x-auto px-3 py-3 lg:flex-col lg:overflow-visible lg:py-4"
+        className={`
+          flex gap-1 px-3 py-3
+          ${isDrawer 
+            ? 'flex-1 flex-col overflow-y-auto' 
+            : 'overflow-x-auto lg:flex-col lg:overflow-visible lg:py-4'
+          }
+        `}
       >
         {navItems.map(({ to, icon: Icon, label }) => (
           <NavLink
