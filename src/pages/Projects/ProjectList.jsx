@@ -74,7 +74,7 @@ export default function ProjectList() {
         </div>
 
         <Card className="p-3 sm:p-4">
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-[minmax(220px,1fr)_180px_190px_auto] xl:items-center">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-[minmax(220px,1fr)_180px_190px_auto] xl:items-center">
             <div className="relative min-w-0">
               <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
               <input

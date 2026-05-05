@@ -333,8 +333,8 @@ export default function ProjectDetail() {
               </Button>
             </div>
 ) : (
-            <div className="relative overflow-x-auto">
-              <table className="w-full min-w-[680px] text-sm">
+            <div className="md:relative md:overflow-x-auto">
+              <table className="hidden md:table w-full min-w-[680px] text-sm">
                 <thead>
                   <tr className="text-xs text-gray-400 border-b border-gray-100">
                     <th className="text-left pb-2 font-medium">Concepto</th>
@@ -369,7 +369,28 @@ export default function ProjectDetail() {
                     </tr>
                   ))}
                 </tbody>
-            </table>
+              </table>
+              {/* Cards para móvil */}
+              <div className="md:hidden flex flex-col gap-2">
+                {directIncomes.map((income) => (
+                  <div key={income.id} className="rounded-lg border border-gray-100 p-3">
+                    <div className="flex items-start justify-between">
+                      <button onClick={() => openEditIncome(income)} className="text-gray-900 font-medium hover:text-[var(--color-primary-500)]">
+                        {income.concept}
+                      </button>
+                      <button onClick={() => deleteIncome(income.id)} className="text-gray-300 hover:text-red-500">
+                        <Trash2 size={14} />
+                      </button>
+                    </div>
+                    <div className="mt-2 grid grid-cols-2 gap-2 text-sm">
+                      <div><span className="text-gray-400 text-xs">Importe</span><p className="font-medium">{formatCurrency(income.amount)}</p></div>
+                      <div><span className="text-gray-400 text-xs">IRPF</span><p className="text-gray-500">{income.tax_rate}%</p></div>
+                      <div><span className="text-gray-400 text-xs">Fecha</span><p className="text-gray-500">{formatDate(income.expected_date)}</p></div>
+                      <div className="flex items-center"><span className="text-gray-400 text-xs mr-2">Cobrado</span><button onClick={() => handleTogglePaid(income)}>{isPaid(income) ? <CheckCircle size={18} className="text-green-500" /> : <Circle size={18} />}</button></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </Card>
@@ -395,8 +416,8 @@ export default function ProjectDetail() {
               </Button>
             </div>
 ) : (
-            <div className="relative overflow-x-auto">
-              <table className="w-full min-w-[640px] text-sm">
+            <div className="md:relative md:overflow-x-auto">
+              <table className="hidden md:table w-full min-w-[640px] text-sm">
                 <thead>
                   <tr className="text-xs text-gray-400 border-b border-gray-100">
                     <th className="text-left pb-2 font-medium">Concepto</th>
@@ -430,8 +451,29 @@ export default function ProjectDetail() {
                       </td>
                     </tr>
                   ))}
-</tbody>
-            </table>
+                </tbody>
+              </table>
+              {/* Cards para móvil */}
+              <div className="md:hidden flex flex-col gap-2">
+                {directExpenses.map((expense) => (
+                  <div key={expense.id} className="rounded-lg border border-gray-100 p-3">
+                    <div className="flex items-start justify-between">
+                      <button onClick={() => openEditExpense(expense)} className="text-gray-900 font-medium hover:text-[var(--color-primary-500)]">
+                        {expense.concept}
+                      </button>
+                      <button onClick={() => deleteExpense(expense.id)} className="text-gray-300 hover:text-red-500">
+                        <Trash2 size={14} />
+                      </button>
+                    </div>
+                    <div className="mt-2 grid grid-cols-2 gap-2 text-sm">
+                      <div><span className="text-gray-400 text-xs">Importe</span><p className="font-medium">{formatCurrency(expense.amount)}</p></div>
+                      <div><span className="text-gray-400 text-xs">Categoría</span><p className="text-gray-500 capitalize">{expense.category}</p></div>
+                      <div><span className="text-gray-400 text-xs">Fecha</span><p className="text-gray-500">{formatDate(expense.expense_date)}</p></div>
+                      <div className="flex items-center"><span className="text-gray-400 text-xs mr-2">Deducible</span>{expense.is_deductible ? <CheckCircle size={16} className="text-green-500" /> : <Circle size={16} className="text-gray-300" />}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </Card>

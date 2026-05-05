@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { Calendar, dayjsLocalizer } from 'react-big-calendar'
 import dayjs from 'dayjs'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
@@ -13,7 +13,7 @@ import { useAuth } from '../../hooks/useAuth'
 import { useEvents } from '../../hooks/useEvents'
 import { useProjects } from '../../hooks/useProjects'
 import { formatDatetime } from '../../lib/formatters'
-import { AlertCircle, CalendarDays, Plus, X } from 'lucide-react'
+import { AlertCircle, CalendarDays, Plus, X, ChevronDown, ChevronUp } from 'lucide-react'
 
 const localizer = dayjsLocalizer(dayjs)
 const calendarMinTime = new Date(1970, 0, 1, 8, 0)
@@ -41,17 +41,35 @@ const messages = {
   showMore: (total) => `+${total} más`,
 }
 
+// Detectar si es viewport móvil
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+  return isMobile
+}
+
 export default function CalendarEvents() {
   const { user } = useAuth()
   const { events, loading, error, createEvent } = useEvents(user?.id)
   const { projects, loading: projectsLoading, error: projectsError } = useProjects(user?.id)
+  const isMobile = useIsMobile()
   const [calendarDate, setCalendarDate] = useState(() => new Date())
-  const [calendarView, setCalendarView] = useState('month')
+  const [calendarView, setCalendarView] = useState(() => isMobile ? 'month' : 'month')
   const [selectedEvent, setSelectedEvent] = useState(null)
   const [newModal, setNewModal] = useState(false)
   const [newEventInitialData, setNewEventInitialData] = useState(null)
   const [saving, setSaving] = useState(false)
+  const [panelExpanded, setPanelExpanded] = useState(false)
   const { toasts, addToast, removeToast } = useToast()
+  
+  // En móvil solo mostrar month y day, no week
+  const availableViews = isMobile ? ['month', 'day'] : ['month', 'week', 'day']
+  
   const timeGridMinWidth = calendarView === 'week' ? 'min-w-[46rem]' : calendarView === 'day' ? 'min-w-[22rem]' : 'min-w-full'
 
   const calendarEvents = useMemo(() =>
@@ -145,7 +163,7 @@ export default function CalendarEvents() {
                     events={calendarEvents}
                     date={calendarDate}
                     view={calendarView}
-                    views={['month', 'week', 'day']}
+                    views={availableViews}
                     messages={messages}
                     formats={calendarFormats}
                     selectable
@@ -172,7 +190,21 @@ export default function CalendarEvents() {
         </div>
 
         {selectedEvent && (
-          <div className="w-full lg:w-80 bg-white rounded-xl border border-gray-200 p-5 flex flex-col gap-4">
+          <div className={`
+            w-full lg:w-80 bg-white rounded-xl border border-gray-200 p-5 flex flex-col gap-4
+            lg:relative
+            ${isMobile ? 'fixed bottom-0 left-0 right-0 max-h-[70vh] overflow-y-auto rounded-b-none border-b-0 shadow-lg z-30' : ''}
+          `}>
+            {/* Toggle para móvil */}
+            {isMobile && (
+              <button 
+                onClick={() => setPanelExpanded(!panelExpanded)}
+                className="flex w-full items-center justify-center py-2 text-gray-500 hover:text-gray-700"
+              >
+                {panelExpanded ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
+              </button>
+            )}
+            
             <div className="flex items-start justify-between">
               <div className="w-3 h-3 rounded-full mt-1 flex-shrink-0" style={{ backgroundColor: selectedEvent.color ?? '#4f98a3' }} />
               <button onClick={() => setSelectedEvent(null)} className="text-gray-400 hover:text-gray-600 -mr-1 -mt-1 p-1.5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)]" aria-label="Cerrar panel">
@@ -185,7 +217,7 @@ export default function CalendarEvents() {
                 <p className="text-sm text-gray-500 mt-0.5 break-words">{selectedEvent.client}</p>
               )}
             </div>
-            <div className="flex flex-col gap-2 text-sm text-gray-600">
+            <div className={`flex flex-col gap-2 text-sm text-gray-600 ${isMobile && !panelExpanded ? 'hidden' : ''}`}>
               <div className="flex items-center justify-between gap-3">
                 <span>Estado</span>
                 <StatusBadge status={selectedEvent.status} />
@@ -216,7 +248,7 @@ export default function CalendarEvents() {
                 ) : null
               })()}
             </div>
-            <Link to={`/events/${selectedEvent.id}`} className="mt-auto">
+            <Link to={`/events/${selectedEvent.id}`} className={`mt-auto ${isMobile && !panelExpanded ? 'hidden' : ''}`}>
               <Button variant="secondary" size="sm" className="w-full justify-center">
                 Ver detalle completo
               </Button>
