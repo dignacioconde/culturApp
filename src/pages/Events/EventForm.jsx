@@ -121,11 +121,11 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-      <section className="flex flex-col gap-4">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <section className="flex flex-col gap-3">
         <div>
           <h3 className="text-sm font-semibold text-gray-900">Información básica</h3>
-          <p className="text-sm text-gray-600 mt-1">Nombre, cliente y clasificación para encontrarlo rápido.</p>
+          <p className="hidden sm:block text-sm text-gray-600 mt-1">Nombre, cliente y clasificación para encontrarlo rápido.</p>
         </div>
         <Input
           label="Nombre del evento *"
@@ -143,7 +143,7 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
           placeholder="Ayuntamiento de Madrid"
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3">
           <Select label="Categoría" name="category" value={form.category} onChange={handleChange}>
             {EVENT_CATEGORIES.map((c) => (
               <option key={c.value} value={c.value}>{c.label}</option>
@@ -157,10 +157,10 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
         </div>
       </section>
 
-      <section className="flex flex-col gap-4 border-t border-gray-100 pt-5">
+      <section className="flex flex-col gap-3 border-t border-gray-100 pt-4">
         <div>
           <h3 className="text-sm font-semibold text-gray-900">Planificación</h3>
-          <p className="text-sm text-gray-600 mt-1">El calendario de eventos usa fecha y hora exactas.</p>
+          <p className="hidden sm:block text-sm text-gray-600 mt-1">El calendario de eventos usa fecha y hora exactas.</p>
         </div>
 
         <Select label="Proyecto relacionado" name="project_id" value={form.project_id} onChange={handleChange}>
@@ -170,7 +170,7 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
           ))}
         </Select>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className={`grid gap-3 ${isMultiDay ? 'grid-cols-2' : 'grid-cols-1'}`}>
           <Input
             label="Inicio *"
             type="datetime-local"
@@ -203,10 +203,10 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
         </label>
       </section>
 
-      <section className="flex flex-col gap-4 border-t border-gray-100 pt-5">
+      <section className="flex flex-col gap-3 border-t border-gray-100 pt-4">
         <div>
           <h3 className="text-sm font-semibold text-gray-900">Notas y calendario</h3>
-          <p className="text-sm text-gray-600 mt-1">El color ayuda a distinguirlo en las vistas de calendario.</p>
+          <p className="hidden sm:block text-sm text-gray-600 mt-1">El color ayuda a distinguirlo en las vistas de calendario.</p>
         </div>
         <div className="flex flex-col gap-2">
           <label className="text-sm font-medium text-gray-700">Color en calendario</label>
