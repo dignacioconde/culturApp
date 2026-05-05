@@ -9,7 +9,11 @@ const navItems = [
   { to: '/settings', icon: Settings, label: 'Ajustes' },
 ]
 
-export function Sidebar() {
+export function Sidebar({ onNavigate }) {
+  const handleNavClick = () => {
+    if (onNavigate) onNavigate()
+  }
+
   return (
     <aside className="w-full shrink-0 border-b border-[rgba(245,239,224,.08)] bg-[#2C2420] lg:sticky lg:top-0 lg:h-screen lg:w-60 lg:border-r lg:border-b-0">
       <div className="flex items-center gap-2 border-b border-[rgba(245,239,224,.08)] px-4 py-4 lg:px-5">
@@ -27,6 +31,7 @@ export function Sidebar() {
           <NavLink
             key={to}
             to={to}
+            onClick={handleNavClick}
             className={({ isActive }) =>
               `flex min-h-10 shrink-0 items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2 lg:shrink
               ${isActive

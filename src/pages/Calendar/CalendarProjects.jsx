@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { Calendar, dayjsLocalizer } from 'react-big-calendar'
 import dayjs from 'dayjs'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
@@ -12,7 +12,7 @@ import { ProjectForm } from '../Projects/ProjectForm'
 import { useAuth } from '../../hooks/useAuth'
 import { useProjects } from '../../hooks/useProjects'
 import { formatDate } from '../../lib/formatters'
-import { AlertCircle, FolderOpen, Plus, X } from 'lucide-react'
+import { AlertCircle, FolderOpen, Plus, X, ChevronDown, ChevronUp } from 'lucide-react'
 
 const localizer = dayjsLocalizer(dayjs)
 const calendarFormats = {
@@ -36,16 +36,33 @@ const messages = {
   showMore: (total) => `+${total} más`,
 }
 
+// Detectar si es viewport móvil
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+  return isMobile
+}
+
 export default function CalendarProjects() {
   const { user } = useAuth()
   const { projects, loading, error, createProject } = useProjects(user?.id)
+  const isMobile = useIsMobile()
   const [calendarDate, setCalendarDate] = useState(() => new Date())
   const [calendarView, setCalendarView] = useState('month')
   const [selectedProject, setSelectedProject] = useState(null)
   const [newModal, setNewModal] = useState(false)
   const [newProjectInitialData, setNewProjectInitialData] = useState(null)
   const [saving, setSaving] = useState(false)
+  const [panelExpanded, setPanelExpanded] = useState(false)
   const { toasts, addToast, removeToast } = useToast()
+  
+  // En móvil solo mostrar month, no week
+  const availableViews = isMobile ? ['month'] : ['month', 'week']
   const calendarMinWidth = calendarView === 'week' ? 'min-w-[46rem]' : 'min-w-full'
 
   const calendarEvents = useMemo(() =>
@@ -134,7 +151,7 @@ export default function CalendarProjects() {
                     events={calendarEvents}
                     date={calendarDate}
                     view={calendarView}
-                    views={['month', 'week']}
+                    views={availableViews}
                     messages={messages}
                     formats={calendarFormats}
                     selectable
@@ -159,7 +176,21 @@ export default function CalendarProjects() {
         </div>
 
         {selectedProject && (
-          <div className="w-full lg:w-80 bg-white rounded-xl border border-gray-200 p-5 flex flex-col gap-4">
+          <div className={`
+            w-full lg:w-80 bg-white rounded-xl border border-gray-200 p-5 flex flex-col gap-4
+            lg:relative
+            ${isMobile ? 'fixed bottom-0 left-0 right-0 max-h-[70vh] overflow-y-auto rounded-b-none border-b-0 shadow-lg z-30' : ''}
+          `}>
+            {/* Toggle para móvil */}
+            {isMobile && (
+              <button 
+                onClick={() => setPanelExpanded(!panelExpanded)}
+                className="flex w-full items-center justify-center py-2 text-gray-500 hover:text-gray-700"
+              >
+                {panelExpanded ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
+              </button>
+            )}
+            
             <div className="flex items-start justify-between">
               <div className="w-3 h-3 rounded-full mt-1 flex-shrink-0" style={{ backgroundColor: selectedProject.color ?? '#4f98a3' }} />
               <button onClick={() => setSelectedProject(null)} className="text-gray-400 hover:text-gray-600 -mr-1 -mt-1 p-1.5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)]" aria-label="Cerrar panel">
@@ -172,7 +203,7 @@ export default function CalendarProjects() {
                 <p className="text-sm text-gray-500 mt-0.5 break-words">{selectedProject.client}</p>
               )}
             </div>
-            <div className="flex flex-col gap-2 text-sm text-gray-600">
+            <div className={`flex flex-col gap-2 text-sm text-gray-600 ${isMobile && !panelExpanded ? 'hidden' : ''}`}>
               <div className="flex items-center justify-between gap-3">
                 <span>Estado</span>
                 <StatusBadge status={selectedProject.status} />
@@ -192,7 +223,7 @@ export default function CalendarProjects() {
                 </div>
               )}
             </div>
-            <Link to={`/projects/${selectedProject.id}`} className="mt-auto">
+            <Link to={`/projects/${selectedProject.id}`} className={`mt-auto ${isMobile && !panelExpanded ? 'hidden' : ''}`}>
               <Button variant="secondary" size="sm" className="w-full justify-center">
                 Ver detalle completo
               </Button>

@@ -1,12 +1,22 @@
 import { useAuth } from '../../hooks/useAuth'
-import { Drama, LogOut, User } from 'lucide-react'
+import { Drama, LogOut, User, Menu } from 'lucide-react'
 
-export function TopBar({ title }) {
+export function TopBar({ title, onMenuClick, showMenuButton }) {
   const { user, signOut } = useAuth()
 
   return (
     <header className="flex min-h-16 items-center justify-between gap-4 border-b border-[#E2D9C2] bg-[#F5EFE0] px-4 py-3 sm:px-6">
       <div className="flex min-w-0 items-center gap-2">
+        {showMenuButton && (
+          <button
+            type="button"
+            onClick={onMenuClick}
+            className="flex lg:hidden items-center justify-center p-2 -ml-2 rounded-lg text-[#5C5149] hover:bg-[#EBE3CE] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035]"
+            aria-label="Abrir menú de navegación"
+          >
+            <Menu size={24} />
+          </button>
+        )}
         <Drama size={28} strokeWidth={1.5} className="hidden sm:block text-[#C94035]" />
         <h1 className="min-w-0 truncate text-lg font-semibold leading-7 text-[#211C18] font-['DM_Serif_Display']">{title}</h1>
       </div>
