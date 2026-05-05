@@ -106,47 +106,95 @@ export default function EventList() {
                 className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-gray-300 outline-none focus:border-[var(--color-primary-500)]"
               />
             </div>
-            <Select
-              value={filterStatus}
-              onChange={(e) => setFilterStatus(e.target.value)}
-            >
-              <option value="">Todos los estados</option>
-              {EVENT_STATUSES.map((s) => (
-                <option key={s.value} value={s.value}>{s.label}</option>
-              ))}
-            </Select>
-            <Select
-              value={filterCategory}
-              onChange={(e) => setFilterCategory(e.target.value)}
-            >
-              <option value="">Todas las categorías</option>
-              {EVENT_CATEGORIES.map((c) => (
-                <option key={c.value} value={c.value}>{c.label}</option>
-              ))}
-            </Select>
-            <Select
-              value={effectiveFilterProject}
-              onChange={(e) => {
-                setFilterProject(e.target.value)
-                if (searchParams.get('project')) {
-                  const newParams = new URLSearchParams(searchParams)
-                  newParams.delete('project')
-                  setSearchParams(newParams)
-                }
-              }}
-            >
-              <option value="">Todos los proyectos</option>
-              <option value="__none__">Sin proyecto</option>
-              {projects.map((p) => (
-                <option key={p.id} value={p.id}>{p.name}</option>
-              ))}
-            </Select>
-            {hasFilters && (
-              <Button variant="ghost" onClick={clearFilters} className="justify-center whitespace-nowrap">
-                <FilterX size={16} />
-                Limpiar
-              </Button>
-            )}
+            <details className="lg:hidden">
+              <summary className="cursor-pointer text-sm font-medium text-gray-600 list-none">Filtros ↓</summary>
+              <div className="mt-2 grid grid-cols-2 gap-3">
+                <Select
+                  value={filterStatus}
+                  onChange={(e) => setFilterStatus(e.target.value)}
+                >
+                  <option value="">Todos los estados</option>
+                  {EVENT_STATUSES.map((s) => (
+                    <option key={s.value} value={s.value}>{s.label}</option>
+                  ))}
+                </Select>
+                <Select
+                  value={filterCategory}
+                  onChange={(e) => setFilterCategory(e.target.value)}
+                >
+                  <option value="">Todas las categorías</option>
+                  {EVENT_CATEGORIES.map((c) => (
+                    <option key={c.value} value={c.value}>{c.label}</option>
+                  ))}
+                </Select>
+                <Select
+                  value={effectiveFilterProject}
+                  onChange={(e) => {
+                    setFilterProject(e.target.value)
+                    if (searchParams.get('project')) {
+                      const newParams = new URLSearchParams(searchParams)
+                      newParams.delete('project')
+                      setSearchParams(newParams)
+                    }
+                  }}
+                >
+                  <option value="">Todos los proyectos</option>
+                  <option value="__none__">Sin proyecto</option>
+                  {projects.map((p) => (
+                    <option key={p.id} value={p.id}>{p.name}</option>
+                  ))}
+                </Select>
+                {hasFilters && (
+                  <Button variant="ghost" onClick={clearFilters} className="justify-center whitespace-nowrap">
+                    <FilterX size={16} />
+                    Limpiar
+                  </Button>
+                )}
+              </div>
+            </details>
+            <div className="hidden lg:contents">
+              <Select
+                value={filterStatus}
+                onChange={(e) => setFilterStatus(e.target.value)}
+              >
+                <option value="">Todos los estados</option>
+                {EVENT_STATUSES.map((s) => (
+                  <option key={s.value} value={s.value}>{s.label}</option>
+                ))}
+              </Select>
+              <Select
+                value={filterCategory}
+                onChange={(e) => setFilterCategory(e.target.value)}
+              >
+                <option value="">Todas las categorías</option>
+                {EVENT_CATEGORIES.map((c) => (
+                  <option key={c.value} value={c.value}>{c.label}</option>
+                ))}
+              </Select>
+              <Select
+                value={effectiveFilterProject}
+                onChange={(e) => {
+                  setFilterProject(e.target.value)
+                  if (searchParams.get('project')) {
+                    const newParams = new URLSearchParams(searchParams)
+                    newParams.delete('project')
+                    setSearchParams(newParams)
+                  }
+                }}
+              >
+                <option value="">Todos los proyectos</option>
+                <option value="__none__">Sin proyecto</option>
+                {projects.map((p) => (
+                  <option key={p.id} value={p.id}>{p.name}</option>
+                ))}
+              </Select>
+              {hasFilters && (
+                <Button variant="ghost" onClick={clearFilters} className="justify-center whitespace-nowrap">
+                  <FilterX size={16} />
+                  Limpiar
+                </Button>
+              )}
+            </div>
           </div>
         </Card>
 

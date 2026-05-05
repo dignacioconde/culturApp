@@ -156,7 +156,7 @@ export default function CalendarEvents() {
             </div>
           ) : (
             <div className="flex flex-1 flex-col">
-              <div className="h-[560px] min-h-[560px] overflow-x-auto overflow-y-hidden sm:h-[640px] sm:min-h-[640px] lg:h-full lg:min-h-0">
+              <div className="h-[480px] min-h-[480px] overflow-x-auto overflow-y-hidden sm:h-[560px] sm:min-h-[560px] lg:h-full lg:min-h-0">
                 <div className={`h-full ${timeGridMinWidth}`}>
                   <Calendar
                     localizer={localizer}
@@ -241,7 +241,7 @@ export default function CalendarEvents() {
                 return project ? (
                   <div className="flex items-start justify-between gap-3">
                     <span>Proyecto</span>
-                    <Link to={`/projects/${project.id}`} className="max-w-44 truncate text-right text-[var(--color-primary-500)] hover:underline">
+                    <Link to={`/projects/${project.id}`} className="max-w-52 truncate text-right text-[var(--color-primary-500)] hover:underline">
                       {project.name}
                     </Link>
                   </div>

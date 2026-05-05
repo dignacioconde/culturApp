@@ -137,13 +137,13 @@ export default function Dashboard() {
             {/* Selector de mes simplificado */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <div className="flex items-center gap-1">
-                <button onClick={prevMonth} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-500" aria-label="Mes anterior">
+                <button onClick={prevMonth} className="p-2.5 min-h-10 rounded-lg hover:bg-gray-100 text-gray-500" aria-label="Mes anterior">
                   <ChevronLeft size={18} />
                 </button>
                 <span className="text-sm font-medium text-gray-900 min-w-[100px] text-center capitalize">
                   {selectedDate.format('MMMM')}
                 </span>
-                <button onClick={nextMonth} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-500" aria-label="Mes siguiente">
+                <button onClick={nextMonth} className="p-2.5 min-h-10 rounded-lg hover:bg-gray-100 text-gray-500" aria-label="Mes siguiente">
                   <ChevronRight size={18} />
                 </button>
                 <Select
