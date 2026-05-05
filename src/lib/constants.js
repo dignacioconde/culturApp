@@ -29,11 +29,11 @@ export const EXPENSE_CATEGORIES = [
 ]
 
 export const STATUS_COLORS = {
-  draft: 'bg-[#E2D9C2] text-[#5C5149]',
-  confirmed: 'bg-[#E6EDF5] text-[#2855A0]',
-  in_progress: 'bg-[#FDF5E4] text-[#9B6210]',
-  completed: 'bg-[#E8F4EF] text-[#2D6A4F]',
-  cancelled: 'bg-[#F9EDEB] text-[#C94035]',
+  draft: 'bg-[var(--color-status-draft-bg)] text-[var(--color-status-draft-text)]',
+  confirmed: 'bg-[var(--color-status-confirmed-bg)] text-[var(--color-status-confirmed-text)]',
+  in_progress: 'bg-[var(--color-status-inprogress-bg)] text-[var(--color-status-inprogress-text)]',
+  completed: 'bg-[var(--color-status-completed-bg)] text-[var(--color-status-completed-text)]',
+  cancelled: 'bg-[var(--color-status-cancelled-bg)] text-[var(--color-status-cancelled-text)]',
 }
 
 export const STATUS_LABELS = {
