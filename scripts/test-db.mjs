@@ -5,7 +5,7 @@ const hasSupabase = spawnSync('supabase', ['--version'], { encoding: 'utf8' })
 
 if (hasSupabase.error?.code === 'ENOENT') {
   console.log('[test:db] skip: Supabase CLI no esta instalado en este entorno.')
-  console.log('[test:db] pendiente: ejecutar supabase test db cuando haya CLI y migraciones versionadas completas.')
+  console.log('[test:db] pendiente: ejecutar supabase test db cuando haya CLI y migraciones versionadas de tablas financieras.')
   process.exit(0)
 }
 

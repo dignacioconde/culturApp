@@ -28,7 +28,7 @@ Active
 
 ## Ultimo corte
 
-Pendiente de cierre tras CACH-B0016.
+Pendiente de cierre tras CACH-0029.
 
 ## Siguiente corte esperado
 

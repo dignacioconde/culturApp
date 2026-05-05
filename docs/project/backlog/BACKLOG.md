@@ -66,7 +66,9 @@ Sin issues en progreso.
 
 ## Review
 
-Sin issues en review.
+| ID | Titulo | Tipo | Prioridad | Nota |
+|---|---|---|---|---|
+| [[../issues/CACH-0029|CACH-0029]] | Integrar helpers CACH-B0016 en flujos reales | bug | p1 | Validacion completa; e2e/db con skips explicitos. |
 
 ## Done
 

@@ -33,6 +33,7 @@ tags:
 
 ## RELEASE-0.1.0-beta.1
 
+- [[../issues/CACH-0029|CACH-0029]] — Integrar helpers CACH-B0016 en flujos reales
 - [[../issues/CACH-B0015|CACH-B0015]] — Operativizar backlog releases y ramas en Product Brain
 - [[../issues/CACH-B0016|CACH-B0016]] — Refundacion operativa del Product Brain y tests B0014
 

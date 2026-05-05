@@ -7,7 +7,6 @@ import { Button } from '../../components/ui/Button'
 import { StatusBadge } from '../../components/ui/Badge'
 import { Modal } from '../../components/ui/Modal'
 import { Input, Select } from '../../components/ui/Input'
-import { parseDecimal } from '../../lib/formatters'
 import { useToast, ToastContainer } from '../../components/ui/Toast'
 import { EventForm } from './EventForm'
 import { useAuth } from '../../hooks/useAuth'
@@ -17,6 +16,8 @@ import { useProjects } from '../../hooks/useProjects'
 import { useIncomes } from '../../hooks/useIncomes'
 import { useExpenses } from '../../hooks/useExpenses'
 import { formatCurrency, formatCurrencyPerHour, formatDate, formatDatetime, formatHours } from '../../lib/formatters'
+import { normalizeExpenseForm, normalizeIncomeForm } from '../../lib/financeForms'
+import { isPaid, markPaid, markUnpaid } from '../../lib/payment'
 import { EXPENSE_CATEGORIES } from '../../lib/constants'
 
 const EMPTY_EXPENSE = { concept: '', amount: '', category: 'otros', expense_date: '', is_deductible: true }
@@ -85,7 +86,7 @@ export default function EventDetail() {
   }
 
   const totalGross = incomes.reduce((acc, i) => acc + Number(i.amount), 0)
-  const paidIncomes = incomes.filter((i) => i.is_paid)
+  const paidIncomes = incomes.filter((i) => isPaid(i))
   const totalPaid = paidIncomes.reduce((acc, i) => acc + Number(i.amount), 0)
   const pendingAmount = totalGross - totalPaid
   const totalRetentions = paidIncomes.reduce((acc, i) => acc + Number(i.amount) * (Number(i.tax_rate) / 100), 0)
@@ -107,7 +108,8 @@ export default function EventDetail() {
       amount: income.amount,
       tax_rate: income.tax_rate,
       expected_date: income.expected_date ?? '',
-      is_paid: income.is_paid,
+      is_paid: isPaid(income),
+      paid_date: income.paid_date ?? null,
     })
     setIncomeModal(true)
   }
@@ -148,21 +150,17 @@ export default function EventDetail() {
 
   const handleSubmitIncome = async (e) => {
     e.preventDefault()
-    const amount = parseDecimal(incomeForm.amount)
-    const rawTaxRate = String(incomeForm.tax_rate ?? '').trim()
-    const taxRate = rawTaxRate === '' ? defaultTaxRate : parseDecimal(rawTaxRate)
-    if (!incomeForm.concept.trim() || !amount || amount <= 0) {
+    const { payload, error: validationError } = normalizeIncomeForm(incomeForm, {
+      defaultTaxRate,
+      existingIncome: editingIncome,
+    })
+    if (!incomeForm.concept.trim() || validationError === 'amount') {
       addToast('Completa el concepto y un importe mayor que 0.', 'error')
       return
     }
-    if (taxRate === null || taxRate < 0 || taxRate > 100) {
+    if (validationError === 'tax_rate') {
       addToast('La retención IRPF debe estar entre 0 y 100.', 'error')
       return
-    }
-    const payload = {
-      ...incomeForm,
-      amount: amount,
-      tax_rate: taxRate,
     }
     setSavingIncome(true)
     const { error } = editingIncome
@@ -175,22 +173,23 @@ export default function EventDetail() {
   }
 
   const handleTogglePaid = async (income) => {
-    await updateIncome(income.id, {
-      is_paid: !income.is_paid,
-      paid_date: !income.is_paid ? new Date().toISOString().split('T')[0] : null,
-    })
+    const currentPayment = { is_paid: income.is_paid, paid_date: income.paid_date ?? null }
+    const paymentState = isPaid(income) ? markUnpaid(currentPayment) : markPaid(currentPayment)
+    const { error } = await updateIncome(income.id, paymentState)
+    if (error) addToast('Error al actualizar el cobro.', 'error')
   }
 
   const handleSubmitExpense = async (e) => {
     e.preventDefault()
-    if (!expenseForm.concept.trim() || Number(expenseForm.amount) <= 0) {
+    const { payload, error: validationError } = normalizeExpenseForm(expenseForm)
+    if (!expenseForm.concept.trim() || validationError === 'amount') {
       addToast('Completa el concepto y un importe mayor que 0.', 'error')
       return
     }
     setSavingExpense(true)
     const { error } = editingExpense
-      ? await updateExpense(editingExpense.id, expenseForm)
-      : await createExpense({ ...expenseForm, event_id: id })
+      ? await updateExpense(editingExpense.id, payload)
+      : await createExpense({ ...payload, event_id: id })
     setSavingExpense(false)
     if (error) { addToast('Error al guardar el gasto.', 'error'); return }
     addToast(editingExpense ? 'Gasto actualizado.' : 'Gasto añadido.')
@@ -350,7 +349,7 @@ export default function EventDetail() {
                     <td className="py-2 text-right text-gray-500">{formatDate(income.expected_date)}</td>
                     <td className="py-2 text-center">
                       <button onClick={() => handleTogglePaid(income)} className="text-gray-400 hover:text-green-600 transition-colors">
-                        {income.is_paid ? <CheckCircle size={16} className="text-green-500" /> : <Circle size={16} />}
+                        {isPaid(income) ? <CheckCircle size={16} className="text-green-500" /> : <Circle size={16} />}
                       </button>
                     </td>
                     <td className="py-2 text-right">
@@ -461,7 +460,8 @@ export default function EventDetail() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <Input
               label="Importe (€) *"
-              type="number" min="0" step="0.01"
+              type="text"
+              inputMode="decimal"
               value={incomeForm.amount}
               onChange={(e) => setIncomeForm((p) => ({ ...p, amount: e.target.value }))}
               required
@@ -507,7 +507,8 @@ export default function EventDetail() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <Input
               label="Importe (€) *"
-              type="number" min="0" step="0.01"
+              type="text"
+              inputMode="decimal"
               value={expenseForm.amount}
               onChange={(e) => setExpenseForm((p) => ({ ...p, amount: e.target.value }))}
               required

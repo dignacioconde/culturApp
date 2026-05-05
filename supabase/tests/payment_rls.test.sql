@@ -1,6 +1,7 @@
--- pgTAP placeholder for CACH-B0016.
+-- pgTAP placeholder for CACH-0029.
 -- skip: the current Supabase schema in this repo is documented in AGENTS.md,
--- but there are no versioned app migrations for payments/caches yet.
+-- but there are no versioned app migrations for profiles/projects/events/incomes/expenses yet.
+-- Without those migrations, RLS tests for payments cannot be reproduced from a clean db.
 --
 -- Target coverage once migrations are versioned:
 -- - tests.rls_enabled('public')
