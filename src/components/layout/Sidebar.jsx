@@ -1,17 +1,26 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { Drama, LayoutDashboard, CalendarDays, CalendarRange, Briefcase, Settings } from 'lucide-react'
 
 const navItems = [
+  { to: '/work', icon: Briefcase, label: 'Trabajos', activePaths: ['/work', '/projects', '/events'] },
   { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
   { to: '/calendar/events', icon: CalendarDays, label: 'Cal. eventos' },
   { to: '/calendar/projects', icon: CalendarRange, label: 'Cal. proyectos' },
-  { to: '/work', icon: Briefcase, label: 'Trabajos' },
   { to: '/settings', icon: Settings, label: 'Ajustes' },
 ]
 
 export function Sidebar({ onNavigate, isDrawer = false }) {
+  const location = useLocation()
   const handleNavClick = () => {
     if (onNavigate) onNavigate()
+  }
+
+  const isItemActive = (item, navLinkActive) => {
+    if (navLinkActive) return true
+    return item.activePaths?.some((path) => {
+      if (location.pathname === path) return true
+      return location.pathname.startsWith(`${path}/`)
+    })
   }
 
   return (
@@ -39,22 +48,22 @@ export function Sidebar({ onNavigate, isDrawer = false }) {
           }
         `}
       >
-        {navItems.map(({ to, icon: Icon, label }) => (
+        {navItems.map((item) => (
           <NavLink
-            key={to}
-            to={to}
+            key={item.to}
+            to={item.to}
             onClick={handleNavClick}
             className={({ isActive }) =>
               `flex min-h-10 shrink-0 items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2 lg:shrink
-              ${isActive
+              ${isItemActive(item, isActive)
                 ? 'bg-[#C94035] text-[#F5EFE0]'
                 : 'text-[rgba(245,239,224,.75)] hover:bg-[rgba(245,239,224,.08)] hover:text-[#F5EFE0]'
               }`
             }
-            title={label}
+            title={item.label}
           >
-            <Icon size={18} className="shrink-0" />
-            <span className="whitespace-nowrap">{label}</span>
+            <item.icon size={18} className="shrink-0" />
+            <span className="whitespace-nowrap">{item.label}</span>
           </NavLink>
         ))}
       </nav>
