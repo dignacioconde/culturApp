@@ -51,7 +51,7 @@ async function main() {
 
   const child = spawn(
     "opencode",
-    ["run", "--agent", "cultura-planner", "--title", "cultura-plan", "--dir", repoRoot, contract],
+    ["run", "--agent", "cultura-planner", "--title", "cultura-plan", "--dir", repoRoot, "--dangerously-skip-permissions", contract],
     { cwd: repoRoot, stdio: "inherit" },
   )
 

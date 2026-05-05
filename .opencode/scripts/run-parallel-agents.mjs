@@ -119,7 +119,7 @@ function runAgent(agentKey, options, runDir) {
 
   const child = spawn(
     "opencode",
-    ["run", "--agent", "cultura-lead", "--title", title, "--dir", repoRoot, prompt],
+    ["run", "--agent", "cultura-lead", "--title", title, "--dir", repoRoot, "--dangerously-skip-permissions", prompt],
     { cwd: repoRoot, stdio: ["ignore", "pipe", "pipe"] },
   )
 

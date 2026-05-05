@@ -115,7 +115,7 @@ async function main() {
   const prompt = buildContract(options)
   const child = spawn(
     "opencode",
-    ["run", "--agent", options.agent, "--title", options.title, "--dir", repoRoot, prompt],
+    ["run", "--agent", options.agent, "--title", options.title, "--dir", repoRoot, "--dangerously-skip-permissions", prompt],
     { cwd: repoRoot, stdio: "inherit" },
   )
 
