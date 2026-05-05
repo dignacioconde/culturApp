@@ -34,9 +34,15 @@ export function useIncomes(userId, { projectId = null, eventId = null, eventIds 
   }, [userId, fetchIncomes])
 
   const createIncome = async (incomeData) => {
+    const dataToInsert = { ...incomeData, user_id: userId }
+    // Si is_paid=true y no hay paid_date, asignar fecha actual
+    if (incomeData.is_paid && !incomeData.paid_date) {
+      dataToInsert.paid_date = new Date().toISOString().split('T')[0]
+    }
+
     const { data, error } = await supabase
       .from('incomes')
-      .insert({ ...incomeData, user_id: userId })
+      .insert(dataToInsert)
       .select()
       .single()
 
@@ -45,9 +51,15 @@ export function useIncomes(userId, { projectId = null, eventId = null, eventIds 
   }
 
   const updateIncome = async (id, incomeData) => {
+    const dataToUpdate = { ...incomeData }
+    // Si is_paid=true y no hay paid_date, asignar fecha actual
+    if (incomeData.is_paid && !incomeData.paid_date) {
+      dataToUpdate.paid_date = new Date().toISOString().split('T')[0]
+    }
+
     const { data, error } = await supabase
       .from('incomes')
-      .update(incomeData)
+      .update(dataToUpdate)
       .eq('id', id)
       .select()
       .single()
