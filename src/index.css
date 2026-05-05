@@ -272,6 +272,7 @@
     background-color: var(--color-bg-page);
     color: var(--color-gray-900);
     min-width: 320px;
+    touch-action: pan-x pan-y;
   }
 
   #root {
