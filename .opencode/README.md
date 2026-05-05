@@ -49,6 +49,14 @@ npm run agents:run -- --scope "src/pages/Events,src/hooks" --ownership "frontend
 
 Usa `opencode run` directamente solo para depuracion o pruebas de agentes.
 
+## Agentes primarios
+
+| Agente | Comando | Uso |
+| --- | --- | --- |
+| `cultura-lead` | `npm run agents:run -- "tarea"` | Dispatcher principal: enruta a subagentes y cierra con verificacion |
+| `cultura-planner` | `npm run agents:plan -- "tarea"` | Convierte prompt rough en issue estructurada y lanza agentes |
+| `verification-agent` | `npm run agents:verify -- "contexto"` | Verificacion post-implementacion: lint, build, tests, issue, PR readiness |
+
 ## Agente principal
 
 ```bash
@@ -90,6 +98,7 @@ npm run agents:run -- "Tu tarea aqui"
 | `cultura-security` | Auth, RLS, secretos, privacidad, exposicion de datos y riesgos de deploy |
 | `cultura-release` | Deploy en Vercel, variables de entorno, checklist pre-release |
 | `cultura-docs` | README, TECHDOC, AGENTS.md y documentacion operativa |
+| `verification-agent` | Verificacion post-implementacion: lint, build, tests, issue closeability, PR readiness |
 
 Ejemplo dentro de OpenCode:
 
@@ -217,13 +226,29 @@ Reglas de uso:
 - No guardes secretos ni valores de `.env.local`.
 - Usa la pizarra para coordinacion; la fuente de verdad siguen siendo `AGENTS.md`, el codigo y las pruebas.
 
+## Verificacion post-implementacion
+
+Cuando la implementacion este lista, lanzar el agente de verificacion:
+
+```bash
+npm run agents:verify -- "Verifica la implementacion de <tarea>. Rama: <rama>. Issue: <URL si existe>."
+```
+
+El agente ejecuta lint, build y tests segun lo que haya cambiado, comprueba si la issue es cerrable y devuelve un bloque estandar con status `Ready`, `Ready with warnings` o `Blocked`.
+
+Tambien se puede invocar desde `cultura-lead` en sesion interactiva:
+
+```text
+@verification-agent verifica el estado actual antes de abrir PR.
+```
+
 ## Prueba de agentes
 
 Estado verificado el 02/05/2026:
 
 - `opencode --version`: `1.14.29`
 - `opencode models opencode` incluye `opencode/minimax-m2.5-free`
-- `opencode agent list` reconoce `cultura-lead` y los nueve subagentes
+- `opencode agent list` reconoce `cultura-lead`, `cultura-planner`, `verification-agent` y los nueve subagentes
 - `cultura-lead` carga correctamente con `opencode/minimax-m2.5-free`
 - Desde `cultura-lead`, cargan correctamente:
   - `cultura-frontend`

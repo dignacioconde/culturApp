@@ -71,6 +71,73 @@ La herramienta les permite:
 
 ---
 
+## Agent routing
+
+El agente por defecto es `cultura-lead`. Clasifica la tarea y enruta a subagentes.
+
+No usar subagentes para cambios triviales. Usarlos cuando reducen contexto o aislan responsabilidad.
+
+### Tarea pequeña de implementacion
+
+Usar el flujo por defecto: `npm run agents:run -- "tarea"`.
+
+Leer solo:
+
+- `AGENTS.md`
+- `.memory/MEMORY.md`
+- issue `CACH-*` relacionada, si existe
+
+No leer: backlog completo, todas las releases, todos los ADRs.
+
+### UI y frontend
+
+Usar `@cultura-frontend` si la tarea afecta layout, componentes, formularios, calendarios, estilos o comportamiento responsive.
+
+Para criterio visual, incluir tambien `@cultura-ux-desktop` o `@cultura-ux-mobile` segun viewport.
+
+### Datos, hooks y Supabase
+
+Usar `@cultura-data` para cambios en hooks, schema SQL, RLS, calculos financieros o filtros Supabase.
+
+### Documentacion y memoria
+
+Usar `@cultura-docs` para cambios en `docs/project/`, `AGENTS.md`, `README`, instrucciones de agentes o memoria persistida en `.memory/`.
+
+### Verificacion post-implementacion
+
+Usar `verification-agent` despues de implementacion cuando:
+
+- se toca codigo de producto (`src/`),
+- se toca UI relevante,
+- se toca build/config/deploy,
+- se toca release flow o Product Brain,
+- se prepara una PR mediana/grande,
+- el usuario pide validacion explicita.
+
+Comando directo:
+
+```bash
+npm run agents:verify -- "Verifica la implementacion de <tarea o issue>"
+```
+
+O desde `cultura-lead` en una sesion interactiva:
+
+```text
+@verification-agent verifica el estado actual antes de abrir PR.
+```
+
+No usar para: documentacion menor, copy sin logica, cambios triviales sin riesgo.
+
+### Revision tecnica
+
+Usar `@cultura-review` antes de cerrar tareas medianas/grandes o PRs con varias areas afectadas.
+
+### Seguridad
+
+Usar `@cultura-security` para cambios en auth, RLS, secretos, deploy o exposicion de datos.
+
+---
+
 ## Flujo de trabajo con agentes OpenCode
 
 Este proyecto debe evolucionar mediante agentes OpenCode cuando el usuario lo pida. Tratar a los agentes como un equipo de desarrollo con tareas cerradas, ownership claro y verificacion obligatoria.

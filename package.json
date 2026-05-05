@@ -10,6 +10,7 @@
     "agents:plan": "node .opencode/scripts/run-planner.mjs",
     "agents:run": "node .opencode/scripts/run-agent.mjs",
     "agents:parallel": "node .opencode/scripts/run-parallel-agents.mjs",
+    "agents:verify": "node .opencode/scripts/run-agent.mjs --agent verification-agent",
     "pb:init": "node scripts/product-brain-sync.mjs init",
     "pb:status": "node scripts/product-brain-sync.mjs status",
     "pb:check": "node scripts/brain/check.mjs",

@@ -48,6 +48,12 @@
 - Durable memory: After merging a PR to `main`, the remote branch should be deleted automatically by `.github/workflows/delete-branch.yml` when it belongs to the same repository. The local branch must be deleted only after switching to up-to-date `main`; do not use scripts that try to delete the currently checked-out branch.
 - Source: user instruction on 2026-05-04; issues `#22` and `#24`; PR `#23`; `.github/workflows/delete-branch.yml`; `AGENTS.md`; `.opencode/README.md`.
 
+## 2026-05-05 - verification-agent Creado Para Verificacion Post-Implementacion
+
+- Context: El lead (`cultura-lead`) dedicaba tiempo a verificar despliegues y estados finales en lugar de delegarlo. Se auditaron los agentes existentes y se confirmo que el sistema OpenCode funciona correctamente con 11 agentes reales.
+- Durable memory: existe `verification-agent` en `.opencode/agents/verification-agent.md` (mode: primary). Se llama con `npm run agents:verify -- "contexto"` o como `@verification-agent` desde una sesion interactiva. Solo se debe usar cuando se toca codigo de producto, UI, build/config/deploy o se prepara una PR mediana/grande. Produce un bloque estandar con status `Ready / Ready with warnings / Blocked`. No es obligatorio para cambios triviales, copy o documentacion menor.
+- Source: prompt de auditoria 2026-05-05; `AGENTS.md`; `.opencode/README.md`; `.opencode/agents/verification-agent.md`.
+
 ## 2026-05-05 - Product Brain Governs Implementation Workflow
 
 - Context: The user asked to professionalize backlog, Markdown issues, releases, release branches, commits, validation and agent workflow around the repo-native Product Brain.
