@@ -554,7 +554,7 @@ export default function EventDetail() {
       </Modal>
 
       <Modal isOpen={incomeModal} onClose={() => setIncomeModal(false)} title={editingIncome ? 'Editar ingreso' : 'Añadir ingreso'}>
-        <form onSubmit={handleSubmitIncome} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmitIncome} className="flex flex-col gap-3">
           <Input
             label="Concepto *"
             value={incomeForm.concept}
@@ -562,7 +562,7 @@ export default function EventDetail() {
             placeholder="Actuación principal"
             required
           />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-3">
             <Input
               label="Importe (€) *"
               type="text"
@@ -601,7 +601,7 @@ export default function EventDetail() {
       </Modal>
 
       <Modal isOpen={expenseModal} onClose={() => setExpenseModal(false)} title={editingExpense ? 'Editar gasto' : 'Añadir gasto'}>
-        <form onSubmit={handleSubmitExpense} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmitExpense} className="flex flex-col gap-3">
           <Input
             label="Concepto *"
             value={expenseForm.concept}
@@ -609,7 +609,7 @@ export default function EventDetail() {
             placeholder="Alquiler sala de ensayo"
             required
           />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-3">
             <Input
               label="Importe (€) *"
               type="text"
