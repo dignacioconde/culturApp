@@ -32,6 +32,7 @@ export function ScrollLockProvider({ children }) {
   )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useScrollLock() {
   const context = useContext(ScrollLockContext)
   if (!context) throw new Error('useScrollLock must be used within ScrollLockProvider')

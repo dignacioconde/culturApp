@@ -21,17 +21,14 @@ import { isPaid, markPaid, markUnpaid, paymentDate } from '../../lib/payment'
 import { EXPENSE_CATEGORIES } from '../../lib/constants'
 
 const EMPTY_EXPENSE = { concept: '', amount: '', category: 'otros', expense_date: '', is_deductible: true }
-const compactSecondaryAction = 'inline-flex min-h-9 items-center justify-center gap-2 rounded-lg border border-[#E2D9C2] bg-[#F5EFE0] px-3 py-1.5 text-sm font-medium leading-none text-[#211C18] shadow-sm transition-colors hover:bg-[#EBE3CE] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2'
 const compactPrimaryAction = 'inline-flex min-h-9 items-center justify-center gap-2 rounded-lg bg-[#C94035] px-3 py-1.5 text-sm font-medium leading-none text-white shadow-sm transition-colors hover:bg-[#A8342B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2'
-const compactDangerAction = 'inline-flex min-h-9 items-center justify-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium leading-none text-[#C94035] transition-colors hover:bg-red-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2'
-const compactGhostInfo = 'inline-flex min-h-9 items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 transition-colors hover:border-gray-300 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2'
 
 const getEventHours = (event) => {
   if (!event.end_datetime) return 0
   const minutes = (new Date(event.end_datetime).getTime() - new Date(event.start_datetime).getTime()) / 60000
   return minutes > 0 ? minutes / 60 : 0
 }
-
+  
 function QuietStatusBadge({ status }) {
   if (!status || status === 'confirmed') return null
   return <StatusBadge status={status} />
@@ -111,18 +108,6 @@ export default function EventDetail() {
   const eventHours = getEventHours(event)
   const grossHourlyRate = eventHours > 0 ? totalPaid / eventHours : 0
   const netProfit = totalPaid - totalRetentions - totalExpenses
-  const headerMeta = [
-    event.category,
-    formatDatetime(event.start_datetime),
-    event.end_datetime ? formatDatetime(event.end_datetime) : null,
-  ].filter(Boolean)
-
-  const openNewIncome = () => {
-    setIncomeForm(createIncomeForm())
-    setEditingIncome(null)
-    setIncomeModal(true)
-  }
-
   const openQuickIncome = () => {
     setQuickIncomeModal(true)
   }
@@ -162,12 +147,6 @@ export default function EventDetail() {
       paid_date: income.paid_date ?? null,
     })
     setIncomeModal(true)
-  }
-
-  const openNewExpense = () => {
-    setExpenseForm(createExpenseForm({ expense_date: eventDate }))
-    setEditingExpense(null)
-    setExpenseModal(true)
   }
 
   const openQuickExpense = () => {

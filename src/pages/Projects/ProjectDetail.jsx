@@ -22,8 +22,6 @@ import { EXPENSE_CATEGORIES } from '../../lib/constants'
 
 const EMPTY_EXPENSE = { concept: '', amount: '', category: 'otros', expense_date: '', is_deductible: true }
 const compactSecondaryAction = 'inline-flex min-h-9 items-center justify-center gap-2 rounded-lg border border-[#E2D9C2] bg-[#F5EFE0] px-3 py-1.5 text-sm font-medium leading-none text-[#211C18] shadow-sm transition-colors hover:bg-[#EBE3CE] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2'
-const compactPrimaryAction = 'inline-flex min-h-9 items-center justify-center gap-2 rounded-lg bg-[#C94035] px-3 py-1.5 text-sm font-medium leading-none text-white shadow-sm transition-colors hover:bg-[#A8342B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2'
-const compactDangerAction = 'inline-flex min-h-9 items-center justify-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium leading-none text-[#C94035] transition-colors hover:bg-red-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2'
 
 const getEventHours = (event) => {
   if (!event.end_datetime) return 0
@@ -117,7 +115,6 @@ export default function ProjectDetail() {
   const grossHourlyRate = projectHours > 0 ? totalPaidFromEvents / projectHours : 0
   const netProfit = totalPaid - totalRetentions - totalExpenses
 
-  const openNewIncome = () => { setEditingIncome(null); setIncomeForm(emptyIncomeForm); setIncomeModal(true) }
   const openEditIncome = (income) => {
     setEditingIncome(income)
     setIncomeForm({
@@ -130,7 +127,6 @@ export default function ProjectDetail() {
     })
     setIncomeModal(true)
   }
-  const openNewExpense = () => { setEditingExpense(null); setExpenseForm(EMPTY_EXPENSE); setExpenseModal(true) }
   const openEditExpense = (expense) => {
     setEditingExpense(expense)
     setExpenseForm({ concept: expense.concept, amount: expense.amount, category: expense.category, expense_date: expense.expense_date ?? '', is_deductible: expense.is_deductible })
