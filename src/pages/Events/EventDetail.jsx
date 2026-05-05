@@ -660,7 +660,6 @@ export default function EventDetail() {
             inputMode="decimal"
             value={quickIncomeForm.amount}
             onChange={(e) => setQuickIncomeForm((p) => ({ ...p, amount: e.target.value }))}
-            autoFocus
             required
           />
           <label className="flex items-center gap-3 rounded-lg border border-gray-200 bg-gray-50 p-3">
@@ -691,7 +690,6 @@ export default function EventDetail() {
             inputMode="decimal"
             value={quickExpenseForm.amount}
             onChange={(e) => setQuickExpenseForm((p) => ({ ...p, amount: e.target.value }))}
-            autoFocus
             required
           />
           <Select
