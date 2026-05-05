@@ -144,7 +144,7 @@ export default function CalendarProjects() {
             </div>
           ) : (
             <div className="flex flex-1 flex-col">
-              <div className="h-[480px] min-h-[480px] overflow-x-auto overflow-y-hidden sm:h-[560px] sm:min-h-[560px] lg:h-full lg:min-h-0">
+              <div className="h-[min(62dvh,520px)] min-h-[420px] overflow-x-auto overflow-y-hidden sm:h-[560px] sm:min-h-[560px] lg:h-full lg:min-h-0">
                 <div className={`h-full ${calendarMinWidth}`}>
                   <Calendar
                     localizer={localizer}

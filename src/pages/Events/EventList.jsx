@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { AlertCircle, CalendarDays, FilterX, Plus, Search } from 'lucide-react'
+import { AlertCircle, CalendarDays, FilterX, Plus, Search, SlidersHorizontal } from 'lucide-react'
 import { PageWrapper } from '../../components/layout/PageWrapper'
 import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
@@ -28,6 +28,7 @@ export default function EventList() {
   const [filterStatus, setFilterStatus] = useState('')
   const [filterCategory, setFilterCategory] = useState('')
   const [filterProject, setFilterProject] = useState('')
+  const [filtersOpen, setFiltersOpen] = useState(false)
 
   const effectiveFilterProject = useMemo(() => {
     const projectParam = searchParams.get('project')
@@ -38,6 +39,7 @@ export default function EventList() {
   }, [searchParams, filterProject])
 
   const hasFilters = Boolean(search || filterStatus || filterCategory || effectiveFilterProject)
+  const activeFilterCount = [search, filterStatus, filterCategory, effectiveFilterProject].filter(Boolean).length
   const categoryLabels = useMemo(() => Object.fromEntries(EVENT_CATEGORIES.map((c) => [c.value, c.label])), [])
   const projectById = useMemo(() => Object.fromEntries(projects.map((p) => [p.id, p])), [projects])
 
@@ -95,7 +97,7 @@ export default function EventList() {
         </div>
 
         <Card className="p-3 sm:p-4">
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-[minmax(220px,1fr)_180px_190px_220px_auto] xl:items-center">
+          <div className="grid grid-cols-1 gap-3 lg:grid-cols-4 xl:grid-cols-[minmax(220px,1fr)_180px_190px_220px_auto] xl:items-center">
             <div className="relative min-w-0">
               <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
               <input
@@ -103,12 +105,28 @@ export default function EventList() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Buscar evento, cliente o proyecto"
-                className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-gray-300 outline-none focus:border-[var(--color-primary-500)]"
+                className="min-h-11 w-full rounded-lg border border-gray-300 py-2 pl-9 pr-3 text-base outline-none focus:border-[var(--color-primary-500)] sm:text-sm"
               />
             </div>
-            <details className="lg:hidden">
-              <summary className="cursor-pointer text-sm font-medium text-gray-600 list-none">Filtros ↓</summary>
-              <div className="mt-2 grid grid-cols-2 gap-3">
+            <div className="lg:hidden">
+              <div className="flex gap-2">
+                <Button
+                  variant="secondary"
+                  onClick={() => setFiltersOpen((current) => !current)}
+                  className="min-h-11 flex-1 justify-center"
+                  aria-expanded={filtersOpen}
+                >
+                  <SlidersHorizontal size={16} />
+                  {activeFilterCount > 0 ? `Filtros (${activeFilterCount})` : 'Filtros'}
+                </Button>
+                {hasFilters && (
+                  <Button variant="ghost" onClick={clearFilters} className="min-h-11 px-3" aria-label="Limpiar filtros">
+                    <FilterX size={16} />
+                  </Button>
+                )}
+              </div>
+              {(filtersOpen || hasFilters) && (
+              <div className="mt-3 grid grid-cols-1 gap-3">
                 <Select
                   value={filterStatus}
                   onChange={(e) => setFilterStatus(e.target.value)}
@@ -144,14 +162,9 @@ export default function EventList() {
                     <option key={p.id} value={p.id}>{p.name}</option>
                   ))}
                 </Select>
-                {hasFilters && (
-                  <Button variant="ghost" onClick={clearFilters} className="justify-center whitespace-nowrap">
-                    <FilterX size={16} />
-                    Limpiar
-                  </Button>
-                )}
               </div>
-            </details>
+              )}
+            </div>
             <div className="hidden lg:contents">
               <Select
                 value={filterStatus}

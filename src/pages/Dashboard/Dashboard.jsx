@@ -135,21 +135,21 @@ export default function Dashboard() {
         <Card className="p-3 sm:p-4">
           <div className="flex flex-col gap-3">
             {/* Selector de mes simplificado */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-              <div className="flex items-center gap-1">
-                <button onClick={prevMonth} className="p-2.5 min-h-10 rounded-lg hover:bg-gray-100 text-gray-500" aria-label="Mes anterior">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="grid grid-cols-[2.75rem_minmax(0,1fr)_2.75rem_6.5rem] items-center gap-2 sm:flex sm:gap-1">
+                <button onClick={prevMonth} className="flex min-h-11 items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100" aria-label="Mes anterior">
                   <ChevronLeft size={18} />
                 </button>
-                <span className="text-sm font-medium text-gray-900 min-w-[100px] text-center capitalize">
+                <span className="min-w-0 truncate text-center text-sm font-medium capitalize text-gray-900 sm:min-w-[100px]">
                   {selectedDate.format('MMMM')}
                 </span>
-                <button onClick={nextMonth} className="p-2.5 min-h-10 rounded-lg hover:bg-gray-100 text-gray-500" aria-label="Mes siguiente">
+                <button onClick={nextMonth} className="flex min-h-11 items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100" aria-label="Mes siguiente">
                   <ChevronRight size={18} />
                 </button>
                 <Select
                   value={selectedDate.year()}
                   onChange={(e) => setSelectedDate((d) => d.year(Number(e.target.value)))}
-                  className="ml-2 text-xs py-1"
+                  className="min-h-11 py-2 text-sm sm:ml-2 sm:min-h-0 sm:py-1 sm:text-xs"
                   aria-label="Año"
                 >
                   {YEARS.map((y) => <option key={y} value={y}>{y}</option>)}

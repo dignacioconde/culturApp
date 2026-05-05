@@ -212,7 +212,7 @@ function DateInput({
           </button>
         </div>
         {showCalendar && (
-          <div className="absolute right-0 top-[calc(100%+0.375rem)] z-[90] w-full min-w-[280px] max-w-[calc(100vw-2rem)] rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-surface)] p-3 text-sm shadow-xl ring-1 ring-[var(--color-ink)]/5">
+          <div className="fixed inset-x-3 bottom-3 top-auto z-[90] rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-surface)] p-3 text-sm shadow-xl ring-1 ring-[var(--color-ink)]/5 sm:absolute sm:bottom-auto sm:right-0 sm:top-[calc(100%+0.375rem)] sm:w-full sm:min-w-[280px] sm:max-w-[calc(100vw-2rem)]">
             <div className="mb-3 flex items-center justify-between gap-2">
               <button
                 type="button"
@@ -491,7 +491,7 @@ export function Select({
             id={listboxId}
             role="listbox"
             aria-labelledby={inputId}
-            className="absolute right-0 top-[calc(100%+0.375rem)] z-[80] max-h-[60vh] min-w-full w-max max-w-[calc(100vw-2rem)] overflow-y-auto rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-surface)] p-1.5 text-base shadow-xl ring-1 ring-[var(--color-ink)]/5"
+            className="fixed inset-x-3 bottom-3 top-auto z-[80] max-h-[60vh] overflow-y-auto rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-surface)] p-1.5 text-base shadow-xl ring-1 ring-[var(--color-ink)]/5 sm:absolute sm:bottom-auto sm:right-0 sm:top-[calc(100%+0.375rem)] sm:w-max sm:min-w-full sm:max-w-[calc(100vw-2rem)]"
           >
             {options.map((option) => {
               const isSelected = option.value === String(value ?? '')
