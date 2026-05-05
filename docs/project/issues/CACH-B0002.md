@@ -57,3 +57,4 @@ El Dashboard móvil debe sentirse tan compacto y escaneable como Events y Projec
 - [[../plans/backlog-mayo-2026]]
 - [[../context/ux-mobile-guardrails-20260504|ux-mobile-guardrails-20260504]]
 - [[../context/ui-direction-v3-20260504|ui-direction-v3-20260504]]
+- [[CACH-0032|CACH-0032]] — Slice implementado para priorizar operativa diaria en Dashboard movil.

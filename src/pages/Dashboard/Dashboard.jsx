@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import dayjs from 'dayjs'
-import { TrendingUp, Wallet, Receipt, PiggyBank, Clock, FolderOpen, ChevronLeft, ChevronRight, AlertCircle, Timer } from 'lucide-react'
+import 'dayjs/locale/es'
+import { TrendingUp, Wallet, Receipt, PiggyBank, Clock, FolderOpen, ChevronLeft, ChevronRight, AlertCircle, Timer, CalendarDays } from 'lucide-react'
 import { PageWrapper } from '../../components/layout/PageWrapper'
 import { Card } from '../../components/ui/Card'
 import { StatusBadge } from '../../components/ui/Badge'
@@ -15,6 +16,8 @@ import { useExpenses } from '../../hooks/useExpenses'
 import { formatCurrency, formatCurrencyPerHour, formatDate, formatHours } from '../../lib/formatters'
 
 const YEARS = Array.from({ length: 6 }, (_, i) => dayjs().year() - 2 + i)
+
+dayjs.locale('es')
 
 const getEventHours = (event) => {
   if (!event.end_datetime) return 0
@@ -38,6 +41,7 @@ export default function Dashboard() {
   const endOfMonth = selectedDate.endOf('month').format('YYYY-MM-DD')
   const today = dayjs().format('YYYY-MM-DD')
   const inPendingDays = dayjs().add(pendingDays, 'day').format('YYYY-MM-DD')
+  const inSevenDays = dayjs().add(7, 'day').format('YYYY-MM-DD')
 
   const prevMonth = () => setSelectedDate((d) => d.subtract(1, 'month'))
   const nextMonth = () => setSelectedDate((d) => d.add(1, 'month'))
@@ -116,6 +120,36 @@ export default function Dashboard() {
       .sort((a, b) => a.expected_date.localeCompare(b.expected_date))
   , [incomes, today, inPendingDays])
 
+  const urgentPendingIncomes = useMemo(() =>
+    incomes
+      .filter((i) => !i.is_paid && i.expected_date && i.expected_date <= inSevenDays)
+      .sort((a, b) => a.expected_date.localeCompare(b.expected_date))
+  , [incomes, inSevenDays])
+
+  const urgentPendingTotal = useMemo(() =>
+    urgentPendingIncomes.reduce((acc, income) => acc + Number(income.amount), 0)
+  , [urgentPendingIncomes])
+
+  const overdueIncomes = useMemo(() =>
+    urgentPendingIncomes.filter((income) => income.expected_date < today)
+  , [urgentPendingIncomes, today])
+
+  const upcomingEvents = useMemo(() =>
+    events
+      .filter((event) => {
+        if (event.status === 'cancelled') return false
+        const eventDate = dayjs(event.start_datetime)
+        return eventDate.isAfter(dayjs().subtract(1, 'hour')) && eventDate.format('YYYY-MM-DD') <= inSevenDays
+      })
+      .sort((a, b) => dayjs(a.start_datetime).valueOf() - dayjs(b.start_datetime).valueOf())
+  , [events, inSevenDays])
+
+  const todayEvents = useMemo(() =>
+    upcomingEvents.filter((event) => dayjs(event.start_datetime).format('YYYY-MM-DD') === today)
+  , [upcomingEvents, today])
+
+  const nextEvent = upcomingEvents[0]
+
   const activeProjects = useMemo(() =>
     projects.filter((p) => p.status === 'confirmed' || p.status === 'in_progress')
   , [projects])
@@ -182,7 +216,7 @@ export default function Dashboard() {
         )}
 
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+          <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
             {Array.from({ length: 5 }).map((_, i) => (
               <div key={i} className="rounded-xl border border-gray-100 bg-white p-4 sm:p-5 animate-pulse">
                 <div className="flex items-start gap-3">
@@ -197,7 +231,7 @@ export default function Dashboard() {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+          <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
             <KpiCard
               title="Ingresos previstos"
               value={formatCurrency(kpis.grossExpected)}
@@ -235,6 +269,106 @@ export default function Dashboard() {
             />
           </div>
         )}
+
+        <Card className="p-3 md:hidden">
+          <div className="mb-3 flex items-center justify-between gap-3">
+            <div>
+              <h2 className="text-sm font-semibold text-gray-900">Ahora</h2>
+              <p className="text-xs text-gray-500">{dayjs().format('dddd, D MMMM')}</p>
+            </div>
+            <button
+              onClick={() => navigate('/calendar/events')}
+              className="flex min-h-10 items-center gap-1.5 rounded-lg px-2 text-xs font-medium text-[var(--color-primary-600)] hover:bg-gray-50"
+            >
+              <CalendarDays size={15} />
+              Calendario
+            </button>
+          </div>
+
+          {loading ? (
+            <div className="grid grid-cols-1 gap-2 animate-pulse">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <div key={i} className="h-[68px] rounded-lg bg-gray-100" />
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 gap-2">
+              <button
+                onClick={() => nextEvent ? navigate(`/events/${nextEvent.id}`) : navigate('/calendar/events')}
+                className="flex min-h-[68px] items-center gap-3 rounded-lg border border-gray-100 px-3 py-2 text-left hover:bg-gray-50"
+              >
+                <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-[#F9EDEB] text-[#C94035]">
+                  <Clock size={19} />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-sm font-semibold text-gray-900">
+                    {todayEvents.length > 0 ? `${todayEvents.length} evento${todayEvents.length === 1 ? '' : 's'} hoy` : nextEvent ? 'Próximo evento' : 'Sin eventos próximos'}
+                  </span>
+                  <span className="block truncate text-xs text-gray-500">
+                    {nextEvent
+                      ? `${dayjs(nextEvent.start_datetime).format('DD/MM HH:mm')} · ${nextEvent.name}`
+                      : 'Semana tranquila'}
+                  </span>
+                </span>
+              </button>
+
+              <button
+                onClick={() => urgentPendingIncomes[0] ? navigateToIncome(urgentPendingIncomes[0]) : undefined}
+                className="flex min-h-[68px] items-center gap-3 rounded-lg border border-gray-100 px-3 py-2 text-left hover:bg-gray-50"
+              >
+                <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-[#FDF5E4] text-[#D4921A]">
+                  <Wallet size={19} />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-sm font-semibold text-gray-900">
+                    {urgentPendingIncomes.length > 0 ? `${urgentPendingIncomes.length} cobro${urgentPendingIncomes.length === 1 ? '' : 's'} urgente${urgentPendingIncomes.length === 1 ? '' : 's'}` : 'Sin cobros urgentes'}
+                  </span>
+                  <span className="block truncate text-xs text-gray-500">
+                    {urgentPendingIncomes.length > 0
+                      ? `${formatCurrency(urgentPendingTotal)} · ${overdueIncomes.length > 0 ? `${overdueIncomes.length} vencido${overdueIncomes.length === 1 ? '' : 's'}` : 'próximos 7 días'}`
+                      : 'Nada vence esta semana'}
+                  </span>
+                </span>
+              </button>
+
+              <button
+                onClick={() => navigate('/projects')}
+                className="flex min-h-[68px] items-center gap-3 rounded-lg border border-gray-100 px-3 py-2 text-left hover:bg-gray-50"
+              >
+                <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-[#E8F4EF] text-[#2D6A4F]">
+                  <FolderOpen size={19} />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-sm font-semibold text-gray-900">
+                    {activeProjects.length} proyecto{activeProjects.length === 1 ? '' : 's'} activo{activeProjects.length === 1 ? '' : 's'}
+                  </span>
+                  <span className="block truncate text-xs text-gray-500">
+                    {activeProjects[0] ? activeProjects[0].name : 'Sin trabajo activo'}
+                  </span>
+                </span>
+              </button>
+            </div>
+          )}
+
+          {!loading && (
+            <div className="mt-3 grid grid-cols-3 gap-2 border-t border-gray-100 pt-3">
+              <div>
+                <p className="text-[11px] text-gray-500">Cobrado</p>
+                <p className="truncate text-sm font-semibold text-gray-900">{formatCurrency(kpis.grossPaid)}</p>
+              </div>
+              <div>
+                <p className="text-[11px] text-gray-500">Gastos</p>
+                <p className="truncate text-sm font-semibold text-gray-900">{formatCurrency(kpis.totalExpenses)}</p>
+              </div>
+              <div>
+                <p className="text-[11px] text-gray-500">Neto</p>
+                <p className={`truncate text-sm font-semibold ${kpis.netProfit >= 0 ? 'text-[#2D6A4F]' : 'text-[#C94035]'}`}>
+                  {formatCurrency(kpis.netProfit)}
+                </p>
+              </div>
+            </div>
+          )}
+        </Card>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <Card className="p-4">

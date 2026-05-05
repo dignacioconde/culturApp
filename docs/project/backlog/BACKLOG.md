@@ -68,7 +68,9 @@ Sin issues en progreso.
 
 ## Review
 
-Sin issues en review.
+| ID | Titulo | Tipo | Prioridad | Nota |
+|---|---|---|---|---|
+| [[../issues/CACH-0032|CACH-0032]] | Priorizar operativa diaria en dashboard movil | feature | p1 | PR pendiente. |
 
 ## Done
 

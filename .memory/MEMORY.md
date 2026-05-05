@@ -7,6 +7,7 @@ Mapa estructurado ampliado: [core.md](core.md)
 - [Memoria centralizada en .memory/](project_memory_centralization.md) — Memoria movida de ruta Claude a .memory/ en el repo (2026-05-03)
 - [Routing/deploy](projects/routing-deploy.md) — Vercel necesita fallback SPA para recargas de rutas protegidas; producción verificada en `culturapp-rho.vercel.app`
 - [Estado general](projects/culturaapp-status.md) — Estado implementado del MVP, `/work` y brechas pendientes
+- [Dashboard móvil](projects/dashboard-mobile.md) — En móvil, priorizar información operativa diaria sobre KPIs financieros
 
 ## Referencias
 

@@ -9,6 +9,7 @@ Repository-local memory for CulturaApp agents. This file is a compact map; detai
 - Portable skills and memory protocol: see [topics/portable-skills.md](topics/portable-skills.md).
 - Form controls and mobile selector lessons: see [topics/forms.md](topics/forms.md).
 - Overall CulturaApp implementation timeline: see [projects/culturaapp-status.md](projects/culturaapp-status.md).
+- Mobile dashboard product priority: see [projects/dashboard-mobile.md](projects/dashboard-mobile.md).
 - Calendar layout and mobile week UX: see [projects/calendar.md](projects/calendar.md).
 - Dashboard finance calculations: see [projects/dashboard-finance.md](projects/dashboard-finance.md).
 - Routing/deploy caveats: see [projects/routing-deploy.md](projects/routing-deploy.md).
