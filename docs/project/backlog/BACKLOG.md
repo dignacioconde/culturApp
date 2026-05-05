@@ -39,7 +39,9 @@ Tablero ligero del Product Brain. Cada trabajo ejecutable vive como issue Markdo
 
 ## Inbox
 
-Sin issues en inbox. Las capturas sin procesar viven en [[../inbox/README|inbox]] hasta la weekly review.
+| ID | Titulo | Tipo | Prioridad | Nota |
+|---|---|---|---|---|
+| [[../issues/CACH-0030|CACH-0030]] | Homogeneizar diseno con nueva paleta | chore | p1 | QA visual pendiente. |
 
 ## Backlog
 

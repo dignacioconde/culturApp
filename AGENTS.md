@@ -16,6 +16,51 @@ El proyecto tiene un sistema de memoria persistente en `.memory/` (directorio en
 
 **Gate obligatorio antes de abrir PR**: ningun agente, Codex o Claude Code debe abrir una PR sin hacer un checkpoint de memoria. Revisar issue relacionada, diff y commits de la rama contra la base; guardar en `.memory/` solo preferencias, decisiones duraderas, gotchas recurrentes o reglas de trabajo. Si no hay nada durable que guardar, declararlo explicitamente como `Memoria: no aplica`. Si se actualiza `.memory/`, esos cambios deben quedar commiteados y pusheados antes de crear la PR. Incluir siempre en la descripcion de la PR una seccion `Memoria` con `actualizada` o `no aplica`.
 
+---
+
+## Issue routing
+
+When the user says "create an issue" during backlog triage, Product Brain planning, or CACH workflow context, default to creating a CACH Markdown issue in `docs/project/issues/`.
+
+Create a GitHub Issue only when:
+
+- the user explicitly asks for a GitHub Issue,
+- the task is about GitHub operational tracking,
+- execution is starting immediately and the workflow requires a GitHub mirror,
+- or the current command/prompt explicitly says to create one.
+
+If unsure, create/prepare the CACH issue first and ask before creating GitHub Issue.
+
+Product Brain remains the product source of truth. GitHub remains operational tracking.
+
+---
+
+## Language hygiene
+
+All persistent repo content must be written in clean Spanish or English.
+
+Before writing files, commits, PR bodies or GitHub issues, remove accidental multilingual fragments such as Chinese, Portuguese or Cyrillic snippets unless the task explicitly requires them.
+
+This applies to:
+
+- Markdown issues
+- Product Brain docs
+- commits
+- PR titles/bodies
+- GitHub issues
+- memory files
+
+---
+
+## Issue quality
+
+For newly captured CACH issues:
+
+- avoid overbroad acceptance criteria like "all components" unless the issue is explicitly a large audit;
+- use `status: inbox` for newly captured unrefined work;
+- use `estimate: m` or higher when the task affects many UI components;
+- prefer `type: refactor` or `design` for visual consistency work rather than `chore` if it affects product UI.
+
 **Tipos de memoria**:
 - `feedback`: correcciones o validaciones de decisiones ("no hagas X", "sí, exactamente así")
 - `project`: decisiones de producto, bugs conocidos, iniciativas activas con fecha

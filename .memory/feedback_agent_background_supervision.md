@@ -13,6 +13,7 @@ Esto puede hacer que parezca que el agente está bloqueado o vacío aunque siga 
 **Regla operativa:**
 
 - Antes de lanzar un segundo agente, comprobar si ya hay uno activo.
+- Antes de lanzar `agents:run`, avisar al usuario si ya hay una ejecución activa reciente.
 - Antes de matar un proceso, identificar cuál está progresando.
 - Revisar el transcript/log de OpenCode antes de asumir fallo.
 - Evitar agentes duplicados para la misma tarea.

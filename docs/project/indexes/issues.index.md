@@ -31,3 +31,4 @@ tags:
 - [[../issues/CACH-B0014|CACH-B0014]] — Endurecer agenda cobros y captura del MVP
 - [[../issues/CACH-B0015|CACH-B0015]] — Operativizar backlog releases y ramas en Product Brain
 - [[../issues/CACH-B0016|CACH-B0016]] — Refundacion operativa del Product Brain y tests B0014
+- [[../issues/CACH-0030|CACH-0030]] — Homogeneizar diseno con nueva paleta
