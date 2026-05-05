@@ -1,7 +1,7 @@
 ---
 id: PB-PROCESS-DEVELOPMENT-WORKFLOW
 type: process
-status: Active
+status: Deprecated
 created: 2026-05-05
 updated: 2026-05-05
 aliases:

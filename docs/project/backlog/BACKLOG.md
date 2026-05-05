@@ -66,9 +66,7 @@ Sin issues en progreso.
 
 ## Review
 
-| ID | Titulo | Tipo | Prioridad | Nota |
-|---|---|---|---|---|
-| [[../issues/CACH-0029|CACH-0029]] | Integrar helpers CACH-B0016 en flujos reales | bug | p1 | Validacion completa; e2e/db con skips explicitos. |
+Sin issues en review.
 
 ## Done
 
@@ -78,6 +76,7 @@ Sin issues en progreso.
 | [[../issues/CACH-0028|CACH-0028]] | Corregir sync iCloud y estructura versionada | null | Sync repo/vault estabilizado. |
 | [[../issues/CACH-B0015|CACH-B0015]] | Operativizar backlog, releases y ramas en Product Brain | [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] | Sistema operativo inicial. |
 | [[../issues/CACH-B0016|CACH-B0016]] | Refundacion operativa del Product Brain y tests B0014 | [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] | Validador, tests y politicas. |
+| [[../issues/CACH-0029|CACH-0029]] | Integrar helpers CACH-B0016 en flujos reales | [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] | Mergeada PR #59. Commit 5e2e601. |
 
 ## Regla de mantenimiento
 
