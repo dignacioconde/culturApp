@@ -16,6 +16,10 @@ Mapa estructurado ampliado: [core.md](core.md)
 - [Leer y actualizar memoria siempre](feedback_memory_always.md) — Leer MEMORY.md al inicio y guardar proactivamente sin que el usuario lo pida
 - [Workflows de agentes y OpenCode](topics/agent-workflows.md) — Checkout de memoria pre-PR, supervisión de agentes, commits CACH, Product Brain como fuente de verdad
 
+## Infraestructura y CI
+
+- [Branch protection y CI](feedback_branch_protection.md) — Branch protection activo en main; job `app` requerido; agentes no pueden mergear con CI rojo
+
 ## Feedback y preferencias
 
 - [Product Brain repo-native](feedback_product_brain.md) — docs/project/ con sync manual a Obsidian iCloud, scripts pb:init/status/pull/push, prefijo CACH, Thin PB rules
