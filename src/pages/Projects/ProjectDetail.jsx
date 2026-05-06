@@ -52,7 +52,7 @@ export default function ProjectDetail() {
   const [savingProject, setSavingProject] = useState(false)
 
   const defaultTaxRate = profile?.tax_rate ?? 15
-  const emptyIncomeForm = { concept: '', amount: '', tax_rate: defaultTaxRate, expected_date: '', is_paid: false }
+  const emptyIncomeForm = { concept: '', amount: '', tax_rate: defaultTaxRate, expected_date: '', is_paid: false, paid_date: null }
 
   const [incomeModal, setIncomeModal] = useState(false)
   const [editingIncome, setEditingIncome] = useState(null)
@@ -513,11 +513,14 @@ export default function ProjectDetail() {
           <div className="grid grid-cols-2 gap-3">
             <Input label="Importe (€) *" type="text" inputMode="decimal" value={incomeForm.amount} onChange={(e) => setIncomeForm((p) => ({ ...p, amount: e.target.value }))} required />
             <Input label="Retención IRPF (%)" type="text" inputMode="decimal" value={incomeForm.tax_rate} onChange={(e) => setIncomeForm((p) => ({ ...p, tax_rate: e.target.value }))} />
-            <Input label="Fecha prevista de cobro" type="date" value={incomeForm.expected_date} onChange={(e) => setIncomeForm((p) => ({ ...p, expected_date: e.target.value }))} />
+            <Input label="Fecha prevista de cobro" type="date" value={incomeForm.expected_date} onChange={(e) => setIncomeForm((p) => ({ ...p, expected_date: e.target.value, paid_date: p.is_paid && !p.paid_date ? e.target.value : p.paid_date }))} />
             <div className="flex items-center gap-2">
-              <input type="checkbox" id="is_paid" checked={incomeForm.is_paid} onChange={(e) => setIncomeForm((p) => ({ ...p, is_paid: e.target.checked }))} className="h-5 w-5 rounded border-gray-300 text-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]" />
+              <input type="checkbox" id="is_paid" checked={incomeForm.is_paid} onChange={(e) => setIncomeForm((p) => ({ ...p, is_paid: e.target.checked, paid_date: e.target.checked ? (p.paid_date ?? p.expected_date ?? '') : null }))} className="h-5 w-5 rounded border-gray-300 text-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]" />
               <label htmlFor="is_paid" className="text-sm text-gray-700">Ya está cobrado</label>
             </div>
+            {incomeForm.is_paid && (
+              <Input label="Fecha real de cobro" type="date" value={incomeForm.paid_date ?? ''} onChange={(e) => setIncomeForm((p) => ({ ...p, paid_date: e.target.value }))} />
+            )}
           </div>
           <div className="flex gap-3 justify-end">
             <Button type="button" variant="secondary" onClick={() => setIncomeModal(false)}>Cancelar</Button>

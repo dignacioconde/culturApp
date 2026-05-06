@@ -1,7 +1,7 @@
 ---
 id: PB-CURRENT-RELEASE
 type: release-status
-status: Active
+status: No active release
 created: 2026-05-05
 updated: 2026-05-06
 aliases:
@@ -16,15 +16,15 @@ tags:
 
 ## Release activa
 
-`RELEASE-0.1.0-beta.3` — rama `release/0.1.0-beta.3`. Ver [[RELEASE-0.1.0-beta.3]].
+Ninguna.
 
 ## Ultimo corte
 
-`RELEASE-0.1.0-beta.2` — mergeada a `main` el 2026-05-06. Ver [[RELEASE-0.1.0-beta.2]].
+`RELEASE-0.1.0-beta.3` — mergeada a `main` el 2026-05-06. Ver [[RELEASE-0.1.0-beta.3]].
 
 ## Siguiente release
 
-`RELEASE-0.1.0-beta.3` — corrección de datos financieros del Dashboard (CACH-0035).
+Pendiente de definir. Candidatas: CACH-0030 como PR directo o siguiente corte centrado en beta privada.
 
 ## Cuando activar una release
 

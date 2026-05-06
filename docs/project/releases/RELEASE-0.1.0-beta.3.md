@@ -1,7 +1,7 @@
 ---
 id: RELEASE-0.1.0-beta.3
 type: release
-status: Active
+status: Released
 created: 2026-05-06
 updated: 2026-05-06
 release_branch: release/0.1.0-beta.3
@@ -13,11 +13,11 @@ tags:
   - beta
 ---
 
-# RELEASE-0.1.0-beta.3 — Corrección de datos financieros del Dashboard
+# RELEASE-0.1.0-beta.3 — Rediseño financiero del Dashboard
 
 ## Estado
 
-Active
+Released
 
 ## Rama de release
 
@@ -25,21 +25,25 @@ Active
 
 ## Goal
 
-Corregir el bug crítico que hacía que los KPIs de Cobrado/Neto del Dashboard mostrasen 0,00 € para cobros rápidos de proyecto ya marcados como pagados.
+Convertir el Dashboard en una herramienta clara de control de cobros: plan cobrable del mes, trabajos que explican los importes, deuda accionable y fechas reales de cobro consistentes.
 
 ## Product Outcome
 
-El usuario puede confiar en que los ingresos marcados como cobrados desde la página de proyecto aparecen en el mes correcto del Dashboard, con totales de Cobrado y Neto correctos.
+El usuario puede abrir el Dashboard y entender qué tiene que cobrar ahora, qué ya se cobró, qué está vencido, qué trabajos explican esos importes y qué cobros pertenecen a meses futuros sin mezclarlo todo bajo el mismo bloque.
 
 ## Scope
 
-- [[../issues/CACH-0035|CACH-0035]] — Bug paid_date en cobros rápidos usa start_date en vez de fecha real
+- [[CACH-0035]] — Bug paid_date en cobros rápidos usa start_date en vez de fecha real
+- Rediseño de KPIs de `Caja del mes` como plan cobrable.
+- Vista `Trabajos` agregada por proyecto/evento con contabilidad unificada.
+- Separación visual de trabajos por perseguir, cobro futuro, ya cobrados y otros trabajos del mes.
+- Capa pura `dashboardFinance` con tests unitarios para reglas financieras.
 
 ## Issues incluidas
 
 | Issue | Titulo | Estado | Rama |
 |---|---|---|---|
-| CACH-0035 | Bug paid_date en cobros rapidos de proyecto | in-progress | `release/0.1.0-beta.3` |
+| CACH-0035 | Rediseño financiero del Dashboard y paid_date de cobros rapidos | Released | `release/0.1.0-beta.3` |
 
 ## Fuera de alcance
 
@@ -49,6 +53,7 @@ El usuario puede confiar en que los ingresos marcados como cobrados desde la pá
 ## Riesgos
 
 - Datos históricos con `paid_date` = `start_date` del proyecto seguirán mal hasta migración manual.
+- No se ha hecho migración de base de datos; la corrección aplica a nuevos cobros y a la lectura agregada actual.
 
 ## Checklist de entrada
 
@@ -60,38 +65,61 @@ El usuario puede confiar en que los ingresos marcados como cobrados desde la pá
 
 ## Checklist de desarrollo
 
-- [ ] Todas las issues estan en progreso o cerradas
-- [ ] Commits integrados en rama release
-- [ ] No hay cambios sueltos fuera de release
-- [ ] No hay issues sin estado
-- [ ] No hay decisiones importantes sin documentar
+- [x] Todas las issues estan en progreso o cerradas
+- [x] Commits integrados en rama release
+- [x] No hay cambios sueltos fuera de release
+- [x] No hay issues sin estado
+- [x] No hay decisiones importantes sin documentar
 
 ## Checklist de estabilizacion
 
-- [ ] Build correcto
-- [ ] Tests/checks correctos
-- [ ] Revision visual
-- [ ] Revision responsive
-- [ ] Revision accesibilidad
-- [ ] Revision de regresion basica
-- [ ] Revision de documentacion
+- [x] Build correcto
+- [x] Tests/checks correctos
+- [x] Revision visual
+- [x] Revision responsive
+- [x] Revision accesibilidad
+- [x] Revision de regresion basica
+- [x] Revision de documentacion
 
 ## Checklist de salida
 
-- [ ] Release mergeada a `main`
-- [ ] Release notes actualizadas
-- [ ] Issues marcadas como `Released`
-- [ ] Estado actual actualizado
-- [ ] Current Release actualizado
-- [ ] Backlog actualizado
-- [ ] Proximos pasos documentados
+- [x] Release mergeada a `main`
+- [x] Release notes actualizadas
+- [x] Issues marcadas como `Released`
+- [x] Estado actual actualizado
+- [x] Current Release actualizado
+- [x] Backlog actualizado
+- [x] Proximos pasos documentados
 
 ## Release notes
+
+### Añadido
+
+- Nueva capa pura `src/lib/dashboardFinance.js` para calcular KPIs, trabajos relevantes y secciones financieras del Dashboard.
+- Tests unitarios para plan cobrable mensual, deuda arrastrada, `paid_date`, agregación proyecto-eventos y separación de trabajos.
+
+### Cambiado
+
+- `Caja del mes` pasa a ser plan cobrable: `A cobrar = Cobrado del plan + Pendiente + Vencido`.
+- `Trabajos` agrupa ingresos directos del proyecto e ingresos de eventos hijos; los eventos con proyecto no aparecen duplicados como trabajo financiero separado.
+- La lista de trabajos se separa en `Por perseguir`, `Cobro futuro`, `Ya cobrados` y `Otros trabajos`.
+- La UI móvil del resumen y de los trabajos se compacta para priorizar pendiente/vencido ahora.
 
 ### Corregido
 
 - Dashboard: cobros rápidos de proyecto marcados como pagados ahora guardan `paid_date` con la fecha real de cobro (hoy), no con la `start_date` del proyecto. Los KPIs de Cobrado y Neto reflejan correctamente los ingresos del mes. (CACH-0035)
+- Cobros rápidos de evento marcados como pagados usan también fecha real de cobro.
+- Los vencidos antiguos solo se arrastran al mes real actual; no se proyectan a meses futuros.
+
+### Eliminado
+
+- Se eliminan gastos, neto y cobro bruto/hora como KPIs principales del Dashboard financiero.
+- Se elimina el selector por días de `Próximos cobros`; ahora sigue el mes seleccionado.
+
+### Tecnico
+
+- Validado con `npm test`, `npm run lint`, `npm run build` y `npm run pb:check`.
 
 ## Resultado final
 
-Pendiente hasta cerrar la release.
+Release cerrada y mergeada a `main` el 2026-05-06. El Dashboard queda centrado en control de cobros y trabajos accionables.

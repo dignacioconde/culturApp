@@ -124,7 +124,7 @@ export default function EventDetail() {
       amount,
       tax_rate: defaultTaxRate,
       expected_date: eventDate,
-      paid_date: quickIncomeForm.is_paid ? eventDate : null,
+      paid_date: quickIncomeForm.is_paid ? paymentDate(new Date()) : null,
       is_paid: quickIncomeForm.is_paid,
     }
     setSavingIncome(true)
@@ -582,14 +582,22 @@ export default function EventDetail() {
               label="Fecha prevista de cobro"
               type="date"
               value={incomeForm.expected_date}
-              onChange={(e) => setIncomeForm((p) => ({ ...p, expected_date: e.target.value }))}
+              onChange={(e) => setIncomeForm((p) => ({ ...p, expected_date: e.target.value, paid_date: p.is_paid && !p.paid_date ? e.target.value : p.paid_date }))}
             />
             <div className="flex items-center gap-2">
               <input type="checkbox" id="is_paid" checked={incomeForm.is_paid}
-                onChange={(e) => setIncomeForm((p) => ({ ...p, is_paid: e.target.checked }))}
+                onChange={(e) => setIncomeForm((p) => ({ ...p, is_paid: e.target.checked, paid_date: e.target.checked ? (p.paid_date ?? p.expected_date ?? '') : null }))}
                 className="h-5 w-5 rounded border-gray-300 text-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]" />
               <label htmlFor="is_paid" className="text-sm text-gray-700">Ya está cobrado</label>
             </div>
+            {incomeForm.is_paid && (
+              <Input
+                label="Fecha real de cobro"
+                type="date"
+                value={incomeForm.paid_date ?? ''}
+                onChange={(e) => setIncomeForm((p) => ({ ...p, paid_date: e.target.value }))}
+              />
+            )}
           </div>
           <div className="flex gap-3 justify-end">
             <Button type="button" variant="secondary" onClick={() => setIncomeModal(false)}>Cancelar</Button>
