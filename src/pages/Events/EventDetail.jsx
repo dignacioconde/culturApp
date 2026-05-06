@@ -15,7 +15,7 @@ import { useEvents } from '../../hooks/useEvents'
 import { useProjects } from '../../hooks/useProjects'
 import { useIncomes } from '../../hooks/useIncomes'
 import { useExpenses } from '../../hooks/useExpenses'
-import { formatCurrency, formatCurrencyPerHour, formatDate, formatDatetime, formatHours } from '../../lib/formatters'
+import { formatCurrency, formatCurrencyPerHour, formatDate, formatDatetime, formatHours, parseDecimal } from '../../lib/formatters'
 import { normalizeExpenseForm, normalizeIncomeForm } from '../../lib/financeForms'
 import { isPaid, markPaid, markUnpaid, paymentDate } from '../../lib/payment'
 import { EXPENSE_CATEGORIES } from '../../lib/constants'
@@ -114,14 +114,14 @@ export default function EventDetail() {
 
   const handleQuickSubmitIncome = async (e) => {
     e.preventDefault()
-    const amount = parseFloat(quickIncomeForm.amount)
-    if (!quickIncomeForm.amount || amount <= 0) {
+    const amount = parseDecimal(quickIncomeForm.amount)
+    if (amount === null || amount <= 0) {
       addToast('Pon un importe mayor que 0.', 'error')
       return
     }
     const payload = {
       concept: event?.name || 'Ingreso',
-      amount: quickIncomeForm.amount,
+      amount,
       tax_rate: defaultTaxRate,
       expected_date: eventDate,
       paid_date: quickIncomeForm.is_paid ? eventDate : null,
@@ -155,14 +155,14 @@ export default function EventDetail() {
 
   const handleQuickSubmitExpense = async (e) => {
     e.preventDefault()
-    const amount = parseFloat(quickExpenseForm.amount)
-    if (!quickExpenseForm.amount || amount <= 0) {
+    const amount = parseDecimal(quickExpenseForm.amount)
+    if (amount === null || amount <= 0) {
       addToast('Pon un importe mayor que 0.', 'error')
       return
     }
     const payload = {
       concept: event?.name || 'Gasto',
-      amount: quickExpenseForm.amount,
+      amount,
       category: quickExpenseForm.category || 'otros',
       expense_date: eventDate,
       is_deductible: true,

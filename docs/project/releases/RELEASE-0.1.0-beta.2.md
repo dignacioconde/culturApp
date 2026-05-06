@@ -39,7 +39,7 @@ El usuario puede confiar en que los eventos aparecen a la hora correcta, los cob
 
 | Issue | Titulo | Estado | Rama |
 |---|---|---|---|
-| [[../issues/CACH-B0014\|CACH-B0014]] | Endurecer agenda, cobros y captura del MVP | in-progress | `feature/CACH-B0014-hardening` |
+| [[../issues/CACH-B0014|CACH-B0014]] | Endurecer agenda, cobros y captura del MVP | in-progress | `feature/CACH-B0014-hardening` |
 
 ## Fuera de alcance
 
