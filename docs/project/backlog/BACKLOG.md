@@ -74,6 +74,7 @@ Sin issues en review.
 | ID | Titulo | Release | Resultado |
 |---|---|---|---|
 | [[../issues/CACH-B0014|CACH-B0014]] | Endurecer agenda, cobros y captura del MVP | [[../releases/RELEASE-0.1.0-beta.2|RELEASE-0.1.0-beta.2]] | 5 bugs críticos corregidos. |
+| [[../issues/CACH-0035|CACH-0035]] | Rediseño financiero del Dashboard y paid_date en cobros rapidos | [[../releases/RELEASE-0.1.0-beta.3|RELEASE-0.1.0-beta.3]] | Dashboard financiero centrado en cobros y trabajos accionables. |
 | [[../issues/CACH-0032|CACH-0032]] | Priorizar operativa diaria en dashboard movil | null | Mergeada a main. Dashboard mobile operativo. |
 | [[../issues/CACH-0034|CACH-0034]] | €/h muestra valor incorrecto cuando no hay eventos con horas | null | Muestra '—' cuando no hay eventos con horas calculables. |
 | [[../issues/CACH-0026|CACH-0026]] | Setup inicial Product Brain | null | Product Brain inicial creado. |

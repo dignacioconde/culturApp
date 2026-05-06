@@ -16,16 +16,16 @@ tags:
 
 ## Foco actual
 
-Sin release activa. Siguiente: CACH-0030 (PR directo) o abrir beta.3.
+Sin release activa. Siguiente: CACH-0030 (PR directo) o definir el próximo corte de beta privada.
 
 ## Release activa
 
-Ninguna. Ultimo corte: [[../releases/RELEASE-0.1.0-beta.2|RELEASE-0.1.0-beta.2]] — mergeada a `main` el 2026-05-06.
+Ninguna. Ultimo corte: [[../releases/RELEASE-0.1.0-beta.3|RELEASE-0.1.0-beta.3]] — mergeada a `main` el 2026-05-06.
 
 ## Prioridades
 
 1. CACH-0030 (paleta/fuentes) como PR directo a main.
-2. Evaluar backlog p1 para definir si se abre `beta.3`.
+2. Evaluar backlog p1 para definir si se abre `beta.4` o ciclo de beta privada.
 3. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
 
 ## Plan operativo
@@ -39,4 +39,4 @@ Ninguna. Ultimo corte: [[../releases/RELEASE-0.1.0-beta.2|RELEASE-0.1.0-beta.2]]
 
 ## Proximo checkpoint
 
-Decidir si CACH-0030 va como PR directo o si se abre `beta.3` con más scope.
+Decidir si CACH-0030 va como PR directo o si se abre el siguiente corte con más scope.

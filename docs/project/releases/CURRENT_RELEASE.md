@@ -1,7 +1,7 @@
 ---
 id: PB-CURRENT-RELEASE
 type: release-status
-status: Active
+status: No active release
 created: 2026-05-05
 updated: 2026-05-06
 aliases:
@@ -16,15 +16,15 @@ tags:
 
 ## Release activa
 
-No active release.
+Ninguna.
 
 ## Ultimo corte
 
-`RELEASE-0.1.0-beta.2` — mergeada a `main` el 2026-05-06. Ver [[RELEASE-0.1.0-beta.2]].
+`RELEASE-0.1.0-beta.3` — mergeada a `main` el 2026-05-06. Ver [[RELEASE-0.1.0-beta.3]].
 
 ## Siguiente release
 
-No definida todavía. Candidatas: CACH-0030 (paleta/fuentes, PR directo) y backlog p1.
+Pendiente de definir. Candidatas: CACH-0030 como PR directo o siguiente corte centrado en beta privada.
 
 ## Cuando activar una release
 

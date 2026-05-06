@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import dayjs from 'dayjs'
 import 'dayjs/locale/es'
-import { TrendingUp, Wallet, Receipt, PiggyBank, Clock, FolderOpen, ChevronLeft, ChevronRight, AlertCircle, Timer, CalendarDays } from 'lucide-react'
+import { AlertCircle, CalendarDays, ChevronLeft, ChevronRight, Clock, FolderOpen, Wallet } from 'lucide-react'
 import { PageWrapper } from '../../components/layout/PageWrapper'
 import { Card } from '../../components/ui/Card'
 import { StatusBadge } from '../../components/ui/Badge'
@@ -12,17 +12,21 @@ import { useAuth } from '../../hooks/useAuth'
 import { useProjects } from '../../hooks/useProjects'
 import { useEvents } from '../../hooks/useEvents'
 import { useIncomes } from '../../hooks/useIncomes'
-import { useExpenses } from '../../hooks/useExpenses'
-import { formatCurrency, formatCurrencyPerHour, formatDate, formatDatetimeCompact, formatHours } from '../../lib/formatters'
+import { formatCurrency, formatDate } from '../../lib/formatters'
+import { getCashMonthSummary, getWorkKpis, getWorkSections, getWorkSummaries } from '../../lib/dashboardFinance'
 
 const YEARS = Array.from({ length: 6 }, (_, i) => dayjs().year() - 2 + i)
 
 dayjs.locale('es')
 
-const getEventHours = (event) => {
-  if (!event.end_datetime) return 0
-  const minutes = dayjs(event.end_datetime).diff(dayjs(event.start_datetime), 'minute')
-  return minutes > 0 ? minutes / 60 : 0
+const getDueDays = (date) => dayjs(date).startOf('day').diff(dayjs().startOf('day'), 'day')
+
+const formatDueText = (date) => {
+  const days = getDueDays(date)
+  if (days < 0) return `Vencido hace ${Math.abs(days)} d`
+  if (days === 0) return 'Vence hoy'
+  if (days === 1) return 'Vence mañana'
+  return `Vence en ${days} d`
 }
 
 export default function Dashboard() {
@@ -31,179 +35,80 @@ export default function Dashboard() {
   const { projects, loading: projectsLoading, error: projectsError } = useProjects(user?.id)
   const { events, loading: eventsLoading, error: eventsError } = useEvents(user?.id)
   const { incomes, loading: incomesLoading, error: incomesError } = useIncomes(user?.id)
-  const { expenses, loading: expensesLoading, error: expensesError } = useExpenses(user?.id)
 
   const [selectedDate, setSelectedDate] = useState(dayjs())
-  const [criteria, setCriteria] = useState('cash_flow')
-  const [pendingDays, setPendingDays] = useState(30)
+  const [view, setView] = useState('cash')
 
   const startOfMonth = selectedDate.startOf('month').format('YYYY-MM-DD')
   const endOfMonth = selectedDate.endOf('month').format('YYYY-MM-DD')
+  const selectedMonthLabel = selectedDate.format('MMMM YYYY')
   const today = dayjs().format('YYYY-MM-DD')
-  const inPendingDays = dayjs().add(pendingDays, 'day').format('YYYY-MM-DD')
-  const inSevenDays = dayjs().add(7, 'day').format('YYYY-MM-DD')
 
   const prevMonth = () => setSelectedDate((d) => d.subtract(1, 'month'))
   const nextMonth = () => setSelectedDate((d) => d.add(1, 'month'))
 
-  const activeProjectIds = useMemo(() => {
-    if (criteria !== 'project_active') return null
-    return new Set(
-      projects
-        .filter((p) => {
-          const end = p.end_date ?? p.start_date
-          return p.start_date <= endOfMonth && end >= startOfMonth
-        })
-        .map((p) => p.id)
-    )
-  }, [projects, criteria, startOfMonth, endOfMonth])
-
-  const activeEventIds = useMemo(() => {
-    if (criteria !== 'project_active' || !activeProjectIds) return null
-    return new Set(events.filter((e) => activeProjectIds.has(e.project_id)).map((e) => e.id))
-  }, [events, criteria, activeProjectIds])
-
-  const relevantIncomes = useMemo(() => {
-    if (criteria === 'cash_flow')
-      return incomes.filter((i) => {
-        const incomeDate = i.is_paid ? (i.paid_date ?? i.expected_date) : i.expected_date
-        return incomeDate >= startOfMonth && incomeDate <= endOfMonth
-      })
-    return incomes.filter((i) =>
-      (i.project_id && activeProjectIds.has(i.project_id)) ||
-      (i.event_id && activeEventIds.has(i.event_id))
-    )
-  }, [incomes, criteria, startOfMonth, endOfMonth, activeProjectIds, activeEventIds])
-
-  const relevantExpenses = useMemo(() => {
-    if (criteria === 'cash_flow')
-      return expenses.filter((e) => e.expense_date >= startOfMonth && e.expense_date <= endOfMonth)
-    return expenses.filter((e) =>
-      (e.project_id && activeProjectIds.has(e.project_id)) ||
-      (e.event_id && activeEventIds.has(e.event_id))
-    )
-  }, [expenses, criteria, startOfMonth, endOfMonth, activeProjectIds, activeEventIds])
-
-  const kpis = useMemo(() => {
-    const grossExpected = relevantIncomes.reduce((acc, i) => acc + Number(i.amount), 0)
-    const paidIncomes = relevantIncomes.filter((i) => i.is_paid)
-    // Ingresos cobrados de eventos del mes seleccionado (filtrar por fecha de cobro)
-    const paidEventIncomes = paidIncomes.filter((i) => {
-      if (!i.event_id) return false
-      const incomeDate = i.paid_date ?? i.expected_date
-      return incomeDate >= startOfMonth && incomeDate <= endOfMonth
-    })
-    const paidEventIds = new Set(paidEventIncomes.map((i) => i.event_id))
-    const grossPaid = paidIncomes.reduce((acc, i) => acc + Number(i.amount), 0)
-    // Solo ingresos cobrados de eventos del mes para el cálculo de €/h
-    const grossPaidFromEvents = paidEventIncomes.reduce((acc, i) => acc + Number(i.amount), 0)
-    const totalRetentions = paidIncomes.reduce((acc, i) => acc + Number(i.amount) * (Number(i.tax_rate) / 100), 0)
-    const totalExpenses = relevantExpenses.reduce((acc, e) => acc + Number(e.amount), 0)
-    // Horas de eventos del mes seleccionado que tienen ingresos cobrados asociados
-    const billableHours = events
-      .filter((event) => {
-        if (!paidEventIds.has(event.id)) return false
-        // El evento debe tener horas dentro del mes seleccionado (start o end dentro del rango)
-        const eventStart = dayjs(event.start_datetime).format('YYYY-MM-DD')
-        const eventEnd = event.end_datetime ? dayjs(event.end_datetime).format('YYYY-MM-DD') : eventStart
-        return eventStart <= endOfMonth && eventEnd >= startOfMonth
-      })
-      .reduce((acc, event) => acc + getEventHours(event), 0)
-    const grossHourlyRate = billableHours > 0 ? grossPaidFromEvents / billableHours : 0
-    const netProfit = grossPaid - totalRetentions - totalExpenses
-    return { grossExpected, grossPaid, totalRetentions, totalExpenses, billableHours, grossHourlyRate, netProfit }
-  }, [relevantIncomes, relevantExpenses, events, startOfMonth, endOfMonth])
+  const cashKpis = useMemo(() =>
+    getCashMonthSummary(incomes, { startOfMonth, endOfMonth, today })
+  , [incomes, startOfMonth, endOfMonth, today])
 
   const pendingIncomes = useMemo(() =>
-    incomes
-      .filter((i) => !i.is_paid && i.expected_date && i.expected_date <= inPendingDays)
+    [...cashKpis.plannedOverdue, ...cashKpis.plannedPending]
       .sort((a, b) => a.expected_date.localeCompare(b.expected_date))
-  , [incomes, inPendingDays])
+  , [cashKpis.plannedOverdue, cashKpis.plannedPending])
+  const works = useMemo(() =>
+    getWorkSummaries({ projects, events, incomes, startOfMonth, endOfMonth, today })
+  , [projects, events, incomes, startOfMonth, endOfMonth, today])
 
-  const urgentPendingIncomes = useMemo(() =>
-    incomes
-      .filter((i) => !i.is_paid && i.expected_date && i.expected_date <= inSevenDays)
-      .sort((a, b) => a.expected_date.localeCompare(b.expected_date))
-  , [incomes, inSevenDays])
-
-  const urgentPendingTotal = useMemo(() =>
-    urgentPendingIncomes.reduce((acc, income) => acc + Number(income.amount), 0)
-  , [urgentPendingIncomes])
-
-  const overdueIncomes = useMemo(() =>
-    urgentPendingIncomes.filter((income) => income.expected_date < today)
-  , [urgentPendingIncomes, today])
-
-  const upcomingEvents = useMemo(() =>
-    events
-      .filter((event) => {
-        if (event.status === 'cancelled') return false
-        const eventDate = dayjs(event.start_datetime)
-        return eventDate.isAfter(dayjs().subtract(1, 'hour')) && eventDate.format('YYYY-MM-DD') <= inSevenDays
-      })
-      .sort((a, b) => dayjs(a.start_datetime).valueOf() - dayjs(b.start_datetime).valueOf())
-  , [events, inSevenDays])
-
-  const todayEvents = useMemo(() =>
-    upcomingEvents.filter((event) => dayjs(event.start_datetime).format('YYYY-MM-DD') === today)
-  , [upcomingEvents, today])
-
-  const nextEvent = upcomingEvents[0]
-
-  const activeProjects = useMemo(() =>
-    projects.filter((p) => p.status === 'confirmed' || p.status === 'in_progress')
-  , [projects])
+  const workKpis = useMemo(() => getWorkKpis(works), [works])
+  const workSections = useMemo(() => getWorkSections(works, { endOfMonth }), [works, endOfMonth])
 
   const navigateToIncome = (income) => {
     if (income.event_id) navigate(`/events/${income.event_id}`)
     else if (income.project_id) navigate(`/projects/${income.project_id}`)
   }
 
-  const loading = projectsLoading || eventsLoading || incomesLoading || expensesLoading
-  const error = projectsError || eventsError || incomesError || expensesError
+  const loading = projectsLoading || eventsLoading || incomesLoading
+  const error = projectsError || eventsError || incomesError
 
   return (
     <PageWrapper title="Dashboard">
       <div className="flex flex-col gap-6">
 
         <Card className="p-3 sm:p-4">
-          <div className="flex flex-col gap-3">
-            {/* Selector de mes simplificado */}
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <div className="grid grid-cols-[2.75rem_minmax(0,1fr)_2.75rem_6.5rem] items-center gap-2 sm:flex sm:gap-1">
-                <button onClick={prevMonth} className="flex min-h-11 items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100" aria-label="Mes anterior">
-                  <ChevronLeft size={18} />
-                </button>
-                <span className="min-w-0 truncate text-center text-sm font-medium capitalize text-gray-900 sm:min-w-[100px]">
-                  {selectedDate.format('MMMM')}
-                </span>
-                <button onClick={nextMonth} className="flex min-h-11 items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100" aria-label="Mes siguiente">
-                  <ChevronRight size={18} />
-                </button>
-                <Select
-                  value={selectedDate.year()}
-                  onChange={(e) => setSelectedDate((d) => d.year(Number(e.target.value)))}
-                  className="min-h-11 py-2 text-sm sm:ml-2 sm:min-h-0 sm:py-1 sm:text-xs"
-                  aria-label="Año"
-                >
-                  {YEARS.map((y) => <option key={y} value={y}>{y}</option>)}
-                </Select>
-              </div>
-              
-              <div className="flex rounded-lg border border-gray-200 overflow-hidden text-sm self-start">
-                <button
-                  onClick={() => setCriteria('cash_flow')}
-                  className={`px-3 sm:px-2.5 py-2 sm:py-1.5 min-h-[44px] sm:min-h-[unset] transition-colors ${criteria === 'cash_flow' ? 'bg-[var(--color-primary-500)] text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
-                >
-                  Cobros
-                </button>
-                <button
-                  onClick={() => setCriteria('project_active')}
-                  className={`px-3 sm:px-2.5 py-2 sm:py-1.5 min-h-[44px] sm:min-h-[unset] border-l border-gray-200 transition-colors ${criteria === 'project_active' ? 'bg-[var(--color-primary-500)] text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
-                >
-                  Proyectos
-                </button>
-              </div>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="grid grid-cols-[2.75rem_minmax(0,1fr)_2.75rem_6.5rem] items-center gap-2 sm:flex sm:gap-1">
+              <button onClick={prevMonth} className="flex min-h-11 items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100" aria-label="Mes anterior">
+                <ChevronLeft size={18} />
+              </button>
+              <span className="min-w-0 truncate text-center text-sm font-medium capitalize text-gray-900 sm:min-w-[130px]">
+                {selectedMonthLabel}
+              </span>
+              <button onClick={nextMonth} className="flex min-h-11 items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100" aria-label="Mes siguiente">
+                <ChevronRight size={18} />
+              </button>
+              <Select
+                value={selectedDate.year()}
+                onChange={(e) => setSelectedDate((d) => d.year(Number(e.target.value)))}
+                className="min-h-11 py-2 text-sm sm:ml-2 sm:min-h-0 sm:py-1 sm:text-xs"
+                aria-label="Año"
+              >
+                {YEARS.map((y) => <option key={y} value={y}>{y}</option>)}
+              </Select>
+            </div>
+
+            <div className="flex self-start overflow-hidden rounded-lg border border-gray-200 text-sm">
+              <button
+                onClick={() => setView('cash')}
+                className={`min-h-[44px] px-3 py-2 transition-colors sm:min-h-[unset] sm:px-2.5 sm:py-1.5 ${view === 'cash' ? 'bg-[var(--color-primary-500)] text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
+              >
+                Caja del mes
+              </button>
+              <button
+                onClick={() => setView('work')}
+                className={`min-h-[44px] border-l border-gray-200 px-3 py-2 transition-colors sm:min-h-[unset] sm:px-2.5 sm:py-1.5 ${view === 'work' ? 'bg-[var(--color-primary-500)] text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
+              >
+                Trabajos
+              </button>
             </div>
           </div>
         </Card>
@@ -216,273 +121,357 @@ export default function Dashboard() {
         )}
 
         {loading ? (
-          <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <div key={i} className="rounded-xl border border-gray-100 bg-white p-4 sm:p-5 animate-pulse">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="rounded-xl border border-gray-100 bg-white p-4 animate-pulse sm:p-5">
                 <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-gray-200 flex-shrink-0" />
-                  <div className="flex-1 min-w-0 space-y-2">
-                    <div className="h-3 bg-gray-200 rounded w-3/4" />
-                    <div className="h-6 bg-gray-200 rounded w-full" />
-                    <div className="h-2.5 bg-gray-100 rounded w-1/2" />
+                  <div className="h-10 w-10 flex-shrink-0 rounded-lg bg-gray-200" />
+                  <div className="min-w-0 flex-1 space-y-2">
+                    <div className="h-3 w-3/4 rounded bg-gray-200" />
+                    <div className="h-6 w-full rounded bg-gray-200" />
+                    <div className="h-2.5 w-1/2 rounded bg-gray-100" />
                   </div>
                 </div>
               </div>
             ))}
           </div>
+        ) : view === 'cash' ? (
+          <>
+            <Card className="p-4 md:hidden">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="text-xs font-medium text-gray-500">A cobrar en {selectedMonthLabel}</p>
+                  <p className="mt-1 text-3xl font-semibold leading-tight text-[#211C18]">{formatCurrency(cashKpis.plannedTotal)}</p>
+                  <p className="mt-1 text-xs text-gray-400">
+                    {cashKpis.planned.length} ingreso{cashKpis.planned.length === 1 ? '' : 's'} previsto{cashKpis.planned.length === 1 ? '' : 's'} o arrastrado{cashKpis.planned.length === 1 ? '' : 's'}
+                  </p>
+                </div>
+                <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-[#FDF5E4] text-[#D4921A]">
+                  <CalendarDays size={19} />
+                </span>
+              </div>
+              <div className="mt-4 grid grid-cols-3 gap-2 border-t border-gray-100 pt-3">
+                <div>
+                  <p className="text-[11px] text-gray-500">Cobrado</p>
+                  <p className="truncate text-sm font-semibold text-[#2D6A4F]">{formatCurrency(cashKpis.plannedPaidTotal)}</p>
+                </div>
+                <div>
+                  <p className="text-[11px] text-gray-500">Pendiente</p>
+                  <p className="truncate text-sm font-semibold text-gray-900">{formatCurrency(cashKpis.plannedPendingTotal)}</p>
+                </div>
+                <div>
+                  <p className="text-[11px] text-gray-500">Vencido</p>
+                  <p className={`truncate text-sm font-semibold ${cashKpis.plannedOverdueTotal > 0 ? 'text-[#C94035]' : 'text-gray-900'}`}>{formatCurrency(cashKpis.plannedOverdueTotal)}</p>
+                </div>
+              </div>
+              {cashKpis.plannedTotal > 0 && (
+                <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-[#E2D9C2]">
+                  <div
+                    className="h-full rounded-full bg-[#2D6A4F]"
+                    style={{ width: `${Math.min(Math.max(cashKpis.plannedPaidTotal / cashKpis.plannedTotal, 0), 1) * 100}%` }}
+                  />
+                </div>
+              )}
+            </Card>
+            <div className="hidden gap-4 md:grid md:grid-cols-2 xl:grid-cols-4">
+              <KpiCard
+                title={`A cobrar en ${selectedMonthLabel}`}
+                value={formatCurrency(cashKpis.plannedTotal)}
+                subtitle={`${cashKpis.planned.length} ingreso${cashKpis.planned.length === 1 ? '' : 's'} previsto${cashKpis.planned.length === 1 ? '' : 's'} o arrastrado${cashKpis.planned.length === 1 ? '' : 's'}`}
+                icon={CalendarDays}
+                color="amber"
+              />
+              <KpiCard
+                title="Cobrado del plan"
+                value={formatCurrency(cashKpis.plannedPaidTotal)}
+                subtitle={`${cashKpis.plannedPaid.length} cobro${cashKpis.plannedPaid.length === 1 ? '' : 's'} marcado${cashKpis.plannedPaid.length === 1 ? '' : 's'}`}
+                icon={Wallet}
+                color="green"
+                progress={cashKpis.plannedTotal > 0 ? cashKpis.plannedPaidTotal / cashKpis.plannedTotal : 0}
+              />
+              <KpiCard
+                title="Pendiente"
+                value={formatCurrency(cashKpis.plannedPendingTotal)}
+                subtitle={`${cashKpis.plannedPending.length} cobro${cashKpis.plannedPending.length === 1 ? '' : 's'} por llegar`}
+                icon={Clock}
+                color="amber"
+              />
+              <KpiCard
+                title="Vencido"
+                value={formatCurrency(cashKpis.plannedOverdueTotal)}
+                subtitle={cashKpis.plannedOverdue.length > 0 ? `${cashKpis.plannedOverdue.length} pago${cashKpis.plannedOverdue.length === 1 ? '' : 's'} por perseguir` : 'Sin vencidos'}
+                icon={AlertCircle}
+                color={cashKpis.plannedOverdueTotal > 0 ? 'red' : 'green'}
+              />
+            </div>
+          </>
         ) : (
-          <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-            <KpiCard
-              title="Ingresos previstos"
-              value={formatCurrency(kpis.grossExpected)}
-              subtitle={criteria === 'cash_flow' ? 'Fecha de cobro en el mes' : 'Proyectos activos en el mes'}
-              icon={TrendingUp}
-              color="red"
-            />
-            <KpiCard
-              title="Ingresos cobrados"
-              value={formatCurrency(kpis.grossPaid)}
-              subtitle={`Retenciones: ${formatCurrency(kpis.totalRetentions)}`}
-              icon={Wallet}
-              color="green"
-              progress={kpis.grossExpected > 0 ? kpis.grossPaid / kpis.grossExpected : 0}
-            />
-            <KpiCard
-              title="Gastos totales"
-              value={formatCurrency(kpis.totalExpenses)}
-              icon={Receipt}
-              color="amber"
-            />
-            <KpiCard
-              title="Cobro bruto/hora"
-              value={kpis.billableHours > 0 ? formatCurrencyPerHour(kpis.grossHourlyRate) : '—'}
-              subtitle={kpis.billableHours > 0 ? `Solo eventos cobrados · ${formatHours(kpis.billableHours)} h` : 'Sin eventos cobrados'}
-              icon={Timer}
-              color="red"
-            />
-            <KpiCard
-              title="Beneficio neto"
-              value={formatCurrency(kpis.netProfit)}
-              subtitle="Cobrado – retenciones – gastos"
-              icon={PiggyBank}
-              color={kpis.netProfit >= 0 ? 'green' : 'red'}
-            />
-          </div>
+          <>
+            <Card className="p-3.5 md:hidden">
+              <div className="flex items-start gap-3">
+                <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-[#FDF5E4] text-[#D4921A]">
+                  <FolderOpen size={18} />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <div className="min-w-0">
+                      <p className="text-[11px] font-medium uppercase tracking-[0.02em] text-gray-500">Ahora mismo</p>
+                      <p className="mt-0.5 truncate text-2xl font-semibold leading-tight text-[#211C18]">{formatCurrency(workKpis.pendingTotal)}</p>
+                    </div>
+                    <p className="flex-shrink-0 text-[11px] text-gray-400">
+                      {workKpis.debtWorks} con deuda
+                    </p>
+                  </div>
+                  <div className="mt-2 flex flex-wrap gap-1.5">
+                    <span className="rounded-full bg-[#FFF5F3] px-2 py-1 text-[11px] font-medium text-[#C94035]">
+                      Vencido {formatCurrency(workKpis.overdueTotal)}
+                    </span>
+                    <span className="rounded-full bg-[#F4FBF7] px-2 py-1 text-[11px] font-medium text-[#2D6A4F]">
+                      Cobrado {formatCurrency(workKpis.paidTotal)}
+                    </span>
+                    <span className="rounded-full bg-[#F8F6EF] px-2 py-1 text-[11px] font-medium text-gray-700">
+                      {selectedMonthLabel}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Card>
+            <div className="hidden gap-4 md:grid md:grid-cols-2 xl:grid-cols-4">
+              <KpiCard
+                title="Trabajos con deuda"
+                value={workKpis.debtWorks}
+                subtitle="Con al menos un cobro pendiente"
+                icon={FolderOpen}
+                color={workKpis.debtWorks > 0 ? 'amber' : 'green'}
+              />
+              <KpiCard
+                title="Pendiente total"
+                value={formatCurrency(workKpis.pendingTotal)}
+                subtitle="En trabajos relevantes"
+                icon={Clock}
+                color="amber"
+              />
+              <KpiCard
+                title="Vencido total"
+                value={formatCurrency(workKpis.overdueTotal)}
+                subtitle={workKpis.overdueTotal > 0 ? 'Pagos por perseguir' : 'Sin vencidos'}
+                icon={AlertCircle}
+                color={workKpis.overdueTotal > 0 ? 'red' : 'green'}
+              />
+              <KpiCard
+                title="Cobrado asociado"
+                value={formatCurrency(workKpis.paidTotal)}
+                subtitle={`Plan de ${selectedMonthLabel}`}
+                icon={Wallet}
+                color="green"
+              />
+            </div>
+          </>
         )}
 
-        <Card className="p-3 md:hidden">
-          <div className="mb-3 flex items-center justify-between gap-3">
-            <div>
-              <h2 className="text-sm font-semibold text-gray-900">Ahora</h2>
-              <p className="text-xs text-gray-500">{dayjs().format('dddd, D MMMM')}</p>
-            </div>
-            <button
-              onClick={() => navigate('/calendar/events')}
-              className="flex min-h-10 items-center gap-1.5 rounded-lg px-2 text-xs font-medium text-[var(--color-primary-600)] hover:bg-gray-50"
-            >
-              <CalendarDays size={15} />
-              Calendario
-            </button>
-          </div>
-
-          {loading ? (
-            <div className="grid grid-cols-1 gap-2 animate-pulse">
-              {Array.from({ length: 3 }).map((_, i) => (
-                <div key={i} className="h-[68px] rounded-lg bg-gray-100" />
-              ))}
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 gap-2">
-              <button
-                onClick={() => nextEvent ? navigate(`/events/${nextEvent.id}`) : navigate('/calendar/events')}
-                className="flex min-h-[68px] items-center gap-3 rounded-lg border border-gray-100 px-3 py-2 text-left hover:bg-gray-50"
-              >
-                <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-[#F9EDEB] text-[#C94035]">
-                  <Clock size={19} />
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block text-sm font-semibold text-gray-900">
-                    {todayEvents.length > 0 ? `${todayEvents.length} evento${todayEvents.length === 1 ? '' : 's'} hoy` : nextEvent ? 'Próximo evento' : 'Sin eventos próximos'}
-                  </span>
-                  <span className="block truncate text-xs text-gray-500">
-                    {nextEvent
-                      ? `${formatDatetimeCompact(nextEvent.start_datetime)} · ${nextEvent.name}`
-                      : 'Semana tranquila'}
-                  </span>
-                </span>
-              </button>
-
-              <button
-                onClick={() => urgentPendingIncomes[0] ? navigateToIncome(urgentPendingIncomes[0]) : undefined}
-                className="flex min-h-[68px] items-center gap-3 rounded-lg border border-gray-100 px-3 py-2 text-left hover:bg-gray-50"
-              >
-                <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-[#FDF5E4] text-[#D4921A]">
-                  <Wallet size={19} />
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block text-sm font-semibold text-gray-900">
-                    {urgentPendingIncomes.length > 0 ? `${urgentPendingIncomes.length} cobro${urgentPendingIncomes.length === 1 ? '' : 's'} urgente${urgentPendingIncomes.length === 1 ? '' : 's'}` : 'Sin cobros urgentes'}
-                  </span>
-                  <span className="block truncate text-xs text-gray-500">
-                    {urgentPendingIncomes.length > 0
-                      ? `${formatCurrency(urgentPendingTotal)} · ${overdueIncomes.length > 0 ? `${overdueIncomes.length} vencido${overdueIncomes.length === 1 ? '' : 's'}` : 'próximos 7 días'}`
-                      : 'Nada vence esta semana'}
-                  </span>
-                </span>
-              </button>
-
-              <button
-                onClick={() => navigate('/projects')}
-                className="flex min-h-[68px] items-center gap-3 rounded-lg border border-gray-100 px-3 py-2 text-left hover:bg-gray-50"
-              >
-                <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-[#E8F4EF] text-[#2D6A4F]">
-                  <FolderOpen size={19} />
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block text-sm font-semibold text-gray-900">
-                    {activeProjects.length} proyecto{activeProjects.length === 1 ? '' : 's'} activo{activeProjects.length === 1 ? '' : 's'}
-                  </span>
-                  <span className="block truncate text-xs text-gray-500">
-                    {activeProjects[0] ? activeProjects[0].name : 'Sin trabajo activo'}
-                  </span>
-                </span>
-              </button>
-            </div>
-          )}
-
-          {!loading && (
-            <div className="mt-3 grid grid-cols-3 gap-2 border-t border-gray-100 pt-3">
-              <div>
-                <p className="text-[11px] text-gray-500">Cobrado</p>
-                <p className="truncate text-sm font-semibold text-gray-900">{formatCurrency(kpis.grossPaid)}</p>
-              </div>
-              <div>
-                <p className="text-[11px] text-gray-500">Gastos</p>
-                <p className="truncate text-sm font-semibold text-gray-900">{formatCurrency(kpis.totalExpenses)}</p>
-              </div>
-              <div>
-                <p className="text-[11px] text-gray-500">Neto</p>
-                <p className={`truncate text-sm font-semibold ${kpis.netProfit >= 0 ? 'text-[#2D6A4F]' : 'text-[#C94035]'}`}>
-                  {formatCurrency(kpis.netProfit)}
+        {view === 'cash' && (
+          <div className="grid grid-cols-1 gap-3 md:gap-4 xl:grid-cols-[minmax(0,1fr)_22rem]">
+            <Card className="p-4">
+              <div className="mb-3 flex flex-col gap-1 border-b border-gray-100 pb-3 text-sm text-gray-500 sm:flex-row sm:items-center sm:justify-between">
+                <p>
+                  Cobrado realmente este mes: <span className="font-semibold text-gray-900">{formatCurrency(cashKpis.paidByCashDateTotal)}</span>
                 </p>
+                {cashKpis.paidMissingDateCount > 0 && (
+                  <p className="text-amber-600">
+                    {cashKpis.paidMissingDateCount} cobro{cashKpis.paidMissingDateCount === 1 ? '' : 's'} sin fecha real
+                  </p>
+                )}
               </div>
-            </div>
-          )}
-        </Card>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <Card className="p-4">
-            <div className="flex items-center justify-between gap-2 mb-3">
+            <div className="mb-2 flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">
                 <Clock size={16} className="text-amber-500" />
-                <h2 className="text-sm font-semibold text-gray-900">Cobros próximos</h2>
+                <h2 className="text-sm font-semibold text-gray-900">Próximos cobros</h2>
               </div>
-              <Select
-                value={pendingDays}
-                onChange={(e) => setPendingDays(Number(e.target.value))}
-                className="text-xs py-1.5"
-                aria-label="Días"
-              >
-                <option value={7}>7 días</option>
-                <option value={14}>14 días</option>
-                <option value={30}>30 días</option>
-              </Select>
+              <span className="text-xs text-gray-400 capitalize">{selectedMonthLabel}</span>
             </div>
-            {loading ? (
-              <div className="flex flex-col gap-3 animate-pulse">
-                {Array.from({ length: 3 }).map((_, i) => (
-                  <div key={i} className="flex items-center justify-between py-3 border-b border-gray-100 last:border-0">
-                    <div className="space-y-2 flex-1 min-w-0 mr-4">
-                      <div className="h-4 bg-gray-200 rounded w-3/4" />
-                      <div className="h-3 bg-gray-100 rounded w-1/2" />
-                    </div>
-                    <div className="h-4 bg-gray-200 rounded w-16 flex-shrink-0" />
-                  </div>
-                ))}
-              </div>
-            ) : pendingIncomes.length === 0 ? (
-              <p className="text-sm text-gray-400 text-center py-4">Sin cobros próximos</p>
+            {pendingIncomes.length === 0 ? (
+              <p className="py-4 text-center text-sm text-gray-400">Sin cobros próximos ni vencidos</p>
             ) : (
-              <div className="flex flex-col gap-1">
-                {pendingIncomes.slice(0, 5).map((income) => {
-                  const daysLeft = dayjs(income.expected_date).diff(dayjs(), 'day')
+              <div className="flex flex-col gap-0.5">
+                {pendingIncomes.slice(0, 6).map((income) => {
+                  const daysLeft = getDueDays(income.expected_date)
                   const isOverdue = daysLeft < 0
                   const isUrgent = daysLeft <= 7
                   return (
                     <button
                       key={income.id}
                       onClick={() => navigateToIncome(income)}
-                      className="flex items-center justify-between gap-2 py-2 hover:bg-gray-50 -mx-1 px-1 rounded-lg transition-colors text-left"
+                      className="flex items-center justify-between gap-3 rounded-lg px-1 py-1.5 text-left transition-colors hover:bg-gray-50"
                     >
                       <div className="min-w-0 flex-1">
-                        <p className="text-sm font-medium text-gray-900 truncate">{income.concept}</p>
-                        <p className={`text-xs ${isOverdue ? 'text-red-600 font-medium' : isUrgent ? 'text-red-500' : 'text-gray-400'}`}>
-                          {isOverdue ? `Vencido · ${formatDate(income.expected_date)}` : `${formatDate(income.expected_date)} · ${daysLeft}d`}
+                        <p className="truncate text-sm font-medium text-gray-900">{income.concept}</p>
+                        <p className={`text-xs ${isOverdue ? 'font-medium text-red-600' : isUrgent ? 'text-red-500' : 'text-gray-400'}`}>
+                          {formatDueText(income.expected_date)} · {formatDate(income.expected_date)}
                         </p>
                       </div>
                       <span className="text-sm font-medium text-gray-900">{formatCurrency(income.amount)}</span>
                     </button>
                   )
                 })}
-                {pendingIncomes.length > 5 && (
-                  <p className="text-xs text-gray-400 text-center pt-2">+ {pendingIncomes.length - 5} más</p>
+                {pendingIncomes.length > 6 && (
+                  <p className="pt-2 text-center text-xs text-gray-400">+ {pendingIncomes.length - 6} más</p>
                 )}
               </div>
             )}
-          </Card>
+            </Card>
 
-          <Card className="p-4">
-            <div className="flex items-center justify-between gap-2 mb-3">
+            <Card className="p-4">
+              <div className="mb-3 flex items-center gap-2">
+                <AlertCircle size={16} className={cashKpis.accumulatedOverdueTotal > 0 ? 'text-red-500' : 'text-gray-300'} />
+                <h2 className="text-sm font-semibold text-gray-900">Vencidos anteriores incluidos</h2>
+              </div>
+              {cashKpis.accumulatedOverdue.length === 0 ? (
+                <p className="py-4 text-center text-sm text-gray-400">Sin arrastre anterior</p>
+              ) : (
+                <div className="flex flex-col gap-1">
+                  <p className="mb-2 text-sm font-semibold text-[#C94035]">{formatCurrency(cashKpis.accumulatedOverdueTotal)}</p>
+                  {cashKpis.accumulatedOverdue.slice(0, 4).map((income) => (
+                    <button
+                      key={income.id}
+                      onClick={() => navigateToIncome(income)}
+                      className="rounded-lg px-1 py-2 text-left transition-colors hover:bg-gray-50"
+                    >
+                      <p className="truncate text-sm font-medium text-gray-900">{income.concept}</p>
+                      <p className="text-xs font-medium text-red-600">{formatDueText(income.expected_date)} · {formatDate(income.expected_date)}</p>
+                    </button>
+                  ))}
+                  {cashKpis.accumulatedOverdue.length > 4 && (
+                    <p className="pt-2 text-center text-xs text-gray-400">+ {cashKpis.accumulatedOverdue.length - 4} más</p>
+                  )}
+                </div>
+              )}
+            </Card>
+          </div>
+        )}
+
+        {view === 'work' && (
+          <Card className="p-3.5 sm:p-4">
+            <div className="mb-3 flex items-center justify-between gap-2 sm:mb-4">
               <div className="flex items-center gap-2">
                 <FolderOpen size={16} className="text-[var(--color-primary-500)]" />
-                <h2 className="text-sm font-semibold text-gray-900">Proyectos activos</h2>
+                <h2 className="text-sm font-semibold text-gray-900">Trabajos del mes</h2>
               </div>
               <span className="text-xs font-medium text-[var(--color-primary-600)]">
-                {activeProjects.length}
+                {works.length}
               </span>
             </div>
-            {loading ? (
-              <div className="flex flex-col gap-3 animate-pulse">
-                {Array.from({ length: 3 }).map((_, i) => (
-                  <div key={i} className="flex items-center justify-between py-3 border-b border-gray-100 last:border-0">
-                    <div className="flex items-start gap-2 flex-1 min-w-0 mr-4">
-                      <div className="w-2.5 h-2.5 rounded-full bg-gray-200 flex-shrink-0 mt-1" />
-                      <div className="space-y-2 flex-1 min-w-0">
-                        <div className="h-4 bg-gray-200 rounded w-3/4" />
-                        <div className="h-3 bg-gray-100 rounded w-1/2" />
+            {works.length === 0 ? (
+              <p className="py-4 text-center text-sm text-gray-400">Sin trabajos relevantes para este mes</p>
+            ) : (
+              <div className="flex flex-col gap-4">
+                {workSections.map((section) => (
+                  <div key={section.id}>
+                    <div className="mb-2 flex items-baseline justify-between gap-2">
+                      <div>
+                        <h3 className="text-xs font-semibold uppercase tracking-[0.02em] text-gray-500">{section.title}</h3>
+                        <p className="text-[11px] text-gray-400">{section.description}</p>
                       </div>
+                      <span className="text-xs font-medium text-gray-400">{section.works.length}</span>
                     </div>
-                    <div className="h-5 bg-gray-200 rounded-full w-20 flex-shrink-0" />
+                    <div className="flex flex-col gap-2">
+                      {section.works.slice(0, 6).map((work) => (
+                        <button
+                          key={`${section.id}-${work.type}-${work.id}`}
+                          onClick={() => navigate(work.path)}
+                          className="rounded-lg border border-gray-100 px-2.5 py-2.5 text-left transition-colors hover:bg-gray-50 sm:px-3 sm:py-3"
+                        >
+                          <div className="sm:hidden">
+                            <div className="flex items-start gap-3">
+                              <span
+                                className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg"
+                                style={{ backgroundColor: `${work.color}1F`, color: work.color }}
+                              >
+                                <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: work.color }} />
+                              </span>
+                              <div className="min-w-0 flex-1">
+                                <div className="flex items-start justify-between gap-3">
+                                  <div className="min-w-0">
+                                    <p className="truncate text-sm font-semibold text-gray-900">{work.name}</p>
+                                    <p className="mt-0.5 truncate text-xs text-gray-400">{work.client}</p>
+                                  </div>
+                                  <div className="flex-shrink-0 pt-0.5 text-[11px] text-gray-400">
+                                    {work.nextExpectedDate ? formatDate(work.nextExpectedDate) : ''}
+                                  </div>
+                                </div>
+                                <div className="mt-2.5 flex items-end justify-between gap-3">
+                                  <div className="min-w-0">
+                                    <p className="text-[11px] font-medium uppercase tracking-[0.02em] text-gray-500">Pendiente</p>
+                                    <p className="truncate text-2xl font-semibold leading-tight text-[#211C18]">{formatCurrency(work.pending)}</p>
+                                  </div>
+                                  <div className="flex-shrink-0">
+                                    <StatusBadge status={work.status} />
+                                  </div>
+                                </div>
+                                <div className="mt-2 flex flex-wrap gap-1.5">
+                                  <span className={`rounded-full px-2 py-1 text-[11px] font-medium ${work.overdue > 0 ? 'bg-[#FFF5F3] text-[#C94035]' : 'bg-gray-100 text-gray-500'}`}>
+                                    Vencido {formatCurrency(work.overdue)}
+                                  </span>
+                                  <span className="rounded-full bg-[#F4FBF7] px-2 py-1 text-[11px] font-medium text-[#2D6A4F]">
+                                    Cobrado {formatCurrency(work.paid)}
+                                  </span>
+                                  <span className="rounded-full bg-[#F8F6EF] px-2 py-1 text-[11px] font-medium text-gray-700">
+                                    Plan {formatCurrency(work.totalExpected)}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="hidden sm:flex sm:flex-col sm:gap-2 lg:flex-row lg:items-center lg:justify-between">
+                            <div className="min-w-0 flex-1">
+                              <div className="flex min-w-0 items-start gap-2">
+                                <span className="h-2.5 w-2.5 flex-shrink-0 rounded-full" style={{ backgroundColor: work.color }} />
+                                <div className="min-w-0 flex-1">
+                                  <div className="flex min-w-0 items-center justify-between gap-2">
+                                    <p className="truncate text-sm font-semibold text-gray-900">{work.name}</p>
+                                    <div>
+                                      <StatusBadge status={work.status} />
+                                    </div>
+                                  </div>
+                                  <p className="mt-1 truncate text-xs text-gray-400">{work.client}</p>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="grid grid-cols-2 gap-x-3 gap-y-2 text-xs sm:grid-cols-5 lg:min-w-[560px]">
+                              <div className="rounded-lg bg-gray-50 px-2 py-2 sm:rounded-none sm:bg-transparent sm:px-0 sm:py-0">
+                                <p className="text-gray-400">Plan</p>
+                                <p className="font-semibold text-gray-900">{formatCurrency(work.totalExpected)}</p>
+                              </div>
+                              <div className="rounded-lg bg-[#F4FBF7] px-2 py-2 sm:rounded-none sm:bg-transparent sm:px-0 sm:py-0">
+                                <p className="text-gray-400">Cobrado</p>
+                                <p className="font-semibold text-[#2D6A4F]">{formatCurrency(work.paid)}</p>
+                              </div>
+                              <div className="rounded-lg bg-gray-50 px-2 py-2 sm:rounded-none sm:bg-transparent sm:px-0 sm:py-0">
+                                <p className="text-gray-400">Pendiente</p>
+                                <p className="font-semibold text-gray-900">{formatCurrency(work.pending)}</p>
+                              </div>
+                              <div className="rounded-lg bg-[#FFF5F3] px-2 py-2 sm:rounded-none sm:bg-transparent sm:px-0 sm:py-0">
+                                <p className="text-gray-400">Vencido</p>
+                                <p className={`font-semibold ${work.overdue > 0 ? 'text-[#C94035]' : 'text-gray-900'}`}>{formatCurrency(work.overdue)}</p>
+                              </div>
+                              <div className="col-span-2 sm:col-span-1">
+                                <p className="text-gray-400">Próximo</p>
+                                <p className="font-semibold text-gray-900">{work.nextExpectedDate ? formatDate(work.nextExpectedDate) : '—'}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </button>
+                      ))}
+                      {section.works.length > 6 && (
+                        <p className="pt-1 text-center text-xs text-gray-400">+ {section.works.length - 6} más</p>
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>
-            ) : activeProjects.length === 0 ? (
-              <p className="text-sm text-gray-400 text-center py-4">Sin proyectos activos</p>
-            ) : (
-              <div className="flex flex-col gap-1">
-                {activeProjects.slice(0, 5).map((project) => (
-                  <button
-                    key={project.id}
-                    onClick={() => navigate(`/projects/${project.id}`)}
-                    className="flex items-center justify-between gap-2 py-2 hover:bg-gray-50 -mx-1 px-1 rounded-lg transition-colors text-left"
-                  >
-                    <div className="flex items-center gap-2 min-w-0 flex-1">
-                      <div className="w-2 h-2 rounded-full" style={{ backgroundColor: project.color ?? '#4f98a3' }} />
-                      <div className="min-w-0">
-                        <p className="text-sm font-medium text-gray-900 truncate">{project.name}</p>
-                        <p className="text-xs text-gray-400 truncate">{project.client || 'Sin cliente'}</p>
-                      </div>
-                    </div>
-                    <StatusBadge status={project.status} size="sm" />
-                  </button>
-                ))}
-                {activeProjects.length > 5 && (
-                  <p className="text-xs text-gray-400 text-center pt-2">+ {activeProjects.length - 5} más</p>
-                )}
-              </div>
             )}
           </Card>
-        </div>
+        )}
+
       </div>
     </PageWrapper>
   )
