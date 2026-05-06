@@ -3,7 +3,7 @@ id: RELEASE-0.1.0-beta.5
 type: release
 status: Active
 created: 2026-05-06
-updated: 2026-05-06
+updated: 2026-05-07
 release_branch: release/0.1.0-beta.5
 aliases:
   - RELEASE-0.1.0-beta.5
@@ -33,17 +33,21 @@ Dejar instalado y probado el flujo profesional de ramas por beta para que los si
 
 La release tambien consolida la documentacion base de producto y diseno creada durante el mismo trabajo, para que el PRD y el sistema de diseno viajen trazados junto al cambio de proceso.
 
+Durante el cierre se amplia explicitamente el scope para incluir CACH-B0003 y completar el flujo de cobros pendientes en la app.
+
 ## Alcance funcional
 
 - Formalizar el contrato de branching beta.
 - Registrar que las tareas fuera de scope no salen de una release activa por defecto.
 - Alinear naming de ramas nuevas con `feat/`, `fix/`, `chore/` y `docs/`.
 - Documentar cierre de beta con PR unica, tag desde `main` y limpieza de rama remota.
+- Completar el cobro rapido de pendientes en Dashboard, proyectos y eventos.
 
 ## Scope
 
 - [[../issues/CACH-0036|CACH-0036]] — Profesionalizar flujo de ramas por beta.
 - [[../issues/CACH-0037|CACH-0037]] — Consolidar PRD y sistema de diseno de Cachés.
+- [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes.
 
 ## Issues incluidas
 
@@ -51,10 +55,11 @@ La release tambien consolida la documentacion base de producto y diseno creada d
 |---|---|---|---|
 | [[../issues/CACH-0036|CACH-0036]] | Profesionalizar flujo de ramas por beta | Review | `docs/CACH-0036-beta-branching-flow` |
 | [[../issues/CACH-0037|CACH-0037]] | Consolidar PRD y sistema de diseno de Cachés | Review | `docs/CACH-0036-beta-branching-flow` |
+| [[../issues/CACH-B0003|CACH-B0003]] | Cobro rapido y gestion de pendientes | Done | `release/0.1.0-beta.5` |
 
 ## Fuera de alcance
 
-- Cambios de app React.
+- Cambios de app React fuera de CACH-B0003.
 - Cambios en Supabase, datos o finanzas.
 - Cambios de branch protection o CI.
 - Merge final a `main`, tag y borrado de rama remota, que ocurren al cerrar la PR de release.
@@ -86,7 +91,7 @@ La release tambien consolida la documentacion base de producto y diseno creada d
 
 ## Checklist de estabilizacion
 
-- [ ] Build correcto
+- [x] Build correcto
 - [x] Tests/checks correctos
 - [ ] Revision visual
 - [ ] Revision responsive
@@ -117,6 +122,7 @@ La release tambien consolida la documentacion base de producto y diseno creada d
 - Release activa para probar el nuevo flujo profesional de ramas beta.
 - Issue CACH-0036 como scope trazable del cambio de proceso.
 - Issue CACH-0037 para trazar el PRD y el sistema de diseno de Cachés.
+- Issue CACH-B0003 para completar el cobro rapido y la gestion de pendientes.
 - Notas de contexto estable para PRD y sistema de diseno enlazadas desde el indice de contexto.
 
 ### Cambiado
@@ -124,6 +130,8 @@ La release tambien consolida la documentacion base de producto y diseno creada d
 - Product Brain documenta ramas de tarea locales por defecto y squash hacia release.
 - El cierre de beta queda definido como PR unica `release/*` -> `main`.
 - `feat/` pasa a ser prefijo preferido para ramas nuevas; `feature/` queda legacy.
+- Dashboard, proyectos y eventos permiten marcar ingresos pendientes como cobrados con confirmacion cuando el concepto es ambiguo.
+- Los ingresos pendientes muestran vencimiento; los ingresos ya cobrados no muestran fecha de vencimiento.
 
 ### Corregido
 
@@ -137,7 +145,8 @@ La release tambien consolida la documentacion base de producto y diseno creada d
 ### Tecnico
 
 - Validacion esperada: `npm run pb:check`, `git diff --check` y `rg` sobre ejemplos de branching.
+- Validacion app CACH-B0003: `npm run test`, `npm run lint` y `npm run build`.
 
 ## Resultado final
 
-Cambios de proceso y documentacion base integrados por squash en `release/0.1.0-beta.5`. Pendiente PR unica `release/0.1.0-beta.5` -> `main`, tag `v0.1.0-beta.5` desde `main` y limpieza de rama remota al cerrar.
+Cambios de proceso, documentacion base y CACH-B0003 integrados en `release/0.1.0-beta.5`. Pendiente PR unica `release/0.1.0-beta.5` -> `main`, tag `v0.1.0-beta.5` desde `main` y limpieza de rama remota al cerrar.

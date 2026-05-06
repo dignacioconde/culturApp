@@ -3,7 +3,7 @@ id: PB-BACKLOG
 type: backlog
 status: Active
 created: 2026-05-05
-updated: 2026-05-06
+updated: 2026-05-07
 aliases:
   - Backlog operativo
   - Backlog
@@ -49,7 +49,6 @@ Tablero ligero del Product Brain. Cada trabajo ejecutable vive como issue Markdo
 |---|---|---|---|---|
 | [[../issues/CACH-B0001|CACH-B0001]] | Redisenar Trabajos y jerarquia proyecto-evento | feature | p1 | Partir antes de ejecutar. |
 | [[../issues/CACH-B0002|CACH-B0002]] | Simplificar experiencia mobile financiera | feature | p1 | Validacion mobile obligatoria. |
-| [[../issues/CACH-B0003|CACH-B0003]] | Cobro rapido y gestion de pendientes | feature | p1 | Depende de coherencia de cobros. |
 | [[../issues/CACH-B0004|CACH-B0004]] | Contratantes, facturacion y liquidacion neta | feature | p1 | Evolucion de modelo financiero. |
 | [[../issues/CACH-B0005|CACH-B0005]] | Importacion, exportacion y portabilidad de datos | feature | p1 | Necesario para confianza beta. |
 | [[../issues/CACH-B0006|CACH-B0006]] | Onboarding y acceso beta | feature | p1 | Primera sesion y beta privada. |
@@ -76,6 +75,7 @@ Sin issues en progreso.
 | ID | Titulo | Release | Resultado |
 |---|---|---|---|
 | [[../issues/CACH-0033|CACH-0033]] | Vista anual en calendario de proyectos | [[../releases/RELEASE-0.1.0-beta.4|RELEASE-0.1.0-beta.4]] | Planificacion anual con Gantt desktop y compacto movil. |
+| [[../issues/CACH-B0003|CACH-B0003]] | Cobro rapido y gestion de pendientes | [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] | Cobro accionable con confirmacion, deshacer y vencimientos solo en pendientes. |
 | [[../issues/CACH-B0014|CACH-B0014]] | Endurecer agenda, cobros y captura del MVP | [[../releases/RELEASE-0.1.0-beta.2|RELEASE-0.1.0-beta.2]] | 5 bugs críticos corregidos. |
 | [[../issues/CACH-0035|CACH-0035]] | Rediseño financiero del Dashboard y paid_date en cobros rapidos | [[../releases/RELEASE-0.1.0-beta.3|RELEASE-0.1.0-beta.3]] | Dashboard financiero centrado en cobros y trabajos accionables. |
 | [[../issues/CACH-0032|CACH-0032]] | Priorizar operativa diaria en dashboard movil | null | Mergeada a main. Dashboard mobile operativo. |

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { isPaid, markPaid, markUnpaid, type PaymentState } from './payment'
+import { isPaid, markPaid, markUnpaid, needsQuickPaidConfirmation, type PaymentState } from './payment'
 
 describe('payment state', () => {
   it('deriva isPaid desde paid_date y mantiene compatibilidad con is_paid legacy', () => {
@@ -30,5 +30,21 @@ describe('payment state', () => {
       expect(isPaid(markPaid(state, date))).toBe(true)
       expect(isPaid(markUnpaid(state))).toBe(false)
     }
+  })
+
+  it('pide confirmacion para conceptos debiles en cobro rapido', () => {
+    expect(needsQuickPaidConfirmation(null)).toBe(true)
+    expect(needsQuickPaidConfirmation(undefined)).toBe(true)
+    expect(needsQuickPaidConfirmation({ concept: null })).toBe(true)
+    expect(needsQuickPaidConfirmation({ concept: undefined })).toBe(true)
+    expect(needsQuickPaidConfirmation({ concept: '' })).toBe(true)
+    expect(needsQuickPaidConfirmation({ concept: '   ' })).toBe(true)
+    expect(needsQuickPaidConfirmation({ concept: 'Ingreso' })).toBe(true)
+    expect(needsQuickPaidConfirmation({ concept: ' ingreso ' })).toBe(true)
+    expect(needsQuickPaidConfirmation({ concept: 'INGRESO' })).toBe(true)
+  })
+
+  it('no pide confirmacion para conceptos claros en cobro rapido', () => {
+    expect(needsQuickPaidConfirmation({ concept: 'Actuación agosto' })).toBe(false)
   })
 })

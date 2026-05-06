@@ -3,7 +3,7 @@ id: PB-BY-RELEASE
 type: index
 status: Active
 created: 2026-05-06
-updated: 2026-05-06
+updated: 2026-05-07
 aliases:
   - Issues por release
 tags:
@@ -22,7 +22,6 @@ tags:
 - [[../issues/CACH-0034|CACH-0034]] — €/h muestra valor incorrecto cuando no hay eventos con horas
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera
-- [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes
 - [[../issues/CACH-B0004|CACH-B0004]] — Contratantes facturacion y liquidacion neta
 - [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos
 - [[../issues/CACH-B0006|CACH-B0006]] — Onboarding y acceso beta
@@ -51,8 +50,8 @@ tags:
 ## RELEASE-0.1.0-beta.5
 
 - [[../issues/CACH-0036|CACH-0036]] — Profesionalizar flujo de ramas por beta
+- [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes
 
 ## RELEASE-0.1.0-beta.2
 
 - [[../issues/CACH-B0014|CACH-B0014]] — Endurecer agenda cobros y captura del MVP
-
