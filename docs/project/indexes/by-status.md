@@ -2,8 +2,8 @@
 id: PB-BY-STATUS
 type: index
 status: Active
-created: 2026-05-05
-updated: 2026-05-05
+created: 2026-05-06
+updated: 2026-05-06
 aliases:
   - Issues por estado
 tags:
@@ -18,12 +18,21 @@ tags:
 - [[../issues/CACH-0028|CACH-0028]] — Corregir sync iCloud y estructura versionada
 - [[../issues/CACH-0029|CACH-0029]] — Integrar helpers CACH-B0016 en flujos reales
 - [[../issues/CACH-0031|CACH-0031]] — Corregir ajustes UX movil detectados en exploracion
+- [[../issues/CACH-0032|CACH-0032]] — Priorizar operativa diaria en dashboard movil
+- [[../issues/CACH-0033|CACH-0033]] — Vista anual en calendario de proyectos
+- [[../issues/CACH-0034|CACH-0034]] — €/h muestra valor incorrecto cuando no hay eventos con horas
+- [[../issues/CACH-0035|CACH-0035]] — Rediseño financiero del Dashboard y paid_date en cobros rapidos
+- [[../issues/CACH-B0014|CACH-B0014]] — Endurecer agenda cobros y captura del MVP
 - [[../issues/CACH-B0015|CACH-B0015]] — Operativizar backlog releases y ramas en Product Brain
 - [[../issues/CACH-B0016|CACH-B0016]] — Refundacion operativa del Product Brain y tests B0014
 
 ## inbox
 
 - [[../issues/CACH-0030|CACH-0030]] — Homogeneizar diseno con nueva paleta de colores y fuentes
+
+## review
+
+- [[../issues/CACH-0036|CACH-0036]] — Profesionalizar flujo de ramas por beta
 
 ## backlog
 
@@ -40,5 +49,4 @@ tags:
 - [[../issues/CACH-B0011|CACH-B0011]] — Categorias etiquetas y taxonomia
 - [[../issues/CACH-B0012|CACH-B0012]] — Perfil publico viralidad y referidos
 - [[../issues/CACH-B0013|CACH-B0013]] — Gestion documental por proyecto evento
-- [[../issues/CACH-B0014|CACH-B0014]] — Endurecer agenda cobros y captura del MVP
 

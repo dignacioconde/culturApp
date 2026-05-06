@@ -2,8 +2,8 @@
 id: PB-ISSUES-INDEX
 type: index
 status: Active
-created: 2026-05-05
-updated: 2026-05-05
+created: 2026-05-06
+updated: 2026-05-06
 aliases:
   - Issues Index
 tags:
@@ -19,8 +19,9 @@ tags:
 - [[../issues/CACH-0031|CACH-0031]] — Corregir ajustes UX movil detectados en exploracion
 - [[../issues/CACH-0032|CACH-0032]] — Priorizar operativa diaria en dashboard movil
 - [[../issues/CACH-0033|CACH-0033]] — Vista anual en calendario de proyectos
-- [[../issues/CACH-0034|CACH-0034]] — Revisar calculo euro por hora en dashboard movil y proyectos sin eventos
+- [[../issues/CACH-0034|CACH-0034]] — €/h muestra valor incorrecto cuando no hay eventos con horas
 - [[../issues/CACH-0035|CACH-0035]] — Rediseño financiero del Dashboard y paid_date en cobros rapidos
+- [[../issues/CACH-0036|CACH-0036]] — Profesionalizar flujo de ramas por beta
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes

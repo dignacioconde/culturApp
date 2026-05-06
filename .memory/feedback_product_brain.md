@@ -6,13 +6,15 @@ Product Brain debe ayudar a implementar, no bloquear merges con proceso excesivo
 
 - Las tareas pequeñas (fixes, chores, mejoras menores) van directamente de `main` a `main` por PR. No requieren release activa ni release branch.
 - Las release branches (`release/<version>`) se usan solo para releases multi-issue o estabilizaciones reales.
+- Una release activa no absorbe tareas nuevas por defecto: si la tarea no pertenece a esa release, se aplaza, va por flujo ligero desde `main`, o se anade explicitamente al documento de la release.
+- En releases beta activas, la rama remota compartida es `release/<version>`; las ramas de tarea son locales por defecto, prefieren `feat/` para funcionalidades nuevas, se revisan contra la release y se integran con squash.
 - Obsidian sync (`pb:push`, `pb:pull`, `pb:status`) es útil pero no es criterio bloqueante de merge si `pb:check` pasa.
 - Los agentes solo deben leer `CURRENT_RELEASE`, `CURRENT_PLAN` y `BACKLOG` cuando la tarea pertenezca a una release activa o afecte planificación.
 - Los índices son secundarios/generados, no fuente de verdad manual.
 - La memoria solo guarda preferencias, decisiones duraderas y gotchas importantes, no historial operativo.
 
 **Why:** El proceso acumulado bloqueaba tareas pequeñas con burocracia pensada para releases grandes.
-**How to apply:** Ante cualquier duda sobre si hace falta release activa, issue CACH o release branch para una tarea pequeña: la respuesta por defecto es no. Proceder con PR directa a main.
+**How to apply:** Ante cualquier duda sobre si hace falta release activa, issue CACH o release branch para una tarea pequeña: la respuesta por defecto es no. Proceder con PR directa a main. Ante una release activa, confirmar que la tarea pertenece a su scope antes de ramificar desde `release/<version>`.
 
 ---
 
@@ -73,4 +75,4 @@ npm run pb:capture # Capturar nota (argumento o stdin)
 - Antes de abrir PR que toque `docs/project/`, ejecutar `npm run pb:check`; el validador cubre frontmatter de issues, índices principales y wikilinks internos.
 - Para implementación, leer `CURRENT_RELEASE.md`, `CURRENT_PLAN.md`, `BACKLOG.md` y la issue `CACH-*` relacionada antes de tocar código. Si la tarea pertenece a una release, la rama sale de la rama de release activa.
 
-Actualizado: 2026-05-05
+Actualizado: 2026-05-06

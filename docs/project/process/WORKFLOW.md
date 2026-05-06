@@ -3,7 +3,7 @@ id: PB-PROCESS-WORKFLOW
 type: process
 status: Active
 created: 2026-05-05
-updated: 2026-05-05
+updated: 2026-05-06
 aliases:
   - Workflow
   - Thin Product Brain Workflow
@@ -28,7 +28,7 @@ Para fixes, chores, mejoras menores y features pequeñas que no pertenecen a nin
 2. Leer .memory/MEMORY.md
 3. Leer docs/project/START_HERE.md
 4. Leer la issue CACH relacionada, si existe
-5. Crear rama desde main (feature/<slug> o fix/<slug> o chore/<slug>)
+5. Crear rama desde main (feat/<slug>, fix/<slug>, chore/<slug> o docs/<slug>)
 6. Implementar el cambio
 7. Ejecutar validaciones relevantes
 8. Abrir PR hacia main
@@ -72,12 +72,34 @@ main
   ↓
 release/<version-or-name>
   ↓
-feature/<issue-id>-<short-name>   (o fix/, chore/, docs/)
+feat/<issue-id>-<short-name>   (o fix/, chore/, docs/)
   ↓
 release/<version-or-name>
   ↓
-main
+PR release/<version-or-name> -> main
 ```
+
+La release activa debe estar registrada en `CURRENT_RELEASE.md`, `CURRENT_PLAN.md` o el documento de release antes de crear ramas de tarea desde ella.
+
+Antes de crear una rama de tarea scopeada a release:
+
+```bash
+git fetch --prune origin
+git switch release/<version-or-name>
+git pull origin release/<version-or-name>
+git branch --show-current
+git switch -c feat/<issue-id>-<short-name>
+```
+
+Las ramas de tarea son locales por defecto y se integran con squash despues de revisar el diff/log contra la release:
+
+```bash
+git diff release/<version-or-name>...feat/<issue-id>-<short-name>
+git log --oneline release/<version-or-name>..feat/<issue-id>-<short-name>
+git merge --squash feat/<issue-id>-<short-name>
+```
+
+Si hay release activa pero una tarea nueva no pertenece a ella, no sale de la release por defecto. Hay que aplazarla, ejecutarla por flujo ligero desde `main`, o anadirla explicitamente al documento de la release activa.
 
 ### Cuándo NO usar release branch
 
@@ -91,6 +113,24 @@ main
 Puede estar en estado `No active release`. Es válido y no bloquea trabajo.
 
 Si no hay release activa, las tareas van directamente a main por PR.
+
+Si hay release activa pero la tarea no pertenece a ella, tambien puede ir por flujo ligero desde `main` si es pequena, aislada y production-safe.
+
+### Cierre de beta
+
+El cierre de beta se hace con una unica PR `release/<version>` -> `main`. No hacer merge local directo a `main`, aunque la release este validada.
+
+Checklist minimo:
+
+- PR `release/<version>` -> `main` abierta.
+- CI en verde.
+- Revision aprobada.
+- PR mergeada en `main`.
+- `main` actualizado en local.
+- Tag `vX.Y.Z-beta.N` creado desde `main`.
+- Produccion verificada si aplica.
+- Rama remota `release/<version>` eliminada.
+- Documento de release actualizado como cerrado.
 
 ---
 

@@ -66,7 +66,9 @@ Sin issues en progreso.
 
 ## Review
 
-Sin issues en review.
+| ID | Titulo | Release | Nota |
+|---|---|---|---|
+| [[../issues/CACH-0036|CACH-0036]] | Profesionalizar flujo de ramas por beta | [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] | Pendiente de PR unica release -> main. |
 
 ## Done
 

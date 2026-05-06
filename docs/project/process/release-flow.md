@@ -3,7 +3,7 @@ id: PB-RELEASE-FLOW
 type: process
 status: Active
 created: 2026-05-05
-updated: 2026-05-05
+updated: 2026-05-06
 aliases:
   - Release flow
 tags:
@@ -23,10 +23,12 @@ Cada release es un corte pequeno y mergeable. Evitar ramas eternas.
 1. Crear release desde plantilla.
 2. Definir `## Scope` con issues concretas.
 3. Crear rama `release/x.y.z-channel.n`.
-4. Trabajar en ramas de tarea desde la release.
-5. Validar lint, tests, build y `pb:check`.
-6. Mergear release a `main`.
-7. Verificar produccion si aplica.
+4. Trabajar en ramas de tarea locales desde la release solo si pertenecen a su scope.
+5. Revisar diff/log e integrar cada tarea en la release con squash.
+6. Validar lint, tests, build y `pb:check`.
+7. Abrir PR unica `release/x.y.z-channel.n` -> `main`.
+8. Tras mergear la PR, actualizar `main`, crear tag desde `main` y borrar la rama remota de release.
+9. Verificar produccion si aplica.
 
 ## TODO
 

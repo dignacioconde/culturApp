@@ -16,16 +16,18 @@ tags:
 
 ## Foco actual
 
-Sin release activa. Ultimo corte cerrado: planificacion anual de proyectos. Siguiente: CACH-0030 (PR directo) o definir el próximo corte de beta privada.
+Release activa: [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] — probar y dejar instalado el flujo profesional de ramas beta.
 
 ## Release activa
 
-Ninguna. Ultimo corte: [[../releases/RELEASE-0.1.0-beta.4|RELEASE-0.1.0-beta.4]] — mergeada a `main` el 2026-05-06.
+[[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] en `release/0.1.0-beta.5`.
+
+Ultimo corte: [[../releases/RELEASE-0.1.0-beta.4|RELEASE-0.1.0-beta.4]] — mergeada a `main` el 2026-05-06.
 
 ## Prioridades
 
-1. CACH-0030 (paleta/fuentes) como PR directo a main.
-2. Evaluar backlog p1 para definir si se abre `beta.5` o ciclo de beta privada.
+1. Cerrar [[../issues/CACH-0036|CACH-0036]] en `release/0.1.0-beta.5` mediante squash y PR unica a `main`.
+2. CACH-0030 (paleta/fuentes) como PR directo a main o siguiente corte, segun scope.
 3. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
 
 ## Plan operativo
@@ -39,4 +41,4 @@ Ninguna. Ultimo corte: [[../releases/RELEASE-0.1.0-beta.4|RELEASE-0.1.0-beta.4]]
 
 ## Proximo checkpoint
 
-Decidir si CACH-0030 va como PR directo o si se abre el siguiente corte con más scope.
+Abrir PR `release/0.1.0-beta.5` -> `main` cuando la release tenga `pb:check` limpio y los cambios integrados por squash.

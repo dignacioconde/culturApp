@@ -3,7 +3,7 @@ id: PB-PROCESS-RELEASE-PROCESS
 type: process
 status: Active
 created: 2026-05-05
-updated: 2026-05-05
+updated: 2026-05-06
 aliases:
   - Release Process
   - Proceso de releases
@@ -60,11 +60,14 @@ Actualizar [[../releases/CURRENT_RELEASE|Current Release]]:
 Crear rama si no existe:
 
 ```bash
+git fetch --prune origin
 git switch main
-git pull
+git pull origin main
 git switch -c release/0.1.0-beta.1
 git push -u origin release/0.1.0-beta.1
 ```
+
+La release activa debe quedar registrada en [[../releases/CURRENT_RELEASE|Current Release]], [[../plans/CURRENT_PLAN|Current Plan]] o el documento de release antes de crear ramas de tarea desde ella.
 
 ## Asociar issues
 
@@ -85,20 +88,35 @@ Actualizar tambien:
 
 ## Desarrollo
 
-Las ramas de feature/fix salen de la release activa y vuelven a ella.
+Las ramas de tarea salen de la release activa y vuelven a ella solo si pertenecen a esa release.
+
+Si hay release activa pero una tarea nueva no pertenece a ella, elegir una de estas opciones antes de trabajar:
+
+- aplazarla;
+- ejecutarla por flujo ligero desde `main`;
+- anadirla explicitamente al documento de la release activa.
 
 ```bash
+git fetch --prune origin
 git switch release/0.1.0-beta.1
-git pull
-git switch -c feature/CACH-B0003-quick-paid-action
+git pull origin release/0.1.0-beta.1
+git branch --show-current
+git switch -c feat/CACH-B0003-quick-paid-action
 ```
 
 Al terminar:
 
 ```bash
 git switch release/0.1.0-beta.1
-git merge feature/CACH-B0003-quick-paid-action
+git diff release/0.1.0-beta.1...feat/CACH-B0003-quick-paid-action
+git log --oneline release/0.1.0-beta.1..feat/CACH-B0003-quick-paid-action
+git merge --squash feat/CACH-B0003-quick-paid-action
+git commit -m "feat(CACH-B0003): add quick paid action"
+git push origin release/0.1.0-beta.1
+git branch -d feat/CACH-B0003-quick-paid-action
 ```
+
+Las ramas de tarea son locales por defecto. Subirlas al remoto es una excepcion para tareas grandes, revision remota, trabajo multi-dispositivo o riesgo real de perdida.
 
 ## Estabilizacion
 
@@ -111,13 +129,25 @@ Antes de cerrar:
 - release notes completas;
 - ADRs creadas para decisiones importantes.
 
-## Merge final a main
+## PR final a main
+
+```bash
+git fetch --prune origin
+git switch release/0.1.0-beta.1
+git pull origin release/0.1.0-beta.1
+# Abrir PR: release/0.1.0-beta.1 -> main
+```
+
+No hacer merge local directo de `release/<version>` a `main`, aunque la release este validada. La PR unica de release es el punto de entrada a `main` y debe pasar CI/revision.
+
+Despues de mergear la PR:
 
 ```bash
 git switch main
-git pull
-git merge release/0.1.0-beta.1
-git push
+git pull origin main
+git tag v0.1.0-beta.1
+git push origin v0.1.0-beta.1
+git push origin --delete release/0.1.0-beta.1
 ```
 
 Despues:
@@ -159,12 +189,20 @@ Despues:
 
 ### Salida
 
-- [ ] Release mergeada a `main`.
+- [ ] PR `release/<version>` -> `main` abierta.
+- [ ] CI en verde.
+- [ ] Revision aprobada.
+- [ ] PR mergeada en `main`.
+- [ ] `main` actualizado en local.
+- [ ] Tag `vX.Y.Z-beta.N` creado desde `main`.
+- [ ] Produccion verificada si aplica.
+- [ ] Rama remota `release/<version>` eliminada.
 - [ ] Release notes actualizadas.
 - [ ] Issues marcadas como `Released`.
 - [ ] Estado actual actualizado.
 - [ ] Current Release actualizado.
 - [ ] Backlog actualizado.
+- [ ] Documento de release actualizado como cerrado.
 - [ ] Proximos pasos documentados.
 
 ## Release notes
