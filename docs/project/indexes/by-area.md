@@ -3,7 +3,7 @@ id: PB-BY-AREA
 type: index
 status: Active
 created: 2026-05-06
-updated: 2026-05-06
+updated: 2026-05-07
 aliases:
   - Issues por area
 tags:
@@ -17,6 +17,7 @@ tags:
 - [[../issues/CACH-0026|CACH-0026]] — Setup inicial Product Brain
 - [[../issues/CACH-0028|CACH-0028]] — Corregir sync iCloud y estructura versionada
 - [[../issues/CACH-0036|CACH-0036]] — Profesionalizar flujo de ramas por beta
+- [[../issues/CACH-0037|CACH-0037]] — Consolidar PRD y sistema de diseno de Cachés
 - [[../issues/CACH-B0015|CACH-B0015]] — Operativizar backlog releases y ramas en Product Brain
 - [[../issues/CACH-B0016|CACH-B0016]] — Refundacion operativa del Product Brain y tests B0014
 
@@ -49,4 +50,3 @@ tags:
 
 - [[../issues/CACH-B0008|CACH-B0008]] — PWA notificaciones y offline
 - [[../issues/CACH-B0010|CACH-B0010]] — Tooling de agentes y modelos de desarrollo
-

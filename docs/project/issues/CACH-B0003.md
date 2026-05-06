@@ -48,7 +48,7 @@ El cobro es una acción frecuente y de baja fricción esperada justo al terminar
 
 ## Resultado
 
-Integrado en [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] por ampliacion explicita de scope.
+Released en [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] por ampliacion explicita de scope. Integrado en `main` mediante PR #84.
 
 - Dashboard permite marcar cobros pendientes y vencidos como cobrados sin entrar al detalle.
 - Proyecto y evento replican el flujo en sus ingresos.

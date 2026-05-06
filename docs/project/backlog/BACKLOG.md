@@ -65,15 +65,14 @@ Sin issues en progreso.
 
 ## Review
 
-| ID | Titulo | Release | Nota |
-|---|---|---|---|
-| [[../issues/CACH-0036|CACH-0036]] | Profesionalizar flujo de ramas por beta | [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] | Pendiente de PR unica release -> main. |
-| [[../issues/CACH-0037|CACH-0037]] | Consolidar PRD y sistema de diseno de Cachés | [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] | Documentacion estable de producto y diseno lista para integrar. |
+Sin issues en review.
 
 ## Done
 
 | ID | Titulo | Release | Resultado |
 |---|---|---|---|
+| [[../issues/CACH-0036|CACH-0036]] | Profesionalizar flujo de ramas por beta | [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] | Flujo beta profesional integrado en main por PR #84. |
+| [[../issues/CACH-0037|CACH-0037]] | Consolidar PRD y sistema de diseno de Cachés | [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] | PRD y sistema de diseno base integrados en main por PR #84. |
 | [[../issues/CACH-0033|CACH-0033]] | Vista anual en calendario de proyectos | [[../releases/RELEASE-0.1.0-beta.4|RELEASE-0.1.0-beta.4]] | Planificacion anual con Gantt desktop y compacto movil. |
 | [[../issues/CACH-B0003|CACH-B0003]] | Cobro rapido y gestion de pendientes | [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] | Cobro accionable con confirmacion, deshacer y vencimientos solo en pendientes. |
 | [[../issues/CACH-B0014|CACH-B0014]] | Endurecer agenda, cobros y captura del MVP | [[../releases/RELEASE-0.1.0-beta.2|RELEASE-0.1.0-beta.2]] | 5 bugs críticos corregidos. |

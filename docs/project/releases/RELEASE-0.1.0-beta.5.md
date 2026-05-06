@@ -1,10 +1,11 @@
 ---
 id: RELEASE-0.1.0-beta.5
 type: release
-status: Active
+status: Released
 created: 2026-05-06
 updated: 2026-05-07
 release_branch: release/0.1.0-beta.5
+release_tag: v0.1.0-beta.5
 aliases:
   - RELEASE-0.1.0-beta.5
 tags:
@@ -17,11 +18,15 @@ tags:
 
 ## Estado
 
-Active
+Released
 
 ## Rama de release
 
 `release/0.1.0-beta.5`
+
+## Tag
+
+`v0.1.0-beta.5`
 
 ## Ciclo
 
@@ -53,16 +58,16 @@ Durante el cierre se amplia explicitamente el scope para incluir CACH-B0003 y co
 
 | Issue | Titulo | Estado | Rama |
 |---|---|---|---|
-| [[../issues/CACH-0036|CACH-0036]] | Profesionalizar flujo de ramas por beta | Review | `docs/CACH-0036-beta-branching-flow` |
-| [[../issues/CACH-0037|CACH-0037]] | Consolidar PRD y sistema de diseno de Cachés | Review | `docs/CACH-0036-beta-branching-flow` |
-| [[../issues/CACH-B0003|CACH-B0003]] | Cobro rapido y gestion de pendientes | Done | `release/0.1.0-beta.5` |
+| [[../issues/CACH-0036|CACH-0036]] | Profesionalizar flujo de ramas por beta | Released | `docs/CACH-0036-beta-branching-flow` |
+| [[../issues/CACH-0037|CACH-0037]] | Consolidar PRD y sistema de diseno de Cachés | Released | `docs/CACH-0036-beta-branching-flow` |
+| [[../issues/CACH-B0003|CACH-B0003]] | Cobro rapido y gestion de pendientes | Released | `release/0.1.0-beta.5` |
 
 ## Fuera de alcance
 
 - Cambios de app React fuera de CACH-B0003.
 - Cambios en Supabase, datos o finanzas.
 - Cambios de branch protection o CI.
-- Merge final a `main`, tag y borrado de rama remota, que ocurren al cerrar la PR de release.
+- Cambios posteriores a la PR #84.
 
 ## Riesgos
 
@@ -93,27 +98,27 @@ Durante el cierre se amplia explicitamente el scope para incluir CACH-B0003 y co
 
 - [x] Build correcto
 - [x] Tests/checks correctos
-- [ ] Revision visual
-- [ ] Revision responsive
-- [ ] Revision accesibilidad
+- [x] Revision visual
+- [x] Revision responsive
+- [x] Revision accesibilidad
 - [x] Revision de documentacion
 
 ## Checklist de salida
 
-- [ ] PR `release/0.1.0-beta.5` -> `main` abierta
-- [ ] CI en verde
-- [ ] Revision aprobada
-- [ ] PR mergeada en `main`
-- [ ] `main` actualizado en local
-- [ ] Tag `v0.1.0-beta.5` creado desde `main`
-- [ ] Produccion verificada si aplica
-- [ ] Rama remota `release/0.1.0-beta.5` eliminada
-- [ ] Release notes actualizadas
-- [ ] Issues marcadas como `Released`
-- [ ] Estado actual actualizado
-- [ ] Current Release actualizado
-- [ ] Backlog actualizado
-- [ ] Documento de release actualizado como cerrado
+- [x] PR `release/0.1.0-beta.5` -> `main` abierta
+- [x] CI en verde
+- [x] Revision aprobada
+- [x] PR mergeada en `main`
+- [x] `main` actualizado en local
+- [x] Tag `v0.1.0-beta.5` creado desde `main`
+- [x] Produccion verificada si aplica
+- [x] Rama remota `release/0.1.0-beta.5` eliminada
+- [x] Release notes actualizadas
+- [x] Issues marcadas como `Released`
+- [x] Estado actual actualizado
+- [x] Current Release actualizado
+- [x] Backlog actualizado
+- [x] Documento de release actualizado como cerrado
 
 ## Release notes
 
@@ -149,4 +154,4 @@ Durante el cierre se amplia explicitamente el scope para incluir CACH-B0003 y co
 
 ## Resultado final
 
-Cambios de proceso, documentacion base y CACH-B0003 integrados en `release/0.1.0-beta.5`. Pendiente PR unica `release/0.1.0-beta.5` -> `main`, tag `v0.1.0-beta.5` desde `main` y limpieza de rama remota al cerrar.
+Release cerrada y mergeada a `main` el 2026-05-07 en PR #84. Tag `v0.1.0-beta.5` creado desde `main`.

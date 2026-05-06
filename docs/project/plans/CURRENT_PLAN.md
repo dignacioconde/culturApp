@@ -3,7 +3,7 @@ id: PB-CURRENT-PLAN
 type: plan
 status: Active
 created: 2026-05-05
-updated: 2026-05-06
+updated: 2026-05-07
 aliases:
   - Current Plan
 tags:
@@ -16,19 +16,19 @@ tags:
 
 ## Foco actual
 
-Release activa: [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] — probar y dejar instalado el flujo profesional de ramas beta.
+Sin release activa. Ultimo corte: [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] — mergeada a `main` en PR #84 el 2026-05-07.
 
 ## Release activa
 
-[[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] en `release/0.1.0-beta.5`.
+No active release.
 
-Ultimo corte: [[../releases/RELEASE-0.1.0-beta.4|RELEASE-0.1.0-beta.4]] — mergeada a `main` el 2026-05-06.
+Ultimo corte: [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] — mergeada a `main` el 2026-05-07.
 
 ## Prioridades
 
-1. Cerrar [[../issues/CACH-0036|CACH-0036]] en `release/0.1.0-beta.5` mediante squash y PR unica a `main`.
-2. CACH-0030 (paleta/fuentes) como PR directo a main o siguiente corte, segun scope.
-3. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
+1. CACH-0030 (paleta/fuentes) como PR directo a main o siguiente corte, segun scope.
+2. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
+3. Definir el siguiente corte beta solo si agrupa varias issues con fase real de estabilizacion.
 
 ## Plan operativo
 
@@ -41,4 +41,4 @@ Ultimo corte: [[../releases/RELEASE-0.1.0-beta.4|RELEASE-0.1.0-beta.4]] — merg
 
 ## Proximo checkpoint
 
-Abrir PR `release/0.1.0-beta.5` -> `main` cuando la release tenga `pb:check` limpio y los cambios integrados por squash.
+Elegir siguiente prioridad desde [[../backlog/BACKLOG|Backlog]] y decidir si va por PR directa o por una nueva release.

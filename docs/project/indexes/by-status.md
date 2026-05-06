@@ -22,6 +22,8 @@ tags:
 - [[../issues/CACH-0033|CACH-0033]] — Vista anual en calendario de proyectos
 - [[../issues/CACH-0034|CACH-0034]] — €/h muestra valor incorrecto cuando no hay eventos con horas
 - [[../issues/CACH-0035|CACH-0035]] — Rediseño financiero del Dashboard y paid_date en cobros rapidos
+- [[../issues/CACH-0036|CACH-0036]] — Profesionalizar flujo de ramas por beta
+- [[../issues/CACH-0037|CACH-0037]] — Consolidar PRD y sistema de diseno de Cachés
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes
 - [[../issues/CACH-B0014|CACH-B0014]] — Endurecer agenda cobros y captura del MVP
 - [[../issues/CACH-B0015|CACH-B0015]] — Operativizar backlog releases y ramas en Product Brain
@@ -30,10 +32,6 @@ tags:
 ## inbox
 
 - [[../issues/CACH-0030|CACH-0030]] — Homogeneizar diseno con nueva paleta de colores y fuentes
-
-## review
-
-- [[../issues/CACH-0036|CACH-0036]] — Profesionalizar flujo de ramas por beta
 
 ## backlog
 
