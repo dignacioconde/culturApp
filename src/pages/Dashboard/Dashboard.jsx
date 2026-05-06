@@ -256,7 +256,7 @@ export default function Dashboard() {
             <KpiCard
               title="Cobro bruto/hora"
               value={kpis.billableHours > 0 ? formatCurrencyPerHour(kpis.grossHourlyRate) : '—'}
-              subtitle={`Solo eventos cobrados · ${formatHours(kpis.billableHours)} h`}
+              subtitle={kpis.billableHours > 0 ? `Solo eventos cobrados · ${formatHours(kpis.billableHours)} h` : 'Sin eventos cobrados'}
               icon={Timer}
               color="red"
             />

@@ -299,7 +299,7 @@ export default function ProjectDetail() {
             { label: 'Ingresos previstos', value: formatCurrency(totalGross) },
             { label: 'IRPF sobre cobrado', value: formatCurrency(totalRetentions) },
             { label: 'Gastos registrados', value: formatCurrency(totalExpenses) },
-            { label: 'Cobro bruto/hora', value: projectHours > 0 ? formatCurrencyPerHour(grossHourlyRate) : '—', detail: `Solo eventos cobrados · ${formatHours(projectHours)} h` },
+            { label: 'Cobro bruto/hora', value: projectHours > 0 ? formatCurrencyPerHour(grossHourlyRate) : '—', detail: projectHours > 0 ? `Solo eventos cobrados · ${formatHours(projectHours)} h` : 'Sin eventos cobrados' },
             { label: 'Beneficio neto', value: formatCurrency(netProfit), highlight: true },
           ].map(({ label, value, detail, highlight }) => (
             <div key={label} className={`rounded-lg border p-4 ${highlight ? 'bg-[#fef3f2] border-[var(--color-primary-200)]' : 'bg-white border-gray-200'}`}>
