@@ -1,14 +1,22 @@
 import dayjs from 'dayjs'
 
-const MONTH_LABELS = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-const WEEKDAY_LABELS = ['D', 'L', 'M', 'X', 'J', 'V', 'S']
+export const MONTH_LABELS = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+export const MONTH_SHORT_LABELS = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
 
-function formatIsoDate(value) {
+export function formatIsoDate(value) {
   return dayjs(value).format('YYYY-MM-DD')
 }
 
-function getWeekId(date) {
-  return formatIsoDate(date.startOf('week'))
+export function normalizeDate(value) {
+  if (!value) {
+    return dayjs('')
+  }
+
+  if (typeof value === 'string' && value.length >= 10) {
+    return dayjs(value.slice(0, 10)).startOf('day')
+  }
+
+  return dayjs(value).startOf('day')
 }
 
 function getProjectTitle(project) {
@@ -16,12 +24,13 @@ function getProjectTitle(project) {
 }
 
 function getProjectEnd(project) {
-  return project.end_date ?? project.start_date ?? project.end ?? project.start
+  return project.end_date ?? project.end ?? project.start_date ?? project.start
 }
 
-function normalizeProject(project) {
-  const start = dayjs(project.start_date ?? project.start)
-  const end = dayjs(getProjectEnd(project))
+export function normalizeProject(project) {
+  const start = normalizeDate(project.start_date ?? project.start)
+  const rawEnd = project.end_date ?? project.end
+  const end = normalizeDate(getProjectEnd(project))
 
   if (!start.isValid() || !end.isValid()) {
     return null
@@ -33,165 +42,164 @@ function normalizeProject(project) {
     color: project.color ?? '#4f98a3',
     start,
     end: end.isBefore(start, 'day') ? start : end,
+    hasExplicitEnd: Boolean(rawEnd),
     raw: project,
   }
 }
 
-function getVisibleWeeks(monthStart, monthEnd, today) {
-  const firstWeekStart = monthStart.startOf('month').startOf('week')
-  const lastWeekEnd = monthEnd.endOf('month').endOf('week')
-  const weeks = []
-
-  let current = firstWeekStart
-  let weekIndex = 0
-
-  while (current.isBefore(lastWeekEnd, 'day') || current.isSame(lastWeekEnd, 'day')) {
-    const weekStart = current
-    const weekEnd = current.endOf('week')
-
-    weeks.push({
-      weekId: getWeekId(weekStart),
-      weekIndex,
-      start: formatIsoDate(weekStart),
-      end: formatIsoDate(weekEnd),
-      days: Array.from({ length: 7 }, (_, dayIndex) => {
-        const date = weekStart.add(dayIndex, 'day')
-        return {
-          date: formatIsoDate(date),
-          dayOfMonth: date.date(),
-          weekdayLabel: WEEKDAY_LABELS[dayIndex],
-          isCurrentMonth: date.month() === monthStart.month(),
-          isToday: date.isSame(today, 'day'),
-        }
-      }),
-    })
-
-    current = current.add(1, 'week')
-    weekIndex += 1
-  }
-
-  return weeks
+function overlapsMonth(project, monthStart, monthEnd) {
+  return !project.end.isBefore(monthStart, 'day') && !project.start.isAfter(monthEnd, 'day')
 }
 
-function maxDay(...dates) {
-  return dates.reduce((currentMax, candidate) => candidate.isAfter(currentMax, 'day') ? candidate : currentMax)
-}
-
-function minDay(...dates) {
-  return dates.reduce((currentMin, candidate) => candidate.isBefore(currentMin, 'day') ? candidate : currentMin)
-}
-
-function buildWeekSegment(project, week, monthStart, monthEnd) {
-  const weekStart = dayjs(week.start)
-  const weekEnd = dayjs(week.end)
-  const visibleStart = maxDay(project.start, weekStart, monthStart)
-  const visibleEnd = minDay(project.end, weekEnd, monthEnd)
-
-  if (visibleEnd.isBefore(visibleStart, 'day')) {
-    return null
-  }
-
-  return {
-    projectId: project.id,
-    title: project.title,
-    color: project.color,
-    weekId: week.weekId,
-    weekIndex: week.weekIndex,
-    visibleStart: formatIsoDate(visibleStart),
-    visibleEnd: formatIsoDate(visibleEnd),
-    startColumn: visibleStart.day(),
-    endColumn: visibleEnd.day(),
-    span: visibleEnd.diff(visibleStart, 'day') + 1,
-    startsInCell: visibleStart.isSame(project.start, 'day'),
-    endsInCell: visibleEnd.isSame(project.end, 'day'),
-    source: project.raw,
-  }
-}
-
-function assignLanes(segments) {
-  const lanes = []
-
-  return segments.map((segment) => {
-    let lane = 0
-
-    while (lanes[lane] !== undefined && lanes[lane] >= segment.startColumn) {
-      lane += 1
+function sortNormalizedProjects(projects) {
+  return [...projects].sort((left, right) => {
+    if (!left.start.isSame(right.start, 'day')) {
+      return left.start.valueOf() - right.start.valueOf()
     }
 
-    lanes[lane] = segment.endColumn
-
-    return {
-      ...segment,
-      lane,
-    }
-  })
-}
-
-function sortSegments(segments) {
-  return [...segments].sort((left, right) => {
-    if (left.startColumn !== right.startColumn) {
-      return left.startColumn - right.startColumn
-    }
-
-    if (left.span !== right.span) {
-      return right.span - left.span
+    if (!left.end.isSame(right.end, 'day')) {
+      return left.end.valueOf() - right.end.valueOf()
     }
 
     return left.title.localeCompare(right.title, 'es')
   })
 }
 
-export function getProjectMonthSegments(project, monthStartValue, monthEndValue) {
-  const normalizedProject = normalizeProject(project)
-  const monthStart = dayjs(monthStartValue).startOf('day')
-  const monthEnd = dayjs(monthEndValue).startOf('day')
+export function getProjectActiveMonths(project, year) {
+  const normalized = normalizeProject(project)
 
-  if (!normalizedProject || monthEnd.isBefore(monthStart, 'day')) {
+  if (!normalized) {
     return []
   }
-
-  if (normalizedProject.end.isBefore(monthStart, 'day') || normalizedProject.start.isAfter(monthEnd, 'day')) {
-    return []
-  }
-
-  const visibleWeeks = getVisibleWeeks(monthStart, monthEnd, dayjs())
-
-  return visibleWeeks
-    .map((week) => buildWeekSegment(normalizedProject, week, monthStart, monthEnd))
-    .filter(Boolean)
-}
-
-export function buildProjectYearMonths(projects, year, options = {}) {
-  const today = dayjs(options.today ?? new Date()).startOf('day')
-  const normalizedProjects = projects.map(normalizeProject).filter(Boolean)
 
   return Array.from({ length: 12 }, (_, monthIndex) => {
     const monthStart = dayjs(`${year}-${String(monthIndex + 1).padStart(2, '0')}-01`).startOf('day')
     const monthEnd = monthStart.endOf('month').startOf('day')
-    const weeks = getVisibleWeeks(monthStart, monthEnd, today)
+    return overlapsMonth(normalized, monthStart, monthEnd) ? monthIndex : null
+  }).filter((monthIndex) => monthIndex !== null)
+}
 
-    const segments = sortSegments(
-      normalizedProjects.flatMap((project) => getProjectMonthSegments(project.raw, monthStart, monthEnd))
-    )
+export function getProjectsForMonth(projects, year, monthIndex) {
+  const monthStart = dayjs(`${year}-${String(monthIndex + 1).padStart(2, '0')}-01`).startOf('day')
+  const monthEnd = monthStart.endOf('month').startOf('day')
 
-    const segmentsByWeekId = new Map(
-      weeks.map((week) => [
-        week.weekId,
-        assignLanes(segments.filter((segment) => segment.weekId === week.weekId)),
-      ])
-    )
+  return sortNormalizedProjects(
+    projects
+      .map(normalizeProject)
+      .filter(Boolean)
+      .filter((project) => overlapsMonth(project, monthStart, monthEnd))
+  ).map((project) => ({
+    id: project.id,
+    title: project.title,
+    color: project.color,
+    startDate: formatIsoDate(project.start),
+    endDate: project.hasExplicitEnd ? formatIsoDate(project.end) : null,
+    visibleStart: formatIsoDate(project.start.isBefore(monthStart, 'day') ? monthStart : project.start),
+    visibleEnd: formatIsoDate(project.end.isAfter(monthEnd, 'day') ? monthEnd : project.end),
+    startsBeforeMonth: project.start.isBefore(monthStart, 'day'),
+    endsAfterMonth: project.end.isAfter(monthEnd, 'day'),
+    source: project.raw,
+  }))
+}
 
-    return {
-      monthIndex,
-      monthNumber: monthIndex + 1,
-      monthLabel: MONTH_LABELS[monthIndex],
-      year,
-      monthStart: formatIsoDate(monthStart),
-      monthEnd: formatIsoDate(monthEnd),
-      weeks: weeks.map((week) => ({
-        ...week,
-        segments: segmentsByWeekId.get(week.weekId) ?? [],
-      })),
+export function getProjectsByMonth(projects, year) {
+  return Array.from({ length: 12 }, (_, monthIndex) => ({
+    monthIndex,
+    monthNumber: monthIndex + 1,
+    monthLabel: MONTH_LABELS[monthIndex],
+    monthShortLabel: MONTH_SHORT_LABELS[monthIndex],
+    projects: getProjectsForMonth(projects, year, monthIndex),
+  }))
+}
+
+export function clampProjectRangeToYear(project, year) {
+  const normalized = normalizeProject(project)
+
+  if (!normalized) {
+    return null
+  }
+
+  const yearStart = dayjs(`${year}-01-01`).startOf('day')
+  const yearEnd = dayjs(`${year}-12-31`).startOf('day')
+
+  if (normalized.end.isBefore(yearStart, 'day') || normalized.start.isAfter(yearEnd, 'day')) {
+    return null
+  }
+
+  const visibleStart = normalized.start.isBefore(yearStart, 'day') ? yearStart : normalized.start
+  const visibleEnd = normalized.end.isAfter(yearEnd, 'day') ? yearEnd : normalized.end
+
+  return {
+    id: normalized.id,
+    title: normalized.title,
+    color: normalized.color,
+    startDate: formatIsoDate(normalized.start),
+    endDate: normalized.hasExplicitEnd ? formatIsoDate(normalized.end) : null,
+    visibleStart: formatIsoDate(visibleStart),
+    visibleEnd: formatIsoDate(visibleEnd),
+    startMonthIndex: visibleStart.month(),
+    endMonthIndex: visibleEnd.month(),
+    startsBeforeYear: normalized.start.isBefore(yearStart, 'day'),
+    endsAfterYear: normalized.end.isAfter(yearEnd, 'day'),
+    source: normalized.raw,
+  }
+}
+
+export function getProjectTimelineRows(projects, year) {
+  return sortNormalizedProjects(projects.map(normalizeProject).filter(Boolean))
+    .map((project) => clampProjectRangeToYear(project.raw, year))
+    .filter(Boolean)
+}
+
+export function getBusiestMonth(projects, year) {
+  const months = getProjectsByMonth(projects, year)
+  const busiest = months.reduce((current, month) => {
+    if (month.projects.length > current.projects.length) {
+      return month
     }
-  })
+
+    return current
+  }, months[0])
+
+  return busiest.projects.length > 0 ? busiest : null
+}
+
+export function getNextProjectStart(projects, fromDate = new Date(), options = {}) {
+  const from = normalizeDate(fromDate)
+
+  if (!from.isValid()) {
+    return null
+  }
+
+  const upcoming = sortNormalizedProjects(
+    projects
+      .map(normalizeProject)
+      .filter(Boolean)
+      .filter((project) => options.year === undefined || project.start.year() === options.year)
+      .filter((project) => !project.start.isBefore(from, 'day'))
+  )
+
+  if (upcoming.length === 0) {
+    return null
+  }
+
+  const [project] = upcoming
+
+  return {
+    id: project.id,
+    title: project.title,
+    startDate: formatIsoDate(project.start),
+    source: project.raw,
+  }
+}
+
+export function getDefaultSelectedMonth(projects, year, todayValue = new Date()) {
+  const today = normalizeDate(todayValue)
+
+  if (today.isValid() && today.year() === year) {
+    return today.month()
+  }
+
+  const firstActiveMonth = getProjectsByMonth(projects, year).find((month) => month.projects.length > 0)
+  return firstActiveMonth?.monthIndex ?? 0
 }

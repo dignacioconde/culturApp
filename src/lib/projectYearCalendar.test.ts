@@ -1,136 +1,147 @@
 import { describe, expect, it } from 'vitest'
-import { buildProjectYearMonths, getProjectMonthSegments } from './projectYearCalendar'
+import {
+  clampProjectRangeToYear,
+  getBusiestMonth,
+  getDefaultSelectedMonth,
+  getNextProjectStart,
+  getProjectActiveMonths,
+  getProjectTimelineRows,
+  getProjectsByMonth,
+  getProjectsForMonth,
+} from './projectYearCalendar'
 
-describe('project year calendar helper', () => {
-  it('segmenta un proyecto de un solo dia en una unica celda', () => {
-    const [segment] = getProjectMonthSegments(
-      { id: 'p1', name: 'Proyecto', color: '#123456', start_date: '2026-05-15', end_date: '2026-05-15' },
-      '2026-05-01',
-      '2026-05-31'
-    )
+describe('project year planning helpers', () => {
+  it('detecta un proyecto que empieza y termina dentro del mismo mes', () => {
+    expect(getProjectActiveMonths(
+      { id: 'p1', name: 'Proyecto', start_date: '2026-05-15', end_date: '2026-05-20' },
+      2026
+    )).toEqual([4])
+  })
 
-    expect(segment).toMatchObject({
-      projectId: 'p1',
-      title: 'Proyecto',
-      color: '#123456',
-      visibleStart: '2026-05-15',
-      visibleEnd: '2026-05-15',
-      startColumn: 5,
-      endColumn: 5,
-      span: 1,
-      startsInCell: true,
-      endsInCell: true,
+  it('detecta todos los meses activos de un proyecto multi-mes', () => {
+    expect(getProjectActiveMonths(
+      { id: 'p1', name: 'Residencia', start_date: '2026-03-20', end_date: '2026-06-02' },
+      2026
+    )).toEqual([2, 3, 4, 5])
+  })
+
+  it('recorta un proyecto que viene de un ano anterior', () => {
+    expect(clampProjectRangeToYear(
+      { id: 'p1', name: 'Temporada', start_date: '2025-11-01', end_date: '2026-02-15' },
+      2026
+    )).toMatchObject({
+      visibleStart: '2026-01-01',
+      visibleEnd: '2026-02-15',
+      startMonthIndex: 0,
+      endMonthIndex: 1,
+      startsBeforeYear: true,
+      endsAfterYear: false,
     })
   })
 
-  it('parte un proyecto largo en segmentos semanales dentro del mismo mes', () => {
-    const segments = getProjectMonthSegments(
-      { id: 'p1', name: 'Residencia', start_date: '2026-05-10', end_date: '2026-05-20' },
-      '2026-05-01',
-      '2026-05-31'
-    )
-
-    expect(segments).toHaveLength(2)
-    expect(segments[0]).toMatchObject({
-      visibleStart: '2026-05-10',
-      visibleEnd: '2026-05-16',
-      startColumn: 0,
-      endColumn: 6,
-      span: 7,
-      startsInCell: true,
-      endsInCell: false,
-    })
-    expect(segments[1]).toMatchObject({
-      visibleStart: '2026-05-17',
-      visibleEnd: '2026-05-20',
-      startColumn: 0,
-      endColumn: 3,
-      span: 4,
-      startsInCell: false,
-      endsInCell: true,
+  it('recorta un proyecto que termina en un ano posterior', () => {
+    expect(clampProjectRangeToYear(
+      { id: 'p1', name: 'Festival', start_date: '2026-11-20', end_date: '2027-01-10' },
+      2026
+    )).toMatchObject({
+      visibleStart: '2026-11-20',
+      visibleEnd: '2026-12-31',
+      startMonthIndex: 10,
+      endMonthIndex: 11,
+      startsBeforeYear: false,
+      endsAfterYear: true,
     })
   })
 
-  it('recorta correctamente el inicio visible cuando el proyecto viene del mes anterior', () => {
-    const segments = getProjectMonthSegments(
-      { id: 'p1', name: 'Gira', start_date: '2026-04-29', end_date: '2026-05-03' },
-      '2026-05-01',
-      '2026-05-31'
+  it('trata proyectos sin fecha final como activos en su mes de inicio', () => {
+    const [project] = getProjectsForMonth(
+      [{ id: 'p1', name: 'Investigacion', start_date: '2026-04-08', end_date: null }],
+      2026,
+      3
     )
 
-    expect(segments).toHaveLength(2)
-    expect(segments[0]).toMatchObject({
-      visibleStart: '2026-05-01',
-      visibleEnd: '2026-05-02',
-      startColumn: 5,
-      endColumn: 6,
-      span: 2,
-      startsInCell: false,
-      endsInCell: false,
-    })
-    expect(segments[1]).toMatchObject({
-      visibleStart: '2026-05-03',
-      visibleEnd: '2026-05-03',
-      startColumn: 0,
-      endColumn: 0,
-      span: 1,
-      startsInCell: false,
-      endsInCell: true,
+    expect(project).toMatchObject({
+      title: 'Investigacion',
+      startDate: '2026-04-08',
+      endDate: null,
+      visibleStart: '2026-04-08',
+      visibleEnd: '2026-04-08',
     })
   })
 
-  it('recorta diciembre a enero por el mes visible sin perder el final real', () => {
-    const segments = getProjectMonthSegments(
-      { id: 'p1', name: 'Temporada', start_date: '2026-12-28', end_date: '2027-01-04' },
-      '2027-01-01',
-      '2027-01-31'
+  it('agrupa proyectos por mes y deja vacios los meses sin proyectos', () => {
+    const months = getProjectsByMonth(
+      [{ id: 'p1', name: 'Expo', start_date: '2026-04-01', end_date: '2026-04-30' }],
+      2026
     )
 
-    expect(segments).toHaveLength(2)
-    expect(segments[0]).toMatchObject({
-      visibleStart: '2027-01-01',
-      visibleEnd: '2027-01-02',
-      startsInCell: false,
-      endsInCell: false,
-      span: 2,
-    })
-    expect(segments[1]).toMatchObject({
-      visibleStart: '2027-01-03',
-      visibleEnd: '2027-01-04',
-      startsInCell: false,
-      endsInCell: true,
-      span: 2,
-    })
+    expect(months[2].projects).toHaveLength(0)
+    expect(months[3].projects.map((project) => project.title)).toEqual(['Expo'])
   })
 
-  it('respeta febrero bisiesto en el ano construido', () => {
-    const months = buildProjectYearMonths(
-      [{ id: 'p1', name: 'Expo', start_date: '2028-02-28', end_date: '2028-03-01' }],
-      2028,
-      { today: '2028-02-15' }
-    )
-
-    const february = months[1]
-    const februarySegments = february.weeks.flatMap((week) => week.segments)
-
-    expect(february.monthEnd).toBe('2028-02-29')
-    expect(februarySegments.some((segment) => segment.visibleEnd === '2028-02-29')).toBe(true)
-  })
-
-  it('asigna lanes distintas cuando dos proyectos se solapan en la misma semana', () => {
-    const months = buildProjectYearMonths(
+  it('calcula el mes mas cargado', () => {
+    const busiestMonth = getBusiestMonth(
       [
-        { id: 'p1', name: 'Proyecto A', start_date: '2026-05-11', end_date: '2026-05-14' },
-        { id: 'p2', name: 'Proyecto B', start_date: '2026-05-12', end_date: '2026-05-15' },
+        { id: 'p1', name: 'A', start_date: '2026-04-01', end_date: '2026-04-30' },
+        { id: 'p2', name: 'B', start_date: '2026-04-20', end_date: '2026-05-02' },
+        { id: 'p3', name: 'C', start_date: '2026-05-01', end_date: '2026-05-03' },
       ],
       2026
     )
 
-    const mayWeek = months[4].weeks.find((week) => week.start === '2026-05-10')
+    expect(busiestMonth?.monthLabel).toBe('Abril')
+    expect(busiestMonth?.projects).toHaveLength(2)
+  })
 
-    expect(mayWeek?.segments.map((segment) => [segment.projectId, segment.lane])).toEqual([
-      ['p1', 0],
-      ['p2', 1],
-    ])
+  it('calcula el proximo inicio desde una fecha dada', () => {
+    const nextProject = getNextProjectStart(
+      [
+        { id: 'p1', name: 'Pasado', start_date: '2026-03-01', end_date: '2026-03-03' },
+        { id: 'p2', name: 'Siguiente', start_date: '2026-05-10', end_date: '2026-05-12' },
+        { id: 'p3', name: 'Despues', start_date: '2026-06-01', end_date: '2026-06-02' },
+      ],
+      '2026-05-01'
+    )
+
+    expect(nextProject).toMatchObject({ title: 'Siguiente', startDate: '2026-05-10' })
+  })
+
+  it('limita el proximo inicio al ano visible cuando se indica', () => {
+    const nextProject = getNextProjectStart(
+      [
+        { id: 'p1', name: 'Cruza', start_date: '2025-12-20', end_date: '2026-01-10' },
+        { id: 'p2', name: 'Visible', start_date: '2026-02-01', end_date: '2026-02-03' },
+        { id: 'p3', name: 'Futuro', start_date: '2027-01-01', end_date: '2027-01-02' },
+      ],
+      '2026-01-01',
+      { year: 2026 }
+    )
+
+    expect(nextProject).toMatchObject({ title: 'Visible', startDate: '2026-02-01' })
+  })
+
+  it('ordena las filas por fecha de inicio e ignora fechas invalidas', () => {
+    const rows = getProjectTimelineRows(
+      [
+        { id: 'invalid', name: 'Sin fecha', start_date: null, end_date: null },
+        { id: 'p2', name: 'B', start_date: '2026-05-01', end_date: '2026-05-02' },
+        { id: 'p1', name: 'A', start_date: '2026-04-01', end_date: '2026-04-02' },
+      ],
+      2026
+    )
+
+    expect(rows.map((row) => row.id)).toEqual(['p1', 'p2'])
+  })
+
+  it('selecciona el mes actual si pertenece al ano visible', () => {
+    expect(getDefaultSelectedMonth([], 2026, '2026-05-06')).toBe(4)
+  })
+
+  it('selecciona el primer mes con proyectos si el ano visible no es el actual', () => {
+    expect(getDefaultSelectedMonth(
+      [{ id: 'p1', name: 'Abril', start_date: '2026-04-01', end_date: '2026-04-30' }],
+      2026,
+      '2025-05-06'
+    )).toBe(3)
   })
 })
