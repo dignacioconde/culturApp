@@ -2,8 +2,8 @@
 id: PB-BY-RELEASE
 type: index
 status: Active
-created: 2026-05-05
-updated: 2026-05-05
+created: 2026-05-06
+updated: 2026-05-07
 aliases:
   - Issues por release
 tags:
@@ -18,9 +18,10 @@ tags:
 - [[../issues/CACH-0028|CACH-0028]] — Corregir sync iCloud y estructura versionada
 - [[../issues/CACH-0030|CACH-0030]] — Homogeneizar diseno con nueva paleta de colores y fuentes
 - [[../issues/CACH-0031|CACH-0031]] — Corregir ajustes UX movil detectados en exploracion
+- [[../issues/CACH-0032|CACH-0032]] — Priorizar operativa diaria en dashboard movil
+- [[../issues/CACH-0034|CACH-0034]] — €/h muestra valor incorrecto cuando no hay eventos con horas
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera
-- [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes
 - [[../issues/CACH-B0004|CACH-B0004]] — Contratantes facturacion y liquidacion neta
 - [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos
 - [[../issues/CACH-B0006|CACH-B0006]] — Onboarding y acceso beta
@@ -31,7 +32,6 @@ tags:
 - [[../issues/CACH-B0011|CACH-B0011]] — Categorias etiquetas y taxonomia
 - [[../issues/CACH-B0012|CACH-B0012]] — Perfil publico viralidad y referidos
 - [[../issues/CACH-B0013|CACH-B0013]] — Gestion documental por proyecto evento
-- [[../issues/CACH-B0014|CACH-B0014]] — Endurecer agenda cobros y captura del MVP
 
 ## RELEASE-0.1.0-beta.1
 
@@ -39,3 +39,19 @@ tags:
 - [[../issues/CACH-B0015|CACH-B0015]] — Operativizar backlog releases y ramas en Product Brain
 - [[../issues/CACH-B0016|CACH-B0016]] — Refundacion operativa del Product Brain y tests B0014
 
+## RELEASE-0.1.0-beta.4
+
+- [[../issues/CACH-0033|CACH-0033]] — Vista anual en calendario de proyectos
+
+## RELEASE-0.1.0-beta.3
+
+- [[../issues/CACH-0035|CACH-0035]] — Rediseño financiero del Dashboard y paid_date en cobros rapidos
+
+## RELEASE-0.1.0-beta.5
+
+- [[../issues/CACH-0036|CACH-0036]] — Profesionalizar flujo de ramas por beta
+- [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes
+
+## RELEASE-0.1.0-beta.2
+
+- [[../issues/CACH-B0014|CACH-B0014]] — Endurecer agenda cobros y captura del MVP

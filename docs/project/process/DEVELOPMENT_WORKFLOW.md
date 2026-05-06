@@ -3,7 +3,7 @@ id: PB-PROCESS-DEVELOPMENT-WORKFLOW
 type: process
 status: Deprecated
 created: 2026-05-05
-updated: 2026-05-05
+updated: 2026-05-06
 aliases:
   - Development Workflow
   - Flujo de desarrollo
@@ -34,19 +34,19 @@ Asignacion a release
   ↓
 Rama de release
   ↓
-Rama feature/fix/chore/docs
+Rama local feat/fix/chore/docs
   ↓
 Commits trazables
   ↓
 Validacion
   ↓
-Merge a release branch
+Squash a release branch
   ↓
 Cierre de issue
   ↓
 Release notes
   ↓
-Merge a main
+PR release -> main
   ↓
 CURRENT_STATE / Product Brain actualizado
 ```
@@ -101,23 +101,27 @@ Si no hay release activa y el trabajo es grande, parar y crear/activar una relea
 
 ## 5. Preparar ramas
 
-La release activa debe tener rama propia. Desde ahi salen las ramas de trabajo.
+La release activa debe tener rama propia. Desde ahi salen las ramas de trabajo solo si pertenecen a esa release. Si hay release activa pero una tarea nueva no pertenece a ella, se aplaza, va por flujo ligero desde `main`, o se anade explicitamente al documento de la release.
 
 ```bash
+git fetch --prune origin
 git switch main
-git pull
+git pull origin main
 git switch -c release/0.1.0-beta.1
+git push -u origin release/0.1.0-beta.1
 
 git switch release/0.1.0-beta.1
-git switch -c feature/CACH-B0001-work-hierarchy
+git branch --show-current
+git switch -c feat/CACH-B0001-work-hierarchy
 ```
 
 Si la rama de release ya existe:
 
 ```bash
-git fetch
+git fetch --prune origin
 git switch release/0.1.0-beta.1
-git pull
+git pull origin release/0.1.0-beta.1
+git branch --show-current
 git switch -c fix/CACH-B0014-mvp-trust-pass
 ```
 
@@ -141,14 +145,19 @@ Validacion minima segun tipo:
 - Datos/finanzas: explicar calculo o contrato afectado.
 - Supabase/RLS: revisar `user_id`, policies y hooks.
 
-## 8. Merge a release branch
+## 8. Squash a release branch
 
 La rama de trabajo vuelve a la rama de release.
 
 ```bash
 git switch release/0.1.0-beta.1
-git pull
-git merge feature/CACH-B0001-work-hierarchy
+git pull origin release/0.1.0-beta.1
+git diff release/0.1.0-beta.1...feat/CACH-B0001-work-hierarchy
+git log --oneline release/0.1.0-beta.1..feat/CACH-B0001-work-hierarchy
+git merge --squash feat/CACH-B0001-work-hierarchy
+git commit -m "feat(CACH-B0001): add work hierarchy"
+git push origin release/0.1.0-beta.1
+git branch -d feat/CACH-B0001-work-hierarchy
 ```
 
 Actualizar la issue:
@@ -170,11 +179,11 @@ Una issue pasa a `Ready for Release` cuando:
 - release actualizada;
 - no quedan TODOs criticos ocultos.
 
-Pasa a `Released` solo cuando la release se mergea a `main` y el estado del producto queda actualizado.
+Pasa a `Released` solo cuando la PR de release se mergea a `main` y el estado del producto queda actualizado.
 
 ## 10. Cierre de release
 
-Una release esta lista para `main` cuando:
+Una release esta lista para abrir PR `release/<version>` -> `main` cuando:
 
 - todas sus issues estan `Ready for Release` o `Released`;
 - no hay cambios sin documentar;
@@ -182,7 +191,8 @@ Una release esta lista para `main` cuando:
 - build/checks correctos;
 - QA basico hecho;
 - decisiones importantes en ADR;
-- backlog y Current Release actualizados.
+- backlog y Current Release actualizados;
+- no se hara merge local directo a `main`.
 
 ## 11. Actualizar Product Brain
 
@@ -241,10 +251,12 @@ Una issue esta `Ready for Release` cuando:
 
 Una release esta `Released` cuando:
 
-- se mergeo a `main`;
+- la PR `release/<version>` -> `main` se mergeo;
+- `main` se actualizo en local;
+- el tag `vX.Y.Z-beta.N` se creo desde `main`;
 - las issues incluidas estan `Released`;
 - release notes completas;
 - Current Release y Current Plan actualizados;
 - estado de producto actualizado;
-- rama de release cerrada o archivada segun convenga;
+- rama remota de release eliminada o archivada segun convenga;
 - el cambio esta verificado en produccion si afecta a la app publicada.

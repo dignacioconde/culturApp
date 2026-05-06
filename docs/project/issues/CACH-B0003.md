@@ -2,14 +2,14 @@
 id: CACH-B0003
 title: Cobro rapido y gestion de pendientes
 type: feature
-status: backlog
+status: done
 cycle: unassigned
-release: null
+release: RELEASE-0.1.0-beta.5
 priority: p1
 estimate: m
 area: frontend
 created_at: 2026-05-04
-updated_at: 2026-05-04
+updated_at: 2026-05-07
 aliases:
   - CACH-B0003
 tags:
@@ -41,10 +41,26 @@ El cobro es una acción frecuente y de baja fricción esperada justo al terminar
 
 ## Acceptance Criteria
 
-- [ ] Un ingreso pendiente puede marcarse como cobrado desde el listado de pendientes.
-- [ ] Un evento con ingreso pendiente ofrece una acción rápida clara.
-- [ ] La acción registra `paid_date` y `is_paid` correctamente.
-- [ ] El flujo evita marcar importes ambiguos sin confirmación.
+- [x] Un ingreso pendiente puede marcarse como cobrado desde el listado de pendientes.
+- [x] Un evento con ingreso pendiente ofrece una acción rápida clara.
+- [x] La acción registra `paid_date` y `is_paid` correctamente.
+- [x] El flujo evita marcar importes ambiguos sin confirmación.
+
+## Resultado
+
+Integrado en [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] por ampliacion explicita de scope.
+
+- Dashboard permite marcar cobros pendientes y vencidos como cobrados sin entrar al detalle.
+- Proyecto y evento replican el flujo en sus ingresos.
+- Los ingresos ambiguos por concepto vacio o generico piden confirmacion antes de cobrarse.
+- El feedback de cobro incluye deshacer, aceptar y cierre automatico a los 5 segundos.
+- Las fechas de vencimiento se muestran solo en ingresos pendientes.
+
+## Validacion
+
+- `npm run test`
+- `npm run lint`
+- `npm run build`
 
 ## Related
 

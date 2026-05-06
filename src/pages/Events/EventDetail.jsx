@@ -17,11 +17,20 @@ import { useIncomes } from '../../hooks/useIncomes'
 import { useExpenses } from '../../hooks/useExpenses'
 import { formatCurrency, formatCurrencyPerHour, formatDate, formatDatetime, formatHours, parseDecimal } from '../../lib/formatters'
 import { normalizeExpenseForm, normalizeIncomeForm } from '../../lib/financeForms'
-import { isPaid, markPaid, markUnpaid, paymentDate } from '../../lib/payment'
+import { formatDueDescription, formatDueText, getDueDays } from '../../lib/dueDates'
+import { isPaid, markPaid, markUnpaid, needsQuickPaidConfirmation, paymentDate } from '../../lib/payment'
 import { EXPENSE_CATEGORIES } from '../../lib/constants'
 
 const EMPTY_EXPENSE = { concept: '', amount: '', category: 'otros', expense_date: '', is_deductible: true }
 const compactPrimaryAction = 'inline-flex min-h-9 items-center justify-center gap-2 rounded-lg bg-[#C94035] px-3 py-1.5 text-sm font-medium leading-none text-white shadow-sm transition-colors hover:bg-[#A8342B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2'
+const incomeConceptLabel = (income) => income.concept?.trim() || 'Ingreso sin concepto'
+const incomeDueClass = (income) => {
+  if (!income.expected_date) return 'text-gray-400'
+  const daysLeft = getDueDays(income.expected_date)
+  if (daysLeft < 0) return 'font-medium text-red-600'
+  if (daysLeft <= 7) return 'text-red-500'
+  return 'text-gray-400'
+}
 
 const getEventHours = (event) => {
   if (!event.end_datetime) return 0
@@ -60,6 +69,8 @@ export default function EventDetail() {
   const [editingIncome, setEditingIncome] = useState(null)
   const [incomeForm, setIncomeForm] = useState(() => createIncomeForm())
   const [savingIncome, setSavingIncome] = useState(false)
+  const [savingIncomeId, setSavingIncomeId] = useState(null)
+  const [pendingPaymentConfirmationIncome, setPendingPaymentConfirmationIncome] = useState(null)
   const [quickIncomeModal, setQuickIncomeModal] = useState(false)
   const quickIncomeDefault = () => ({ amount: '', is_paid: true })
   const [quickIncomeForm, setQuickIncomeForm] = useState(() => ({ amount: '', is_paid: true }))
@@ -228,11 +239,82 @@ export default function EventDetail() {
     setIncomeModal(false)
   }
 
-  const handleTogglePaid = async (income) => {
+  const undoIncomePaid = async (income, previousPayment) => {
+    if (!income || savingIncomeId) return
+
+    const paymentState = markUnpaid(previousPayment)
+    setSavingIncomeId(income.id)
+    try {
+      const { error } = await updateIncome(income.id, paymentState)
+      if (error) {
+        addToast('No se ha podido deshacer el cobro. Revisa el ingreso.', 'error')
+        return
+      }
+      addToast('Cobro devuelto a pendiente.')
+    } catch {
+      addToast('No se ha podido deshacer el cobro. Revisa el ingreso.', 'error')
+    } finally {
+      setSavingIncomeId(null)
+    }
+  }
+
+  const markIncomePaid = async (income) => {
+    if (!income || savingIncomeId) return
+
     const currentPayment = { is_paid: income.is_paid, paid_date: income.paid_date ?? null }
-    const paymentState = isPaid(income) ? markUnpaid(currentPayment) : markPaid(currentPayment)
-    const { error } = await updateIncome(income.id, paymentState)
-    if (error) addToast('Error al actualizar el cobro.', 'error')
+    const paymentState = markPaid(currentPayment)
+    setSavingIncomeId(income.id)
+    try {
+      const { error } = await updateIncome(income.id, paymentState)
+      if (error) {
+        addToast('Error al actualizar el cobro.', 'error')
+        return
+      }
+      addToast('Cobro marcado como cobrado.', 'success', {
+        actionLabel: 'Deshacer',
+        dismissLabel: 'Aceptar',
+        duration: 5000,
+        onAction: () => undoIncomePaid(income, currentPayment),
+      })
+      setPendingPaymentConfirmationIncome(null)
+    } catch {
+      addToast('Error al actualizar el cobro.', 'error')
+    } finally {
+      setSavingIncomeId(null)
+    }
+  }
+
+  const markIncomeUnpaid = async (income) => {
+    if (!income || savingIncomeId) return
+
+    const currentPayment = { is_paid: income.is_paid, paid_date: income.paid_date ?? null }
+    const paymentState = markUnpaid(currentPayment)
+    setSavingIncomeId(income.id)
+    try {
+      const { error } = await updateIncome(income.id, paymentState)
+      if (error) {
+        addToast('Error al actualizar el cobro.', 'error')
+        return
+      }
+      addToast('Cobro devuelto a pendiente.')
+    } catch {
+      addToast('Error al actualizar el cobro.', 'error')
+    } finally {
+      setSavingIncomeId(null)
+    }
+  }
+
+  const handleTogglePaid = async (income) => {
+    if (savingIncomeId) return
+    if (isPaid(income)) {
+      markIncomeUnpaid(income)
+      return
+    }
+    if (needsQuickPaidConfirmation(income)) {
+      setPendingPaymentConfirmationIncome(income)
+      return
+    }
+    markIncomePaid(income)
   }
 
   const handleSubmitExpense = async (e) => {
@@ -411,45 +493,84 @@ export default function EventDetail() {
                 </tr>
               </thead>
               <tbody>
-                {incomes.map((income) => (
-                  <tr key={income.id} className="border-b border-gray-50 last:border-0 group">
-                    <td className="py-2">
-                      <button
-                        onClick={() => openEditIncome(income)}
-                        className="text-gray-900 hover:text-[var(--color-primary-500)] hover:underline text-left transition-colors"
-                      >
-                        {income.concept}
-                      </button>
-                    </td>
-                    <td className="py-2 text-right font-medium">{formatCurrency(income.amount)}</td>
-                    <td className="py-2 text-right text-gray-500">{income.tax_rate}%</td>
-                    <td className="py-2 text-right text-gray-500">{formatDate(income.expected_date)}</td>
-                    <td className="py-2 text-center">
-                      <button onClick={() => handleTogglePaid(income)} className="text-gray-400 hover:text-green-600 transition-colors">
-                        {isPaid(income) ? <CheckCircle size={16} className="text-green-500" /> : <Circle size={16} />}
-                      </button>
-                    </td>
-                    <td className="py-2 text-right">
-                      <button onClick={() => deleteIncome(income.id)} className="text-gray-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100">
-                        <Trash2 size={14} />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                {incomes.map((income) => {
+                  const isSaving = savingIncomeId === income.id
+                  return (
+                    <tr key={income.id} className="border-b border-gray-50 last:border-0 group">
+                      <td className="py-2">
+                        <button
+                          onClick={() => openEditIncome(income)}
+                          className="text-gray-900 hover:text-[var(--color-primary-500)] hover:underline text-left transition-colors"
+                        >
+                          {incomeConceptLabel(income)}
+                        </button>
+                      </td>
+                      <td className="py-2 text-right font-medium">{formatCurrency(income.amount)}</td>
+                      <td className="py-2 text-right text-gray-500">{income.tax_rate}%</td>
+                      <td className="py-2 text-right">
+                        {isPaid(income) ? (
+                          <p className="font-medium text-[#2D6A4F]">Cobrado</p>
+                        ) : (
+                          <>
+                            <p className={incomeDueClass(income)}>{formatDueText(income.expected_date)}</p>
+                            {income.expected_date && <p className="text-xs text-gray-400">{formatDate(income.expected_date)}</p>}
+                          </>
+                        )}
+                      </td>
+                      <td className="py-2 text-center">
+                        <button
+                          type="button"
+                          onClick={() => handleTogglePaid(income)}
+                          disabled={Boolean(savingIncomeId)}
+                          aria-label={`${isPaid(income) ? 'Marcar como pendiente' : 'Marcar como cobrado'} ${incomeConceptLabel(income)}`}
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 transition-colors hover:bg-[#F4FBF7] hover:text-green-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2D6A4F] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:text-gray-300 disabled:hover:bg-transparent"
+                        >
+                          {isSaving
+                            ? <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#2D6A4F] border-t-transparent" />
+                            : isPaid(income) ? <CheckCircle size={16} className="text-green-500" /> : <Circle size={16} />}
+                        </button>
+                      </td>
+                      <td className="py-2 text-right">
+                        <button onClick={() => deleteIncome(income.id)} className="text-gray-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100">
+                          <Trash2 size={14} />
+                        </button>
+                      </td>
+                    </tr>
+                  )
+                })}
               </tbody>
             </table>
             {/* Cards colapsables para móvil */}
               <div className="flex flex-col gap-1 md:hidden">
-                {incomes.map((income) => (
-                  <div
-                    key={income.id}
-                    onClick={() => openEditIncome(income)}
-                    className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0"
-                  >
-                    <span className="text-sm text-gray-900 truncate">{income.concept}</span>
-                    <span className="text-sm font-medium text-gray-900">{formatCurrency(income.amount)}</span>
-                  </div>
-                ))}
+                {incomes.map((income) => {
+                  const isSaving = savingIncomeId === income.id
+                  return (
+                    <div key={income.id} className="flex items-center justify-between gap-2 py-2 border-b border-gray-50 last:border-0">
+                      <button
+                        type="button"
+                        onClick={() => openEditIncome(income)}
+                        className="min-w-0 flex-1 text-left"
+                      >
+                        <span className="block truncate text-sm text-gray-900">{incomeConceptLabel(income)}</span>
+                        {!isPaid(income) && (
+                          <span className={`mt-0.5 block text-xs ${incomeDueClass(income)}`}>{formatDueDescription(income.expected_date)}</span>
+                        )}
+                      </button>
+                      <span className="shrink-0 text-sm font-medium text-gray-900">{formatCurrency(income.amount)}</span>
+                      <button
+                        type="button"
+                        onClick={() => handleTogglePaid(income)}
+                        disabled={Boolean(savingIncomeId)}
+                        aria-label={`${isPaid(income) ? 'Marcar como pendiente' : 'Marcar como cobrado'} ${incomeConceptLabel(income)}`}
+                        className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-[#2D6A4F] transition-colors hover:bg-[#F4FBF7] hover:text-[#1F5A42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2D6A4F] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:text-gray-300 disabled:hover:bg-transparent"
+                      >
+                        {isSaving
+                          ? <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#2D6A4F] border-t-transparent" />
+                          : isPaid(income) ? <CheckCircle size={18} className="text-green-500" /> : <Circle size={18} />}
+                      </button>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           )}
@@ -606,6 +727,45 @@ export default function EventDetail() {
             </Button>
           </div>
         </form>
+      </Modal>
+
+      <Modal
+        isOpen={Boolean(pendingPaymentConfirmationIncome)}
+        onClose={() => {
+          if (!savingIncomeId) setPendingPaymentConfirmationIncome(null)
+        }}
+        title="Confirmar cobro"
+      >
+        {pendingPaymentConfirmationIncome && (
+          <div className="flex flex-col gap-4">
+            <p className="text-sm text-gray-600">
+              Este ingreso tiene un concepto poco claro. Confirma que quieres marcarlo como cobrado.
+            </p>
+            <div className="rounded-lg border border-gray-100 bg-gray-50 p-3">
+              <p className="text-sm font-medium text-gray-900">{incomeConceptLabel(pendingPaymentConfirmationIncome)}</p>
+              <p className="mt-1 text-xs text-gray-500">
+                {formatDate(pendingPaymentConfirmationIncome.expected_date)} · {formatCurrency(pendingPaymentConfirmationIncome.amount)}
+              </p>
+            </div>
+            <div className="flex justify-end gap-3">
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => setPendingPaymentConfirmationIncome(null)}
+                disabled={savingIncomeId === pendingPaymentConfirmationIncome.id}
+              >
+                Cancelar
+              </Button>
+              <Button
+                type="button"
+                onClick={() => markIncomePaid(pendingPaymentConfirmationIncome)}
+                disabled={savingIncomeId === pendingPaymentConfirmationIncome.id}
+              >
+                {savingIncomeId === pendingPaymentConfirmationIncome.id ? 'Guardando...' : 'Marcar cobrado'}
+              </Button>
+            </div>
+          </div>
+        )}
       </Modal>
 
       <Modal isOpen={expenseModal} onClose={() => setExpenseModal(false)} title={editingExpense ? 'Editar gasto' : 'Añadir gasto'}>

@@ -2,11 +2,14 @@ import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import dayjs from 'dayjs'
 import 'dayjs/locale/es'
-import { AlertCircle, CalendarDays, ChevronLeft, ChevronRight, Clock, FolderOpen, Wallet } from 'lucide-react'
+import { AlertCircle, CalendarDays, CheckCircle, ChevronLeft, ChevronRight, Clock, FolderOpen, Wallet } from 'lucide-react'
 import { PageWrapper } from '../../components/layout/PageWrapper'
 import { Card } from '../../components/ui/Card'
 import { StatusBadge } from '../../components/ui/Badge'
+import { Button } from '../../components/ui/Button'
+import { Modal } from '../../components/ui/Modal'
 import { Select } from '../../components/ui/Input'
+import { useToast, ToastContainer } from '../../components/ui/Toast'
 import { KpiCard } from './KpiCard'
 import { useAuth } from '../../hooks/useAuth'
 import { useProjects } from '../../hooks/useProjects'
@@ -14,30 +17,27 @@ import { useEvents } from '../../hooks/useEvents'
 import { useIncomes } from '../../hooks/useIncomes'
 import { formatCurrency, formatDate } from '../../lib/formatters'
 import { getCashMonthSummary, getWorkKpis, getWorkSections, getWorkSummaries } from '../../lib/dashboardFinance'
+import { formatDueText, getDueDays } from '../../lib/dueDates'
+import { markPaid, markUnpaid, needsQuickPaidConfirmation } from '../../lib/payment'
 
 const YEARS = Array.from({ length: 6 }, (_, i) => dayjs().year() - 2 + i)
 
 dayjs.locale('es')
 
-const getDueDays = (date) => dayjs(date).startOf('day').diff(dayjs().startOf('day'), 'day')
-
-const formatDueText = (date) => {
-  const days = getDueDays(date)
-  if (days < 0) return `Vencido hace ${Math.abs(days)} d`
-  if (days === 0) return 'Vence hoy'
-  if (days === 1) return 'Vence mañana'
-  return `Vence en ${days} d`
-}
+const incomeConceptLabel = (income) => income.concept?.trim() || 'Ingreso sin concepto'
 
 export default function Dashboard() {
   const navigate = useNavigate()
   const { user } = useAuth()
   const { projects, loading: projectsLoading, error: projectsError } = useProjects(user?.id)
   const { events, loading: eventsLoading, error: eventsError } = useEvents(user?.id)
-  const { incomes, loading: incomesLoading, error: incomesError } = useIncomes(user?.id)
+  const { incomes, loading: incomesLoading, error: incomesError, updateIncome } = useIncomes(user?.id)
+  const { toasts, addToast, removeToast } = useToast()
 
   const [selectedDate, setSelectedDate] = useState(dayjs())
   const [view, setView] = useState('cash')
+  const [savingIncomeId, setSavingIncomeId] = useState(null)
+  const [pendingConfirmationIncome, setPendingConfirmationIncome] = useState(null)
 
   const startOfMonth = selectedDate.startOf('month').format('YYYY-MM-DD')
   const endOfMonth = selectedDate.endOf('month').format('YYYY-MM-DD')
@@ -65,6 +65,61 @@ export default function Dashboard() {
   const navigateToIncome = (income) => {
     if (income.event_id) navigate(`/events/${income.event_id}`)
     else if (income.project_id) navigate(`/projects/${income.project_id}`)
+  }
+
+  const undoPendingIncomePaid = async (income, previousPayment) => {
+    if (!income || savingIncomeId) return
+
+    const paymentState = markUnpaid(previousPayment)
+    setSavingIncomeId(income.id)
+    try {
+      const { error } = await updateIncome(income.id, paymentState)
+      if (error) {
+        addToast('No se ha podido deshacer el cobro. Revisa el ingreso.', 'error')
+        return
+      }
+      addToast('Cobro devuelto a pendiente.')
+    } catch {
+      addToast('No se ha podido deshacer el cobro. Revisa el ingreso.', 'error')
+    } finally {
+      setSavingIncomeId(null)
+    }
+  }
+
+  const markPendingIncomePaid = async (income) => {
+    if (!income || savingIncomeId) return
+
+    const currentPayment = { is_paid: income.is_paid, paid_date: income.paid_date ?? null }
+    const paymentState = markPaid(currentPayment)
+
+    setSavingIncomeId(income.id)
+    try {
+      const { error } = await updateIncome(income.id, paymentState)
+      if (error) {
+        addToast('No se ha podido marcar el cobro. Vuelve a intentarlo.', 'error')
+        return
+      }
+      addToast('Cobro marcado como cobrado.', 'success', {
+        actionLabel: 'Deshacer',
+        dismissLabel: 'Aceptar',
+        duration: 5000,
+        onAction: () => undoPendingIncomePaid(income, currentPayment),
+      })
+      setPendingConfirmationIncome(null)
+    } catch {
+      addToast('No se ha podido marcar el cobro. Vuelve a intentarlo.', 'error')
+    } finally {
+      setSavingIncomeId(null)
+    }
+  }
+
+  const requestMarkPendingIncomePaid = (income) => {
+    if (savingIncomeId) return
+    if (needsQuickPaidConfirmation(income)) {
+      setPendingConfirmationIncome(income)
+      return
+    }
+    markPendingIncomePaid(income)
   }
 
   const loading = projectsLoading || eventsLoading || incomesLoading
@@ -297,20 +352,35 @@ export default function Dashboard() {
                   const daysLeft = getDueDays(income.expected_date)
                   const isOverdue = daysLeft < 0
                   const isUrgent = daysLeft <= 7
+                  const isSaving = savingIncomeId === income.id
                   return (
-                    <button
-                      key={income.id}
-                      onClick={() => navigateToIncome(income)}
-                      className="flex items-center justify-between gap-3 rounded-lg px-1 py-1.5 text-left transition-colors hover:bg-gray-50"
-                    >
-                      <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-medium text-gray-900">{income.concept}</p>
-                        <p className={`text-xs ${isOverdue ? 'font-medium text-red-600' : isUrgent ? 'text-red-500' : 'text-gray-400'}`}>
-                          {formatDueText(income.expected_date)} · {formatDate(income.expected_date)}
-                        </p>
-                      </div>
-                      <span className="text-sm font-medium text-gray-900">{formatCurrency(income.amount)}</span>
-                    </button>
+                    <div key={income.id} className="flex items-center gap-2 rounded-lg px-1 py-1.5 transition-colors hover:bg-gray-50">
+                      <button
+                        type="button"
+                        onClick={() => navigateToIncome(income)}
+                        className="flex min-w-0 flex-1 items-center justify-between gap-3 text-left"
+                      >
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-sm font-medium text-gray-900">{incomeConceptLabel(income)}</p>
+                          <p className={`text-xs ${isOverdue ? 'font-medium text-red-600' : isUrgent ? 'text-red-500' : 'text-gray-400'}`}>
+                            {formatDueText(income.expected_date)} · {formatDate(income.expected_date)}
+                          </p>
+                        </div>
+                        <span className="text-sm font-medium text-gray-900">{formatCurrency(income.amount)}</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => requestMarkPendingIncomePaid(income)}
+                        disabled={Boolean(savingIncomeId)}
+                        aria-label={`Marcar como cobrado ${incomeConceptLabel(income)}`}
+                        title="Marcar como cobrado"
+                        className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-[#2D6A4F] transition-colors hover:bg-[#F4FBF7] hover:text-[#1F5A42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2D6A4F] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:text-gray-300 disabled:hover:bg-transparent"
+                      >
+                        {isSaving
+                          ? <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#2D6A4F] border-t-transparent" />
+                          : <CheckCircle size={18} />}
+                      </button>
+                    </div>
                   )
                 })}
                 {pendingIncomes.length > 6 && (
@@ -330,16 +400,38 @@ export default function Dashboard() {
               ) : (
                 <div className="flex flex-col gap-1">
                   <p className="mb-2 text-sm font-semibold text-[#C94035]">{formatCurrency(cashKpis.accumulatedOverdueTotal)}</p>
-                  {cashKpis.accumulatedOverdue.slice(0, 4).map((income) => (
-                    <button
-                      key={income.id}
-                      onClick={() => navigateToIncome(income)}
-                      className="rounded-lg px-1 py-2 text-left transition-colors hover:bg-gray-50"
-                    >
-                      <p className="truncate text-sm font-medium text-gray-900">{income.concept}</p>
-                      <p className="text-xs font-medium text-red-600">{formatDueText(income.expected_date)} · {formatDate(income.expected_date)}</p>
-                    </button>
-                  ))}
+                  {cashKpis.accumulatedOverdue.slice(0, 4).map((income) => {
+                    const isSaving = savingIncomeId === income.id
+                    return (
+                      <div key={income.id} className="flex items-center gap-2 rounded-lg px-1 py-2 transition-colors hover:bg-gray-50">
+                        <button
+                          type="button"
+                          onClick={() => navigateToIncome(income)}
+                          className="min-w-0 flex-1 text-left"
+                        >
+                          <div className="flex items-start justify-between gap-3">
+                            <div className="min-w-0">
+                              <p className="truncate text-sm font-medium text-gray-900">{incomeConceptLabel(income)}</p>
+                              <p className="text-xs font-medium text-red-600">{formatDueText(income.expected_date)} · {formatDate(income.expected_date)}</p>
+                            </div>
+                            <span className="shrink-0 text-sm font-medium text-gray-900">{formatCurrency(income.amount)}</span>
+                          </div>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => requestMarkPendingIncomePaid(income)}
+                          disabled={Boolean(savingIncomeId)}
+                          aria-label={`Marcar como cobrado ${incomeConceptLabel(income)}`}
+                          title="Marcar como cobrado"
+                          className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-[#2D6A4F] transition-colors hover:bg-[#F4FBF7] hover:text-[#1F5A42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2D6A4F] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:text-gray-300 disabled:hover:bg-transparent"
+                        >
+                          {isSaving
+                            ? <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#2D6A4F] border-t-transparent" />
+                            : <CheckCircle size={18} />}
+                        </button>
+                      </div>
+                    )
+                  })}
                   {cashKpis.accumulatedOverdue.length > 4 && (
                     <p className="pt-2 text-center text-xs text-gray-400">+ {cashKpis.accumulatedOverdue.length - 4} más</p>
                   )}
@@ -472,6 +564,46 @@ export default function Dashboard() {
           </Card>
         )}
 
+        <Modal
+          isOpen={Boolean(pendingConfirmationIncome)}
+          onClose={() => {
+            if (!savingIncomeId) setPendingConfirmationIncome(null)
+          }}
+          title="Confirmar cobro"
+        >
+          {pendingConfirmationIncome && (
+            <div className="flex flex-col gap-4">
+              <p className="text-sm text-gray-600">
+                Este cobro tiene un concepto poco claro. Confirma que quieres marcarlo como cobrado.
+              </p>
+              <div className="rounded-lg border border-gray-100 bg-gray-50 p-3">
+                <p className="text-sm font-medium text-gray-900">{incomeConceptLabel(pendingConfirmationIncome)}</p>
+                <p className="mt-1 text-xs text-gray-500">
+                  {formatDate(pendingConfirmationIncome.expected_date)} · {formatCurrency(pendingConfirmationIncome.amount)}
+                </p>
+              </div>
+              <div className="flex justify-end gap-3">
+                <Button
+                  type="button"
+                  variant="secondary"
+                  onClick={() => setPendingConfirmationIncome(null)}
+                  disabled={savingIncomeId === pendingConfirmationIncome.id}
+                >
+                  Cancelar
+                </Button>
+                <Button
+                  type="button"
+                  onClick={() => markPendingIncomePaid(pendingConfirmationIncome)}
+                  disabled={savingIncomeId === pendingConfirmationIncome.id}
+                >
+                  {savingIncomeId === pendingConfirmationIncome.id ? 'Guardando...' : 'Marcar cobrado'}
+                </Button>
+              </div>
+            </div>
+          )}
+        </Modal>
+
+        <ToastContainer toasts={toasts} onRemove={removeToast} />
       </div>
     </PageWrapper>
   )
