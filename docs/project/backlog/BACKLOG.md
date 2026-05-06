@@ -63,9 +63,7 @@ Tablero ligero del Product Brain. Cada trabajo ejecutable vive como issue Markdo
 | [[../issues/CACH-B0013|CACH-B0013]] | Gestion documental por proyecto/evento | feature | p3 | Post-MVP. |
 ## In progress
 
-| ID | Titulo | Tipo | Prioridad | Nota |
-|---|---|---|---|---|
-| [[../issues/CACH-B0014|CACH-B0014]] | Endurecer agenda, cobros y captura del MVP | bug | p1 | En RELEASE-0.1.0-beta.2. |
+Sin issues en progreso.
 
 ## Review
 
@@ -75,6 +73,7 @@ Sin issues en review.
 
 | ID | Titulo | Release | Resultado |
 |---|---|---|---|
+| [[../issues/CACH-B0014|CACH-B0014]] | Endurecer agenda, cobros y captura del MVP | [[../releases/RELEASE-0.1.0-beta.2|RELEASE-0.1.0-beta.2]] | 5 bugs críticos corregidos. |
 | [[../issues/CACH-0032|CACH-0032]] | Priorizar operativa diaria en dashboard movil | null | Mergeada a main. Dashboard mobile operativo. |
 | [[../issues/CACH-0034|CACH-0034]] | €/h muestra valor incorrecto cuando no hay eventos con horas | null | Muestra '—' cuando no hay eventos con horas calculables. |
 | [[../issues/CACH-0026|CACH-0026]] | Setup inicial Product Brain | null | Product Brain inicial creado. |

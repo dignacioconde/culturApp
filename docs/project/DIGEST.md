@@ -14,7 +14,7 @@ tags:
 
 # Product Brain Digest
 
-*Generado: 2026-05-06 12:10 UTC*
+*Generado: 2026-05-06 12:11 UTC*
 
 ---
 
@@ -41,9 +41,7 @@ tags:
 
 ### In progress
 
-| ID | Título | Tipo | P |
-|---|---|---|---|
-| CACH-B0014 | Endurecer agenda, cobros y captura del MVP | bug | p1 |
+_Sin issues._
 
 ### Review
 
@@ -65,7 +63,6 @@ _Sin issues._
 
 | ID | Título | Estado | Tipo | P |
 |---|---|---|---|---|
-| CACH-B0014 | Endurecer agenda cobros y captura del MVP | in-progress | bug | p1 |
 | CACH-0030 | Homogeneizar diseno con nueva paleta de colores y fuentes | inbox | chore | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | backlog | feature | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | backlog | feature | p1 |
