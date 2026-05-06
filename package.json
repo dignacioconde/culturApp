@@ -19,6 +19,7 @@
     "pb:pull": "node scripts/product-brain-sync.mjs pull",
     "pb:push": "node scripts/product-brain-sync.mjs push",
     "pb:capture": "node scripts/brain/capture.mjs",
+    "pb:digest": "node scripts/brain/digest.mjs",
     "pb:index": "node scripts/brain/index.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
