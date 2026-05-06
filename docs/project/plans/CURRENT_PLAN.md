@@ -3,7 +3,7 @@ id: PB-CURRENT-PLAN
 type: plan
 status: Active
 created: 2026-05-05
-updated: 2026-05-05
+updated: 2026-05-06
 aliases:
   - Current Plan
 tags:
@@ -16,17 +16,19 @@ tags:
 
 ## Foco actual
 
-Cerrar [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] como primer corte del ciclo `0.1` y preparar el siguiente corte mergeable para trabajo de producto.
+Implementar [[../issues/CACH-B0014|CACH-B0014]] en `RELEASE-0.1.0-beta.2`: corregir los 5 bugs críticos de confianza de datos del MVP (agenda y cobros).
 
 ## Release activa
 
+- [[../releases/RELEASE-0.1.0-beta.2|RELEASE-0.1.0-beta.2]] — rama `release/0.1.0-beta.2`
 - [[../releases/CURRENT_RELEASE|Current Release]]
 
 ## Prioridades
 
-1. Cerrar [[../issues/CACH-0029|CACH-0029]] y mergear [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] a `main`.
-2. Abrir `RELEASE-0.1.0-beta.2` con scope pequeno, probablemente [[../issues/CACH-B0014|CACH-B0014]].
-3. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
+1. Implementar [[../issues/CACH-B0014|CACH-B0014]] en rama `feature/CACH-B0014-hardening`.
+2. Mergear feature → `release/0.1.0-beta.2` → `main`.
+3. Después: CACH-0030 (paleta/fuentes) como PR directo a main.
+4. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
 
 ## Plan operativo
 
@@ -39,4 +41,4 @@ Cerrar [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] como primer cor
 
 ## Proximo checkpoint
 
-Crear `RELEASE-0.1.0-beta.2` y `release/0.1.0-beta.2` antes de empezar la siguiente issue de beta.
+Cerrar CACH-B0014, mergear beta.2 a main y actualizar CURRENT_RELEASE + DIGEST.

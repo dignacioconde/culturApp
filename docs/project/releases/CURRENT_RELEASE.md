@@ -3,7 +3,7 @@ id: PB-CURRENT-RELEASE
 type: release-status
 status: Active
 created: 2026-05-05
-updated: 2026-05-05
+updated: 2026-05-06
 aliases:
   - Current Release
 tags:
@@ -16,9 +16,9 @@ tags:
 
 ## Release activa
 
-No active release.
+`RELEASE-0.1.0-beta.2` — rama `release/0.1.0-beta.2`. Ver [[RELEASE-0.1.0-beta.2]].
 
-Las tareas actuales van directamente a `main` por PR.
+**Scope:** CACH-B0014 (endurecer agenda, cobros y captura del MVP).
 
 ## Ultimo corte
 
@@ -26,7 +26,7 @@ Las tareas actuales van directamente a `main` por PR.
 
 ## Siguiente release
 
-No definida. Activar solo si hay varias issues que deban integrarse antes de llegar a `main`.
+No definida todavía. Candidatas: CACH-0030 (paleta/fuentes, PR directo) y backlog p1.
 
 ## Cuando activar una release
 
