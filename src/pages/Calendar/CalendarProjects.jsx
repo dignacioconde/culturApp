@@ -3,6 +3,7 @@ import { Calendar, dayjsLocalizer } from 'react-big-calendar'
 import dayjs from 'dayjs'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { Link } from 'react-router-dom'
+import { ProjectYearView } from '../../components/calendar/ProjectYearView'
 import { PageWrapper } from '../../components/layout/PageWrapper'
 import { Button } from '../../components/ui/Button'
 import { StatusBadge } from '../../components/ui/Badge'
@@ -37,87 +38,6 @@ const messages = {
   showMore: (total) => `+${total} más`,
 }
 
-// Componente de vista anual - grid de 12 meses
-function YearView({ date, events, onSelectEvent }) {
-  const year = dayjs(date).year()
-  const months = Array.from({ length: 12 }, (_, i) => dayjs().month(i).year(year).startOf('month'))
-
-  const getProjectsForMonth = (monthStart) => {
-    const monthEnd = monthStart.endOf('month')
-    return events.filter((event) => {
-      const eventStart = dayjs(event.start)
-      const eventEnd = dayjs(event.end)
-      return eventStart.isBefore(monthEnd, 'day') && eventEnd.isAfter(monthStart, 'day')
-    })
-  }
-
-  const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 p-2">
-      {months.map((monthStart, idx) => {
-        const monthProjects = getProjectsForMonth(monthStart)
-        const daysInMonth = monthStart.daysInMonth()
-        const firstDayOfWeek = monthStart.day()
-
-        return (
-          <div key={idx} className="border border-gray-200 rounded-lg bg-white overflow-hidden min-h-[140px]">
-            {/* Cabecera del mes */}
-            <div className="bg-gray-50 px-3 py-2 border-b border-gray-200">
-              <p className="text-sm font-semibold text-gray-800">{monthNames[idx]} {year}</p>
-            </div>
-            {/* Grid de días del mes */}
-            <div className="p-2">
-              {/* Días de la semana */}
-              <div className="grid grid-cols-7 gap-0.5 mb-1">
-                {['D', 'L', 'M', 'X', 'J', 'V', 'S'].map((d, i) => (
-                  <div key={i} className="text-[10px] text-gray-400 text-center font-medium">{d}</div>
-                ))}
-              </div>
-              {/* Días del mes */}
-              <div className="grid grid-cols-7 gap-0.5">
-                {/* Espacios vacíos antes del primer día */}
-                {Array.from({ length: firstDayOfWeek }).map((_, i) => (
-                  <div key={`empty-${i}`} className="h-5" />
-                ))}
-                {/* Días del mes */}
-                {Array.from({ length: daysInMonth }).map((_, dayIdx) => {
-                  const currentDay = monthStart.date(dayIdx + 1)
-                  return (
-                    <div
-                      key={dayIdx}
-                      className={`h-5 text-[10px] text-center flex items-center justify-center ${currentDay.isSame(dayjs(), 'day') ? 'bg-[var(--color-primary-100)] text-[var(--color-primary-700)] rounded font-medium' : 'text-gray-600'}`}
-                    >
-                      {dayIdx + 1}
-                    </div>
-                  )
-                })}
-              </div>
-              {/* Proyectos del mes */}
-              <div className="mt-2 space-y-1 max-h-[60px] overflow-y-auto">
-                {monthProjects.slice(0, 3).map((project) => (
-                  <button
-                    key={project.id}
-                    onClick={() => onSelectEvent(project)}
-                    className="w-full text-left px-2 py-1 rounded text-[10px] truncate text-white font-medium hover:opacity-90 transition-opacity"
-                    style={{ backgroundColor: project.resource?.color ?? '#4f98a3' }}
-                    title={project.title}
-                  >
-                    {project.title}
-                  </button>
-                ))}
-                {monthProjects.length > 3 && (
-                  <p className="text-[10px] text-gray-500 px-2">+{monthProjects.length - 3} más</p>
-                )}
-              </div>
-            </div>
-          </div>
-        )
-      })}
-    </div>
-  )
-}
-
 // Detectar si es viewport móvil
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false)
@@ -135,7 +55,7 @@ export default function CalendarProjects() {
   const { projects, loading, error, createProject } = useProjects(user?.id)
   const isMobile = useIsMobile()
   const [calendarDate, setCalendarDate] = useState(() => new Date())
-  const [calendarView, setCalendarView] = useState('month')
+  const [calendarView, setCalendarView] = useState('year')
   const [selectedProject, setSelectedProject] = useState(null)
   const [newModal, setNewModal] = useState(false)
   const [newProjectInitialData, setNewProjectInitialData] = useState(null)
@@ -143,9 +63,8 @@ export default function CalendarProjects() {
   const [panelExpanded, setPanelExpanded] = useState(false)
   const { toasts, addToast, removeToast } = useToast()
   
-  // En móvil solo mostrar month, no week ni year
-  const availableViews = isMobile ? ['month'] : ['month', 'week', 'year']
-  const calendarMinWidth = calendarView === 'week' ? 'min-w-[46rem]' : calendarView === 'year' ? 'min-w-[40rem]' : 'min-w-full'
+  const availableViews = isMobile ? ['year', 'month'] : ['year', 'month', 'week']
+  const calendarMinWidth = calendarView === 'week' ? 'min-w-[46rem]' : 'min-w-full'
 
   const calendarEvents = useMemo(() =>
     projects.map((p) => ({
@@ -226,7 +145,6 @@ export default function CalendarProjects() {
             </div>
           ) : (
             <div className="flex flex-1 flex-col">
-              {/* Navegación de año para vista year */}
               {calendarView === 'year' && (
                 <div className="mb-3 flex items-center justify-center gap-4">
                   <button
@@ -248,13 +166,13 @@ export default function CalendarProjects() {
                   </button>
                 </div>
               )}
-              <div className={`h-[min(62dvh,520px)] min-h-[420px] overflow-x-auto overflow-y-hidden sm:h-[560px] sm:min-h-[560px] lg:h-full lg:min-h-0 ${calendarView === 'year' ? 'overflow-x-auto' : ''}`}>
+              <div className={`h-[min(62dvh,520px)] min-h-[420px] overflow-x-auto overflow-y-hidden sm:h-[560px] sm:min-h-[560px] lg:h-full lg:min-h-0 ${calendarView === 'year' ? 'overflow-x-hidden overflow-y-auto' : ''}`}>
                 <div className={`h-full ${calendarMinWidth}`}>
                   {calendarView === 'year' ? (
-                    <YearView
+                    <ProjectYearView
                       date={calendarDate}
-                      events={calendarEvents}
-                      onSelectEvent={(event) => setSelectedProject(event.resource)}
+                      projects={projects}
+                      onSelectProject={setSelectedProject}
                     />
                   ) : (
                     <Calendar
