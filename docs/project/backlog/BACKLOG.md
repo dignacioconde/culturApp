@@ -47,6 +47,8 @@ Tablero ligero del Product Brain. Cada trabajo ejecutable vive como issue Markdo
 
 | ID | Titulo | Tipo | Prioridad | Nota |
 |---|---|---|---|---|
+| [[../issues/CACH-0034|CACH-0034]] | Revisar calculo euro/h en dashboard movil y proyectos sin eventos | bug | p1 | Auditar Dashboard.jsx:98–117 y ProjectDetail.jsx:105–115. |
+| [[../issues/CACH-0033|CACH-0033]] | Vista anual en calendario de proyectos | feature | p2 | Sub-feature de CACH-B0007. |
 | [[../issues/CACH-B0001|CACH-B0001]] | Redisenar Trabajos y jerarquia proyecto-evento | feature | p1 | Partir antes de ejecutar. |
 | [[../issues/CACH-B0002|CACH-B0002]] | Simplificar experiencia mobile financiera | feature | p1 | Validacion mobile obligatoria. |
 | [[../issues/CACH-B0003|CACH-B0003]] | Cobro rapido y gestion de pendientes | feature | p1 | Depende de coherencia de cobros. |

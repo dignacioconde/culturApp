@@ -12,7 +12,7 @@ import { ProjectForm } from '../Projects/ProjectForm'
 import { useAuth } from '../../hooks/useAuth'
 import { useProjects } from '../../hooks/useProjects'
 import { formatDate } from '../../lib/formatters'
-import { AlertCircle, FolderOpen, Plus, X, ChevronDown, ChevronUp } from 'lucide-react'
+import { AlertCircle, FolderOpen, Plus, X, ChevronDown, ChevronUp, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const localizer = dayjsLocalizer(dayjs)
 const calendarFormats = {
@@ -28,12 +28,94 @@ const messages = {
   month: 'Mes',
   week: 'Semana',
   day: 'Día',
+  year: 'Año',
   agenda: 'Agenda',
   date: 'Fecha',
   time: 'Hora',
   event: 'Proyecto',
   noEventsInRange: 'No hay proyectos en este período.',
   showMore: (total) => `+${total} más`,
+}
+
+// Componente de vista anual - grid de 12 meses
+function YearView({ date, events, onSelectEvent }) {
+  const year = dayjs(date).year()
+  const months = Array.from({ length: 12 }, (_, i) => dayjs().month(i).year(year).startOf('month'))
+
+  const getProjectsForMonth = (monthStart) => {
+    const monthEnd = monthStart.endOf('month')
+    return events.filter((event) => {
+      const eventStart = dayjs(event.start)
+      const eventEnd = dayjs(event.end)
+      return eventStart.isBefore(monthEnd, 'day') && eventEnd.isAfter(monthStart, 'day')
+    })
+  }
+
+  const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 p-2">
+      {months.map((monthStart, idx) => {
+        const monthProjects = getProjectsForMonth(monthStart)
+        const daysInMonth = monthStart.daysInMonth()
+        const firstDayOfWeek = monthStart.day()
+
+        return (
+          <div key={idx} className="border border-gray-200 rounded-lg bg-white overflow-hidden min-h-[140px]">
+            {/* Cabecera del mes */}
+            <div className="bg-gray-50 px-3 py-2 border-b border-gray-200">
+              <p className="text-sm font-semibold text-gray-800">{monthNames[idx]} {year}</p>
+            </div>
+            {/* Grid de días del mes */}
+            <div className="p-2">
+              {/* Días de la semana */}
+              <div className="grid grid-cols-7 gap-0.5 mb-1">
+                {['D', 'L', 'M', 'X', 'J', 'V', 'S'].map((d, i) => (
+                  <div key={i} className="text-[10px] text-gray-400 text-center font-medium">{d}</div>
+                ))}
+              </div>
+              {/* Días del mes */}
+              <div className="grid grid-cols-7 gap-0.5">
+                {/* Espacios vacíos antes del primer día */}
+                {Array.from({ length: firstDayOfWeek }).map((_, i) => (
+                  <div key={`empty-${i}`} className="h-5" />
+                ))}
+                {/* Días del mes */}
+                {Array.from({ length: daysInMonth }).map((_, dayIdx) => {
+                  const currentDay = monthStart.date(dayIdx + 1)
+                  return (
+                    <div
+                      key={dayIdx}
+                      className={`h-5 text-[10px] text-center flex items-center justify-center ${currentDay.isSame(dayjs(), 'day') ? 'bg-[var(--color-primary-100)] text-[var(--color-primary-700)] rounded font-medium' : 'text-gray-600'}`}
+                    >
+                      {dayIdx + 1}
+                    </div>
+                  )
+                })}
+              </div>
+              {/* Proyectos del mes */}
+              <div className="mt-2 space-y-1 max-h-[60px] overflow-y-auto">
+                {monthProjects.slice(0, 3).map((project) => (
+                  <button
+                    key={project.id}
+                    onClick={() => onSelectEvent(project)}
+                    className="w-full text-left px-2 py-1 rounded text-[10px] truncate text-white font-medium hover:opacity-90 transition-opacity"
+                    style={{ backgroundColor: project.resource?.color ?? '#4f98a3' }}
+                    title={project.title}
+                  >
+                    {project.title}
+                  </button>
+                ))}
+                {monthProjects.length > 3 && (
+                  <p className="text-[10px] text-gray-500 px-2">+{monthProjects.length - 3} más</p>
+                )}
+              </div>
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
 }
 
 // Detectar si es viewport móvil
@@ -61,9 +143,9 @@ export default function CalendarProjects() {
   const [panelExpanded, setPanelExpanded] = useState(false)
   const { toasts, addToast, removeToast } = useToast()
   
-  // En móvil solo mostrar month, no week
-  const availableViews = isMobile ? ['month'] : ['month', 'week']
-  const calendarMinWidth = calendarView === 'week' ? 'min-w-[46rem]' : 'min-w-full'
+  // En móvil solo mostrar month, no week ni year
+  const availableViews = isMobile ? ['month'] : ['month', 'week', 'year']
+  const calendarMinWidth = calendarView === 'week' ? 'min-w-[46rem]' : calendarView === 'year' ? 'min-w-[40rem]' : 'min-w-full'
 
   const calendarEvents = useMemo(() =>
     projects.map((p) => ({
@@ -144,25 +226,55 @@ export default function CalendarProjects() {
             </div>
           ) : (
             <div className="flex flex-1 flex-col">
-              <div className="h-[min(62dvh,520px)] min-h-[420px] overflow-x-auto overflow-y-hidden sm:h-[560px] sm:min-h-[560px] lg:h-full lg:min-h-0">
+              {/* Navegación de año para vista year */}
+              {calendarView === 'year' && (
+                <div className="mb-3 flex items-center justify-center gap-4">
+                  <button
+                    onClick={() => setCalendarDate(dayjs(calendarDate).subtract(1, 'year').toDate())}
+                    className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)]"
+                    aria-label="Año anterior"
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+                  <span className="text-base font-semibold text-gray-900 min-w-[80px] text-center">
+                    {dayjs(calendarDate).year()}
+                  </span>
+                  <button
+                    onClick={() => setCalendarDate(dayjs(calendarDate).add(1, 'year').toDate())}
+                    className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)]"
+                    aria-label="Año siguiente"
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+                </div>
+              )}
+              <div className={`h-[min(62dvh,520px)] min-h-[420px] overflow-x-auto overflow-y-hidden sm:h-[560px] sm:min-h-[560px] lg:h-full lg:min-h-0 ${calendarView === 'year' ? 'overflow-x-auto' : ''}`}>
                 <div className={`h-full ${calendarMinWidth}`}>
-                  <Calendar
-                    localizer={localizer}
-                    events={calendarEvents}
-                    date={calendarDate}
-                    view={calendarView}
-                    views={availableViews}
-                    messages={messages}
-                    formats={calendarFormats}
-                    selectable
-                    eventPropGetter={eventStyleGetter}
-                    onNavigate={setCalendarDate}
-                    onView={setCalendarView}
-                    onSelectEvent={(event) => setSelectedProject(event.resource)}
-                    onSelectSlot={handleSelectSlot}
-                    popup
-                    style={{ height: '100%' }}
-                  />
+                  {calendarView === 'year' ? (
+                    <YearView
+                      date={calendarDate}
+                      events={calendarEvents}
+                      onSelectEvent={(event) => setSelectedProject(event.resource)}
+                    />
+                  ) : (
+                    <Calendar
+                      localizer={localizer}
+                      events={calendarEvents}
+                      date={calendarDate}
+                      view={calendarView}
+                      views={availableViews}
+                      messages={messages}
+                      formats={calendarFormats}
+                      selectable
+                      eventPropGetter={eventStyleGetter}
+                      onNavigate={setCalendarDate}
+                      onView={setCalendarView}
+                      onSelectEvent={(event) => setSelectedProject(event.resource)}
+                      onSelectSlot={handleSelectSlot}
+                      popup
+                      style={{ height: '100%' }}
+                    />
+                  )}
                 </div>
               </div>
               {projects.length === 0 && (
