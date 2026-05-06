@@ -14,7 +14,7 @@ tags:
 
 # Product Brain Digest
 
-*Generado: 2026-05-06 12:05 UTC*
+*Generado: 2026-05-06 12:11 UTC*
 
 ---
 
@@ -45,9 +45,7 @@ _Sin issues._
 
 ### Review
 
-| ID | Título | Tipo | P |
-|---|---|---|---|
-| CACH-0032 | Priorizar operativa diaria en dashboard movil | feature | p1 |
+_Sin issues._
 
 ### Backlog (p1)
 
@@ -60,13 +58,11 @@ _Sin issues._
 | CACH-B0005 | Importacion, exportacion y portabilidad de datos | feature | p1 |
 | CACH-B0006 | Onboarding y acceso beta | feature | p1 |
 | CACH-B0007 | Calendario unificado e interaccion rapida | feature | p1 |
-| CACH-B0014 | Endurecer agenda, cobros y captura del MVP | bug | p1 |
 
 ## Issues abiertas
 
 | ID | Título | Estado | Tipo | P |
 |---|---|---|---|---|
-| CACH-B0014 | Endurecer agenda cobros y captura del MVP | in-progress | bug | p1 |
 | CACH-0030 | Homogeneizar diseno con nueva paleta de colores y fuentes | inbox | chore | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | backlog | feature | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | backlog | feature | p1 |

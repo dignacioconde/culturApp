@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '../supabaseClient'
+import { paymentDate } from '../lib/payment.ts'
 
 export function useIncomes(userId, { projectId = null, eventId = null, eventIds = null } = {}) {
   const [incomes, setIncomes] = useState([])
@@ -35,9 +36,10 @@ export function useIncomes(userId, { projectId = null, eventId = null, eventIds 
 
   const createIncome = async (incomeData) => {
     const dataToInsert = { ...incomeData, user_id: userId }
-    // Si is_paid=true y no hay paid_date, asignar fecha actual
     if (incomeData.is_paid && !incomeData.paid_date) {
-      dataToInsert.paid_date = new Date().toISOString().split('T')[0]
+      dataToInsert.paid_date = paymentDate(new Date())
+    } else if (!incomeData.is_paid) {
+      dataToInsert.paid_date = null
     }
 
     const { data, error } = await supabase
@@ -52,9 +54,10 @@ export function useIncomes(userId, { projectId = null, eventId = null, eventIds 
 
   const updateIncome = async (id, incomeData) => {
     const dataToUpdate = { ...incomeData }
-    // Si is_paid=true y no hay paid_date, asignar fecha actual
     if (incomeData.is_paid && !incomeData.paid_date) {
-      dataToUpdate.paid_date = new Date().toISOString().split('T')[0]
+      dataToUpdate.paid_date = paymentDate(new Date())
+    } else if (!incomeData.is_paid) {
+      dataToUpdate.paid_date = null
     }
 
     const { data, error } = await supabase

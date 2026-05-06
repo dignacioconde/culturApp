@@ -1,5 +1,6 @@
+import { formatInTimeZone } from 'date-fns-tz'
 import { parseDecimal as parseDecimalValue } from './decimal.ts'
-import { toLocalInputValue } from './datetime.ts'
+import { toLocalInputValue, DEFAULT_TZ } from './datetime.ts'
 
 export const formatCurrency = (amount) =>
   new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(amount ?? 0)
@@ -27,7 +28,12 @@ export const formatDateRange = (startDate, endDate) => {
 
 export const formatDatetime = (isoStr) => {
   if (!isoStr) return '—'
-  return new Intl.DateTimeFormat('es-ES', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(isoStr))
+  return new Intl.DateTimeFormat('es-ES', { dateStyle: 'short', timeStyle: 'short', timeZone: DEFAULT_TZ }).format(new Date(isoStr))
+}
+
+export const formatDatetimeCompact = (isoStr) => {
+  if (!isoStr) return '—'
+  return formatInTimeZone(new Date(isoStr), DEFAULT_TZ, 'dd/MM HH:mm')
 }
 
 export const toDatetimeLocal = (isoStr) => {

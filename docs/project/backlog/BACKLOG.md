@@ -61,22 +61,20 @@ Tablero ligero del Product Brain. Cada trabajo ejecutable vive como issue Markdo
 | [[../issues/CACH-B0011|CACH-B0011]] | Categorias, etiquetas y taxonomia | feature | p2 | Requiere decision de producto. |
 | [[../issues/CACH-B0012|CACH-B0012]] | Perfil publico, viralidad y referidos | feature | p3 | Growth futuro. |
 | [[../issues/CACH-B0013|CACH-B0013]] | Gestion documental por proyecto/evento | feature | p3 | Post-MVP. |
-| [[../issues/CACH-B0014|CACH-B0014]] | Endurecer agenda, cobros y captura del MVP | bug | p1 | Candidato para beta-2. |
-
 ## In progress
 
 Sin issues en progreso.
 
 ## Review
 
-| ID | Titulo | Tipo | Prioridad | Nota |
-|---|---|---|---|---|
-| [[../issues/CACH-0032|CACH-0032]] | Priorizar operativa diaria en dashboard movil | feature | p1 | PR pendiente. |
+Sin issues en review.
 
 ## Done
 
 | ID | Titulo | Release | Resultado |
 |---|---|---|---|
+| [[../issues/CACH-B0014|CACH-B0014]] | Endurecer agenda, cobros y captura del MVP | [[../releases/RELEASE-0.1.0-beta.2|RELEASE-0.1.0-beta.2]] | 5 bugs críticos corregidos. |
+| [[../issues/CACH-0032|CACH-0032]] | Priorizar operativa diaria en dashboard movil | null | Mergeada a main. Dashboard mobile operativo. |
 | [[../issues/CACH-0034|CACH-0034]] | €/h muestra valor incorrecto cuando no hay eventos con horas | null | Muestra '—' cuando no hay eventos con horas calculables. |
 | [[../issues/CACH-0026|CACH-0026]] | Setup inicial Product Brain | null | Product Brain inicial creado. |
 | [[../issues/CACH-0028|CACH-0028]] | Corregir sync iCloud y estructura versionada | null | Sync repo/vault estabilizado. |

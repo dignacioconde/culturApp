@@ -39,7 +39,7 @@ El usuario puede confiar en que los eventos aparecen a la hora correcta, los cob
 
 | Issue | Titulo | Estado | Rama |
 |---|---|---|---|
-| [[../issues/CACH-B0014\|CACH-B0014]] | Endurecer agenda, cobros y captura del MVP | in-progress | `feature/CACH-B0014-hardening` |
+| [[../issues/CACH-B0014|CACH-B0014]] | Endurecer agenda, cobros y captura del MVP | done | `feature/CACH-B0014-hardening` |
 
 ## Fuera de alcance
 
@@ -66,17 +66,17 @@ El usuario puede confiar en que los eventos aparecen a la hora correcta, los cob
 
 ## Checklist de desarrollo
 
-- [ ] Todas las issues del corte estan cerradas
-- [ ] Commits integrados en rama release
-- [ ] No hay cambios sueltos fuera de release
-- [ ] No hay issues sin estado
-- [ ] No hay decisiones importantes sin documentar
+- [x] Todas las issues del corte estan cerradas (CACH-B0014 done)
+- [x] Commits integrados en rama feature
+- [x] No hay cambios sueltos fuera de release
+- [x] No hay issues sin estado
+- [x] No hay decisiones importantes sin documentar
 
 ## Checklist de estabilizacion
 
-- [ ] `npm run lint`
-- [ ] `npm run build`
-- [ ] `npm run pb:check`
+- [x] `npm run lint` — OK
+- [x] `npm run build` — OK
+- [x] `npm run pb:check` — OK
 - [ ] `npm run pb:status`
 - [ ] Revision visual (evento a la hora correcta, cobro vencido visible)
 - [ ] Revision responsive
