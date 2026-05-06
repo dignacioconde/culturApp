@@ -1,14 +1,18 @@
 # AGENTS.md — Cachés
 
-Archivo de contexto para Codex. Léelo completo antes de tocar cualquier archivo.
+Contrato de entrada para Codex y otros agentes. La politica canonica para decidir que contexto cargar vive en `docs/agent-context-policy.md`.
+
+Este archivo no debe usarse como almacen completo de contexto. Lee indices primero, carga detalle solo cuando sea relevante y evita historico por defecto.
 
 **OBLIGATORIO al inicio de cada conversación (Claude Code)**: leer `.memory/MEMORY.md` y los archivos de memoria enlazados que sean relevantes. Guardar proactivamente cualquier preferencia, decisión o contexto nuevo sin que el usuario lo pida.
 
 ---
 
-## Sistema de memoria
+## Sistema de memoria y carga de contexto
 
-El proyecto tiene un sistema de memoria persistente en `.memory/` (directorio en la raíz del repo, no versionado). Es la fuente de preferencias, decisiones y contexto acumulado del usuario que debe sobrevivir entre conversaciones y sesiones de agentes.
+La fuente canonica para carga de contexto de agentes es `docs/agent-context-policy.md`. Product Brain sigue siendo la fuente canonica de producto, planificacion, issues, releases y decisiones.
+
+El proyecto tiene un sistema de memoria persistente en `.memory/` (directorio en la raíz del repo, versionado en git). Es la fuente de preferencias, decisiones y contexto acumulado del usuario que debe sobrevivir entre conversaciones y sesiones de agentes. La memoria runtime, privada o de sesion debe vivir fuera de `.memory/` o estar ignorada por git.
 
 **Al inicio de cada tarea**: leer `MEMORY.md` para conocer preferencias activas y contexto del proyecto antes de tomar decisiones.
 

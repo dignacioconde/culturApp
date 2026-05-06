@@ -1,15 +1,16 @@
 # CLAUDE.md — Cachés
 
-Archivo de contexto para Claude Code.
+Adapter corto para Claude Code.
 
 **OBLIGATORIO al inicio de cada conversación:**
-1. Leer `.memory/MEMORY.md` y los archivos enlazados que sean relevantes.
-2. Guardar proactivamente cualquier preferencia, decisión o contexto nuevo sin que el usuario lo pida.
+1. Leer `docs/agent-context-policy.md`.
+2. Leer `.memory/MEMORY.md` y solo los archivos enlazados que sean relevantes.
+3. Guardar proactivamente cualquier preferencia, decisión o contexto nuevo sin que el usuario lo pida.
 
-**Fuente de verdad del proyecto:** `AGENTS.md` — contiene arquitectura, stack, modelo de datos, convenciones, flujo de agentes y estado del proyecto. Léelo completo antes de tocar cualquier archivo.
+**Fuentes canonicas:** Product Brain (`docs/project/`) es la fuente de producto, planificacion, issues, releases y decisiones. `docs/agent-context-policy.md` es la fuente canonica de carga de contexto. `AGENTS.md` es el contrato de entrada para agentes.
 
-**Sistema de memoria:** `.memory/` — directorio en la raíz del repo (versionado en git). Preferencias, decisiones y contexto acumulado que persiste entre conversaciones y sesiones de agentes. `cultura-docs` es el único agente con permiso de escritura; Claude Code puede leer y escribir directamente.
+**Sistema de memoria:** `.memory/` — memoria versionada del proyecto. Guarda preferencias, decisiones duraderas y gotchas reutilizables; no guarda historico operativo largo, logs ni memoria privada/runtime.
 
 **Antes de abrir PR sin agentes:** hacer el checkpoint de memoria definido en `AGENTS.md`: revisar issue, diff y commits contra base; actualizar `.memory/` si hay preferencias, decisiones duraderas, gotchas o reglas nuevas; o declarar `Memoria: no aplica`. No crear la PR hasta que la memoria este commiteada/pusheada o marcada como no aplicable, e incluirlo en la descripcion de la PR.
 
-**Flujo obligatorio para implementacion:** Product Brain es la fuente principal de verdad. Antes de implementar, leer `docs/project/START_HERE.md`, `docs/project/releases/CURRENT_RELEASE.md`, `docs/project/plans/CURRENT_PLAN.md`, `docs/project/backlog/BACKLOG.md` y la issue Markdown `CACH-*` relacionada. Si falta issue, crear/proponer issue Markdown antes de implementar. Si falta release activa para una feature grande, parar y proponer crear/activar release. Si la tarea pertenece a una release, la rama de trabajo sale de la rama de release activa y vuelve a ella; `main` queda estable hasta el cierre de release. Ver `docs/project/process/DEVELOPMENT_WORKFLOW.md` y `docs/project/process/AGENT_WORKFLOW.md`.
+**Carga de contexto para implementacion:** leer indices primero y cargar detalle solo si aplica. Para tareas pequenas, leer `AGENTS.md`, `.memory/MEMORY.md`, `docs/project/START_HERE.md` y la issue `CACH-*` relacionada si existe. Leer `CURRENT_RELEASE`, `CURRENT_PLAN` y `BACKLOG` solo si la tarea pertenece a una release activa, afecta planificacion o cambia alcance de producto.
