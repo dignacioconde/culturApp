@@ -20,6 +20,8 @@ const DEFAULT_AGENTS = ["data", "testing", "review", "security"]
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const repoRoot = resolve(__dirname, "../..")
 const ANSI_PATTERN = /\u001b\[[0-9;]*m/g
+// Timeout máximo por agente en paralelo: 30 min por defecto, configurable via AGENT_TIMEOUT_MS
+const AGENT_TIMEOUT_MS = parseInt(process.env.AGENT_TIMEOUT_MS ?? "1800000", 10)
 
 function usage() {
   console.log(`Uso:
@@ -135,7 +137,16 @@ function runAgent(agentKey, options, runDir) {
   })
 
   return new Promise((resolve) => {
+    // Timeout: mata el agente si supera el límite
+    const agentTimeout = setTimeout(() => {
+      if (!child.killed) {
+        console.error(`\n[TIMEOUT] ${agentName} superó ${AGENT_TIMEOUT_MS / 60000} min. Matando proceso...`)
+        child.kill("SIGTERM")
+      }
+    }, AGENT_TIMEOUT_MS)
+
     child.on("error", async (error) => {
+      clearTimeout(agentTimeout)
       const content = [
         `# ${agentName}`,
         "",
@@ -156,10 +167,12 @@ function runAgent(agentKey, options, runDir) {
     })
 
     child.on("close", async (code) => {
+      clearTimeout(agentTimeout)
+      const timedOut = code === null || (child.killed && code !== 0)
       const content = [
         `# ${agentName}`,
         "",
-        `Exit code: ${code}`,
+        timedOut ? `Exit code: TIMEOUT (${AGENT_TIMEOUT_MS / 60000} min)` : `Exit code: ${code}`,
         "",
         "## Salida",
         "",
@@ -172,7 +185,7 @@ function runAgent(agentKey, options, runDir) {
       ].join("\n")
 
       await writeFile(outputPath, content)
-      resolve({ agentKey, agentName, code, outputPath })
+      resolve({ agentKey, agentName, code: timedOut ? 124 : code, outputPath })
     })
   })
 }

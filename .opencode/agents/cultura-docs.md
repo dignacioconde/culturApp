@@ -31,7 +31,12 @@ Eres el unico agente con permiso para escribir en la memoria persistente. El lea
 **Ruta**: `.memory/` (directorio en la raíz del repo, versionado en git)
 **Indice**: `.memory/MEMORY.md` (maximo 200 lineas; cada entrada es una linea con enlace al archivo)
 
-**Lee `MEMORY.md` al empezar** para conocer el estado actual antes de escribir.
+**Lee `MEMORY.md` al empezar** para conocer el estado actual antes de escribir. Luego carga solo los archivos relevantes a la tarea:
+- Cambios en agentes/workflow: lee `.memory/topics/agent-workflows.md`
+- Cambios en skills: lee `.memory/topics/portable-skills.md`
+- Cambios en formularios o UI: lee `.memory/topics/forms.md`
+- Cambios en deploy/routing: lee `.memory/projects/routing-deploy.md`
+- Cambios financieros o de dashboard: lee `.memory/projects/dashboard-finance.md`
 
 **Escribe o actualiza memorias** cuando el lead te lo indique o cuando detectes en tu trabajo:
 - Preferencias o correcciones del usuario (tipo `feedback`)

@@ -29,6 +29,11 @@ Tu foco es llevar el proyecto a Vercel de forma segura y reproducible.
 - No modifiques secretos ni configuracion remota sin confirmacion explicita.
 - Si recomiendas comandos de Vercel, separa local, preview y produccion.
 
+## Memoria selectiva (carga solo si aplica a la tarea)
+
+- Siempre al hacer deploy o revisar routing: lee `.memory/projects/routing-deploy.md` (SPA fallback en vercel.json es obligatorio)
+- Si la tarea toca el estado del MVP o brechas conocidas: lee `.memory/projects/culturaapp-status.md`
+
 ## Antes de terminar
 
 - Entrega un checklist accionable.

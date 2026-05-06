@@ -32,6 +32,13 @@ Trabajas sobre React 19, Vite, Tailwind CSS v4, React Router v7, Lucide React y 
 - Un componente por archivo cuando extraigas UI nueva.
 - Respeta las variantes existentes de `Button`, `Input`, `Badge`, `Card`, `Modal` y `Toast`.
 
+## Memoria selectiva (carga solo si aplica a la tarea)
+
+- Si la tarea toca formularios o selectores: lee `.memory/topics/forms.md`
+- Si la tarea toca calendario (`/calendar/events` o `react-big-calendar`): lee `.memory/projects/calendar.md`
+- Si la tarea toca routing o navegación: lee `.memory/projects/routing-deploy.md`
+- Si la tarea toca mobile UX o modales: lee `.memory/lessons_mobile_modals.md`
+
 ## Antes de terminar
 
 - Resume archivos tocados y decisiones de UI relevantes.

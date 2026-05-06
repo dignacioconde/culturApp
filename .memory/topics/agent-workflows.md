@@ -54,6 +54,30 @@
 - Durable memory: existe `verification-agent` en `.opencode/agents/verification-agent.md` (mode: primary). Se llama con `npm run agents:verify -- "contexto"` o como `@verification-agent` desde una sesion interactiva. Solo se debe usar cuando se toca codigo de producto, UI, build/config/deploy o se prepara una PR mediana/grande. Produce un bloque estandar con status `Ready / Ready with warnings / Blocked`. No es obligatorio para cambios triviales, copy o documentacion menor.
 - Source: prompt de auditoria 2026-05-05; `AGENTS.md`; `.opencode/README.md`; `.opencode/agents/verification-agent.md`.
 
+## 2026-05-06 - Agentes OpenCode Sin Timeout: Causa De Ejecuciones De 2-3 Horas
+
+- Context: Las últimas ejecuciones de `npm run agents:run` duraban 2-3 horas sin dar feedback. Diagnóstico: ningún script tenía timeout; el modelo `minimax-m2.5-free` (tier gratuito) tiene rate limits y colas variables; cada agente leía AGENTS.md completo (810 líneas, ~4.500 tokens), multiplicado por 4-9 agentes en paralelo.
+- Durable memory: `run-agent.mjs` tiene ahora timeout de 45 min (`AGENT_TIMEOUT_MS`, configurable via env). `run-parallel-agents.mjs` tiene 30 min por agente. Al expirar: mata el proceso, guarda output parcial, reporta TIMEOUT. Si una ejecución tarda más de ese umbral, el script lo corta en lugar de correr indefinidamente.
+- Source: análisis 2026-05-06; `.opencode/scripts/run-agent.mjs`; `.opencode/scripts/run-parallel-agents.mjs`.
+
+## 2026-05-06 - current.json Para Ver Estado De Agente Desde Claude Code
+
+- Context: Los checkpoints de agente iban solo al terminal del OS (no al chat de Claude Code). No había forma de saber el estado sin salir de la sesión.
+- Durable memory: `run-agent.mjs` escribe y actualiza `.opencode/runs/current.json` durante cada ejecución. Campos: `startedAt`, `agent`, `title`, `elapsedMin`, `lastCheckpoint`, `lastLines` (últimas 10 líneas), `status` (`running`/`done`/`error`/`timeout`). Para ver el estado desde Claude Code: leer ese archivo con Read. Al terminar, `status` cambia a `done` o `error`.
+- Source: análisis 2026-05-06; `.opencode/scripts/run-agent.mjs`.
+
+## 2026-05-06 - AGENTS.md Digests Por Agente Para Reducir Contexto
+
+- Context: Cada agente leía los 810 líneas completos de AGENTS.md aunque solo necesitaba un 20-30% del contenido. Con 4 agentes en paralelo = ~18.000 tokens redundantes en la misma lectura.
+- Durable memory: al final de `AGENTS.md` existe la sección `## Contexto mínimo por agente` con bloques de 15-20 líneas para cada subagente (`cultura-frontend`, `cultura-data`, `cultura-testing`, `cultura-review`, `cultura-security`, `cultura-release`, `cultura-docs`). Los agentes deben apuntar a su bloque específico en lugar de leer el archivo completo.
+- Source: análisis 2026-05-06; `AGENTS.md` (sección al final).
+
+## 2026-05-06 - Routing De Memoria Formal En Subagentes
+
+- Context: Los subagentes (`cultura-frontend`, `cultura-data`, etc.) cargaban memoria por inercia, no por protocolo explícito. Solo `cultura-planner` tenía instrucción formal de cargar memoria selectiva por dominio.
+- Durable memory: `cultura-frontend.md`, `cultura-data.md`, `cultura-release.md` y `cultura-docs.md` tienen ahora sección `## Memoria selectiva` con tabla explícita: si la tarea toca X, cargar `.memory/Y`. Este protocolo es ahora formal, no heurístico.
+- Source: análisis 2026-05-06; `.opencode/agents/cultura-frontend.md`, `cultura-data.md`, `cultura-release.md`, `cultura-docs.md`.
+
 ## Commit Conventions
 
 - Do not add `Co-Authored-By: Claude` or any AI co-authoring lines to git commit messages.

@@ -807,3 +807,56 @@ npm run lint     # Linting
 - **Cobro bruto/hora**: usar solo ingresos cobrados asociados a eventos (`event_id`) y horas de eventos con `end_datetime`. No mezclar ingresos directos de proyecto en el numerador de esta métrica.
 - **Error 409 al crear proyectos/eventos**: si aparece, significa que el perfil del usuario no existe en `profiles` (el trigger falló antes del fix). Solución: ejecutar en Supabase SQL `INSERT INTO public.profiles (id) SELECT id FROM auth.users WHERE id NOT IN (SELECT id FROM public.profiles);`
 - **ProjectDetail — separación de datos**: `incomes` y `expenses` del hook incluyen todo (proyecto + eventos); `directIncomes`/`directExpenses` filtran solo los de `project_id = id` para las tablas editables. Los KPIs usan el total combinado.
+
+---
+
+## Contexto mínimo por agente
+
+Cada subagente debe leer su bloque específico en lugar de parsear el archivo completo. Si la tarea toca múltiples dominios, leer los bloques relevantes.
+
+### cultura-frontend
+- Stack: React 19, Vite, Tailwind v4, React Router v7, Lucide React, React Big Calendar
+- Selectores: usar `Input.jsx` (con `DateInput`, `DateTimeInput`, `Select`). NUNCA `<select>` nativo ni `input type="date"` directos
+- Calendario: necesita altura real interna (no `height: 100%`). Vista semana móvil usa scroll horizontal (aceptado)
+- Formularios: datetime default 08:00, eventos one-day por defecto, decimales aceptan coma/punto
+- Formatters: siempre desde `src/lib/formatters.js` (`formatDate`, `formatDatetime`, `formatCurrency`)
+- UI: español España, tuteo. No emojis salvo petición explícita
+- Routing: todas las rutas protegidas están en `src/App.jsx` bajo `<AuthGuard>`
+
+### cultura-data
+- Modelo: `profiles → projects → events → incomes/expenses`
+- `user_id`: siempre del token JWT (`auth.uid()`), nunca del body ni del cliente
+- RLS activo en todas las tablas. Policy básica: `auth.uid() = user_id`
+- Doble `user_id` en `incomes/expenses`: guardado directamente para RLS sin joins
+- Doble vínculo en `incomes/expenses`: `project_id` o `event_id`, uno siempre presente (check constraint)
+- Cobro bruto/hora: solo ingresos cobrados con `event_id` + horas de eventos con `end_datetime`. No mezclar ingresos directos de proyecto
+- Settings: usar `useProfile` hook, no Supabase directo. `tax_rate` viene de `profiles`. Error 409 = perfil faltante
+- Trigger: usar `public.profiles` con schema explícito en `handle_new_user`
+
+### cultura-testing
+- Comandos bloqueantes: `npm run lint`, `npm run build`, `npm run pb:check` (si tocó `docs/project/`)
+- Solo aviso (no bloquean): `npm run test`
+- Secuencia: lint primero, luego build. No hacer build si lint tiene errores
+- No skippear verificaciones con `--no-verify` salvo instrucción explícita
+
+### cultura-review
+- Bugs primero, luego riesgos de datos/seguridad, luego mantenibilidad y perf
+- Verificar: RLS, user_id handling, contratos de hooks, formatters, selectores custom
+- Si toca formularios: validar datetime defaults y selectores
+
+### cultura-security
+- Verificar: auth.uid() en todos los accesos a BD, RLS activo, secretos no en código
+- Verificar: XSS en HTML renderizado, secrets en .env.local (no commitear)
+- Deploy: Vercel necesita SPA fallback (`vercel.json` con catch-all a `/`)
+
+### cultura-release
+- Deploy en Vercel: `vercel.json` con rewrite `"source": "/(.*)", "destination": "/"` es obligatorio para SPA
+- Variables de entorno en Vercel: `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`
+- URL producción: https://culturapp-rho.vercel.app
+- Verificar preview antes de mergear; producción se actualiza al mergear a main
+
+### cultura-docs
+- Memoria en `.memory/`: solo guardar preferencias, decisiones duraderas, gotchas. No historial de commits ni rutas
+- Checkpoint pre-PR obligatorio: revisar issue, diff, commits → actualizar `.memory/` o declarar `Memoria: no aplica`
+- Product Brain en `docs/project/`: fuente de verdad de releases, planes, backlog, issues CACH-*
+- Issues: prefijo `CACH-XXXX` para producto, `CACH-B` para bugs

@@ -9,6 +9,8 @@ const repoRoot = resolve(fileURLToPath(new URL("../..", import.meta.url)))
 
 // Intervalo de checkpoint en ms (30 segundos)
 const CHECKPOINT_INTERVAL = 30000
+// Timeout máximo por agente: 45 min por defecto, configurable via AGENT_TIMEOUT_MS
+const AGENT_TIMEOUT_MS = parseInt(process.env.AGENT_TIMEOUT_MS ?? "2700000", 10)
 
 function usage() {
   console.log(`Uso:
@@ -75,8 +77,7 @@ function parseArgs(argv) {
   return options
 }
 
-const __dirname = dirname(fileURLToPath(import.meta.url))
-const RUNS_DIR = resolve(__dirname, "../.opencode/runs")
+const RUNS_DIR = resolve(repoRoot, ".opencode/runs")
 
 function buildContract(options) {
   return [
@@ -127,9 +128,27 @@ async function main() {
   const runDir = resolve(RUNS_DIR, timestamp)
   await mkdir(runDir, { recursive: true })
   const outputPath = resolve(runDir, "output.txt")
+  const currentPath = resolve(RUNS_DIR, "current.json")
+  const startedAt = new Date().toISOString()
 
   console.log(`[${timestamp}] Starting: ${options.title}`)
   console.log(`[${timestamp}] Output: ${outputPath}`)
+  console.log(`[${timestamp}] Timeout: ${AGENT_TIMEOUT_MS / 60000} min`)
+
+  const writeCurrentJson = async (status, lastLines = []) => {
+    const elapsed = Math.round((Date.now() - new Date(startedAt).getTime()) / 60000)
+    await writeFile(
+      currentPath,
+      JSON.stringify(
+        { startedAt, agent: options.agent, title: options.title, elapsedMin: elapsed, lastCheckpoint: new Date().toISOString(), lastLines, status },
+        null,
+        2,
+      ),
+      "utf-8",
+    ).catch(() => {})
+  }
+
+  await writeCurrentJson("running")
 
   const child = spawn(
     "opencode",
@@ -142,6 +161,8 @@ async function main() {
   let checkpointCount = 0
   let lastSize = 0
 
+  const getLastLines = () => stdout.split("\n").filter(Boolean).slice(-10)
+
   // Escribir output en tiempo real
   child.stdout.on("data", (chunk) => {
     stdout += chunk.toString()
@@ -149,8 +170,7 @@ async function main() {
     if (stdout.length - lastSize > 5000) {
       lastSize = stdout.length
       checkpointCount += 1
-      const lines = stdout.split("\n")
-      const tail = lines.slice(-10).join("\n")
+      const tail = getLastLines().join("\n")
       console.log(`\n--- Checkpoint #${checkpointCount} ---`)
       console.log(tail)
       console.log(`-----------------------\n`)
@@ -161,23 +181,37 @@ async function main() {
     stderr += chunk.toString()
   })
 
-  // Checkpoint periódico como backup
-  const checkpointInterval = setInterval(() => {
+  // Checkpoint periódico: actualiza current.json y muestra tail
+  const checkpointInterval = setInterval(async () => {
     if (!child.killed) {
       checkpointCount += 1
-      const lines = stdout.split("\n")
-      const tail = lines.slice(-15).join("\n")
+      const lastLines = getLastLines()
+      const tail = lastLines.join("\n")
       console.log(`\n[${new Date().toLocaleTimeString()}] Checkpoint #${checkpointCount} (tail):`)
       console.log(tail)
       console.log("-----------------------\n")
+      await writeCurrentJson("running", lastLines)
     }
   }, CHECKPOINT_INTERVAL)
 
+  // Timeout: mata el proceso si supera el límite
+  const agentTimeout = setTimeout(async () => {
+    if (!child.killed) {
+      console.error(`\n[TIMEOUT] Agente superó ${AGENT_TIMEOUT_MS / 60000} min. Matando proceso...`)
+      child.kill("SIGTERM")
+      await writeCurrentJson("timeout", getLastLines())
+      await writeFile(outputPath, `[TIMEOUT tras ${AGENT_TIMEOUT_MS / 60000} min]\n\n${stdout}`, "utf-8").catch(() => {})
+      process.exitCode = 124
+    }
+  }, AGENT_TIMEOUT_MS)
+
   child.on("close", async (code) => {
     clearInterval(checkpointInterval)
+    clearTimeout(agentTimeout)
 
     // Escribir output final
     await writeFile(outputPath, stdout, "utf-8")
+    await writeCurrentJson(code === 0 ? "done" : "error", getLastLines())
 
     console.log(`\n[${new Date().toLocaleTimeString()}] Finished with code: ${code}`)
 
@@ -186,7 +220,9 @@ async function main() {
 
   child.on("error", async (error) => {
     clearInterval(checkpointInterval)
+    clearTimeout(agentTimeout)
     await writeFile(outputPath, `Error: ${error.message}\n${stderr}`, "utf-8")
+    await writeCurrentJson("error", [error.message])
     console.error(`Error: ${error.message}`)
     process.exitCode = 1
   })

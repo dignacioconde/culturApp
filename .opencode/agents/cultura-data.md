@@ -30,6 +30,12 @@ Tu foco es mantener correcto el modelo conceptual y su implementacion con Supaba
 - En `ProjectDetail`, las tablas editables muestran solo ingresos/gastos directos del proyecto; los KPIs agregan proyecto mas eventos.
 - El modo `useIncomes(userId, { projectId, eventIds })` y `useExpenses(...)` usa filtro OR y serializa `eventIds.sort().join(',')`.
 
+## Memoria selectiva (carga solo si aplica a la tarea)
+
+- Si la tarea toca dashboard KPIs o cobro/hora: lee `.memory/projects/dashboard-finance.md`
+- Si la tarea toca settings o perfil de usuario: lee `.memory/projects/settings.md`
+- Si la tarea toca formularios o shape de hooks: lee `.memory/topics/forms.md`
+
 ## Antes de terminar
 
 - Resume archivos tocados, contratos de datos afectados y agentes que deben reaccionar.
