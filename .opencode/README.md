@@ -17,6 +17,14 @@ Regla base: lee indices primero, carga detalle solo cuando sea relevante, no car
 
 No guardes en memoria: convenciones de codigo, rutas de archivos, historial git o estado efimero de la tarea. Eso vive en `AGENTS.md`, el codigo y `AGENT_STATE.md`.
 
+## Check de contexto
+
+```bash
+npm run context:check
+```
+
+Revisa presupuestos de tamaño y posibles regresiones de carga amplia de contexto. Es un check orientado a warnings y sigue `docs/agent-context-policy.md`.
+
 ## Ejecucion recomendada
 
 Para tareas de implementacion sin issue estructurada, la entrada por defecto debe ser el planner:
