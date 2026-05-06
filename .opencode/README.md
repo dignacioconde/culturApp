@@ -7,7 +7,11 @@ Todos usan `opencode/minimax-m2.5-free` como modelo por defecto.
 
 El proyecto tiene memoria persistente en `.memory/` (directorio en la raíz del repo, versionado en git).
 
-**Todos los agentes deben leer `.memory/MEMORY.md` al inicio de cada tarea** para conocer preferencias activas y decisiones de proyecto antes de ejecutar.
+Los agentes deben usar `AGENTS.md` como contrato corto de entrada y `docs/agent-context-policy.md` como politica canonica de carga de contexto.
+
+Regla base: lee indices primero, carga detalle solo cuando sea relevante, no cargues historico por defecto y prefiere archivos o secciones concretas frente a carpetas completas.
+
+`.memory/MEMORY.md` es un indice de memoria versionada. Leelo para decidir que memoria selectiva cargar por dominio; no cargues toda `.memory/` por defecto.
 
 **`cultura-docs` es el unico agente que escribe en memoria.** El lead lo activa cuando se detecta algo que merece persistirse: preferencias del usuario, correcciones, decisiones no obvias o recursos externos.
 
@@ -31,7 +35,7 @@ npm run agents:run -- "Describe la tarea"
 
 Este comando envuelve la peticion en un contrato operativo con objetivo, autonomia, contexto, alcance, ownership, verificacion y salida esperada. Internamente usa `cultura-lead`, pero `cultura-lead` debe actuar como dispatcher minimo: enruta a subagentes, coordina dependencias y cierra con verificacion.
 
-Cuando el usuario pida ejecutar agentes, no hagas una revision manual previa del codigo salvo que sea imprescindible para construir el comando, definir ownership seguro o resolver un bloqueo real. Los agentes deben leer `AGENTS.md`, `.opencode/AGENT_STATE.md` y el codigo necesario, diagnosticar y devolver hallazgos o cambios por si mismos.
+Cuando el usuario pida ejecutar agentes, no hagas una revision manual previa del codigo salvo que sea imprescindible para construir el comando, definir ownership seguro o resolver un bloqueo real. Los agentes deben usar `AGENTS.md` como contrato corto, seguir `docs/agent-context-policy.md`, leer `.opencode/AGENT_STATE.md` como estado vivo y revisar el codigo necesario. El detalle adicional se carga bajo demanda; backlog, releases, historico, issues cerradas y Product Brain completo no se cargan por defecto.
 
 Cuando se descubra un problema nuevo, el flujo por defecto es: issue en GitHub -> rama de tarea desde `main` actualizado -> agentes con contexto de la issue -> fix verificado -> commit -> push -> PR a `main` -> merge -> verificacion de produccion si aplica -> borrado de rama de trabajo -> comentario en la issue con resumen/commit/verificaciones. Toda issue resuelta debe quedar enlazada permanentemente al trabajo que la resuelve:
 - **Si hay PR abierta**: enlazar la issue en la descripcion de la PR con `Closes #N`, `Fixes #N` o equivalente; la issue permanece ABIERTA hasta merge y se cierra solo cuando la PR se mergee a `main`.
@@ -174,7 +178,10 @@ OBJETIVO:
 Que debe quedar funcionando.
 
 AUTONOMIA:
-No preguntes salvo bloqueo real. Decide con AGENTS.md, codigo y pruebas.
+No preguntes salvo bloqueo real. Decide con AGENTS.md, docs/agent-context-policy.md, codigo y pruebas.
+
+CONTEXTO:
+Usa AGENTS.md como contrato corto y docs/agent-context-policy.md como politica canonica. Lee .opencode/AGENT_STATE.md como estado vivo. Carga memoria, Product Brain, backlog, releases o historico solo si son relevantes para la tarea y desde archivos/secciones concretas.
 
 ALCANCE:
 Archivos, carpetas o modulos que se pueden tocar. Indica tambien lo que queda fuera.
@@ -214,7 +221,7 @@ Resumen breve con archivos tocados, pruebas y riesgos.
 
 ## Estado compartido entre agentes
 
-`.opencode/AGENT_STATE.md` funciona como pizarra compartida. Todos los agentes deben leerla al empezar y pueden actualizarla para publicar senales sin esperar a `cultura-lead`.
+`.opencode/AGENT_STATE.md` funciona como pizarra compartida de estado operativo vivo. Todos los agentes deben leerla al empezar y pueden actualizarla para publicar senales sin esperar a `cultura-lead`. No es historico ni memoria durable.
 
 Ejemplo: si `cultura-data` cambia el schema o la firma de un hook, publica `schema_changed` o `api_changed`. Entonces `cultura-frontend`, `cultura-testing` y `cultura-security` pueden reaccionar directamente al leer esa senal.
 
@@ -224,7 +231,7 @@ Reglas de uso:
 - Anade una entrada breve en `Eventos`.
 - Antes de escribir, relee el archivo.
 - No guardes secretos ni valores de `.env.local`.
-- Usa la pizarra para coordinacion; la fuente de verdad siguen siendo `AGENTS.md`, el codigo y las pruebas.
+- Usa la pizarra para coordinacion; la fuente de verdad siguen siendo `AGENTS.md`, `docs/agent-context-policy.md`, el codigo y las pruebas.
 
 ## Verificacion post-implementacion
 

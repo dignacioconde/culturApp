@@ -105,8 +105,9 @@ function buildPrompt(agentName, task, canWrite) {
   return [
     `${mode}`,
     `Invoca y usa exclusivamente a @${agentName} para esta tarea.`,
-    "Lee AGENTS.md antes de razonar sobre el proyecto.",
-    "Lee .opencode/AGENT_STATE.md al empezar. Si detectas una senal relevante para otros agentes, relee ese archivo y actualiza solo tu bloque y la seccion Eventos.",
+    "Usa AGENTS.md como contrato corto y docs/agent-context-policy.md como politica canonica: indices primero, detalle bajo demanda, sin historico por defecto.",
+    "Lee .opencode/AGENT_STATE.md como estado vivo. Si detectas una senal relevante para otros agentes, relee ese archivo y actualiza solo tu bloque y la seccion Eventos.",
+    "No cargues Product Brain completo, backlog, releases, issues cerradas ni historico por defecto; usa archivos/secciones concretas solo si la tarea lo requiere.",
     "Devuelve un resumen breve con hallazgos, recomendaciones y cualquier bloqueo.",
     "",
     `Tarea: ${task}`,

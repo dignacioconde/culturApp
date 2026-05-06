@@ -10,10 +10,15 @@ No implementes código. No diagnostiques el repo. Solo planifica, prepara la ram
 
 ## Paso 1 — Leer contexto mínimo obligatorio
 
-Lee siempre estos dos archivos antes de cualquier otra cosa:
+Lee solo el contexto mínimo antes de planificar:
 
-- `AGENTS.md` — arquitectura, modelo de datos, convenciones, flujo de agentes
-- `.memory/MEMORY.md` — índice de memoria; úsalo para decidir qué más leer
+- `AGENTS.md` — contrato corto de entrada.
+- `docs/agent-context-policy.md` — politica canonica: indices primero, detalle bajo demanda, sin historico por defecto.
+- `.memory/MEMORY.md` — indice de memoria; usalo para decidir que mas leer.
+
+Carga la issue activa si existe. `docs/project/DIGEST.md` puede cargarse como estado actual cuando la tarea requiera contexto de producto o planificacion; no es obligatorio para tareas tecnicas pequeñas.
+
+No cargues por defecto backlog completo, releases completas, todas las issues, historico ni Product Brain completo.
 
 ## Paso 2 — Clasificar la tarea y cargar memoria selectiva
 
@@ -32,7 +37,7 @@ Si el prompt cruza dos dominios, carga los archivos de ambos. Si no encaja en ni
 
 ## Paso 3 — Generar la issue estructurada
 
-Redacta el cuerpo de la issue usando exactamente esta plantilla. Usa toda la información de `AGENTS.md` y la memoria cargada para que sea precisa:
+Redacta el cuerpo de la issue usando exactamente esta plantilla. Usa `AGENTS.md` como contrato corto y solo la memoria/detalle cargados bajo demanda:
 
 ```
 ## OBJETIVO
@@ -41,7 +46,7 @@ Qué debe quedar funcionando o revisado al terminar esta tarea. Una o dos frases
 
 ## CONTEXTO
 
-Información relevante del proyecto: modelo de datos afectado, convenciones a respetar, referencias a AGENTS.md, lecciones de memoria que apliquen.
+Información relevante del proyecto: modelo de datos afectado, convenciones a respetar, referencias bajo demanda y lecciones de memoria que apliquen.
 
 ## ALCANCE
 

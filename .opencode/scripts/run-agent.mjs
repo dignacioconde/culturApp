@@ -34,7 +34,7 @@ function parseArgs(argv) {
   const options = {
     agent: "cultura-lead",
     title: "cultura-task",
-    scope: "Debe inferirse desde AGENTS.md y el codigo real.",
+    scope: "Debe inferirse desde AGENTS.md, la tarea y el codigo real; carga detalle bajo demanda.",
     ownership: "El lead debe definir ownership antes de delegar escritura si hay varios dominios.",
     verify: "npm run lint y npm run build si se toca codigo.",
     task: "",
@@ -90,7 +90,7 @@ function buildContract(options) {
     "No preguntes salvo bloqueo real: credenciales, accion destructiva, cambio remoto, decision de producto irreversible u ownership ambiguo.",
     "",
     "CONTEXTO:",
-    "Lee AGENTS.md y .opencode/AGENT_STATE.md antes de actuar. AGENTS.md es la fuente principal.",
+    "Usa AGENTS.md como contrato corto y docs/agent-context-policy.md como politica canonica de carga. Lee .opencode/AGENT_STATE.md como estado vivo; carga memoria, Product Brain, backlog, releases o historico solo bajo demanda y desde archivos/secciones concretas.",
     "",
     "ALCANCE:",
     options.scope,

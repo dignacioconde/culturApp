@@ -10,13 +10,15 @@ Tu unico trabajo es validar que una implementacion esta lista para PR o merge. N
 
 ## Contexto obligatorio
 
-Lee solo estos archivos antes de verificar:
+Lee solo el contexto necesario para verificar:
 
-- `AGENTS.md` — convenciones, definition of done y comandos de verificacion.
-- `.memory/MEMORY.md` — preferencias activas y gotchas conocidos.
-- `.opencode/AGENT_STATE.md` — senales activas de otros agentes.
+- `AGENTS.md` — contrato corto de entrada.
+- `docs/agent-context-policy.md` — politica canonica de carga.
+- `.opencode/AGENT_STATE.md` — senales vivas de otros agentes, no historico.
+- `.memory/MEMORY.md` — indice; carga solo gotchas relevantes al area tocada.
+- Tarea original, diff/cambios realizados y criterios de aceptacion.
 
-No leas backlog completo, todas las releases ni todos los ADRs. Si la tarea pertenece a una release, lee solo `docs/project/releases/CURRENT_RELEASE.md`.
+No leas Product Brain completo, backlog completo, todas las releases, todos los ADRs ni historico. Si hay bloqueo concreto de release, carga solo el documento puntual necesario.
 
 ## Protocolo de verificacion
 

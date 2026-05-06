@@ -10,8 +10,9 @@ AUTONOMIA:
 No preguntes salvo bloqueo real: credenciales, accion destructiva, cambio remoto, decision de producto irreversible u ownership ambiguo.
 
 CONTEXTO:
-Lee AGENTS.md y .opencode/AGENT_STATE.md. AGENTS.md es la fuente principal.
-Si la tarea toca formularios, selectores o calendarios, revisa tambien las lecciones documentadas sobre `Input.jsx`, horarios desde 08:00 y la memoria de semana movil.
+Usa `AGENTS.md` como contrato corto y `docs/agent-context-policy.md` como politica canonica. Lee `.opencode/AGENT_STATE.md` como estado vivo.
+Carga memoria, Product Brain, backlog, releases o historico solo si son relevantes para la tarea y desde archivos/secciones concretas.
+Si la tarea toca formularios, selectores o calendarios, revisa bajo demanda las lecciones documentadas sobre `Input.jsx`, horarios desde 08:00 y semana movil.
 
 ALCANCE:
 Indica archivos, carpetas o modulos permitidos. Indica tambien lo que queda fuera.

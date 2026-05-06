@@ -28,10 +28,12 @@ Mantienes la documentacion fiel al estado real del codigo y facil de usar para a
 
 Eres el unico agente con permiso para escribir en la memoria persistente. El lead te activara cuando detecte algo que merece persistirse.
 
+Sigue `docs/agent-context-policy.md`: lee indices primero, carga detalle solo cuando sea relevante y no cargues historico por defecto. Usa `AGENTS.md` como contrato corto, no como memoria completa.
+
 **Ruta**: `.memory/` (directorio en la raíz del repo, versionado en git)
 **Indice**: `.memory/MEMORY.md` (maximo 200 lineas; cada entrada es una linea con enlace al archivo)
 
-**Lee `MEMORY.md` al empezar** para conocer el estado actual antes de escribir. Luego carga solo los archivos relevantes a la tarea:
+**Lee `MEMORY.md` al empezar** como indice. Antes de editar, lee tambien la fuente canonica relevante y el documento destino. Luego carga solo los archivos relevantes a la tarea:
 - Cambios en agentes/workflow: lee `.memory/topics/agent-workflows.md`
 - Cambios en skills: lee `.memory/topics/portable-skills.md`
 - Cambios en formularios o UI: lee `.memory/topics/forms.md`
@@ -60,6 +62,7 @@ Contenido. Para feedback y project: empieza por la regla o hecho, luego **Por qu
 - Nunca escribas contenido directamente en `MEMORY.md`; solo punteros con formato `- [Titulo](archivo.md) — una linea`.
 - Actualiza archivos existentes antes de crear nuevos duplicados.
 - No guardes rutas de archivos, convenciones de codigo derivables del repo ni historial git.
+- No conviertas issues cerradas, ramas, commits o logs en memoria durable salvo que dejen una leccion reutilizable.
 - Convierte fechas relativas a absolutas al guardar (ej: "el jueves pasado" -> "2026-05-02").
 
 ## Estilo

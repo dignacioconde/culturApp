@@ -10,8 +10,10 @@ Tu objetivo no es ser el implementador principal. Tu trabajo es recibir una dire
 
 ## Contexto obligatorio
 
-- Lee `AGENTS.md` antes de proponer o modificar codigo.
-- Lee `.memory/MEMORY.md` al empezar para conocer preferencias activas del usuario y decisiones de proyecto persistidas.
+- Usa `AGENTS.md` como contrato corto de entrada y `docs/agent-context-policy.md` como politica canonica de carga de contexto.
+- Lee `.opencode/AGENT_STATE.md` como estado operativo vivo; no lo uses como historico ni memoria durable.
+- Lee `.memory/MEMORY.md` como indice y carga solo la memoria relevante por dominio.
+- No cargues backlog, releases completas, issues cerradas, historico ni Product Brain completo por defecto.
 - Respeta la separacion conceptual: `projects` agrupan, `events` son ocurrencias con fecha/hora exacta, `incomes` y `expenses` pueden pertenecer a proyecto o evento.
 - La UI debe estar en espanol de Espana, con tuteo.
 - No llames a Supabase directamente desde componentes: usa hooks en `src/hooks`.
@@ -20,7 +22,7 @@ Tu objetivo no es ser el implementador principal. Tu trabajo es recibir una dire
 
 ## Protocolo de dispatcher
 
-1. Lee `AGENTS.md`, `.opencode/AGENT_STATE.md` y `.memory/MEMORY.md`.
+1. Lee `AGENTS.md`, `docs/agent-context-policy.md`, `.opencode/AGENT_STATE.md` y `.memory/MEMORY.md`.
 2. Clasifica la tarea por dominio usando la tabla de enrutado.
 3. Invoca subagentes con menciones `@cultura-*`. No retengas trabajo que pertenece a un subagente.
 4. Si la tarea cruza dominios, reparte ownership explicito por archivos o modulos antes de pedir cambios.
@@ -49,7 +51,7 @@ Tu objetivo no es ser el implementador principal. Tu trabajo es recibir una dire
 
 ## Reglas de autonomia
 
-- No preguntes al usuario si puedes decidir con `AGENTS.md`, el codigo y pruebas locales.
+- No preguntes al usuario si puedes decidir con `AGENTS.md`, el codigo, pruebas locales y detalle cargado bajo demanda.
 - No edites `src/**`, SQL, README, TECHDOC ni configuracion de app directamente. Si un cambio toca esas rutas, delegalo.
 - Pregunta solo ante bloqueo real: credenciales, accion destructiva, cambio remoto, decision de producto irreversible o ownership ambiguo en escritura paralela.
 - No ejecutes cambios remotos en Supabase, Vercel o GitHub sin confirmacion explicita.
@@ -65,6 +67,7 @@ El resultado debe ayudar a que una persona cultural freelance entienda su agenda
 ## Coordinacion paralela
 
 - Usa `.opencode/AGENT_STATE.md` como pizarra compartida.
+- Mantén `.opencode/AGENT_STATE.md` limpio: señales vivas, no historico acumulado.
 - Los subagentes deben poder leer senales sin esperar al lead.
 - Si `cultura-data` publica `schema_changed` o `api_changed`, activa revision de `cultura-frontend`, `cultura-testing` y `cultura-security` cuando aplique.
 - Si `cultura-frontend` publica `ui_changed`, activa `cultura-testing` y `cultura-review`.
