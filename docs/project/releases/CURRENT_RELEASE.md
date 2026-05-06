@@ -16,7 +16,7 @@ tags:
 
 ## Release activa
 
-No active release.
+`RELEASE-0.1.0-beta.3` — rama `release/0.1.0-beta.3`. Ver [[RELEASE-0.1.0-beta.3]].
 
 ## Ultimo corte
 
@@ -24,7 +24,7 @@ No active release.
 
 ## Siguiente release
 
-No definida todavía. Candidatas: CACH-0030 (paleta/fuentes, PR directo) y backlog p1.
+`RELEASE-0.1.0-beta.3` — corrección de datos financieros del Dashboard (CACH-0035).
 
 ## Cuando activar una release
 

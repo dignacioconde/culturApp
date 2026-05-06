@@ -17,7 +17,7 @@ import { useIncomes } from '../../hooks/useIncomes'
 import { useExpenses } from '../../hooks/useExpenses'
 import { formatCurrency, formatCurrencyPerHour, formatDate, formatDatetime, formatHours } from '../../lib/formatters'
 import { normalizeExpenseForm, normalizeIncomeForm } from '../../lib/financeForms'
-import { isPaid, markPaid, markUnpaid } from '../../lib/payment'
+import { isPaid, markPaid, markUnpaid, paymentDate } from '../../lib/payment'
 import { EXPENSE_CATEGORIES } from '../../lib/constants'
 
 const EMPTY_EXPENSE = { concept: '', amount: '', category: 'otros', expense_date: '', is_deductible: true }
@@ -210,7 +210,7 @@ export default function ProjectDetail() {
       amount: quickIncomeForm.amount,
       tax_rate: defaultTaxRate,
       expected_date: projectDate,
-      paid_date: quickIncomeForm.is_paid ? projectDate : null,
+      paid_date: quickIncomeForm.is_paid ? paymentDate(new Date()) : null,
       is_paid: quickIncomeForm.is_paid,
     }
     setSavingIncome(true)
