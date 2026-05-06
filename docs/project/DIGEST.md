@@ -14,20 +14,20 @@ tags:
 
 # Product Brain Digest
 
-*Generado: 2026-05-06 12:14 UTC*
+*Generado: 2026-05-06 17:30 UTC*
 
 ---
 
 ## Estado operacional
 
 - **Release activa:** ninguna — PRs directas a `main`
-- **Último corte:** `RELEASE-0.1.0-beta.2` — mergeada a `main` el 2026-05-06. Ver RELEASE-0.1.0-beta.2.
-- **Foco:** Sin release activa. Siguiente: CACH-0030 (PR directo) o abrir beta.3.
+- **Último corte:** `RELEASE-0.1.0-beta.4` — mergeada a `main` el 2026-05-06. Ver RELEASE-0.1.0-beta.4.
+- **Foco:** Sin release activa. Siguiente: CACH-0030 (PR directo) o abrir beta.5.
 
 ## Prioridades del plan
 
 1. CACH-0030 (paleta/fuentes) como PR directo a main.
-2. Evaluar backlog p1 para definir si se abre `beta.3`.
+2. Evaluar backlog p1 para definir si se abre `beta.5`.
 3. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
 
 ## Tablero
@@ -70,7 +70,6 @@ _Sin issues._
 | CACH-B0005 | Importacion exportacion y portabilidad de datos | backlog | feature | p1 |
 | CACH-B0006 | Onboarding y acceso beta | backlog | feature | p1 |
 | CACH-B0007 | Calendario unificado e interaccion rapida | backlog | feature | p1 |
-| CACH-0033 | Vista anual en calendario de proyectos | backlog | feature | p2 |
 | CACH-B0008 | PWA notificaciones y offline | backlog | feature | p2 |
 | CACH-B0009 | Inteligencia financiera y features Pro | backlog | feature | p2 |
 | CACH-B0010 | Tooling de agentes y modelos de desarrollo | backlog | chore | p2 |

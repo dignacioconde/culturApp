@@ -3,7 +3,7 @@ id: PB-BACKLOG
 type: backlog
 status: Active
 created: 2026-05-05
-updated: 2026-05-05
+updated: 2026-05-06
 aliases:
   - Backlog operativo
   - Backlog
@@ -47,7 +47,6 @@ Tablero ligero del Product Brain. Cada trabajo ejecutable vive como issue Markdo
 
 | ID | Titulo | Tipo | Prioridad | Nota |
 |---|---|---|---|---|
-| [[../issues/CACH-0033|CACH-0033]] | Vista anual en calendario de proyectos | feature | p2 | Sub-feature de CACH-B0007. |
 | [[../issues/CACH-B0001|CACH-B0001]] | Redisenar Trabajos y jerarquia proyecto-evento | feature | p1 | Partir antes de ejecutar. |
 | [[../issues/CACH-B0002|CACH-B0002]] | Simplificar experiencia mobile financiera | feature | p1 | Validacion mobile obligatoria. |
 | [[../issues/CACH-B0003|CACH-B0003]] | Cobro rapido y gestion de pendientes | feature | p1 | Depende de coherencia de cobros. |
@@ -73,6 +72,7 @@ Sin issues en review.
 
 | ID | Titulo | Release | Resultado |
 |---|---|---|---|
+| [[../issues/CACH-0033|CACH-0033]] | Vista anual en calendario de proyectos | [[../releases/RELEASE-0.1.0-beta.4|RELEASE-0.1.0-beta.4]] | Planificacion anual con Gantt desktop y compacto movil. |
 | [[../issues/CACH-B0014|CACH-B0014]] | Endurecer agenda, cobros y captura del MVP | [[../releases/RELEASE-0.1.0-beta.2|RELEASE-0.1.0-beta.2]] | 5 bugs críticos corregidos. |
 | [[../issues/CACH-0035|CACH-0035]] | Rediseño financiero del Dashboard y paid_date en cobros rapidos | [[../releases/RELEASE-0.1.0-beta.3|RELEASE-0.1.0-beta.3]] | Dashboard financiero centrado en cobros y trabajos accionables. |
 | [[../issues/CACH-0032|CACH-0032]] | Priorizar operativa diaria en dashboard movil | null | Mergeada a main. Dashboard mobile operativo. |

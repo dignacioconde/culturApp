@@ -3,7 +3,7 @@ id: PB-RELEASES
 type: index
 status: Active
 created: 2026-05-04
-updated: 2026-05-05
+updated: 2026-05-06
 aliases:
   - Releases
 tags:
@@ -19,8 +19,11 @@ Agrupaciones de issues con un objetivo de producto y criterios de salida.
 
 - [[CURRENT_RELEASE|Current Release]]
 
-## Releases Planificadas
+## Releases cerradas
 
+- [[RELEASE-0.1.0-beta.4|RELEASE-0.1.0-beta.4]] — Planificacion anual de proyectos
+- [[RELEASE-0.1.0-beta.3|RELEASE-0.1.0-beta.3]] — Rediseño financiero del Dashboard
+- [[RELEASE-0.1.0-beta.2|RELEASE-0.1.0-beta.2]] — Endurecer confianza de datos
 - [[RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] — Primera beta privada
 
 ## Proceso
