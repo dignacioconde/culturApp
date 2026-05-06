@@ -69,6 +69,7 @@ Sin issues en progreso.
 | ID | Titulo | Release | Nota |
 |---|---|---|---|
 | [[../issues/CACH-0036|CACH-0036]] | Profesionalizar flujo de ramas por beta | [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] | Pendiente de PR unica release -> main. |
+| [[../issues/CACH-0037|CACH-0037]] | Consolidar PRD y sistema de diseno de Cachés | [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] | Documentacion estable de producto y diseno lista para integrar. |
 
 ## Done
 

@@ -3,7 +3,7 @@ id: PB-CONTEXT
 type: index
 status: Active
 created: 2026-05-04
-updated: 2026-05-04
+updated: 2026-05-06
 aliases:
   - Contexto
 tags:
@@ -18,6 +18,8 @@ Contexto estable de producto para Cachés: usuarios, propuesta de valor, restric
 ## Notas Activas
 
 - [[product-snapshot-20260504|Snapshot producto — 2026-05-04]]
+- [[prd-caches-20260506|PRD — Cachés]]
+- [[design-system-caches-20260506|Sistema de Diseño — Cachés]]
 - [[data-finance-model-20260504|Modelo de datos y finanzas — 2026-05-04]]
 - [[ux-mobile-guardrails-20260504|Guardrails UX y mobile — 2026-05-04]]
 - [[ui-direction-v3-20260504|Dirección visual UI v3 — 2026-05-04]]

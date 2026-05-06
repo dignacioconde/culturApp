@@ -31,6 +31,8 @@ Active
 
 Dejar instalado y probado el flujo profesional de ramas por beta para que los siguientes cortes usen release remota visible, ramas de tarea locales, squash hacia release y PR unica de release a `main`.
 
+La release tambien consolida la documentacion base de producto y diseno creada durante el mismo trabajo, para que el PRD y el sistema de diseno viajen trazados junto al cambio de proceso.
+
 ## Alcance funcional
 
 - Formalizar el contrato de branching beta.
@@ -41,12 +43,14 @@ Dejar instalado y probado el flujo profesional de ramas por beta para que los si
 ## Scope
 
 - [[../issues/CACH-0036|CACH-0036]] — Profesionalizar flujo de ramas por beta.
+- [[../issues/CACH-0037|CACH-0037]] — Consolidar PRD y sistema de diseno de Cachés.
 
 ## Issues incluidas
 
 | Issue | Titulo | Estado | Rama |
 |---|---|---|---|
 | [[../issues/CACH-0036|CACH-0036]] | Profesionalizar flujo de ramas por beta | Review | `docs/CACH-0036-beta-branching-flow` |
+| [[../issues/CACH-0037|CACH-0037]] | Consolidar PRD y sistema de diseno de Cachés | Review | `docs/CACH-0036-beta-branching-flow` |
 
 ## Fuera de alcance
 
@@ -112,6 +116,8 @@ Dejar instalado y probado el flujo profesional de ramas por beta para que los si
 
 - Release activa para probar el nuevo flujo profesional de ramas beta.
 - Issue CACH-0036 como scope trazable del cambio de proceso.
+- Issue CACH-0037 para trazar el PRD y el sistema de diseno de Cachés.
+- Notas de contexto estable para PRD y sistema de diseno enlazadas desde el indice de contexto.
 
 ### Cambiado
 
@@ -134,4 +140,4 @@ Dejar instalado y probado el flujo profesional de ramas por beta para que los si
 
 ## Resultado final
 
-Cambios de proceso integrados por squash en `release/0.1.0-beta.5`. Pendiente PR unica `release/0.1.0-beta.5` -> `main`, tag `v0.1.0-beta.5` desde `main` y limpieza de rama remota al cerrar.
+Cambios de proceso y documentacion base integrados por squash en `release/0.1.0-beta.5`. Pendiente PR unica `release/0.1.0-beta.5` -> `main`, tag `v0.1.0-beta.5` desde `main` y limpieza de rama remota al cerrar.

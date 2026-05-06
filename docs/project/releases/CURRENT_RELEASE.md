@@ -29,6 +29,7 @@ tags:
 ## Scope actual
 
 - [[../issues/CACH-0036|CACH-0036]] — Profesionalizar flujo de ramas por beta.
+- [[../issues/CACH-0037|CACH-0037]] — Consolidar PRD y sistema de diseno de Cachés.
 
 ## Regla de trabajo para esta release
 
@@ -49,7 +50,7 @@ Para fixes, chores y mejoras menores: PR directa a `main` sin release branch.
 
 ## Como cerrar esta release
 
-1. Confirmar que `CACH-0036` esta integrada por squash en `release/0.1.0-beta.5`.
+1. Confirmar que `CACH-0036` y `CACH-0037` estan integradas por squash en `release/0.1.0-beta.5`.
 2. Ejecutar validaciones finales.
 3. Abrir PR `release/0.1.0-beta.5` -> `main`.
 4. Tras mergear la PR, actualizar `main`, crear tag `v0.1.0-beta.5` y borrar la rama remota de release.
