@@ -14,6 +14,6 @@ Each detailed memory should be one dated `##` entry with context, durable memory
 
 ## Current Topic Files
 
-- [agent-workflows.md](agent-workflows.md): OpenCode agents, issue workflow, pizarra compartida and verification expectations.
+- [agent-workflows.md](agent-workflows.md): durable OpenCode orchestration, verification, PR/release closure and memory hygiene rules. Not a run log.
 - [forms.md](forms.md): Custom selectors/date controls and mobile UX lessons.
 - [portable-skills.md](portable-skills.md): Portable `SKILL.md` setup and memory protocol.

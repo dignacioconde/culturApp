@@ -1,9 +1,10 @@
 ---
 id: PB-PROMPT-CACH-0029
 type: prompt
-status: Active
+status: Historical
 created: 2026-05-05
-updated: 2026-05-05
+updated: 2026-05-06
+load_policy: do_not_load_by_default
 aliases:
   - CACH-0029 cerrar huecos B0016
   - Prompt CACH-0029
@@ -12,9 +13,16 @@ tags:
   - prompt
   - testing
   - hardening
+  - historical
 ---
 
 # CACH-0029 — Cerrar huecos reales de CACH-B0016
+
+Historical prompt:
+- Preserves context from a past task execution.
+- Do not load by default.
+- Do not treat as current agent instructions.
+- Use only when investigating CACH-0029, CACH-B0016 or an explicitly referenced past execution.
 
 ```markdown
 # CACH-0029 — Cerrar huecos reales de CACH-B0016: integrar helpers en la app y endurecer tests

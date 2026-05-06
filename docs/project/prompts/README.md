@@ -3,7 +3,7 @@ id: PB-PROMPTS
 type: index
 status: Active
 created: 2026-05-04
-updated: 2026-05-04
+updated: 2026-05-06
 aliases:
   - Prompts
 tags:
@@ -13,4 +13,14 @@ tags:
 
 # Prompts
 
-Prompts reutilizables para captura, curación y modo `PB ironman`.
+Prompts reutilizables e históricos de Product Brain.
+
+Load policy:
+- Do not load this folder by default.
+- Use active reusable prompts only when capturing or curating Product Brain.
+- Historical prompts are not current instructions.
+- Follow `docs/agent-context-policy.md` for context loading.
+
+Prompts:
+- `product-brain-capture.md` — Active reusable capture format for mobile/Product Brain input.
+- `cach-0029-cerrar-huecos-b0016.md` — Historical task prompt; use only when investigating CACH-0029 or related past execution.

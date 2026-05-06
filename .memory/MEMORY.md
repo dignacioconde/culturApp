@@ -14,7 +14,7 @@ Mapa estructurado ampliado: [core.md](core.md)
 ## Comportamiento obligatorio
 
 - [Leer y actualizar memoria siempre](feedback_memory_always.md) — Leer MEMORY.md al inicio y guardar proactivamente sin que el usuario lo pida
-- [Workflows de agentes y OpenCode](topics/agent-workflows.md) — Checkout de memoria pre-PR, supervisión de agentes, commits CACH, Product Brain como fuente de verdad
+- [Workflows de agentes y OpenCode](topics/agent-workflows.md) — Reglas duraderas de orquestación, verificación y cierre; no es run log ni histórico cargable por defecto
 
 ## Infraestructura y CI
 
