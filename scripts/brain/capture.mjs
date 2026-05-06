@@ -79,11 +79,12 @@ while (existsSync(filePath)) {
   filePath = join(inboxRoot, fileName)
   counter += 1
 }
+const idSuffix = counter > 2 ? `-${counter - 1}` : ''
 
 const tags = ['product-brain', 'inbox', ...args.tags]
 const frontmatter = [
   '---',
-  `id: PB-INBOX-${date.replaceAll('-', '')}-${time}`,
+  `id: PB-INBOX-${date.replaceAll('-', '')}-${time}${idSuffix}`,
   'type: inbox',
   'status: Active',
   `created: ${date}`,

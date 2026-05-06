@@ -2,7 +2,7 @@
 id: CACH-B0014
 title: Endurecer agenda cobros y captura del MVP
 type: bug
-status: in-progress
+status: done
 cycle: beta-2
 release: RELEASE-0.1.0-beta.2
 priority: p1

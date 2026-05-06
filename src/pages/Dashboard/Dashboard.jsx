@@ -13,7 +13,7 @@ import { useProjects } from '../../hooks/useProjects'
 import { useEvents } from '../../hooks/useEvents'
 import { useIncomes } from '../../hooks/useIncomes'
 import { useExpenses } from '../../hooks/useExpenses'
-import { formatCurrency, formatCurrencyPerHour, formatDate, formatHours } from '../../lib/formatters'
+import { formatCurrency, formatCurrencyPerHour, formatDate, formatDatetimeCompact, formatHours } from '../../lib/formatters'
 
 const YEARS = Array.from({ length: 6 }, (_, i) => dayjs().year() - 2 + i)
 
@@ -116,9 +116,9 @@ export default function Dashboard() {
 
   const pendingIncomes = useMemo(() =>
     incomes
-      .filter((i) => !i.is_paid && i.expected_date >= today && i.expected_date <= inPendingDays)
+      .filter((i) => !i.is_paid && i.expected_date && i.expected_date <= inPendingDays)
       .sort((a, b) => a.expected_date.localeCompare(b.expected_date))
-  , [incomes, today, inPendingDays])
+  , [incomes, inPendingDays])
 
   const urgentPendingIncomes = useMemo(() =>
     incomes
@@ -306,7 +306,7 @@ export default function Dashboard() {
                   </span>
                   <span className="block truncate text-xs text-gray-500">
                     {nextEvent
-                      ? `${dayjs(nextEvent.start_datetime).format('DD/MM HH:mm')} · ${nextEvent.name}`
+                      ? `${formatDatetimeCompact(nextEvent.start_datetime)} · ${nextEvent.name}`
                       : 'Semana tranquila'}
                   </span>
                 </span>
@@ -406,6 +406,7 @@ export default function Dashboard() {
               <div className="flex flex-col gap-1">
                 {pendingIncomes.slice(0, 5).map((income) => {
                   const daysLeft = dayjs(income.expected_date).diff(dayjs(), 'day')
+                  const isOverdue = daysLeft < 0
                   const isUrgent = daysLeft <= 7
                   return (
                     <button
@@ -415,8 +416,8 @@ export default function Dashboard() {
                     >
                       <div className="min-w-0 flex-1">
                         <p className="text-sm font-medium text-gray-900 truncate">{income.concept}</p>
-                        <p className={`text-xs ${isUrgent ? 'text-red-500' : 'text-gray-400'}`}>
-                          {formatDate(income.expected_date)} · {daysLeft}d
+                        <p className={`text-xs ${isOverdue ? 'text-red-600 font-medium' : isUrgent ? 'text-red-500' : 'text-gray-400'}`}>
+                          {isOverdue ? `Vencido · ${formatDate(income.expected_date)}` : `${formatDate(income.expected_date)} · ${daysLeft}d`}
                         </p>
                       </div>
                       <span className="text-sm font-medium text-gray-900">{formatCurrency(income.amount)}</span>

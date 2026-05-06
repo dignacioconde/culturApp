@@ -14,21 +14,22 @@ tags:
 
 # Product Brain Digest
 
-*Generado: 2026-05-06 12:00 UTC*
+*Generado: 2026-05-06 12:13 UTC*
 
 ---
 
 ## Estado operacional
 
-- **Release activa:** ninguna — PRs directas a `main`
+- **Release activa:** `RELEASE-0.1.0-beta.2` — rama `release/0.1.0-beta.2`. Ver RELEASE-0.1.0-beta.2.
 - **Último corte:** `RELEASE-0.1.0-beta.1` — mergeada a `main`. Ver RELEASE-0.1.0-beta.1.
-- **Foco:** Cerrar RELEASE-0.1.0-beta.1 como primer corte del ciclo `0.1` y preparar el siguiente corte mergeable para trabajo de producto.
+- **Foco:** Implementar CACH-B0014 en `RELEASE-0.1.0-beta.2`: corregir los 5 bugs críticos de confianza de datos del MVP (agenda y cobros).
 
 ## Prioridades del plan
 
-1. Cerrar CACH-0029 y mergear RELEASE-0.1.0-beta.1 a `main`.
-2. Abrir `RELEASE-0.1.0-beta.2` con scope pequeno, probablemente CACH-B0014.
-3. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
+1. Implementar CACH-B0014 en rama `feature/CACH-B0014-hardening`.
+2. Mergear feature → `release/0.1.0-beta.2` → `main`.
+3. Después: CACH-0030 (paleta/fuentes) como PR directo a main.
+4. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
 
 ## Tablero
 
@@ -44,9 +45,7 @@ _Sin issues._
 
 ### Review
 
-| ID | Título | Tipo | P |
-|---|---|---|---|
-| CACH-0032 | Priorizar operativa diaria en dashboard movil | feature | p1 |
+_Sin issues._
 
 ### Backlog (p1)
 
@@ -59,7 +58,6 @@ _Sin issues._
 | CACH-B0005 | Importacion, exportacion y portabilidad de datos | feature | p1 |
 | CACH-B0006 | Onboarding y acceso beta | feature | p1 |
 | CACH-B0007 | Calendario unificado e interaccion rapida | feature | p1 |
-| CACH-B0014 | Endurecer agenda, cobros y captura del MVP | bug | p1 |
 
 ## Issues abiertas
 
@@ -73,7 +71,6 @@ _Sin issues._
 | CACH-B0005 | Importacion exportacion y portabilidad de datos | backlog | feature | p1 |
 | CACH-B0006 | Onboarding y acceso beta | backlog | feature | p1 |
 | CACH-B0007 | Calendario unificado e interaccion rapida | backlog | feature | p1 |
-| CACH-B0014 | Endurecer agenda cobros y captura del MVP | backlog | bug | p1 |
 | CACH-0033 | Vista anual en calendario de proyectos | backlog | feature | p2 |
 | CACH-B0008 | PWA notificaciones y offline | backlog | feature | p2 |
 | CACH-B0009 | Inteligencia financiera y features Pro | backlog | feature | p2 |
@@ -104,4 +101,4 @@ _Sin issues._
 
 ## Próxima acción
 
-Crear `RELEASE-0.1.0-beta.2` y `release/0.1.0-beta.2` antes de empezar la siguiente issue de beta.
+Cerrar CACH-B0014, mergear beta.2 a main y actualizar CURRENT_RELEASE + DIGEST.
