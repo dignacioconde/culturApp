@@ -14,7 +14,7 @@ tags:
 
 # Product Brain Digest
 
-*Generado: 2026-05-06 08:04 UTC*
+*Generado: 2026-05-06 12:00 UTC*
 
 ---
 
@@ -65,7 +65,6 @@ _Sin issues._
 
 | ID | Título | Estado | Tipo | P |
 |---|---|---|---|---|
-| CACH-0032 | Priorizar operativa diaria en dashboard movil | review | feature | p1 |
 | CACH-0030 | Homogeneizar diseno con nueva paleta de colores y fuentes | inbox | chore | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | backlog | feature | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | backlog | feature | p1 |
