@@ -16,19 +16,17 @@ tags:
 
 ## Foco actual
 
-Implementar [[../issues/CACH-B0014|CACH-B0014]] en `RELEASE-0.1.0-beta.2`: corregir los 5 bugs críticos de confianza de datos del MVP (agenda y cobros).
+Sin release activa. Siguiente: CACH-0030 (PR directo) o abrir beta.3.
 
 ## Release activa
 
-- [[../releases/RELEASE-0.1.0-beta.2|RELEASE-0.1.0-beta.2]] — rama `release/0.1.0-beta.2`
-- [[../releases/CURRENT_RELEASE|Current Release]]
+Ninguna. Ultimo corte: [[../releases/RELEASE-0.1.0-beta.2|RELEASE-0.1.0-beta.2]] — mergeada a `main` el 2026-05-06.
 
 ## Prioridades
 
-1. Implementar [[../issues/CACH-B0014|CACH-B0014]] en rama `feature/CACH-B0014-hardening`.
-2. Mergear feature → `release/0.1.0-beta.2` → `main`.
-3. Después: CACH-0030 (paleta/fuentes) como PR directo a main.
-4. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
+1. CACH-0030 (paleta/fuentes) como PR directo a main.
+2. Evaluar backlog p1 para definir si se abre `beta.3`.
+3. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
 
 ## Plan operativo
 
@@ -41,4 +39,4 @@ Implementar [[../issues/CACH-B0014|CACH-B0014]] en `RELEASE-0.1.0-beta.2`: corre
 
 ## Proximo checkpoint
 
-Cerrar CACH-B0014, mergear beta.2 a main y actualizar CURRENT_RELEASE + DIGEST.
+Decidir si CACH-0030 va como PR directo o si se abre `beta.3` con más scope.

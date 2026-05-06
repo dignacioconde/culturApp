@@ -14,22 +14,21 @@ tags:
 
 # Product Brain Digest
 
-*Generado: 2026-05-06 12:13 UTC*
+*Generado: 2026-05-06 12:14 UTC*
 
 ---
 
 ## Estado operacional
 
-- **Release activa:** `RELEASE-0.1.0-beta.2` — rama `release/0.1.0-beta.2`. Ver RELEASE-0.1.0-beta.2.
-- **Último corte:** `RELEASE-0.1.0-beta.1` — mergeada a `main`. Ver RELEASE-0.1.0-beta.1.
-- **Foco:** Implementar CACH-B0014 en `RELEASE-0.1.0-beta.2`: corregir los 5 bugs críticos de confianza de datos del MVP (agenda y cobros).
+- **Release activa:** ninguna — PRs directas a `main`
+- **Último corte:** `RELEASE-0.1.0-beta.2` — mergeada a `main` el 2026-05-06. Ver RELEASE-0.1.0-beta.2.
+- **Foco:** Sin release activa. Siguiente: CACH-0030 (PR directo) o abrir beta.3.
 
 ## Prioridades del plan
 
-1. Implementar CACH-B0014 en rama `feature/CACH-B0014-hardening`.
-2. Mergear feature → `release/0.1.0-beta.2` → `main`.
-3. Después: CACH-0030 (paleta/fuentes) como PR directo a main.
-4. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
+1. CACH-0030 (paleta/fuentes) como PR directo a main.
+2. Evaluar backlog p1 para definir si se abre `beta.3`.
+3. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
 
 ## Tablero
 
@@ -101,4 +100,4 @@ _Sin issues._
 
 ## Próxima acción
 
-Cerrar CACH-B0014, mergear beta.2 a main y actualizar CURRENT_RELEASE + DIGEST.
+Decidir si CACH-0030 va como PR directo o si se abre `beta.3` con más scope.

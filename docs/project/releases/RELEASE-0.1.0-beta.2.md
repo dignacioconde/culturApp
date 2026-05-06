@@ -1,7 +1,7 @@
 ---
 id: RELEASE-0.1.0-beta.2
 type: release
-status: Active
+status: Released
 created: 2026-05-06
 updated: 2026-05-06
 release_branch: release/0.1.0-beta.2
@@ -17,7 +17,7 @@ tags:
 
 ## Estado
 
-Active
+Released
 
 ## Rama de release
 
@@ -83,10 +83,10 @@ El usuario puede confiar en que los eventos aparecen a la hora correcta, los cob
 
 ## Checklist de salida
 
-- [ ] Release mergeada a `main`
+- [x] Release mergeada a `main`
 - [ ] Release notes actualizadas
-- [ ] Issues marcadas como `Released`
-- [ ] Current Release actualizado
+- [x] Issues marcadas como Released
+- [x] Current Release actualizado
 - [ ] Current Plan actualizado
 - [ ] Backlog actualizado
 - [ ] Proximos pasos documentados
@@ -107,4 +107,4 @@ El usuario puede confiar en que los eventos aparecen a la hora correcta, los cob
 
 ## Resultado final
 
-Pendiente de merge a `main` mediante PR.
+Mergeada a `main` el 2026-05-06.
