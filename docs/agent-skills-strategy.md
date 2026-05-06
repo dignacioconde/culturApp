@@ -29,6 +29,7 @@ Do not copy the same skill into both `.agents` and `.claude`. If a tool cannot f
 | `cultura-security-privacy-review` | Auth, RLS, secrets, privacy, dependency risk, and agent skill safety. |
 | `cultura-testing-release-check` | Lint/build, smoke tests, regression matrices, Vercel readiness. |
 | `cultura-code-review` | Cross-cutting code review of diffs, PRs, architecture, risk, and maintainability. |
+| `cultura-release-task-flow` | Integrate finished CACH tasks and documentation into the active beta release branch with Product Brain validation. |
 | `memory-protocol` | File-based Markdown memory for durable agent context, recall, curation, and forgetting. |
 | `agent-context-maintenance` | Maintain agent context hygiene, review context-check warnings, and compact prompts/memory without losing critical rules. |
 | `caveman` | Ultra-concise communication mode adapted for CulturaApp, with safety fallbacks for reviews, data, finance, RLS, and irreversible actions. |
