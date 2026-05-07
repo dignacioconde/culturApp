@@ -2,7 +2,7 @@
 id: CACH-B0017
 title: Panel admin para invitaciones beta
 type: feature
-status: review
+status: done
 cycle: beta-1
 release: RELEASE-0.1.0-beta.9
 priority: p1
@@ -61,6 +61,7 @@ Crear códigos manualmente por SQL es suficiente para validar beta 8, pero no es
 - Revisión local de seguridad: el cliente usa RPCs y no consulta `beta_invites`/`beta_invite_redemptions` directamente.
 - Añadida migración hotfix para resolver `pgcrypto` en Supabase cuando la extensión vive en `extensions`.
 - Migraciones aplicadas manualmente en Supabase remoto; creación de invitaciones validada desde `/admin/invitaciones`.
+- Mergeada a `main` por PR #88. Incluida en `v0.1.0-beta.9`.
 
 ## Out of Scope
 

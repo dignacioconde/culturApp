@@ -32,6 +32,8 @@ tags:
 - [[../issues/CACH-B0014|CACH-B0014]] — Endurecer agenda cobros y captura del MVP
 - [[../issues/CACH-B0015|CACH-B0015]] — Operativizar backlog releases y ramas en Product Brain
 - [[../issues/CACH-B0016|CACH-B0016]] — Refundacion operativa del Product Brain y tests B0014
+- [[../issues/CACH-B0017|CACH-B0017]] — Panel admin para invitaciones beta
+- [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura
 
 ## backlog
 
@@ -45,8 +47,3 @@ tags:
 - [[../issues/CACH-B0011|CACH-B0011]] — Categorias etiquetas y taxonomia
 - [[../issues/CACH-B0012|CACH-B0012]] — Perfil publico viralidad y referidos
 - [[../issues/CACH-B0013|CACH-B0013]] — Gestion documental por proyecto evento
-
-## review
-
-- [[../issues/CACH-B0017|CACH-B0017]] — Panel admin para invitaciones beta
-- [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura

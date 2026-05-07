@@ -1,7 +1,7 @@
 ---
 id: RELEASE-0.1.0-beta.9
 type: release
-status: Active
+status: Released
 created: 2026-05-07
 updated: 2026-05-07
 release_branch: release/0.1.0-beta.9
@@ -18,7 +18,7 @@ tags:
 
 ## Estado
 
-Active
+Released
 
 ## Rama de release
 
@@ -68,8 +68,8 @@ Permitir gestionar invitaciones beta desde una pantalla interna segura, con rol 
 
 | Issue | Título | Estado | Rama |
 |---|---|---|---|
-| [[../issues/CACH-B0017|CACH-B0017]] | Panel admin para invitaciones beta | Review | `release/0.1.0-beta.9` |
-| [[../issues/CACH-B0018|CACH-B0018]] | Adaptador Codex-native para perfiles Cultura | Review | `release/0.1.0-beta.9` |
+| [[../issues/CACH-B0017|CACH-B0017]] | Panel admin para invitaciones beta | Released | `release/0.1.0-beta.9` |
+| [[../issues/CACH-B0018|CACH-B0018]] | Adaptador Codex-native para perfiles Cultura | Released | `release/0.1.0-beta.9` |
 
 ## Fuera de alcance
 
@@ -117,20 +117,20 @@ Permitir gestionar invitaciones beta desde una pantalla interna segura, con rol 
 
 ## Checklist de salida
 
-- [ ] PR `release/0.1.0-beta.9` -> `main` abierta
-- [ ] CI en verde
-- [ ] Revisión aprobada
-- [ ] PR mergeada en `main`
-- [ ] `main` actualizado en local
+- [x] PR `release/0.1.0-beta.9` -> `main` abierta
+- [x] CI en verde
+- [x] Revisión aprobada
+- [x] PR mergeada en `main`
+- [x] `main` actualizado en local
 - [ ] Tag `v0.1.0-beta.9` creado desde `main`
 - [ ] Producción verificada si aplica
 - [ ] Rama remota `release/0.1.0-beta.9` eliminada
-- [ ] Release notes actualizadas
-- [ ] Issues marcadas como `Released`
-- [ ] Estado actual actualizado
-- [ ] Current Release actualizado
-- [ ] Backlog actualizado
-- [ ] Documento de release actualizado como cerrado
+- [x] Release notes actualizadas
+- [x] Issues marcadas como `Released`
+- [x] Estado actual actualizado
+- [x] Current Release actualizado
+- [x] Backlog actualizado
+- [x] Documento de release actualizado como cerrado
 
 ## Release notes
 
@@ -165,4 +165,4 @@ Permitir gestionar invitaciones beta desde una pantalla interna segura, con rol 
 
 ## Resultado final
 
-Lista para PR `release/0.1.0-beta.9` -> `main`. La release no debe marcarse como `Released` ni etiquetarse hasta mergear en `main` y validar CI.
+Release mergeada a `main` por PR #88 el 2026-05-07. Pendiente de crear tag, verificar producción y limpiar rama remota.

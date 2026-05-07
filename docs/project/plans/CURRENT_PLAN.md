@@ -16,19 +16,19 @@ tags:
 
 ## Foco actual
 
-Release activa: [[../releases/RELEASE-0.1.0-beta.9|RELEASE-0.1.0-beta.9]] — panel admin de invitaciones beta.
+Sin release activa tras el cierre de [[../releases/RELEASE-0.1.0-beta.9|RELEASE-0.1.0-beta.9]].
 
 ## Release activa
 
-[[../releases/RELEASE-0.1.0-beta.9|RELEASE-0.1.0-beta.9]]
+Ninguna.
 
-Ultimo corte: [[../releases/RELEASE-0.1.0-beta.8|RELEASE-0.1.0-beta.8]] — mergeada a `main` el 2026-05-07.
+Ultimo corte: [[../releases/RELEASE-0.1.0-beta.9|RELEASE-0.1.0-beta.9]] — mergeada a `main` por PR #88 el 2026-05-07.
 
 ## Prioridades
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
-2. Ejecutar [[../issues/CACH-B0017|CACH-B0017]] como corte beta 9: rol admin, RPCs seguras y pantalla interna de invitaciones.
-3. Mantener fuera de beta 9 calendario unificado, mobile financiero, tooling interno, analítica real, i18n y growth.
+2. Mantener el backlog preparado para elegir el próximo corte desde `main`.
+3. Mantener fuera de cierres ya publicados calendario unificado, mobile financiero, tooling interno amplio, analítica real, i18n y growth salvo release nueva explícita.
 
 ## Plan operativo
 
@@ -41,4 +41,4 @@ Ultimo corte: [[../releases/RELEASE-0.1.0-beta.8|RELEASE-0.1.0-beta.8]] — merg
 
 ## Próximo checkpoint
 
-Validar `/admin/invitaciones`, RLS/RPCs, registro con código creado desde panel y acceso denegado para usuarios normales.
+Elegir el siguiente corte: calendario unificado, mobile financiero, tooling interno amplio o una micro-release técnica.

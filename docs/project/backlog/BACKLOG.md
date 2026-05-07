@@ -64,13 +64,13 @@ Sin issues en inbox.
 
 | ID | Titulo | Tipo | Prioridad | Nota |
 |---|---|---|---|---|
-| [[../issues/CACH-B0017|CACH-B0017]] | Panel admin para invitaciones beta | feature | p1 | Lista para PR de release beta 9; falta CI/merge/tag. |
-| [[../issues/CACH-B0018|CACH-B0018]] | Adaptador Codex-native para perfiles Cultura | chore | p2 | Lista para PR de release beta 9. |
 
 ## Done
 
 | ID | Titulo | Release | Resultado |
 |---|---|---|---|
+| [[../issues/CACH-B0017|CACH-B0017]] | Panel admin para invitaciones beta | [[../releases/RELEASE-0.1.0-beta.9|RELEASE-0.1.0-beta.9]] | Panel admin, rol admin, RPCs seguras y hotfix pgcrypto integrados por PR #88. |
+| [[../issues/CACH-B0018|CACH-B0018]] | Adaptador Codex-native para perfiles Cultura | [[../releases/RELEASE-0.1.0-beta.9|RELEASE-0.1.0-beta.9]] | Flujo Codex-native documentado e integrado por PR #88. |
 | [[../issues/CACH-B0006|CACH-B0006]] | Onboarding y acceso beta | [[../releases/RELEASE-0.1.0-beta.8|RELEASE-0.1.0-beta.8]] | Acceso por invitación, onboarding y consentimiento básico integrados por PR #87. |
 | [[../issues/CACH-0030|CACH-0030]] | Homogeneizar diseno con nueva paleta | [[../releases/RELEASE-0.1.0-beta.6|RELEASE-0.1.0-beta.6]] | Cerrada por beta 6 en PR #85; drift documental corregido tras beta 7. |
 | [[../issues/CACH-0038|CACH-0038]] | Compactar mobile financiero y detalles accionables | [[../releases/RELEASE-0.1.0-beta.6|RELEASE-0.1.0-beta.6]] | Cerrada por beta 6 en PR #85; drift documental corregido tras beta 7. |

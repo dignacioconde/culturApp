@@ -16,25 +16,24 @@ tags:
 
 ## Release activa
 
-[[RELEASE-0.1.0-beta.9|RELEASE-0.1.0-beta.9]] — Panel admin de invitaciones.
+Sin release activa.
 
 ## Rama activa
 
-`release/0.1.0-beta.9`
+Ninguna.
 
 ## Ultimo corte
 
-`RELEASE-0.1.0-beta.8` — mergeada a `main` en PR #87 el 2026-05-07. Ver [[RELEASE-0.1.0-beta.8]].
+`RELEASE-0.1.0-beta.9` — mergeada a `main` en PR #88 el 2026-05-07. Ver [[RELEASE-0.1.0-beta.9]].
 
 ## Scope actual
 
-- [[../issues/CACH-B0017|CACH-B0017]] — Panel admin para invitaciones beta.
-- [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura.
+Sin scope activo.
 
 ## Regla de trabajo para esta release
 
-Las tareas de [[../issues/CACH-B0017|CACH-B0017]] y [[../issues/CACH-B0018|CACH-B0018]] salen de `release/0.1.0-beta.9` y vuelven a esa rama. No mezclar calendario unificado, mobile financiero, tooling interno no trazado ni analítica real en este corte.
+No abrir trabajo nuevo en `release/0.1.0-beta.9`. Crear nueva release o usar flujo ligero desde `main` según scope.
 
 ## Como cerrar esta release
 
-Cerrar mediante PR única `release/0.1.0-beta.9` -> `main`, validar CI, actualizar release notes, marcar CACH-B0017 y CACH-B0018 como cerradas/Released, crear tag `v0.1.0-beta.9` desde `main` y limpiar rama remota.
+Beta 9 queda cerrada cuando existan tag `v0.1.0-beta.9`, verificación de producción y limpieza de rama remota.

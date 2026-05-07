@@ -2,7 +2,7 @@
 id: CACH-B0018
 title: Adaptador Codex-native para perfiles Cultura
 type: chore
-status: review
+status: done
 cycle: beta-1
 release: RELEASE-0.1.0-beta.9
 priority: p2
@@ -59,6 +59,7 @@ Los perfiles OpenCode contienen rol, criterio y restricciones de trabajo útiles
 - Ejecutado `npm run pb:check`: OK.
 - Ejecutado `git diff --check`: OK.
 - Smoke Codex-native con perfiles `cultura-data` y `cultura-security`: OK, sin hallazgos bloqueantes.
+- Mergeada a `main` por PR #88. Incluida en `v0.1.0-beta.9`.
 
 ## Out of Scope
 
