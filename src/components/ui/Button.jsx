@@ -1,8 +1,8 @@
 const variants = {
-  primary: 'bg-[#C94035] text-white shadow-sm hover:bg-[#A8342B] active:bg-[#8f2b23] disabled:bg-[#ef8580]',
-  secondary: 'border border-[#E2D9C2] bg-[#F5EFE0] text-[#211C18] shadow-sm hover:bg-[#EBE3CE] hover:text-[#211C18] active:bg-[#E2D9C2] disabled:bg-[#EBE3CE] disabled:text-[#5C5149]',
-  danger: 'bg-[#C94035] text-white shadow-sm hover:bg-[#A8342B] active:bg-[#8f2b23] disabled:bg-[#ef8580]',
-  ghost: 'text-[#5C5149] hover:bg-[#EBE3CE] hover:text-[#211C18] active:bg-[#E2D9C2] disabled:text-[#5C5149]',
+  primary: 'bg-[var(--color-red)] text-white shadow-sm hover:bg-[var(--color-red-hover)] active:bg-[var(--color-primary-800)] disabled:bg-[var(--color-primary-400)]',
+  secondary: 'border border-[var(--color-paper-mid)] bg-[var(--color-paper)] text-[var(--color-ink)] shadow-sm hover:bg-[var(--color-paper-dark)] hover:text-[var(--color-ink)] active:bg-[var(--color-paper-mid)] disabled:bg-[var(--color-paper-dark)] disabled:text-[var(--color-ink-muted)]',
+  danger: 'bg-[var(--color-red)] text-white shadow-sm hover:bg-[var(--color-red-hover)] active:bg-[var(--color-primary-800)] disabled:bg-[var(--color-primary-400)]',
+  ghost: 'text-[var(--color-ink-muted)] hover:bg-[var(--color-paper-dark)] hover:text-[var(--color-ink)] active:bg-[var(--color-paper-mid)] disabled:text-[var(--color-ink-muted)]',
 }
 
 const sizes = {
@@ -18,7 +18,7 @@ export function Button({ children, variant = 'primary', size = 'md', className =
   return (
     <button
       type={type}
-      className={`inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-lg font-medium leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:shadow-none ${variantClass} ${sizeClass} ${className}`}
+      className={`inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-lg font-medium leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:shadow-none ${variantClass} ${sizeClass} ${className}`}
       {...props}
     >
       {children}

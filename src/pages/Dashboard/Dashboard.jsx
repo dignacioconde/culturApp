@@ -132,13 +132,13 @@ export default function Dashboard() {
         <Card className="p-3 sm:p-4">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="grid grid-cols-[2.75rem_minmax(0,1fr)_2.75rem_6.5rem] items-center gap-2 sm:flex sm:gap-1">
-              <button onClick={prevMonth} className="flex min-h-11 items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100" aria-label="Mes anterior">
+              <button onClick={prevMonth} className="flex min-h-11 items-center justify-center rounded-lg text-[var(--color-ink-muted)] hover:bg-[var(--color-paper-dark)]" aria-label="Mes anterior">
                 <ChevronLeft size={18} />
               </button>
-              <span className="min-w-0 truncate text-center text-sm font-medium capitalize text-gray-900 sm:min-w-[130px]">
+              <span className="min-w-0 truncate text-center text-sm font-medium capitalize text-[var(--color-ink)] sm:min-w-[130px]">
                 {selectedMonthLabel}
               </span>
-              <button onClick={nextMonth} className="flex min-h-11 items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100" aria-label="Mes siguiente">
+              <button onClick={nextMonth} className="flex min-h-11 items-center justify-center rounded-lg text-[var(--color-ink-muted)] hover:bg-[var(--color-paper-dark)]" aria-label="Mes siguiente">
                 <ChevronRight size={18} />
               </button>
               <Select
@@ -151,16 +151,16 @@ export default function Dashboard() {
               </Select>
             </div>
 
-            <div className="flex self-start overflow-hidden rounded-lg border border-gray-200 text-sm">
+            <div className="flex self-start overflow-hidden rounded-lg border border-[var(--color-paper-mid)] text-sm">
               <button
                 onClick={() => setView('cash')}
-                className={`min-h-[44px] px-3 py-2 transition-colors sm:min-h-[unset] sm:px-2.5 sm:py-1.5 ${view === 'cash' ? 'bg-[var(--color-primary-500)] text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
+                className={`min-h-[44px] px-3 py-2 transition-colors sm:min-h-[unset] sm:px-2.5 sm:py-1.5 ${view === 'cash' ? 'bg-[var(--color-primary-500)] text-white' : 'bg-[var(--color-surface)] text-[var(--color-ink-muted)] hover:bg-[var(--color-surface-alt)]'}`}
               >
                 Caja del mes
               </button>
               <button
                 onClick={() => setView('work')}
-                className={`min-h-[44px] border-l border-gray-200 px-3 py-2 transition-colors sm:min-h-[unset] sm:px-2.5 sm:py-1.5 ${view === 'work' ? 'bg-[var(--color-primary-500)] text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
+                className={`min-h-[44px] border-l border-[var(--color-paper-mid)] px-3 py-2 transition-colors sm:min-h-[unset] sm:px-2.5 sm:py-1.5 ${view === 'work' ? 'bg-[var(--color-primary-500)] text-white' : 'bg-[var(--color-surface)] text-[var(--color-ink-muted)] hover:bg-[var(--color-surface-alt)]'}`}
               >
                 Trabajos
               </button>
@@ -195,9 +195,9 @@ export default function Dashboard() {
             <Card className="p-4 md:hidden">
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="text-xs font-medium text-gray-500">A cobrar en {selectedMonthLabel}</p>
-                  <p className="mt-1 text-3xl font-semibold leading-tight text-[#211C18]">{formatCurrency(cashKpis.plannedTotal)}</p>
-                  <p className="mt-1 text-xs text-gray-400">
+                  <p className="text-xs font-medium text-[var(--color-ink-muted)]">A cobrar en {selectedMonthLabel}</p>
+                  <p className="mt-1 text-3xl font-semibold leading-tight text-[var(--color-ink)]">{formatCurrency(cashKpis.plannedTotal)}</p>
+                  <p className="mt-1 text-xs text-[var(--color-ink-muted)]">
                     {cashKpis.planned.length} ingreso{cashKpis.planned.length === 1 ? '' : 's'} previsto{cashKpis.planned.length === 1 ? '' : 's'} o arrastrado{cashKpis.planned.length === 1 ? '' : 's'}
                   </p>
                 </div>

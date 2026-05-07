@@ -44,6 +44,7 @@
   --color-gray-700: #374151;
   --color-gray-800: #1f2937;
   --color-gray-900: #111827;
+  --color-gray-950: #030712;
 
   /* ─────────────────────────────────────────
      BRAND / PRIMARY — Red (replaces Indigo)
@@ -130,10 +131,10 @@
   /* Font stack — DM Serif Display para títulos, Instrument Sans UI, DM Mono datos */
   --font-display: 'DM Serif Display', Georgia, serif;
   --font-ui:      'Instrument Sans', system-ui, sans-serif;
-  --font-mono:    'DM Mono', 'Cascadia Code', monospace;
+  --font-data:    'DM Mono', 'Cascadia Code', monospace;
 
   --font-sans: var(--font-ui);
-  --font-mono: var(--font-mono);
+  --font-mono: var(--font-data);
 
   /* Size scale */
   --text-xs:   0.75rem;

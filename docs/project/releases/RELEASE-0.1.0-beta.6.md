@@ -1,7 +1,7 @@
 ---
 id: RELEASE-0.1.0-beta.6
 type: release
-status: Active
+status: Stabilizing
 created: 2026-05-07
 updated: 2026-05-07
 release_branch: release/0.1.0-beta.6
@@ -18,7 +18,7 @@ tags:
 
 ## Estado
 
-Active
+Stabilizing
 
 ## Rama de release
 
@@ -71,8 +71,8 @@ Beta 6 no activa una nueva arquitectura de datos: prepara una base visual y mobi
 
 | Issue | Título | Estado | Rama |
 |---|---|---|---|
-| [[../issues/CACH-0030|CACH-0030]] | Homogeneizar diseño con nueva paleta de colores y fuentes | In progress | `release/0.1.0-beta.6` |
-| [[../issues/CACH-0038|CACH-0038]] | Compactar mobile financiero y detalles accionables | In progress | `release/0.1.0-beta.6` |
+| [[../issues/CACH-0030|CACH-0030]] | Homogeneizar diseño con nueva paleta de colores y fuentes | Review | `release/0.1.0-beta.6` |
+| [[../issues/CACH-0038|CACH-0038]] | Compactar mobile financiero y detalles accionables | Review | `release/0.1.0-beta.6` |
 
 ## Fuera de alcance
 
@@ -105,20 +105,20 @@ Beta 6 no activa una nueva arquitectura de datos: prepara una base visual y mobi
 ## Checklist de desarrollo
 
 - [x] Todas las issues están en progreso o cerradas
-- [ ] Commits integrados en rama release
-- [ ] No hay cambios sueltos fuera de release
-- [ ] No hay issues sin estado
-- [ ] No hay decisiones importantes sin documentar
+- [x] Commits integrados en rama release
+- [x] No hay cambios sueltos fuera de release
+- [x] No hay issues sin estado
+- [x] No hay decisiones importantes sin documentar
 
 ## Checklist de estabilización
 
-- [ ] Build correcto
-- [ ] Tests/checks correctos (`npm run test`, `npm run lint`, `npm run build`, `npm run pb:check`, `git diff --check`)
-- [ ] Revisión visual
-- [ ] Revisión responsive
-- [ ] Revisión accesibilidad
-- [ ] Revisión de regresión básica
-- [ ] Revisión de documentación
+- [x] Build correcto
+- [x] Tests/checks correctos (`npm run test`, `npm run lint`, `npm run build`, `npm run pb:check`, `git diff --check`)
+- [ ] Revisión visual autenticada
+- [ ] Revisión responsive autenticada
+- [x] Revisión accesibilidad
+- [x] Revisión de regresión básica
+- [x] Revisión de documentación
 
 ## Checklist de salida
 
@@ -145,11 +145,13 @@ Beta 6 no activa una nueva arquitectura de datos: prepara una base visual y mobi
 
 ### Cambiado
 
-- Pendiente.
+- Componentes base, formularios, dashboard, calendarios y detalles usan tokens visuales de forma más consistente.
+- Los resúmenes financieros móviles de proyecto y evento muestran `Cobrado`, `Pendiente` y `Neto` por defecto.
+- Ingresos y gastos móviles usan filas compactas con edición por tap; el borrado vive dentro del modal de edición.
 
 ### Corregido
 
-- Pendiente.
+- `--font-mono` deja de ser autorreferente y `--color-gray-950` queda definido en tokens.
 
 ### Eliminado
 
@@ -158,6 +160,8 @@ Beta 6 no activa una nueva arquitectura de datos: prepara una base visual y mobi
 ### Técnico
 
 - Validación esperada: `npm run test`, `npm run lint`, `npm run build`, `npm run pb:check`, `git diff --check` y verificación visual responsive.
+- Validación ejecutada: `npm run test`, `npm run lint`, `npm run build`, `npm run pb:check`, `git diff --check`.
+- QA visual autenticada pendiente: Playwright local confirma redirección a `/login` en rutas privadas sin sesión.
 
 ## Resultado final
 

@@ -29,11 +29,10 @@ tags:
 - [[../issues/CACH-B0015|CACH-B0015]] — Operativizar backlog releases y ramas en Product Brain
 - [[../issues/CACH-B0016|CACH-B0016]] — Refundacion operativa del Product Brain y tests B0014
 
-## in-progress
+## review
 
 - [[../issues/CACH-0030|CACH-0030]] — Homogeneizar diseno con nueva paleta de colores y fuentes
 - [[../issues/CACH-0038|CACH-0038]] — Compactar mobile financiero y detalles accionables
-
 ## backlog
 
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento

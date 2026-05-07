@@ -2,15 +2,15 @@ import { Card } from '../../components/ui/Card'
 
 export function KpiCard({ title, value, subtitle, icon: Icon, color = 'red', progress }) {
   const colors = {
-    red: 'bg-[#F9EDEB] text-[#C94035] ring-[#F9EDEB]',
-    green: 'bg-[#E8F4EF] text-[#2D6A4F] ring-[#E8F4EF]',
-    amber: 'bg-[#FDF5E4] text-[#D4921A] ring-[#FDF5E4]',
+    red: 'bg-[var(--color-red-light)] text-[var(--color-red)] ring-[var(--color-red-light)]',
+    green: 'bg-[var(--color-green-light)] text-[var(--color-green)] ring-[var(--color-green-light)]',
+    amber: 'bg-[var(--color-amber-light)] text-[var(--color-amber)] ring-[var(--color-amber-light)]',
   }
 
   const progressBg = {
-    red: 'bg-[#C94035]',
-    green: 'bg-[#2D6A4F]',
-    amber: 'bg-[#D4921A]',
+    red: 'bg-[var(--color-red)]',
+    green: 'bg-[var(--color-green)]',
+    amber: 'bg-[var(--color-amber)]',
   }
 
   return (
@@ -22,11 +22,11 @@ export function KpiCard({ title, value, subtitle, icon: Icon, color = 'red', pro
         </div>
       )}
       <div className="flex-1 min-w-0">
-        <p className="text-xs sm:text-sm font-medium text-[#5C5149] mb-1 truncate">{title}</p>
-        <p className="text-xl sm:text-2xl font-semibold text-[#211C18] leading-tight break-words">{value}</p>
-        {subtitle && <p className="text-xs text-[#5C5149] mt-2 leading-snug">{subtitle}</p>}
+        <p className="text-xs sm:text-sm font-medium text-[var(--color-ink-muted)] mb-1 truncate">{title}</p>
+        <p className="text-xl sm:text-2xl font-semibold text-[var(--color-ink)] leading-tight break-words">{value}</p>
+        {subtitle && <p className="text-xs text-[var(--color-ink-muted)] mt-2 leading-snug">{subtitle}</p>}
         {progress != null && (
-          <div className="mt-3 h-1 w-full rounded-full bg-[#E2D9C2] overflow-hidden">
+          <div className="mt-3 h-1 w-full rounded-full bg-[var(--color-paper-mid)] overflow-hidden">
             <div
               className={`h-full rounded-full ${progressBg[color]}`}
               style={{ width: `${Math.min(Math.max(progress, 0), 1) * 100}%` }}

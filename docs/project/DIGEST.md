@@ -14,7 +14,7 @@ tags:
 
 # Product Brain Digest
 
-*Generado: 2026-05-07 07:46 UTC*
+*Generado: 2026-05-07 07:59 UTC*
 
 ---
 
@@ -38,14 +38,14 @@ _Sin issues._
 
 ### In progress
 
+_Sin issues._
+
+### Review
+
 | ID | Título | Tipo | P |
 |---|---|---|---|
 | CACH-0030 | Homogeneizar diseno con nueva paleta | chore | p1 |
 | CACH-0038 | Compactar mobile financiero y detalles accionables | feature | p1 |
-
-### Review
-
-_Sin issues._
 
 ### Backlog (p1)
 
@@ -62,8 +62,8 @@ _Sin issues._
 
 | ID | Título | Estado | Tipo | P |
 |---|---|---|---|---|
-| CACH-0030 | Homogeneizar diseno con nueva paleta de colores y fuentes | in-progress | chore | p1 |
-| CACH-0038 | Compactar mobile financiero y detalles accionables | in-progress | feature | p1 |
+| CACH-0030 | Homogeneizar diseno con nueva paleta de colores y fuentes | review | chore | p1 |
+| CACH-0038 | Compactar mobile financiero y detalles accionables | review | feature | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | backlog | feature | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | backlog | feature | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | backlog | feature | p1 |

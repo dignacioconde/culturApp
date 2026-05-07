@@ -59,14 +59,14 @@ Sin issues en inbox.
 | [[../issues/CACH-B0013|CACH-B0013]] | Gestion documental por proyecto/evento | feature | p3 | Post-MVP. |
 ## In progress
 
-| ID | Titulo | Tipo | Prioridad | Nota |
-|---|---|---|---|---|
-| [[../issues/CACH-0030|CACH-0030]] | Homogeneizar diseno con nueva paleta | chore | p1 | Scope Beta 6: consistencia visual y QA responsive. |
-| [[../issues/CACH-0038|CACH-0038]] | Compactar mobile financiero y detalles accionables | feature | p1 | Slice de CACH-B0002 para Beta 6. |
+Sin issues en progreso.
 
 ## Review
 
-Sin issues en review.
+| ID | Titulo | Tipo | Prioridad | Nota |
+|---|---|---|---|---|
+| [[../issues/CACH-0030|CACH-0030]] | Homogeneizar diseno con nueva paleta | chore | p1 | Pendiente QA visual autenticada. |
+| [[../issues/CACH-0038|CACH-0038]] | Compactar mobile financiero y detalles accionables | feature | p1 | Pendiente QA visual autenticada. |
 
 ## Done
 
