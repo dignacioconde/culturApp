@@ -64,6 +64,8 @@ Sin issues en inbox.
 
 | ID | Titulo | Tipo | Prioridad | Nota |
 |---|---|---|---|---|
+| [[../issues/CACH-B0017|CACH-B0017]] | Panel admin para invitaciones beta | feature | p1 | Lista para PR de release beta 9; falta CI/merge/tag. |
+| [[../issues/CACH-B0018|CACH-B0018]] | Adaptador Codex-native para perfiles Cultura | chore | p2 | Lista para PR de release beta 9. |
 
 ## Done
 

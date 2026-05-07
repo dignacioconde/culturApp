@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, Link, useLocation } from 'react-router-dom'
 import { useAuth } from './hooks/useAuth'
 import { useProfile } from './hooks/useProfile'
 import { ScrollLockProvider } from './hooks/useScrollLock'
@@ -15,15 +15,16 @@ import ProjectDetail from './pages/Projects/ProjectDetail'
 import Work from './pages/Work/Work'
 import Settings from './pages/Settings/Settings'
 import Data from './pages/Data/Data'
+import AdminInvites from './pages/Admin/AdminInvites'
 
-function PrivateRoute({ children }) {
+function PrivateRoute({ children, requireAdmin = false }) {
   const { user, loading } = useAuth()
   if (loading) return <div className="min-h-screen flex items-center justify-center text-sm text-gray-400">Cargando...</div>
   if (!user) return <Navigate to="/login" replace />
-  return <ProfileGate user={user}>{children}</ProfileGate>
+  return <ProfileGate user={user} requireAdmin={requireAdmin}>{children}</ProfileGate>
 }
 
-function ProfileGate({ user, children }) {
+function ProfileGate({ user, requireAdmin, children }) {
   const location = useLocation()
   const { profile, loading, error, refetch } = useProfile(user?.id)
   const isOnboardingRoute = location.pathname === '/onboarding'
@@ -56,6 +57,25 @@ function ProfileGate({ user, children }) {
     return <Navigate to="/onboarding" replace state={{ from: location.pathname }} />
   }
 
+  if (requireAdmin && profile.role !== 'admin') {
+    return (
+      <div className="min-h-screen bg-[var(--color-paper)] flex items-center justify-center p-4">
+        <div className="w-full max-w-md rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-surface)] p-6 text-center shadow-sm">
+          <h1 className="text-lg font-semibold text-[var(--color-ink)]">No tienes acceso a esta zona</h1>
+          <p className="mt-2 text-sm text-[var(--color-ink-muted)]">
+            Esta pantalla es solo para cuentas administradoras de la beta.
+          </p>
+          <Link
+            to="/dashboard"
+            className="mt-5 inline-flex min-h-10 items-center justify-center rounded-lg bg-[var(--color-red)] px-4 py-2 text-sm font-medium text-white hover:bg-[var(--color-red-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2"
+          >
+            Volver al dashboard
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
   return children
 }
 
@@ -84,6 +104,7 @@ export default function App() {
         <Route path="/work" element={<PrivateRoute><Work /></PrivateRoute>} />
         <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>} />
         <Route path="/data" element={<PrivateRoute><Data /></PrivateRoute>} />
+        <Route path="/admin/invitaciones" element={<PrivateRoute requireAdmin><AdminInvites /></PrivateRoute>} />
         <Route path="/calendar" element={<Navigate to="/calendar/events" replace />} />
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>

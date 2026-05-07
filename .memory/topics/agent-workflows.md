@@ -28,6 +28,8 @@ Context loading:
 
 Agent execution:
 - When the user asks to run OpenCode agents, launch the repository workflow directly.
+- When the user asks for Codex agents, use native Codex subagents when available; OpenCode profiles may be used as role context, but they are not permission enforcement.
+- In Codex-native challenge or review, load only the relevant `.opencode/agents/<role>.md` profile, keep agents read-only, avoid `.opencode/AGENT_STATE.md`, and do not run `npm run agents:*` unless OpenCode is explicitly requested.
 - Do only the minimum manual prep needed to form a safe command, scope and ownership.
 - Do not use subagents for trivial changes.
 - Parallel agents need isolated write ownership or explicit coordination through `.opencode/AGENT_STATE.md`.
@@ -51,6 +53,12 @@ Verification and closure:
 - If there is an open PR, keep the issue open and use `Closes #N`, `Fixes #N` or equivalent in the PR body.
 - If there is no PR, close only after pushed commit plus comment with summary, commit/branch, verification and memory/docs status.
 - If the user expects the change in the live app, preview is not enough: merge to `main`, verify production alias and clean branches.
+
+Remote database operations:
+- Prefer Supabase MCP for direct CulturaApp database diagnostics and operations when available; use SQL Editor as manual fallback when the current agent session lacks MCP access.
+- For production mutations, agents must show the exact SQL or migration and wait for explicit human confirmation before executing.
+- Do not store or paste PATs, connection strings, service role keys, passwords or `.env.local` values in repo, memory, issues, prompts or PRs.
+- Canonical workflow: `docs/project/process/supabase-db-access.md`.
 
 Memory hygiene:
 - Before opening a PR, review task context, diff and commits against base.

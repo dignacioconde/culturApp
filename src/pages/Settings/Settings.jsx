@@ -132,6 +132,22 @@ export default function Settings() {
             </div>
           </div>
         </Card>
+        {profile?.role === 'admin' && (
+          <Card className="p-6">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h2 className="text-sm font-semibold text-gray-900 mb-1">Administración beta</h2>
+                <p className="text-sm text-gray-500">Crea y revoca códigos de invitación para nuevas altas.</p>
+              </div>
+              <Link
+                to="/admin/invitaciones"
+                className="inline-flex min-h-10 items-center justify-center rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-paper)] px-4 py-2 text-sm font-medium leading-none text-[var(--color-ink)] shadow-sm transition-colors hover:bg-[var(--color-paper-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2"
+              >
+                Gestionar invitaciones
+              </Link>
+            </div>
+          </Card>
+        )}
         <Card className="p-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
