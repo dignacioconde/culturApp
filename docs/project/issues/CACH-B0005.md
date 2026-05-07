@@ -2,7 +2,7 @@
 id: CACH-B0005
 title: Importacion exportacion y portabilidad de datos
 type: feature
-status: review
+status: done
 cycle: unassigned
 release: RELEASE-0.1.0-beta.7
 priority: p1
@@ -64,9 +64,13 @@ Antes de pedir confianza a usuarios beta, Cachés debe permitir sacar sus datos 
 
 - Ejecutado `npm run test`, `npm run lint`, `npm run build` y `npm run pb:check`.
 - Ejecutado `git diff --check`.
-- Smoke autenticado: exportar datos, importar CSV válido, importar CSV con errores y confirmar que no se guarda nada antes de validar.
+- Smoke autenticado aceptado por revisión manual del usuario el 2026-05-07.
 - Revisar que la importación ignora o rechaza cualquier `user_id` de archivo.
 - Revisar límites: 1 MB, 500 filas, columnas esperadas y errores acotados.
+
+## Resultado
+
+Released en [[../releases/RELEASE-0.1.0-beta.7|RELEASE-0.1.0-beta.7]]. Integrado en `main` mediante PR #86.
 
 ## Related
 

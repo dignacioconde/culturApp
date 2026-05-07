@@ -65,7 +65,6 @@ Sin issues en inbox.
 
 | ID | Titulo | Tipo | Prioridad | Nota |
 |---|---|---|---|---|
-| [[../issues/CACH-B0005|CACH-B0005]] | Importacion, exportacion y portabilidad de datos | feature | p1 | Beta 7 lista para smoke autenticado y PR de release. |
 | [[../issues/CACH-0030|CACH-0030]] | Homogeneizar diseno con nueva paleta | chore | p1 | Pendiente QA visual autenticada. |
 | [[../issues/CACH-0038|CACH-0038]] | Compactar mobile financiero y detalles accionables | feature | p1 | Pendiente QA visual autenticada. |
 
@@ -73,6 +72,7 @@ Sin issues en inbox.
 
 | ID | Titulo | Release | Resultado |
 |---|---|---|---|
+| [[../issues/CACH-B0005|CACH-B0005]] | Importacion, exportacion y portabilidad de datos | [[../releases/RELEASE-0.1.0-beta.7|RELEASE-0.1.0-beta.7]] | Export JSON/CSV e import CSV minima integradas por PR #86. |
 | [[../issues/CACH-0036|CACH-0036]] | Profesionalizar flujo de ramas por beta | [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] | Flujo beta profesional integrado en main por PR #84. |
 | [[../issues/CACH-0037|CACH-0037]] | Consolidar PRD y sistema de diseno de Cachés | [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] | PRD y sistema de diseno base integrados en main por PR #84. |
 | [[../issues/CACH-0033|CACH-0033]] | Vista anual en calendario de proyectos | [[../releases/RELEASE-0.1.0-beta.4|RELEASE-0.1.0-beta.4]] | Planificacion anual con Gantt desktop y compacto movil. |

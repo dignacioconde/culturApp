@@ -1,7 +1,7 @@
 ---
 id: RELEASE-0.1.0-beta.7
 type: release
-status: Active
+status: Released
 created: 2026-05-07
 updated: 2026-05-07
 release_branch: release/0.1.0-beta.7
@@ -18,7 +18,7 @@ tags:
 
 ## Estado
 
-Active
+Released
 
 ## Rama de release
 
@@ -64,7 +64,7 @@ Beta 7 debe mejorar confianza sin rediseñar el modelo de datos ni abrir todaví
 
 | Issue | Título | Estado | Rama |
 |---|---|---|---|
-| [[../issues/CACH-B0005|CACH-B0005]] | Importacion, exportacion y portabilidad de datos | Review | `release/0.1.0-beta.7` |
+| [[../issues/CACH-B0005|CACH-B0005]] | Importacion, exportacion y portabilidad de datos | Released | `release/0.1.0-beta.7` |
 
 ## Fuera de alcance
 
@@ -105,28 +105,28 @@ Beta 7 debe mejorar confianza sin rediseñar el modelo de datos ni abrir todaví
 
 - [x] Build correcto
 - [x] Tests/checks correctos (`npm run test`, `npm run lint`, `npm run build`, `npm run pb:check`, `git diff --check`)
-- [ ] Revisión visual autenticada
-- [ ] Revisión responsive autenticada
-- [ ] Revisión accesibilidad
-- [ ] Revisión de regresión básica
+- [x] Revisión visual autenticada
+- [x] Revisión responsive autenticada
+- [x] Revisión accesibilidad
+- [x] Revisión de regresión básica
 - [x] Revisión de documentación
 
 ## Checklist de salida
 
-- [ ] PR `release/0.1.0-beta.7` -> `main` abierta
-- [ ] CI en verde
-- [ ] Revisión aprobada
-- [ ] PR mergeada en `main`
-- [ ] `main` actualizado en local
-- [ ] Tag `v0.1.0-beta.7` creado desde `main`
-- [ ] Producción verificada si aplica
-- [ ] Rama remota `release/0.1.0-beta.7` eliminada
+- [x] PR `release/0.1.0-beta.7` -> `main` abierta: https://github.com/dignacioconde/culturApp/pull/86
+- [x] CI en verde
+- [x] Revisión aprobada
+- [x] PR mergeada en `main`
+- [x] `main` actualizado en local
+- [x] Tag `v0.1.0-beta.7` creado desde `main`
+- [x] Producción verificada si aplica
+- [x] Rama remota `release/0.1.0-beta.7` eliminada
 - [x] Release notes actualizadas
-- [ ] Issues marcadas como `Released`
-- [ ] Estado actual actualizado
-- [ ] Current Release actualizado
-- [ ] Backlog actualizado
-- [ ] Documento de release actualizado como cerrado
+- [x] Issues marcadas como `Released`
+- [x] Estado actual actualizado
+- [x] Current Release actualizado
+- [x] Backlog actualizado
+- [x] Documento de release actualizado como cerrado
 
 ## Release notes
 
@@ -153,9 +153,9 @@ Beta 7 debe mejorar confianza sin rediseñar el modelo de datos ni abrir todaví
 ### Técnico
 
 - Validación ejecutada: `npm run test`, `npm run lint`, `npm run build`, `npm run pb:check` y `git diff --check`.
-- Pendiente de cierre: smoke autenticado de exportación/importación en `/data`.
+- Smoke autenticado de exportación/importación en `/data` aceptado por revisión manual del usuario el 2026-05-07.
 - E2E Playwright no cuenta como bloqueo mientras no exista seed/auth estable; la cobertura principal de esta beta vive en Vitest y smoke autenticado manual.
 
 ## Resultado final
 
-Implementación de CACH-B0005 lista para PR de release. Queda pendiente smoke autenticado, CI, merge/tag y verificación final de producción si aplica.
+Release cerrada y mergeada a `main` el 2026-05-07 en PR #86. Tag `v0.1.0-beta.7` creado desde `main`.

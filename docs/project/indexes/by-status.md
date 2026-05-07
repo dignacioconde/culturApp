@@ -14,6 +14,7 @@ tags:
 
 ## done
 
+- [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos
 - [[../issues/CACH-0026|CACH-0026]] — Setup inicial Product Brain
 - [[../issues/CACH-0028|CACH-0028]] — Corregir sync iCloud y estructura versionada
 - [[../issues/CACH-0029|CACH-0029]] — Integrar helpers CACH-B0016 en flujos reales
@@ -31,7 +32,6 @@ tags:
 
 ## review
 
-- [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos
 - [[../issues/CACH-0030|CACH-0030]] — Homogeneizar diseno con nueva paleta de colores y fuentes
 - [[../issues/CACH-0038|CACH-0038]] — Compactar mobile financiero y detalles accionables
 ## in-progress

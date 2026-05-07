@@ -1,7 +1,7 @@
 ---
 id: PB-CURRENT-RELEASE
 type: release-status
-status: Active
+status: No active release
 created: 2026-05-05
 updated: 2026-05-07
 aliases:
@@ -16,26 +16,24 @@ tags:
 
 ## Release activa
 
-[[RELEASE-0.1.0-beta.7|RELEASE-0.1.0-beta.7]] — Portabilidad mínima de datos.
+No active release.
 
 ## Rama activa
 
-`release/0.1.0-beta.7`
+No active release branch.
 
 ## Ultimo corte
 
-`RELEASE-0.1.0-beta.6` — preparada en PR #85 el 2026-05-07 y pendiente de cierre final. Ver [[RELEASE-0.1.0-beta.6]].
+`RELEASE-0.1.0-beta.7` — mergeada a `main` en PR #86 el 2026-05-07. Ver [[RELEASE-0.1.0-beta.7]].
 
 ## Scope actual
 
-- [[../issues/CACH-B0005|CACH-B0005]] — Importacion, exportacion y portabilidad de datos.
+Sin scope activo.
 
 ## Regla de trabajo para esta release
 
-Beta 7 usa rama de release activa y PR única a `main`.
-
-Las ramas de tarea salen de `release/0.1.0-beta.7` y se integran con squash en la release. No añadir tareas fuera de CACH-B0005 sin actualizar primero el documento de release.
+No hay release activa. Para fixes, chores y mejoras menores: PR directa a `main`.
 
 ## Como cerrar esta release
 
-Abrir PR `release/0.1.0-beta.7` -> `main`, esperar CI en verde, mergear, crear tag `v0.1.0-beta.7` desde `main`, verificar producción si aplica y limpiar la rama remota de release.
+No aplica hasta activar la siguiente release.

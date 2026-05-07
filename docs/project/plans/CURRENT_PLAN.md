@@ -16,19 +16,19 @@ tags:
 
 ## Foco actual
 
-Release activa: [[../releases/RELEASE-0.1.0-beta.7|RELEASE-0.1.0-beta.7]] — portabilidad mínima de datos.
+Sin release activa. Ultimo corte: [[../releases/RELEASE-0.1.0-beta.7|RELEASE-0.1.0-beta.7]] — mergeada a `main` en PR #86 el 2026-05-07.
 
 ## Release activa
 
-[[../releases/RELEASE-0.1.0-beta.7|RELEASE-0.1.0-beta.7]]
+No active release.
 
-Ultimo corte preparado: [[../releases/RELEASE-0.1.0-beta.6|RELEASE-0.1.0-beta.6]] — PR #85 abierta el 2026-05-07 y pendiente de cierre final.
+Ultimo corte: [[../releases/RELEASE-0.1.0-beta.7|RELEASE-0.1.0-beta.7]] — mergeada a `main` el 2026-05-07.
 
 ## Prioridades
 
-1. Ejecutar CACH-B0005 desde `release/0.1.0-beta.7`.
-2. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
-3. Dejar CACH-B0006 como candidata natural para la beta siguiente, no para este corte de portabilidad.
+1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
+2. Dejar CACH-B0006 como candidata natural para la siguiente beta.
+3. Elegir la siguiente prioridad desde backlog antes de activar una nueva release.
 
 ## Plan operativo
 
@@ -41,4 +41,4 @@ Ultimo corte preparado: [[../releases/RELEASE-0.1.0-beta.6|RELEASE-0.1.0-beta.6]
 
 ## Próximo checkpoint
 
-Partir CACH-B0005 en implementación verificable, validar exportación/importación y abrir PR única `release/0.1.0-beta.7` -> `main`.
+Elegir siguiente prioridad desde [[../backlog/BACKLOG|Backlog]] y decidir si va por PR directa o por una nueva release.
