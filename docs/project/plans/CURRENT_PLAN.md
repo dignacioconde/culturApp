@@ -16,19 +16,19 @@ tags:
 
 ## Foco actual
 
-Beta 8 queda cerrada. Siguiente foco: decidir el próximo corte antes de abrir nuevas tareas de producto.
+Release activa: [[../releases/RELEASE-0.1.0-beta.9|RELEASE-0.1.0-beta.9]] — panel admin de invitaciones beta.
 
 ## Release activa
 
-Sin release activa.
+[[../releases/RELEASE-0.1.0-beta.9|RELEASE-0.1.0-beta.9]]
 
 Ultimo corte: [[../releases/RELEASE-0.1.0-beta.8|RELEASE-0.1.0-beta.8]] — mergeada a `main` el 2026-05-07.
 
 ## Prioridades
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
-2. No abrir el panel admin de invitaciones dentro de beta 8; planificarlo como release posterior.
-3. Mantener fuera del siguiente corte cualquier analítica real, i18n o growth salvo decisión explícita.
+2. Ejecutar [[../issues/CACH-B0017|CACH-B0017]] como corte beta 9: rol admin, RPCs seguras y pantalla interna de invitaciones.
+3. Mantener fuera de beta 9 calendario unificado, mobile financiero, tooling interno, analítica real, i18n y growth.
 
 ## Plan operativo
 
@@ -41,4 +41,4 @@ Ultimo corte: [[../releases/RELEASE-0.1.0-beta.8|RELEASE-0.1.0-beta.8]] — merg
 
 ## Próximo checkpoint
 
-Decidir si el panel admin de invitaciones entra en `0.1.0-beta.9` o en una micro-release técnica separada.
+Validar `/admin/invitaciones`, RLS/RPCs, registro con código creado desde panel y acceso denegado para usuarios normales.

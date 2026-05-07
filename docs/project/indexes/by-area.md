@@ -46,6 +46,7 @@ tags:
 - [[../issues/CACH-B0004|CACH-B0004]] — Contratantes facturacion y liquidacion neta
 - [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos
 - [[../issues/CACH-B0013|CACH-B0013]] — Gestion documental por proyecto evento
+- [[../issues/CACH-B0017|CACH-B0017]] — Panel admin para invitaciones beta
 
 ## infra
 

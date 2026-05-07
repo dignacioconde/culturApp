@@ -103,6 +103,7 @@ create table profiles (
   usage_consent_at timestamptz,
   usage_consent_version text,
   beta_invite_id uuid,
+  role text not null default 'user' check (role in ('user', 'admin')),
   created_at timestamptz default now()
 );
 
@@ -243,6 +244,10 @@ begin
     raise exception 'beta_invite_id_is_immutable';
   end if;
 
+  if auth.uid() is not null and old.role is distinct from new.role then
+    raise exception 'profile_role_is_immutable';
+  end if;
+
   return new;
 end;
 $$ language plpgsql;
@@ -250,6 +255,21 @@ $$ language plpgsql;
 create trigger profiles_prevent_beta_invite_changes
   before update on public.profiles
   for each row execute function prevent_beta_invite_profile_changes();
+
+create or replace function current_user_is_admin()
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select exists (
+    select 1
+    from public.profiles
+    where id = auth.uid()
+      and role = 'admin'
+  );
+$$;
 
 drop trigger if exists on_auth_user_created on auth.users;
 drop function if exists handle_new_user();
@@ -323,6 +343,18 @@ update public.beta_invites
 set revoked_at = now()
 where code_hash = encode(digest(lower(trim('CACHES-BETA-2026-EJEMPLO')), 'sha256'), 'hex');
 ```
+
+### 4.2. Primer administrador beta
+
+El panel interno de invitaciones usa `profiles.role = 'admin'`. El primer admin se asigna manualmente desde el editor SQL de Supabase, después de que exista su perfil:
+
+```sql
+update public.profiles
+set role = 'admin'
+where id = 'UUID_DEL_USUARIO_ADMIN';
+```
+
+Desde la app, las invitaciones se gestionan en `/admin/invitaciones`. El cliente nunca usa service role ni lee directamente `beta_invites`: crea, lista y revoca mediante RPCs con comprobación de admin. El código plano solo se muestra una vez al crearlo; después queda guardado solo el hash SHA-256 normalizado.
 
 ### 5. Variables de entorno
 

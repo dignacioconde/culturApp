@@ -64,6 +64,7 @@ Sin issues en inbox.
 
 | ID | Titulo | Tipo | Prioridad | Nota |
 |---|---|---|---|---|
+| [[../issues/CACH-B0017|CACH-B0017]] | Panel admin para invitaciones beta | feature | p1 | Lista para PR de release beta 9; falta CI/merge/tag. |
 
 ## Done
 

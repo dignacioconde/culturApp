@@ -45,3 +45,7 @@ tags:
 - [[../issues/CACH-B0011|CACH-B0011]] — Categorias etiquetas y taxonomia
 - [[../issues/CACH-B0012|CACH-B0012]] — Perfil publico viralidad y referidos
 - [[../issues/CACH-B0013|CACH-B0013]] — Gestion documental por proyecto evento
+
+## review
+
+- [[../issues/CACH-B0017|CACH-B0017]] — Panel admin para invitaciones beta

@@ -12,6 +12,7 @@ const PROFILE_FIELDS = [
   'usage_consent_at',
   'usage_consent_version',
   'beta_invite_id',
+  'role',
 ].join(', ')
 
 const BASE_PROFILE_FIELDS = [
@@ -30,6 +31,7 @@ function withProfileDefaults(profile) {
     usage_consent_at: null,
     usage_consent_version: null,
     beta_invite_id: null,
+    role: 'user',
     ...profile,
   }
 }

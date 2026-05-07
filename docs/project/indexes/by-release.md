@@ -63,6 +63,10 @@ tags:
 
 - [[../issues/CACH-B0006|CACH-B0006]] — Onboarding y acceso beta
 
+## RELEASE-0.1.0-beta.9
+
+- [[../issues/CACH-B0017|CACH-B0017]] — Panel admin para invitaciones beta
+
 ## RELEASE-0.1.0-beta.2
 
 - [[../issues/CACH-B0014|CACH-B0014]] — Endurecer agenda cobros y captura del MVP

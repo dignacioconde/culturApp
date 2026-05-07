@@ -16,11 +16,11 @@ tags:
 
 ## Release activa
 
-Sin release activa.
+[[RELEASE-0.1.0-beta.9|RELEASE-0.1.0-beta.9]] — Panel admin de invitaciones.
 
 ## Rama activa
 
-Ninguna.
+`release/0.1.0-beta.9`
 
 ## Ultimo corte
 
@@ -28,12 +28,12 @@ Ninguna.
 
 ## Scope actual
 
-Sin scope activo.
+- [[../issues/CACH-B0017|CACH-B0017]] — Panel admin para invitaciones beta.
 
 ## Regla de trabajo para esta release
 
-Crear una nueva release antes de arrancar trabajo de producto adicional.
+Las tareas de [[../issues/CACH-B0017|CACH-B0017]] salen de `release/0.1.0-beta.9` y vuelven a esa rama. No mezclar calendario unificado, mobile financiero, tooling interno ni analítica real en este corte.
 
 ## Como cerrar esta release
 
-Beta 8 queda cerrada. El siguiente corte debe definirse en un nuevo documento `RELEASE-*` antes de ejecutar cambios fuera de mantenimiento menor.
+Cerrar mediante PR única `release/0.1.0-beta.9` -> `main`, validar CI, actualizar release notes, marcar CACH-B0017 como cerrada/Released, crear tag `v0.1.0-beta.9` desde `main` y limpiar rama remota.
