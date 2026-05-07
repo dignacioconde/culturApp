@@ -12,6 +12,7 @@ import ProjectList from './pages/Projects/ProjectList'
 import ProjectDetail from './pages/Projects/ProjectDetail'
 import Work from './pages/Work/Work'
 import Settings from './pages/Settings/Settings'
+import Data from './pages/Data/Data'
 
 function PrivateRoute({ children }) {
   const { user, loading } = useAuth()
@@ -43,6 +44,7 @@ export default function App() {
         <Route path="/projects/:id" element={<PrivateRoute><ProjectDetail /></PrivateRoute>} />
         <Route path="/work" element={<PrivateRoute><Work /></PrivateRoute>} />
         <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>} />
+        <Route path="/data" element={<PrivateRoute><Data /></PrivateRoute>} />
         <Route path="/calendar" element={<Navigate to="/calendar/events" replace />} />
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>

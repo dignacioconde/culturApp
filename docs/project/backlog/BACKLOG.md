@@ -60,12 +60,12 @@ Sin issues en inbox.
 
 | ID | Titulo | Tipo | Prioridad | Nota |
 |---|---|---|---|---|
-| [[../issues/CACH-B0005|CACH-B0005]] | Importacion, exportacion y portabilidad de datos | feature | p1 | Scope Beta 7: exportacion e importacion CSV minima validada. |
 
 ## Review
 
 | ID | Titulo | Tipo | Prioridad | Nota |
 |---|---|---|---|---|
+| [[../issues/CACH-B0005|CACH-B0005]] | Importacion, exportacion y portabilidad de datos | feature | p1 | Beta 7 lista para smoke autenticado y PR de release. |
 | [[../issues/CACH-0030|CACH-0030]] | Homogeneizar diseno con nueva paleta | chore | p1 | Pendiente QA visual autenticada. |
 | [[../issues/CACH-0038|CACH-0038]] | Compactar mobile financiero y detalles accionables | feature | p1 | Pendiente QA visual autenticada. |
 

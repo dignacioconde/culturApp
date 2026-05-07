@@ -31,11 +31,11 @@ tags:
 
 ## review
 
+- [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos
 - [[../issues/CACH-0030|CACH-0030]] — Homogeneizar diseno con nueva paleta de colores y fuentes
 - [[../issues/CACH-0038|CACH-0038]] — Compactar mobile financiero y detalles accionables
 ## in-progress
 
-- [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos
 ## backlog
 
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento

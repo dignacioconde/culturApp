@@ -34,25 +34,27 @@ Active
 
 ## Objetivo de la release
 
-Dar al usuario una garantía básica de salida de datos antes de ampliar onboarding o acceso beta: exportar su información y validar una importación CSV mínima sin persistir datos incorrectos.
+Dar al usuario una garantía básica de salida de datos antes de ampliar onboarding o acceso beta: exportar sus datos operativos y validar una importación CSV mínima antes de guardar.
 
 Beta 7 debe mejorar confianza sin rediseñar el modelo de datos ni abrir todavía invitaciones, analítica o onboarding completo.
 
 ## Alcance funcional
 
-- Exportar datos propios de proyectos, eventos, ingresos y gastos.
-- Ofrecer una importación CSV mínima con validación previa.
+- Exportar datos operativos propios de proyectos, eventos, ingresos y gastos.
+- Ofrecer una importación CSV mínima con plantilla fija, claves locales y validación previa.
 - Mostrar errores de importación antes de guardar.
 - Mantener la separación por usuario y el uso de hooks existentes.
-- Documentar límites conocidos de formato, duplicados y campos incompletos.
+- Documentar límites conocidos de formato, duplicados, campos incompletos, tamaño, filas y guardado no atómico.
 
 ## Restricciones CACH-B0005
 
 - No usar service role ni saltarse RLS desde cliente.
 - No aceptar `user_id` editable ni importado desde archivo.
+- No aceptar `id`, `created_at`, `project_id` ni `event_id` desde CSV.
 - No cambiar schema Supabase salvo issue nueva y criterio explícito.
 - No mezclar portabilidad con onboarding, invitaciones o analítica.
 - No prometer compatibilidad completa con Excel/Google Sheets si la beta solo cubre CSV básico.
+- No prometer restore completo, importación idempotente ni transacción multi-tabla.
 
 ## Scope
 
@@ -62,7 +64,7 @@ Beta 7 debe mejorar confianza sin rediseñar el modelo de datos ni abrir todaví
 
 | Issue | Título | Estado | Rama |
 |---|---|---|---|
-| [[../issues/CACH-B0005|CACH-B0005]] | Importacion, exportacion y portabilidad de datos | In progress | `release/0.1.0-beta.7` |
+| [[../issues/CACH-B0005|CACH-B0005]] | Importacion, exportacion y portabilidad de datos | Review | `release/0.1.0-beta.7` |
 
 ## Fuera de alcance
 
@@ -70,12 +72,14 @@ Beta 7 debe mejorar confianza sin rediseñar el modelo de datos ni abrir todaví
 - Contratantes, facturación y liquidación neta de [[../issues/CACH-B0004|CACH-B0004]].
 - Calendario unificado, PWA/offline, notificaciones o features Pro.
 - Importadores avanzados con mapeo persistente, plantillas múltiples o sincronización con Google Sheets.
+- Excel/XLSX directo, notas libres, restore JSON, update/merge/idempotencia y RPC transaccional.
 
 ## Riesgos
 
-- La importación puede tocar contratos de datos sensibles; se mitiga manteniendo validación previa y `user_id` desde sesión autenticada.
+- La importación puede tocar contratos de datos sensibles; se mitiga manteniendo validación previa, `user_id` desde sesión autenticada y rechazo de UUIDs crudos.
 - Exportar datos incompletos puede generar falsa confianza; se mitiga enumerando claramente entidades incluidas y límites.
 - CSV puede crecer en complejidad si se intenta cubrir todos los formatos reales; se mitiga con una plantilla mínima verificable.
+- El guardado cliente no es atómico; se mitiga comunicándolo en UI y mostrando fallos parciales si ocurren tras validar.
 
 ## Decisiones relacionadas
 
@@ -99,13 +103,13 @@ Beta 7 debe mejorar confianza sin rediseñar el modelo de datos ni abrir todaví
 
 ## Checklist de estabilización
 
-- [ ] Build correcto
-- [ ] Tests/checks correctos (`npm run test`, `npm run lint`, `npm run build`, `npm run pb:check`, `git diff --check`)
+- [x] Build correcto
+- [x] Tests/checks correctos (`npm run test`, `npm run lint`, `npm run build`, `npm run pb:check`, `git diff --check`)
 - [ ] Revisión visual autenticada
 - [ ] Revisión responsive autenticada
 - [ ] Revisión accesibilidad
 - [ ] Revisión de regresión básica
-- [ ] Revisión de documentación
+- [x] Revisión de documentación
 
 ## Checklist de salida
 
@@ -117,7 +121,7 @@ Beta 7 debe mejorar confianza sin rediseñar el modelo de datos ni abrir todaví
 - [ ] Tag `v0.1.0-beta.7` creado desde `main`
 - [ ] Producción verificada si aplica
 - [ ] Rama remota `release/0.1.0-beta.7` eliminada
-- [ ] Release notes actualizadas
+- [x] Release notes actualizadas
 - [ ] Issues marcadas como `Released`
 - [ ] Estado actual actualizado
 - [ ] Current Release actualizado
@@ -128,24 +132,30 @@ Beta 7 debe mejorar confianza sin rediseñar el modelo de datos ni abrir todaví
 
 ### Añadido
 
-- Pendiente.
+- Página privada `Tus datos` enlazada desde Ajustes y la navegación principal.
+- Exportación de proyectos, eventos, ingresos y gastos en backup JSON y CSV por entidad.
+- Plantilla CSV descargable con ejemplos, claves locales `project_key`/`event_key`, previsualización y validación antes de guardar.
+- Importación CSV create-only, no atómica, con informe de guardado parcial si una escritura falla tras validar.
 
 ### Cambiado
 
-- Pendiente.
+- La portabilidad queda limitada a datos operativos; no incluye auth, email, restore JSON, Excel/XLSX ni sincronización externa.
 
 ### Corregido
 
-- Pendiente.
+- La importación rechaza cabeceras de ownership, IDs y FKs crudas del archivo.
+- Exportación e importación CSV mitigan fórmulas de hoja de cálculo.
 
 ### Eliminado
 
-- Pendiente.
+- No aplica.
 
 ### Técnico
 
-- Validación esperada: `npm run test`, `npm run lint`, `npm run build`, `npm run pb:check`, `git diff --check` y smoke autenticado de exportación/importación.
+- Validación ejecutada: `npm run test`, `npm run lint`, `npm run build`, `npm run pb:check` y `git diff --check`.
+- Pendiente de cierre: smoke autenticado de exportación/importación en `/data`.
+- E2E Playwright no cuenta como bloqueo mientras no exista seed/auth estable; la cobertura principal de esta beta vive en Vitest y smoke autenticado manual.
 
 ## Resultado final
 
-Pendiente hasta cerrar la release.
+Implementación de CACH-B0005 lista para PR de release. Queda pendiente smoke autenticado, CI, merge/tag y verificación final de producción si aplica.
