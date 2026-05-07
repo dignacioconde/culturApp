@@ -122,7 +122,7 @@ Beta 6 no activa una nueva arquitectura de datos: prepara una base visual y mobi
 
 ## Checklist de salida
 
-- [ ] PR `release/0.1.0-beta.6` -> `main` abierta
+- [x] PR `release/0.1.0-beta.6` -> `main` abierta: https://github.com/dignacioconde/culturApp/pull/85
 - [ ] CI en verde
 - [ ] Revisión aprobada
 - [ ] PR mergeada en `main`
@@ -166,4 +166,6 @@ Beta 6 no activa una nueva arquitectura de datos: prepara una base visual y mobi
 
 ## Resultado final
 
-Pendiente hasta cerrar la release.
+PR abierta en draft: https://github.com/dignacioconde/culturApp/pull/85.
+
+Pendiente hasta CI en verde, revisión/QA visual autenticada, merge a `main`, tag y verificación de producción si aplica.
