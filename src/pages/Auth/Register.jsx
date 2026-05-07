@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 import { Button } from '../../components/ui/Button'
 import { Input } from '../../components/ui/Input'
@@ -8,7 +8,14 @@ import { Drama } from 'lucide-react'
 export default function Register() {
   const { signUp } = useAuth()
   const navigate = useNavigate()
-  const [form, setForm] = useState({ email: '', password: '', fullName: '', profession: '' })
+  const [searchParams] = useSearchParams()
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+    fullName: '',
+    profession: '',
+    betaInviteCode: searchParams.get('invite') ?? '',
+  })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -29,11 +36,21 @@ export default function Register() {
       setError('La contraseña debe tener al menos 6 caracteres.')
       return
     }
+    if (!form.betaInviteCode.trim()) {
+      setError('Introduce tu código de invitación para acceder a la beta.')
+      return
+    }
     setLoading(true)
-    const { error } = await signUp(form.email.trim(), form.password, form.fullName.trim(), form.profession.trim())
+    const { error } = await signUp(
+      form.email.trim(),
+      form.password,
+      form.fullName.trim(),
+      form.profession.trim(),
+      form.betaInviteCode.trim(),
+    )
     setLoading(false)
     if (error) {
-      setError('No hemos podido crear la cuenta. Revisa los datos e inténtalo de nuevo.')
+      setError('No hemos podido crear la cuenta. Revisa el código de invitación y tus datos.')
       return
     }
     navigate('/dashboard')
@@ -51,6 +68,16 @@ export default function Register() {
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <Input
+            label="Código de invitación *"
+            type="text"
+            name="betaInviteCode"
+            value={form.betaInviteCode}
+            onChange={handleChange}
+            placeholder="CACHE-BETA-..."
+            autoComplete="one-time-code"
+            required
+          />
           <Input
             label="Nombre completo *"
             type="text"

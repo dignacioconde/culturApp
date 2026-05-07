@@ -20,4 +20,5 @@ tags:
 - [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] — Flujo profesional de ramas beta
 - [[../releases/RELEASE-0.1.0-beta.6|RELEASE-0.1.0-beta.6]] — Estabilización visual y mobile financiero
 - [[../releases/RELEASE-0.1.0-beta.7|RELEASE-0.1.0-beta.7]] — Portabilidad mínima de datos
+- [[../releases/RELEASE-0.1.0-beta.8|RELEASE-0.1.0-beta.8]] — Onboarding y acceso beta privado
 - [[../releases/RELEASE_TEMPLATE|PB-RELEASE-TEMPLATE]] — RELEASE_TEMPLATE

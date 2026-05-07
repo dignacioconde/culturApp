@@ -23,11 +23,21 @@ export function useAuth() {
     return { data, error }
   }
 
-  const signUp = async (email, password, fullName, profession) => {
+  const signUp = async (email, password, fullName, profession, betaInviteCode) => {
+    const metadata = {
+      full_name: fullName,
+      profession,
+    }
+    const normalizedBetaInviteCode = betaInviteCode?.trim()
+
+    if (normalizedBetaInviteCode) {
+      metadata.beta_invite_code = normalizedBetaInviteCode
+    }
+
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      options: { data: { full_name: fullName, profession } },
+      options: { data: metadata },
     })
     return { data, error }
   }

@@ -90,13 +90,47 @@ Ve a [supabase.com](https://supabase.com), crea un nuevo proyecto y anota la **U
 En el **editor SQL** de Supabase ejecuta el esquema actual. Si vienes de una versión anterior, borra antes las tablas existentes como indica `AGENTS.md`.
 
 ```sql
+create extension if not exists pgcrypto;
+
 create table profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   full_name text,
   profession text,
   tax_rate numeric default 15,
+  onboarding_completed boolean not null default false,
+  onboarding_completed_at timestamptz,
+  usage_consent boolean not null default false,
+  usage_consent_at timestamptz,
+  usage_consent_version text,
+  beta_invite_id uuid,
   created_at timestamptz default now()
 );
+
+create table beta_invites (
+  id uuid primary key default gen_random_uuid(),
+  code_hash text not null unique,
+  label text,
+  max_redemptions integer not null default 1 check (max_redemptions > 0),
+  redeemed_count integer not null default 0 check (redeemed_count >= 0),
+  expires_at timestamptz,
+  revoked_at timestamptz,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  constraint beta_invites_redeemed_count_lte_max check (redeemed_count <= max_redemptions),
+  constraint beta_invites_code_hash_sha256 check (code_hash ~ '^[0-9a-f]{64}$')
+);
+
+create table beta_invite_redemptions (
+  id uuid primary key default gen_random_uuid(),
+  invite_id uuid not null references public.beta_invites(id) on delete restrict,
+  user_id uuid not null references auth.users(id) on delete cascade,
+  redeemed_at timestamptz not null default now(),
+  unique (user_id)
+);
+
+alter table profiles
+  add constraint profiles_beta_invite_id_fkey
+  foreign key (beta_invite_id) references public.beta_invites(id) on delete set null;
 
 create table projects (
   id uuid primary key default gen_random_uuid(),
@@ -161,6 +195,8 @@ create table expenses (
 
 ```sql
 alter table profiles enable row level security;
+alter table beta_invites enable row level security;
+alter table beta_invite_redemptions enable row level security;
 alter table projects enable row level security;
 alter table events enable row level security;
 alter table incomes enable row level security;
@@ -168,6 +204,9 @@ alter table expenses enable row level security;
 
 create policy "profiles: usuario propio" on profiles
   for all using (auth.uid() = id);
+
+-- beta_invites y beta_invite_redemptions no tienen políticas SELECT/INSERT/UPDATE
+-- para anon/authenticated. Se gestionan desde SQL interno y el trigger de registro.
 
 create policy "projects: usuario propio" on projects
   for all using (auth.uid() = user_id);
@@ -185,25 +224,104 @@ create policy "expenses: usuario propio" on expenses
 ### 4. Trigger para crear el perfil al registrarse
 
 ```sql
+create or replace function set_beta_invites_updated_at()
+returns trigger as $$
+begin
+  new.updated_at = now();
+  return new;
+end;
+$$ language plpgsql;
+
+create trigger beta_invites_set_updated_at
+  before update on public.beta_invites
+  for each row execute function set_beta_invites_updated_at();
+
+create or replace function prevent_beta_invite_profile_changes()
+returns trigger as $$
+begin
+  if old.beta_invite_id is distinct from new.beta_invite_id then
+    raise exception 'beta_invite_id_is_immutable';
+  end if;
+
+  return new;
+end;
+$$ language plpgsql;
+
+create trigger profiles_prevent_beta_invite_changes
+  before update on public.profiles
+  for each row execute function prevent_beta_invite_profile_changes();
+
 drop trigger if exists on_auth_user_created on auth.users;
 drop function if exists handle_new_user();
 
 create or replace function handle_new_user()
 returns trigger as $$
+declare
+  invite_code text;
+  invite_hash text;
+  claimed_invite_id uuid;
 begin
-  insert into public.profiles (id, full_name, profession)
+  invite_code := nullif(lower(trim(new.raw_user_meta_data->>'beta_invite_code')), '');
+
+  if invite_code is null then
+    raise exception 'beta_invite_code_required'
+      using hint = 'Incluye un codigo de invitacion beta valido para crear la cuenta.';
+  end if;
+
+  invite_hash := encode(digest(invite_code, 'sha256'), 'hex');
+
+  update public.beta_invites
+  set redeemed_count = redeemed_count + 1
+  where code_hash = invite_hash
+    and revoked_at is null
+    and (expires_at is null or expires_at > now())
+    and redeemed_count < max_redemptions
+  returning id into claimed_invite_id;
+
+  if claimed_invite_id is null then
+    raise exception 'beta_invite_code_invalid_or_redeemed'
+      using hint = 'El codigo de invitacion beta no existe, ha caducado o ya se ha consumido.';
+  end if;
+
+  insert into public.beta_invite_redemptions (invite_id, user_id)
+  values (claimed_invite_id, new.id);
+
+  insert into public.profiles (id, full_name, profession, beta_invite_id)
   values (
     new.id,
     new.raw_user_meta_data->>'full_name',
-    new.raw_user_meta_data->>'profession'
+    new.raw_user_meta_data->>'profession',
+    claimed_invite_id
   );
   return new;
 end;
-$$ language plpgsql security definer;
+$$ language plpgsql security definer set search_path = public, auth;
 
 create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function handle_new_user();
+```
+
+### 4.1. Crear códigos beta manualmente
+
+Guarda solo el hash SHA-256 normalizado del código (`lower(trim(codigo))`). Ejecuta este SQL desde el editor SQL de Supabase con un código nuevo y largo:
+
+```sql
+insert into public.beta_invites (code_hash, label, max_redemptions, expires_at)
+values (
+  encode(digest(lower(trim('CACHES-BETA-2026-EJEMPLO')), 'sha256'), 'hex'),
+  'Beta 8 - ejemplo manual',
+  1,
+  now() + interval '30 days'
+);
+```
+
+Para códigos multiuso, sube `max_redemptions`. Para revocar uno:
+
+```sql
+update public.beta_invites
+set revoked_at = now()
+where code_hash = encode(digest(lower(trim('CACHES-BETA-2026-EJEMPLO')), 'sha256'), 'hex');
 ```
 
 ### 5. Variables de entorno

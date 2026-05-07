@@ -25,10 +25,18 @@ export default function Settings() {
       return
     }
     setSaving(true)
+    const usageConsent = formData.get('usage_consent') === 'on'
+    const usageConsentChanged = usageConsent !== Boolean(profile?.usage_consent)
+    const consentTimestamp = usageConsentChanged
+      ? (usageConsent ? new Date().toISOString() : null)
+      : (profile?.usage_consent_at ?? null)
     const { error: updateError } = await updateProfile({
       full_name: formData.get('full_name').trim(),
       profession: formData.get('profession').trim(),
       tax_rate: taxRate,
+      usage_consent: usageConsent,
+      usage_consent_at: consentTimestamp,
+      usage_consent_version: usageConsent ? 'beta-8' : profile?.usage_consent_version,
     })
     setSaving(false)
     if (updateError) { addToast('Error al guardar los ajustes.', 'error'); return }
@@ -80,6 +88,21 @@ export default function Settings() {
               <p className="text-xs text-gray-400">
                 Este porcentaje se usará como valor por defecto al registrar nuevos ingresos.
               </p>
+              <label className="flex items-start gap-3 rounded-lg border border-[var(--color-paper-mid)] bg-[#FDFBF6] p-4 text-sm text-[var(--color-ink)]">
+                <input
+                  type="checkbox"
+                  name="usage_consent"
+                  defaultChecked={Boolean(profile?.usage_consent)}
+                  onChange={() => setError('')}
+                  className="mt-1 h-5 w-5 rounded border-[var(--color-paper-mid)] accent-[var(--color-red)]"
+                />
+                <span>
+                  <span className="block font-medium">Ayudar a mejorar la beta</span>
+                  <span className="mt-1 block text-[var(--color-ink-muted)]">
+                    Guardamos tu preferencia de consentimiento en el perfil. En beta 8 no se activa analítica real ni se envían eventos de uso.
+                  </span>
+                </span>
+              </label>
               {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>}
               <div className="flex justify-end">
                 <Button type="submit" disabled={saving} className="justify-center">
@@ -107,6 +130,20 @@ export default function Settings() {
                 Cerrar sesión
               </Button>
             </div>
+          </div>
+        </Card>
+        <Card className="p-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 className="text-sm font-semibold text-gray-900 mb-1">Primeros pasos</h2>
+              <p className="text-sm text-gray-500">Puedes volver a revisar el resumen inicial de proyectos, eventos y cobros.</p>
+            </div>
+            <Link
+              to="/onboarding"
+              className="inline-flex min-h-10 items-center justify-center rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-paper)] px-4 py-2 text-sm font-medium leading-none text-[var(--color-ink)] shadow-sm transition-colors hover:bg-[var(--color-paper-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2"
+            >
+              Ver onboarding
+            </Link>
           </div>
         </Card>
       </div>

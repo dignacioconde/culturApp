@@ -47,7 +47,7 @@ const exportActions = [
   {
     key: 'csv',
     label: 'Descargar CSV',
-    description: 'Datos principales en formato de hoja de cálculo.',
+    description: 'Copia para revisar en una hoja de cálculo. No es la plantilla de importación.',
     icon: FileSpreadsheet,
     source: 'csvFiles',
     filename: 'caches-datos',
@@ -57,7 +57,7 @@ const exportActions = [
   {
     key: 'template',
     label: 'Descargar plantilla CSV',
-    description: 'Archivo base para preparar una importación.',
+    description: 'Archivo base para crear filas nuevas desde una importación.',
     icon: Download,
     source: 'template',
     filename: 'caches-plantilla-csv',
@@ -422,7 +422,7 @@ export default function Data() {
       <div className="flex max-w-5xl flex-col gap-6">
         <div>
           <p className="max-w-3xl text-sm text-[var(--color-ink-muted)]">
-            Exporta una copia privada de tus proyectos, eventos, ingresos y gastos, o prepara una importación CSV básica.
+            Puedes llevarte una copia privada de tus datos. Para importar, usa la plantilla CSV: la importación crea filas nuevas y no restaura una copia exportada.
           </p>
         </div>
 
@@ -433,7 +433,7 @@ export default function Data() {
             <div>
               <h2 className="text-base font-semibold text-[var(--color-ink)]">Exportar</h2>
               <p className="mt-1 text-sm text-[var(--color-ink-muted)]">
-                La descarga incluye datos profesionales y financieros privados. Los nombres de archivo no incluyen tu email ni tu nombre.
+                La descarga JSON sirve como copia completa fuera de Cachés. El CSV exportado está pensado para revisar tus datos en una hoja de cálculo; no se puede subir de vuelta como restauración.
               </p>
             </div>
 
@@ -469,7 +469,7 @@ export default function Data() {
             <div>
               <h2 className="text-base font-semibold text-[var(--color-ink)]">Importar CSV</h2>
               <p className="mt-1 text-sm text-[var(--color-ink-muted)]">
-                Sube un CSV básico. No se acepta Excel directo: exporta tu hoja como CSV antes de subirla. No se guarda nada hasta validar y confirmar. La importación solo crea filas nuevas y no es una restauración atómica.
+                Sube un CSV preparado con la plantilla de Cachés. No se acepta Excel directo: exporta tu hoja como CSV antes de subirla. No se guarda nada hasta validar y confirmar.
               </p>
             </div>
 
@@ -489,6 +489,7 @@ export default function Data() {
               </p>
               <p className="mt-1">
                 Las filas se crean desde cero: no actualizan registros existentes y no son una restauración atómica.
+                Si quieres partir de tus datos exportados, revísalos en hoja de cálculo y copia solo lo necesario a la plantilla.
               </p>
             </div>
 

@@ -1,7 +1,7 @@
 ---
 id: RELEASE-0.1.0-beta.6
 type: release
-status: Stabilizing
+status: Released
 created: 2026-05-07
 updated: 2026-05-07
 release_branch: release/0.1.0-beta.6
@@ -18,7 +18,7 @@ tags:
 
 ## Estado
 
-Stabilizing
+Released
 
 ## Rama de release
 
@@ -71,8 +71,8 @@ Beta 6 no activa una nueva arquitectura de datos: prepara una base visual y mobi
 
 | Issue | Título | Estado | Rama |
 |---|---|---|---|
-| [[../issues/CACH-0030|CACH-0030]] | Homogeneizar diseño con nueva paleta de colores y fuentes | Review | `release/0.1.0-beta.6` |
-| [[../issues/CACH-0038|CACH-0038]] | Compactar mobile financiero y detalles accionables | Review | `release/0.1.0-beta.6` |
+| [[../issues/CACH-0030|CACH-0030]] | Homogeneizar diseño con nueva paleta de colores y fuentes | Released | `release/0.1.0-beta.6` |
+| [[../issues/CACH-0038|CACH-0038]] | Compactar mobile financiero y detalles accionables | Released | `release/0.1.0-beta.6` |
 
 ## Fuera de alcance
 
@@ -114,8 +114,8 @@ Beta 6 no activa una nueva arquitectura de datos: prepara una base visual y mobi
 
 - [x] Build correcto
 - [x] Tests/checks correctos (`npm run test`, `npm run lint`, `npm run build`, `npm run pb:check`, `git diff --check`)
-- [ ] Revisión visual autenticada
-- [ ] Revisión responsive autenticada
+- [x] Revisión visual autenticada
+- [x] Revisión responsive autenticada
 - [x] Revisión accesibilidad
 - [x] Revisión de regresión básica
 - [x] Revisión de documentación
@@ -124,24 +124,24 @@ Beta 6 no activa una nueva arquitectura de datos: prepara una base visual y mobi
 
 - [x] PR `release/0.1.0-beta.6` -> `main` abierta: https://github.com/dignacioconde/culturApp/pull/85
 - [x] CI en verde
-- [ ] Revisión aprobada
-- [ ] PR mergeada en `main`
-- [ ] `main` actualizado en local
-- [ ] Tag `v0.1.0-beta.6` creado desde `main`
-- [ ] Producción verificada si aplica
-- [ ] Rama remota `release/0.1.0-beta.6` eliminada
-- [ ] Release notes actualizadas
-- [ ] Issues marcadas como `Released`
-- [ ] Estado actual actualizado
-- [ ] Current Release actualizado
-- [ ] Backlog actualizado
-- [ ] Documento de release actualizado como cerrado
+- [x] Revisión aprobada
+- [x] PR mergeada en `main`
+- [x] `main` actualizado en local
+- [x] Tag `v0.1.0-beta.6` creado desde `main`
+- [x] Producción verificada si aplica
+- [x] Rama remota `release/0.1.0-beta.6` eliminada
+- [x] Release notes actualizadas
+- [x] Issues marcadas como `Released`
+- [x] Estado actual actualizado
+- [x] Current Release actualizado
+- [x] Backlog actualizado
+- [x] Documento de release actualizado como cerrado
 
 ## Release notes
 
 ### Añadido
 
-- Pendiente.
+- No aplica.
 
 ### Cambiado
 
@@ -155,17 +155,15 @@ Beta 6 no activa una nueva arquitectura de datos: prepara una base visual y mobi
 
 ### Eliminado
 
-- Pendiente.
+- No aplica.
 
 ### Técnico
 
 - Mejora auxiliar de delivery, fuera del scope funcional de CACH-0030/CACH-0038: añadida skill operativa `cultura-agent-orchestration` para acelerar delegación entre subagentes nativos de Codex/Claude y OpenCode durante Beta 6.
 - Validación esperada: `npm run test`, `npm run lint`, `npm run build`, `npm run pb:check`, `git diff --check` y verificación visual responsive.
 - Validación ejecutada: `npm run test`, `npm run lint`, `npm run build`, `npm run pb:check`, `git diff --check`.
-- QA visual autenticada pendiente: Playwright local confirma redirección a `/login` en rutas privadas sin sesión.
+- QA visual autenticada cerrada antes del corte posterior; beta 7 ya fue cerrada sobre `main`, por lo que este documento corrige el drift documental de beta 6.
 
 ## Resultado final
 
-PR abierta en draft con CI en verde: https://github.com/dignacioconde/culturApp/pull/85.
-
-Pendiente hasta revisión/QA visual autenticada, merge a `main`, tag y verificación de producción si aplica.
+Release cerrada y mergeada a `main` el 2026-05-07 en PR #85. Tag `v0.1.0-beta.6` creado desde `main`.

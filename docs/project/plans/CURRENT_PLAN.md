@@ -16,19 +16,19 @@ tags:
 
 ## Foco actual
 
-Sin release activa. Ultimo corte: [[../releases/RELEASE-0.1.0-beta.7|RELEASE-0.1.0-beta.7]] — mergeada a `main` en PR #86 el 2026-05-07.
+Beta 8 queda cerrada. Siguiente foco: decidir el próximo corte antes de abrir nuevas tareas de producto.
 
 ## Release activa
 
-No active release.
+Sin release activa.
 
-Ultimo corte: [[../releases/RELEASE-0.1.0-beta.7|RELEASE-0.1.0-beta.7]] — mergeada a `main` el 2026-05-07.
+Ultimo corte: [[../releases/RELEASE-0.1.0-beta.8|RELEASE-0.1.0-beta.8]] — mergeada a `main` el 2026-05-07.
 
 ## Prioridades
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
-2. Dejar CACH-B0006 como candidata natural para la siguiente beta.
-3. Elegir la siguiente prioridad desde backlog antes de activar una nueva release.
+2. No abrir el panel admin de invitaciones dentro de beta 8; planificarlo como release posterior.
+3. Mantener fuera del siguiente corte cualquier analítica real, i18n o growth salvo decisión explícita.
 
 ## Plan operativo
 
@@ -41,4 +41,4 @@ Ultimo corte: [[../releases/RELEASE-0.1.0-beta.7|RELEASE-0.1.0-beta.7]] — merg
 
 ## Próximo checkpoint
 
-Elegir siguiente prioridad desde [[../backlog/BACKLOG|Backlog]] y decidir si va por PR directa o por una nueva release.
+Decidir si el panel admin de invitaciones entra en `0.1.0-beta.9` o en una micro-release técnica separada.

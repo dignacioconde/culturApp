@@ -327,15 +327,15 @@ export default function ProjectDetail() {
 
   const handleQuickSubmitExpense = async (e) => {
     e.preventDefault()
-    const amount = parseFloat(quickExpenseForm.amount)
-    if (!quickExpenseForm.amount || amount <= 0) {
+    const amount = parseDecimal(quickExpenseForm.amount)
+    if (amount === null || amount <= 0) {
       addToast('Pon un importe mayor que 0.', 'error')
       return
     }
     const projectDate = project?.start_date || ''
     const payload = {
       concept: project?.name || 'Gasto',
-      amount: quickExpenseForm.amount,
+      amount,
       category: quickExpenseForm.category || 'otros',
       expense_date: projectDate,
       is_deductible: true,
