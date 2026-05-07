@@ -2,8 +2,8 @@
 id: CACH-B0006
 title: Onboarding y acceso beta
 type: feature
-status: review
-cycle: beta-1
+status: done
+cycle: unassigned
 release: RELEASE-0.1.0-beta.8
 priority: p1
 estimate: m
@@ -59,6 +59,12 @@ La beta necesita controlar quién entra y ayudar a una persona nueva a entender 
 - [x] Onboarding y estados vacíos usan español de España y tuteo.
 - [x] `npm run lint`, `npm run build` y `npm run pb:check` pasan.
 
+## Validation
+
+- Ejecutado `npm run lint`, `npm run test`, `npm run build`, `npm run pb:check` y `git diff --check`.
+- CI en verde en PR #87, incluidos job `app` y job `e2e`.
+- Vercel preview en verde para la rama `release/0.1.0-beta.8`.
+
 ## Implemented
 
 - Registro con código beta obligatorio, editable desde `?invite=...` y enviado solo como metadata de alta.
@@ -79,3 +85,7 @@ La beta necesita controlar quién entra y ayudar a una persona nueva a entender 
 ## Related
 
 - [[CACH-B0005|CACH-B0005]]
+
+## Resultado
+
+Released en [[../releases/RELEASE-0.1.0-beta.8|RELEASE-0.1.0-beta.8]]. Integrado en `main` mediante PR #87.

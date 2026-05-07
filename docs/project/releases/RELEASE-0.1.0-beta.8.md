@@ -1,7 +1,7 @@
 ---
 id: RELEASE-0.1.0-beta.8
 type: release
-status: Active
+status: Released
 created: 2026-05-07
 updated: 2026-05-07
 release_branch: release/0.1.0-beta.8
@@ -18,7 +18,7 @@ tags:
 
 ## Estado
 
-Active
+Released
 
 ## Rama de release
 
@@ -70,7 +70,7 @@ Beta 8 no añade analítica real ni reabre el sistema de releases: usa el workfl
 
 | Issue | Título | Estado | Rama |
 |---|---|---|---|
-| [[../issues/CACH-B0006|CACH-B0006]] | Onboarding y acceso beta | Review | `release/0.1.0-beta.8` |
+| [[../issues/CACH-B0006|CACH-B0006]] | Onboarding y acceso beta | Released | `release/0.1.0-beta.8` |
 
 ## Fuera de alcance
 
@@ -111,28 +111,28 @@ Beta 8 no añade analítica real ni reabre el sistema de releases: usa el workfl
 
 - [x] Build correcto
 - [x] Tests/checks correctos (`npm run lint`, `npm run test`, `npm run build`, `npm run pb:check`, `git diff --check`)
-- [ ] Revisión visual autenticada
-- [ ] Revisión responsive autenticada
-- [ ] Revisión accesibilidad
+- [x] Revisión visual autenticada
+- [x] Revisión responsive autenticada
+- [x] Revisión accesibilidad
 - [x] Revisión de regresión básica
 - [x] Revisión de documentación
 
 ## Checklist de salida
 
-- [ ] PR `release/0.1.0-beta.8` -> `main` abierta
-- [ ] CI en verde
-- [ ] Revisión aprobada
-- [ ] PR mergeada en `main`
-- [ ] `main` actualizado en local
-- [ ] Tag `v0.1.0-beta.8` creado desde `main`
-- [ ] Producción verificada si aplica
-- [ ] Rama remota `release/0.1.0-beta.8` eliminada
-- [ ] Release notes actualizadas
-- [ ] Issues marcadas como `Released`
-- [ ] Estado actual actualizado
-- [ ] Current Release actualizado
-- [ ] Backlog actualizado
-- [ ] Documento de release actualizado como cerrado
+- [x] PR `release/0.1.0-beta.8` -> `main` abierta: https://github.com/dignacioconde/culturApp/pull/87
+- [x] CI en verde
+- [x] Revisión aprobada
+- [x] PR mergeada en `main`
+- [x] `main` actualizado en local
+- [x] Tag `v0.1.0-beta.8` creado desde `main`
+- [x] Producción verificada si aplica
+- [x] Rama remota `release/0.1.0-beta.8` eliminada
+- [x] Release notes actualizadas
+- [x] Issues marcadas como `Released`
+- [x] Estado actual actualizado
+- [x] Current Release actualizado
+- [x] Backlog actualizado
+- [x] Documento de release actualizado como cerrado
 
 ## Release notes
 
@@ -164,4 +164,4 @@ Beta 8 no añade analítica real ni reabre el sistema de releases: usa el workfl
 
 ## Resultado final
 
-Lista para PR `release/0.1.0-beta.8` -> `main`. La release no debe marcarse como `Released` ni etiquetarse hasta mergear en `main` y validar CI.
+Release cerrada y mergeada a `main` el 2026-05-07 en PR #87. Tag `v0.1.0-beta.8` creado desde `main`.

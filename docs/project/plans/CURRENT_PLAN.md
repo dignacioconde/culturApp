@@ -16,19 +16,19 @@ tags:
 
 ## Foco actual
 
-Release activa: [[../releases/RELEASE-0.1.0-beta.8|RELEASE-0.1.0-beta.8]] — onboarding y acceso beta privado.
+Beta 8 queda cerrada. Siguiente foco: decidir el próximo corte antes de abrir nuevas tareas de producto.
 
 ## Release activa
 
-[[../releases/RELEASE-0.1.0-beta.8|RELEASE-0.1.0-beta.8]]
+Sin release activa.
 
-Ultimo corte: [[../releases/RELEASE-0.1.0-beta.7|RELEASE-0.1.0-beta.7]] — mergeada a `main` el 2026-05-07.
+Ultimo corte: [[../releases/RELEASE-0.1.0-beta.8|RELEASE-0.1.0-beta.8]] — mergeada a `main` el 2026-05-07.
 
 ## Prioridades
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
-2. Ejecutar [[../issues/CACH-B0006|CACH-B0006]] como corte beta 8: onboarding, invitaciones y privacidad básica.
-3. Mantener fuera de beta 8 el sistema básico de releases, analítica real, i18n y growth.
+2. No abrir el panel admin de invitaciones dentro de beta 8; planificarlo como release posterior.
+3. Mantener fuera del siguiente corte cualquier analítica real, i18n o growth salvo decisión explícita.
 
 ## Plan operativo
 
@@ -41,4 +41,4 @@ Ultimo corte: [[../releases/RELEASE-0.1.0-beta.7|RELEASE-0.1.0-beta.7]] — merg
 
 ## Próximo checkpoint
 
-Abrir PR única `release/0.1.0-beta.8` -> `main`, validar CI y cerrar la release con tag `v0.1.0-beta.8` tras el merge.
+Decidir si el panel admin de invitaciones entra en `0.1.0-beta.9` o en una micro-release técnica separada.

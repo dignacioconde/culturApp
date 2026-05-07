@@ -26,6 +26,7 @@ tags:
 - [[../issues/CACH-0036|CACH-0036]] — Profesionalizar flujo de ramas por beta
 - [[../issues/CACH-0037|CACH-0037]] — Consolidar PRD y sistema de diseno de Cachés
 - [[../issues/CACH-0038|CACH-0038]] — Compactar mobile financiero y detalles accionables
+- [[../issues/CACH-B0006|CACH-B0006]] — Onboarding y acceso beta
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes
 - [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos
 - [[../issues/CACH-B0014|CACH-B0014]] — Endurecer agenda cobros y captura del MVP
@@ -44,7 +45,3 @@ tags:
 - [[../issues/CACH-B0011|CACH-B0011]] — Categorias etiquetas y taxonomia
 - [[../issues/CACH-B0012|CACH-B0012]] — Perfil publico viralidad y referidos
 - [[../issues/CACH-B0013|CACH-B0013]] — Gestion documental por proyecto evento
-
-## review
-
-- [[../issues/CACH-B0006|CACH-B0006]] — Onboarding y acceso beta

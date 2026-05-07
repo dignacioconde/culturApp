@@ -64,12 +64,12 @@ Sin issues en inbox.
 
 | ID | Titulo | Tipo | Prioridad | Nota |
 |---|---|---|---|---|
-| [[../issues/CACH-B0006|CACH-B0006]] | Onboarding y acceso beta | feature | p1 | Lista para PR de release beta 8; falta CI/merge/tag. |
 
 ## Done
 
 | ID | Titulo | Release | Resultado |
 |---|---|---|---|
+| [[../issues/CACH-B0006|CACH-B0006]] | Onboarding y acceso beta | [[../releases/RELEASE-0.1.0-beta.8|RELEASE-0.1.0-beta.8]] | Acceso por invitación, onboarding y consentimiento básico integrados por PR #87. |
 | [[../issues/CACH-0030|CACH-0030]] | Homogeneizar diseno con nueva paleta | [[../releases/RELEASE-0.1.0-beta.6|RELEASE-0.1.0-beta.6]] | Cerrada por beta 6 en PR #85; drift documental corregido tras beta 7. |
 | [[../issues/CACH-0038|CACH-0038]] | Compactar mobile financiero y detalles accionables | [[../releases/RELEASE-0.1.0-beta.6|RELEASE-0.1.0-beta.6]] | Cerrada por beta 6 en PR #85; drift documental corregido tras beta 7. |
 | [[../issues/CACH-B0005|CACH-B0005]] | Importacion, exportacion y portabilidad de datos | [[../releases/RELEASE-0.1.0-beta.7|RELEASE-0.1.0-beta.7]] | Export JSON/CSV e import CSV minima integradas por PR #86. |
