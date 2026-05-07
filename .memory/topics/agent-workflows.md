@@ -52,6 +52,12 @@ Verification and closure:
 - If there is no PR, close only after pushed commit plus comment with summary, commit/branch, verification and memory/docs status.
 - If the user expects the change in the live app, preview is not enough: merge to `main`, verify production alias and clean branches.
 
+Remote database operations:
+- Prefer Supabase MCP for direct CulturaApp database diagnostics and operations when available; use SQL Editor as manual fallback when the current agent session lacks MCP access.
+- For production mutations, agents must show the exact SQL or migration and wait for explicit human confirmation before executing.
+- Do not store or paste PATs, connection strings, service role keys, passwords or `.env.local` values in repo, memory, issues, prompts or PRs.
+- Canonical workflow: `docs/project/process/supabase-db-access.md`.
+
 Memory hygiene:
 - Before opening a PR, review task context, diff and commits against base.
 - Update `.memory/` only for durable preferences, product decisions, recurring gotchas or workflow rules.

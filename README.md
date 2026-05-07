@@ -90,7 +90,8 @@ Ve a [supabase.com](https://supabase.com), crea un nuevo proyecto y anota la **U
 En el **editor SQL** de Supabase ejecuta el esquema actual. Si vienes de una versión anterior, borra antes las tablas existentes como indica `AGENTS.md`.
 
 ```sql
-create extension if not exists pgcrypto;
+create schema if not exists extensions;
+create extension if not exists pgcrypto with schema extensions;
 
 create table profiles (
   id uuid primary key references auth.users(id) on delete cascade,
@@ -315,7 +316,7 @@ begin
   );
   return new;
 end;
-$$ language plpgsql security definer set search_path = public, auth;
+$$ language plpgsql security definer set search_path = public, auth, extensions;
 
 create trigger on_auth_user_created
   after insert on auth.users
@@ -329,7 +330,7 @@ Guarda solo el hash SHA-256 normalizado del código (`lower(trim(codigo))`). Eje
 ```sql
 insert into public.beta_invites (code_hash, label, max_redemptions, expires_at)
 values (
-  encode(digest(lower(trim('CACHES-BETA-2026-EJEMPLO')), 'sha256'), 'hex'),
+  encode(extensions.digest(lower(trim('CACHES-BETA-2026-EJEMPLO')), 'sha256'), 'hex'),
   'Beta 8 - ejemplo manual',
   1,
   now() + interval '30 days'
@@ -341,7 +342,7 @@ Para códigos multiuso, sube `max_redemptions`. Para revocar uno:
 ```sql
 update public.beta_invites
 set revoked_at = now()
-where code_hash = encode(digest(lower(trim('CACHES-BETA-2026-EJEMPLO')), 'sha256'), 'hex');
+where code_hash = encode(extensions.digest(lower(trim('CACHES-BETA-2026-EJEMPLO')), 'sha256'), 'hex');
 ```
 
 ### 4.2. Primer administrador beta
@@ -355,6 +356,10 @@ where id = 'UUID_DEL_USUARIO_ADMIN';
 ```
 
 Desde la app, las invitaciones se gestionan en `/admin/invitaciones`. El cliente nunca usa service role ni lee directamente `beta_invites`: crea, lista y revoca mediante RPCs con comprobación de admin. El código plano solo se muestra una vez al crearlo; después queda guardado solo el hash SHA-256 normalizado.
+
+### 4.3. Operaciones directas de base de datos
+
+Para agentes y mantenimiento, la vía preferida es Supabase MCP acotado al proyecto. Si no está disponible, usar SQL Editor como fallback manual. Las reglas completas viven en `docs/project/process/supabase-db-access.md`: no guardar secretos, enseñar el SQL exacto antes de mutar producción, aplicar cambios como migraciones versionadas y ejecutar `notify pgrst, 'reload schema';` tras cambiar RPCs.
 
 ### 5. Variables de entorno
 

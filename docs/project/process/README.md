@@ -29,5 +29,6 @@ Sistema operativo ligero para desarrollar Cachés desde el Product Brain.
 - [[frontmatter-schema]] — schema humano del frontmatter validado por Zod.
 - [[weekly-review]] — revisión semanal ligera del brain.
 - [[release-flow]] — cortes pequeños y mergeables.
+- [[supabase-db-access]] — acceso directo seguro a Supabase con MCP y fallback SQL Editor.
 - [[DEVELOPMENT_WORKFLOW]] — consolidado en WORKFLOW (stub).
 - [[AGENT_WORKFLOW]] — consolidado en WORKFLOW (stub).

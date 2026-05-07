@@ -52,12 +52,14 @@ Crear códigos manualmente por SQL es suficiente para validar beta 8, pero no es
 - [x] Código revocado, usado, caducado, vacío o inválido falla con mensaje genérico.
 - [x] El código plano solo aparece una vez al crear.
 - [x] `/admin/invitaciones` funciona en 375px y desktop.
+- [x] El flujo de operaciones directas de Supabase queda documentado con MCP como vía preferida y SQL Editor como fallback.
 - [x] `npm run lint`, `npm run test`, `npm run build`, `npm run pb:check` y `git diff --check` pasan.
 
 ## Validation
 
 - Ejecutado `npm run lint`, `npm run test`, `npm run build`, `npm run pb:check` y `git diff --check`.
 - Revisión local de seguridad: el cliente usa RPCs y no consulta `beta_invites`/`beta_invite_redemptions` directamente.
+- Añadida migración hotfix para resolver `pgcrypto` en Supabase cuando la extensión vive en `extensions`.
 - La migración no se ha aplicado contra Supabase remoto desde el agente.
 
 ## Out of Scope

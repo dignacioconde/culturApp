@@ -1,6 +1,9 @@
 alter table public.profiles
   add column if not exists role text not null default 'user';
 
+create schema if not exists extensions;
+create extension if not exists pgcrypto with schema extensions;
+
 do $$
 begin
   if not exists (
@@ -38,7 +41,7 @@ returns boolean
 language sql
 stable
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
   select exists (
     select 1
@@ -138,17 +141,17 @@ begin
   )
   returning * into inserted_invite;
 
-  return query
-  select
-    inserted_invite.id,
-    generated_code,
-    inserted_invite.label,
-    inserted_invite.max_redemptions,
-    inserted_invite.redeemed_count,
-    inserted_invite.expires_at,
-    inserted_invite.revoked_at,
-    inserted_invite.created_at,
-    inserted_invite.updated_at;
+  id := inserted_invite.id;
+  code := generated_code;
+  label := inserted_invite.label;
+  max_redemptions := inserted_invite.max_redemptions;
+  redeemed_count := inserted_invite.redeemed_count;
+  expires_at := inserted_invite.expires_at;
+  revoked_at := inserted_invite.revoked_at;
+  created_at := inserted_invite.created_at;
+  updated_at := inserted_invite.updated_at;
+
+  return next;
 end;
 $$;
 

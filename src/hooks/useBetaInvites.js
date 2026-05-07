@@ -17,10 +17,26 @@ function normalizeInvite(invite) {
   }
 }
 
+function logAdminRpcError(operation, error) {
+  if (!error) return
+  console.error(`[beta-invites:${operation}]`, {
+    code: error.code,
+    message: error.message,
+    details: error.details,
+    hint: error.hint,
+  })
+}
+
 function genericAdminError(error) {
   if (!error) return ''
   if (error.message?.includes('admin_required')) {
     return 'No tienes permisos para gestionar invitaciones.'
+  }
+  if (error.code === 'PGRST202' || error.code === 'PGRST203') {
+    return 'La conexión con las funciones de invitaciones no está actualizada. Recarga el esquema de Supabase y vuelve a intentarlo.'
+  }
+  if (error.message?.includes('gen_random_bytes') || error.message?.includes('digest')) {
+    return 'La función de invitaciones necesita el hotfix de pgcrypto antes de crear códigos.'
   }
   return 'No hemos podido gestionar las invitaciones. Vuelve a intentarlo.'
 }
@@ -35,6 +51,7 @@ export function useBetaInvites() {
     setError('')
     const { data, error } = await supabase.rpc('list_beta_invites')
     if (error) {
+      logAdminRpcError('list', error)
       setError(genericAdminError(error))
       setInvites([])
     } else {
@@ -57,11 +74,19 @@ export function useBetaInvites() {
     }
     const { data, error } = await supabase.rpc('create_beta_invite', params)
     if (error) {
+      logAdminRpcError('create', error)
       const message = genericAdminError(error)
       setError(message)
       return { data: null, error, message }
     }
-    const created = normalizeInvite(data?.[0] ?? data)
+    const rawCreated = data?.[0] ?? data
+    if (!rawCreated?.code) {
+      const message = 'La invitación se ha creado, pero la respuesta no incluía el código.'
+      setError(message)
+      logAdminRpcError('create:contract', { message, details: data })
+      return { data: null, error: new Error(message), message }
+    }
+    const created = normalizeInvite(rawCreated)
     await refetch()
     return { data: created, error: null, message: '' }
   }
@@ -70,6 +95,7 @@ export function useBetaInvites() {
     setError('')
     const { data, error } = await supabase.rpc('revoke_beta_invite', { target_invite_id: inviteId })
     if (error) {
+      logAdminRpcError('revoke', error)
       const message = genericAdminError(error)
       setError(message)
       return { data: null, error, message }

@@ -138,6 +138,7 @@ Permitir gestionar invitaciones beta desde una pantalla interna segura, con rol 
 - RPCs seguras para listar, crear y revocar invitaciones beta sin exponer hashes.
 - Ruta privada `/admin/invitaciones` para crear, listar y revocar códigos.
 - Enlace a administración beta desde Ajustes solo para perfiles admin.
+- Documento operativo para acceso directo seguro a Supabase con MCP y fallback SQL Editor.
 
 ### Cambiado
 
@@ -147,6 +148,7 @@ Permitir gestionar invitaciones beta desde una pantalla interna segura, con rol 
 ### Corregido
 
 - Usuarios normales quedan fuera de `/admin/invitaciones` aunque conozcan la URL.
+- `create_beta_invite()` y `handle_new_user()` resuelven `pgcrypto` cuando Supabase instala la extensión en el schema `extensions`.
 
 ### Eliminado
 
@@ -155,6 +157,7 @@ Permitir gestionar invitaciones beta desde una pantalla interna segura, con rol 
 ### Técnico
 
 - Validado localmente: `npm run lint`, `npm run test`, `npm run build`, `npm run pb:check` y `git diff --check`.
+- La migración hotfix `20260507193000_fix_beta_invite_pgcrypto_schema.sql` debe aplicarse en Supabase remoto antes de probar creación de códigos en producción.
 
 ## Resultado final
 

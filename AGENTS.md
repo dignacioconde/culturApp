@@ -50,6 +50,7 @@ Para cambios visuales/responsive:
 Datos y seguridad:
 - No llamar a Supabase directamente desde componentes. Usa hooks en `src/hooks`.
 - RLS es obligatorio en datos por usuario. No usar service role en cliente.
+- Operaciones directas de Supabase remoto: usar Supabase MCP acotado al proyecto o SQL Editor como fallback; mostrar SQL exacto y pedir confirmación antes de mutar producción. Ver `docs/project/process/supabase-db-access.md`.
 - `user_id` debe venir del usuario autenticado, no de input editable.
 - `profiles.tax_rate` es la fuente de IRPF habitual; usar `useProfile`.
 - Error 409 al crear proyecto/evento suele indicar perfil faltante; ver `.memory/projects/settings.md`.
