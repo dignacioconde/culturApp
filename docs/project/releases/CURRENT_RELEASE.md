@@ -1,7 +1,7 @@
 ---
 id: PB-CURRENT-RELEASE
 type: release-status
-status: No active release
+status: Active
 created: 2026-05-05
 updated: 2026-05-07
 aliases:
@@ -16,11 +16,11 @@ tags:
 
 ## Release activa
 
-No active release.
+[[RELEASE-0.1.0-beta.8|RELEASE-0.1.0-beta.8]] — Onboarding y acceso beta privado.
 
 ## Rama activa
 
-No active release branch.
+`release/0.1.0-beta.8`
 
 ## Ultimo corte
 
@@ -28,12 +28,12 @@ No active release branch.
 
 ## Scope actual
 
-Sin scope activo.
+- [[../issues/CACH-B0006|CACH-B0006]] — Onboarding y acceso beta.
 
 ## Regla de trabajo para esta release
 
-No hay release activa. Para fixes, chores y mejoras menores: PR directa a `main`.
+Las tareas de [[../issues/CACH-B0006|CACH-B0006]] salen de `release/0.1.0-beta.8` y vuelven a esa rama. No mezclar sistema básico de releases ni analítica real en este corte.
 
 ## Como cerrar esta release
 
-No aplica hasta activar la siguiente release.
+Cerrar mediante PR única `release/0.1.0-beta.8` -> `main`, validar CI, actualizar release notes, marcar CACH-B0006 como cerrada/Released, crear tag `v0.1.0-beta.8` desde `main` y limpiar rama remota.

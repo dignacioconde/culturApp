@@ -48,7 +48,6 @@ Sin issues en inbox.
 | [[../issues/CACH-B0001|CACH-B0001]] | Redisenar Trabajos y jerarquia proyecto-evento | feature | p1 | Partir antes de ejecutar. |
 | [[../issues/CACH-B0002|CACH-B0002]] | Simplificar experiencia mobile financiera | feature | p1 | Validacion mobile obligatoria. |
 | [[../issues/CACH-B0004|CACH-B0004]] | Contratantes, facturacion y liquidacion neta | feature | p1 | Evolucion de modelo financiero. |
-| [[../issues/CACH-B0006|CACH-B0006]] | Onboarding y acceso beta | feature | p1 | Primera sesion y beta privada. |
 | [[../issues/CACH-B0007|CACH-B0007]] | Calendario unificado e interaccion rapida | feature | p1 | QA visual y responsive. |
 | [[../issues/CACH-B0008|CACH-B0008]] | PWA, notificaciones y offline | feature | p2 | Post confianza basica. |
 | [[../issues/CACH-B0009|CACH-B0009]] | Inteligencia financiera y features Pro | feature | p2 | No antes de beta trust. |
@@ -65,13 +64,14 @@ Sin issues en inbox.
 
 | ID | Titulo | Tipo | Prioridad | Nota |
 |---|---|---|---|---|
-| [[../issues/CACH-0030|CACH-0030]] | Homogeneizar diseno con nueva paleta | chore | p1 | Pendiente QA visual autenticada. |
-| [[../issues/CACH-0038|CACH-0038]] | Compactar mobile financiero y detalles accionables | feature | p1 | Pendiente QA visual autenticada. |
+| [[../issues/CACH-B0006|CACH-B0006]] | Onboarding y acceso beta | feature | p1 | Lista para PR de release beta 8; falta CI/merge/tag. |
 
 ## Done
 
 | ID | Titulo | Release | Resultado |
 |---|---|---|---|
+| [[../issues/CACH-0030|CACH-0030]] | Homogeneizar diseno con nueva paleta | [[../releases/RELEASE-0.1.0-beta.6|RELEASE-0.1.0-beta.6]] | Cerrada por beta 6 en PR #85; drift documental corregido tras beta 7. |
+| [[../issues/CACH-0038|CACH-0038]] | Compactar mobile financiero y detalles accionables | [[../releases/RELEASE-0.1.0-beta.6|RELEASE-0.1.0-beta.6]] | Cerrada por beta 6 en PR #85; drift documental corregido tras beta 7. |
 | [[../issues/CACH-B0005|CACH-B0005]] | Importacion, exportacion y portabilidad de datos | [[../releases/RELEASE-0.1.0-beta.7|RELEASE-0.1.0-beta.7]] | Export JSON/CSV e import CSV minima integradas por PR #86. |
 | [[../issues/CACH-0036|CACH-0036]] | Profesionalizar flujo de ramas por beta | [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] | Flujo beta profesional integrado en main por PR #84. |
 | [[../issues/CACH-0037|CACH-0037]] | Consolidar PRD y sistema de diseno de Cachés | [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] | PRD y sistema de diseno base integrados en main por PR #84. |

@@ -1,8 +1,10 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { useAuth } from './hooks/useAuth'
+import { useProfile } from './hooks/useProfile'
 import { ScrollLockProvider } from './hooks/useScrollLock'
 import Login from './pages/Auth/Login'
 import Register from './pages/Auth/Register'
+import Onboarding from './pages/Auth/Onboarding'
 import Dashboard from './pages/Dashboard/Dashboard'
 import CalendarEvents from './pages/Calendar/CalendarEvents'
 import CalendarProjects from './pages/Calendar/CalendarProjects'
@@ -18,6 +20,42 @@ function PrivateRoute({ children }) {
   const { user, loading } = useAuth()
   if (loading) return <div className="min-h-screen flex items-center justify-center text-sm text-gray-400">Cargando...</div>
   if (!user) return <Navigate to="/login" replace />
+  return <ProfileGate user={user}>{children}</ProfileGate>
+}
+
+function ProfileGate({ user, children }) {
+  const location = useLocation()
+  const { profile, loading, error, refetch } = useProfile(user?.id)
+  const isOnboardingRoute = location.pathname === '/onboarding'
+
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center text-sm text-gray-400">Cargando perfil...</div>
+  }
+
+  if (error || !profile) {
+    return (
+      <div className="min-h-screen bg-[var(--color-paper)] flex items-center justify-center p-4">
+        <div className="w-full max-w-md rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-surface)] p-6 text-center shadow-sm">
+          <h1 className="text-lg font-semibold text-[var(--color-ink)]">No hemos podido cargar tu perfil</h1>
+          <p className="mt-2 text-sm text-[var(--color-ink-muted)]">
+            Tu sesión está activa, pero falta la fila de perfil necesaria para usar Cachés. Vuelve a intentarlo y, si sigue igual, avísanos para repararlo.
+          </p>
+          <button
+            type="button"
+            onClick={refetch}
+            className="mt-5 inline-flex min-h-10 items-center justify-center rounded-lg bg-[var(--color-red)] px-4 py-2 text-sm font-medium text-white hover:bg-[var(--color-red-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2"
+          >
+            Reintentar
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  if (!profile.onboarding_completed && !isOnboardingRoute) {
+    return <Navigate to="/onboarding" replace state={{ from: location.pathname }} />
+  }
+
   return children
 }
 
@@ -35,6 +73,7 @@ export default function App() {
         <Routes>
         <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
         <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
+        <Route path="/onboarding" element={<PrivateRoute><Onboarding /></PrivateRoute>} />
         <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
         <Route path="/calendar/events" element={<PrivateRoute><CalendarEvents /></PrivateRoute>} />
         <Route path="/calendar/projects" element={<PrivateRoute><CalendarProjects /></PrivateRoute>} />
