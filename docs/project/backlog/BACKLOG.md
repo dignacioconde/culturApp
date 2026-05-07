@@ -48,7 +48,6 @@ Sin issues en inbox.
 | [[../issues/CACH-B0001|CACH-B0001]] | Redisenar Trabajos y jerarquia proyecto-evento | feature | p1 | Partir antes de ejecutar. |
 | [[../issues/CACH-B0002|CACH-B0002]] | Simplificar experiencia mobile financiera | feature | p1 | Validacion mobile obligatoria. |
 | [[../issues/CACH-B0004|CACH-B0004]] | Contratantes, facturacion y liquidacion neta | feature | p1 | Evolucion de modelo financiero. |
-| [[../issues/CACH-B0005|CACH-B0005]] | Importacion, exportacion y portabilidad de datos | feature | p1 | Necesario para confianza beta. |
 | [[../issues/CACH-B0006|CACH-B0006]] | Onboarding y acceso beta | feature | p1 | Primera sesion y beta privada. |
 | [[../issues/CACH-B0007|CACH-B0007]] | Calendario unificado e interaccion rapida | feature | p1 | QA visual y responsive. |
 | [[../issues/CACH-B0008|CACH-B0008]] | PWA, notificaciones y offline | feature | p2 | Post confianza basica. |
@@ -59,7 +58,9 @@ Sin issues en inbox.
 | [[../issues/CACH-B0013|CACH-B0013]] | Gestion documental por proyecto/evento | feature | p3 | Post-MVP. |
 ## In progress
 
-Sin issues en progreso.
+| ID | Titulo | Tipo | Prioridad | Nota |
+|---|---|---|---|---|
+| [[../issues/CACH-B0005|CACH-B0005]] | Importacion, exportacion y portabilidad de datos | feature | p1 | Scope Beta 7: exportacion e importacion CSV minima validada. |
 
 ## Review
 

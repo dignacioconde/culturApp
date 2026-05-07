@@ -16,19 +16,19 @@ tags:
 
 ## Foco actual
 
-Release activa: [[../releases/RELEASE-0.1.0-beta.6|RELEASE-0.1.0-beta.6]] — estabilización visual y mobile financiero.
+Release activa: [[../releases/RELEASE-0.1.0-beta.7|RELEASE-0.1.0-beta.7]] — portabilidad mínima de datos.
 
 ## Release activa
 
-[[../releases/RELEASE-0.1.0-beta.6|RELEASE-0.1.0-beta.6]]
+[[../releases/RELEASE-0.1.0-beta.7|RELEASE-0.1.0-beta.7]]
 
-Ultimo corte: [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] — mergeada a `main` el 2026-05-07.
+Ultimo corte preparado: [[../releases/RELEASE-0.1.0-beta.6|RELEASE-0.1.0-beta.6]] — PR #85 abierta el 2026-05-07 y pendiente de cierre final.
 
 ## Prioridades
 
-1. Ejecutar CACH-0030 y CACH-0038 desde `release/0.1.0-beta.6`.
+1. Ejecutar CACH-B0005 desde `release/0.1.0-beta.7`.
 2. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
-3. Dejar CACH-B0005 y CACH-B0006 como candidatas naturales para las siguientes betas, no para este corte visual/mobile.
+3. Dejar CACH-B0006 como candidata natural para la beta siguiente, no para este corte de portabilidad.
 
 ## Plan operativo
 
@@ -41,4 +41,4 @@ Ultimo corte: [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] — merg
 
 ## Próximo checkpoint
 
-Completar CACH-0030 y CACH-0038, validar la release y abrir PR única `release/0.1.0-beta.6` -> `main`.
+Partir CACH-B0005 en implementación verificable, validar exportación/importación y abrir PR única `release/0.1.0-beta.7` -> `main`.

@@ -33,12 +33,14 @@ tags:
 
 - [[../issues/CACH-0030|CACH-0030]] — Homogeneizar diseno con nueva paleta de colores y fuentes
 - [[../issues/CACH-0038|CACH-0038]] — Compactar mobile financiero y detalles accionables
+## in-progress
+
+- [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos
 ## backlog
 
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera
 - [[../issues/CACH-B0004|CACH-B0004]] — Contratantes facturacion y liquidacion neta
-- [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos
 - [[../issues/CACH-B0006|CACH-B0006]] — Onboarding y acceso beta
 - [[../issues/CACH-B0007|CACH-B0007]] — Calendario unificado e interaccion rapida
 - [[../issues/CACH-B0008|CACH-B0008]] — PWA notificaciones y offline
