@@ -26,14 +26,15 @@ tags:
 - [[../issues/CACH-0036|CACH-0036]] — Profesionalizar flujo de ramas por beta
 - [[../issues/CACH-0037|CACH-0037]] — Consolidar PRD y sistema de diseno de Cachés
 - [[../issues/CACH-0038|CACH-0038]] — Compactar mobile financiero y detalles accionables
-- [[../issues/CACH-B0006|CACH-B0006]] — Onboarding y acceso beta
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes
 - [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos
+- [[../issues/CACH-B0006|CACH-B0006]] — Onboarding y acceso beta
 - [[../issues/CACH-B0014|CACH-B0014]] — Endurecer agenda cobros y captura del MVP
 - [[../issues/CACH-B0015|CACH-B0015]] — Operativizar backlog releases y ramas en Product Brain
 - [[../issues/CACH-B0016|CACH-B0016]] — Refundacion operativa del Product Brain y tests B0014
 - [[../issues/CACH-B0017|CACH-B0017]] — Panel admin para invitaciones beta
 - [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura
+- [[../issues/CACH-B0019|CACH-B0019]] — Emails transaccionales beta con Brevo
 
 ## backlog
 

@@ -23,4 +23,5 @@ Load policy:
 
 Prompts:
 - `product-brain-capture.md` — Active reusable capture format for mobile/Product Brain input.
+- `cach-b0019-operativa-supabase-brevo.md` — Active operations prompt for Supabase/Brevo transactional email handoff.
 - `cach-0029-cerrar-huecos-b0016.md` — Historical task prompt; use only when investigating CACH-0029 or related past execution.

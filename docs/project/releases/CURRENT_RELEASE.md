@@ -16,24 +16,24 @@ tags:
 
 ## Release activa
 
-Sin release activa.
+`RELEASE-0.1.0-beta.11` — Próximo corte beta.
 
 ## Rama activa
 
-Ninguna.
+`release/0.1.0-beta.11`
 
 ## Ultimo corte
 
-`RELEASE-0.1.0-beta.9` — mergeada a `main` en PR #88 el 2026-05-07. Ver [[RELEASE-0.1.0-beta.9]].
+`RELEASE-0.1.0-beta.10` — emails transaccionales beta con Brevo. Ver [[RELEASE-0.1.0-beta.10]].
 
 ## Scope actual
 
-Sin scope activo.
+Sin scope activo. Release vacía hasta asociar la primera issue.
 
 ## Regla de trabajo para esta release
 
-No abrir trabajo nuevo en `release/0.1.0-beta.9`. Crear nueva release o usar flujo ligero desde `main` según scope.
+Crear o actualizar issue `CACH-*` antes de meter trabajo en `release/0.1.0-beta.11`.
 
 ## Como cerrar esta release
 
-Beta 9 cerrada con tag `v0.1.0-beta.9`, producción verificada y rama remota de release limpiada.
+Pendiente. La release está abierta y sin scope.

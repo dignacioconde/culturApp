@@ -69,6 +69,7 @@ Sin issues en inbox.
 
 | ID | Titulo | Release | Resultado |
 |---|---|---|---|
+| [[../issues/CACH-B0019|CACH-B0019]] | Emails transaccionales beta con Brevo | [[../releases/RELEASE-0.1.0-beta.10|RELEASE-0.1.0-beta.10]] | Invitaciones por Brevo Edge Function, auditoría y flujo de confirmación email preparados. |
 | [[../issues/CACH-B0017|CACH-B0017]] | Panel admin para invitaciones beta | [[../releases/RELEASE-0.1.0-beta.9|RELEASE-0.1.0-beta.9]] | Panel admin, rol admin, RPCs seguras y hotfix pgcrypto integrados por PR #88. |
 | [[../issues/CACH-B0018|CACH-B0018]] | Adaptador Codex-native para perfiles Cultura | [[../releases/RELEASE-0.1.0-beta.9|RELEASE-0.1.0-beta.9]] | Flujo Codex-native documentado e integrado por PR #88. |
 | [[../issues/CACH-B0006|CACH-B0006]] | Onboarding y acceso beta | [[../releases/RELEASE-0.1.0-beta.8|RELEASE-0.1.0-beta.8]] | Acceso por invitación, onboarding y consentimiento básico integrados por PR #87. |

@@ -42,3 +42,4 @@ tags:
 - [[../issues/CACH-B0016|CACH-B0016]] — Refundacion operativa del Product Brain y tests B0014
 - [[../issues/CACH-B0017|CACH-B0017]] — Panel admin para invitaciones beta
 - [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura
+- [[../issues/CACH-B0019|CACH-B0019]] — Emails transaccionales beta con Brevo

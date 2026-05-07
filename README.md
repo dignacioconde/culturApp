@@ -361,6 +361,45 @@ Desde la app, las invitaciones se gestionan en `/admin/invitaciones`. El cliente
 
 Para agentes y mantenimiento, la vía preferida es Supabase MCP acotado al proyecto. Si no está disponible, usar SQL Editor como fallback manual. Las reglas completas viven en `docs/project/process/supabase-db-access.md`: no guardar secretos, enseñar el SQL exacto antes de mutar producción, aplicar cambios como migraciones versionadas y ejecutar `notify pgrst, 'reload schema';` tras cambiar RPCs.
 
+### 4.4. Emails transaccionales
+
+Cachés usa Brevo para emails transaccionales en dos caminos separados:
+
+- Invitaciones beta propias de la app: Supabase Edge Function `send-beta-invite` + Brevo Transactional API.
+- Confirmaciones de alta de Supabase Auth: configuración manual de Custom SMTP en Supabase Dashboard usando Brevo SMTP.
+
+Secrets requeridos para la Edge Function:
+
+```bash
+supabase secrets set EMAIL_PROVIDER=brevo
+supabase secrets set BREVO_API_KEY=...
+supabase secrets set APP_URL=https://culturapp-rho.vercel.app
+supabase secrets set EMAIL_FROM_ADDRESS=hola@updates.caches.es
+supabase secrets set EMAIL_FROM_NAME="Cachés"
+supabase secrets set EMAIL_REPLY_TO=hola@caches.es
+
+supabase functions deploy send-beta-invite
+```
+
+`BREVO_API_KEY` debe ser una API key v3 de Brevo para la API HTTP, normalmente con formato `xkeysib-...`. No sirve la SMTP key: esa solo se usa en la configuración SMTP de Supabase Auth.
+
+Configuración manual en Supabase Dashboard:
+
+1. Activar `Authentication > Providers > Email > Confirm email`.
+2. Configurar `Authentication > SMTP settings`:
+   - Host: `smtp-relay.brevo.com`
+   - Port: `587`
+   - Username: SMTP login de Brevo
+   - Password: SMTP key / master password de Brevo
+   - Sender email: `hola@updates.caches.es`
+   - Sender name: `Cachés`
+3. Revisar `Authentication > URL Configuration`:
+   - Site URL: `https://culturapp-rho.vercel.app`
+   - Redirect URLs: `https://culturapp-rho.vercel.app/**` y localhost si se prueba en local.
+4. Personalizar la plantilla `Confirm signup` con copy de Cachés en español.
+
+Antes de invitar usuarios reales, verifica el dominio/remitente en Brevo y configura SPF, DKIM y DMARC. No añadas claves Brevo como variables `VITE_*`: solo pertenecen a Supabase Edge Functions o al panel de Supabase Auth.
+
 ### 5. Variables de entorno
 
 Crea `.env.local` en la raíz del proyecto (no lo subas a git):

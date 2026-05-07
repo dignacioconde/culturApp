@@ -41,6 +41,23 @@ function genericAdminError(error) {
   return 'No hemos podido gestionar las invitaciones. Vuelve a intentarlo.'
 }
 
+function genericSendInviteError(error, responseData) {
+  if (responseData?.message) return responseData.message
+  if (error?.message?.includes('FunctionsHttpError')) {
+    return 'No hemos podido enviar la invitación. Vuelve a intentarlo.'
+  }
+  return 'No hemos podido enviar la invitación. Vuelve a intentarlo.'
+}
+
+async function readFunctionErrorData(error) {
+  if (!error?.context?.json) return null
+  try {
+    return await error.context.json()
+  } catch {
+    return null
+  }
+}
+
 export function useBetaInvites() {
   const [invites, setInvites] = useState([])
   const [loading, setLoading] = useState(true)
@@ -91,6 +108,58 @@ export function useBetaInvites() {
     return { data: created, error: null, message: '' }
   }
 
+  const createAndSendInvite = async ({ recipientEmail, recipientName, label, maxRedemptions, expiresAt }) => {
+    setError('')
+    const { data, error } = await supabase.functions.invoke('send-beta-invite', {
+      body: {
+        recipientEmail: recipientEmail?.trim(),
+        recipientName: recipientName?.trim() || null,
+        label: label?.trim() || null,
+        maxRedemptions,
+        expiresAt: expiresAt || null,
+      },
+    })
+    const responseData = data ?? await readFunctionErrorData(error)
+
+    if (responseData?.ok) {
+      await refetch()
+      return {
+        data: {
+          invite: normalizeInvite(responseData.invite),
+          email: responseData.email,
+        },
+        error: null,
+        message: '',
+        partial: false,
+      }
+    }
+
+    if (responseData?.partial && responseData.invite?.code) {
+      await refetch()
+      return {
+        data: {
+          invite: normalizeInvite(responseData.invite),
+          email: responseData.email ?? null,
+        },
+        error: new Error(responseData.error ?? 'email_send_failed'),
+        message: responseData.message ?? 'La invitación se ha creado, pero no hemos podido enviar el email.',
+        partial: true,
+      }
+    }
+
+    if (error) {
+      logAdminRpcError('send', error)
+    }
+    const message = genericSendInviteError(error, responseData)
+    setError(message)
+    return {
+      data: null,
+      error: error ?? new Error(responseData?.error ?? 'email_send_failed'),
+      message,
+      partial: false,
+    }
+  }
+
   const revokeInvite = async (inviteId) => {
     setError('')
     const { data, error } = await supabase.rpc('revoke_beta_invite', { target_invite_id: inviteId })
@@ -104,5 +173,5 @@ export function useBetaInvites() {
     return { data: data?.[0] ?? data, error: null, message: '' }
   }
 
-  return { invites, loading, error, refetch, createInvite, revokeInvite }
+  return { invites, loading, error, refetch, createInvite, createAndSendInvite, revokeInvite }
 }

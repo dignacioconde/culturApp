@@ -13,6 +13,7 @@ playwright-report/
 
 # Vite
 *.local
+supabase/.temp/
 
 # macOS
 .DS_Store

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 import { Button } from '../../components/ui/Button'
 import { Input } from '../../components/ui/Input'
@@ -8,9 +8,11 @@ import { Drama } from 'lucide-react'
 export default function Login() {
   const { signIn } = useAuth()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const [form, setForm] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const confirmed = searchParams.get('confirmed') === '1'
 
   const handleChange = (e) => setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
 
@@ -25,6 +27,10 @@ export default function Login() {
     const { error } = await signIn(form.email.trim(), form.password)
     setLoading(false)
     if (error) {
+      if (error.code === 'email_not_confirmed' || error.message?.toLowerCase().includes('email not confirmed')) {
+        setError('Confirma tu email antes de entrar.')
+        return
+      }
       setError('Email o contraseña incorrectos.')
       return
     }
@@ -43,6 +49,11 @@ export default function Login() {
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          {confirmed && (
+            <p className="rounded-lg bg-green-50 px-3 py-2 text-sm text-green-700">
+              Email confirmado. Ya puedes entrar en Cachés.
+            </p>
+          )}
           <Input
             label="Email"
             type="email"

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { CalendarX, Check, Copy, RotateCw, ShieldCheck, Ticket, XCircle } from 'lucide-react'
+import { CalendarX, Check, Copy, Mail, RotateCw, ShieldCheck, Ticket, XCircle } from 'lucide-react'
 import { PageWrapper } from '../../components/layout/PageWrapper'
 import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
@@ -32,27 +32,53 @@ function InviteStatus({ invite }) {
 }
 
 export default function AdminInvites() {
-  const { invites, loading, error, refetch, createInvite, revokeInvite } = useBetaInvites()
+  const { invites, loading, error, refetch, createInvite, createAndSendInvite, revokeInvite } = useBetaInvites()
   const { toasts, addToast, removeToast } = useToast()
-  const [form, setForm] = useState({ label: '', maxRedemptions: '1', expiresAt: '' })
+  const [form, setForm] = useState({
+    recipientEmail: '',
+    recipientName: '',
+    label: '',
+    maxRedemptions: '1',
+    expiresAt: '',
+  })
   const [saving, setSaving] = useState(false)
+  const [sending, setSending] = useState(false)
   const [revokingId, setRevokingId] = useState('')
   const [createdCode, setCreatedCode] = useState('')
+  const [createdCodeMode, setCreatedCodeMode] = useState('')
   const [formError, setFormError] = useState('')
+  const [lastSentEmail, setLastSentEmail] = useState('')
 
   const handleChange = (e) => {
     setForm((current) => ({ ...current, [e.target.name]: e.target.value }))
     setFormError('')
+    setLastSentEmail('')
   }
 
-  const handleCreate = async (e) => {
-    e.preventDefault()
-    setCreatedCode('')
+  const resetForm = () => {
+    setForm({ recipientEmail: '', recipientName: '', label: '', maxRedemptions: '1', expiresAt: '' })
+  }
+
+  const validateInviteFields = ({ requireEmail = false } = {}) => {
     const maxRedemptions = Number(form.maxRedemptions)
+    if (requireEmail && !form.recipientEmail.trim()) {
+      setFormError('Introduce el email de la persona invitada.')
+      return null
+    }
     if (!Number.isInteger(maxRedemptions) || maxRedemptions < 1 || maxRedemptions > 100) {
       setFormError('Los usos máximos deben estar entre 1 y 100.')
-      return
+      return null
     }
+    return maxRedemptions
+  }
+
+  const handleCreateOnly = async () => {
+    setCreatedCode('')
+    setCreatedCodeMode('')
+    setLastSentEmail('')
+    setFormError('')
+    const maxRedemptions = validateInviteFields()
+    if (!maxRedemptions) return
 
     setSaving(true)
     const { data, error, message } = await createInvite({
@@ -68,8 +94,46 @@ export default function AdminInvites() {
     }
 
     setCreatedCode(data.code)
-    setForm({ label: '', maxRedemptions: '1', expiresAt: '' })
+    setCreatedCodeMode('created')
+    resetForm()
     addToast('Invitación creada.')
+  }
+
+  const handleSend = async (e) => {
+    e.preventDefault()
+    setCreatedCode('')
+    setCreatedCodeMode('')
+    setLastSentEmail('')
+    setFormError('')
+    const maxRedemptions = validateInviteFields({ requireEmail: true })
+    if (!maxRedemptions) return
+
+    setSending(true)
+    const { data, error, message, partial } = await createAndSendInvite({
+      recipientEmail: form.recipientEmail,
+      recipientName: form.recipientName,
+      label: form.label,
+      maxRedemptions,
+      expiresAt: endOfDayIso(form.expiresAt),
+    })
+    setSending(false)
+
+    if (partial && data?.invite?.code) {
+      setCreatedCode(data.invite.code)
+      setCreatedCodeMode('partial')
+      setFormError(message)
+      addToast('Invitación creada, pero no enviada.', 'error')
+      return
+    }
+
+    if (error) {
+      setFormError(message)
+      return
+    }
+
+    setLastSentEmail(form.recipientEmail.trim())
+    resetForm()
+    addToast('Invitación enviada.')
   }
 
   const handleCopy = async () => {
@@ -101,13 +165,29 @@ export default function AdminInvites() {
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--color-red-light)] text-[var(--color-red)]">
               <Ticket size={20} />
             </div>
-            <h2 className="mt-3 text-base font-semibold text-[var(--color-ink)]">Crear código</h2>
+            <h2 className="mt-3 text-base font-semibold text-[var(--color-ink)]">Crear invitación</h2>
             <p className="mt-1 text-sm text-[var(--color-ink-muted)]">
-              El código se muestra una sola vez. Después solo queda guardado el hash.
+              Puedes enviarla por email o crear solo el código. El código plano se muestra una sola vez.
             </p>
           </div>
 
-          <form onSubmit={handleCreate} className="flex flex-col gap-4">
+          <form onSubmit={handleSend} className="flex flex-col gap-4">
+            <Input
+              label="Email del destinatario"
+              type="email"
+              name="recipientEmail"
+              value={form.recipientEmail}
+              onChange={handleChange}
+              placeholder="persona@example.com"
+              autoComplete="email"
+            />
+            <Input
+              label="Nombre"
+              name="recipientName"
+              value={form.recipientName}
+              onChange={handleChange}
+              placeholder="Ana"
+            />
             <Input
               label="Etiqueta"
               name="label"
@@ -133,14 +213,44 @@ export default function AdminInvites() {
               onChange={handleChange}
             />
             {formError && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{formError}</p>}
-            <Button type="submit" disabled={saving} className="justify-center">
-              {saving ? 'Creando...' : 'Crear invitación'}
-            </Button>
+            {lastSentEmail && (
+              <p className="rounded-lg bg-green-50 px-3 py-2 text-sm text-green-700">
+                Invitación enviada a {lastSentEmail}.
+              </p>
+            )}
+            <div className="grid gap-3 sm:grid-cols-2">
+              <Button type="submit" disabled={sending || saving} className="justify-center">
+                <Mail size={16} />
+                {sending ? 'Enviando...' : 'Crear y enviar'}
+              </Button>
+              <Button
+                type="button"
+                variant="secondary"
+                disabled={saving || sending}
+                onClick={handleCreateOnly}
+                className="justify-center"
+              >
+                {saving ? 'Creando...' : 'Crear solo código'}
+              </Button>
+            </div>
           </form>
 
           {createdCode && (
-            <div className="mt-5 rounded-lg border border-green-200 bg-green-50 p-4">
-              <p className="text-xs font-medium uppercase tracking-wide text-green-700">Código creado</p>
+            <div className={`mt-5 rounded-lg border p-4 ${
+              createdCodeMode === 'partial'
+                ? 'border-amber-200 bg-amber-50'
+                : 'border-green-200 bg-green-50'
+            }`}>
+              <p className={`text-xs font-medium uppercase tracking-wide ${
+                createdCodeMode === 'partial' ? 'text-amber-700' : 'text-green-700'
+              }`}>
+                {createdCodeMode === 'partial' ? 'Envío pendiente' : 'Código creado'}
+              </p>
+              {createdCodeMode === 'partial' && (
+                <p className="mt-2 text-sm text-amber-800">
+                  Copia el código y envíalo manualmente. Si no vas a usarlo, puedes revocarlo desde la lista.
+                </p>
+              )}
               <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <code className="min-w-0 flex-1 overflow-x-auto rounded-lg bg-white px-3 py-2 text-sm font-semibold text-[var(--color-ink)]">
                   {createdCode}
