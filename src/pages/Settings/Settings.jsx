@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { PageWrapper } from '../../components/layout/PageWrapper'
 import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
@@ -95,9 +96,17 @@ export default function Settings() {
               <h2 className="text-sm font-semibold text-gray-900 mb-1">Cuenta</h2>
               <p className="text-sm text-gray-500">{user?.email}</p>
             </div>
-            <Button variant="secondary" onClick={signOut} className="justify-center">
-              Cerrar sesión
-            </Button>
+            <div className="flex flex-col gap-2 sm:flex-row">
+              <Link
+                to="/data"
+                className="inline-flex min-h-10 items-center justify-center rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-paper)] px-4 py-2 text-sm font-medium leading-none text-[var(--color-ink)] shadow-sm transition-colors hover:bg-[var(--color-paper-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2"
+              >
+                Tus datos
+              </Link>
+              <Button variant="secondary" onClick={signOut} className="justify-center">
+                Cerrar sesión
+              </Button>
+            </div>
           </div>
         </Card>
       </div>

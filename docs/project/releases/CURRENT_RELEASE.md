@@ -16,27 +16,26 @@ tags:
 
 ## Release activa
 
-[[RELEASE-0.1.0-beta.6|RELEASE-0.1.0-beta.6]] — Estabilización visual y mobile financiero.
+[[RELEASE-0.1.0-beta.7|RELEASE-0.1.0-beta.7]] — Portabilidad mínima de datos.
 
 ## Rama activa
 
-`release/0.1.0-beta.6`
+`release/0.1.0-beta.7`
 
 ## Ultimo corte
 
-`RELEASE-0.1.0-beta.5` — mergeada a `main` en PR #84 el 2026-05-07. Ver [[RELEASE-0.1.0-beta.5]].
+`RELEASE-0.1.0-beta.6` — preparada en PR #85 el 2026-05-07 y pendiente de cierre final. Ver [[RELEASE-0.1.0-beta.6]].
 
 ## Scope actual
 
-- [[../issues/CACH-0030|CACH-0030]] — Homogeneizar diseño con nueva paleta de colores y fuentes.
-- [[../issues/CACH-0038|CACH-0038]] — Compactar mobile financiero y detalles accionables.
+- [[../issues/CACH-B0005|CACH-B0005]] — Importacion, exportacion y portabilidad de datos.
 
 ## Regla de trabajo para esta release
 
-Beta 6 usa rama de release activa y PR única a `main`.
+Beta 7 usa rama de release activa y PR única a `main`.
 
-Las ramas de tarea salen de `release/0.1.0-beta.6` y se integran con squash en la release. No añadir tareas fuera de CACH-0030/CACH-0038 sin actualizar primero el documento de release.
+Las ramas de tarea salen de `release/0.1.0-beta.7` y se integran con squash en la release. No añadir tareas fuera de CACH-B0005 sin actualizar primero el documento de release.
 
 ## Como cerrar esta release
 
-Abrir PR `release/0.1.0-beta.6` -> `main`, esperar CI en verde, mergear, crear tag `v0.1.0-beta.6` desde `main`, verificar producción si aplica y limpiar la rama remota de release.
+Abrir PR `release/0.1.0-beta.7` -> `main`, esperar CI en verde, mergear, crear tag `v0.1.0-beta.7` desde `main`, verificar producción si aplica y limpiar la rama remota de release.

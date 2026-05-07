@@ -1,11 +1,12 @@
 import { NavLink, useLocation } from 'react-router-dom'
-import { Drama, LayoutDashboard, CalendarDays, CalendarRange, Briefcase, Settings } from 'lucide-react'
+import { Database, Drama, LayoutDashboard, CalendarDays, CalendarRange, Briefcase, Settings } from 'lucide-react'
 
 const navItems = [
   { to: '/work', icon: Briefcase, label: 'Trabajos', activePaths: ['/work', '/projects', '/events'] },
   { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
   { to: '/calendar/events', icon: CalendarDays, label: 'Cal. eventos' },
   { to: '/calendar/projects', icon: CalendarRange, label: 'Cal. proyectos' },
+  { to: '/data', icon: Database, label: 'Tus datos' },
   { to: '/settings', icon: Settings, label: 'Ajustes' },
 ]
 
