@@ -60,7 +60,7 @@ Crear códigos manualmente por SQL es suficiente para validar beta 8, pero no es
 - Ejecutado `npm run lint`, `npm run test`, `npm run build`, `npm run pb:check` y `git diff --check`.
 - Revisión local de seguridad: el cliente usa RPCs y no consulta `beta_invites`/`beta_invite_redemptions` directamente.
 - Añadida migración hotfix para resolver `pgcrypto` en Supabase cuando la extensión vive en `extensions`.
-- La migración no se ha aplicado contra Supabase remoto desde el agente.
+- Migraciones aplicadas manualmente en Supabase remoto; creación de invitaciones validada desde `/admin/invitaciones`.
 
 ## Out of Scope
 

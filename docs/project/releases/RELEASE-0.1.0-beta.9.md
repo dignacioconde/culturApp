@@ -109,9 +109,9 @@ Permitir gestionar invitaciones beta desde una pantalla interna segura, con rol 
 
 - [x] Build correcto
 - [x] Tests/checks correctos (`npm run lint`, `npm run test`, `npm run build`, `npm run pb:check`, `git diff --check`)
-- [ ] Revisión visual `/admin/invitaciones`
-- [ ] Revisión responsive 375px y desktop
-- [ ] Revisión accesibilidad
+- [x] Revisión visual `/admin/invitaciones`
+- [x] Revisión responsive 375px y desktop
+- [x] Revisión accesibilidad básica
 - [x] Revisión de regresión básica
 - [x] Revisión de documentación
 
@@ -160,7 +160,7 @@ Permitir gestionar invitaciones beta desde una pantalla interna segura, con rol 
 ### Técnico
 
 - Validado localmente: `npm run lint`, `npm run test`, `npm run build`, `npm run pb:check` y `git diff --check`.
-- La migración hotfix `20260507193000_fix_beta_invite_pgcrypto_schema.sql` debe aplicarse en Supabase remoto antes de probar creación de códigos en producción.
+- La migración hotfix `20260507193000_fix_beta_invite_pgcrypto_schema.sql` fue aplicada manualmente en Supabase remoto y la creación de códigos funciona desde `/admin/invitaciones`.
 - `CACH-B0018` queda como tarea interna acotada de tooling y no introduce features visibles ni configuración MCP nueva.
 
 ## Resultado final
