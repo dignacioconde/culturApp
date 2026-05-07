@@ -30,6 +30,7 @@ Do not copy the same skill into both `.agents` and `.claude`. If a tool cannot f
 | `cultura-testing-release-check` | Lint/build, smoke tests, regression matrices, Vercel readiness. |
 | `cultura-code-review` | Cross-cutting code review of diffs, PRs, architecture, risk, and maintainability. |
 | `cultura-release-task-flow` | Integrate finished CACH tasks and documentation into the active beta release branch with Product Brain validation. |
+| `cultura-agent-orchestration` | Decide when to use native Codex/Claude subagents, OpenCode agents, parallel review, ownership, and verification. |
 | `memory-protocol` | File-based Markdown memory for durable agent context, recall, curation, and forgetting. |
 | `agent-context-maintenance` | Maintain agent context hygiene, review context-check warnings, and compact prompts/memory without losing critical rules. |
 | `caveman` | Ultra-concise communication mode adapted for CulturaApp, with safety fallbacks for reviews, data, finance, RLS, and irreversible actions. |
@@ -118,6 +119,7 @@ Validation status for the current setup:
 | `cultura-security-privacy-review` | Valid |
 | `cultura-testing-release-check` | Valid |
 | `cultura-code-review` | Valid |
+| `cultura-agent-orchestration` | Valid |
 | `memory-protocol` | Valid |
 | `.agents/templates/portable-skill` | Valid |
 | `git diff --check` | Pass |

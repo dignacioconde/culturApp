@@ -159,6 +159,7 @@ Beta 6 no activa una nueva arquitectura de datos: prepara una base visual y mobi
 
 ### Técnico
 
+- Mejora auxiliar de delivery, fuera del scope funcional de CACH-0030/CACH-0038: añadida skill operativa `cultura-agent-orchestration` para acelerar delegación entre subagentes nativos de Codex/Claude y OpenCode durante Beta 6.
 - Validación esperada: `npm run test`, `npm run lint`, `npm run build`, `npm run pb:check`, `git diff --check` y verificación visual responsive.
 - Validación ejecutada: `npm run test`, `npm run lint`, `npm run build`, `npm run pb:check`, `git diff --check`.
 - QA visual autenticada pendiente: Playwright local confirma redirección a `/login` en rutas privadas sin sesión.

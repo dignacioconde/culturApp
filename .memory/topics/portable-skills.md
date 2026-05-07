@@ -12,6 +12,12 @@
 - Durable memory: las skills en `.agents/skills/` son: `portable-skill-authoring`, `cultura-frontend-review`, `cultura-data-finance-review`, `cultura-security-privacy-review`, `cultura-testing-release-check`, `cultura-code-review`, `memory-protocol`, `compact-memory`, `caveman`, `product-brain-capture`, `cultura-issue-launch`, `memory-orient`. Symlinks en `.claude/skills/`. Patrón: fuente canónica siempre en `.agents/skills/<nombre>/SKILL.md`.
 - Source: `ls .agents/skills/`; análisis 2026-05-06.
 
+## 2026-05-07 - cultura-agent-orchestration: Delegación Codex/Claude/OpenCode
+
+- Context: Beta 6 necesitaba acelerar revisión de planes y trabajo con agentes sin depender siempre de OpenCode.
+- Durable memory: `cultura-agent-orchestration` decide cuándo usar trabajo directo, subagentes nativos de Codex/Claude, agentes OpenCode, revisión paralela, ownership de escritura y verificación. Mantiene OpenCode para peticiones explícitas o flujos que lo requieran, y evita delegación en tareas triviales.
+- Source: `.agents/skills/cultura-agent-orchestration/SKILL.md`; `docs/agent-skills-strategy.md`.
+
 ## 2026-05-06 - memory-orient: Briefing De Memoria Por Contexto De Tarea
 
 - Context: No existía una forma rápida de obtener solo la memoria relevante para una tarea concreta sin leer los 17 archivos completos. Análogo a `brain-orient` pero para `.memory/`.
