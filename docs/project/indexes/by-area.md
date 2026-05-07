@@ -52,3 +52,4 @@ tags:
 
 - [[../issues/CACH-B0008|CACH-B0008]] — PWA notificaciones y offline
 - [[../issues/CACH-B0010|CACH-B0010]] — Tooling de agentes y modelos de desarrollo
+- [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura

@@ -28,6 +28,8 @@ Context loading:
 
 Agent execution:
 - When the user asks to run OpenCode agents, launch the repository workflow directly.
+- When the user asks for Codex agents, use native Codex subagents when available; OpenCode profiles may be used as role context, but they are not permission enforcement.
+- In Codex-native challenge or review, load only the relevant `.opencode/agents/<role>.md` profile, keep agents read-only, avoid `.opencode/AGENT_STATE.md`, and do not run `npm run agents:*` unless OpenCode is explicitly requested.
 - Do only the minimum manual prep needed to form a safe command, scope and ownership.
 - Do not use subagents for trivial changes.
 - Parallel agents need isolated write ownership or explicit coordination through `.opencode/AGENT_STATE.md`.

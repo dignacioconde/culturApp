@@ -112,6 +112,23 @@ npm run agents:run -- "Tu tarea aqui"
 | `cultura-docs` | README, TECHDOC, AGENTS.md y documentacion operativa |
 | `verification-agent` | Verificacion post-implementacion: lint, build, tests, issue closeability, PR readiness |
 
+## Adaptador Codex-native
+
+Cuando el usuario pida agentes de Codex, Codex puede usar subagentes nativos reutilizando un perfil de `.opencode/agents/*.md` como contexto de rol. Esto no ejecuta OpenCode ni convierte esos archivos en skills portables.
+
+Reglas:
+
+- `AGENTS.md` sigue siendo el contrato corto de entrada.
+- `docs/agent-context-policy.md` sigue siendo la politica canonica de carga.
+- Carga solo el perfil relevante para la tarea; no cargues todos los agentes.
+- Los perfiles OpenCode aportan rol, ownership y criterio operativo.
+- El frontmatter OpenCode (`mode`, `model`, `permission`) no aplica permisos reales en Codex.
+- Las skills de `.agents/skills/*/SKILL.md` siguen siendo workflows portables y se activan por sus triggers propios.
+- Los subagentes Codex heredan solo las herramientas de la sesion Codex. Si Codex no tiene Supabase MCP, sus subagentes tampoco lo tienen.
+- En challenge o revision, usa modo read-only: sin ediciones, sin `.opencode/AGENT_STATE.md` y sin operaciones remotas. Si un perfil pide leer `.opencode/AGENT_STATE.md`, esa parte aplica solo a OpenCode.
+- Supabase remoto sigue `docs/project/process/supabase-db-access.md`: MCP acotado al proyecto cuando exista, SQL exacto y confirmacion humana antes de mutar produccion.
+- Usa `npm run agents:*` solo cuando el usuario pida OpenCode o cuando falten subagentes nativos y se declare el fallback.
+
 Ejemplo dentro de OpenCode:
 
 ```text

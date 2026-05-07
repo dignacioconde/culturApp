@@ -29,11 +29,12 @@ tags:
 ## Scope actual
 
 - [[../issues/CACH-B0017|CACH-B0017]] — Panel admin para invitaciones beta.
+- [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura.
 
 ## Regla de trabajo para esta release
 
-Las tareas de [[../issues/CACH-B0017|CACH-B0017]] salen de `release/0.1.0-beta.9` y vuelven a esa rama. No mezclar calendario unificado, mobile financiero, tooling interno ni analítica real en este corte.
+Las tareas de [[../issues/CACH-B0017|CACH-B0017]] y [[../issues/CACH-B0018|CACH-B0018]] salen de `release/0.1.0-beta.9` y vuelven a esa rama. No mezclar calendario unificado, mobile financiero, tooling interno no trazado ni analítica real en este corte.
 
 ## Como cerrar esta release
 
-Cerrar mediante PR única `release/0.1.0-beta.9` -> `main`, validar CI, actualizar release notes, marcar CACH-B0017 como cerrada/Released, crear tag `v0.1.0-beta.9` desde `main` y limpiar rama remota.
+Cerrar mediante PR única `release/0.1.0-beta.9` -> `main`, validar CI, actualizar release notes, marcar CACH-B0017 y CACH-B0018 como cerradas/Released, crear tag `v0.1.0-beta.9` desde `main` y limpiar rama remota.

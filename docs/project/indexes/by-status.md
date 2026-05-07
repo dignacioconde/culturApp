@@ -49,3 +49,4 @@ tags:
 ## review
 
 - [[../issues/CACH-B0017|CACH-B0017]] — Panel admin para invitaciones beta
+- [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura

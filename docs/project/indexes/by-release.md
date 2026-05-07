@@ -66,6 +66,7 @@ tags:
 ## RELEASE-0.1.0-beta.9
 
 - [[../issues/CACH-B0017|CACH-B0017]] — Panel admin para invitaciones beta
+- [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura
 
 ## RELEASE-0.1.0-beta.2
 

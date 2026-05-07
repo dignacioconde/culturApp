@@ -62,12 +62,14 @@ Permitir gestionar invitaciones beta desde una pantalla interna segura, con rol 
 ## Scope
 
 - [[../issues/CACH-B0017|CACH-B0017]] — Panel admin para invitaciones beta.
+- [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura.
 
 ## Issues incluidas
 
 | Issue | Título | Estado | Rama |
 |---|---|---|---|
 | [[../issues/CACH-B0017|CACH-B0017]] | Panel admin para invitaciones beta | Review | `release/0.1.0-beta.9` |
+| [[../issues/CACH-B0018|CACH-B0018]] | Adaptador Codex-native para perfiles Cultura | Review | `release/0.1.0-beta.9` |
 
 ## Fuera de alcance
 
@@ -75,7 +77,7 @@ Permitir gestionar invitaciones beta desde una pantalla interna segura, con rol 
 - Waitlist pública, referidos, campañas o perfil público.
 - Calendario unificado de [[../issues/CACH-B0007|CACH-B0007]].
 - Mobile financiero de [[../issues/CACH-B0002|CACH-B0002]].
-- Tooling interno de [[../issues/CACH-B0010|CACH-B0010]].
+- Tooling interno amplio de [[../issues/CACH-B0010|CACH-B0010]] fuera del adaptador Codex-native acotado de [[../issues/CACH-B0018|CACH-B0018]].
 
 ## Riesgos
 
@@ -139,6 +141,7 @@ Permitir gestionar invitaciones beta desde una pantalla interna segura, con rol 
 - Ruta privada `/admin/invitaciones` para crear, listar y revocar códigos.
 - Enlace a administración beta desde Ajustes solo para perfiles admin.
 - Documento operativo para acceso directo seguro a Supabase con MCP y fallback SQL Editor.
+- Documentación del modo Codex-native para usar subagentes Codex con perfiles Cultura sin ejecutar OpenCode por defecto.
 
 ### Cambiado
 
@@ -158,6 +161,7 @@ Permitir gestionar invitaciones beta desde una pantalla interna segura, con rol 
 
 - Validado localmente: `npm run lint`, `npm run test`, `npm run build`, `npm run pb:check` y `git diff --check`.
 - La migración hotfix `20260507193000_fix_beta_invite_pgcrypto_schema.sql` debe aplicarse en Supabase remoto antes de probar creación de códigos en producción.
+- `CACH-B0018` queda como tarea interna acotada de tooling y no introduce features visibles ni configuración MCP nueva.
 
 ## Resultado final
 

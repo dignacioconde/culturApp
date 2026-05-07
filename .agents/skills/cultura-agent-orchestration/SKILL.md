@@ -41,15 +41,20 @@ No sustituye las skills de dominio. Si la tarea es frontend, datos, seguridad, t
 
 1. Clasifica la peticion:
    - `directa`: tarea pequena o de bajo riesgo; trabaja localmente.
+   - `Codex-native`: usa subagentes nativos de Codex/Claude cuando el usuario pida agentes en el entorno actual.
    - `revision paralela`: varias preguntas independientes; usa subagentes nativos si el entorno los ofrece.
    - `implementacion dividida`: solo delegar escritura si hay ownership disjunto claro.
    - `OpenCode solicitado`: usar `npm run agents:plan`, `npm run agents:run`, `npm run agents:parallel` o `npm run agents:verify`.
 2. Antes de delegar, define el trabajo local inmediato. No mandes a un agente el bloqueo critico si tu siguiente paso depende de su respuesta.
 3. Para subagentes nativos de Codex/Claude:
    - Usalos solo cuando el usuario haya pedido agentes, delegacion o trabajo paralelo.
+   - Si necesitas un perfil Cultura, carga solo el `.opencode/agents/<rol>.md` relevante y pasalo como contexto de rol; no cargues todos los perfiles.
+   - Trata el frontmatter de OpenCode (`mode`, `model`, `permission`) como metadata de OpenCode, no como permisos reales del subagente nativo.
+   - Para challenge o revision, usa modo read-only: sin ediciones, sin estado compartido y sin operaciones remotas. Si el perfil menciona `.opencode/AGENT_STATE.md`, esa instruccion aplica solo a OpenCode.
    - Da prompts concretos, autocontenidos y con salida esperada.
    - Para exploracion, pide hallazgos con archivos/lineas y nivel de confianza.
    - Para escritura, asigna ownership disjunto por archivos o modulos y recuerda que no deben revertir cambios ajenos.
+   - Si el entorno no ofrece subagentes nativos, trabaja directo o usa OpenCode solo cuando el usuario lo haya pedido o encaje como fallback explicito.
 4. Para OpenCode:
    - Si no hay issue estructurada y el usuario pide lanzar implementacion, usa `npm run agents:plan -- "<prompt>"`.
    - Si ya hay issue/rama/contexto, usa `npm run agents:run -- "<tarea>"`.
@@ -72,7 +77,7 @@ No sustituye las skills de dominio. Si la tarea es frontend, datos, seguridad, t
 ## Output format
 
 ```
-Modo: directo / subagentes nativos / OpenCode / mixto
+Modo: directo / Codex-native / subagentes nativos / OpenCode / mixto
 Agentes: <roles usados o "no aplica">
 Ownership: <archivos/modulos si hubo escritura>
 Resultado: <decision o cambios integrados>
@@ -92,6 +97,7 @@ Pendiente: <bloqueos reales o "nada">
 
 - La delegacion reduce riesgo o tiempo de forma concreta.
 - Cada agente tiene una pregunta o ownership claro.
+- Los perfiles OpenCode reutilizados desde Codex aportan rol y criterio, no enforcement de permisos.
 - No hay duplicacion de trabajo entre agente principal y subagentes.
 - Las recomendaciones se integran en una decision final, no quedan como opiniones sueltas.
 - La verificacion corresponde al blast radius real.
@@ -100,6 +106,8 @@ Pendiente: <bloqueos reales o "nada">
 
 - Lanzar agentes por reflejo cuando la tarea es pequena.
 - Usar OpenCode aunque el usuario pidiera agentes desde Codex o Claude.
+- Llamar "agente OpenCode" a un subagente Codex que solo reutiliza su perfil de rol.
+- Asumir que Codex tiene el MCP o permisos de Claude/OpenCode.
 - Pedir "revisa todo" sin ruta, scope, diff, criterio o salida.
 - Delegar escritura paralela sin ownership disjunto.
 - Esperar a subagentes mientras hay trabajo local independiente que puede avanzar.

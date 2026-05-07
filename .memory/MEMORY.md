@@ -9,7 +9,7 @@ Mapa estructurado ampliado: [core.md](core.md)
 
 ## Referencias
 
-- [Supabase MCP configurado](reference_supabase_mcp.md) — MCP server activo para operar la BD de Supabase directamente desde Claude Code
+- [Supabase MCP operativo](reference_supabase_mcp.md) — reglas para operar BD con Supabase MCP cuando la sesion lo exponga, y fallback SQL Editor
 
 ## Comportamiento obligatorio
 
