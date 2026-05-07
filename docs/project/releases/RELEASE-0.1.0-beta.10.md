@@ -5,7 +5,7 @@ status: Released
 created: 2026-05-07
 updated: 2026-05-07
 release_branch: main
-release_tag: null
+release_tag: v0.1.0-beta.10
 aliases:
   - RELEASE-0.1.0-beta.10
 tags:
@@ -26,7 +26,7 @@ Released
 
 ## Tag
 
-Pendiente si se decide etiquetar este corte.
+`v0.1.0-beta.10`
 
 ## Ciclo
 
@@ -104,6 +104,8 @@ Permitir enviar invitaciones beta por email desde el panel admin y preparar la c
 ## Checklist de salida
 
 - [x] Release preparada para subir a `main`
+- [x] Tag `v0.1.0-beta.10` creado desde `main`
+- [x] Producción verificada si aplica
 - [x] Release notes actualizadas
 - [x] Issue marcada como `Released`
 - [x] Current Release actualizado
@@ -137,8 +139,8 @@ Permitir enviar invitaciones beta por email desde el panel admin y preparar la c
 ### Técnico
 
 - Validado localmente: `npm run lint`, `npm run test`, `npm run build`, `npm run pb:check`, `npm run test:db` (skip esperado por falta de Supabase CLI local) y `git diff --check`.
-- Producción requiere push a `main` y verificación del deploy Vercel.
+- Producción verificada en Vercel para el commit `49ad6fd`.
 
 ## Resultado final
 
-Release técnica preparada para producción. Queda como deuda operativa validar `hola@updates.caches.es` o `updates.caches.es` en Brevo y configurar SPF/DKIM/DMARC.
+Release técnica subida a producción el 2026-05-07. Queda como deuda operativa validar `hola@updates.caches.es` o `updates.caches.es` en Brevo y configurar SPF/DKIM/DMARC.
