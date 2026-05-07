@@ -39,9 +39,7 @@ Tablero ligero del Product Brain. Cada trabajo ejecutable vive como issue Markdo
 
 ## Inbox
 
-| ID | Titulo | Tipo | Prioridad | Nota |
-|---|---|---|---|---|
-| [[../issues/CACH-0030|CACH-0030]] | Homogeneizar diseno con nueva paleta | chore | p1 | QA visual pendiente. |
+Sin issues en inbox.
 
 ## Backlog
 
@@ -65,7 +63,10 @@ Sin issues en progreso.
 
 ## Review
 
-Sin issues en review.
+| ID | Titulo | Tipo | Prioridad | Nota |
+|---|---|---|---|---|
+| [[../issues/CACH-0030|CACH-0030]] | Homogeneizar diseno con nueva paleta | chore | p1 | Pendiente QA visual autenticada. |
+| [[../issues/CACH-0038|CACH-0038]] | Compactar mobile financiero y detalles accionables | feature | p1 | Pendiente QA visual autenticada. |
 
 ## Done
 

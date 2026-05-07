@@ -124,8 +124,8 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       <section className="flex flex-col gap-3">
         <div>
-          <h3 className="text-sm font-semibold text-gray-900">Información básica</h3>
-          <p className="hidden sm:block text-sm text-gray-600 mt-1">Nombre, cliente y clasificación para encontrarlo rápido.</p>
+          <h3 className="text-sm font-semibold text-[var(--color-ink)]">Información básica</h3>
+          <p className="hidden sm:block text-sm text-[var(--color-ink-muted)] mt-1">Nombre, cliente y clasificación para encontrarlo rápido.</p>
         </div>
         <Input
           label="Nombre del evento *"
@@ -143,7 +143,7 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
           placeholder="Ayuntamiento de Madrid"
         />
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <Select label="Categoría" name="category" value={form.category} onChange={handleChange}>
             {EVENT_CATEGORIES.map((c) => (
               <option key={c.value} value={c.value}>{c.label}</option>
@@ -157,10 +157,10 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
         </div>
       </section>
 
-      <section className="flex flex-col gap-3 border-t border-gray-100 pt-4">
+      <section className="flex flex-col gap-3 border-t border-[var(--color-paper-mid)] pt-4">
         <div>
-          <h3 className="text-sm font-semibold text-gray-900">Planificación</h3>
-          <p className="hidden sm:block text-sm text-gray-600 mt-1">El calendario de eventos usa fecha y hora exactas.</p>
+          <h3 className="text-sm font-semibold text-[var(--color-ink)]">Planificación</h3>
+          <p className="hidden sm:block text-sm text-[var(--color-ink-muted)] mt-1">El calendario de eventos usa fecha y hora exactas.</p>
         </div>
 
         <Select label="Proyecto relacionado" name="project_id" value={form.project_id} onChange={handleChange}>
@@ -170,7 +170,7 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
           ))}
         </Select>
 
-        <div className={`grid gap-3 ${isMultiDay ? 'grid-cols-2' : 'grid-cols-1'}`}>
+        <div className={`grid gap-3 ${isMultiDay ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1'}`}>
           <Input
             label="Inicio *"
             type="datetime-local"
@@ -191,25 +191,25 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
             />
           )}
         </div>
-        <label htmlFor="is_multi_day" className="flex min-h-11 cursor-pointer items-center gap-3 text-sm text-gray-700">
+        <label htmlFor="is_multi_day" className="flex min-h-11 cursor-pointer items-center gap-3 text-sm text-[var(--color-ink)]">
           <input
             type="checkbox"
             id="is_multi_day"
             checked={isMultiDay}
             onChange={(e) => handleMultiDayChange(e.target.checked)}
-            className="h-5 w-5 rounded border-gray-300 text-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]"
+            className="h-5 w-5 rounded border-[var(--color-paper-mid)] text-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]"
           />
           <span>Evento de varios días</span>
         </label>
       </section>
 
-      <section className="flex flex-col gap-3 border-t border-gray-100 pt-4">
+      <section className="flex flex-col gap-3 border-t border-[var(--color-paper-mid)] pt-4">
         <div>
-          <h3 className="text-sm font-semibold text-gray-900">Notas y calendario</h3>
-          <p className="hidden sm:block text-sm text-gray-600 mt-1">El color ayuda a distinguirlo en las vistas de calendario.</p>
+          <h3 className="text-sm font-semibold text-[var(--color-ink)]">Notas y calendario</h3>
+          <p className="hidden sm:block text-sm text-[var(--color-ink-muted)] mt-1">El color ayuda a distinguirlo en las vistas de calendario.</p>
         </div>
         <div className="flex flex-col gap-2">
-          <label className="text-sm font-medium text-gray-700">Color en calendario</label>
+          <label className="text-sm font-medium text-[var(--color-ink)]">Color en calendario</label>
           <div className="flex gap-2 flex-wrap">
             {DEFAULT_PROJECT_COLORS.map((color) => (
               <button
@@ -217,7 +217,7 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
                 type="button"
                 aria-label={`Usar color ${color}`}
                 onClick={() => setForm((prev) => ({ ...prev, color }))}
-                className={`h-10 w-10 rounded-full transition-transform ${form.color === color ? 'scale-110 ring-2 ring-offset-2 ring-gray-500' : 'hover:scale-105'}`}
+                className={`h-10 w-10 rounded-full transition-transform ${form.color === color ? 'scale-110 ring-2 ring-offset-2 ring-[var(--color-ink-muted)]' : 'hover:scale-105'}`}
                 style={{ backgroundColor: color }}
               />
             ))}
@@ -233,7 +233,7 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
         />
       </section>
 
-      {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>}
+      {error && <p className="rounded-lg bg-[var(--color-red-light)] px-3 py-2 text-sm text-[var(--color-red)]">{error}</p>}
 
       <div className="flex flex-col-reverse sm:flex-row gap-3 sm:justify-end pt-1">
         <Button type="button" variant="secondary" onClick={onCancel} className="justify-center">

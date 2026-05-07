@@ -66,11 +66,11 @@ export default function CalendarProjects() {
   return (
     <PageWrapper title="Calendario de proyectos">
       <div className="flex flex-col gap-4 lg:flex-row">
-        <div className="flex flex-1 flex-col rounded-xl border border-gray-200 bg-white p-3 sm:p-4 lg:min-h-0">
+        <div className="flex flex-1 flex-col rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-surface)] p-3 sm:p-4 lg:min-h-0">
           <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-900">{projects.length} proyectos</p>
-              <p className="text-xs text-gray-400">Vista interna por rango de fechas</p>
+              <p className="text-sm font-medium text-[var(--color-ink)]">{projects.length} proyectos</p>
+              <p className="text-xs text-[var(--color-ink-muted)]">Vista interna por rango de fechas</p>
             </div>
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
               <div className="flex items-center justify-center gap-2 rounded-xl border border-[#E2D9C2] bg-[#FFFCF5] px-2 py-1">

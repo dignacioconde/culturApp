@@ -2,7 +2,7 @@
 id: PB-BY-RELEASE
 type: index
 status: Active
-created: 2026-05-06
+created: 2026-05-07
 updated: 2026-05-07
 aliases:
   - Issues por release
@@ -16,7 +16,6 @@ tags:
 
 - [[../issues/CACH-0026|CACH-0026]] — Setup inicial Product Brain
 - [[../issues/CACH-0028|CACH-0028]] — Corregir sync iCloud y estructura versionada
-- [[../issues/CACH-0030|CACH-0030]] — Homogeneizar diseno con nueva paleta de colores y fuentes
 - [[../issues/CACH-0031|CACH-0031]] — Corregir ajustes UX movil detectados en exploracion
 - [[../issues/CACH-0032|CACH-0032]] — Priorizar operativa diaria en dashboard movil
 - [[../issues/CACH-0034|CACH-0034]] — €/h muestra valor incorrecto cuando no hay eventos con horas
@@ -38,6 +37,11 @@ tags:
 - [[../issues/CACH-0029|CACH-0029]] — Integrar helpers CACH-B0016 en flujos reales
 - [[../issues/CACH-B0015|CACH-B0015]] — Operativizar backlog releases y ramas en Product Brain
 - [[../issues/CACH-B0016|CACH-B0016]] — Refundacion operativa del Product Brain y tests B0014
+
+## RELEASE-0.1.0-beta.6
+
+- [[../issues/CACH-0030|CACH-0030]] — Homogeneizar diseno con nueva paleta de colores y fuentes
+- [[../issues/CACH-0038|CACH-0038]] — Compactar mobile financiero y detalles accionables
 
 ## RELEASE-0.1.0-beta.4
 

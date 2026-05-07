@@ -2,7 +2,7 @@
 id: PB-BY-AREA
 type: index
 status: Active
-created: 2026-05-06
+created: 2026-05-07
 updated: 2026-05-07
 aliases:
   - Issues por area
@@ -30,6 +30,7 @@ tags:
 - [[../issues/CACH-0033|CACH-0033]] — Vista anual en calendario de proyectos
 - [[../issues/CACH-0034|CACH-0034]] — €/h muestra valor incorrecto cuando no hay eventos con horas
 - [[../issues/CACH-0035|CACH-0035]] — Rediseño financiero del Dashboard y paid_date en cobros rapidos
+- [[../issues/CACH-0038|CACH-0038]] — Compactar mobile financiero y detalles accionables
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes

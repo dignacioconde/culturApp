@@ -22,7 +22,10 @@ import { isPaid, markPaid, markUnpaid, needsQuickPaidConfirmation, paymentDate }
 import { EXPENSE_CATEGORIES } from '../../lib/constants'
 
 const EMPTY_EXPENSE = { concept: '', amount: '', category: 'otros', expense_date: '', is_deductible: true }
-const compactPrimaryAction = 'inline-flex min-h-9 items-center justify-center gap-2 rounded-lg bg-[#C94035] px-3 py-1.5 text-sm font-medium leading-none text-white shadow-sm transition-colors hover:bg-[#A8342B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2'
+const compactPrimaryAction = 'inline-flex min-h-9 items-center justify-center gap-2 rounded-lg bg-[var(--color-red)] px-3 py-1.5 text-sm font-medium leading-none text-white shadow-sm transition-colors hover:bg-[var(--color-red-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2'
+const compactPrimaryActionDesktop = 'hidden sm:inline-flex min-h-9 items-center justify-center gap-2 rounded-lg bg-[var(--color-red)] px-3 py-1.5 text-sm font-medium leading-none text-white shadow-sm transition-colors hover:bg-[var(--color-red-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2'
+const compactSecondaryActionDesktop = 'hidden sm:inline-flex min-h-9 items-center justify-center gap-2 rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-paper)] px-3 py-1.5 text-sm font-medium leading-none text-[var(--color-ink)] shadow-sm transition-colors hover:bg-[var(--color-paper-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2'
+const compactDangerActionDesktop = 'hidden sm:inline-flex min-h-9 items-center justify-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium leading-none text-[var(--color-red)] transition-colors hover:bg-[var(--color-red-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2'
 const incomeConceptLabel = (income) => income.concept?.trim() || 'Ingreso sin concepto'
 const incomeDueClass = (income) => {
   if (!income.expected_date) return 'text-gray-400'
@@ -239,6 +242,15 @@ export default function EventDetail() {
     setIncomeModal(false)
   }
 
+  const handleDeleteEditingIncome = async () => {
+    if (!editingIncome) return
+    if (!confirm('¿Eliminar este ingreso?')) return
+    const { error } = await deleteIncome(editingIncome.id)
+    if (error) { addToast('Error al eliminar el ingreso.', 'error'); return }
+    addToast('Ingreso eliminado.')
+    setIncomeModal(false)
+  }
+
   const undoIncomePaid = async (income, previousPayment) => {
     if (!income || savingIncomeId) return
 
@@ -334,89 +346,98 @@ export default function EventDetail() {
     setExpenseModal(false)
   }
 
+  const handleDeleteEditingExpense = async () => {
+    if (!editingExpense) return
+    if (!confirm('¿Eliminar este gasto?')) return
+    const { error } = await deleteExpense(editingExpense.id)
+    if (error) { addToast('Error al eliminar el gasto.', 'error'); return }
+    addToast('Gasto eliminado.')
+    setExpenseModal(false)
+  }
+
   return (
     <PageWrapper title={event.name}>
       <div className="flex max-w-4xl flex-col gap-4 sm:gap-5 pb-20 sm:pb-5">
-        <nav className="flex items-center gap-1.5 text-xs text-gray-400 breadcrumbs">
-          <Link to="/work" className="hover:text-gray-600">Trabajos</Link>
+        <nav className="flex items-center gap-1.5 text-xs text-[var(--color-ink-muted)] breadcrumbs">
+          <Link to="/work" className="hover:text-[var(--color-ink)]">Trabajos</Link>
           <span>/</span>
-          <Link to="/work?view=events" className="hover:text-gray-600">Eventos</Link>
+          <Link to="/work?view=events" className="hover:text-[var(--color-ink)]">Eventos</Link>
           <span>/</span>
-          <span className="text-gray-600">{event.name}</span>
+          <span className="text-[var(--color-ink)]">{event.name}</span>
         </nav>
-        <div className="rounded-2xl border border-[#E9E2D3] bg-white p-4 shadow-sm sm:p-5">
+        <div className="rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-surface)] p-4 shadow-sm sm:p-5">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
             <div className="flex items-start gap-3 sm:items-start">
-              <Link to="/work?view=events" className="mt-1 shrink-0 text-gray-400 hover:text-gray-700" aria-label="Volver a eventos en trabajos">
+              <Link to="/work?view=events" className="mt-1 shrink-0 text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]" aria-label="Volver a eventos en trabajos">
                 <ArrowLeft size={20} />
               </Link>
               <div className="min-w-0">
                 <div className="flex min-w-0 flex-wrap items-center gap-2">
                   <div className="h-3 w-3 shrink-0 rounded-full" style={{ backgroundColor: event.color ?? '#4f98a3' }} />
-                  <h2 className="min-w-0 truncate text-lg font-semibold text-gray-900">{event.name}</h2>
+                  <h2 className="min-w-0 truncate text-lg font-semibold text-[var(--color-ink)]">{event.name}</h2>
                   <QuietStatusBadge status={event.status} />
                 </div>
                 {event.client && (
-                  <p className="mt-1 text-sm text-gray-500">{event.client}</p>
+                  <p className="mt-1 text-sm text-[var(--color-ink-muted)]">{event.client}</p>
                 )}
-                <p className="mt-1 text-xs text-gray-400">
+                <p className="mt-1 text-xs text-[var(--color-ink-muted)]">
                   {formatDatetime(event.start_datetime)}
                   {event.end_datetime && ` – ${formatDatetime(event.end_datetime)}`}
                 </p>
                 {project && (
                   <Link
                     to={`/projects/${project.id}`}
-                    className="mt-1 inline-flex items-center gap-1 text-xs text-gray-500 hover:text-[var(--color-primary-600)]"
+                    className="mt-1 inline-flex items-center gap-1 text-xs text-[var(--color-ink-muted)] hover:text-[var(--color-primary-600)]"
                   >
                     {project.name}
-                    <ExternalLink size={10} className="text-gray-400" />
+                    <ExternalLink size={10} className="text-[var(--color-ink-muted)]" />
                   </Link>
                 )}
               </div>
             </div>
-            <div className="fixed bottom-0 left-0 right-0 z-40 flex gap-1 border-t border-gray-200 bg-white px-2 py-2 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] sm:static sm:border-0 sm:bg-transparent sm:p-0 sm:shadow-none">
-              <button type="button" onClick={openQuickIncome} className="flex-1 rounded-lg bg-[var(--color-primary-500)] py-2 text-xs font-medium text-white sm:hidden">
+            <div className="fixed bottom-0 left-0 right-0 z-40 flex gap-1 border-t border-[var(--color-paper-mid)] bg-[var(--color-surface)] px-2 py-2 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] sm:static sm:border-0 sm:bg-transparent sm:p-0 sm:shadow-none">
+              <button type="button" onClick={openQuickIncome} className="flex-1 rounded-lg bg-[var(--color-red)] py-2 text-xs font-medium text-white sm:hidden">
                 Cobro
               </button>
-              <button type="button" onClick={openQuickExpense} className="flex-1 rounded-lg bg-[var(--color-primary-500)] py-2 text-xs font-medium text-white sm:hidden">
+              <button type="button" onClick={openQuickExpense} className="flex-1 rounded-lg bg-[var(--color-red)] py-2 text-xs font-medium text-white sm:hidden">
                 Gasto
               </button>
-              <button type="button" onClick={() => setEditModal(true)} className="flex-1 rounded-lg bg-[#C94035] py-2 text-xs font-medium text-white sm:hidden">
+              <button type="button" onClick={() => setEditModal(true)} className="flex-1 rounded-lg bg-[var(--color-red)] py-2 text-xs font-medium text-white sm:hidden">
                 Editar
               </button>
-              <button type="button" onClick={handleDeleteEvent} className="flex-1 rounded-lg border border-red-200 py-2 text-xs font-medium text-red-600 sm:hidden">
+              <button type="button" onClick={handleDeleteEvent} className="flex-1 rounded-lg border border-[var(--color-red-light)] py-2 text-xs font-medium text-[var(--color-red)] sm:hidden">
                 Eliminar
               </button>
               {/* Desktop - quick modals */}
-              <button type="button" onClick={openQuickIncome} className="hidden sm:inline-flex min-h-9 items-center justify-center gap-2 rounded-lg bg-[#C94035] px-3 py-1.5 text-sm font-medium text-white shadow-sm hover:bg-[#A8342B]">
+              <button type="button" onClick={openQuickIncome} className={compactPrimaryActionDesktop}>
                 <Plus size={14} /> Ingreso
               </button>
-              <button type="button" onClick={openQuickExpense} className="hidden sm:inline-flex min-h-9 items-center justify-center gap-2 rounded-lg bg-[#C94035] px-3 py-1.5 text-sm font-medium text-white shadow-sm hover:bg-[#A8342B]">
+              <button type="button" onClick={openQuickExpense} className={compactPrimaryActionDesktop}>
                 <Plus size={14} /> Gasto
               </button>
-              <button type="button" onClick={() => setEditModal(true)} className="hidden sm:inline-flex min-h-9 items-center justify-center gap-2 rounded-lg border border-[#E2D9C2] bg-[#F5EFE0] px-3 py-1.5 text-sm font-medium text-[#211C18] shadow-sm hover:bg-[#EBE3CE]">
+              <button type="button" onClick={() => setEditModal(true)} className={compactSecondaryActionDesktop}>
                 <Edit size={14} /> Editar
               </button>
-              <button type="button" onClick={handleDeleteEvent} className="hidden sm:inline-flex min-h-9 items-center justify-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium text-[#C94035] hover:bg-red-50">
+              <button type="button" onClick={handleDeleteEvent} className={compactDangerActionDesktop}>
                 <Trash2 size={14} /> Eliminar
               </button>
             </div>
           </div>
         </div>
 
-        <Card className="bg-gray-50 p-4 sm:p-5">
+        <Card className="bg-[var(--color-surface-alt)] p-4 sm:p-5">
           <button
             type="button"
             onClick={() => setFinancialSummaryExpanded((prev) => !prev)}
             className="mb-3 flex w-full flex-col gap-2 sm:mb-4 sm:flex-row sm:items-center sm:justify-between sm:gap-3"
           >
             <div className="flex flex-col items-start text-left">
-              <h3 className="text-sm font-semibold text-gray-900">Resumen financiero</h3>
-              <p className="hidden text-xs text-gray-500 sm:mt-1 sm:block">Lo importante primero. El detalle queda debajo.</p>
+              <h3 className="text-sm font-semibold text-[var(--color-ink)]">Resumen financiero</h3>
+              <p className="hidden text-xs text-[var(--color-ink-muted)] sm:mt-1 sm:block">Lo importante primero. El detalle queda debajo.</p>
             </div>
             <div className="flex items-center justify-between w-full sm:w-auto sm:justify-end gap-3">
-              <p className="text-[11px] text-gray-500 sm:text-xs">Cobrado: {formatCurrency(totalPaid)} · Pendiente: {formatCurrency(pendingAmount)}</p>
-              <ChevronDown size={16} className={`shrink-0 text-gray-400 transition-transform ${financialSummaryExpanded ? 'rotate-180' : ''}`} />
+              <p className="text-[11px] text-[var(--color-ink-muted)] sm:text-xs">Cobrado: {formatCurrency(totalPaid)} · Pendiente: {formatCurrency(pendingAmount)}</p>
+              <ChevronDown size={16} className={`shrink-0 text-[var(--color-ink-muted)] transition-transform ${financialSummaryExpanded ? 'rotate-180' : ''}`} />
             </div>
           </button>
           <div className="grid grid-cols-3 gap-2 sm:gap-3">
@@ -425,12 +446,12 @@ export default function EventDetail() {
               { label: 'Pendiente', mobileLabel: 'Pend.', value: formatCurrency(pendingAmount) },
               { label: 'Beneficio neto', mobileLabel: 'Neto', value: formatCurrency(netProfit), highlight: true },
             ].map(({ label, mobileLabel, value, highlight }) => (
-              <div key={label} className={`rounded-lg border p-2.5 sm:p-4 ${highlight ? 'border-[var(--color-primary-200)] bg-[#fef3f2]' : 'border-gray-200 bg-white'}`}>
-                <p className="text-[11px] leading-tight text-gray-500 sm:text-xs">
+              <div key={label} className={`rounded-lg border p-2.5 sm:p-4 ${highlight ? 'border-[var(--color-primary-200)] bg-[var(--color-red-light)]' : 'border-[var(--color-paper-mid)] bg-[var(--color-surface)]'}`}>
+                <p className="text-[11px] leading-tight text-[var(--color-ink-muted)] sm:text-xs">
                   <span className="sm:hidden">{mobileLabel}</span>
                   <span className="hidden sm:inline">{label}</span>
                 </p>
-                <p className={`mt-1 text-sm font-semibold leading-tight break-words sm:text-lg ${highlight ? 'text-[var(--color-primary-600)]' : 'text-gray-900'}`}>{value}</p>
+                <p className={`mt-1 text-sm font-semibold leading-tight break-words sm:text-lg ${highlight ? 'text-[var(--color-primary-600)]' : 'text-[var(--color-ink)]'}`}>{value}</p>
               </div>
             ))}
           </div>
@@ -441,10 +462,10 @@ export default function EventDetail() {
               { label: 'Gastos registrados', value: formatCurrency(totalExpenses) },
               { label: 'Cobro bruto/hora', value: eventHours > 0 ? formatCurrencyPerHour(grossHourlyRate) : '—', detail: eventHours > 0 ? `${formatHours(eventHours)} h` : null },
             ].map(({ label, value, detail }) => (
-              <div key={label} className="rounded-lg border border-gray-200 bg-white p-4">
-                <p className="text-xs text-gray-500">{label}</p>
-                <p className="mt-1 text-base font-semibold text-gray-900">{value}</p>
-                {detail && <p className="mt-1 text-xs text-gray-400">{detail}</p>}
+              <div key={label} className="rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-surface)] p-4">
+                <p className="text-xs text-[var(--color-ink-muted)]">{label}</p>
+                <p className="mt-1 text-base font-semibold text-[var(--color-ink)]">{value}</p>
+                {detail && <p className="mt-1 text-xs text-[var(--color-ink-muted)]">{detail}</p>}
               </div>
             ))}
           </div>
@@ -545,28 +566,28 @@ export default function EventDetail() {
                 {incomes.map((income) => {
                   const isSaving = savingIncomeId === income.id
                   return (
-                    <div key={income.id} className="flex items-center justify-between gap-2 py-2 border-b border-gray-50 last:border-0">
+                    <div key={income.id} className="flex items-center justify-between gap-2 border-b border-[var(--color-paper-mid)] py-2 last:border-0">
                       <button
                         type="button"
                         onClick={() => openEditIncome(income)}
                         className="min-w-0 flex-1 text-left"
                       >
-                        <span className="block truncate text-sm text-gray-900">{incomeConceptLabel(income)}</span>
-                        {!isPaid(income) && (
-                          <span className={`mt-0.5 block text-xs ${incomeDueClass(income)}`}>{formatDueDescription(income.expected_date)}</span>
-                        )}
+                        <span className="block truncate text-sm font-medium text-[var(--color-ink)]">{incomeConceptLabel(income)}</span>
+                        <span className={`mt-0.5 block text-xs ${isPaid(income) ? 'text-[var(--color-green)]' : incomeDueClass(income)}`}>
+                          {isPaid(income) ? 'Cobrado' : formatDueDescription(income.expected_date)}
+                        </span>
                       </button>
-                      <span className="shrink-0 text-sm font-medium text-gray-900">{formatCurrency(income.amount)}</span>
+                      <span className="shrink-0 text-sm font-semibold text-[var(--color-ink)]">{formatCurrency(income.amount)}</span>
                       <button
                         type="button"
                         onClick={() => handleTogglePaid(income)}
                         disabled={Boolean(savingIncomeId)}
                         aria-label={`${isPaid(income) ? 'Marcar como pendiente' : 'Marcar como cobrado'} ${incomeConceptLabel(income)}`}
-                        className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-[#2D6A4F] transition-colors hover:bg-[#F4FBF7] hover:text-[#1F5A42] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2D6A4F] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:text-gray-300 disabled:hover:bg-transparent"
+                        className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-[var(--color-green)] transition-colors hover:bg-[var(--color-green-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-green)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:text-[var(--color-ink-muted)] disabled:hover:bg-transparent"
                       >
                         {isSaving
                           ? <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#2D6A4F] border-t-transparent" />
-                          : isPaid(income) ? <CheckCircle size={18} className="text-green-500" /> : <Circle size={18} />}
+                          : isPaid(income) ? <CheckCircle size={18} /> : <Circle size={18} />}
                       </button>
                     </div>
                   )
@@ -642,14 +663,20 @@ export default function EventDetail() {
 {/* Cards minimalistas para móvil */}
               <div className="flex flex-col gap-1 md:hidden">
                 {expenses.map((expense) => (
-                  <div
+                  <button
                     key={expense.id}
+                    type="button"
                     onClick={() => openEditExpense(expense)}
-                    className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0"
+                    className="flex items-center justify-between gap-3 border-b border-[var(--color-paper-mid)] py-2 text-left last:border-0"
                   >
-                    <span className="text-sm text-gray-900 truncate">{expense.concept}</span>
-                    <span className="text-sm font-medium text-gray-900">{formatCurrency(expense.amount)}</span>
-                  </div>
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-sm font-medium text-[var(--color-ink)]">{expense.concept}</span>
+                      <span className="mt-0.5 block truncate text-xs capitalize text-[var(--color-ink-muted)]">
+                        {expense.category} · {formatDate(expense.expense_date)}
+                      </span>
+                    </span>
+                    <span className="shrink-0 text-sm font-semibold text-[var(--color-ink)]">{formatCurrency(expense.amount)}</span>
+                  </button>
                 ))}
               </div>
             </div>
@@ -683,7 +710,7 @@ export default function EventDetail() {
             placeholder="Actuación principal"
             required
           />
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <Input
               label="Importe (€) *"
               type="text"
@@ -708,8 +735,8 @@ export default function EventDetail() {
             <div className="flex items-center gap-2">
               <input type="checkbox" id="is_paid" checked={incomeForm.is_paid}
                 onChange={(e) => setIncomeForm((p) => ({ ...p, is_paid: e.target.checked, paid_date: e.target.checked ? (p.paid_date ?? p.expected_date ?? '') : null }))}
-                className="h-5 w-5 rounded border-gray-300 text-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]" />
-              <label htmlFor="is_paid" className="text-sm text-gray-700">Ya está cobrado</label>
+                className="h-5 w-5 rounded border-[var(--color-paper-mid)] text-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]" />
+              <label htmlFor="is_paid" className="text-sm text-[var(--color-ink)]">Ya está cobrado</label>
             </div>
             {incomeForm.is_paid && (
               <Input
@@ -720,11 +747,18 @@ export default function EventDetail() {
               />
             )}
           </div>
-          <div className="flex gap-3 justify-end">
-            <Button type="button" variant="secondary" onClick={() => setIncomeModal(false)}>Cancelar</Button>
-            <Button type="submit" disabled={savingIncome}>
-              {editingIncome ? 'Guardar cambios' : 'Añadir ingreso'}
-            </Button>
+          <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
+            {editingIncome && (
+              <Button type="button" variant="ghost" onClick={handleDeleteEditingIncome} className="justify-center text-[var(--color-red)] hover:bg-[var(--color-red-light)]">
+                Eliminar
+              </Button>
+            )}
+            <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+              <Button type="button" variant="secondary" onClick={() => setIncomeModal(false)}>Cancelar</Button>
+              <Button type="submit" disabled={savingIncome}>
+                {editingIncome ? 'Guardar cambios' : 'Añadir ingreso'}
+              </Button>
+            </div>
           </div>
         </form>
       </Modal>
@@ -777,7 +811,7 @@ export default function EventDetail() {
             placeholder="Alquiler sala de ensayo"
             required
           />
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <Input
               label="Importe (€) *"
               type="text"
@@ -803,15 +837,22 @@ export default function EventDetail() {
             <div className="flex items-center gap-2">
               <input type="checkbox" id="is_deductible" checked={expenseForm.is_deductible}
                 onChange={(e) => setExpenseForm((p) => ({ ...p, is_deductible: e.target.checked }))}
-                className="h-5 w-5 rounded border-gray-300 text-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]" />
-              <label htmlFor="is_deductible" className="text-sm text-gray-700">Gasto deducible fiscalmente</label>
+                className="h-5 w-5 rounded border-[var(--color-paper-mid)] text-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]" />
+              <label htmlFor="is_deductible" className="text-sm text-[var(--color-ink)]">Gasto deducible fiscalmente</label>
             </div>
           </div>
-          <div className="flex gap-3 justify-end">
-            <Button type="button" variant="secondary" onClick={() => setExpenseModal(false)}>Cancelar</Button>
-            <Button type="submit" disabled={savingExpense}>
-              {editingExpense ? 'Guardar cambios' : 'Añadir gasto'}
-            </Button>
+          <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
+            {editingExpense && (
+              <Button type="button" variant="ghost" onClick={handleDeleteEditingExpense} className="justify-center text-[var(--color-red)] hover:bg-[var(--color-red-light)]">
+                Eliminar
+              </Button>
+            )}
+            <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+              <Button type="button" variant="secondary" onClick={() => setExpenseModal(false)}>Cancelar</Button>
+              <Button type="submit" disabled={savingExpense}>
+                {editingExpense ? 'Guardar cambios' : 'Añadir gasto'}
+              </Button>
+            </div>
           </div>
         </form>
       </Modal>
@@ -830,14 +871,14 @@ export default function EventDetail() {
             onChange={(e) => setQuickIncomeForm((p) => ({ ...p, amount: e.target.value }))}
             required
           />
-          <label className="flex items-center gap-3 rounded-lg border border-gray-200 bg-gray-50 p-3">
+          <label className="flex items-center gap-3 rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-surface-alt)] p-3">
             <input
               type="checkbox"
               checked={quickIncomeForm.is_paid}
               onChange={(e) => setQuickIncomeForm((p) => ({ ...p, is_paid: e.target.checked }))}
-              className="h-5 w-5 rounded border-gray-300 text-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]"
+              className="h-5 w-5 rounded border-[var(--color-paper-mid)] text-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]"
             />
-            <span className="text-sm font-medium text-gray-700">Marcar como cobrado</span>
+            <span className="text-sm font-medium text-[var(--color-ink)]">Marcar como cobrado</span>
           </label>
           <div className="flex gap-3 justify-end">
             <Button type="button" variant="secondary" onClick={() => setQuickIncomeModal(false)}>Cancelar</Button>

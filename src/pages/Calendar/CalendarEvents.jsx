@@ -133,11 +133,11 @@ export default function CalendarEvents() {
   return (
     <PageWrapper title="Calendario de eventos">
       <div className="flex flex-col gap-4 lg:flex-row lg:h-[calc(100vh-8rem)]">
-        <div className="flex flex-1 flex-col rounded-xl border border-gray-200 bg-white p-3 sm:p-4 lg:min-h-0">
+        <div className="flex flex-1 flex-col rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-surface)] p-3 sm:p-4 lg:min-h-0">
           <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-900">{events.length} eventos</p>
-              <p className="text-xs text-gray-400">Calendario compartible con fecha y hora exactas.</p>
+              <p className="text-sm font-medium text-[var(--color-ink)]">{events.length} eventos</p>
+              <p className="text-xs text-[var(--color-ink-muted)]">Calendario compartible con fecha y hora exactas.</p>
             </div>
             <Button size="sm" onClick={() => openNewEvent()} className="w-full justify-center sm:w-auto">
               <Plus size={16} />
