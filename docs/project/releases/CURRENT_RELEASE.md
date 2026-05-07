@@ -1,7 +1,7 @@
 ---
 id: PB-CURRENT-RELEASE
 type: release-status
-status: No active release
+status: Active
 created: 2026-05-05
 updated: 2026-05-07
 aliases:
@@ -16,11 +16,11 @@ tags:
 
 ## Release activa
 
-No active release.
+[[RELEASE-0.1.0-beta.6|RELEASE-0.1.0-beta.6]] — Estabilización visual y mobile financiero.
 
 ## Rama activa
 
-No active release branch.
+`release/0.1.0-beta.6`
 
 ## Ultimo corte
 
@@ -28,22 +28,15 @@ No active release branch.
 
 ## Scope actual
 
-Sin scope activo.
+- [[../issues/CACH-0030|CACH-0030]] — Homogeneizar diseño con nueva paleta de colores y fuentes.
+- [[../issues/CACH-0038|CACH-0038]] — Compactar mobile financiero y detalles accionables.
 
 ## Regla de trabajo para esta release
 
-No hay release activa. Para fixes, chores y mejoras menores: PR directa a `main`.
+Beta 6 usa rama de release activa y PR única a `main`.
 
-## Cuando activar una release
-
-Usar release branch solo si:
-
-- Hay varias issues relacionadas que se integran antes de main.
-- Hay fase de estabilización real.
-- Se necesita release notes agrupadas.
-
-Para fixes, chores y mejoras menores: PR directa a `main` sin release branch.
+Las ramas de tarea salen de `release/0.1.0-beta.6` y se integran con squash en la release. No añadir tareas fuera de CACH-0030/CACH-0038 sin actualizar primero el documento de release.
 
 ## Como cerrar esta release
 
-No aplica hasta activar la siguiente release.
+Abrir PR `release/0.1.0-beta.6` -> `main`, esperar CI en verde, mergear, crear tag `v0.1.0-beta.6` desde `main`, verificar producción si aplica y limpiar la rama remota de release.

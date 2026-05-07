@@ -2,8 +2,8 @@
 id: PB-DIGEST
 type: digest
 status: Active
-created: 2026-05-06
-updated: 2026-05-06
+created: 2026-05-07
+updated: 2026-05-07
 aliases:
   - Digest
   - Brain Digest
@@ -14,33 +14,34 @@ tags:
 
 # Product Brain Digest
 
-*Generado: 2026-05-06 17:30 UTC*
+*Generado: 2026-05-07 07:46 UTC*
 
 ---
 
 ## Estado operacional
 
-- **Release activa:** ninguna — PRs directas a `main`
-- **Último corte:** `RELEASE-0.1.0-beta.4` — mergeada a `main` el 2026-05-06. Ver RELEASE-0.1.0-beta.4.
-- **Foco:** Sin release activa. Siguiente: CACH-0030 (PR directo) o abrir beta.5.
+- **Release activa:** RELEASE-0.1.0-beta.6 — Estabilización visual y mobile financiero.
+- **Último corte:** `RELEASE-0.1.0-beta.5` — mergeada a `main` en PR #84 el 2026-05-07. Ver RELEASE-0.1.0-beta.5.
+- **Foco:** Release activa: RELEASE-0.1.0-beta.6 — estabilización visual y mobile financiero.
 
 ## Prioridades del plan
 
-1. CACH-0030 (paleta/fuentes) como PR directo a main.
-2. Evaluar backlog p1 para definir si se abre `beta.5`.
-3. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
+1. Ejecutar CACH-0030 y CACH-0038 desde `release/0.1.0-beta.6`.
+2. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
+3. Dejar CACH-B0005 y CACH-B0006 como candidatas naturales para las siguientes betas, no para este corte visual/mobile.
 
 ## Tablero
 
 ### Inbox
 
-| ID | Título | Tipo | P |
-|---|---|---|---|
-| CACH-0030 | Homogeneizar diseno con nueva paleta | chore | p1 |
+_Sin issues._
 
 ### In progress
 
-_Sin issues._
+| ID | Título | Tipo | P |
+|---|---|---|---|
+| CACH-0030 | Homogeneizar diseno con nueva paleta | chore | p1 |
+| CACH-0038 | Compactar mobile financiero y detalles accionables | feature | p1 |
 
 ### Review
 
@@ -52,7 +53,6 @@ _Sin issues._
 |---|---|---|---|
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | feature | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | feature | p1 |
-| CACH-B0003 | Cobro rapido y gestion de pendientes | feature | p1 |
 | CACH-B0004 | Contratantes, facturacion y liquidacion neta | feature | p1 |
 | CACH-B0005 | Importacion, exportacion y portabilidad de datos | feature | p1 |
 | CACH-B0006 | Onboarding y acceso beta | feature | p1 |
@@ -62,10 +62,10 @@ _Sin issues._
 
 | ID | Título | Estado | Tipo | P |
 |---|---|---|---|---|
-| CACH-0030 | Homogeneizar diseno con nueva paleta de colores y fuentes | inbox | chore | p1 |
+| CACH-0030 | Homogeneizar diseno con nueva paleta de colores y fuentes | in-progress | chore | p1 |
+| CACH-0038 | Compactar mobile financiero y detalles accionables | in-progress | feature | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | backlog | feature | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | backlog | feature | p1 |
-| CACH-B0003 | Cobro rapido y gestion de pendientes | backlog | feature | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | backlog | feature | p1 |
 | CACH-B0005 | Importacion exportacion y portabilidad de datos | backlog | feature | p1 |
 | CACH-B0006 | Onboarding y acceso beta | backlog | feature | p1 |
@@ -98,5 +98,3 @@ _Sin issues._
 | PB-ZK-20260504-TECH-AUDIT | Auditoría técnica repo — 2026-05-04 |
 
 ## Próxima acción
-
-Decidir si CACH-0030 va como PR directo o si se abre `beta.3` con más scope.

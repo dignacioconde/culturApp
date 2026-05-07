@@ -2,7 +2,7 @@
 id: PB-BY-STATUS
 type: index
 status: Active
-created: 2026-05-06
+created: 2026-05-07
 updated: 2026-05-07
 aliases:
   - Issues por estado
@@ -29,9 +29,10 @@ tags:
 - [[../issues/CACH-B0015|CACH-B0015]] — Operativizar backlog releases y ramas en Product Brain
 - [[../issues/CACH-B0016|CACH-B0016]] — Refundacion operativa del Product Brain y tests B0014
 
-## inbox
+## in-progress
 
 - [[../issues/CACH-0030|CACH-0030]] — Homogeneizar diseno con nueva paleta de colores y fuentes
+- [[../issues/CACH-0038|CACH-0038]] — Compactar mobile financiero y detalles accionables
 
 ## backlog
 
