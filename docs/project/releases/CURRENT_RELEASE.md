@@ -36,4 +36,4 @@ No abrir trabajo nuevo en `release/0.1.0-beta.9`. Crear nueva release o usar flu
 
 ## Como cerrar esta release
 
-Beta 9 queda cerrada cuando existan tag `v0.1.0-beta.9`, verificación de producción y limpieza de rama remota.
+Beta 9 cerrada con tag `v0.1.0-beta.9`, producción verificada y rama remota de release limpiada.

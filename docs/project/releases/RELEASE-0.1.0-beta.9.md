@@ -117,14 +117,14 @@ Permitir gestionar invitaciones beta desde una pantalla interna segura, con rol 
 
 ## Checklist de salida
 
-- [x] PR `release/0.1.0-beta.9` -> `main` abierta
+- [x] PR `release/0.1.0-beta.9` -> `main` abierta: https://github.com/dignacioconde/culturApp/pull/88
 - [x] CI en verde
 - [x] Revisión aprobada
 - [x] PR mergeada en `main`
 - [x] `main` actualizado en local
-- [ ] Tag `v0.1.0-beta.9` creado desde `main`
-- [ ] Producción verificada si aplica
-- [ ] Rama remota `release/0.1.0-beta.9` eliminada
+- [x] Tag `v0.1.0-beta.9` creado desde `main`
+- [x] Producción verificada si aplica
+- [x] Rama remota `release/0.1.0-beta.9` eliminada
 - [x] Release notes actualizadas
 - [x] Issues marcadas como `Released`
 - [x] Estado actual actualizado
@@ -165,4 +165,4 @@ Permitir gestionar invitaciones beta desde una pantalla interna segura, con rol 
 
 ## Resultado final
 
-Release mergeada a `main` por PR #88 el 2026-05-07. Pendiente de crear tag, verificar producción y limpiar rama remota.
+Release cerrada y mergeada a `main` el 2026-05-07 en PR #88. Tag `v0.1.0-beta.9` creado desde `main`.
