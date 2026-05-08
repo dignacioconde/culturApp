@@ -366,3 +366,35 @@ opencode models opencode
 ```
 
 Y cambia el campo `model` en los agentes.
+
+## Routing de modelos
+
+El routing inteligente de modelos se trata como piloto controlado, no como default irreversible. El objetivo es reducir coste y latencia en tareas simples sin perder calidad de cierre.
+
+Regla base:
+
+- `GPT-5.5`: lead/orquestador, planificacion, ambiguedad, arquitectura, Product Brain, cambios multi-area, datos/RLS, seguridad, finanzas, calendarios complejos, review, verificacion final, PR/release y cualquier accion sensible.
+- `GPT-5.3-Codex-Spark`: worker rapido para tareas locales, pequenas, con ownership explicito, patrones claros, bajo riesgo y verificacion objetiva. Encaja para copy, refactors mecanicos, fixes simples, exploracion read-only y cambios acotados de codigo.
+- Escalada a `GPT-5.5`: si Spark falla verificacion, toca zona sensible, necesita mas de 1 retry, devuelve un diff demasiado amplio o necesita decidir producto/arquitectura.
+
+Mientras Spark siga en preview o sin precio/SLAs estables, no debe ser dependencia operativa base. Usalo como acelerador experimental medido.
+
+Los lanzadores aceptan metadatos para el piloto:
+
+```bash
+npm run agents:run -- \
+  --task-type frontend \
+  --routing-reason "cambio local de bajo riesgo con ownership claro" \
+  --model-lead gpt-5.5 \
+  --model-worker gpt-5.3-codex-spark \
+  --model-reviewer gpt-5.5 \
+  "Ajusta el copy de estados vacios en /work"
+```
+
+Cada run escribe `metadata.json` en `.opencode/runs/<timestamp>/` con tipo de tarea, motivo de routing, modelos esperados, ownership, verificacion esperada, estado y duracion. Coste, retries y escalaciones quedan como campos operativos para completar durante el piloto; no se guardan en `.memory/`.
+
+Promociona Spark solo si el piloto de 20-30 tareas demuestra:
+
+- 25-40% menos coste o latencia en tareas simples.
+- Sin aumento de CI rojo, bugs post-merge ni findings severos de review.
+- Fallback claro si Spark no esta disponible o cambia sus condiciones de preview.

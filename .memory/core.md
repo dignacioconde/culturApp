@@ -13,6 +13,7 @@ Repository-local memory for CulturaApp agents. This file is a compact map; detai
 - Dashboard finance calculations: see [projects/dashboard-finance.md](projects/dashboard-finance.md).
 - Routing/deploy caveats: see [projects/routing-deploy.md](projects/routing-deploy.md).
 - Settings/profile data access: see [projects/settings.md](projects/settings.md).
+- Email and Supabase/Brevo operational gotchas: see [projects/email-ops.md](projects/email-ops.md).
 - Topic index: see [topics/README.md](topics/README.md).
 - Project-area index: see [projects/README.md](projects/README.md).
 

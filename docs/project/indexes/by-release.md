@@ -19,6 +19,14 @@ tags:
 - [[../issues/CACH-0031|CACH-0031]] — Corregir ajustes UX movil detectados en exploracion
 - [[../issues/CACH-0032|CACH-0032]] — Priorizar operativa diaria en dashboard movil
 - [[../issues/CACH-0034|CACH-0034]] — €/h muestra valor incorrecto cuando no hay eventos con horas
+- [[../issues/CACH-0041|CACH-0041]] — [UX] Simplificar dashboard movil y estado Ahora
+- [[../issues/CACH-0042|CACH-0042]] — [UX] Racionalizar navegacion inferior
+- [[../issues/CACH-0043|CACH-0043]] — [UX] Limpiar acciones en detalle de proyecto
+- [[../issues/CACH-0044|CACH-0044]] — [UX] Crear evento desde proyecto con proyecto preseleccionado
+- [[../issues/CACH-0045|CACH-0045]] — [UX] Anadir confirmacion a borrados destructivos
+- [[../issues/CACH-0046|CACH-0046]] — [Verify] Anadir verificacion por tipo de cambio
+- [[../issues/CACH-0047|CACH-0047]] — [Skills] Actualizar catalogo y symlinks de skills
+- [[../issues/CACH-0048|CACH-0048]] — [Context] Compactar workflow OpenCode
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera
 - [[../issues/CACH-B0004|CACH-B0004]] — Contratantes facturacion y liquidacion neta
@@ -29,6 +37,7 @@ tags:
 - [[../issues/CACH-B0011|CACH-B0011]] — Categorias etiquetas y taxonomia
 - [[../issues/CACH-B0012|CACH-B0012]] — Perfil publico viralidad y referidos
 - [[../issues/CACH-B0013|CACH-B0013]] — Gestion documental por proyecto evento
+- [[../issues/CACH-B0020|CACH-B0020]] — Validar dominio de email transaccional y cambiar remitentes definitivos
 
 ## RELEASE-0.1.0-beta.1
 

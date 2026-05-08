@@ -35,6 +35,7 @@ Agent execution:
 - `agents:run` and `agents:parallel` require `--write` plus concrete `--ownership` before workers can edit files; review, security and UX agents stay read-only.
 - Do only the minimum manual prep needed to form a safe command, scope and ownership.
 - Do not use subagents for trivial changes.
+- Model routing pilot: keep GPT-5.5 as lead/orchestrator/verifier for ambiguous, sensitive, multi-area, data/RLS, finance, security, release and final review work. Use GPT-5.3-Codex-Spark only as a fast worker for small, local, low-risk tasks with explicit ownership and objective verification; escalate to GPT-5.5 after failed verification, sensitive scope, more than 1 retry or overly broad diffs.
 - Parallel agents need isolated write ownership or explicit coordination through `.opencode/AGENT_STATE.md`.
 - `.opencode/AGENT_STATE.md` is a live scratchboard; keep active signals and events empty after completed tasks.
 - Permanent history lives in GitHub issues, PRs and commits, not in `.opencode/AGENT_STATE.md` or `.memory/`.

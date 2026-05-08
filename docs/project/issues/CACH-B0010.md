@@ -9,7 +9,7 @@ priority: p2
 estimate: m
 area: infra
 created_at: 2026-05-04
-updated_at: 2026-05-04
+updated_at: 2026-05-08
 aliases:
   - CACH-B0010
 tags:
@@ -40,13 +40,27 @@ El proyecto depende cada vez más de rituales de agentes. Hace falta reducir fri
 - Investigar LLM local 8B para tareas simples.
 - Definir casos de uso antes de integrar modelo local.
 - Diseñar routing inteligente entre modelos según tarea.
+- Piloto controlado: `GPT-5.5` como lead/orquestador/verificador y `GPT-5.3-Codex-Spark` solo como worker rápido para tareas locales, acotadas y verificables.
+- Registrar telemetría operativa por run en `.opencode/runs/`: modelo por rol, tipo de tarea, motivo de routing, ownership, verificación, retries, escalaciones, coste estimado, duración y resultado.
+- No convertir Spark en default hasta validar coste por tarea aceptada y defectos post-merge.
 
 ## Acceptance Criteria
 
 - [ ] El tooling no contamina la UX ni el runtime de Cachés.
 - [ ] Los casos del LLM local están documentados antes de integrar.
 - [ ] El routing de modelos tiene criterios observables.
+- [ ] El piloto compara 20-30 tareas reales entre `GPT-5.5` solo y `GPT-5.5 lead + Spark workers`.
+- [ ] Spark solo se usa con ownership explícito, bajo riesgo, verificación objetiva y máximo 1 retry antes de escalar.
+- [ ] Datos/RLS, seguridad, finanzas, calendarios complejos, review final, PR/release y acciones sensibles quedan reservadas para `GPT-5.5` o revisión fuerte.
+- [ ] Cada ejecución de agentes deja telemetría operativa en `.opencode/runs/<timestamp>/metadata.json`.
+- [ ] La promoción de Spark exige 25-40% menos coste o latencia sin aumento de CI rojo, bugs post-merge ni findings severos.
 - [ ] Las ideas de Product Brain no se convierten en GitHub Issues salvo implementación.
+
+## Validation Plan
+
+- Medir coste por tarea aceptada, tasa de aceptación a la primera, retries, tiempo end-to-end, fallos de lint/build/test, findings de review, defectos escapados, escalaciones y conflictos por ownership.
+- Mantener los logs y metadatos del piloto como estado operativo en `.opencode/runs/`; no guardarlos en `.memory/`.
+- Revisar el piloto antes de cambiar de forma masiva los campos `model:` de los perfiles OpenCode.
 
 ## Related
 

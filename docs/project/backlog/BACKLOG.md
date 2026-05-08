@@ -3,7 +3,7 @@ id: PB-BACKLOG
 type: backlog
 status: Active
 created: 2026-05-05
-updated: 2026-05-07
+updated: 2026-05-08
 aliases:
   - Backlog operativo
   - Backlog
@@ -45,10 +45,19 @@ Sin issues en inbox.
 
 | ID | Titulo | Tipo | Prioridad | Nota |
 |---|---|---|---|---|
+| [[../issues/CACH-B0020|CACH-B0020]] | Validar dominio de email transaccional y cambiar remitentes definitivos | chore | p0 | Máxima prioridad para el 8 de mayo de 2026. |
+| [[../issues/CACH-0041|CACH-0041]] | [UX] Simplificar dashboard movil y estado Ahora | feature | p1 | Primer corte de simplificacion UX core. |
+| [[../issues/CACH-0042|CACH-0042]] | [UX] Racionalizar navegacion inferior | feature | p1 | Reducir friccion movil sin cambiar rutas mayores. |
+| [[../issues/CACH-0043|CACH-0043]] | [UX] Limpiar acciones en detalle de proyecto | feature | p1 | Jerarquia clara de acciones primarias y secundarias. |
+| [[../issues/CACH-0044|CACH-0044]] | [UX] Crear evento desde proyecto con proyecto preseleccionado | feature | p1 | Simplifica el flujo proyecto -> evento. |
+| [[../issues/CACH-0045|CACH-0045]] | [UX] Anadir confirmacion a borrados destructivos | feature | p1 | Proteccion contra perdidas accidentales. |
+| [[../issues/CACH-0046|CACH-0046]] | [Verify] Anadir verificacion por tipo de cambio | chore | p1 | Checks compuestos por docs, skills, agents, UI y release. |
+| [[../issues/CACH-0047|CACH-0047]] | [Skills] Actualizar catalogo y symlinks de skills | chore | p1 | Fuente unica para skills portables y exposicion Claude. |
 | [[../issues/CACH-B0001|CACH-B0001]] | Redisenar Trabajos y jerarquia proyecto-evento | feature | p1 | Partir antes de ejecutar. |
 | [[../issues/CACH-B0002|CACH-B0002]] | Simplificar experiencia mobile financiera | feature | p1 | Validacion mobile obligatoria. |
 | [[../issues/CACH-B0004|CACH-B0004]] | Contratantes, facturacion y liquidacion neta | feature | p1 | Evolucion de modelo financiero. |
 | [[../issues/CACH-B0007|CACH-B0007]] | Calendario unificado e interaccion rapida | feature | p1 | QA visual y responsive. |
+| [[../issues/CACH-0048|CACH-0048]] | [Context] Compactar workflow OpenCode | chore | p2 | Reducir tokens y duplicacion operativa. |
 | [[../issues/CACH-B0008|CACH-B0008]] | PWA, notificaciones y offline | feature | p2 | Post confianza basica. |
 | [[../issues/CACH-B0009|CACH-B0009]] | Inteligencia financiera y features Pro | feature | p2 | No antes de beta trust. |
 | [[../issues/CACH-B0010|CACH-B0010]] | Tooling de agentes y modelos de desarrollo | chore | p2 | Tooling interno. |

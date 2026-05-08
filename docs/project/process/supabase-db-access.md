@@ -28,6 +28,8 @@ Usar Supabase MCP como vía principal para diagnóstico y operaciones de BD:
 - Features habituales: `database,docs`.
 - No guardar Personal Access Tokens, connection strings, service role keys ni passwords en el repo, memoria, issues, prompts o PRs.
 
+Cuando el MCP esté disponible con herramientas de SQL/logs/migraciones, las operaciones de BD que antes requerían SQL Editor manual pueden ejecutarse desde el agente. La regla no cambia: diagnóstico en lectura directa, y cualquier mutación de producción solo tras enseñar el SQL o migración exacta y recibir confirmación humana explícita.
+
 Si el MCP no está disponible en una sesión, usar el SQL Editor de Supabase como fallback manual. No pedir ni pegar credenciales en el chat.
 
 ## Diagnóstico read-only
