@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import dayjs from 'dayjs'
 import 'dayjs/locale/es'
-import { AlertCircle, CalendarDays, CheckCircle, ChevronLeft, ChevronRight, Clock, FolderOpen, Wallet } from 'lucide-react'
+import { AlertCircle, ArrowRight, CalendarDays, CheckCircle, ChevronLeft, ChevronRight, Clock, FolderOpen, Wallet } from 'lucide-react'
 import { PageWrapper } from '../../components/layout/PageWrapper'
 import { Card } from '../../components/ui/Card'
 import { StatusBadge } from '../../components/ui/Badge'
@@ -15,7 +15,7 @@ import { useAuth } from '../../hooks/useAuth'
 import { useProjects } from '../../hooks/useProjects'
 import { useEvents } from '../../hooks/useEvents'
 import { useIncomes } from '../../hooks/useIncomes'
-import { formatCurrency, formatDate } from '../../lib/formatters'
+import { formatCurrency, formatDate, formatDatetimeCompact, formatTime } from '../../lib/formatters'
 import { getCashMonthSummary, getWorkKpis, getWorkSections, getWorkSummaries } from '../../lib/dashboardFinance'
 import { formatDueText, getDueDays } from '../../lib/dueDates'
 import { markPaid, markUnpaid, needsQuickPaidConfirmation } from '../../lib/payment'
@@ -25,6 +25,151 @@ const YEARS = Array.from({ length: 6 }, (_, i) => dayjs().year() - 2 + i)
 dayjs.locale('es')
 
 const incomeConceptLabel = (income) => income.concept?.trim() || 'Ingreso sin concepto'
+
+const eventNameLabel = (event) => event.name?.trim() || 'Evento sin nombre'
+
+const eventContextLabel = (event, projectById) => {
+  const project = event.project_id ? projectById.get(event.project_id) : null
+  return project?.name || event.client || 'Evento independiente'
+}
+
+const formatEventWindow = (event) => {
+  if (!event.start_datetime) return 'Sin hora definida'
+  const start = dayjs(event.start_datetime)
+  const end = event.end_datetime ? dayjs(event.end_datetime) : null
+  const startLabel = start.isSame(dayjs(), 'day')
+    ? `Hoy · ${formatTime(event.start_datetime)}`
+    : formatDatetimeCompact(event.start_datetime)
+
+  if (!end?.isValid()) return startLabel
+
+  const endLabel = start.isSame(end, 'day') ? formatTime(event.end_datetime) : formatDatetimeCompact(event.end_datetime)
+  return `${startLabel} - ${endLabel}`
+}
+
+const buildEventNowState = ({ event, projectById, kind, badge }) => ({
+  kind,
+  badge,
+  title: eventNameLabel(event),
+  description: eventContextLabel(event, projectById),
+  meta: formatEventWindow(event),
+  path: `/events/${event.id}`,
+})
+
+const getNowDashboardState = (events, projectById) => {
+  const now = dayjs()
+  const scheduledEvents = events
+    .filter((event) => event.start_datetime)
+    .map((event) => ({
+      event,
+      start: dayjs(event.start_datetime),
+      end: event.end_datetime ? dayjs(event.end_datetime) : dayjs(event.start_datetime).add(90, 'minute'),
+    }))
+    .filter(({ start }) => start.isValid())
+    .sort((a, b) => a.start.valueOf() - b.start.valueOf())
+
+  if (scheduledEvents.length === 0) {
+    return {
+      kind: 'empty',
+      badge: 'Vacío',
+      title: 'Sin eventos todavía',
+      description: 'Cuando crees eventos, aparecerá aquí tu siguiente paso.',
+      meta: 'Agenda por estrenar',
+      path: '/events',
+    }
+  }
+
+  const currentEvent = scheduledEvents.find(({ start, end }) => !start.isAfter(now) && !end.isBefore(now))
+  if (currentEvent) {
+    return buildEventNowState({
+      event: currentEvent.event,
+      projectById,
+      kind: 'current',
+      badge: 'En curso',
+    })
+  }
+
+  const upcomingEvent = scheduledEvents.find(({ start }) => start.isAfter(now) || start.isSame(now))
+  if (upcomingEvent) {
+    return buildEventNowState({
+      event: upcomingEvent.event,
+      projectById,
+      kind: 'upcoming',
+      badge: upcomingEvent.start.isSame(now, 'day') ? 'Hoy' : 'Próximo',
+    })
+  }
+
+  const latestEvent = scheduledEvents.at(-1)?.event
+  return {
+    kind: 'idle',
+    badge: 'Sin actividad',
+    title: 'Sin eventos próximos',
+    description: 'No hay actividad futura en tu agenda.',
+    meta: latestEvent ? `Último: ${formatDatetimeCompact(latestEvent.start_datetime)}` : 'Agenda sin fechas futuras',
+    path: '/calendar/events',
+  }
+}
+
+const NOW_CARD_STYLES = {
+  current: {
+    icon: 'bg-[#F4FBF7] text-[#2D6A4F]',
+    badge: 'bg-[#F4FBF7] text-[#2D6A4F]',
+    button: 'text-[#2D6A4F] hover:bg-[#F4FBF7]',
+  },
+  upcoming: {
+    icon: 'bg-[#FDF5E4] text-[#D4921A]',
+    badge: 'bg-[#FDF5E4] text-[#9D6A08]',
+    button: 'text-[#9D6A08] hover:bg-[#FDF5E4]',
+  },
+  empty: {
+    icon: 'bg-gray-100 text-gray-500',
+    badge: 'bg-gray-100 text-gray-600',
+    button: 'text-[var(--color-primary-600)] hover:bg-[var(--color-surface-alt)]',
+  },
+  idle: {
+    icon: 'bg-gray-100 text-gray-500',
+    badge: 'bg-gray-100 text-gray-600',
+    button: 'text-[var(--color-primary-600)] hover:bg-[var(--color-surface-alt)]',
+  },
+}
+
+function MobileNowCard({ state, onOpen }) {
+  const styles = NOW_CARD_STYLES[state.kind] ?? NOW_CARD_STYLES.idle
+  const Icon = state.kind === 'current' ? Clock : CalendarDays
+
+  return (
+    <Card className="p-3.5 md:hidden">
+      <div className="flex items-start gap-3">
+        <span className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg ${styles.icon}`}>
+          <Icon size={18} />
+        </span>
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center justify-between gap-2">
+            <p className="text-[11px] font-medium uppercase tracking-[0.02em] text-gray-500">Ahora</p>
+            <span className={`max-w-[9rem] truncate rounded-full px-2 py-1 text-[11px] font-medium ${styles.badge}`}>
+              {state.badge}
+            </span>
+          </div>
+          <p className="mt-1 break-words text-base font-semibold leading-snug text-gray-900">{state.title}</p>
+          <p className="mt-1 break-words text-xs text-gray-500">{state.description}</p>
+          <div className="mt-2 flex items-center justify-between gap-2">
+            <p className="min-w-0 truncate text-xs font-medium text-gray-700">{state.meta}</p>
+            {state.path && (
+              <button
+                type="button"
+                onClick={() => onOpen(state.path)}
+                aria-label={`Abrir ${state.title}`}
+                className={`inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)] focus-visible:ring-offset-2 ${styles.button}`}
+              >
+                <ArrowRight size={17} />
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </Card>
+  )
+}
 
 export default function Dashboard() {
   const navigate = useNavigate()
@@ -59,6 +204,8 @@ export default function Dashboard() {
     getWorkSummaries({ projects, events, incomes, startOfMonth, endOfMonth, today })
   , [projects, events, incomes, startOfMonth, endOfMonth, today])
 
+  const projectById = useMemo(() => new Map(projects.map((project) => [project.id, project])), [projects])
+  const nowDashboardState = useMemo(() => getNowDashboardState(events, projectById), [events, projectById])
   const workKpis = useMemo(() => getWorkKpis(works), [works])
   const workSections = useMemo(() => getWorkSections(works, { endOfMonth }), [works, endOfMonth])
 
@@ -127,7 +274,7 @@ export default function Dashboard() {
 
   return (
     <PageWrapper title="Dashboard">
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4 md:gap-6">
 
         <Card className="p-3 sm:p-4">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -175,6 +322,8 @@ export default function Dashboard() {
           </div>
         )}
 
+        {!loading && <MobileNowCard state={nowDashboardState} onOpen={navigate} />}
+
         {loading ? (
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
             {Array.from({ length: 4 }).map((_, i) => (
@@ -192,20 +341,23 @@ export default function Dashboard() {
           </div>
         ) : view === 'cash' ? (
           <>
-            <Card className="p-4 md:hidden">
-              <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0">
-                  <p className="text-xs font-medium text-[var(--color-ink-muted)]">A cobrar en {selectedMonthLabel}</p>
-                  <p className="mt-1 text-3xl font-semibold leading-tight text-[var(--color-ink)]">{formatCurrency(cashKpis.plannedTotal)}</p>
+            <Card className="p-3.5 md:hidden">
+              <div className="flex items-start gap-3">
+                <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-[#FDF5E4] text-[#D4921A]">
+                  <CalendarDays size={18} />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="text-[11px] font-medium uppercase tracking-[0.02em] text-gray-500">Caja del mes</p>
+                    <span className="max-w-[8.5rem] truncate text-[11px] text-gray-400 capitalize">{selectedMonthLabel}</span>
+                  </div>
+                  <p className="mt-1 truncate text-2xl font-semibold leading-tight text-[var(--color-ink)]">{formatCurrency(cashKpis.plannedTotal)}</p>
                   <p className="mt-1 text-xs text-[var(--color-ink-muted)]">
                     {cashKpis.planned.length} ingreso{cashKpis.planned.length === 1 ? '' : 's'} previsto{cashKpis.planned.length === 1 ? '' : 's'} o arrastrado{cashKpis.planned.length === 1 ? '' : 's'}
                   </p>
                 </div>
-                <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-[#FDF5E4] text-[#D4921A]">
-                  <CalendarDays size={19} />
-                </span>
               </div>
-              <div className="mt-4 grid grid-cols-3 gap-2 border-t border-gray-100 pt-3">
+              <div className="mt-3 grid grid-cols-3 gap-2 border-t border-gray-100 pt-3">
                 <div>
                   <p className="text-[11px] text-gray-500">Cobrado</p>
                   <p className="truncate text-sm font-semibold text-[#2D6A4F]">{formatCurrency(cashKpis.plannedPaidTotal)}</p>

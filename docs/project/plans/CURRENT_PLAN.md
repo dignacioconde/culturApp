@@ -16,11 +16,11 @@ tags:
 
 ## Foco actual
 
-Cerrar la operativa de email transaccional: email/alias real, dominio/remitente definitivo, DNS y verificación real de invitación + confirmación.
+Cerrar la operativa de email transaccional en beta 14: email/alias real, dominio/remitente definitivo, DNS y verificación real de invitación + confirmación.
 
 ## Release activa
 
-[[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — Email definitivo transaccional.
+[[../releases/RELEASE-0.1.0-beta.14|RELEASE-0.1.0-beta.14]] — Email definitivo transaccional.
 
 Ultimo corte: [[../releases/RELEASE-0.1.0-beta.10|RELEASE-0.1.0-beta.10]] — emails transaccionales beta con Brevo.
 
@@ -28,18 +28,21 @@ Beta 11: [[../releases/RELEASE-0.1.0-beta.11|RELEASE-0.1.0-beta.11]] — guardra
 
 Beta 12: [[../releases/RELEASE-0.1.0-beta.12|RELEASE-0.1.0-beta.12]] — pulido proyecto-evento y borrados seguros.
 
+Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboard movil y estado Ahora.
+
 ## Cambios consolidados desde beta 10
 
 - Beta 10 queda como corte técnico cerrado: invitaciones por Brevo Edge Function, auditoría y flujo de confirmación de email preparados.
 - Beta 11 queda acotada a guardrails de agentes y no absorbe email ni UX de producto.
 - Beta 12 cierra un paquete de codigo visible: `CACH-0044`, `CACH-0045` y `CACH-0043`.
-- Beta 13 toma `CACH-B0020` para email/DNS/Brevo/Supabase SMTP, por requerir pasos manuales y operativa externa.
+- Beta 13 vuelve a ser un corte normal de desarrollo: `CACH-0041` simplifica el dashboard movil y estado "Ahora".
+- Beta 14 toma `CACH-B0020` para email/DNS/Brevo/Supabase SMTP, por requerir pasos manuales y operativa externa.
 
 ## Prioridades
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
-2. Máxima prioridad operativa: [[../issues/CACH-B0020|CACH-B0020]] — validar dominio de email transaccional y cambiar remitentes definitivos.
-3. Mantener fuera de este corte dashboard movil amplio, navegacion inferior, tooling interno, skills, contexto, analitica real, i18n y growth.
+2. Máxima prioridad operativa en beta 14: [[../issues/CACH-B0020|CACH-B0020]] — validar dominio de email transaccional y cambiar remitentes definitivos.
+3. Mantener fuera de este corte navegacion inferior, tooling interno, skills, contexto, analitica real, i18n y growth.
 
 ## Plan operativo
 
@@ -52,4 +55,4 @@ Beta 12: [[../releases/RELEASE-0.1.0-beta.12|RELEASE-0.1.0-beta.12]] — pulido 
 
 ## Próximo checkpoint
 
-Cerrar CACH-B0020 antes de invitar a más usuarios reales.
+Cerrar CACH-B0020 en beta 14 antes de invitar a más usuarios reales.

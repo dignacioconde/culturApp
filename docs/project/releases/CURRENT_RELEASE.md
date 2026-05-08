@@ -16,11 +16,11 @@ tags:
 
 ## Release activa
 
-`RELEASE-0.1.0-beta.13` — Email definitivo transaccional.
+`RELEASE-0.1.0-beta.14` — Email definitivo transaccional.
 
 ## Rama activa
 
-`release/0.1.0-beta.13`
+`release/0.1.0-beta.14`
 
 ## Ultimo corte
 
@@ -28,9 +28,11 @@ tags:
 
 `RELEASE-0.1.0-beta.12` — pulido proyecto-evento y borrados seguros. Ver [[RELEASE-0.1.0-beta.12]].
 
+`RELEASE-0.1.0-beta.13` — dashboard movil y estado Ahora. Ver [[RELEASE-0.1.0-beta.13]].
+
 ## Scope actual
 
-Beta operativa para cerrar el email/remitente definitivo de Cachés, validando DNS, Brevo y Supabase Auth SMTP antes de seguir invitando usuarios reales.
+Beta operativa para cerrar el email/remitente definitivo de Cachés, validando DNS, Brevo y Supabase Auth SMTP antes de seguir invitando usuarios reales. Este scope se ha trasladado de beta 13 a beta 14 para dejar beta 13 como corte normal de desarrollo.
 
 Issues asociadas:
 
@@ -38,7 +40,7 @@ Issues asociadas:
 
 ## Regla de trabajo para esta release
 
-Crear o actualizar issue `CACH-*` antes de meter trabajo en `release/0.1.0-beta.13`.
+Crear o actualizar issue `CACH-*` antes de meter trabajo en `release/0.1.0-beta.14`.
 
 ## Como cerrar esta release
 

@@ -28,6 +28,7 @@ tags:
 - [[../issues/CACH-0038|CACH-0038]] — Compactar mobile financiero y detalles accionables
 - [[../issues/CACH-0039|CACH-0039]] — [Agents] Respetar permisos reales en lanzadores OpenCode
 - [[../issues/CACH-0040|CACH-0040]] — [Agents] Separar plan draft de ejecucion mutante
+- [[../issues/CACH-0041|CACH-0041]] — [UX] Simplificar dashboard movil y estado Ahora
 - [[../issues/CACH-0043|CACH-0043]] — [UX] Limpiar acciones en detalle de proyecto
 - [[../issues/CACH-0044|CACH-0044]] — [UX] Crear evento desde proyecto con proyecto preseleccionado
 - [[../issues/CACH-0045|CACH-0045]] — [UX] Anadir confirmacion a borrados destructivos
@@ -43,7 +44,6 @@ tags:
 
 ## backlog
 
-- [[../issues/CACH-0041|CACH-0041]] — [UX] Simplificar dashboard movil y estado Ahora
 - [[../issues/CACH-0042|CACH-0042]] — [UX] Racionalizar navegacion inferior
 - [[../issues/CACH-0046|CACH-0046]] — [Verify] Anadir verificacion por tipo de cambio
 - [[../issues/CACH-0047|CACH-0047]] — [Skills] Actualizar catalogo y symlinks de skills

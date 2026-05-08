@@ -63,7 +63,7 @@ Hacer seguro el flujo OpenCode: planificacion draft read-only, ejecucion mutante
 
 ## Fuera de alcance
 
-- Email/DNS/Brevo/Supabase SMTP: queda fuera de esta beta y pasa a beta 13.
+- Email/DNS/Brevo/Supabase SMTP: queda fuera de esta beta y pasa a beta 14.
 - Cambios visibles de producto/UX como CACH-0043, CACH-0044 y CACH-0045.
 - Redisenar todo el sistema de agentes o cambiar modelos por defecto fuera del routing ya existente.
 

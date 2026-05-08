@@ -58,8 +58,8 @@ Pulir el detalle de proyecto, simplificar el flujo proyecto -> evento y proteger
 
 ## Fuera de alcance
 
-- `CACH-B0020`: email/DNS/Brevo/Supabase SMTP pasa a `RELEASE-0.1.0-beta.13`.
-- `CACH-0041`: dashboard movil y estado Ahora queda para otro corte UX.
+- `CACH-B0020`: email/DNS/Brevo/Supabase SMTP pasa a `RELEASE-0.1.0-beta.14`.
+- `CACH-0041`: dashboard movil y estado Ahora pasa a `RELEASE-0.1.0-beta.13`.
 - `CACH-0042`: navegacion inferior necesita decision UX previa.
 - `CACH-0046`, `CACH-0047` y `CACH-0048`: tooling, skills y contexto no se mezclan con esta beta de UX.
 - Cambios de schema, RLS, hooks publicos, calculos financieros o Supabase remoto.

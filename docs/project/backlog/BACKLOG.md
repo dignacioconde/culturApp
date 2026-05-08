@@ -45,7 +45,6 @@ Sin issues en inbox.
 
 | ID | Titulo | Tipo | Prioridad | Nota |
 |---|---|---|---|---|
-| [[../issues/CACH-0041|CACH-0041]] | [UX] Simplificar dashboard movil y estado Ahora | feature | p1 | Primer corte de simplificacion UX core. |
 | [[../issues/CACH-0042|CACH-0042]] | [UX] Racionalizar navegacion inferior | feature | p1 | Reducir friccion movil sin cambiar rutas mayores. |
 | [[../issues/CACH-0046|CACH-0046]] | [Verify] Anadir verificacion por tipo de cambio | chore | p1 | Checks compuestos por docs, skills, agents, UI y release. |
 | [[../issues/CACH-0047|CACH-0047]] | [Skills] Actualizar catalogo y symlinks de skills | chore | p1 | Fuente unica para skills portables y exposicion Claude. |
@@ -64,7 +63,7 @@ Sin issues en inbox.
 
 | ID | Titulo | Tipo | Prioridad | Nota |
 |---|---|---|---|---|
-| [[../issues/CACH-B0020|CACH-B0020]] | Validar dominio de email transaccional y cambiar remitentes definitivos | chore | p0 | Scope beta 13: email, DNS, Brevo y Supabase SMTP. |
+| [[../issues/CACH-B0020|CACH-B0020]] | Validar dominio de email transaccional y cambiar remitentes definitivos | chore | p0 | Scope beta 14: email, DNS, Brevo y Supabase SMTP. |
 
 ## Review
 
@@ -75,6 +74,7 @@ Sin issues en inbox.
 
 | ID | Titulo | Release | Resultado |
 |---|---|---|---|
+| [[../issues/CACH-0041|CACH-0041]] | [UX] Simplificar dashboard movil y estado Ahora | [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] | Dashboard movil prioriza agenda inmediata con tarjeta Ahora y caja compacta. |
 | [[../issues/CACH-0044|CACH-0044]] | [UX] Crear evento desde proyecto con proyecto preseleccionado | [[../releases/RELEASE-0.1.0-beta.12|RELEASE-0.1.0-beta.12]] | Crear evento desde proyecto preselecciona el proyecto y vuelve al detalle tras guardar. |
 | [[../issues/CACH-0045|CACH-0045]] | [UX] Anadir confirmacion a borrados destructivos | [[../releases/RELEASE-0.1.0-beta.12|RELEASE-0.1.0-beta.12]] | ConfirmDialog cubre proyecto, evento, ingresos y gastos, incluidos borrados inline. |
 | [[../issues/CACH-0043|CACH-0043]] | [UX] Limpiar acciones en detalle de proyecto | [[../releases/RELEASE-0.1.0-beta.12|RELEASE-0.1.0-beta.12]] | ProjectDetail prioriza crear evento y rebaja editar/eliminar sin perder cobro/gasto. |

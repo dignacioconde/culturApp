@@ -23,10 +23,11 @@ Agrupaciones de issues con un objetivo de producto y criterios de salida.
 
 ## Releases en curso
 
-- [[RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — Email definitivo transaccional
+- [[RELEASE-0.1.0-beta.14|RELEASE-0.1.0-beta.14]] — Email definitivo transaccional
 
 ## Releases cerradas
 
+- [[RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — Dashboard movil y estado Ahora
 - [[RELEASE-0.1.0-beta.12|RELEASE-0.1.0-beta.12]] — Pulido proyecto-evento y borrados seguros
 - [[RELEASE-0.1.0-beta.11|RELEASE-0.1.0-beta.11]] — Guardrails de agentes
 - [[RELEASE-0.1.0-beta.4|RELEASE-0.1.0-beta.4]] — Planificacion anual de proyectos

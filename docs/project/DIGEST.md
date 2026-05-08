@@ -14,23 +14,25 @@ tags:
 
 # Product Brain Digest
 
-*Generado: 2026-05-08 12:06 UTC*
+*Generado: 2026-05-08 12:17 UTC*
 
 ---
 
 ## Estado operacional
 
-- **Release activa:** `RELEASE-0.1.0-beta.13` — Email definitivo transaccional.
+- **Release activa:** `RELEASE-0.1.0-beta.14` — Email definitivo transaccional.
 - **Último corte:** `RELEASE-0.1.0-beta.10` — emails transaccionales beta con Brevo. Ver RELEASE-0.1.0-beta.10.
 
 `RELEASE-0.1.0-beta.12` — pulido proyecto-evento y borrados seguros. Ver RELEASE-0.1.0-beta.12.
-- **Foco:** Cerrar la operativa de email transaccional: email/alias real, dominio/remitente definitivo, DNS y verificación real de invitación + confirmación.
+
+`RELEASE-0.1.0-beta.13` — dashboard movil y estado Ahora. Ver RELEASE-0.1.0-beta.13.
+- **Foco:** Cerrar la operativa de email transaccional en beta 14: email/alias real, dominio/remitente definitivo, DNS y verificación real de invitación + confirmación.
 
 ## Prioridades del plan
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
-2. Máxima prioridad operativa: CACH-B0020 — validar dominio de email transaccional y cambiar remitentes definitivos.
-3. Mantener fuera de este corte dashboard movil amplio, navegacion inferior, tooling interno, skills, contexto, analitica real, i18n y growth.
+2. Máxima prioridad operativa en beta 14: CACH-B0020 — validar dominio de email transaccional y cambiar remitentes definitivos.
+3. Mantener fuera de este corte navegacion inferior, tooling interno, skills, contexto, analitica real, i18n y growth.
 
 ## Tablero
 
@@ -52,7 +54,6 @@ _Sin issues._
 
 | ID | Título | Tipo | P |
 |---|---|---|---|
-| CACH-0041 | [UX] Simplificar dashboard movil y estado Ahora | feature | p1 |
 | CACH-0042 | [UX] Racionalizar navegacion inferior | feature | p1 |
 | CACH-0046 | [Verify] Anadir verificacion por tipo de cambio | chore | p1 |
 | CACH-0047 | [Skills] Actualizar catalogo y symlinks de skills | chore | p1 |
@@ -66,7 +67,6 @@ _Sin issues._
 | ID | Título | Estado | Tipo | P |
 |---|---|---|---|---|
 | CACH-B0020 | Validar dominio de email transaccional y cambiar remitentes definitivos | in-progress | chore | p0 |
-| CACH-0041 | [UX] Simplificar dashboard movil y estado Ahora | backlog | feature | p1 |
 | CACH-0042 | [UX] Racionalizar navegacion inferior | backlog | feature | p1 |
 | CACH-0046 | [Verify] Anadir verificacion por tipo de cambio | backlog | chore | p1 |
 | CACH-0047 | [Skills] Actualizar catalogo y symlinks de skills | backlog | chore | p1 |
@@ -104,4 +104,4 @@ _Sin issues._
 
 ## Próxima acción
 
-Cerrar CACH-B0020 antes de invitar a más usuarios reales.
+Cerrar CACH-B0020 en beta 14 antes de invitar a más usuarios reales.

@@ -36,6 +36,11 @@ export const formatDatetimeCompact = (isoStr) => {
   return formatInTimeZone(new Date(isoStr), DEFAULT_TZ, 'dd/MM HH:mm')
 }
 
+export const formatTime = (isoStr) => {
+  if (!isoStr) return '—'
+  return formatInTimeZone(new Date(isoStr), DEFAULT_TZ, 'HH:mm')
+}
+
 export const toDatetimeLocal = (isoStr) => {
   if (!isoStr) return ''
   return toLocalInputValue(new Date(isoStr))

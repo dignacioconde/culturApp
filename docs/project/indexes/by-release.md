@@ -19,7 +19,6 @@ tags:
 - [[../issues/CACH-0031|CACH-0031]] — Corregir ajustes UX movil detectados en exploracion
 - [[../issues/CACH-0032|CACH-0032]] — Priorizar operativa diaria en dashboard movil
 - [[../issues/CACH-0034|CACH-0034]] — €/h muestra valor incorrecto cuando no hay eventos con horas
-- [[../issues/CACH-0041|CACH-0041]] — [UX] Simplificar dashboard movil y estado Ahora
 - [[../issues/CACH-0042|CACH-0042]] — [UX] Racionalizar navegacion inferior
 - [[../issues/CACH-0046|CACH-0046]] — [Verify] Anadir verificacion por tipo de cambio
 - [[../issues/CACH-0047|CACH-0047]] — [Skills] Actualizar catalogo y symlinks de skills
@@ -65,6 +64,10 @@ tags:
 - [[../issues/CACH-0039|CACH-0039]] — [Agents] Respetar permisos reales en lanzadores OpenCode
 - [[../issues/CACH-0040|CACH-0040]] — [Agents] Separar plan draft de ejecucion mutante
 
+## RELEASE-0.1.0-beta.13
+
+- [[../issues/CACH-0041|CACH-0041]] — [UX] Simplificar dashboard movil y estado Ahora
+
 ## RELEASE-0.1.0-beta.12
 
 - [[../issues/CACH-0043|CACH-0043]] — [UX] Limpiar acciones en detalle de proyecto
@@ -92,6 +95,6 @@ tags:
 
 - [[../issues/CACH-B0019|CACH-B0019]] — Emails transaccionales beta con Brevo
 
-## RELEASE-0.1.0-beta.13
+## RELEASE-0.1.0-beta.14
 
 - [[../issues/CACH-B0020|CACH-B0020]] — Validar dominio de email transaccional y cambiar remitentes definitivos

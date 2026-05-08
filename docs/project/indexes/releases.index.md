@@ -17,7 +17,8 @@ tags:
 - [[../releases/RELEASE-0.1.0-beta.10|RELEASE-0.1.0-beta.10]] — Emails transaccionales beta
 - [[../releases/RELEASE-0.1.0-beta.11|RELEASE-0.1.0-beta.11]] — Guardrails de agentes
 - [[../releases/RELEASE-0.1.0-beta.12|RELEASE-0.1.0-beta.12]] — Pulido proyecto-evento y borrados seguros
-- [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — Email definitivo transaccional
+- [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — Dashboard movil y estado Ahora
+- [[../releases/RELEASE-0.1.0-beta.14|RELEASE-0.1.0-beta.14]] — Email definitivo transaccional
 - [[../releases/RELEASE-0.1.0-beta.2|RELEASE-0.1.0-beta.2]] — Endurecer confianza de datos
 - [[../releases/RELEASE-0.1.0-beta.3|RELEASE-0.1.0-beta.3]] — Rediseño financiero del Dashboard
 - [[../releases/RELEASE-0.1.0-beta.4|RELEASE-0.1.0-beta.4]] — Planificacion anual de proyectos
