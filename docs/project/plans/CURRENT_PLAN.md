@@ -16,25 +16,25 @@ tags:
 
 ## Foco actual
 
-Desbloquear la operativa de email transaccional: email/alias real, dominio/remitente definitivo, DNS público validable por Brevo y verificación real de invitación + confirmación.
+Avanzar beta 11 con tareas desarrollables y verificables desde repo, sin pasos manuales externos.
 
 ## Release activa
 
-[[../releases/RELEASE-0.1.0-beta.11|RELEASE-0.1.0-beta.11]] — Dominio email transaccional.
+[[../releases/RELEASE-0.1.0-beta.11|RELEASE-0.1.0-beta.11]] — Desarrollo sin pasos manuales.
 
 Ultimo corte: [[../releases/RELEASE-0.1.0-beta.10|RELEASE-0.1.0-beta.10]] — emails transaccionales beta con Brevo.
 
 ## Cambios consolidados desde beta 10
 
 - Beta 10 queda como corte técnico cerrado: invitaciones por Brevo Edge Function, auditoría y flujo de confirmación de email preparados.
-- Beta 11 absorbe la deuda operativa de beta 10: remitente real de Cachés, validación Brevo, SPF/DKIM/DMARC y sustitución del remitente temporal en Supabase Auth y Edge Function.
-- CACH-B0020 es el único scope activo de beta 11 y queda bloqueado hasta que exista un dominio/remitente real con DNS público validable.
+- Beta 11 deja fuera la deuda operativa manual de email/remitente para no bloquear desarrollo.
+- [[../issues/CACH-B0020|CACH-B0020]] pasa a [[../releases/RELEASE-0.1.0-beta.12|RELEASE-0.1.0-beta.12]], donde sí se asumirán pasos manuales de dominio, DNS, Brevo y Supabase Auth SMTP.
 
 ## Prioridades
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
-2. Máxima prioridad para el **8 de mayo de 2026**: [[../issues/CACH-B0020|CACH-B0020]] — desbloquear dominio/remitente real, validar Brevo y cambiar remitentes definitivos.
-3. Mantener fuera de este corte calendario unificado, mobile financiero, tooling interno amplio, analítica real, i18n y growth.
+2. Escoger para beta 11 tareas pequeñas que no requieran pasos manuales externos.
+3. Mantener [[../issues/CACH-B0020|CACH-B0020]] fuera de beta 11 y retomarlo en beta 12.
 
 ## Plan operativo
 
@@ -47,4 +47,4 @@ Ultimo corte: [[../releases/RELEASE-0.1.0-beta.10|RELEASE-0.1.0-beta.10]] — em
 
 ## Próximo checkpoint
 
-Registrar/delegar dominio o escoger uno operativo, crear el alias definitivo y repetir la verificación DNS/Brevo antes de invitar a más usuarios reales.
+Seleccionar la siguiente issue de beta 11 con verificación local/CI clara.

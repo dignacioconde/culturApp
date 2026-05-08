@@ -14,11 +14,11 @@ tags:
   - beta
 ---
 
-# RELEASE-0.1.0-beta.11 — Dominio email transaccional
+# RELEASE-0.1.0-beta.11 — Desarrollo sin pasos manuales
 
 ## Estado
 
-Active, bloqueada por dependencia externa de dominio/DNS.
+Active.
 
 ## Rama de release
 
@@ -30,50 +30,45 @@ Pendiente.
 
 ## Ciclo
 
-`0.1` es el ciclo organizativo. `0.1.0-beta.11` queda abierta para cerrar la operativa de email/remitente transaccional antes de seguir invitando usuarios reales.
+`0.1` es el ciclo organizativo. `0.1.0-beta.11` queda abierta para avanzar tareas desarrollables y verificables desde repo sin depender de pasos manuales externos.
 
 ## Objetivo de la release
 
-Crear o activar un remitente real de Cachés, validarlo en Brevo y sustituir el remitente personal temporal confirmado en Brevo.
+Desarrollar mejoras acotadas que puedan implementarse y validarse localmente o por CI, evitando bloqueos por Brevo, DNS, Supabase Dashboard o producción.
 
 ## Alcance funcional
 
-- Email/alias real para el remitente definitivo.
-- Dominio/remitente Brevo.
-- DNS SPF/DKIM/DMARC.
-- Remitente de Edge Function `send-beta-invite`.
-- Remitente SMTP de Supabase Auth.
-- Smoke test real de invitación y confirmación de cuenta.
+- Pendiente de seleccionar issues `CACH-*` que no requieran pasos manuales externos.
+- Cada issue añadida debe tener criterio de verificación local/CI claro.
+- Si una tarea descubre una dependencia manual, debe salir de beta 11 o partirse.
 
 ## Áreas implicadas
 
-- Operaciones.
-- Supabase Auth.
-- Supabase Edge Functions.
-- Brevo.
-- DNS.
+- Producto.
+- Frontend/backend según issue.
+- Documentación de release.
 
 ## Scope
 
-- [[../issues/CACH-B0020|CACH-B0020]] — Validación del dominio transaccional como máxima prioridad para el **8 de mayo de 2026**.
+Sin issues incluidas todavía tras aplazar la deuda manual de email/remitente a [[RELEASE-0.1.0-beta.12]].
 
 ## Issues incluidas
 
 | Issue | Título | Estado | Rama |
 |---|---|---|---|
-| [[../issues/CACH-B0020|CACH-B0020]] | Validar dominio de email transaccional y cambiar remitentes definitivos | Blocked | `release/0.1.0-beta.11` |
+| — | — | — | — |
 
 ## Fuera de alcance
 
+- Validación de dominio/remitente transaccional, DNS y cambios manuales en Brevo/Supabase Auth SMTP. Se aplaza a [[RELEASE-0.1.0-beta.12]].
 - Newsletters, campañas, audiencias, CRM y automatizaciones.
 - Rediseño amplio de plantillas de email.
 
 ## Riesgos
 
 - No añadir tareas a esta release sin crear o actualizar su issue `CACH-*`.
-- Mientras el remitente definitivo no esté validado, los correos pueden funcionar en pruebas pero fallar en entrega real o reputación.
-- No cambiar Supabase Auth SMTP ni `EMAIL_FROM_ADDRESS` al remitente definitivo hasta que el email/alias exista y Brevo confirme el dominio/remitente.
-- Verificación del 8 de mayo de 2026: `caches.es` y `updates.caches.es` no presentan DNS público resoluble para `NS`, `MX`, `TXT` ni selectores DKIM de Brevo; la release queda bloqueada hasta resolver esta dependencia externa.
+- No meter tareas que dependan de DNS, Brevo, Supabase Dashboard, Vercel producción u otro paso manual externo.
+- Si la release queda sin scope concreto, escoger una issue pequeña del backlog antes de abrir PR.
 
 ## Decisiones relacionadas
 
@@ -83,13 +78,13 @@ Crear o activar un remitente real de Cachés, validarlo en Brevo y sustituir el 
 
 - [x] Release creada
 - [x] Rama de release creada
-- [x] Issues asociadas
-- [x] Alcance definido
-- [x] Criterios de validación definidos
+- [ ] Issues asociadas
+- [x] Alcance definido como release sin pasos manuales
+- [ ] Criterios de validación definidos por issue
 
 ## Checklist de desarrollo
 
-- [ ] Todas las issues están en progreso, bloqueadas con causa explícita o cerradas
+- [ ] Todas las issues están en progreso o cerradas
 - [ ] Commits preparados en rama release
 - [ ] No hay cambios sueltos fuera de release
 - [x] No hay issues sin estado
@@ -123,11 +118,11 @@ Crear o activar un remitente real de Cachés, validarlo en Brevo y sustituir el 
 
 ### Añadido
 
-- Issue [[../issues/CACH-B0020|CACH-B0020]] como scope único inicial de la release.
+- Pendiente: issues sin pasos manuales externos.
 
 ### Cambiado
 
-- Pendiente: remitentes transaccionales definitivos.
+- La deuda manual de email/remitente sale de beta 11 y pasa a [[RELEASE-0.1.0-beta.12]].
 
 ### Corregido
 
@@ -139,11 +134,8 @@ Crear o activar un remitente real de Cachés, validarlo en Brevo y sustituir el 
 
 ### Técnico
 
-- Supabase Edge Function `send-beta-invite` verificada como activa y con `verify_jwt=true`.
-- Secrets de Edge Function presentes en Supabase sin imprimir valores.
-- Auditoría de invitaciones muestra envíos recientes aceptados por Brevo en el estado temporal anterior.
-- Bloqueado: validación DNS/Brevo y smoke test definitivo con remitente real de Cachés.
+- Pendiente según issues seleccionadas.
 
 ## Resultado final
 
-Release abierta y bloqueada por dependencia externa: falta dominio/remitente real de Cachés con DNS público validable por Brevo antes de sustituir remitentes y cerrar el smoke test definitivo.
+Release abierta para trabajo desarrollable desde repo. La deuda manual de email/remitente queda fuera de este corte.

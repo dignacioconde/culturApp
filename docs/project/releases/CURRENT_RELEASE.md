@@ -16,7 +16,7 @@ tags:
 
 ## Release activa
 
-`RELEASE-0.1.0-beta.11` — Dominio email transaccional.
+`RELEASE-0.1.0-beta.11` — Desarrollo sin pasos manuales.
 
 ## Rama activa
 
@@ -28,9 +28,9 @@ tags:
 
 ## Scope actual
 
-Máxima prioridad para el **8 de mayo de 2026**: crear o activar un remitente real de Cachés, validar dominio/remitente transaccional en Brevo, cambiar remitentes temporales y verificar invitación + confirmación de cuenta. Issue asociada: [[../issues/CACH-B0020|CACH-B0020]].
+Beta 11 queda reservada para tareas desarrollables y verificables desde repo, sin pasos manuales externos en Brevo, DNS, Supabase Dashboard o producción.
 
-Estado operativo: bloqueada hasta registrar/delegar `caches.es`/`updates.caches.es` o escoger un dominio real ya operativo, crear el email/alias definitivo y añadir los registros DNS que Brevo requiera.
+La deuda manual de email/remitente queda aplazada a [[RELEASE-0.1.0-beta.12]] con [[../issues/CACH-B0020|CACH-B0020]].
 
 ## Regla de trabajo para esta release
 
@@ -38,4 +38,4 @@ Crear o actualizar issue `CACH-*` antes de meter trabajo en `release/0.1.0-beta.
 
 ## Como cerrar esta release
 
-Desbloquear [[../issues/CACH-B0020|CACH-B0020]], verificar invitación + confirmación con el remitente definitivo, abrir PR `release/0.1.0-beta.11` -> `main`, esperar CI verde, mergear, etiquetar y verificar producción si aplica.
+Añadir una o varias issues `CACH-*` sin pasos manuales externos, implementarlas y verificarlas localmente, abrir PR `release/0.1.0-beta.11` -> `main`, esperar CI verde, mergear, etiquetar y verificar producción si aplica.

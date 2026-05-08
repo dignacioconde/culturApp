@@ -76,6 +76,6 @@ tags:
 
 - [[../issues/CACH-B0019|CACH-B0019]] — Emails transaccionales beta con Brevo
 
-## RELEASE-0.1.0-beta.11
+## RELEASE-0.1.0-beta.12
 
 - [[../issues/CACH-B0020|CACH-B0020]] — Validar dominio de email transaccional y cambiar remitentes definitivos

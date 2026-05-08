@@ -14,21 +14,21 @@ tags:
 
 # Product Brain Digest
 
-*Generado: 2026-05-08 09:48 UTC*
+*Generado: 2026-05-08 09:54 UTC*
 
 ---
 
 ## Estado operacional
 
-- **Release activa:** `RELEASE-0.1.0-beta.11` — Dominio email transaccional.
+- **Release activa:** `RELEASE-0.1.0-beta.11` — Desarrollo sin pasos manuales.
 - **Último corte:** `RELEASE-0.1.0-beta.10` — emails transaccionales beta con Brevo. Ver RELEASE-0.1.0-beta.10.
-- **Foco:** Desbloquear la operativa de email transaccional: email/alias real, dominio/remitente definitivo, DNS público validable por Brevo y verificación real de invitación + confirmación.
+- **Foco:** Avanzar beta 11 con tareas desarrollables y verificables desde repo, sin pasos manuales externos.
 
 ## Prioridades del plan
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
-2. Máxima prioridad para el **8 de mayo de 2026**: CACH-B0020 — desbloquear dominio/remitente real, validar Brevo y cambiar remitentes definitivos.
-3. Mantener fuera de este corte calendario unificado, mobile financiero, tooling interno amplio, analítica real, i18n y growth.
+2. Escoger para beta 11 tareas pequeñas que no requieran pasos manuales externos.
+3. Mantener CACH-B0020 fuera de beta 11 y retomarlo en beta 12.
 
 ## Tablero
 

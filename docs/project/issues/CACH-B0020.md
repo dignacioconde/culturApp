@@ -7,7 +7,7 @@ cycle: beta-1
 priority: p0
 estimate: s
 area: infra
-release: RELEASE-0.1.0-beta.11
+release: RELEASE-0.1.0-beta.12
 created_at: 2026-05-07
 updated_at: 2026-05-08
 due_at: 2026-05-08
@@ -72,8 +72,8 @@ Siguiente desbloqueo externo: registrar/delegar el dominio o escoger un dominio 
 
 ## Prioridad operativa
 
-Máxima prioridad para el **8 de mayo de 2026**.
+Aplazada a [[../releases/RELEASE-0.1.0-beta.12|RELEASE-0.1.0-beta.12]] para no bloquear beta 11 con pasos manuales externos.
 
 ## Resultado
 
-Bloqueada por falta de dominio/remitente definitivo real y DNS público validable. No se cierra la beta ni se sustituyen remitentes hasta completar el desbloqueo externo y repetir el smoke test real.
+Bloqueada por falta de dominio/remitente definitivo real y DNS público validable. No se sustituyen remitentes hasta completar el desbloqueo externo y repetir el smoke test real.

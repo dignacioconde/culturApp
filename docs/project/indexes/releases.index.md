@@ -15,7 +15,8 @@ tags:
 - [[../releases/CURRENT_RELEASE|PB-CURRENT-RELEASE]] — Current Release
 - [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] — Sistema operativo Product Brain
 - [[../releases/RELEASE-0.1.0-beta.10|RELEASE-0.1.0-beta.10]] — Emails transaccionales beta
-- [[../releases/RELEASE-0.1.0-beta.11|RELEASE-0.1.0-beta.11]] — Dominio email transaccional
+- [[../releases/RELEASE-0.1.0-beta.11|RELEASE-0.1.0-beta.11]] — Desarrollo sin pasos manuales
+- [[../releases/RELEASE-0.1.0-beta.12|RELEASE-0.1.0-beta.12]] — Dominio email transaccional
 - [[../releases/RELEASE-0.1.0-beta.2|RELEASE-0.1.0-beta.2]] — Endurecer confianza de datos
 - [[../releases/RELEASE-0.1.0-beta.3|RELEASE-0.1.0-beta.3]] — Rediseño financiero del Dashboard
 - [[../releases/RELEASE-0.1.0-beta.4|RELEASE-0.1.0-beta.4]] — Planificacion anual de proyectos
