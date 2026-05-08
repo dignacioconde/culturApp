@@ -55,3 +55,13 @@ Trabajas sobre React 19, Vite, Tailwind CSS v4, React Router v7, Lucide React y 
 - Revisa responsive basico y, si hay calendarios implicados, deja constancia explicita de los anchos probados y de que el calendario no desaparece.
 - Si tocas `/calendar/events` vista semana móvil, recuerda que la issue `#3` está cerrada y el scroll horizontal está aceptado por ahora; si propones una mejora mayor, abre o referencia una issue nueva con decisión UX y captura móvil.
 - Ejecuta o recomienda `npm run lint` y `npm run build` si tocaste codigo.
+
+## Contrato Product Brain v2
+
+Al terminar, declara siempre:
+
+- Contexto leído: archivos/secciones realmente consultados.
+- Product Brain leído: issue, índice, release, source-touchpoint o `pb:orient` usado; `no aplica` si no hizo falta.
+- Product Brain actualizado: ruta(s) actualizadas o `no aplica`.
+- Validación PB: `npm run pb:check`, `pb:ready-check`, `pb:close-check` o `no aplica` con motivo.
+- Feedback/Memory: memoria actualizada o `Memoria: no aplica`.

@@ -1,9 +1,11 @@
 ---
+schema_version: 2
+kind: process
 id: PB-PROCESS-DEVELOPMENT-WORKFLOW
-type: process
-status: Deprecated
-created: 2026-05-05
-updated: 2026-05-06
+title: Development Workflow
+lifecycle: deprecated
+created: '2026-05-05'
+updated: '2026-05-08'
 aliases:
   - Development Workflow
   - Flujo de desarrollo
@@ -11,8 +13,8 @@ tags:
   - product-brain
   - process
   - development
+generated: false
 ---
-
 # Development Workflow
 
 Consolidado en [[WORKFLOW]].

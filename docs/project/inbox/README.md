@@ -1,16 +1,18 @@
 ---
+schema_version: 2
+kind: index
 id: PB-INBOX
-type: index
-status: Active
-created: 2026-05-04
-updated: 2026-05-04
+title: Inbox
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - Inbox
 tags:
   - product-brain
   - inbox
+generated: false
 ---
-
 # Inbox
 
 Capturas rápidas pendientes de curar. Desde móvil, si la idea está verde, entra aquí antes de convertirse en ZK, issue, ADR o contexto estable.

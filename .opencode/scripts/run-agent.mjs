@@ -197,6 +197,7 @@ function buildContract(options) {
     "",
     "CONTEXTO:",
     "Usa AGENTS.md como contrato corto y docs/agent-context-policy.md como politica canonica de carga. Lee .opencode/AGENT_STATE.md como estado vivo solo si el modo permite coordinar ejecucion; carga memoria, Product Brain, backlog, releases o historico solo bajo demanda y desde archivos/secciones concretas.",
+    "Para orientar Product Brain sin cargarlo completo, usa npm run pb:orient -- --json y abre solo issue, parent, release o source-touchpoints relevantes.",
     "",
     "ALCANCE:",
     options.scope,
@@ -228,6 +229,7 @@ function buildContract(options) {
     "",
     "SALIDA:",
     "Resume subagentes usados, archivos/cambios principales, verificacion ejecutada, PR/merge/produccion y riesgos o bloqueos restantes.",
+    "Incluye obligatoriamente: Contexto leído; Product Brain leído; Product Brain actualizado; Validación PB; Feedback/Memory.",
   ].join("\n")
 }
 

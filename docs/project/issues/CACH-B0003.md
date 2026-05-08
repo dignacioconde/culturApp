@@ -1,23 +1,34 @@
 ---
+schema_version: 2
+kind: issue
 id: CACH-B0003
 title: Cobro rapido y gestion de pendientes
-type: feature
-status: done
-cycle: unassigned
-release: RELEASE-0.1.0-beta.5
-priority: p1
-estimate: m
-area: frontend
-created_at: 2026-05-04
-updated_at: 2026-05-07
+lifecycle: historical
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - CACH-B0003
 tags:
   - product-brain
   - issue
   - finance
+generated: false
+work_type: feature
+work_level: slice
+issue_workflow: done
+priority: p1
+size: m
+area: frontend
+components:
+  - finance
+parent: null
+related: []
+depends_on: []
+blocked_by: []
+adr: []
+release: RELEASE-0.1.0-beta.5
+theme: finance-operations
 ---
-
 # CACH-B0003 — Cobro rápido y gestión de pendientes
 
 ## Summary

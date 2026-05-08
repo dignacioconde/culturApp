@@ -1,16 +1,11 @@
 ---
+schema_version: 2
+kind: issue
 id: CACH-B0020
 title: Validar dominio de email transaccional y cambiar remitentes definitivos
-type: chore
-status: in-progress
-cycle: beta-1
-priority: p0
-estimate: s
-area: infra
-release: RELEASE-0.1.0-beta.14
-created_at: 2026-05-07
-updated_at: 2026-05-08
-due_at: 2026-05-08
+lifecycle: active
+created: '2026-05-07'
+updated: '2026-05-08'
 aliases:
   - CACH-B0020
 tags:
@@ -19,8 +14,26 @@ tags:
   - email
   - supabase
   - brevo
+generated: false
+work_type: chore
+work_level: task
+issue_workflow: in_progress
+priority: p0
+size: s
+area: infra
+components:
+  - infra-deploy
+  - email
+  - supabase
+parent: null
+related: []
+depends_on: []
+blocked_by: []
+adr: []
+release: RELEASE-0.1.0-beta.14
+theme: beta-trust
+due_at: '2026-05-08'
 ---
-
 # CACH-B0020 — Validar dominio de email transaccional y cambiar remitentes definitivos
 
 ## Objetivo
@@ -68,3 +81,26 @@ Queda fuera de `RELEASE-0.1.0-beta.11`, `RELEASE-0.1.0-beta.12` y `RELEASE-0.1.0
 ## Resultado
 
 En progreso en `RELEASE-0.1.0-beta.14`.
+
+## Desarrollo
+
+- Rama:
+- PR:
+- Estado actual:
+
+## Notas de progreso
+
+
+## Cambios de alcance y decisiones
+
+
+## Bloqueos
+
+
+## Validación ejecutada
+
+Pendiente hasta ejecutar la issue.
+
+## Memoria
+
+No aplica por ahora.

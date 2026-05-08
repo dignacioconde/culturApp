@@ -1,7 +1,9 @@
 ---
+schema_version: 2
+kind: release
 id: RELEASE-X.Y.Z-name
-type: release
-status: Planned
+title: Nombre
+lifecycle: draft
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
 aliases:
@@ -9,13 +11,19 @@ aliases:
 tags:
   - product-brain
   - release
+generated: false
+release_phase: draft
+release_current: false
+release_branch: release/x.y.z-name
+release_tag: null
+release_pr: null
 ---
 
 # RELEASE-X.Y.Z-name — Nombre
 
-## Estado
+## Release phase
 
-Planned / Active / Stabilizing / Released / Cancelled
+draft / active / released / deprecated / archived
 
 ## Rama de release
 
@@ -35,9 +43,9 @@ Explica el objetivo principal.
 
 ## Issues incluidas
 
-| Issue | Titulo | Estado | Rama |
+| Issue | Titulo | Workflow | Rama |
 |---|---|---|---|
-| CACH-XXXX | ... | Draft | `feature/CACH-XXXX-short-name` |
+| CACH-XXXX | ... | backlog | `feat/CACH-XXXX-short-name` |
 
 ## Fuera de alcance
 
@@ -64,7 +72,7 @@ Explica el objetivo principal.
 - [ ] Todas las issues estan en progreso o cerradas
 - [ ] Commits integrados en rama release
 - [ ] No hay cambios sueltos fuera de release
-- [ ] No hay issues sin estado
+- [ ] No hay issues sin `issue_workflow`
 - [ ] No hay decisiones importantes sin documentar
 
 ## Checklist de estabilizacion
@@ -81,7 +89,7 @@ Explica el objetivo principal.
 
 - [ ] Release mergeada a `main`
 - [ ] Release notes actualizadas
-- [ ] Issues marcadas como `Released`
+- [ ] Issues marcadas como `done`
 - [ ] Estado actual actualizado
 - [ ] Current Release actualizado
 - [ ] Backlog actualizado

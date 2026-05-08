@@ -1,17 +1,19 @@
 ---
+schema_version: 2
+kind: plan
 id: PB-CURRENT-PLAN
-type: plan
-status: Active
-created: 2026-05-05
-updated: 2026-05-08
+title: Current Plan
+lifecycle: active
+created: '2026-05-05'
+updated: '2026-05-08'
 aliases:
   - Current Plan
 tags:
   - product-brain
   - plan
   - current
+generated: false
 ---
-
 # Current Plan
 
 ## Foco actual
@@ -22,7 +24,9 @@ Cerrar la operativa de email transaccional en beta 14: email/alias real, dominio
 
 [[../releases/RELEASE-0.1.0-beta.14|RELEASE-0.1.0-beta.14]] — Email definitivo transaccional.
 
-Ultimo corte: [[../releases/RELEASE-0.1.0-beta.10|RELEASE-0.1.0-beta.10]] — emails transaccionales beta con Brevo.
+Últimos cortes:
+
+[[../releases/RELEASE-0.1.0-beta.10|RELEASE-0.1.0-beta.10]] — emails transaccionales beta con Brevo.
 
 Beta 11: [[../releases/RELEASE-0.1.0-beta.11|RELEASE-0.1.0-beta.11]] — guardrails de agentes.
 

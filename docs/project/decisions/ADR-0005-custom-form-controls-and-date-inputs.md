@@ -1,9 +1,11 @@
 ---
+schema_version: 2
+kind: decision
 id: ADR-0005
-type: decision
-status: Accepted
-created: 2026-05-04
-updated: 2026-05-04
+title: 'Controles propios para selectores, fechas y decimales'
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - ADR-0005
 tags:
@@ -11,8 +13,9 @@ tags:
   - adr
   - ux
   - forms
+generated: false
+decision_status: Accepted
 ---
-
 # ADR-0005 — Controles propios para selectores, fechas y decimales
 
 ## Context

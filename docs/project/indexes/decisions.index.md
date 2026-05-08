@@ -1,14 +1,17 @@
 ---
+schema_version: 2
+kind: index
 id: PB-DECISIONS-INDEX
-type: index
-status: Active
-created: 2026-05-07
+title: Decisions Index
+lifecycle: active
+created: 2026-05-08
 updated: 2026-05-08
 aliases:
   - Decisions Index
 tags:
   - product-brain
   - decisions
+generated: true
 ---
 # Decisions Index
 

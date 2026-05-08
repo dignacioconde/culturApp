@@ -1,17 +1,19 @@
 ---
+schema_version: 2
+kind: context
 id: PB-CTX-PRODUCT-SNAPSHOT-20260504
-type: context
-status: Active
-created: 2026-05-04
-updated: 2026-05-05
+title: '2026-05-04'
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - Snapshot producto Cachés 2026-05-04
 tags:
   - product-brain
   - context
   - product
+generated: false
 ---
-
 # Snapshot producto — 2026-05-04
 
 ## Qué Es Cachés

@@ -1,17 +1,20 @@
 ---
+schema_version: 2
+kind: release_status
 id: PB-CURRENT-RELEASE
-type: release-status
-status: Active
-created: 2026-05-05
-updated: 2026-05-08
+title: Current Release
+lifecycle: active
+created: '2026-05-05'
+updated: '2026-05-08'
 aliases:
   - Current Release
 tags:
   - product-brain
   - release
   - current
+generated: false
+release_current: true
 ---
-
 # Current Release
 
 ## Release activa
@@ -22,7 +25,7 @@ tags:
 
 `release/0.1.0-beta.14`
 
-## Ultimo corte
+## Últimos cortes
 
 `RELEASE-0.1.0-beta.10` — emails transaccionales beta con Brevo. Ver [[RELEASE-0.1.0-beta.10]].
 

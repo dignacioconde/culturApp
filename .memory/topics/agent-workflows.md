@@ -42,6 +42,9 @@ Agent execution:
 
 Planning and implementation:
 - New product work should be traceable to Product Brain issue/release context when applicable.
+- Product Brain v2 is Product Brain-first and repo-native: orient with `npm run pb:orient -- --json`, then read only the related issue, parent, release or source-touchpoint. Agents must not recreate v1 `type/status` issue frontmatter.
+- Product Brain-aware agents close with `Contexto leído`, `Product Brain leído`, `Product Brain actualizado`, `Validación PB` and `Feedback/Memory`.
+- Use `pb:ready-check CACH-XXXX` before treating a slice/task as ready, and `pb:close-check CACH-XXXX` before closing current work.
 - Work that belongs to an active release branches from the release branch; small fixes may branch from `main` when outside release scope.
 - Active release does not mean every new task belongs to it: if the task is outside release scope, postpone it, use the lightweight `main` -> PR flow, or add it explicitly to the release document first.
 - For active beta releases, agents create task branches locally from the active `release/<version>` branch, prefer `feat/` for new feature branches (`feature/` is legacy), do not push task branches by default, review diff/log against the release, and integrate completed work into the release via squash after local verification.

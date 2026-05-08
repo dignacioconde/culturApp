@@ -1,19 +1,24 @@
 ---
+schema_version: 2
+kind: release
 id: RELEASE-0.1.0-beta.12
-type: release
-status: Released
-created: 2026-05-08
-updated: 2026-05-08
-release_branch: release/0.1.0-beta.12
-release_tag: v0.1.0-beta.12
+title: Pulido proyecto-evento y borrados seguros
+lifecycle: active
+created: '2026-05-08'
+updated: '2026-05-08'
 aliases:
   - RELEASE-0.1.0-beta.12
 tags:
   - product-brain
   - release
   - beta
+generated: false
+release_phase: released
+release_current: false
+release_branch: release/0.1.0-beta.12
+release_tag: v0.1.0-beta.12
+release_pr: null
 ---
-
 # RELEASE-0.1.0-beta.12 — Pulido proyecto-evento y borrados seguros
 
 ## Estado

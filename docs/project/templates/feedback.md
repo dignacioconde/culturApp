@@ -1,18 +1,21 @@
 ---
+schema_version: 2
+kind: feedback
 id: FEEDBACK-YYYYMMDD-slug
-type: feedback
-status: Active
+title: Feedback beta
+lifecycle: active
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
-source: widget
-severity: low
-area: general
-linked_issue: null
 aliases:
   - Feedback beta
 tags:
   - product-brain
   - feedback
+generated: false
+feedback_source: widget
+feedback_severity: low
+area: general
+linked_issue: null
 ---
 
 # Feedback — titulo breve

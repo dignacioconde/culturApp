@@ -1,17 +1,20 @@
 ---
+schema_version: 2
+kind: decision
 id: ADR-0013
-type: decision
-status: Accepted
-created: 2026-05-05
-updated: 2026-05-05
+title: Testing quirurgico para beta privada
+lifecycle: active
+created: '2026-05-05'
+updated: '2026-05-08'
 aliases:
   - ADR-0013
 tags:
   - product-brain
   - adr
   - testing
+generated: false
+decision_status: Accepted
 ---
-
 # ADR-0013 — Testing quirurgico para beta privada
 
 ## Contexto

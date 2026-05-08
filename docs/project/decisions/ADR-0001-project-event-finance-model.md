@@ -1,9 +1,11 @@
 ---
+schema_version: 2
+kind: decision
 id: ADR-0001
-type: decision
-status: Accepted
-created: 2026-05-04
-updated: 2026-05-04
+title: Mantener el modelo proyecto-evento con finanzas en ambos niveles
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - ADR-0001
 tags:
@@ -11,8 +13,9 @@ tags:
   - adr
   - data
   - finance
+generated: false
+decision_status: Accepted
 ---
-
 # ADR-0001 — Mantener el modelo proyecto-evento con finanzas en ambos niveles
 
 ## Context

@@ -1,17 +1,19 @@
 ---
+schema_version: 2
+kind: backlog
 id: PB-BACKLOG-TRIAGE
-type: backlog
-status: Active
-created: 2026-05-05
-updated: 2026-05-05
+title: Triage
+lifecycle: active
+created: '2026-05-05'
+updated: '2026-05-08'
 aliases:
   - Triage backlog
 tags:
   - product-brain
   - backlog
   - triage
+generated: false
 ---
-
 # Triage
 
 Mesa de decision para convertir ideas en trabajo ejecutable o archivarlas.
@@ -57,4 +59,4 @@ Una issue puede pasar a `Ready for development` cuando:
 ## Relacionado
 
 - [[BACKLOG]]
-- [[../process/DEVELOPMENT_WORKFLOW|Development Workflow]]
+- [[../process/WORKFLOW|Workflow]]

@@ -82,7 +82,7 @@ Memoria y documentación:
 Issues y Product Brain:
 - Product Brain es fuente de verdad de producto; GitHub es soporte operativo.
 - Al crear una issue durante triage/backlog/CACH, crear primero issue Markdown en `docs/project/issues/` salvo que el usuario pida GitHub Issue o ejecución inmediata lo requiera.
-- Issues nuevas: `status: inbox`, criterios concretos, estimate realista; visual consistency suele ser `design` o `refactor`.
+- Issues nuevas: `schema_version: 2`, `kind: issue`, `issue_workflow: inbox`, `size: xs|s|m`, componentes concretos y criterios verificables; si parece `size: l`, partir en slices.
 
 PR, release y verificación:
 - Antes de abrir PR: revisar issue/contexto, diff y commits contra base; actualizar memoria durable o declarar `Memoria: no aplica`.

@@ -1,17 +1,20 @@
 ---
+schema_version: 2
+kind: decision
 id: ADR-0012
-type: decision
-status: Accepted
-created: 2026-05-05
-updated: 2026-05-05
+title: Decimales europeos con input text e inputmode decimal
+lifecycle: active
+created: '2026-05-05'
+updated: '2026-05-08'
 aliases:
   - ADR-0012
 tags:
   - product-brain
   - adr
   - finance
+generated: false
+decision_status: Accepted
 ---
-
 # ADR-0012 — Decimales europeos con input text e inputmode decimal
 
 ## Contexto

@@ -1,9 +1,11 @@
 ---
+schema_version: 2
+kind: context
 id: PB-CTX-UX-MOBILE-20260504
-type: context
-status: Active
-created: 2026-05-04
-updated: 2026-05-04
+title: '2026-05-04'
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - Guardrails UX mobile 2026-05-04
 tags:
@@ -11,8 +13,8 @@ tags:
   - context
   - ux
   - mobile
+generated: false
 ---
-
 # Guardrails UX y mobile — 2026-05-04
 
 ## Voz Y Lenguaje

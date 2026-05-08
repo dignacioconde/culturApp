@@ -1,7 +1,9 @@
 ---
+schema_version: 2
+kind: decision
 id: ADR-XXXX
-type: decision
-status: Proposed
+title: Titulo
+lifecycle: draft
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
 aliases:
@@ -9,11 +11,13 @@ aliases:
 tags:
   - product-brain
   - adr
+generated: false
+decision_status: Proposed
 ---
 
 # ADR-XXXX — Titulo
 
-## Estado
+## Decision status
 
 Proposed / Accepted / Superseded
 

@@ -12,6 +12,7 @@ No preguntes salvo bloqueo real: credenciales, accion destructiva, cambio remoto
 CONTEXTO:
 Usa `AGENTS.md` como contrato corto y `docs/agent-context-policy.md` como politica canonica. Lee `.opencode/AGENT_STATE.md` como estado vivo.
 Carga memoria, Product Brain, backlog, releases o historico solo si son relevantes para la tarea y desde archivos/secciones concretas.
+Si necesitas orientar Product Brain, usa `npm run pb:orient -- --json` y abre solo la issue, parent, release o source-touchpoint relevante.
 Si la tarea toca formularios, selectores o calendarios, revisa bajo demanda las lecciones documentadas sobre `Input.jsx`, horarios desde 08:00 y semana movil.
 
 ALCANCE:
@@ -39,7 +40,7 @@ CIERRE DE ISSUE:
 
 SALIDA:
 Subagentes usados, cambios realizados, verificacion ejecutada, PR/merge/produccion, limpieza de rama y riesgos/bloqueos restantes.
-Si aplica, incluye `Memoria: actualizada/no aplica`.
+Incluye obligatoriamente `Contexto leído`, `Product Brain leído`, `Product Brain actualizado`, `Validación PB` y `Feedback/Memory`.
 ```
 
 Ejemplo corto:

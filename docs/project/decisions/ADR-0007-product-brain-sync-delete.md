@@ -1,17 +1,20 @@
 ---
+schema_version: 2
+kind: decision
 id: ADR-0007
-type: decision
-status: Accepted
-created: 2026-05-04
-updated: 2026-05-04
+title: 'pb:push usa --delete para sincronizar borrados al vault'
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - ADR-0007
 tags:
   - product-brain
   - adr
   - workflow
+generated: false
+decision_status: Accepted
 ---
-
 # ADR-0007 — pb:push usa --delete para sincronizar borrados al vault
 
 ## Context

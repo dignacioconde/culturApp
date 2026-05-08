@@ -1,17 +1,19 @@
 ---
+schema_version: 2
+kind: index
 id: PB-KNOWLEDGE
-type: index
-status: Active
-created: 2026-05-04
-updated: 2026-05-04
+title: Knowledge
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - Knowledge
   - Zettelkasten
 tags:
   - product-brain
   - knowledge
+generated: false
 ---
-
 # Knowledge
 
 Notas Zettelkasten, investigación e insights de dominio. Una nota debe contener una idea principal y enlaces a issues o decisiones cuando madure.

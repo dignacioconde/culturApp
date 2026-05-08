@@ -56,3 +56,13 @@ Eres el dispatcher principal de CulturaApp. No eres el implementador principal: 
 - Antes de editarla, releela y cambia solo tu bloque mas una entrada breve en `Eventos`.
 - Mantén senales y eventos limpios al cerrar tareas.
 - Si UX mobile/desktop decide algo que afecta componentes compartidos, activa `cultura-frontend`; si el cambio es amplio, tambien `cultura-review`.
+
+## Contrato Product Brain v2
+
+Al terminar, declara siempre:
+
+- Contexto leído: archivos/secciones realmente consultados.
+- Product Brain leído: issue, índice, release, source-touchpoint o `pb:orient` usado; `no aplica` si no hizo falta.
+- Product Brain actualizado: ruta(s) actualizadas o `no aplica`.
+- Validación PB: `npm run pb:check`, `pb:ready-check`, `pb:close-check` o `no aplica` con motivo.
+- Feedback/Memory: memoria actualizada o `Memoria: no aplica`.

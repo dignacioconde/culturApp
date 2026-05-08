@@ -1,7 +1,9 @@
 ---
+schema_version: 2
+kind: knowledge
 id: ZK-XXXX
-type: knowledge
-status: Draft
+title: Título
+lifecycle: draft
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
 aliases:
@@ -9,6 +11,7 @@ aliases:
 tags:
   - product-brain
   - zk
+generated: false
 ---
 
 # ZK-XXXX — Título

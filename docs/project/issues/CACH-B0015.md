@@ -1,15 +1,11 @@
 ---
+schema_version: 2
+kind: issue
 id: CACH-B0015
 title: Operativizar backlog releases y ramas en Product Brain
-type: chore
-status: done
-cycle: beta-1
-release: RELEASE-0.1.0-beta.1
-priority: p1
-estimate: s
-area: brain
-created_at: 2026-05-05
-updated_at: 2026-05-05
+lifecycle: historical
+created: '2026-05-05'
+updated: '2026-05-08'
 aliases:
   - CACH-B0015
 tags:
@@ -18,8 +14,25 @@ tags:
   - workflow
   - releases
   - agents
+generated: false
+work_type: chore
+work_level: task
+issue_workflow: done
+priority: p1
+size: s
+area: brain
+components:
+  - work
+  - product-brain
+  - agents
+parent: null
+related: []
+depends_on: []
+blocked_by: []
+adr: []
+release: RELEASE-0.1.0-beta.1
+theme: internal-agent-ops
 ---
-
 # CACH-B0015 — Operativizar backlog, releases y ramas en Product Brain
 
 ## Estado

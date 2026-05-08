@@ -53,6 +53,7 @@ const REQUIRED_DIRS = [
   'indexes',
   'templates',
   'prompts',
+  'feedback',
 ];
 
 function loadDotEnv() {

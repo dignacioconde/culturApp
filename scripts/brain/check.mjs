@@ -1,14 +1,20 @@
 #!/usr/bin/env node
-import { existsSync, readdirSync, readFileSync } from 'node:fs'
-import { basename, dirname, join, normalize, relative, resolve, sep } from 'node:path'
-import { fileURLToPath } from 'node:url'
-import matter from 'gray-matter'
-import { schemaForPath, IssueFrontmatter } from './schema.mjs'
+import { existsSync } from 'node:fs'
+import {
+  addLookup,
+  brainRoot,
+  bulletTargets,
+  issueIdsIn,
+  normalizeTarget,
+  readAllDocs,
+  sectionContent,
+  wikilinkTargets,
+} from './lib.mjs'
+import { IssueFrontmatter, schemaForPath } from './schema.mjs'
 
-const repoRoot = resolve(fileURLToPath(new URL('../..', import.meta.url)))
-const brainRoot = process.env.PRODUCT_BRAIN_REPO_PATH
-  ? resolve(process.env.PRODUCT_BRAIN_REPO_PATH)
-  : join(repoRoot, 'docs', 'project')
+const args = new Set(process.argv.slice(2))
+const jsonOutput = args.has('--json')
+const strict = args.has('--strict')
 
 const indexChecks = [
   ['indexes/issues.index.md', 'issues'],
@@ -17,126 +23,62 @@ const indexChecks = [
   ['indexes/releases.index.md', 'releases'],
 ]
 
-const boardColumns = new Map([
-  ['inbox', 'Inbox'],
-  ['backlog', 'Backlog'],
-  ['ready', 'Backlog'],
-  ['blocked', 'Backlog'],
-  ['in-progress', 'In progress'],
-  ['review', 'Review'],
-  ['done', 'Done'],
-])
+const generatedIndexes = [
+  'indexes/issues-open.index.md',
+  'indexes/by-status.md',
+  'indexes/by-area.md',
+  'indexes/by-release.md',
+  'indexes/by-level.md',
+  'indexes/by-component.md',
+  'indexes/by-theme.md',
+  'indexes/initiative-children.index.md',
+  'indexes/source-touchpoints.md',
+]
 
-const forbiddenReleaseValues = new Set([
-  'Unassigned',
-  'Beta',
-  'Internal',
-  'Pro',
-  'Growth',
-  'Post-MVP',
-  '0.1-cycle',
+const boardColumns = new Map([
+  ['inbox', 'Intake'],
+  ['backlog', 'Backlog'],
+  ['ready', 'Ready'],
+  ['blocked', 'Backlog'],
+  ['in_progress', 'In progress'],
+  ['review', 'Review / Verify'],
+  ['done', 'Done'],
 ])
 
 const errors = []
 const warnings = []
-
-function toPosix(value) {
-  return value.split(sep).join('/')
+const sections = {
+  area: false,
+  frontmatter: false,
+  wikilinks: false,
+  issueRelease: false,
+  hierarchy: false,
+  backlog: false,
+  indexes: false,
 }
 
-function listMarkdownFiles(dir) {
-  const files = []
-
-  function walk(current) {
-    for (const entry of readdirSync(current, { withFileTypes: true })) {
-      if (entry.name === '.DS_Store' || entry.name === '.obsidian') continue
-      const fullPath = join(current, entry.name)
-      if (entry.isDirectory()) walk(fullPath)
-      else if (entry.name.endsWith('.md')) files.push(fullPath)
-    }
-  }
-
-  walk(dir)
-  return files.sort()
+function addError(message) {
+  errors.push(message)
 }
 
-function stripCodeFences(content) {
-  return content
-    .replace(/```[\s\S]*?```/g, '')
-    .replace(/~~~[\s\S]*?~~~/g, '')
-}
-
-function normalizeTarget(fromRel, target) {
-  const withoutHash = target.split('#')[0].trim()
-  if (!withoutHash || withoutHash.includes('://')) return null
-  if (withoutHash.includes('...') || withoutHash.includes('XXXX') || withoutHash.includes('YYYY')) return null
-
-  if (withoutHash.includes('/') || withoutHash.startsWith('.')) {
-    const relDir = dirname(fromRel)
-    return toPosix(normalize(join(relDir, withoutHash))).replace(/\.md$/, '')
-  }
-
-  return withoutHash
-}
-
-function addLookup(map, key, rel) {
-  if (!key) return
-  const normalizedKey = key.toLowerCase()
-  if (!map.has(normalizedKey)) map.set(normalizedKey, new Set())
-  map.get(normalizedKey).add(rel)
-}
-
-function wikilinkTargets(content) {
-  const links = []
-  for (const match of stripCodeFences(content).matchAll(/\[\[([^\]]+)\]\]/g)) {
-    links.push(match[1].split('|')[0].trim())
-  }
-  return links
-}
-
-function sectionContent(content, heading) {
-  const lines = content.split('\n')
-  const start = lines.findIndex((line) => line.trim().toLowerCase() === `## ${heading.toLowerCase()}`)
-  if (start === -1) return ''
-  const end = lines.findIndex((line, index) => index > start && /^##\s+/.test(line))
-  return lines.slice(start + 1, end === -1 ? lines.length : end).join('\n')
-}
-
-function extractIssueIds(content) {
-  return new Set([...content.matchAll(/CACH-(?:B)?\d{4}/g)].map((match) => match[0]))
-}
-
-function bulletTargets(content, indexRel) {
-  const targets = new Set()
-  for (const line of content.split('\n')) {
-    const bullet = line.match(/^\s*-\s+\[\[([^\]]+)\]\]/)
-    if (!bullet) continue
-
-    const normalized = normalizeTarget(indexRel, bullet[1].split('|')[0])
-    if (normalized) targets.add(normalized)
-  }
-  return targets
+function addWarning(message) {
+  warnings.push(message)
 }
 
 function formatZodIssues(result, rel) {
   for (const issue of result.error.issues) {
-    errors.push(`${rel}: frontmatter invalido en ${issue.path.join('.') || '(root)'}: ${issue.message}`)
+    addError(`${rel}: frontmatter invalido en ${issue.path.join('.') || '(root)'}: ${issue.message}`)
   }
 }
 
-function parseDoc(file) {
-  const rel = toPosix(relative(brainRoot, file))
-  const key = rel.replace(/\.md$/, '')
-  const content = readFileSync(file, 'utf8')
-  const parsed = matter(content)
-  const frontmatter = parsed.data && Object.keys(parsed.data).length > 0 ? parsed.data : null
-  return { file, rel, key, basename: basename(key), content, body: parsed.content, frontmatter }
+function uniqueMatches(matches) {
+  return [...new Set(matches)]
 }
 
 if (!existsSync(brainRoot)) {
-  errors.push(`No existe Product Brain: ${brainRoot}`)
+  addError(`No existe Product Brain: ${brainRoot}`)
 } else {
-  const files = listMarkdownFiles(brainRoot)
+  sections.area = true
   const docs = new Map()
   const issues = new Map()
   const releases = new Map()
@@ -144,14 +86,17 @@ if (!existsSync(brainRoot)) {
   const byId = new Map()
   const byAlias = new Map()
 
-  for (const file of files) {
-    const doc = parseDoc(file)
+  for (const doc of readAllDocs()) {
     docs.set(doc.key, doc)
     addLookup(byBasename, doc.basename, doc.key)
 
     if (!doc.rel.startsWith('templates/') && !doc.frontmatter) {
-      errors.push(`${doc.rel}: falta frontmatter`)
+      addError(`${doc.rel}: falta frontmatter`)
       continue
+    }
+
+    if (doc.frontmatter?.type !== undefined || doc.frontmatter?.status !== undefined) {
+      addError(`${doc.rel}: Product Brain v2 no permite type/status top-level; usar kind/lifecycle y campos de dominio`)
     }
 
     if (doc.frontmatter?.id) addLookup(byId, doc.frontmatter.id, doc.key)
@@ -160,37 +105,36 @@ if (!existsSync(brainRoot)) {
     const schema = schemaForPath(doc.rel)
     if (schema) {
       const validation = schema.safeParse(doc.frontmatter ?? {})
-      if (!validation.success) formatZodIssues(validation, doc.rel)
+      if (!validation.success) {
+        formatZodIssues(validation, doc.rel)
+      } else if (validation.data.kind === 'issue') {
+        issues.set(validation.data.id, { ...doc, data: validation.data })
+      } else if (validation.data.kind === 'release') {
+        releases.set(validation.data.id, { ...doc, data: validation.data })
+      }
     }
 
     if (doc.rel.startsWith('issues/') && doc.rel !== 'issues/README.md') {
-      const issueValidation = IssueFrontmatter.safeParse(doc.frontmatter ?? {})
-      if (issueValidation.success) {
-        issues.set(issueValidation.data.id, { ...doc, data: issueValidation.data })
-      }
-
       if (doc.frontmatter?.id !== doc.basename) {
-        errors.push(`${doc.rel}: id '${doc.frontmatter?.id ?? '(sin id)'}' no coincide con filename '${doc.basename}'`)
+        addError(`${doc.rel}: id '${doc.frontmatter?.id ?? '(sin id)'}' no coincide con filename '${doc.basename}'`)
       }
 
       const h1 = doc.content.match(/^#\s+(.+)$/m)?.[1]
       if (!h1?.startsWith(`${doc.basename} `) && h1 !== doc.basename) {
-        errors.push(`${doc.rel}: H1 debe empezar por '${doc.basename}'`)
+        addError(`${doc.rel}: H1 debe empezar por '${doc.basename}'`)
       }
-    }
-
-    if (doc.rel.startsWith('releases/') && doc.rel !== 'releases/README.md' && doc.rel !== 'releases/RELEASE_TEMPLATE.md') {
-      releases.set(doc.basename, doc)
     }
   }
 
   for (const [id, locations] of byId.entries()) {
-    if (locations.size > 1) errors.push(`id duplicado '${id}': ${[...locations].join(', ')}`)
+    if (locations.size > 1) addError(`id duplicado '${id}': ${[...locations].join(', ')}`)
   }
 
   for (const [alias, locations] of byAlias.entries()) {
-    if (locations.size > 1) warnings.push(`alias duplicado '${alias}': ${[...locations].join(', ')}`)
+    if (locations.size > 1) addWarning(`alias duplicado '${alias}': ${[...locations].join(', ')}`)
   }
+
+  sections.frontmatter = errors.length === 0
 
   for (const doc of docs.values()) {
     for (const rawTarget of wikilinkTargets(doc.content)) {
@@ -209,36 +153,53 @@ if (!existsSync(brainRoot)) {
         ]
       }
 
-      const uniqueMatches = [...new Set(matches)]
-      if (uniqueMatches.length === 0) {
-        errors.push(`${doc.rel}: wikilink roto -> ${rawTarget}`)
-      } else if (uniqueMatches.length > 1) {
-        errors.push(`${doc.rel}: wikilink ambiguo -> ${rawTarget} (${uniqueMatches.join(', ')})`)
+      const resolved = uniqueMatches(matches)
+      if (resolved.length === 0) {
+        addError(`${doc.rel}: wikilink roto -> ${rawTarget}`)
+      } else if (resolved.length > 1) {
+        addError(`${doc.rel}: wikilink ambiguo -> ${rawTarget} (${resolved.join(', ')})`)
       }
     }
   }
+
+  sections.wikilinks = errors.length === 0
 
   const releaseScopes = new Map()
   for (const [releaseId, releaseDoc] of releases.entries()) {
-    releaseScopes.set(releaseId, extractIssueIds(sectionContent(releaseDoc.content, 'Scope')))
+    releaseScopes.set(releaseId, issueIdsIn(sectionContent(releaseDoc.content, 'Scope')))
   }
 
   for (const issue of issues.values()) {
-    const { id, release, estimate, cycle } = issue.data
-    if (typeof release === 'string' && forbiddenReleaseValues.has(release)) {
-      errors.push(`${issue.rel}: release '${release}' es string libre prohibido; usar null o un release existente`)
-    }
+    const { id, release, parent, related, depends_on, blocked_by, issue_workflow, work_level } = issue.data
 
     if (release !== null) {
       if (!releases.has(release)) {
-        errors.push(`${issue.rel}: release '${release}' no existe en docs/project/releases/`)
+        addError(`${issue.rel}: release '${release}' no existe en docs/project/releases/`)
       } else if (!releaseScopes.get(release)?.has(id)) {
-        errors.push(`${issue.rel}: release '${release}' no lista ${id} en ## Scope`)
+        addError(`${issue.rel}: release '${release}' no lista ${id} en ## Scope`)
       }
     }
 
-    if (estimate === 'l' && cycle.startsWith('beta-')) {
-      errors.push(`${issue.rel}: estimate l no esta permitido en cycle ${cycle}; partir antes de meter en beta`)
+    if (work_level === 'initiative' && issue_workflow === 'ready') {
+      addError(`${issue.rel}: una initiative no puede estar en issue_workflow ready; partir en slice`)
+    }
+
+    if (issue_workflow === 'blocked' && blocked_by.length === 0 && !sectionContent(issue.content, 'Bloqueos')) {
+      addError(`${issue.rel}: issue_workflow blocked requiere blocked_by o seccion ## Bloqueos`)
+    }
+
+    const refs = [...related, ...depends_on, ...blocked_by]
+    for (const ref of refs) {
+      if (!issues.has(ref)) addError(`${issue.rel}: referencia issue inexistente ${ref}`)
+    }
+
+    if (parent !== null) {
+      const parentIssue = issues.get(parent)
+      if (!parentIssue) {
+        addError(`${issue.rel}: parent inexistente ${parent}`)
+      } else if (parentIssue.data.work_level !== 'initiative') {
+        addError(`${issue.rel}: parent ${parent} debe ser work_level initiative`)
+      }
     }
   }
 
@@ -246,37 +207,55 @@ if (!existsSync(brainRoot)) {
     for (const issueId of scopeIds) {
       const issue = issues.get(issueId)
       if (!issue) {
-        errors.push(`releases/${releaseId}.md: ## Scope referencia issue inexistente ${issueId}`)
+        addError(`releases/${releaseId}.md: ## Scope referencia issue inexistente ${issueId}`)
       } else if (issue.data.release !== releaseId) {
-        errors.push(`releases/${releaseId}.md: ${issueId} esta en ## Scope pero su frontmatter release es ${issue.data.release ?? 'null'}`)
+        addError(`releases/${releaseId}.md: ${issueId} esta en ## Scope pero su frontmatter release es ${issue.data.release ?? 'null'}`)
       }
     }
   }
+
+  sections.issueRelease = errors.length === 0
+
+  function detectParentCycle(issueId, seen = new Set()) {
+    if (seen.has(issueId)) return [...seen, issueId]
+    const issue = issues.get(issueId)
+    if (!issue?.data.parent) return null
+    return detectParentCycle(issue.data.parent, new Set([...seen, issueId]))
+  }
+
+  for (const issueId of issues.keys()) {
+    const cycle = detectParentCycle(issueId)
+    if (cycle) addError(`jerarquia cyclic parent: ${cycle.join(' -> ')}`)
+  }
+
+  sections.hierarchy = errors.length === 0
 
   const backlog = docs.get('backlog/BACKLOG')
   if (!backlog) {
-    errors.push('backlog/BACKLOG.md: tablero obligatorio no encontrado')
+    addError('backlog/BACKLOG.md: tablero obligatorio no encontrado')
   } else {
     const columnIds = new Map()
     for (const column of new Set(boardColumns.values())) {
-      columnIds.set(column, extractIssueIds(sectionContent(backlog.content, column)))
+      columnIds.set(column, issueIdsIn(sectionContent(backlog.content, column)))
     }
 
     for (const issue of issues.values()) {
-      if (issue.data.status === 'wontfix') continue
-      const expectedColumn = boardColumns.get(issue.data.status)
+      if (issue.data.issue_workflow === 'wont_fix') continue
+      const expectedColumn = boardColumns.get(issue.data.issue_workflow)
       if (!expectedColumn) continue
       if (!columnIds.get(expectedColumn)?.has(issue.data.id)) {
-        errors.push(`backlog/BACKLOG.md: falta ${issue.data.id} en columna ${expectedColumn}`)
+        addError(`backlog/BACKLOG.md: falta ${issue.data.id} en columna ${expectedColumn}`)
       }
     }
   }
+
+  sections.backlog = errors.length === 0
 
   for (const [indexRel, folder] of indexChecks) {
     const indexKey = indexRel.replace(/\.md$/, '')
     const indexDoc = docs.get(indexKey)
     if (!indexDoc) {
-      errors.push(`${indexRel}: indice obligatorio no encontrado`)
+      addError(`${indexRel}: indice obligatorio no encontrado`)
       continue
     }
 
@@ -286,27 +265,49 @@ if (!existsSync(brainRoot)) {
     const actual = bulletTargets(indexDoc.content, indexRel)
 
     for (const target of expected) {
-      if (!actual.has(target)) errors.push(`${indexRel}: falta entrada para ${target}`)
+      if (!actual.has(target)) addError(`${indexRel}: falta entrada para ${target}`)
     }
 
     for (const target of actual) {
-      if (!expected.has(target)) errors.push(`${indexRel}: entrada sobrante o rota ${target}`)
+      if (!expected.has(target)) addError(`${indexRel}: entrada sobrante o rota ${target}`)
     }
+  }
+
+  for (const indexRel of generatedIndexes) {
+    if (!docs.has(indexRel.replace(/\.md$/, ''))) addError(`${indexRel}: indice generado obligatorio no encontrado`)
+  }
+
+  sections.indexes = errors.length === 0
+}
+
+const failed = errors.length > 0 || (strict && warnings.length > 0)
+
+if (jsonOutput) {
+  console.log(JSON.stringify({
+    ok: !failed,
+    strict,
+    errors,
+    warnings,
+    sections,
+  }, null, 2))
+} else {
+  for (const warning of warnings) console.warn(`[pb:check] warning: ${warning}`)
+
+  if (errors.length > 0) {
+    for (const error of errors) console.error(`[pb:check] error: ${error}`)
+    console.error(`[pb:check] ${errors.length} error(es), ${warnings.length} warning(s)`)
+  } else if (strict && warnings.length > 0) {
+    console.error(`[pb:check] strict: ${warnings.length} warning(s)`)
+  } else {
+    console.log('Area                 OK')
+    console.log('frontmatter-v2       OK')
+    console.log('wikilinks            OK')
+    console.log('issue-release        OK')
+    console.log('hierarchy            OK')
+    console.log('backlog-workflow     OK')
+    console.log('indexes              OK')
+    console.log(`[pb:check] OK: Product Brain v2 consistente (${warnings.length} warning(s))`)
   }
 }
 
-for (const warning of warnings) console.warn(`[pb:check] warning: ${warning}`)
-
-if (errors.length > 0) {
-  for (const error of errors) console.error(`[pb:check] error: ${error}`)
-  console.error(`[pb:check] ${errors.length} error(es), ${warnings.length} warning(s)`)
-  process.exitCode = 1
-} else {
-  console.log('Area                 OK')
-  console.log('frontmatter          OK')
-  console.log('wikilinks            OK')
-  console.log('issue-release        OK')
-  console.log('backlog-status       OK')
-  console.log('indexes              OK')
-  console.log(`[pb:check] OK: Product Brain consistente (${warnings.length} warning(s))`)
-}
+process.exitCode = failed ? 1 : 0

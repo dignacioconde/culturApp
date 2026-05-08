@@ -1,17 +1,20 @@
 ---
+schema_version: 2
+kind: decision
 id: ADR-0014
-type: decision
-status: Accepted
-created: 2026-05-05
-updated: 2026-05-05
+title: Beta feedback propio y Plausible comentado
+lifecycle: active
+created: '2026-05-05'
+updated: '2026-05-08'
 aliases:
   - ADR-0014
 tags:
   - product-brain
   - adr
   - feedback
+generated: false
+decision_status: Accepted
 ---
-
 # ADR-0014 — Beta feedback propio y Plausible comentado
 
 ## Contexto

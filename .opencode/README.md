@@ -65,7 +65,7 @@ Este comando envuelve la peticion en un contrato operativo con objetivo, autonom
 
 Cuando el usuario pida ejecutar agentes, no hagas una revision manual previa del codigo salvo que sea imprescindible para construir el comando, definir ownership seguro o resolver un bloqueo real. Los agentes deben usar `AGENTS.md` como contrato corto, seguir `docs/agent-context-policy.md`, leer `.opencode/AGENT_STATE.md` como estado vivo y revisar el codigo necesario. El detalle adicional se carga bajo demanda; backlog, releases, historico, issues cerradas y Product Brain completo no se cargan por defecto.
 
-Cuando se descubra un problema nuevo, el flujo por defecto es: issue en GitHub -> rama de tarea desde `main` actualizado -> agentes con contexto de la issue -> fix verificado -> commit -> push -> PR a `main` -> merge -> verificacion de produccion si aplica -> borrado de rama de trabajo -> comentario en la issue con resumen/commit/verificaciones. Toda issue resuelta debe quedar enlazada permanentemente al trabajo que la resuelve:
+Cuando se descubra un problema nuevo, el flujo por defecto es: issue Product Brain `CACH-*` -> rama de tarea desde `main` actualizado -> agentes con contexto de la issue -> fix verificado -> commit -> push -> PR a `main` -> merge -> verificacion de produccion si aplica -> borrado de rama de trabajo -> cierre de la issue Product Brain con resumen/commit/verificaciones. GitHub Issues quedan como soporte operativo solo si el usuario las pide o una integracion externa las requiere. Toda issue resuelta debe quedar enlazada permanentemente al trabajo que la resuelve:
 - **Si hay PR abierta**: enlazar la issue en la descripcion de la PR con `Closes #N`, `Fixes #N` o equivalente; la issue permanece ABIERTA hasta merge y se cierra solo cuando la PR se mergee a `main`.
 - **Si no hay PR**: enlazarla desde el commit o comentario de cierre y cerrarla solo tras commit pusheado + comentario con resumen/commit/verificacion + memoria/docs declarada.
 
@@ -306,7 +306,7 @@ Cuando la implementacion este lista, lanzar el agente de verificacion:
 npm run agents:verify -- "Verifica la implementacion de <tarea>. Rama: <rama>. Issue: <URL si existe>."
 ```
 
-El agente ejecuta lint, build y tests segun lo que haya cambiado, comprueba si la issue es cerrable y devuelve un bloque estandar con status `Ready`, `Ready with warnings` o `Blocked`.
+El agente ejecuta lint, build y tests segun lo que haya cambiado, usa `pb:close-check` cuando vaya a cerrar una issue y devuelve un bloque estandar con resultado `Ready`, `Ready with warnings` o `Blocked`.
 
 Tambien se puede invocar desde `cultura-lead` en sesion interactiva:
 

@@ -1,16 +1,17 @@
 #!/usr/bin/env node
-import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
-import { join, resolve } from 'node:path'
 import { createInterface } from 'node:readline'
+import { existsSync } from 'node:fs'
+import { join } from 'node:path'
+import { brainRoot, ensureDir, today, writeIfChanged } from './lib.mjs'
 
-const repoRoot = resolve(new URL('../..', import.meta.url).pathname)
-const brainRoot = process.env.PRODUCT_BRAIN_REPO_PATH
-  ? resolve(process.env.PRODUCT_BRAIN_REPO_PATH)
-  : join(repoRoot, 'docs', 'project')
-const inboxRoot = join(brainRoot, 'inbox')
-
-function ensureDir(path) {
-  if (!existsSync(path)) mkdirSync(path, { recursive: true })
+const INTENTS = {
+  inbox: { folder: 'inbox', kind: 'inbox', tags: ['product-brain', 'inbox'] },
+  idea: { folder: 'inbox', kind: 'inbox', tags: ['product-brain', 'inbox', 'idea'] },
+  issue: { folder: 'inbox', kind: 'inbox', tags: ['product-brain', 'inbox', 'issue-candidate'] },
+  'decisión': { folder: 'inbox', kind: 'inbox', tags: ['product-brain', 'inbox', 'decision-candidate'] },
+  decision: { folder: 'inbox', kind: 'inbox', tags: ['product-brain', 'inbox', 'decision-candidate'] },
+  contexto: { folder: 'inbox', kind: 'inbox', tags: ['product-brain', 'inbox', 'context-candidate'] },
+  context: { folder: 'inbox', kind: 'inbox', tags: ['product-brain', 'inbox', 'context-candidate'] },
 }
 
 function slugify(input) {
@@ -54,48 +55,68 @@ function parseArgs(args) {
   return result
 }
 
+function extractIntent(content) {
+  const match = content.match(/^PB\s+([\p{L}a-zA-Z]+):\s*/iu)
+  if (!match) return { intent: 'inbox', content }
+  const intent = match[1].toLowerCase()
+  return {
+    intent: INTENTS[intent] ? intent : 'inbox',
+    content: content.slice(match[0].length).trim(),
+  }
+}
+
 const args = parseArgs(process.argv.slice(2))
 let content = args.content
 if (!content && !process.stdin.isTTY) content = await readStdin()
-content = content.replace(/^PB\s+\w+:\s*/i, '').trim()
+
+const parsedIntent = extractIntent(content.trim())
+content = parsedIntent.content
 
 if (!content) {
   console.error('[pb:capture] ERROR: falta contenido')
   process.exit(1)
 }
 
-ensureDir(inboxRoot)
-
+const intent = parsedIntent.intent
+const config = INTENTS[intent]
+const date = today()
 const now = new Date()
-const date = now.toISOString().slice(0, 10)
 const time = now.toTimeString().slice(0, 8).replaceAll(':', '')
 const title = args.title || content.split('\n')[0].replace(/^#+\s*/, '').trim().slice(0, 90)
 const slug = slugify(title)
+const root = join(brainRoot, config.folder)
+ensureDir(root)
+
 let fileName = `${date}-${time}-${slug}.md`
-let filePath = join(inboxRoot, fileName)
+let filePath = join(root, fileName)
 let counter = 2
 while (existsSync(filePath)) {
   fileName = `${date}-${time}-${slug}-${counter}.md`
-  filePath = join(inboxRoot, fileName)
+  filePath = join(root, fileName)
   counter += 1
 }
 const idSuffix = counter > 2 ? `-${counter - 1}` : ''
 
-const tags = ['product-brain', 'inbox', ...args.tags]
+const tags = [...new Set([...config.tags, ...args.tags])]
+const safeTitle = title.replaceAll('"', "'")
 const frontmatter = [
   '---',
+  'schema_version: 2',
+  `kind: ${config.kind}`,
   `id: PB-INBOX-${date.replaceAll('-', '')}-${time}${idSuffix}`,
-  'type: inbox',
-  'status: Active',
+  `title: ${safeTitle}`,
+  'lifecycle: active',
   `created: ${date}`,
   `updated: ${date}`,
   'aliases:',
-  `  - ${title.replaceAll('"', "'")}`,
+  `  - ${safeTitle}`,
   'tags:',
   ...tags.map((tag) => `  - ${tag}`),
+  'generated: false',
+  `capture_intent: ${intent === 'decisión' ? 'decision' : intent}`,
   '---',
   '',
 ].join('\n')
 
-writeFileSync(filePath, `${frontmatter}# ${title}\n\n${content}\n`)
+writeIfChanged(filePath, `${frontmatter}# ${title}\n\n${content}\n`)
 console.log(`[pb:capture] Creado: ${filePath}`)

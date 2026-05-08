@@ -1,16 +1,18 @@
 ---
+schema_version: 2
+kind: prompt
 id: PB-PROMPTS
-type: index
-status: Active
-created: 2026-05-04
-updated: 2026-05-06
+title: Prompts
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - Prompts
 tags:
   - product-brain
   - prompts
+generated: false
 ---
-
 # Prompts
 
 Prompts reutilizables e históricos de Product Brain.

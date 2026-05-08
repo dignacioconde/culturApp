@@ -1,23 +1,35 @@
 ---
+schema_version: 2
+kind: issue
 id: CACH-B0013
 title: Gestion documental por proyecto evento
-type: feature
-status: backlog
-cycle: unassigned
-release: null
-priority: p3
-estimate: m
-area: db
-created_at: 2026-05-04
-updated_at: 2026-05-04
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - CACH-B0013
 tags:
   - product-brain
   - issue
   - data
+generated: false
+work_type: feature
+work_level: initiative
+issue_workflow: backlog
+priority: p3
+size: m
+area: data
+components:
+  - projects
+  - events
+parent: null
+related: []
+depends_on: []
+blocked_by: []
+adr: []
+release: null
+theme: pro-growth
 ---
-
 # CACH-B0013 — Gestión documental por proyecto/evento
 
 ## Summary
@@ -48,3 +60,26 @@ Los documentos forman parte del flujo real de trabajo cultural, pero añaden cos
 ## Related
 
 - [[CACH-B0004]]
+
+## Desarrollo
+
+- Rama:
+- PR:
+- Estado actual:
+
+## Notas de progreso
+
+
+## Cambios de alcance y decisiones
+
+
+## Bloqueos
+
+
+## Validación ejecutada
+
+Pendiente hasta ejecutar la issue.
+
+## Memoria
+
+No aplica por ahora.

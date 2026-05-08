@@ -1,9 +1,11 @@
 ---
+schema_version: 2
+kind: process
 id: PB-PROCESS
-type: index
-status: Active
-created: 2026-05-05
-updated: 2026-05-05
+title: Process
+lifecycle: active
+created: '2026-05-05'
+updated: '2026-05-08'
 aliases:
   - Process
   - Sistema operativo de producto
@@ -11,8 +13,8 @@ tags:
   - product-brain
   - process
   - workflow
+generated: false
 ---
-
 # Process
 
 Sistema operativo ligero para desarrollar Cachés desde el Product Brain.

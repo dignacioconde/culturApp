@@ -1,18 +1,24 @@
 ---
+schema_version: 2
+kind: release
 id: RELEASE-0.1.0-beta.3
-type: release
-status: Released
-created: 2026-05-06
-updated: 2026-05-06
-release_branch: release/0.1.0-beta.3
+title: Rediseño financiero del Dashboard
+lifecycle: active
+created: '2026-05-06'
+updated: '2026-05-08'
 aliases:
   - RELEASE-0.1.0-beta.3
 tags:
   - product-brain
   - release
   - beta
+generated: false
+release_phase: released
+release_current: false
+release_branch: release/0.1.0-beta.3
+release_tag: null
+release_pr: null
 ---
-
 # RELEASE-0.1.0-beta.3 — Rediseño financiero del Dashboard
 
 ## Estado

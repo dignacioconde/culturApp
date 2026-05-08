@@ -57,3 +57,13 @@ Incluye archivo y linea cuando sea posible. Si no encuentras problemas, dilo exp
 - No hagas auditorias genericas sin relacionarlas con CulturaApp.
 - No pidas medidas empresariales excesivas para una app freelance en fase inicial.
 - No mezcles hallazgos esteticos o de UX salvo que afecten seguridad, privacidad o confianza.
+
+## Contrato Product Brain v2
+
+Al terminar, declara siempre:
+
+- Contexto leído: archivos/secciones realmente consultados.
+- Product Brain leído: issue, índice, release, source-touchpoint o `pb:orient` usado; `no aplica` si no hizo falta.
+- Product Brain actualizado: ruta(s) actualizadas o `no aplica`.
+- Validación PB: `npm run pb:check`, `pb:ready-check`, `pb:close-check` o `no aplica` con motivo.
+- Feedback/Memory: memoria actualizada o `Memoria: no aplica`.

@@ -13,15 +13,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
       - run: npm ci
       - run: npm run lint
-      - run: npm run pb:check
       - run: npm run test
       - run: npm run build
+      - run: npm run pb:check -- --strict --json
+      - run: npm run verify:brain
+      - run: npm run verify:skills
+      - run: npm run verify:agents
+      - name: Check committed whitespace
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git diff --check "origin/${{ github.base_ref }}...HEAD"
+          else
+            git diff --check "HEAD~1...HEAD"
+          fi
 
   e2e:
     if: github.event_name == 'pull_request' && github.base_ref == 'main'

@@ -1,15 +1,11 @@
 ---
+schema_version: 2
+kind: issue
 id: CACH-B0009
 title: Inteligencia financiera y features Pro
-type: feature
-status: backlog
-cycle: unassigned
-release: null
-priority: p2
-estimate: m
-area: frontend
-created_at: 2026-05-04
-updated_at: 2026-05-04
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - CACH-B0009
 tags:
@@ -17,8 +13,23 @@ tags:
   - issue
   - finance
   - pro
+generated: false
+work_type: feature
+work_level: initiative
+issue_workflow: backlog
+priority: p2
+size: m
+area: frontend
+components:
+  - finance
+parent: null
+related: []
+depends_on: []
+blocked_by: []
+adr: []
+release: null
+theme: finance-operations
 ---
-
 # CACH-B0009 — Inteligencia financiera y features Pro
 
 ## Summary
@@ -52,3 +63,26 @@ El valor diferencial de Cachés no es solo registrar datos, sino ayudar a decidi
 ## Related
 
 - [[CACH-B0004|CACH-B0004]]
+
+## Desarrollo
+
+- Rama:
+- PR:
+- Estado actual:
+
+## Notas de progreso
+
+
+## Cambios de alcance y decisiones
+
+
+## Bloqueos
+
+
+## Validación ejecutada
+
+Pendiente hasta ejecutar la issue.
+
+## Memoria
+
+No aplica por ahora.

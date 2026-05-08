@@ -1,16 +1,18 @@
 ---
+schema_version: 2
+kind: index
 id: PB-CONTEXT
-type: index
-status: Active
-created: 2026-05-04
-updated: 2026-05-06
+title: Context
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - Contexto
 tags:
   - product-brain
   - context
+generated: false
 ---
-
 # Context
 
 Contexto estable de producto para Cachés: usuarios, propuesta de valor, restricciones y estado general.

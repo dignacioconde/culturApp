@@ -1,23 +1,34 @@
 ---
+schema_version: 2
+kind: issue
 id: CACH-B0002
 title: Simplificar experiencia mobile financiera
-type: feature
-status: backlog
-cycle: unassigned
-release: null
-priority: p1
-estimate: m
-area: frontend
-created_at: 2026-05-04
-updated_at: 2026-05-04
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - CACH-B0002
 tags:
   - product-brain
   - issue
   - mobile
+generated: false
+work_type: feature
+work_level: initiative
+issue_workflow: backlog
+priority: p1
+size: m
+area: frontend
+components:
+  - finance
+parent: null
+related: []
+depends_on: []
+blocked_by: []
+adr: []
+release: null
+theme: finance-operations
 ---
-
 # CACH-B0002 — Simplificar experiencia mobile financiera
 
 ## Summary
@@ -58,3 +69,26 @@ El Dashboard móvil debe sentirse tan compacto y escaneable como Events y Projec
 - [[../context/ux-mobile-guardrails-20260504|ux-mobile-guardrails-20260504]]
 - [[../context/ui-direction-v3-20260504|ui-direction-v3-20260504]]
 - [[CACH-0032|CACH-0032]] — Slice implementado para priorizar operativa diaria en Dashboard movil.
+
+## Desarrollo
+
+- Rama:
+- PR:
+- Estado actual:
+
+## Notas de progreso
+
+
+## Cambios de alcance y decisiones
+
+
+## Bloqueos
+
+
+## Validación ejecutada
+
+Pendiente hasta ejecutar la issue.
+
+## Memoria
+
+No aplica por ahora.

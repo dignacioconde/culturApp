@@ -1,17 +1,19 @@
 ---
+schema_version: 2
+kind: process
 id: PB-ID-POLICY
-type: process
-status: Active
-created: 2026-05-05
-updated: 2026-05-05
+title: Politica de IDs
+lifecycle: active
+created: '2026-05-05'
+updated: '2026-05-08'
 aliases:
   - Politica de IDs
 tags:
   - product-brain
   - process
   - ids
+generated: false
 ---
-
 # Politica de IDs
 
 ## Regla
@@ -24,10 +26,12 @@ Las issues nuevas usan `CACH-NNNN`, con un contador monotono global de 4 digitos
 
 ## Donde vive cada atributo
 
-- Tipo de trabajo: `type`.
-- Ciclo: `cycle`.
+- Tipo de trabajo: `work_type`.
+- Nivel de trabajo: `work_level`.
+- Estado ejecutable: `issue_workflow`.
 - Release: `release`.
 - Prioridad: `priority`.
+- Tema o batch de producto: `theme`.
 
 ## Crear el siguiente ID
 

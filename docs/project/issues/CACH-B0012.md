@@ -1,23 +1,34 @@
 ---
+schema_version: 2
+kind: issue
 id: CACH-B0012
 title: Perfil publico viralidad y referidos
-type: feature
-status: backlog
-cycle: unassigned
-release: null
-priority: p3
-estimate: m
-area: frontend
-created_at: 2026-05-04
-updated_at: 2026-05-04
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - CACH-B0012
 tags:
   - product-brain
   - issue
   - gtm
+generated: false
+work_type: feature
+work_level: initiative
+issue_workflow: backlog
+priority: p3
+size: m
+area: frontend
+components:
+  - settings-profile
+parent: null
+related: []
+depends_on: []
+blocked_by: []
+adr: []
+release: null
+theme: pro-growth
 ---
-
 # CACH-B0012 — Perfil público, viralidad y referidos
 
 ## Summary
@@ -50,3 +61,26 @@ Cada perfil público puede ser una puerta de entrada a Cachés, pero también in
 
 - [[CACH-B0006]]
 - [[CACH-B0007]]
+
+## Desarrollo
+
+- Rama:
+- PR:
+- Estado actual:
+
+## Notas de progreso
+
+
+## Cambios de alcance y decisiones
+
+
+## Bloqueos
+
+
+## Validación ejecutada
+
+Pendiente hasta ejecutar la issue.
+
+## Memoria
+
+No aplica por ahora.

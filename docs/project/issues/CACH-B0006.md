@@ -1,15 +1,11 @@
 ---
+schema_version: 2
+kind: issue
 id: CACH-B0006
 title: Onboarding y acceso beta
-type: feature
-status: done
-cycle: unassigned
-release: RELEASE-0.1.0-beta.8
-priority: p1
-estimate: m
-area: frontend
-created_at: 2026-05-04
-updated_at: 2026-05-07
+lifecycle: historical
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - CACH-B0006
 tags:
@@ -20,8 +16,23 @@ tags:
   - data
   - security
   - privacy
+generated: false
+work_type: feature
+work_level: slice
+issue_workflow: done
+priority: p1
+size: m
+area: frontend
+components:
+  - auth-onboarding
+parent: null
+related: []
+depends_on: []
+blocked_by: []
+adr: []
+release: RELEASE-0.1.0-beta.8
+theme: beta-trust
 ---
-
 # CACH-B0006 — Onboarding y acceso beta
 
 ## Summary

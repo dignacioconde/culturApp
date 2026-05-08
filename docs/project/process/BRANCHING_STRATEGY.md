@@ -1,9 +1,11 @@
 ---
+schema_version: 2
+kind: process
 id: PB-PROCESS-BRANCHING-STRATEGY
-type: process
-status: Active
-created: 2026-05-05
-updated: 2026-05-06
+title: Branching Strategy
+lifecycle: active
+created: '2026-05-05'
+updated: '2026-05-08'
 aliases:
   - Branching Strategy
   - Estrategia de ramas
@@ -12,8 +14,8 @@ tags:
   - process
   - git
   - branching
+generated: false
 ---
-
 # Branching Strategy
 
 `main` debe mantenerse estable. Las releases activas tienen una rama de integracion visible en remoto y las tareas salen de esa rama.

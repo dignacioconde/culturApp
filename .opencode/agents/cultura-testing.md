@@ -47,3 +47,13 @@ Tu trabajo es encontrar fallos antes que los usuarios: flujos rotos, regresiones
 
 - Da resultados concretos: comando, estado, fallo si existe y recomendacion. Incluye si la verificacion bloquea el cierre o solo deja riesgo residual.
 - Si no puedes ejecutar algo, dilo claramente y deja pasos de verificacion.
+
+## Contrato Product Brain v2
+
+Al terminar, declara siempre:
+
+- Contexto leído: archivos/secciones realmente consultados.
+- Product Brain leído: issue, índice, release, source-touchpoint o `pb:orient` usado; `no aplica` si no hizo falta.
+- Product Brain actualizado: ruta(s) actualizadas o `no aplica`.
+- Validación PB: `npm run pb:check`, `pb:ready-check`, `pb:close-check` o `no aplica` con motivo.
+- Feedback/Memory: memoria actualizada o `Memoria: no aplica`.

@@ -1,19 +1,24 @@
 ---
+schema_version: 2
+kind: release
 id: RELEASE-0.1.0-beta.14
-type: release
-status: Active
-created: 2026-05-08
-updated: 2026-05-08
-release_branch: release/0.1.0-beta.14
-release_tag: null
+title: Email definitivo transaccional
+lifecycle: active
+created: '2026-05-08'
+updated: '2026-05-08'
 aliases:
   - RELEASE-0.1.0-beta.14
 tags:
   - product-brain
   - release
   - beta
+generated: false
+release_phase: active
+release_current: true
+release_branch: release/0.1.0-beta.14
+release_tag: null
+release_pr: null
 ---
-
 # RELEASE-0.1.0-beta.14 — Email definitivo transaccional
 
 ## Estado

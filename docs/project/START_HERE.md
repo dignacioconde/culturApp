@@ -1,9 +1,11 @@
 ---
+schema_version: 2
+kind: index
 id: PB-START
-type: index
-status: Active
-created: 2026-05-04
-updated: 2026-05-05
+title: Product Brain de Cachés
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - Product Brain
   - Cachés Product Brain
@@ -11,8 +13,8 @@ tags:
   - product-brain
   - caches
   - navigation
+generated: false
 ---
-
 # Product Brain de Cachés
 
 Este es el centro de producto de **Cachés**. Vive versionado en el repo bajo `docs/project/` y se sincroniza manualmente con el vault de Obsidian en iCloud:
@@ -97,7 +99,7 @@ Product Brain es la fuente de verdad de producto. GitHub Issues se crean solo cu
 
 Las issues Markdown usan el prefijo `CACH`, por ejemplo [[issues/CACH-0026|CACH-0026]].
 
-El flujo operativo completo vive en [[process/DEVELOPMENT_WORKFLOW|Development Workflow]]. Antes de implementar, los agentes deben confirmar release activa, rama esperada, issue relacionada y validacion.
+El flujo operativo completo vive en [[process/WORKFLOW|Workflow]]. Antes de implementar, los agentes deben confirmar release activa, rama esperada, issue relacionada y validacion cuando aplique.
 
 ## Normas De Sync
 

@@ -1,9 +1,11 @@
 ---
+schema_version: 2
+kind: knowledge
 id: PB-ZK-20260504-RBC-HEIGHT
-type: knowledge
-status: Active
-created: 2026-05-04
-updated: 2026-05-04
+title: React Big Calendar necesita altura real calculable
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - React Big Calendar altura real
 tags:
@@ -11,8 +13,8 @@ tags:
   - zk
   - calendar
   - frontend
+generated: false
 ---
-
 # React Big Calendar necesita altura real calculable
 
 ## Idea Principal

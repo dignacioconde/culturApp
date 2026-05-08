@@ -1,17 +1,20 @@
 ---
+schema_version: 2
+kind: decision
 id: ADR-0009
-type: decision
-status: Accepted
-created: 2026-05-05
-updated: 2026-05-05
+title: Politica unica de IDs CACH
+lifecycle: active
+created: '2026-05-05'
+updated: '2026-05-08'
 aliases:
   - ADR-0009
 tags:
   - product-brain
   - adr
   - ids
+generated: false
+decision_status: Accepted
 ---
-
 # ADR-0009 — Politica unica de IDs CACH
 
 ## Contexto
@@ -22,7 +25,7 @@ El Product Brain conserva issues historicas `CACH-0026`, `CACH-0028` y una serie
 
 A partir de la siguiente issue nueva, el ID canonico sera `CACH-NNNN` con contador monotono global. La letra `B` queda como legado historico de la primera beta y no se usara para issues nuevas.
 
-El tipo de trabajo vive en frontmatter (`type: bug | feature | chore | spike | doc`) y el ciclo vive en `cycle`, no en el ID.
+El tipo de trabajo vive en frontmatter (`work_type: bug | feature | chore | spike | doc`) y el agrupador de producto vive en `release` o `theme`, no en el ID.
 
 ## Consecuencias
 

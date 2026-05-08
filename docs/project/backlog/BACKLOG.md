@@ -1,7 +1,9 @@
 ---
+schema_version: 2
+kind: backlog
 id: PB-BACKLOG
-type: backlog
-status: Active
+title: Backlog operativo
+lifecycle: active
 created: 2026-05-05
 updated: 2026-05-08
 aliases:
@@ -11,15 +13,17 @@ tags:
   - product-brain
   - backlog
   - workflow
+generated: true
 ---
 
 # Backlog operativo
 
-Tablero ligero del Product Brain. Cada trabajo ejecutable vive como issue Markdown en `docs/project/issues/`.
+Tablero ligero generado desde las issues Markdown. Las columnas visibles son `issue_workflow`; el detalle vive en cada issue.
 
 ## Fuentes
 
 - Issues canonicas: [[../indexes/issues.index|Issues Index]]
+- Issues abiertas: [[../indexes/issues-open.index|Issues Open Index]]
 - Release activa: [[../releases/CURRENT_RELEASE|Current Release]]
 - Plan actual: [[../plans/CURRENT_PLAN|Current Plan]]
 - Ideas sin refinar: [[IDEAS]]
@@ -27,81 +31,87 @@ Tablero ligero del Product Brain. Cada trabajo ejecutable vive como issue Markdo
 
 ## Estados
 
-| Columna | Frontmatter |
+| Columna | Frontmatter v2 |
 |---|---|
-| Inbox | `status: inbox` |
-| Backlog | `status: backlog`, `ready` o `blocked` |
-| In progress | `status: in-progress` |
-| Review | `status: review` |
-| Done | `status: done` |
+| Intake | `issue_workflow: inbox` |
+| Backlog | `issue_workflow: backlog` o `blocked` |
+| Ready | `issue_workflow: ready` |
+| In progress | `issue_workflow: in_progress` |
+| Review / Verify | `issue_workflow: review` |
+| Done | `issue_workflow: done` |
 
-`wontfix` no tiene columna propia: se deja como nota en la issue y se excluye del tablero.
+`wont_fix` no tiene columna propia: se deja como nota en la issue y se excluye del tablero.
 
-## Inbox
+## Intake
 
-Sin issues en inbox.
+_Sin issues._
 
 ## Backlog
 
-| ID | Titulo | Tipo | Prioridad | Nota |
-|---|---|---|---|---|
-| [[../issues/CACH-0042|CACH-0042]] | [UX] Racionalizar navegacion inferior | feature | p1 | Reducir friccion movil sin cambiar rutas mayores. |
-| [[../issues/CACH-0046|CACH-0046]] | [Verify] Anadir verificacion por tipo de cambio | chore | p1 | Checks compuestos por docs, skills, agents, UI y release. |
-| [[../issues/CACH-0047|CACH-0047]] | [Skills] Actualizar catalogo y symlinks de skills | chore | p1 | Fuente unica para skills portables y exposicion Claude. |
-| [[../issues/CACH-B0001|CACH-B0001]] | Redisenar Trabajos y jerarquia proyecto-evento | feature | p1 | Partir antes de ejecutar. |
-| [[../issues/CACH-B0002|CACH-B0002]] | Simplificar experiencia mobile financiera | feature | p1 | Validacion mobile obligatoria. |
-| [[../issues/CACH-B0004|CACH-B0004]] | Contratantes, facturacion y liquidacion neta | feature | p1 | Evolucion de modelo financiero. |
-| [[../issues/CACH-B0007|CACH-B0007]] | Calendario unificado e interaccion rapida | feature | p1 | QA visual y responsive. |
-| [[../issues/CACH-0048|CACH-0048]] | [Context] Compactar workflow OpenCode | chore | p2 | Reducir tokens y duplicacion operativa. |
-| [[../issues/CACH-B0008|CACH-B0008]] | PWA, notificaciones y offline | feature | p2 | Post confianza basica. |
-| [[../issues/CACH-B0009|CACH-B0009]] | Inteligencia financiera y features Pro | feature | p2 | No antes de beta trust. |
-| [[../issues/CACH-B0010|CACH-B0010]] | Tooling de agentes y modelos de desarrollo | chore | p2 | Tooling interno. |
-| [[../issues/CACH-B0011|CACH-B0011]] | Categorias, etiquetas y taxonomia | feature | p2 | Requiere decision de producto. |
-| [[../issues/CACH-B0012|CACH-B0012]] | Perfil publico, viralidad y referidos | feature | p3 | Growth futuro. |
-| [[../issues/CACH-B0013|CACH-B0013]] | Gestion documental por proyecto/evento | feature | p3 | Post-MVP. |
+| ID | Titulo | Tipo | Nivel | P | Componentes |
+|---|---|---|---|---|---|
+| [[../issues/CACH-0042|CACH-0042]] | [UX] Racionalizar navegacion inferior | feature | slice | p1 | design-system |
+| [[../issues/CACH-0046|CACH-0046]] | [Verify] Anadir verificacion por tipo de cambio | chore | task | p1 | agents, infra-deploy |
+| [[../issues/CACH-0047|CACH-0047]] | [Skills] Actualizar catalogo y symlinks de skills | chore | task | p1 | agents |
+| [[../issues/CACH-B0001|CACH-B0001]] | Redisenar Trabajos y jerarquia proyecto-evento | feature | initiative | p1 | work, projects, events, design-system |
+| [[../issues/CACH-B0002|CACH-B0002]] | Simplificar experiencia mobile financiera | feature | initiative | p1 | finance |
+| [[../issues/CACH-B0004|CACH-B0004]] | Contratantes facturacion y liquidacion neta | feature | initiative | p1 | finance, design-system |
+| [[../issues/CACH-B0007|CACH-B0007]] | Calendario unificado e interaccion rapida | feature | initiative | p1 | calendar, design-system |
+| [[../issues/CACH-0048|CACH-0048]] | [Context] Compactar workflow OpenCode | chore | task | p2 | work, agents |
+| [[../issues/CACH-B0008|CACH-B0008]] | PWA notificaciones y offline | feature | initiative | p2 | infra-deploy |
+| [[../issues/CACH-B0009|CACH-B0009]] | Inteligencia financiera y features Pro | feature | initiative | p2 | finance |
+| [[../issues/CACH-B0010|CACH-B0010]] | Tooling de agentes y modelos de desarrollo | chore | initiative | p2 | agents, infra-deploy |
+| [[../issues/CACH-B0011|CACH-B0011]] | Categorias etiquetas y taxonomia | spike | initiative | p2 | design-system |
+| [[../issues/CACH-B0012|CACH-B0012]] | Perfil publico viralidad y referidos | feature | initiative | p3 | settings-profile |
+| [[../issues/CACH-B0013|CACH-B0013]] | Gestion documental por proyecto evento | feature | initiative | p3 | projects, events |
+
+## Ready
+
+_Sin issues._
+
 ## In progress
 
-| ID | Titulo | Tipo | Prioridad | Nota |
-|---|---|---|---|---|
-| [[../issues/CACH-B0020|CACH-B0020]] | Validar dominio de email transaccional y cambiar remitentes definitivos | chore | p0 | Scope beta 14: email, DNS, Brevo y Supabase SMTP. |
+| ID | Titulo | Tipo | Nivel | P | Componentes |
+|---|---|---|---|---|---|
+| [[../issues/CACH-B0020|CACH-B0020]] | Validar dominio de email transaccional y cambiar remitentes definitivos | chore | task | p0 | infra-deploy, email, supabase |
 
-## Review
+## Review / Verify
 
-| ID | Titulo | Tipo | Prioridad | Nota |
-|---|---|---|---|---|
+_Sin issues._
 
 ## Done
 
 | ID | Titulo | Release | Resultado |
 |---|---|---|---|
-| [[../issues/CACH-0041|CACH-0041]] | [UX] Simplificar dashboard movil y estado Ahora | [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] | Dashboard movil prioriza agenda inmediata con tarjeta Ahora y caja compacta. |
-| [[../issues/CACH-0044|CACH-0044]] | [UX] Crear evento desde proyecto con proyecto preseleccionado | [[../releases/RELEASE-0.1.0-beta.12|RELEASE-0.1.0-beta.12]] | Crear evento desde proyecto preselecciona el proyecto y vuelve al detalle tras guardar. |
-| [[../issues/CACH-0045|CACH-0045]] | [UX] Anadir confirmacion a borrados destructivos | [[../releases/RELEASE-0.1.0-beta.12|RELEASE-0.1.0-beta.12]] | ConfirmDialog cubre proyecto, evento, ingresos y gastos, incluidos borrados inline. |
-| [[../issues/CACH-0043|CACH-0043]] | [UX] Limpiar acciones en detalle de proyecto | [[../releases/RELEASE-0.1.0-beta.12|RELEASE-0.1.0-beta.12]] | ProjectDetail prioriza crear evento y rebaja editar/eliminar sin perder cobro/gasto. |
-| [[../issues/CACH-0039|CACH-0039]] | [Agents] Respetar permisos reales en lanzadores OpenCode | [[../releases/RELEASE-0.1.0-beta.11|RELEASE-0.1.0-beta.11]] | Guardrails de permisos OpenCode consolidados en main. |
-| [[../issues/CACH-0040|CACH-0040]] | [Agents] Separar plan draft de ejecucion mutante | [[../releases/RELEASE-0.1.0-beta.11|RELEASE-0.1.0-beta.11]] | Plan draft read-only y execute mutante separados. |
-| [[../issues/CACH-B0019|CACH-B0019]] | Emails transaccionales beta con Brevo | [[../releases/RELEASE-0.1.0-beta.10|RELEASE-0.1.0-beta.10]] | Invitaciones por Brevo Edge Function, auditoría y flujo de confirmación email preparados. |
-| [[../issues/CACH-B0017|CACH-B0017]] | Panel admin para invitaciones beta | [[../releases/RELEASE-0.1.0-beta.9|RELEASE-0.1.0-beta.9]] | Panel admin, rol admin, RPCs seguras y hotfix pgcrypto integrados por PR #88. |
-| [[../issues/CACH-B0018|CACH-B0018]] | Adaptador Codex-native para perfiles Cultura | [[../releases/RELEASE-0.1.0-beta.9|RELEASE-0.1.0-beta.9]] | Flujo Codex-native documentado e integrado por PR #88. |
-| [[../issues/CACH-B0006|CACH-B0006]] | Onboarding y acceso beta | [[../releases/RELEASE-0.1.0-beta.8|RELEASE-0.1.0-beta.8]] | Acceso por invitación, onboarding y consentimiento básico integrados por PR #87. |
-| [[../issues/CACH-0030|CACH-0030]] | Homogeneizar diseno con nueva paleta | [[../releases/RELEASE-0.1.0-beta.6|RELEASE-0.1.0-beta.6]] | Cerrada por beta 6 en PR #85; drift documental corregido tras beta 7. |
-| [[../issues/CACH-0038|CACH-0038]] | Compactar mobile financiero y detalles accionables | [[../releases/RELEASE-0.1.0-beta.6|RELEASE-0.1.0-beta.6]] | Cerrada por beta 6 en PR #85; drift documental corregido tras beta 7. |
-| [[../issues/CACH-B0005|CACH-B0005]] | Importacion, exportacion y portabilidad de datos | [[../releases/RELEASE-0.1.0-beta.7|RELEASE-0.1.0-beta.7]] | Export JSON/CSV e import CSV minima integradas por PR #86. |
-| [[../issues/CACH-0036|CACH-0036]] | Profesionalizar flujo de ramas por beta | [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] | Flujo beta profesional integrado en main por PR #84. |
-| [[../issues/CACH-0037|CACH-0037]] | Consolidar PRD y sistema de diseno de Cachés | [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] | PRD y sistema de diseno base integrados en main por PR #84. |
-| [[../issues/CACH-0033|CACH-0033]] | Vista anual en calendario de proyectos | [[../releases/RELEASE-0.1.0-beta.4|RELEASE-0.1.0-beta.4]] | Planificacion anual con Gantt desktop y compacto movil. |
-| [[../issues/CACH-B0003|CACH-B0003]] | Cobro rapido y gestion de pendientes | [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] | Cobro accionable con confirmacion, deshacer y vencimientos solo en pendientes. |
-| [[../issues/CACH-B0014|CACH-B0014]] | Endurecer agenda, cobros y captura del MVP | [[../releases/RELEASE-0.1.0-beta.2|RELEASE-0.1.0-beta.2]] | 5 bugs críticos corregidos. |
-| [[../issues/CACH-0035|CACH-0035]] | Rediseño financiero del Dashboard y paid_date en cobros rapidos | [[../releases/RELEASE-0.1.0-beta.3|RELEASE-0.1.0-beta.3]] | Dashboard financiero centrado en cobros y trabajos accionables. |
-| [[../issues/CACH-0032|CACH-0032]] | Priorizar operativa diaria en dashboard movil | null | Mergeada a main. Dashboard mobile operativo. |
-| [[../issues/CACH-0034|CACH-0034]] | €/h muestra valor incorrecto cuando no hay eventos con horas | null | Muestra '—' cuando no hay eventos con horas calculables. |
-| [[../issues/CACH-0026|CACH-0026]] | Setup inicial Product Brain | null | Product Brain inicial creado. |
-| [[../issues/CACH-0028|CACH-0028]] | Corregir sync iCloud y estructura versionada | null | Sync repo/vault estabilizado. |
-| [[../issues/CACH-B0015|CACH-B0015]] | Operativizar backlog, releases y ramas en Product Brain | [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] | Sistema operativo inicial. |
-| [[../issues/CACH-B0016|CACH-B0016]] | Refundacion operativa del Product Brain y tests B0014 | [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] | Validador, tests y politicas. |
-| [[../issues/CACH-0029|CACH-0029]] | Integrar helpers CACH-B0016 en flujos reales | [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] | Mergeada PR #59. Commit 5e2e601. |
-| [[../issues/CACH-0031|CACH-0031]] | Corregir ajustes UX movil detectados en exploracion | null | Mergeada PR #74. Ajustes mobile aplicados. |
+| [[../issues/CACH-0039|CACH-0039]] | [Agents] Respetar permisos reales en lanzadores OpenCode | RELEASE-0.1.0-beta.11 | Cerrada por `RELEASE-0.1.0-beta.11` en `main` mediante commit `15c0743`. |
+| [[../issues/CACH-0040|CACH-0040]] | [Agents] Separar plan draft de ejecucion mutante | RELEASE-0.1.0-beta.11 | Cerrada por `RELEASE-0.1.0-beta.11` en `main` mediante commit `15c0743`. |
+| [[../issues/CACH-0049|CACH-0049]] | Migrar Product Brain a v2 lean agile para agentes | null | Product Brain queda migrado a v2 completo. El repositorio dispone de schema, migrador, orientador, generadores, validadores, checks de cierre y contratos de agente alineados con Product Brain-first. |
+| [[../issues/CACH-0026|CACH-0026]] | Setup inicial Product Brain | null | Sin resultado documentado. |
+| [[../issues/CACH-0028|CACH-0028]] | Corregir sync iCloud y estructura versionada | null | Sin resultado documentado. |
+| [[../issues/CACH-0029|CACH-0029]] | Integrar helpers CACH-B0016 en flujos reales | RELEASE-0.1.0-beta.1 | Listo para revision. CACH-0029 integra los helpers de CACH-B0016 en flujos reales: |
+| [[../issues/CACH-0030|CACH-0030]] | Homogeneizar diseno con nueva paleta de colores y fuentes | RELEASE-0.1.0-beta.6 | Sin resultado documentado. |
+| [[../issues/CACH-0031|CACH-0031]] | Corregir ajustes UX movil detectados en exploracion | null | Implementado en PR #74 y mergeado a `main`. |
+| [[../issues/CACH-0032|CACH-0032]] | Priorizar operativa diaria en dashboard movil | null | Implementado en rama `feature/CACH-0032-mobile-dashboard-operativo`. |
+| [[../issues/CACH-0034|CACH-0034]] | €/h muestra valor incorrecto cuando no hay eventos con horas | null | Sin resultado documentado. |
+| [[../issues/CACH-0035|CACH-0035]] | Rediseño financiero del Dashboard y paid_date en cobros rapidos | RELEASE-0.1.0-beta.3 | Released en RELEASE-0.1.0-beta.3. Se implementó rediseño de KPIs, helpers financieros testeados, UI móvil compacta y corrección de `paid_date` en cobros rápidos de proyecto y evento. |
+| [[../issues/CACH-0036|CACH-0036]] | Profesionalizar flujo de ramas por beta | RELEASE-0.1.0-beta.5 | Released en RELEASE-0.1.0-beta.5. Cambios de proceso integrados en `main` mediante PR #84. |
+| [[../issues/CACH-0037|CACH-0037]] | Consolidar PRD y sistema de diseno de Cachés | RELEASE-0.1.0-beta.5 | Released en RELEASE-0.1.0-beta.5. PRD y sistema de diseno integrados en `main` mediante PR #84. |
+| [[../issues/CACH-0038|CACH-0038]] | Compactar mobile financiero y detalles accionables | RELEASE-0.1.0-beta.6 | Sin resultado documentado. |
+| [[../issues/CACH-0041|CACH-0041]] | [UX] Simplificar dashboard movil y estado Ahora | RELEASE-0.1.0-beta.13 | Cerrada por `RELEASE-0.1.0-beta.13`. |
+| [[../issues/CACH-0043|CACH-0043]] | [UX] Limpiar acciones en detalle de proyecto | RELEASE-0.1.0-beta.12 | Cerrada por `RELEASE-0.1.0-beta.12`. |
+| [[../issues/CACH-0044|CACH-0044]] | [UX] Crear evento desde proyecto con proyecto preseleccionado | RELEASE-0.1.0-beta.12 | Cerrada por `RELEASE-0.1.0-beta.12`. |
+| [[../issues/CACH-0045|CACH-0045]] | [UX] Anadir confirmacion a borrados destructivos | RELEASE-0.1.0-beta.12 | Cerrada por `RELEASE-0.1.0-beta.12`. |
+| [[../issues/CACH-B0003|CACH-B0003]] | Cobro rapido y gestion de pendientes | RELEASE-0.1.0-beta.5 | Released en RELEASE-0.1.0-beta.5 por ampliacion explicita de scope. Integrado en `main` mediante PR #84. |
+| [[../issues/CACH-B0005|CACH-B0005]] | Importacion exportacion y portabilidad de datos | RELEASE-0.1.0-beta.7 | Released en RELEASE-0.1.0-beta.7. Integrado en `main` mediante PR #86. |
+| [[../issues/CACH-B0006|CACH-B0006]] | Onboarding y acceso beta | RELEASE-0.1.0-beta.8 | Released en RELEASE-0.1.0-beta.8. Integrado en `main` mediante PR #87. |
+| [[../issues/CACH-B0014|CACH-B0014]] | Endurecer agenda cobros y captura del MVP | RELEASE-0.1.0-beta.2 | Sin resultado documentado. |
+| [[../issues/CACH-B0015|CACH-B0015]] | Operativizar backlog releases y ramas en Product Brain | RELEASE-0.1.0-beta.1 | Product Brain queda preparado como sistema operativo de producto e ingenieria: backlog, release activa, ramas, commits, agentes, plantillas y cierre de releases quedan documentados y enlazados. |
+| [[../issues/CACH-B0016|CACH-B0016]] | Refundacion operativa del Product Brain y tests B0014 | RELEASE-0.1.0-beta.1 | Sin resultado documentado. |
+| [[../issues/CACH-B0017|CACH-B0017]] | Panel admin para invitaciones beta | RELEASE-0.1.0-beta.9 | Sin resultado documentado. |
+| [[../issues/CACH-B0019|CACH-B0019]] | Emails transaccionales beta con Brevo | RELEASE-0.1.0-beta.10 | Implementado y asociado a RELEASE-0.1.0-beta.10. La migración y la Edge Function quedaron desplegadas en Supabase; el envío funciona usando un remitente personal validado temporalmente. Queda pendiente crear o activar un remitente real de Cachés, validarlo en Brevo, cambiar el remitente temporal en Supabase Auth/Edge Function y configurar SPF/DKIM/DMARC antes de producción estable. |
+| [[../issues/CACH-0033|CACH-0033]] | Vista anual en calendario de proyectos | RELEASE-0.1.0-beta.4 | Released en RELEASE-0.1.0-beta.4. Se implemento una planificacion anual de proyectos con timeline desktop, Gantt compacto movil, lista mensual y helpers puros testeados para rangos y cruces de anos. |
+| [[../issues/CACH-B0018|CACH-B0018]] | Adaptador Codex-native para perfiles Cultura | RELEASE-0.1.0-beta.9 | Sin resultado documentado. |
 
 ## Regla de mantenimiento
 
-Actualizar este tablero cuando cambie `status` en una issue. Si el tablero y el frontmatter divergen, `npm run pb:check` debe fallar.
+No edites este tablero a mano salvo emergencia: ejecuta `npm run pb:index`. Si el tablero y las issues divergen, `npm run pb:check` falla.

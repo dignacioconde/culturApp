@@ -1,9 +1,11 @@
 ---
+schema_version: 2
+kind: process
 id: PB-PROCESS-RELEASE-PROCESS
-type: process
-status: Active
-created: 2026-05-05
-updated: 2026-05-06
+title: Release Process
+lifecycle: active
+created: '2026-05-05'
+updated: '2026-05-08'
 aliases:
   - Release Process
   - Proceso de releases
@@ -11,8 +13,8 @@ tags:
   - product-brain
   - process
   - releases
+generated: false
 ---
-
 # Release Process
 
 Una release agrupa issues con un objetivo de producto, rama de integracion, checklist de validacion y release notes.

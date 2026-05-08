@@ -1,9 +1,11 @@
 ---
+schema_version: 2
+kind: process
 id: PB-PROCESS-SUPABASE-DB-ACCESS
-type: process
-status: Active
-created: 2026-05-07
-updated: 2026-05-07
+title: Acceso directo seguro a Supabase
+lifecycle: active
+created: '2026-05-07'
+updated: '2026-05-08'
 aliases:
   - Supabase DB Access
   - Acceso Supabase MCP
@@ -12,8 +14,8 @@ tags:
   - process
   - supabase
   - security
+generated: false
 ---
-
 # Acceso directo seguro a Supabase
 
 Este documento define como agentes y humanos operan la base de datos de Cachés sin exponer secretos ni saltarse el flujo versionado de migraciones.

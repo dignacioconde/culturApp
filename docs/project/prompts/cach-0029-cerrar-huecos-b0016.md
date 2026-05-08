@@ -1,10 +1,11 @@
 ---
+schema_version: 2
+kind: prompt
 id: PB-PROMPT-CACH-0029
-type: prompt
-status: Historical
-created: 2026-05-05
-updated: 2026-05-06
-load_policy: do_not_load_by_default
+title: Cerrar huecos reales de CACH-B0016
+lifecycle: historical
+created: '2026-05-05'
+updated: '2026-05-08'
 aliases:
   - CACH-0029 cerrar huecos B0016
   - Prompt CACH-0029
@@ -14,8 +15,8 @@ tags:
   - testing
   - hardening
   - historical
+generated: false
 ---
-
 # CACH-0029 — Cerrar huecos reales de CACH-B0016
 
 Historical prompt:

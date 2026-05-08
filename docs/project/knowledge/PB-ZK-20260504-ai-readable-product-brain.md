@@ -1,9 +1,11 @@
 ---
+schema_version: 2
+kind: knowledge
 id: PB-ZK-20260504-AI-READABLE-PRODUCT-BRAIN
-type: zk
-status: Active
-created: 2026-05-04
-updated: 2026-05-04
+title: '2026-05-04'
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - Product Brain legible por IA
 tags:
@@ -11,8 +13,8 @@ tags:
   - knowledge
   - agents
   - docs
+generated: false
 ---
-
 # Product Brain legible por IA — 2026-05-04
 
 ## Idea

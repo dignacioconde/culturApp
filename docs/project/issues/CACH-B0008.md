@@ -1,15 +1,11 @@
 ---
+schema_version: 2
+kind: issue
 id: CACH-B0008
 title: PWA notificaciones y offline
-type: feature
-status: backlog
-cycle: unassigned
-release: null
-priority: p2
-estimate: m
-area: infra
-created_at: 2026-05-04
-updated_at: 2026-05-04
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - CACH-B0008
 tags:
@@ -17,8 +13,23 @@ tags:
   - issue
   - infra
   - mobile
+generated: false
+work_type: feature
+work_level: initiative
+issue_workflow: backlog
+priority: p2
+size: m
+area: infra
+components:
+  - infra-deploy
+parent: null
+related: []
+depends_on: []
+blocked_by: []
+adr: []
+release: null
+theme: internal-agent-ops
 ---
-
 # CACH-B0008 — PWA, notificaciones y offline
 
 ## Summary
@@ -53,3 +64,26 @@ Recordatorios y resumen semanal dependen de canales de notificación. La experie
 
 - [[CACH-B0003|CACH-B0003]]
 - [[CACH-B0007|CACH-B0007]]
+
+## Desarrollo
+
+- Rama:
+- PR:
+- Estado actual:
+
+## Notas de progreso
+
+
+## Cambios de alcance y decisiones
+
+
+## Bloqueos
+
+
+## Validación ejecutada
+
+Pendiente hasta ejecutar la issue.
+
+## Memoria
+
+No aplica por ahora.

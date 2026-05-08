@@ -1,15 +1,11 @@
 ---
+schema_version: 2
+kind: issue
 id: CACH-B0004
 title: Contratantes facturacion y liquidacion neta
-type: feature
-status: backlog
-cycle: unassigned
-release: null
-priority: p1
-estimate: m
-area: db
-created_at: 2026-05-04
-updated_at: 2026-05-04
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - CACH-B0004
 tags:
@@ -17,8 +13,24 @@ tags:
   - issue
   - finance
   - data
+generated: false
+work_type: feature
+work_level: initiative
+issue_workflow: backlog
+priority: p1
+size: m
+area: data
+components:
+  - finance
+  - design-system
+parent: null
+related: []
+depends_on: []
+blocked_by: []
+adr: []
+release: null
+theme: finance-operations
 ---
-
 # CACH-B0004 — Contratantes, facturación y liquidación neta
 
 ## Summary
@@ -53,3 +65,26 @@ El modelo actual cubre ingresos/gastos por proyecto o evento, pero no expresa bi
 - [[CACH-B0003|CACH-B0003]]
 - [[CACH-B0009|CACH-B0009]]
 - [[../context/data-finance-model-20260504|data-finance-model-20260504]]
+
+## Desarrollo
+
+- Rama:
+- PR:
+- Estado actual:
+
+## Notas de progreso
+
+
+## Cambios de alcance y decisiones
+
+
+## Bloqueos
+
+
+## Validación ejecutada
+
+Pendiente hasta ejecutar la issue.
+
+## Memoria
+
+No aplica por ahora.
