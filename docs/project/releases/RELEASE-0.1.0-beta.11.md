@@ -18,7 +18,7 @@ tags:
 
 ## Estado
 
-Active
+Active, bloqueada por dependencia externa de dominio/DNS.
 
 ## Rama de release
 
@@ -61,7 +61,7 @@ Crear o activar un remitente real de Cachés, validarlo en Brevo y sustituir el 
 
 | Issue | Título | Estado | Rama |
 |---|---|---|---|
-| [[../issues/CACH-B0020|CACH-B0020]] | Validar dominio de email transaccional y cambiar remitentes definitivos | Ready | `release/0.1.0-beta.11` |
+| [[../issues/CACH-B0020|CACH-B0020]] | Validar dominio de email transaccional y cambiar remitentes definitivos | Blocked | `release/0.1.0-beta.11` |
 
 ## Fuera de alcance
 
@@ -73,6 +73,7 @@ Crear o activar un remitente real de Cachés, validarlo en Brevo y sustituir el 
 - No añadir tareas a esta release sin crear o actualizar su issue `CACH-*`.
 - Mientras el remitente definitivo no esté validado, los correos pueden funcionar en pruebas pero fallar en entrega real o reputación.
 - No cambiar Supabase Auth SMTP ni `EMAIL_FROM_ADDRESS` al remitente definitivo hasta que el email/alias exista y Brevo confirme el dominio/remitente.
+- Verificación del 8 de mayo de 2026: `caches.es` y `updates.caches.es` no presentan DNS público resoluble para `NS`, `MX`, `TXT` ni selectores DKIM de Brevo; la release queda bloqueada hasta resolver esta dependencia externa.
 
 ## Decisiones relacionadas
 
@@ -88,10 +89,10 @@ Crear o activar un remitente real de Cachés, validarlo en Brevo y sustituir el 
 
 ## Checklist de desarrollo
 
-- [ ] Todas las issues están en progreso o cerradas
+- [ ] Todas las issues están en progreso, bloqueadas con causa explícita o cerradas
 - [ ] Commits preparados en rama release
 - [ ] No hay cambios sueltos fuera de release
-- [ ] No hay issues sin estado
+- [x] No hay issues sin estado
 - [ ] No hay decisiones importantes sin documentar
 
 ## Checklist de estabilización
@@ -138,8 +139,11 @@ Crear o activar un remitente real de Cachés, validarlo en Brevo y sustituir el 
 
 ### Técnico
 
-- Pendiente: validación DNS/Brevo y smoke test Supabase/Brevo.
+- Supabase Edge Function `send-beta-invite` verificada como activa y con `verify_jwt=true`.
+- Secrets de Edge Function presentes en Supabase sin imprimir valores.
+- Auditoría de invitaciones muestra envíos recientes aceptados por Brevo en el estado temporal anterior.
+- Bloqueado: validación DNS/Brevo y smoke test definitivo con remitente real de Cachés.
 
 ## Resultado final
 
-Release abierta para cerrar la deuda operativa de beta 10 antes de invitar a más usuarios reales.
+Release abierta y bloqueada por dependencia externa: falta dominio/remitente real de Cachés con DNS público validable por Brevo antes de sustituir remitentes y cerrar el smoke test definitivo.

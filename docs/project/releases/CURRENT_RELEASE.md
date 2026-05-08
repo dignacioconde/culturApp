@@ -30,10 +30,12 @@ tags:
 
 Máxima prioridad para el **8 de mayo de 2026**: crear o activar un remitente real de Cachés, validar dominio/remitente transaccional en Brevo, cambiar remitentes temporales y verificar invitación + confirmación de cuenta. Issue asociada: [[../issues/CACH-B0020|CACH-B0020]].
 
+Estado operativo: bloqueada hasta registrar/delegar `caches.es`/`updates.caches.es` o escoger un dominio real ya operativo, crear el email/alias definitivo y añadir los registros DNS que Brevo requiera.
+
 ## Regla de trabajo para esta release
 
 Crear o actualizar issue `CACH-*` antes de meter trabajo en `release/0.1.0-beta.11`.
 
 ## Como cerrar esta release
 
-Cerrar [[../issues/CACH-B0020|CACH-B0020]], verificar invitación + confirmación con el remitente definitivo, abrir PR `release/0.1.0-beta.11` -> `main`, esperar CI verde, mergear, etiquetar y verificar producción si aplica.
+Desbloquear [[../issues/CACH-B0020|CACH-B0020]], verificar invitación + confirmación con el remitente definitivo, abrir PR `release/0.1.0-beta.11` -> `main`, esperar CI verde, mergear, etiquetar y verificar producción si aplica.

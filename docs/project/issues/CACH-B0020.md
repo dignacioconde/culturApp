@@ -2,7 +2,7 @@
 id: CACH-B0020
 title: Validar dominio de email transaccional y cambiar remitentes definitivos
 type: chore
-status: ready
+status: blocked
 cycle: beta-1
 priority: p0
 estimate: s
@@ -59,10 +59,21 @@ Contexto operativo: ahora mismo el envío funciona porque el remitente temporal 
 - DNS: comprobar TXT/MX relevantes con `dig`.
 - App: smoke test de invitación y confirmación.
 
+## Bloqueo operativo
+
+Verificación del **8 de mayo de 2026**:
+
+- `caches.es` y `updates.caches.es` no tienen DNS público delegado/resoluble para `NS`, `MX`, `TXT` ni los selectores DKIM esperados por Brevo.
+- Supabase Edge Function `send-beta-invite` está activa y con secrets requeridos presentes, sin imprimir valores.
+- La auditoría `beta_invite_email_deliveries` muestra envíos recientes `sent` con `provider_message_id`, pero corresponden al estado temporal anterior y no validan el remitente definitivo de Cachés.
+- Mientras el dominio/remitente definitivo no exista y Brevo no lo marque como validado, no se debe cambiar `EMAIL_FROM_ADDRESS` ni el `Sender email` de Supabase Auth SMTP.
+
+Siguiente desbloqueo externo: registrar/delegar el dominio o escoger un dominio real ya operativo, crear el email/alias definitivo, añadir en DNS los registros que entregue Brevo y esperar validación pública.
+
 ## Prioridad operativa
 
 Máxima prioridad para el **8 de mayo de 2026**.
 
 ## Resultado
 
-Pendiente hasta cerrar la issue.
+Bloqueada por falta de dominio/remitente definitivo real y DNS público validable. No se cierra la beta ni se sustituyen remitentes hasta completar el desbloqueo externo y repetir el smoke test real.

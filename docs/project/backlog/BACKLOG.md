@@ -45,7 +45,7 @@ Sin issues en inbox.
 
 | ID | Titulo | Tipo | Prioridad | Nota |
 |---|---|---|---|---|
-| [[../issues/CACH-B0020|CACH-B0020]] | Validar dominio de email transaccional y cambiar remitentes definitivos | chore | p0 | Máxima prioridad para el 8 de mayo de 2026. |
+| [[../issues/CACH-B0020|CACH-B0020]] | Validar dominio de email transaccional y cambiar remitentes definitivos | chore | p0 | Bloqueada: falta dominio/remitente real con DNS público validable por Brevo. |
 | [[../issues/CACH-B0001|CACH-B0001]] | Redisenar Trabajos y jerarquia proyecto-evento | feature | p1 | Partir antes de ejecutar. |
 | [[../issues/CACH-B0002|CACH-B0002]] | Simplificar experiencia mobile financiera | feature | p1 | Validacion mobile obligatoria. |
 | [[../issues/CACH-B0004|CACH-B0004]] | Contratantes, facturacion y liquidacion neta | feature | p1 | Evolucion de modelo financiero. |

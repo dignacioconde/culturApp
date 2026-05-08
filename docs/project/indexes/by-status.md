@@ -49,6 +49,6 @@ tags:
 - [[../issues/CACH-B0012|CACH-B0012]] — Perfil publico viralidad y referidos
 - [[../issues/CACH-B0013|CACH-B0013]] — Gestion documental por proyecto evento
 
-## ready
+## blocked
 
 - [[../issues/CACH-B0020|CACH-B0020]] — Validar dominio de email transaccional y cambiar remitentes definitivos
