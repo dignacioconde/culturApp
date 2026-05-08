@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { AlertCircle, CalendarDays, FilterX, Plus, Search, SlidersHorizontal } from 'lucide-react'
 import { PageWrapper } from '../../components/layout/PageWrapper'
 import { Card } from '../../components/ui/Card'
@@ -21,6 +21,8 @@ export default function EventList() {
   const { projects, loading: projectsLoading, error: projectsError } = useProjects(user?.id)
   const { toasts, addToast, removeToast } = useToast()
   const [searchParams, setSearchParams] = useSearchParams()
+  const navigate = useNavigate()
+  const projectParam = searchParams.get('project')
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [saving, setSaving] = useState(false)
@@ -42,6 +44,9 @@ export default function EventList() {
   const activeFilterCount = [search, filterStatus, filterCategory, effectiveFilterProject].filter(Boolean).length
   const categoryLabels = useMemo(() => Object.fromEntries(EVENT_CATEGORIES.map((c) => [c.value, c.label])), [])
   const projectById = useMemo(() => Object.fromEntries(projects.map((p) => [p.id, p])), [projects])
+  const createFromProject = searchParams.get('new') === '1' && Boolean(projectParam)
+  const shouldReturnToProject = searchParams.get('returnTo') === 'project' && Boolean(projectParam)
+  const createModalOpen = isModalOpen || createFromProject
 
   const filtered = events.filter((e) => {
     const query = search.trim().toLowerCase()
@@ -78,6 +83,23 @@ export default function EventList() {
     if (error) { addToast('Error al crear el evento.', 'error'); return }
     addToast('Evento creado correctamente.')
     setIsModalOpen(false)
+    if (shouldReturnToProject) {
+      navigate(`/projects/${projectParam}`)
+    }
+  }
+
+  const openCreateModal = () => {
+    setIsModalOpen(true)
+  }
+
+  const closeCreateModal = () => {
+    setIsModalOpen(false)
+    if (searchParams.get('new')) {
+      const newParams = new URLSearchParams(searchParams)
+      newParams.delete('new')
+      newParams.delete('returnTo')
+      setSearchParams(newParams, { replace: true })
+    }
   }
 
   return (
@@ -90,7 +112,7 @@ export default function EventList() {
               {hasFilters ? ' con los filtros actuales' : ''}
             </p>
           </div>
-          <Button onClick={() => setIsModalOpen(true)} className="w-full justify-center sm:w-auto">
+          <Button onClick={openCreateModal} className="w-full justify-center sm:w-auto">
             <Plus size={16} />
             Nuevo evento
           </Button>
@@ -245,7 +267,7 @@ export default function EventList() {
                 Limpiar filtros
               </Button>
             ) : (
-              <Button size="sm" onClick={() => setIsModalOpen(true)} className="mt-4">
+              <Button size="sm" onClick={openCreateModal} className="mt-4">
                 <Plus size={16} />
                 Crear evento
               </Button>
@@ -292,11 +314,12 @@ export default function EventList() {
         )}
       </div>
 
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Nuevo evento">
+      <Modal isOpen={createModalOpen} onClose={closeCreateModal} title="Nuevo evento">
         <EventForm
+          initialData={createFromProject ? { project_id: projectParam } : undefined}
           projects={projects}
           onSubmit={handleCreate}
-          onCancel={() => setIsModalOpen(false)}
+          onCancel={closeCreateModal}
           loading={saving}
         />
       </Modal>

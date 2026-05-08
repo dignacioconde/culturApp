@@ -54,14 +54,27 @@ function readDocs(folder) {
     })
 }
 
-function frontmatter(id, aliases, tags) {
+function normalizeDate(value) {
+  if (!value) return null
+  if (value instanceof Date) return value.toISOString().slice(0, 10)
+  return String(value).slice(0, 10)
+}
+
+function existingCreatedDate(fileName) {
+  const filePath = join(indexesRoot, fileName)
+  if (!existsSync(filePath)) return null
+  return normalizeDate(matter(readFileSync(filePath, 'utf8')).data.created)
+}
+
+function frontmatter(fileName, id, aliases, tags) {
   const today = new Date().toISOString().slice(0, 10)
+  const created = existingCreatedDate(fileName) ?? today
   return [
     '---',
     `id: ${id}`,
     'type: index',
     'status: Active',
-    `created: ${today}`,
+    `created: ${created}`,
     `updated: ${today}`,
     'aliases:',
     ...aliases.map((alias) => `  - ${alias}`),
@@ -78,7 +91,7 @@ function link(doc, fromFolder = 'indexes') {
 }
 
 function writeIndex(fileName, id, title, aliases, tags, lines) {
-  const content = `${frontmatter(id, aliases, tags)}# ${title}\n\n${lines.join('\n')}\n`
+  const content = `${frontmatter(fileName, id, aliases, tags)}# ${title}\n\n${lines.join('\n')}`.trimEnd() + '\n'
   writeFileSync(join(indexesRoot, fileName), content)
 }
 

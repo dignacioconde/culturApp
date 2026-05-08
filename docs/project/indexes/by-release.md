@@ -21,9 +21,6 @@ tags:
 - [[../issues/CACH-0034|CACH-0034]] — €/h muestra valor incorrecto cuando no hay eventos con horas
 - [[../issues/CACH-0041|CACH-0041]] — [UX] Simplificar dashboard movil y estado Ahora
 - [[../issues/CACH-0042|CACH-0042]] — [UX] Racionalizar navegacion inferior
-- [[../issues/CACH-0043|CACH-0043]] — [UX] Limpiar acciones en detalle de proyecto
-- [[../issues/CACH-0044|CACH-0044]] — [UX] Crear evento desde proyecto con proyecto preseleccionado
-- [[../issues/CACH-0045|CACH-0045]] — [UX] Anadir confirmacion a borrados destructivos
 - [[../issues/CACH-0046|CACH-0046]] — [Verify] Anadir verificacion por tipo de cambio
 - [[../issues/CACH-0047|CACH-0047]] — [Skills] Actualizar catalogo y symlinks de skills
 - [[../issues/CACH-0048|CACH-0048]] — [Context] Compactar workflow OpenCode
@@ -37,7 +34,6 @@ tags:
 - [[../issues/CACH-B0011|CACH-B0011]] — Categorias etiquetas y taxonomia
 - [[../issues/CACH-B0012|CACH-B0012]] — Perfil publico viralidad y referidos
 - [[../issues/CACH-B0013|CACH-B0013]] — Gestion documental por proyecto evento
-- [[../issues/CACH-B0020|CACH-B0020]] — Validar dominio de email transaccional y cambiar remitentes definitivos
 
 ## RELEASE-0.1.0-beta.1
 
@@ -69,6 +65,12 @@ tags:
 - [[../issues/CACH-0039|CACH-0039]] — [Agents] Respetar permisos reales en lanzadores OpenCode
 - [[../issues/CACH-0040|CACH-0040]] — [Agents] Separar plan draft de ejecucion mutante
 
+## RELEASE-0.1.0-beta.12
+
+- [[../issues/CACH-0043|CACH-0043]] — [UX] Limpiar acciones en detalle de proyecto
+- [[../issues/CACH-0044|CACH-0044]] — [UX] Crear evento desde proyecto con proyecto preseleccionado
+- [[../issues/CACH-0045|CACH-0045]] — [UX] Anadir confirmacion a borrados destructivos
+
 ## RELEASE-0.1.0-beta.7
 
 - [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos
@@ -89,3 +91,7 @@ tags:
 ## RELEASE-0.1.0-beta.10
 
 - [[../issues/CACH-B0019|CACH-B0019]] — Emails transaccionales beta con Brevo
+
+## RELEASE-0.1.0-beta.13
+
+- [[../issues/CACH-B0020|CACH-B0020]] — Validar dominio de email transaccional y cambiar remitentes definitivos

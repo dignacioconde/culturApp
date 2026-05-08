@@ -3,7 +3,7 @@ id: PB-KNOWLEDGE-INDEX
 type: index
 status: Active
 created: 2026-05-07
-updated: 2026-05-07
+updated: 2026-05-08
 aliases:
   - Knowledge Index
 tags:

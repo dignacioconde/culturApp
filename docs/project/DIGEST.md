@@ -14,21 +14,23 @@ tags:
 
 # Product Brain Digest
 
-*Generado: 2026-05-08 08:35 UTC*
+*Generado: 2026-05-08 12:06 UTC*
 
 ---
 
 ## Estado operacional
 
-- **Release activa:** `RELEASE-0.1.0-beta.11` — Dominio email transaccional.
+- **Release activa:** `RELEASE-0.1.0-beta.13` — Email definitivo transaccional.
 - **Último corte:** `RELEASE-0.1.0-beta.10` — emails transaccionales beta con Brevo. Ver RELEASE-0.1.0-beta.10.
+
+`RELEASE-0.1.0-beta.12` — pulido proyecto-evento y borrados seguros. Ver RELEASE-0.1.0-beta.12.
 - **Foco:** Cerrar la operativa de email transaccional: email/alias real, dominio/remitente definitivo, DNS y verificación real de invitación + confirmación.
 
 ## Prioridades del plan
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
-2. Máxima prioridad para el **8 de mayo de 2026**: CACH-B0020 — validar dominio de email transaccional y cambiar remitentes definitivos.
-3. Mantener fuera de este corte calendario unificado, mobile financiero, tooling interno amplio, analítica real, i18n y growth.
+2. Máxima prioridad operativa: CACH-B0020 — validar dominio de email transaccional y cambiar remitentes definitivos.
+3. Mantener fuera de este corte dashboard movil amplio, navegacion inferior, tooling interno, skills, contexto, analitica real, i18n y growth.
 
 ## Tablero
 
@@ -38,7 +40,9 @@ _Sin issues._
 
 ### In progress
 
-_Sin issues._
+| ID | Título | Tipo | P |
+|---|---|---|---|
+| CACH-B0020 | Validar dominio de email transaccional y cambiar remitentes definitivos | chore | p0 |
 
 ### Review
 
@@ -50,9 +54,6 @@ _Sin issues._
 |---|---|---|---|
 | CACH-0041 | [UX] Simplificar dashboard movil y estado Ahora | feature | p1 |
 | CACH-0042 | [UX] Racionalizar navegacion inferior | feature | p1 |
-| CACH-0043 | [UX] Limpiar acciones en detalle de proyecto | feature | p1 |
-| CACH-0044 | [UX] Crear evento desde proyecto con proyecto preseleccionado | feature | p1 |
-| CACH-0045 | [UX] Anadir confirmacion a borrados destructivos | feature | p1 |
 | CACH-0046 | [Verify] Anadir verificacion por tipo de cambio | chore | p1 |
 | CACH-0047 | [Skills] Actualizar catalogo y symlinks de skills | chore | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | feature | p1 |
@@ -64,14 +65,9 @@ _Sin issues._
 
 | ID | Título | Estado | Tipo | P |
 |---|---|---|---|---|
-| CACH-B0020 | Validar dominio de email transaccional y cambiar remitentes definitivos | ready | chore | p0 |
-| CACH-0039 | [Agents] Respetar permisos reales en lanzadores OpenCode | backlog | chore | p0 |
-| CACH-0040 | [Agents] Separar plan draft de ejecucion mutante | backlog | chore | p0 |
+| CACH-B0020 | Validar dominio de email transaccional y cambiar remitentes definitivos | in-progress | chore | p0 |
 | CACH-0041 | [UX] Simplificar dashboard movil y estado Ahora | backlog | feature | p1 |
 | CACH-0042 | [UX] Racionalizar navegacion inferior | backlog | feature | p1 |
-| CACH-0043 | [UX] Limpiar acciones en detalle de proyecto | backlog | feature | p1 |
-| CACH-0044 | [UX] Crear evento desde proyecto con proyecto preseleccionado | backlog | feature | p1 |
-| CACH-0045 | [UX] Anadir confirmacion a borrados destructivos | backlog | feature | p1 |
 | CACH-0046 | [Verify] Anadir verificacion por tipo de cambio | backlog | chore | p1 |
 | CACH-0047 | [Skills] Actualizar catalogo y symlinks de skills | backlog | chore | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | backlog | feature | p1 |

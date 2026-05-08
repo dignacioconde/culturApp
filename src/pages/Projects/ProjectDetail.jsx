@@ -6,6 +6,7 @@ import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
 import { StatusBadge } from '../../components/ui/Badge'
 import { Modal } from '../../components/ui/Modal'
+import { ConfirmDialog } from '../../components/ui/ConfirmDialog'
 import { Input, Select } from '../../components/ui/Input'
 import { useToast, ToastContainer } from '../../components/ui/Toast'
 import { ProjectForm } from './ProjectForm'
@@ -22,9 +23,8 @@ import { isPaid, markPaid, markUnpaid, needsQuickPaidConfirmation, paymentDate }
 import { EXPENSE_CATEGORIES } from '../../lib/constants'
 
 const EMPTY_EXPENSE = { concept: '', amount: '', category: 'otros', expense_date: '', is_deductible: true }
+const compactPrimaryAction = 'inline-flex min-h-9 items-center justify-center gap-2 rounded-lg bg-[var(--color-red)] px-3 py-1.5 text-sm font-medium leading-none text-white shadow-sm transition-colors hover:bg-[var(--color-red-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2'
 const compactSecondaryAction = 'inline-flex min-h-9 items-center justify-center gap-2 rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-paper)] px-3 py-1.5 text-sm font-medium leading-none text-[var(--color-ink)] shadow-sm transition-colors hover:bg-[var(--color-paper-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2'
-const compactPrimaryActionDesktop = 'hidden sm:inline-flex min-h-9 items-center justify-center gap-2 rounded-lg bg-[var(--color-red)] px-3 py-1.5 text-sm font-medium leading-none text-white shadow-sm transition-colors hover:bg-[var(--color-red-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2'
-const compactSecondaryActionDesktop = 'hidden sm:inline-flex min-h-9 items-center justify-center gap-2 rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-paper)] px-3 py-1.5 text-sm font-medium leading-none text-[var(--color-ink)] shadow-sm transition-colors hover:bg-[var(--color-paper-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2'
 const compactDangerActionDesktop = 'hidden sm:inline-flex min-h-9 items-center justify-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium leading-none text-[var(--color-red)] transition-colors hover:bg-[var(--color-red-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2'
 const incomeConceptLabel = (income) => income.concept?.trim() || 'Ingreso sin concepto'
 const incomeDueClass = (income) => {
@@ -62,6 +62,7 @@ export default function ProjectDetail() {
 
   const [editModal, setEditModal] = useState(false)
   const [savingProject, setSavingProject] = useState(false)
+  const [deleteConfirm, setDeleteConfirm] = useState(null)
 
   const defaultTaxRate = profile?.tax_rate ?? 15
   const emptyIncomeForm = { concept: '', amount: '', tax_rate: defaultTaxRate, expected_date: '', is_paid: false, paid_date: null }
@@ -128,6 +129,7 @@ export default function ProjectDetail() {
     .reduce((acc, event) => acc + getEventHours(event), 0)
   const grossHourlyRate = projectHours > 0 ? totalPaidFromEvents / projectHours : 0
   const netProfit = totalPaid - totalRetentions - totalExpenses
+  const createEventUrl = `/events?project=${id}&new=1&returnTo=project`
 
   const openEditIncome = (income) => {
     setEditingIncome(income)
@@ -156,11 +158,48 @@ export default function ProjectDetail() {
     setEditModal(false)
   }
 
-  const handleDeleteProject = async () => {
-    if (!confirm('¿Eliminar este proyecto? Se borrarán también sus ingresos y gastos directos.')) return
-    const { error } = await deleteProject(id)
-    if (error) { addToast('Error al eliminar.', 'error'); return }
-    navigate('/projects')
+  const requestDeleteProject = () => {
+    setDeleteConfirm({
+      title: 'Eliminar proyecto',
+      description: 'Se borrará este proyecto junto con sus ingresos y gastos directos. Esta acción no se puede deshacer.',
+      confirmLabel: 'Eliminar proyecto',
+      onConfirm: async () => {
+        const { error } = await deleteProject(id)
+        if (error) { addToast('Error al eliminar.', 'error'); return }
+        setDeleteConfirm(null)
+        navigate('/projects')
+      },
+    })
+  }
+
+  const requestDeleteIncome = (income, closeIncomeModal = false) => {
+    setDeleteConfirm({
+      title: 'Eliminar ingreso',
+      description: `Se eliminará "${incomeConceptLabel(income)}". Esta acción no se puede deshacer.`,
+      confirmLabel: 'Eliminar ingreso',
+      onConfirm: async () => {
+        const { error } = await deleteIncome(income.id)
+        if (error) { addToast('Error al eliminar el ingreso.', 'error'); return }
+        addToast('Ingreso eliminado.')
+        if (closeIncomeModal) setIncomeModal(false)
+        setDeleteConfirm(null)
+      },
+    })
+  }
+
+  const requestDeleteExpense = (expense, closeExpenseModal = false) => {
+    setDeleteConfirm({
+      title: 'Eliminar gasto',
+      description: `Se eliminará "${expense.concept || 'Gasto sin concepto'}". Esta acción no se puede deshacer.`,
+      confirmLabel: 'Eliminar gasto',
+      onConfirm: async () => {
+        const { error } = await deleteExpense(expense.id)
+        if (error) { addToast('Error al eliminar el gasto.', 'error'); return }
+        addToast('Gasto eliminado.')
+        if (closeExpenseModal) setExpenseModal(false)
+        setDeleteConfirm(null)
+      },
+    })
   }
 
   const handleSubmitIncome = async (e) => {
@@ -189,11 +228,7 @@ export default function ProjectDetail() {
 
   const handleDeleteEditingIncome = async () => {
     if (!editingIncome) return
-    if (!confirm('¿Eliminar este ingreso?')) return
-    const { error } = await deleteIncome(editingIncome.id)
-    if (error) { addToast('Error al eliminar el ingreso.', 'error'); return }
-    addToast('Ingreso eliminado.')
-    setIncomeModal(false)
+    requestDeleteIncome(editingIncome, true)
   }
 
   const undoIncomePaid = async (income, previousPayment) => {
@@ -293,11 +328,7 @@ export default function ProjectDetail() {
 
   const handleDeleteEditingExpense = async () => {
     if (!editingExpense) return
-    if (!confirm('¿Eliminar este gasto?')) return
-    const { error } = await deleteExpense(editingExpense.id)
-    if (error) { addToast('Error al eliminar el gasto.', 'error'); return }
-    addToast('Gasto eliminado.')
-    setExpenseModal(false)
+    requestDeleteExpense(editingExpense, true)
   }
 
   const handleQuickSubmitIncome = async (e) => {
@@ -379,6 +410,23 @@ export default function ProjectDetail() {
                 </p>
               </div>
             </div>
+            <div className="hidden shrink-0 flex-wrap items-center gap-2 sm:flex">
+              <Link to={createEventUrl} className={compactPrimaryAction}>
+                <Plus size={14} /> Crear evento
+              </Link>
+              <button type="button" onClick={() => setQuickIncomeModal(true)} className={compactSecondaryAction}>
+                <Plus size={14} /> Ingreso
+              </button>
+              <button type="button" onClick={() => setQuickExpenseModal(true)} className={compactSecondaryAction}>
+                <Plus size={14} /> Gasto
+              </button>
+              <button type="button" onClick={() => setEditModal(true)} className={compactSecondaryAction}>
+                <Edit size={14} /> Editar
+              </button>
+              <button type="button" onClick={requestDeleteProject} className={compactDangerActionDesktop}>
+                <Trash2 size={14} /> Eliminar
+              </button>
+            </div>
           </div>
         </div>
 
@@ -445,8 +493,8 @@ export default function ProjectDetail() {
                 <p className="text-xs text-gray-500 mt-1">Ocurrencias concretas dentro de este proyecto.</p>
               </div>
             </div>
-            <Link to={`/events?project=${id}`} className={compactSecondaryAction}>
-              <Plus size={14} /> Nuevo evento
+            <Link to={createEventUrl} className={compactPrimaryAction}>
+              <Plus size={14} /> Crear evento
             </Link>
           </div>
           {eventsLoading ? (
@@ -454,7 +502,7 @@ export default function ProjectDetail() {
           ) : events.length === 0 ? (
             <div className="rounded-lg border border-dashed border-gray-200 p-4 text-sm text-gray-500">
               <p>No hay eventos asociados a este proyecto todavía.</p>
-              <Link to={`/events?project=${id}`} className={`${compactSecondaryAction} mt-3`}>
+              <Link to={createEventUrl} className={`${compactPrimaryAction} mt-3`}>
                 <Plus size={14} /> Crear evento
               </Link>
             </div>
@@ -543,7 +591,12 @@ export default function ProjectDetail() {
                           </button>
                         </td>
                         <td className="py-2 text-right">
-                          <button onClick={() => deleteIncome(income.id)} className="text-gray-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100">
+                          <button
+                            type="button"
+                            onClick={() => requestDeleteIncome(income)}
+                            aria-label={`Eliminar ${incomeConceptLabel(income)}`}
+                            className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-gray-300 opacity-0 transition-colors hover:text-red-500 focus:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2 group-hover:opacity-100"
+                          >
                             <Trash2 size={14} />
                           </button>
                         </td>
@@ -632,7 +685,12 @@ export default function ProjectDetail() {
                           : <Circle size={14} className="text-gray-300 mx-auto" />}
                       </td>
                       <td className="py-2 text-right">
-                        <button onClick={() => deleteExpense(expense.id)} className="text-gray-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100">
+                        <button
+                          type="button"
+                          onClick={() => requestDeleteExpense(expense)}
+                          aria-label={`Eliminar ${expense.concept || 'gasto'}`}
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-gray-300 opacity-0 transition-colors hover:text-red-500 focus:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2 group-hover:opacity-100"
+                        >
                           <Trash2 size={14} />
                         </button>
                       </td>
@@ -664,6 +722,16 @@ export default function ProjectDetail() {
             <p className="text-sm text-gray-600 whitespace-pre-wrap">{project.notes}</p>
           </Card>
         )}
+
+        <div className="sm:hidden">
+          <button
+            type="button"
+            onClick={requestDeleteProject}
+            className="inline-flex min-h-10 items-center text-sm font-medium text-[var(--color-red)] hover:text-[var(--color-red-hover)]"
+          >
+            Eliminar proyecto
+          </button>
+        </div>
       </div>
 
       <Modal isOpen={editModal} onClose={() => setEditModal(false)} title="Editar proyecto">
@@ -767,31 +835,18 @@ export default function ProjectDetail() {
       </Modal>
 
       {/* Bottom bar para móvil */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 flex gap-1 border-t border-[var(--color-paper-mid)] bg-[var(--color-surface)] px-2 py-2 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] sm:static sm:border-0 sm:bg-transparent sm:p-0 sm:shadow-none">
-        <button type="button" onClick={() => setQuickIncomeModal(true)} className="flex-1 rounded-lg bg-[var(--color-red)] py-2 text-xs font-medium text-white sm:hidden">
+      <div className="fixed bottom-0 left-0 right-0 z-40 flex gap-1 border-t border-[var(--color-paper-mid)] bg-[var(--color-surface)] px-2 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] shadow-[0_-2px_10px_rgba(0,0,0,0.1)] sm:hidden">
+        <Link to={createEventUrl} className="flex min-h-11 flex-[1.2] items-center justify-center rounded-lg bg-[var(--color-red)] px-2 text-center text-xs font-medium text-white sm:hidden">
+          Crear evento
+        </Link>
+        <button type="button" onClick={() => setQuickIncomeModal(true)} className="min-h-11 flex-1 rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-paper)] px-2 text-xs font-medium text-[var(--color-ink)] sm:hidden">
           Cobro
         </button>
-        <button type="button" onClick={() => setQuickExpenseModal(true)} className="flex-1 rounded-lg bg-[var(--color-red)] py-2 text-xs font-medium text-white sm:hidden">
+        <button type="button" onClick={() => setQuickExpenseModal(true)} className="min-h-11 flex-1 rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-paper)] px-2 text-xs font-medium text-[var(--color-ink)] sm:hidden">
           Gasto
         </button>
-        <button type="button" onClick={() => setEditModal(true)} className="flex-1 rounded-lg bg-[var(--color-red)] py-2 text-xs font-medium text-white sm:hidden">
+        <button type="button" onClick={() => setEditModal(true)} className="min-h-11 flex-1 rounded-lg border border-[var(--color-paper-mid)] px-2 text-xs font-medium text-[var(--color-ink-muted)] sm:hidden">
           Editar
-        </button>
-        <button type="button" onClick={handleDeleteProject} className="flex-1 rounded-lg border border-[var(--color-red-light)] py-2 text-xs font-medium text-[var(--color-red)] sm:hidden">
-          Eliminar
-        </button>
-        {/* Desktop - quick modals */}
-        <button type="button" onClick={() => setQuickIncomeModal(true)} className={compactPrimaryActionDesktop}>
-          <Plus size={14} /> Ingreso
-        </button>
-        <button type="button" onClick={() => setQuickExpenseModal(true)} className={compactPrimaryActionDesktop}>
-          <Plus size={14} /> Gasto
-        </button>
-        <button type="button" onClick={() => setEditModal(true)} className={compactSecondaryActionDesktop}>
-          <Edit size={14} /> Editar
-        </button>
-        <button type="button" onClick={handleDeleteProject} className={compactDangerActionDesktop}>
-          <Trash2 size={14} /> Eliminar
         </button>
       </div>
 
@@ -852,6 +907,15 @@ export default function ProjectDetail() {
           </div>
         </form>
       </Modal>
+
+      <ConfirmDialog
+        isOpen={Boolean(deleteConfirm)}
+        title={deleteConfirm?.title}
+        description={deleteConfirm?.description}
+        confirmLabel={deleteConfirm?.confirmLabel}
+        onCancel={() => setDeleteConfirm(null)}
+        onConfirm={deleteConfirm?.onConfirm}
+      />
 
       <ToastContainer toasts={toasts} onRemove={removeToast} />
     </PageWrapper>

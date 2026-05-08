@@ -2,12 +2,12 @@
 id: CACH-B0020
 title: Validar dominio de email transaccional y cambiar remitentes definitivos
 type: chore
-status: ready
+status: in-progress
 cycle: beta-1
 priority: p0
 estimate: s
 area: infra
-release: null
+release: RELEASE-0.1.0-beta.13
 created_at: 2026-05-07
 updated_at: 2026-05-08
 due_at: 2026-05-08
@@ -61,10 +61,10 @@ Contexto operativo: ahora mismo el envío funciona porque el remitente temporal 
 
 ## Prioridad operativa
 
-Máxima prioridad para el **8 de mayo de 2026**.
+Máxima prioridad operativa, pero separada del corte de código de beta 12.
 
-Queda fuera de `RELEASE-0.1.0-beta.11`; candidata para beta 12 por requerir pasos manuales de email, DNS, Brevo y Supabase SMTP.
+Queda fuera de `RELEASE-0.1.0-beta.11` y de `RELEASE-0.1.0-beta.12`; pasa a `RELEASE-0.1.0-beta.13` por requerir pasos manuales de email, DNS, Brevo y Supabase SMTP.
 
 ## Resultado
 
-Pendiente hasta cerrar la issue.
+En progreso en `RELEASE-0.1.0-beta.13`.

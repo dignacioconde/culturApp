@@ -1,11 +1,11 @@
 ---
 id: RELEASE-0.1.0-beta.11
 type: release
-status: Active
+status: Released
 created: 2026-05-07
 updated: 2026-05-08
 release_branch: release/0.1.0-beta.11
-release_tag: null
+release_tag: v0.1.0-beta.11
 aliases:
   - RELEASE-0.1.0-beta.11
 tags:
@@ -18,7 +18,7 @@ tags:
 
 ## Estado
 
-Active
+Released
 
 ## Rama de release
 
@@ -26,11 +26,11 @@ Active
 
 ## Tag
 
-Pendiente.
+`v0.1.0-beta.11`
 
 ## Ciclo
 
-`0.1` es el ciclo organizativo. `0.1.0-beta.11` queda abierta para endurecer el flujo de agentes antes de usarlo como base de nuevas tareas de producto.
+`0.1` es el ciclo organizativo. `0.1.0-beta.11` endurece el flujo de agentes antes de usarlo como base de nuevas tareas de producto.
 
 ## Objetivo de la release
 
@@ -58,12 +58,12 @@ Hacer seguro el flujo OpenCode: planificacion draft read-only, ejecucion mutante
 
 | Issue | Título | Estado | Rama |
 |---|---|---|---|
-| [[../issues/CACH-0039|CACH-0039]] | Respetar permisos reales en lanzadores OpenCode | In progress | `release/0.1.0-beta.11` |
-| [[../issues/CACH-0040|CACH-0040]] | Separar plan draft de ejecucion mutante | In progress | `release/0.1.0-beta.11` |
+| [[../issues/CACH-0039|CACH-0039]] | Respetar permisos reales en lanzadores OpenCode | Done | `release/0.1.0-beta.11` |
+| [[../issues/CACH-0040|CACH-0040]] | Separar plan draft de ejecucion mutante | Done | `release/0.1.0-beta.11` |
 
 ## Fuera de alcance
 
-- Email/DNS/Brevo/Supabase SMTP: queda fuera de esta beta y pasa a beta 12.
+- Email/DNS/Brevo/Supabase SMTP: queda fuera de esta beta y pasa a beta 13.
 - Cambios visibles de producto/UX como CACH-0043, CACH-0044 y CACH-0045.
 - Redisenar todo el sistema de agentes o cambiar modelos por defecto fuera del routing ya existente.
 
@@ -88,35 +88,35 @@ Hacer seguro el flujo OpenCode: planificacion draft read-only, ejecucion mutante
 
 ## Checklist de desarrollo
 
-- [ ] Todas las issues están en progreso o cerradas
-- [ ] Commits preparados en rama release
-- [ ] No hay cambios sueltos fuera de release
-- [ ] No hay issues sin estado
-- [ ] No hay decisiones importantes sin documentar
+- [x] Todas las issues están en progreso o cerradas
+- [x] Commits preparados en rama release
+- [x] No hay cambios sueltos fuera de release
+- [x] No hay issues sin estado
+- [x] No hay decisiones importantes sin documentar
 
 ## Checklist de estabilización
 
-- [ ] Build correcto
-- [ ] Tests/checks correctos
-- [ ] Revisión visual
-- [ ] Revisión responsive
-- [ ] Revisión accesibilidad básica
-- [ ] Revisión de regresión básica
-- [ ] Revisión de documentación
+- [x] Build correcto
+- [x] Tests/checks correctos
+- [x] Revisión visual
+- [x] Revisión responsive
+- [x] Revisión accesibilidad básica
+- [x] Revisión de regresión básica
+- [x] Revisión de documentación
 
 ## Checklist de salida
 
-- [ ] PR `release/0.1.0-beta.11` -> `main` abierta
-- [ ] CI en verde
-- [ ] Revisión aprobada
-- [ ] PR mergeada en `main`
-- [ ] Tag creado desde `main`
-- [ ] Producción verificada si aplica
-- [ ] Rama remota limpiada
-- [ ] Release notes actualizadas
-- [ ] Issues marcadas como `Released`
-- [ ] Current Release actualizado
-- [ ] Backlog actualizado
+- [x] Integrada en `main`
+- [x] Checks locales correctos
+- [x] Revisión aprobada
+- [x] Release mergeada en `main`
+- [x] Tag creado desde `main`
+- [x] Producción no aplica
+- [x] Rama remota no aplica
+- [x] Release notes actualizadas
+- [x] Issues marcadas como `done`
+- [x] Current Release actualizado
+- [x] Backlog actualizado
 
 ## Release notes
 
@@ -144,4 +144,4 @@ Hacer seguro el flujo OpenCode: planificacion draft read-only, ejecucion mutante
 
 ## Resultado final
 
-Release en desarrollo con scope acotado a guardrails de agentes.
+Release cerrada con scope acotado a guardrails de agentes. Consolidada en `main` mediante commit `15c0743`.

@@ -6,6 +6,7 @@ import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
 import { StatusBadge } from '../../components/ui/Badge'
 import { Modal } from '../../components/ui/Modal'
+import { ConfirmDialog } from '../../components/ui/ConfirmDialog'
 import { Input, Select } from '../../components/ui/Input'
 import { useToast, ToastContainer } from '../../components/ui/Toast'
 import { EventForm } from './EventForm'
@@ -62,6 +63,7 @@ export default function EventDetail() {
 
   const [editModal, setEditModal] = useState(false)
   const [savingEvent, setSavingEvent] = useState(false)
+  const [deleteConfirm, setDeleteConfirm] = useState(null)
 
   const defaultTaxRate = profile?.tax_rate ?? 15
   const eventDate = event?.start_datetime ? paymentDate(new Date(event.start_datetime)) : ''
@@ -211,11 +213,48 @@ export default function EventDetail() {
     setEditModal(false)
   }
 
-  const handleDeleteEvent = async () => {
-    if (!confirm('¿Eliminar este evento? Se borrarán también sus ingresos y gastos.')) return
-    const { error } = await deleteEvent(id)
-    if (error) { addToast('Error al eliminar.', 'error'); return }
-    navigate('/events')
+  const requestDeleteEvent = () => {
+    setDeleteConfirm({
+      title: 'Eliminar evento',
+      description: 'Se borrará este evento junto con sus ingresos y gastos. Esta acción no se puede deshacer.',
+      confirmLabel: 'Eliminar evento',
+      onConfirm: async () => {
+        const { error } = await deleteEvent(id)
+        if (error) { addToast('Error al eliminar.', 'error'); return }
+        setDeleteConfirm(null)
+        navigate('/events')
+      },
+    })
+  }
+
+  const requestDeleteIncome = (income, closeIncomeModal = false) => {
+    setDeleteConfirm({
+      title: 'Eliminar ingreso',
+      description: `Se eliminará "${incomeConceptLabel(income)}". Esta acción no se puede deshacer.`,
+      confirmLabel: 'Eliminar ingreso',
+      onConfirm: async () => {
+        const { error } = await deleteIncome(income.id)
+        if (error) { addToast('Error al eliminar el ingreso.', 'error'); return }
+        addToast('Ingreso eliminado.')
+        if (closeIncomeModal) setIncomeModal(false)
+        setDeleteConfirm(null)
+      },
+    })
+  }
+
+  const requestDeleteExpense = (expense, closeExpenseModal = false) => {
+    setDeleteConfirm({
+      title: 'Eliminar gasto',
+      description: `Se eliminará "${expense.concept || 'Gasto sin concepto'}". Esta acción no se puede deshacer.`,
+      confirmLabel: 'Eliminar gasto',
+      onConfirm: async () => {
+        const { error } = await deleteExpense(expense.id)
+        if (error) { addToast('Error al eliminar el gasto.', 'error'); return }
+        addToast('Gasto eliminado.')
+        if (closeExpenseModal) setExpenseModal(false)
+        setDeleteConfirm(null)
+      },
+    })
   }
 
   const handleSubmitIncome = async (e) => {
@@ -244,11 +283,7 @@ export default function EventDetail() {
 
   const handleDeleteEditingIncome = async () => {
     if (!editingIncome) return
-    if (!confirm('¿Eliminar este ingreso?')) return
-    const { error } = await deleteIncome(editingIncome.id)
-    if (error) { addToast('Error al eliminar el ingreso.', 'error'); return }
-    addToast('Ingreso eliminado.')
-    setIncomeModal(false)
+    requestDeleteIncome(editingIncome, true)
   }
 
   const undoIncomePaid = async (income, previousPayment) => {
@@ -348,11 +383,7 @@ export default function EventDetail() {
 
   const handleDeleteEditingExpense = async () => {
     if (!editingExpense) return
-    if (!confirm('¿Eliminar este gasto?')) return
-    const { error } = await deleteExpense(editingExpense.id)
-    if (error) { addToast('Error al eliminar el gasto.', 'error'); return }
-    addToast('Gasto eliminado.')
-    setExpenseModal(false)
+    requestDeleteExpense(editingExpense, true)
   }
 
   return (
@@ -405,7 +436,7 @@ export default function EventDetail() {
               <button type="button" onClick={() => setEditModal(true)} className="flex-1 rounded-lg bg-[var(--color-red)] py-2 text-xs font-medium text-white sm:hidden">
                 Editar
               </button>
-              <button type="button" onClick={handleDeleteEvent} className="flex-1 rounded-lg border border-[var(--color-red-light)] py-2 text-xs font-medium text-[var(--color-red)] sm:hidden">
+              <button type="button" onClick={requestDeleteEvent} className="flex-1 rounded-lg border border-[var(--color-red-light)] py-2 text-xs font-medium text-[var(--color-red)] sm:hidden">
                 Eliminar
               </button>
               {/* Desktop - quick modals */}
@@ -418,7 +449,7 @@ export default function EventDetail() {
               <button type="button" onClick={() => setEditModal(true)} className={compactSecondaryActionDesktop}>
                 <Edit size={14} /> Editar
               </button>
-              <button type="button" onClick={handleDeleteEvent} className={compactDangerActionDesktop}>
+              <button type="button" onClick={requestDeleteEvent} className={compactDangerActionDesktop}>
                 <Trash2 size={14} /> Eliminar
               </button>
             </div>
@@ -552,7 +583,12 @@ export default function EventDetail() {
                         </button>
                       </td>
                       <td className="py-2 text-right">
-                        <button onClick={() => deleteIncome(income.id)} className="text-gray-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100">
+                        <button
+                          type="button"
+                          onClick={() => requestDeleteIncome(income)}
+                          aria-label={`Eliminar ${incomeConceptLabel(income)}`}
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-gray-300 opacity-0 transition-colors hover:text-red-500 focus:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2 group-hover:opacity-100"
+                        >
                           <Trash2 size={14} />
                         </button>
                       </td>
@@ -652,7 +688,12 @@ export default function EventDetail() {
                           : <Circle size={14} className="text-gray-300 mx-auto" />}
                       </td>
                       <td className="py-2 text-right">
-                        <button onClick={() => deleteExpense(expense.id)} className="text-gray-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100">
+                        <button
+                          type="button"
+                          onClick={() => requestDeleteExpense(expense)}
+                          aria-label={`Eliminar ${expense.concept || 'gasto'}`}
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-gray-300 opacity-0 transition-colors hover:text-red-500 focus:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2 group-hover:opacity-100"
+                        >
                           <Trash2 size={14} />
                         </button>
                       </td>
@@ -914,6 +955,15 @@ export default function EventDetail() {
           </div>
         </form>
       </Modal>
+
+      <ConfirmDialog
+        isOpen={Boolean(deleteConfirm)}
+        title={deleteConfirm?.title}
+        description={deleteConfirm?.description}
+        confirmLabel={deleteConfirm?.confirmLabel}
+        onCancel={() => setDeleteConfirm(null)}
+        onConfirm={deleteConfirm?.onConfirm}
+      />
 
       <ToastContainer toasts={toasts} onRemove={removeToast} />
     </PageWrapper>

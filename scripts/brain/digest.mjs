@@ -95,7 +95,9 @@ const ultimoCorte = releaseDoc ? stripWikilinks(sectionContent(releaseDoc.body, 
 const planPath = join(brainRoot, 'plans', 'CURRENT_PLAN.md')
 const planDoc = parseMatter(planPath)
 const focoActual = planDoc ? stripWikilinks(sectionContent(planDoc.body, 'Foco actual')).trim() : ''
-const proximoCheckpoint = planDoc ? stripWikilinks(sectionContent(planDoc.body, 'Proximo checkpoint')).trim() : ''
+const proximoCheckpoint = planDoc
+  ? stripWikilinks(sectionContent(planDoc.body, 'Proximo checkpoint') || sectionContent(planDoc.body, 'Próximo checkpoint')).trim()
+  : ''
 const prioridades = planDoc
   ? sectionContent(planDoc.body, 'Prioridades')
       .split('\n')
@@ -271,5 +273,5 @@ ${proximoCheckpoint}
 `
 
 const outputPath = join(brainRoot, 'DIGEST.md')
-writeFileSync(outputPath, digest)
+writeFileSync(outputPath, digest.trimEnd() + '\n')
 console.log(`[pb:digest] DIGEST.md generado en ${toPosix(relative(repoRoot, outputPath))}`)

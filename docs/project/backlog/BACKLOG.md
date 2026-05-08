@@ -45,12 +45,8 @@ Sin issues en inbox.
 
 | ID | Titulo | Tipo | Prioridad | Nota |
 |---|---|---|---|---|
-| [[../issues/CACH-B0020|CACH-B0020]] | Validar dominio de email transaccional y cambiar remitentes definitivos | chore | p0 | Máxima prioridad para el 8 de mayo de 2026. |
 | [[../issues/CACH-0041|CACH-0041]] | [UX] Simplificar dashboard movil y estado Ahora | feature | p1 | Primer corte de simplificacion UX core. |
 | [[../issues/CACH-0042|CACH-0042]] | [UX] Racionalizar navegacion inferior | feature | p1 | Reducir friccion movil sin cambiar rutas mayores. |
-| [[../issues/CACH-0043|CACH-0043]] | [UX] Limpiar acciones en detalle de proyecto | feature | p1 | Jerarquia clara de acciones primarias y secundarias. |
-| [[../issues/CACH-0044|CACH-0044]] | [UX] Crear evento desde proyecto con proyecto preseleccionado | feature | p1 | Simplifica el flujo proyecto -> evento. |
-| [[../issues/CACH-0045|CACH-0045]] | [UX] Anadir confirmacion a borrados destructivos | feature | p1 | Proteccion contra perdidas accidentales. |
 | [[../issues/CACH-0046|CACH-0046]] | [Verify] Anadir verificacion por tipo de cambio | chore | p1 | Checks compuestos por docs, skills, agents, UI y release. |
 | [[../issues/CACH-0047|CACH-0047]] | [Skills] Actualizar catalogo y symlinks de skills | chore | p1 | Fuente unica para skills portables y exposicion Claude. |
 | [[../issues/CACH-B0001|CACH-B0001]] | Redisenar Trabajos y jerarquia proyecto-evento | feature | p1 | Partir antes de ejecutar. |
@@ -68,8 +64,7 @@ Sin issues en inbox.
 
 | ID | Titulo | Tipo | Prioridad | Nota |
 |---|---|---|---|---|
-| [[../issues/CACH-0039|CACH-0039]] | [Agents] Respetar permisos reales en lanzadores OpenCode | chore | p0 | Scope beta 11: permisos reales y dangerous opt-in. |
-| [[../issues/CACH-0040|CACH-0040]] | [Agents] Separar plan draft de ejecucion mutante | chore | p0 | Scope beta 11: draft read-only y execute explicito. |
+| [[../issues/CACH-B0020|CACH-B0020]] | Validar dominio de email transaccional y cambiar remitentes definitivos | chore | p0 | Scope beta 13: email, DNS, Brevo y Supabase SMTP. |
 
 ## Review
 
@@ -80,6 +75,11 @@ Sin issues en inbox.
 
 | ID | Titulo | Release | Resultado |
 |---|---|---|---|
+| [[../issues/CACH-0044|CACH-0044]] | [UX] Crear evento desde proyecto con proyecto preseleccionado | [[../releases/RELEASE-0.1.0-beta.12|RELEASE-0.1.0-beta.12]] | Crear evento desde proyecto preselecciona el proyecto y vuelve al detalle tras guardar. |
+| [[../issues/CACH-0045|CACH-0045]] | [UX] Anadir confirmacion a borrados destructivos | [[../releases/RELEASE-0.1.0-beta.12|RELEASE-0.1.0-beta.12]] | ConfirmDialog cubre proyecto, evento, ingresos y gastos, incluidos borrados inline. |
+| [[../issues/CACH-0043|CACH-0043]] | [UX] Limpiar acciones en detalle de proyecto | [[../releases/RELEASE-0.1.0-beta.12|RELEASE-0.1.0-beta.12]] | ProjectDetail prioriza crear evento y rebaja editar/eliminar sin perder cobro/gasto. |
+| [[../issues/CACH-0039|CACH-0039]] | [Agents] Respetar permisos reales en lanzadores OpenCode | [[../releases/RELEASE-0.1.0-beta.11|RELEASE-0.1.0-beta.11]] | Guardrails de permisos OpenCode consolidados en main. |
+| [[../issues/CACH-0040|CACH-0040]] | [Agents] Separar plan draft de ejecucion mutante | [[../releases/RELEASE-0.1.0-beta.11|RELEASE-0.1.0-beta.11]] | Plan draft read-only y execute mutante separados. |
 | [[../issues/CACH-B0019|CACH-B0019]] | Emails transaccionales beta con Brevo | [[../releases/RELEASE-0.1.0-beta.10|RELEASE-0.1.0-beta.10]] | Invitaciones por Brevo Edge Function, auditoría y flujo de confirmación email preparados. |
 | [[../issues/CACH-B0017|CACH-B0017]] | Panel admin para invitaciones beta | [[../releases/RELEASE-0.1.0-beta.9|RELEASE-0.1.0-beta.9]] | Panel admin, rol admin, RPCs seguras y hotfix pgcrypto integrados por PR #88. |
 | [[../issues/CACH-B0018|CACH-B0018]] | Adaptador Codex-native para perfiles Cultura | [[../releases/RELEASE-0.1.0-beta.9|RELEASE-0.1.0-beta.9]] | Flujo Codex-native documentado e integrado por PR #88. |
