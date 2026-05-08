@@ -3,7 +3,7 @@ id: RELEASE-0.1.0-beta.11
 type: release
 status: Active
 created: 2026-05-07
-updated: 2026-05-07
+updated: 2026-05-08
 release_branch: release/0.1.0-beta.11
 release_tag: null
 aliases:
@@ -14,7 +14,7 @@ tags:
   - beta
 ---
 
-# RELEASE-0.1.0-beta.11 — Próximo corte beta
+# RELEASE-0.1.0-beta.11 — Dominio email transaccional
 
 ## Estado
 
@@ -30,48 +30,61 @@ Pendiente.
 
 ## Ciclo
 
-`0.1` es el ciclo organizativo. `0.1.0-beta.11` queda abierta como siguiente release vacía para nuevas tareas.
+`0.1` es el ciclo organizativo. `0.1.0-beta.11` queda abierta para cerrar la operativa de email/remitente transaccional antes de seguir invitando usuarios reales.
 
 ## Objetivo de la release
 
-Pendiente de definir cuando entre la primera tarea.
+Crear o activar un remitente real de Cachés, validarlo en Brevo y sustituir el remitente personal temporal confirmado en Brevo.
 
 ## Alcance funcional
 
-Sin scope activo.
+- Email/alias real para el remitente definitivo.
+- Dominio/remitente Brevo.
+- DNS SPF/DKIM/DMARC.
+- Remitente de Edge Function `send-beta-invite`.
+- Remitente SMTP de Supabase Auth.
+- Smoke test real de invitación y confirmación de cuenta.
 
 ## Áreas implicadas
 
-Pendiente.
+- Operaciones.
+- Supabase Auth.
+- Supabase Edge Functions.
+- Brevo.
+- DNS.
 
 ## Scope
 
-Sin issues asociadas.
+- [[../issues/CACH-B0020|CACH-B0020]] — Validación del dominio transaccional como máxima prioridad para el **8 de mayo de 2026**.
 
 ## Issues incluidas
 
 | Issue | Título | Estado | Rama |
 |---|---|---|---|
+| [[../issues/CACH-B0020|CACH-B0020]] | Validar dominio de email transaccional y cambiar remitentes definitivos | Ready | `release/0.1.0-beta.11` |
 
 ## Fuera de alcance
 
-Pendiente.
+- Newsletters, campañas, audiencias, CRM y automatizaciones.
+- Rediseño amplio de plantillas de email.
 
 ## Riesgos
 
 - No añadir tareas a esta release sin crear o actualizar su issue `CACH-*`.
+- Mientras el remitente definitivo no esté validado, los correos pueden funcionar en pruebas pero fallar en entrega real o reputación.
+- No cambiar Supabase Auth SMTP ni `EMAIL_FROM_ADDRESS` al remitente definitivo hasta que el email/alias exista y Brevo confirme el dominio/remitente.
 
 ## Decisiones relacionadas
 
-Pendiente.
+- [[../issues/CACH-B0019|CACH-B0019]]
 
 ## Checklist de entrada
 
 - [x] Release creada
-- [ ] Rama de release creada
-- [ ] Issues asociadas
-- [ ] Alcance definido
-- [ ] Criterios de validación definidos
+- [x] Rama de release creada
+- [x] Issues asociadas
+- [x] Alcance definido
+- [x] Criterios de validación definidos
 
 ## Checklist de desarrollo
 
@@ -109,11 +122,11 @@ Pendiente.
 
 ### Añadido
 
-- Pendiente.
+- Issue [[../issues/CACH-B0020|CACH-B0020]] como scope único inicial de la release.
 
 ### Cambiado
 
-- Pendiente.
+- Pendiente: remitentes transaccionales definitivos.
 
 ### Corregido
 
@@ -125,8 +138,8 @@ Pendiente.
 
 ### Técnico
 
-- Pendiente.
+- Pendiente: validación DNS/Brevo y smoke test Supabase/Brevo.
 
 ## Resultado final
 
-Release abierta y vacía.
+Release abierta para cerrar la deuda operativa de beta 10 antes de invitar a más usuarios reales.

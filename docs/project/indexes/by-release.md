@@ -3,7 +3,7 @@ id: PB-BY-RELEASE
 type: index
 status: Active
 created: 2026-05-07
-updated: 2026-05-07
+updated: 2026-05-08
 aliases:
   - Issues por release
 tags:
@@ -75,3 +75,7 @@ tags:
 ## RELEASE-0.1.0-beta.10
 
 - [[../issues/CACH-B0019|CACH-B0019]] — Emails transaccionales beta con Brevo
+
+## RELEASE-0.1.0-beta.11
+
+- [[../issues/CACH-B0020|CACH-B0020]] — Validar dominio de email transaccional y cambiar remitentes definitivos
