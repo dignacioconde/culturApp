@@ -3,7 +3,7 @@ id: PB-RELEASES-INDEX
 type: index
 status: Active
 created: 2026-05-07
-updated: 2026-05-07
+updated: 2026-05-08
 aliases:
   - Releases Index
 tags:
@@ -15,7 +15,7 @@ tags:
 - [[../releases/CURRENT_RELEASE|PB-CURRENT-RELEASE]] — Current Release
 - [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] — Sistema operativo Product Brain
 - [[../releases/RELEASE-0.1.0-beta.10|RELEASE-0.1.0-beta.10]] — Emails transaccionales beta
-- [[../releases/RELEASE-0.1.0-beta.11|RELEASE-0.1.0-beta.11]] — Próximo corte beta
+- [[../releases/RELEASE-0.1.0-beta.11|RELEASE-0.1.0-beta.11]] — Guardrails de agentes
 - [[../releases/RELEASE-0.1.0-beta.2|RELEASE-0.1.0-beta.2]] — Endurecer confianza de datos
 - [[../releases/RELEASE-0.1.0-beta.3|RELEASE-0.1.0-beta.3]] — Rediseño financiero del Dashboard
 - [[../releases/RELEASE-0.1.0-beta.4|RELEASE-0.1.0-beta.4]] — Planificacion anual de proyectos

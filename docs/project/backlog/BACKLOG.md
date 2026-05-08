@@ -59,6 +59,8 @@ Sin issues en inbox.
 
 | ID | Titulo | Tipo | Prioridad | Nota |
 |---|---|---|---|---|
+| [[../issues/CACH-0039|CACH-0039]] | [Agents] Respetar permisos reales en lanzadores OpenCode | chore | p0 | Scope beta 11: permisos reales y dangerous opt-in. |
+| [[../issues/CACH-0040|CACH-0040]] | [Agents] Separar plan draft de ejecucion mutante | chore | p0 | Scope beta 11: draft read-only y execute explicito. |
 
 ## Review
 

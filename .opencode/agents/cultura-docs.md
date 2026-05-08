@@ -3,7 +3,7 @@ description: Especialista en documentacion tecnica y operativa de CulturaApp.
 mode: subagent
 model: opencode/minimax-m2.5-free
 permission:
-  edit: allow
+  edit: ask
   bash: ask
 ---
 

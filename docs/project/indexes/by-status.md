@@ -3,7 +3,7 @@ id: PB-BY-STATUS
 type: index
 status: Active
 created: 2026-05-07
-updated: 2026-05-07
+updated: 2026-05-08
 aliases:
   - Issues por estado
 tags:
@@ -35,6 +35,11 @@ tags:
 - [[../issues/CACH-B0017|CACH-B0017]] — Panel admin para invitaciones beta
 - [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura
 - [[../issues/CACH-B0019|CACH-B0019]] — Emails transaccionales beta con Brevo
+
+## in-progress
+
+- [[../issues/CACH-0039|CACH-0039]] — [Agents] Respetar permisos reales en lanzadores OpenCode
+- [[../issues/CACH-0040|CACH-0040]] — [Agents] Separar plan draft de ejecucion mutante
 
 ## backlog
 

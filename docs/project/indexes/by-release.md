@@ -3,7 +3,7 @@ id: PB-BY-RELEASE
 type: index
 status: Active
 created: 2026-05-07
-updated: 2026-05-07
+updated: 2026-05-08
 aliases:
   - Issues por release
 tags:
@@ -54,6 +54,11 @@ tags:
 - [[../issues/CACH-0036|CACH-0036]] — Profesionalizar flujo de ramas por beta
 - [[../issues/CACH-0037|CACH-0037]] — Consolidar PRD y sistema de diseno de Cachés
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes
+
+## RELEASE-0.1.0-beta.11
+
+- [[../issues/CACH-0039|CACH-0039]] — [Agents] Respetar permisos reales en lanzadores OpenCode
+- [[../issues/CACH-0040|CACH-0040]] — [Agents] Separar plan draft de ejecucion mutante
 
 ## RELEASE-0.1.0-beta.7
 
