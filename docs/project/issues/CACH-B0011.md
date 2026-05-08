@@ -1,15 +1,15 @@
 ---
 id: CACH-B0011
 title: Categorias etiquetas y taxonomia
-type: feature
+type: spike
 status: backlog
 cycle: unassigned
 release: null
 priority: p2
 estimate: s
-area: frontend
+area: db
 created_at: 2026-05-04
-updated_at: 2026-05-04
+updated_at: 2026-05-08
 aliases:
   - CACH-B0011
 tags:
@@ -23,29 +23,58 @@ tags:
 
 ## Summary
 
-Resolver si las categorías deben ser libres, predefinidas, opcionales o combinadas antes de tocar categorías por usuario.
+Decidir como deben funcionar categorias y etiquetas antes de personalizarlas por usuario, usarlas en analisis Pro o cambiar datos existentes.
 
 ## Context
 
-Agrupa #16 y #39.
+Agrupa #16 y #39. Desbloquea futuras mejoras de filtros, presupuestos por categoria y taxonomia por usuario, pero no debe convertirse en una tarea de documentacion larga ni en una implementacion directa.
 
 ## Problem
 
-Las categorías afectan a proyectos, eventos, ingresos, gastos, presupuestos y filtros. Cambiarlas sin decisión de modelo puede generar deuda de datos y UI.
+Las categorias afectan a proyectos, eventos, gastos, ingresos, filtros, importacion/exportacion y presupuestos. Cambiarlas sin una decision de modelo puede generar deuda de datos, UI confusa y migraciones fragiles.
 
-## Proposed Solution
+## Objective
 
-- Spike de categorías libres vs predefinidas.
-- Evaluar si el usuario puede desactivar categorías.
-- Separar categorías operativas de etiquetas libres.
-- Revisar impacto en presupuestos por categoría.
+Dejar una decision accionable sobre categorias y etiquetas que indique que se mantiene, que se cambia y que queda fuera de v1.
+
+## Scope
+
+- Evaluar categorias de proyectos, eventos y gastos.
+- Decidir si ingresos necesitan categoria propia o si heredan contexto de proyecto/evento.
+- Separar categorias operativas de etiquetas libres opcionales.
+- Revisar impacto en filtros, busqueda, importacion/exportacion y datos actuales.
+- Revisar relacion futura con presupuestos por categoria de gasto.
+
+## Out Of Scope
+
+- Manuales, guias de uso, onboarding documental o documentacion educativa.
+- UI final de gestion de taxonomia.
+- Migraciones Supabase definitivas.
+- Presupuestos Pro por categoria.
+- Automatizaciones o IA de clasificacion.
+
+## Preliminary Recommendation
+
+- Mantener categorias operativas simples como base.
+- Tratar etiquetas libres como capa separada y opcional.
+- Priorizar gastos como primera entidad donde una taxonomia financiera aporta valor real.
+- No mezclar etiquetas descriptivas con categorias financieras.
+- Mantener compatibilidad con el campo actual `category text default 'otros'`.
 
 ## Acceptance Criteria
 
-- [ ] Hay una decisión clara sobre categorías y etiquetas.
-- [ ] La decisión cubre proyectos, eventos, ingresos y gastos.
-- [ ] #16 no se implementa como ajuste aislado antes del spike.
-- [ ] El modelo soporta evolución sin migraciones frágiles.
+- [ ] Hay una decision accionable sobre categorias y etiquetas.
+- [ ] Queda claro que entidades usan `category`, cuales podrian usar `tags` y que queda fuera de v1.
+- [ ] La decision cubre proyectos, eventos, gastos e ingresos.
+- [ ] Se define compatibilidad con el campo actual `category text default 'otros'`.
+- [ ] #16 no se implementa como ajuste aislado antes de resolver este spike.
+- [ ] Si hacen falta issues hijas, se crean sin incluir manuales, guias de uso ni documentacion extensa.
+- [ ] El modelo soporta evolucion sin migraciones fragiles.
+
+## Validation
+
+- `npm run pb:check`
+- No requiere `npm run lint` ni `npm run build`: cambio documental en Product Brain.
 
 ## Related
 
