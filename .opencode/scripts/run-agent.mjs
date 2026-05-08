@@ -11,6 +11,11 @@ const repoRoot = resolve(fileURLToPath(new URL("../..", import.meta.url)))
 const CHECKPOINT_INTERVAL = 30000
 // Timeout máximo por agente: 45 min por defecto, configurable via AGENT_TIMEOUT_MS
 const AGENT_TIMEOUT_MS = parseInt(process.env.AGENT_TIMEOUT_MS ?? "2700000", 10)
+const MODEL_DEFAULTS = {
+  lead: process.env.AGENT_MODEL_LEAD ?? "frontmatter/default",
+  worker: process.env.AGENT_MODEL_WORKER ?? "frontmatter/default",
+  reviewer: process.env.AGENT_MODEL_REVIEWER ?? "frontmatter/default",
+}
 
 function usage() {
   console.log(`Uso:
@@ -22,6 +27,11 @@ Opciones:
   --scope "src/hooks,src/pages" Alcance permitido o esperado
   --ownership "frontend:src/pages; data:src/hooks"
   --verify "npm run lint && npm run build"
+  --task-type frontend|data|docs     Tipo de tarea para telemetria. Por defecto: unspecified
+  --routing-reason "bajo riesgo"     Motivo de routing de modelos para el run
+  --model-lead gpt-5.5               Modelo esperado para lead/orquestador
+  --model-worker gpt-5.3-codex-spark Modelo esperado para workers acotados
+  --model-reviewer gpt-5.5           Modelo esperado para review/verificacion
   --no-verify                  Indica que no se requiere verificacion automatica
   --help                       Muestra esta ayuda.
 
@@ -37,6 +47,9 @@ function parseArgs(argv) {
     scope: "Debe inferirse desde AGENTS.md, la tarea y el codigo real; carga detalle bajo demanda.",
     ownership: "El lead debe definir ownership antes de delegar escritura si hay varios dominios.",
     verify: "npm run lint y npm run build si se toca codigo.",
+    taskType: "unspecified",
+    routingReason: "sin motivo declarado",
+    models: { ...MODEL_DEFAULTS },
     task: "",
   }
 
@@ -55,18 +68,18 @@ function parseArgs(argv) {
       continue
     }
 
-    if (["--agent", "--title", "--scope", "--ownership", "--verify"].includes(arg)) {
+    if (["--agent", "--title", "--scope", "--ownership", "--verify", "--task-type", "--routing-reason", "--model-lead", "--model-worker", "--model-reviewer"].includes(arg)) {
       const key = arg.slice(2)
       const value = argv[i + 1]
       if (!value) throw new Error(`Falta valor para ${arg}`)
-      options[key] = value
+      assignOption(options, key, value)
       i += 1
       continue
     }
 
-    const inline = arg.match(/^--(agent|title|scope|ownership|verify)=(.*)$/)
+    const inline = arg.match(/^--(agent|title|scope|ownership|verify|task-type|routing-reason|model-lead|model-worker|model-reviewer)=(.*)$/)
     if (inline) {
-      options[inline[1]] = inline[2]
+      assignOption(options, inline[1], inline[2])
       continue
     }
 
@@ -78,6 +91,35 @@ function parseArgs(argv) {
 }
 
 const RUNS_DIR = resolve(repoRoot, ".opencode/runs")
+
+function assignOption(options, key, value) {
+  if (key === "task-type") {
+    options.taskType = value
+    return
+  }
+
+  if (key === "routing-reason") {
+    options.routingReason = value
+    return
+  }
+
+  if (key === "model-lead") {
+    options.models.lead = value
+    return
+  }
+
+  if (key === "model-worker") {
+    options.models.worker = value
+    return
+  }
+
+  if (key === "model-reviewer") {
+    options.models.reviewer = value
+    return
+  }
+
+  options[key] = value
+}
 
 function buildContract(options) {
   return [
@@ -103,6 +145,16 @@ function buildContract(options) {
     "",
     "ENRUTADO:",
     "Usa cultura-lead como dispatcher minimo. Delega por dominio a @cultura-frontend, @cultura-data, @cultura-testing, @cultura-review, @cultura-security, @cultura-release o @cultura-docs.",
+    "El lead decide el modelo por riesgo y complejidad: GPT-5.5 para planificacion, ambiguedad, seguridad, datos/RLS, finanzas, review, verificacion final, PR/release o cambios multi-area; GPT-5.3-Codex-Spark solo como worker rapido para tareas locales, acotadas, con ownership claro y verificacion objetiva.",
+    "Escala a GPT-5.5 si un worker Spark falla verificacion, toca una zona sensible, necesita mas de 1 retry o devuelve un diff demasiado amplio.",
+    "",
+    "TELEMETRIA DE ROUTING:",
+    `Tipo de tarea: ${options.taskType}`,
+    `Motivo de routing: ${options.routingReason}`,
+    `Modelo lead esperado: ${options.models.lead}`,
+    `Modelo worker esperado: ${options.models.worker}`,
+    `Modelo reviewer esperado: ${options.models.reviewer}`,
+    "En la salida, declara modelo usado por rol si lo conoces, escalaciones, retries, verificaciones ejecutadas, resultado y riesgos.",
     "",
     "VERIFICACION:",
     options.verify,
@@ -128,6 +180,7 @@ async function main() {
   const runDir = resolve(RUNS_DIR, timestamp)
   await mkdir(runDir, { recursive: true })
   const outputPath = resolve(runDir, "output.txt")
+  const metadataPath = resolve(runDir, "metadata.json")
   const currentPath = resolve(RUNS_DIR, "current.json")
   const startedAt = new Date().toISOString()
 
@@ -135,12 +188,37 @@ async function main() {
   console.log(`[${timestamp}] Output: ${outputPath}`)
   console.log(`[${timestamp}] Timeout: ${AGENT_TIMEOUT_MS / 60000} min`)
 
+  const buildMetadata = (status, extra = {}) => ({
+    startedAt,
+    endedAt: extra.endedAt ?? null,
+    elapsedMs: extra.elapsedMs ?? null,
+    status,
+    title: options.title,
+    agent: options.agent,
+    taskType: options.taskType,
+    routingReason: options.routingReason,
+    models: options.models,
+    scope: options.scope,
+    ownership: options.ownership,
+    verificationExpected: options.verify,
+    result: extra.result ?? null,
+    exitCode: extra.exitCode ?? null,
+    retries: extra.retries ?? "not-recorded",
+    escalations: extra.escalations ?? "not-recorded",
+    costEstimate: extra.costEstimate ?? "not-recorded",
+    notes: "Operational telemetry for model-routing pilot. Do not persist run history in .memory/.",
+  })
+
+  const writeMetadata = async (status, extra = {}) => {
+    await writeFile(metadataPath, JSON.stringify(buildMetadata(status, extra), null, 2), "utf-8").catch(() => {})
+  }
+
   const writeCurrentJson = async (status, lastLines = []) => {
     const elapsed = Math.round((Date.now() - new Date(startedAt).getTime()) / 60000)
     await writeFile(
       currentPath,
       JSON.stringify(
-        { startedAt, agent: options.agent, title: options.title, elapsedMin: elapsed, lastCheckpoint: new Date().toISOString(), lastLines, status },
+        { startedAt, agent: options.agent, title: options.title, taskType: options.taskType, routingReason: options.routingReason, models: options.models, elapsedMin: elapsed, lastCheckpoint: new Date().toISOString(), lastLines, status },
         null,
         2,
       ),
@@ -149,6 +227,7 @@ async function main() {
   }
 
   await writeCurrentJson("running")
+  await writeMetadata("running")
 
   const child = spawn(
     "opencode",
@@ -160,6 +239,7 @@ async function main() {
   let stderr = ""
   let checkpointCount = 0
   let lastSize = 0
+  let didTimeout = false
 
   const getLastLines = () => stdout.split("\n").filter(Boolean).slice(-10)
 
@@ -198,8 +278,10 @@ async function main() {
   const agentTimeout = setTimeout(async () => {
     if (!child.killed) {
       console.error(`\n[TIMEOUT] Agente superó ${AGENT_TIMEOUT_MS / 60000} min. Matando proceso...`)
+      didTimeout = true
       child.kill("SIGTERM")
       await writeCurrentJson("timeout", getLastLines())
+      await writeMetadata("timeout", { endedAt: new Date().toISOString(), elapsedMs: Date.now() - new Date(startedAt).getTime(), result: "timeout", exitCode: 124 })
       await writeFile(outputPath, `[TIMEOUT tras ${AGENT_TIMEOUT_MS / 60000} min]\n\n${stdout}`, "utf-8").catch(() => {})
       process.exitCode = 124
     }
@@ -211,7 +293,14 @@ async function main() {
 
     // Escribir output final
     await writeFile(outputPath, stdout, "utf-8")
-    await writeCurrentJson(code === 0 ? "done" : "error", getLastLines())
+    const finalStatus = didTimeout ? "timeout" : code === 0 ? "done" : "error"
+    await writeCurrentJson(finalStatus, getLastLines())
+    await writeMetadata(finalStatus, {
+      endedAt: new Date().toISOString(),
+      elapsedMs: Date.now() - new Date(startedAt).getTime(),
+      result: didTimeout ? "timeout" : code === 0 ? "success" : "error",
+      exitCode: didTimeout ? 124 : code ?? 1,
+    })
 
     console.log(`\n[${new Date().toLocaleTimeString()}] Finished with code: ${code}`)
 
@@ -223,6 +312,7 @@ async function main() {
     clearTimeout(agentTimeout)
     await writeFile(outputPath, `Error: ${error.message}\n${stderr}`, "utf-8")
     await writeCurrentJson("error", [error.message])
+    await writeMetadata("error", { endedAt: new Date().toISOString(), elapsedMs: Date.now() - new Date(startedAt).getTime(), result: "spawn-error", exitCode: 1 })
     console.error(`Error: ${error.message}`)
     process.exitCode = 1
   })
