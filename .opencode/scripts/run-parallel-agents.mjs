@@ -22,6 +22,11 @@ const repoRoot = resolve(__dirname, "../..")
 const ANSI_PATTERN = /\u001b\[[0-9;]*m/g
 // Timeout máximo por agente en paralelo: 30 min por defecto, configurable via AGENT_TIMEOUT_MS
 const AGENT_TIMEOUT_MS = parseInt(process.env.AGENT_TIMEOUT_MS ?? "1800000", 10)
+const MODEL_DEFAULTS = {
+  lead: process.env.AGENT_MODEL_LEAD ?? "frontmatter/default",
+  worker: process.env.AGENT_MODEL_WORKER ?? "frontmatter/default",
+  reviewer: process.env.AGENT_MODEL_REVIEWER ?? "frontmatter/default",
+}
 
 function usage() {
   console.log(`Uso:
@@ -31,6 +36,11 @@ Opciones:
   --agents data,testing,review     Agentes a ejecutar. Por defecto: ${DEFAULT_AGENTS.join(",")}
   --write                          Permite pedir cambios. Sin esto, todos reciben instruccion de solo lectura.
   --out .opencode/runs             Carpeta de salida. Por defecto: .opencode/runs
+  --task-type frontend|data|docs    Tipo de tarea para telemetria. Por defecto: parallel-review
+  --routing-reason "bajo riesgo"    Motivo de routing de modelos para el run
+  --model-lead gpt-5.5              Modelo esperado para lead/orquestador
+  --model-worker gpt-5.3-codex-spark Modelo esperado para workers acotados
+  --model-reviewer gpt-5.5          Modelo esperado para review/verificacion
   --help                           Muestra esta ayuda.
 
 Ejemplos:
@@ -46,6 +56,9 @@ function parseArgs(argv) {
     agents: DEFAULT_AGENTS,
     outDir: ".opencode/runs",
     write: false,
+    taskType: "parallel-review",
+    routingReason: "revision paralela por dominio",
+    models: { ...MODEL_DEFAULTS },
     task: "",
   }
 
@@ -90,11 +103,52 @@ function parseArgs(argv) {
       continue
     }
 
+    if (["--task-type", "--routing-reason", "--model-lead", "--model-worker", "--model-reviewer"].includes(arg)) {
+      const value = argv[i + 1]
+      if (!value) throw new Error(`Falta valor para ${arg}`)
+      assignOption(options, arg.slice(2), value)
+      i += 1
+      continue
+    }
+
+    const inline = arg.match(/^--(task-type|routing-reason|model-lead|model-worker|model-reviewer)=(.*)$/)
+    if (inline) {
+      assignOption(options, inline[1], inline[2])
+      continue
+    }
+
     taskParts.push(arg)
   }
 
   options.task = taskParts.join(" ").trim()
   return options
+}
+
+function assignOption(options, key, value) {
+  if (key === "task-type") {
+    options.taskType = value
+    return
+  }
+
+  if (key === "routing-reason") {
+    options.routingReason = value
+    return
+  }
+
+  if (key === "model-lead") {
+    options.models.lead = value
+    return
+  }
+
+  if (key === "model-worker") {
+    options.models.worker = value
+    return
+  }
+
+  if (key === "model-reviewer") {
+    options.models.reviewer = value
+    return
+  }
 }
 
 function buildPrompt(agentName, task, canWrite) {
@@ -108,6 +162,8 @@ function buildPrompt(agentName, task, canWrite) {
     "Usa AGENTS.md como contrato corto y docs/agent-context-policy.md como politica canonica: indices primero, detalle bajo demanda, sin historico por defecto.",
     "Lee .opencode/AGENT_STATE.md como estado vivo. Si detectas una senal relevante para otros agentes, relee ese archivo y actualiza solo tu bloque y la seccion Eventos.",
     "No cargues Product Brain completo, backlog, releases, issues cerradas ni historico por defecto; usa archivos/secciones concretas solo si la tarea lo requiere.",
+    "Routing de modelos: GPT-5.5 debe conservar planificacion, ambiguedad, datos/RLS, seguridad, finanzas, review, verificacion final, PR/release y coordinacion multi-area. GPT-5.3-Codex-Spark solo encaja como worker rapido con ownership claro, bajo riesgo y verificacion objetiva.",
+    "Escala a GPT-5.5 si un worker Spark falla verificacion, toca zona sensible, necesita mas de 1 retry o devuelve un diff demasiado amplio.",
     "Devuelve un resumen breve con hallazgos, recomendaciones y cualquier bloqueo.",
     "",
     `Tarea: ${task}`,
@@ -213,9 +269,36 @@ async function main() {
   const timestamp = new Date().toISOString().replace(/[:.]/g, "-")
   const runDir = resolve(repoRoot, options.outDir, timestamp)
   await mkdir(runDir, { recursive: true })
+  const metadataPath = join(runDir, "metadata.json")
+  const startedAt = new Date().toISOString()
 
   console.log(`Ejecutando ${options.agents.length} agentes en paralelo...`)
   console.log(`Salida: ${runDir}`)
+  await writeFile(
+    metadataPath,
+    JSON.stringify(
+      {
+        startedAt,
+        endedAt: null,
+        elapsedMs: null,
+        status: "running",
+        title: "parallel-agents",
+        mode: options.write ? "write" : "read-only",
+        taskType: options.taskType,
+        routingReason: options.routingReason,
+        agents: options.agents,
+        models: options.models,
+        result: null,
+        costEstimate: "not-recorded",
+        retries: "not-recorded",
+        escalations: "not-recorded",
+        notes: "Operational telemetry for model-routing pilot. Do not persist run history in .memory/.",
+      },
+      null,
+      2,
+    ),
+    "utf-8",
+  )
 
   const results = await Promise.all(options.agents.map((agent) => runAgent(agent, options, runDir)))
   const failed = results.filter((result) => result.code !== 0)
@@ -224,6 +307,33 @@ async function main() {
     const status = result.code === 0 ? "OK" : `FALLO ${result.code}`
     console.log(`${status} ${result.agentName} -> ${result.outputPath}`)
   }
+
+  await writeFile(
+    metadataPath,
+    JSON.stringify(
+      {
+        startedAt,
+        endedAt: new Date().toISOString(),
+        elapsedMs: Date.now() - new Date(startedAt).getTime(),
+        status: failed.length > 0 ? "error" : "done",
+        title: "parallel-agents",
+        mode: options.write ? "write" : "read-only",
+        taskType: options.taskType,
+        routingReason: options.routingReason,
+        agents: options.agents,
+        models: options.models,
+        result: failed.length > 0 ? "partial-or-failed" : "success",
+        results,
+        costEstimate: "not-recorded",
+        retries: "not-recorded",
+        escalations: "not-recorded",
+        notes: "Operational telemetry for model-routing pilot. Do not persist run history in .memory/.",
+      },
+      null,
+      2,
+    ),
+    "utf-8",
+  )
 
   process.exitCode = failed.length > 0 ? 1 : 0
 }
