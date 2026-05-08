@@ -1,9 +1,11 @@
 ---
+schema_version: 2
+kind: process
 id: PB-PROCESS-WORKFLOW
-type: process
-status: Active
-created: 2026-05-05
-updated: 2026-05-06
+title: Workflow
+lifecycle: active
+created: '2026-05-05'
+updated: '2026-05-08'
 aliases:
   - Workflow
   - Thin Product Brain Workflow
@@ -11,8 +13,8 @@ tags:
   - product-brain
   - process
   - workflow
+generated: false
 ---
-
 # Workflow
 
 Documento principal de proceso para Cachés. Reemplaza a `DEVELOPMENT_WORKFLOW.md` y `AGENT_WORKFLOW.md` como referencia operativa.

@@ -1,23 +1,37 @@
 ---
+schema_version: 2
+kind: issue
 id: CACH-B0001
 title: Redisenar Trabajos y jerarquia proyecto-evento
-type: feature
-status: backlog
-cycle: unassigned
-release: null
-priority: p1
-estimate: m
-area: frontend
-created_at: 2026-05-04
-updated_at: 2026-05-05
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - CACH-B0001
 tags:
   - product-brain
   - issue
   - ux
+generated: false
+work_type: feature
+work_level: initiative
+issue_workflow: backlog
+priority: p1
+size: m
+area: frontend
+components:
+  - work
+  - projects
+  - events
+  - design-system
+parent: null
+related: []
+depends_on: []
+blocked_by: []
+adr: []
+release: null
+theme: pro-growth
 ---
-
 # CACH-B0001 — Rediseñar Trabajos y jerarquía proyecto-evento
 
 ## Summary
@@ -70,3 +84,26 @@ PR `#75` corrigió la navegación básica de “Trabajos”:
 
 - [[../plans/backlog-mayo-2026]]
 - [[../context/ui-direction-v3-20260504]]
+
+## Desarrollo
+
+- Rama:
+- PR:
+- Estado actual:
+
+## Notas de progreso
+
+
+## Cambios de alcance y decisiones
+
+
+## Bloqueos
+
+
+## Validación ejecutada
+
+Pendiente hasta ejecutar la issue.
+
+## Memoria
+
+No aplica por ahora.

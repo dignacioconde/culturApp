@@ -1,9 +1,14 @@
-# Product Brain — Thin Product Brain v1
+# Product Brain — Thin Product Brain v2
 
 Preferencia duradera: Thin Product Brain.
 
 Product Brain debe ayudar a implementar, no bloquear merges con proceso excesivo.
 
+- Product Brain usa schema v2 plano y Obsidian-friendly: `schema_version`, `kind`, `lifecycle` y campos de dominio; no crear nuevos docs con `type/status` top-level.
+- Issues usan `issue_workflow`, `work_type`, `work_level`, `size`, `components`, `parent`, `release` y `theme`; no existe `size: l`, se parte en slices.
+- Para orientar agentes, usar `npm run pb:orient -- --json` y abrir solo issue, parent, release o source-touchpoints relevantes.
+- `BACKLOG.md`, `DIGEST.md` e índices son generados o semi-generados; no editarlos a mano salvo emergencia, regenerar con `pb:index`/`pb:digest`.
+- Cierre y readiness se validan con `pb:ready-check CACH-XXXX` y `pb:close-check CACH-XXXX`.
 - Las tareas pequeñas (fixes, chores, mejoras menores) van directamente de `main` a `main` por PR. No requieren release activa ni release branch.
 - Las release branches (`release/<version>`) se usan solo para releases multi-issue o estabilizaciones reales.
 - Una release activa no absorbe tareas nuevas por defecto: si la tarea no pertenece a esa release, se aplaza, va por flujo ligero desde `main`, o se anade explicitamente al documento de la release.
@@ -75,4 +80,4 @@ npm run pb:capture # Capturar nota (argumento o stdin)
 - Antes de abrir PR que toque `docs/project/`, ejecutar `npm run pb:check`; el validador cubre frontmatter de issues, índices principales y wikilinks internos.
 - Para implementación, leer `CURRENT_RELEASE.md`, `CURRENT_PLAN.md`, `BACKLOG.md` y la issue `CACH-*` relacionada antes de tocar código. Si la tarea pertenece a una release, la rama sale de la rama de release activa.
 
-Actualizado: 2026-05-06
+Actualizado: 2026-05-08

@@ -20,6 +20,7 @@ Lee solo el contexto minimo antes de planificar:
 - `.memory/MEMORY.md` — indice de memoria; usalo para decidir que mas leer.
 
 Carga la issue activa si existe. `docs/project/DIGEST.md` puede cargarse como estado actual cuando la tarea requiera contexto de producto o planificacion; no es obligatorio para tareas tecnicas pequenas.
+Para orientar sin cargar el Brain completo, usa `npm run pb:orient -- --json` y abre solo la issue, parent, release o source-touchpoint que aplique.
 
 No cargues por defecto backlog completo, releases completas, todas las issues, historico ni Product Brain completo.
 
@@ -47,7 +48,7 @@ Product Brain es la fuente primaria. Antes de GitHub:
 3. Actualiza backlog e indices solo en la medida necesaria.
 4. Usa GitHub Issue solo si el usuario lo pidio explicitamente o si el flujo inmediato de PR lo requiere.
 
-El cuerpo minimo de la issue debe incluir objetivo, alcance, ownership, criterios de aceptacion y validacion.
+La issue debe usar Product Brain v2: `schema_version: 2`, `kind: issue`, `work_type`, `work_level`, `issue_workflow`, `size`, `components`, `parent`, `release` y `theme`. El cuerpo minimo incluye objetivo, alcance, ownership, criterios de aceptacion, validacion esperada y ledger de desarrollo.
 
 ## Paso 4 — Preparar rama
 
@@ -84,5 +85,10 @@ Al terminar, muestra:
 - GitHub Issue creada solo si aplica.
 - Rama preparada.
 - Comando de agentes lanzado o motivo para no lanzarlo.
+- `Contexto leído`
+- `Product Brain leído`
+- `Product Brain actualizado`
+- `Validación PB`
+- `Feedback/Memory`
 
 No expliques decisiones tecnicas fuera de ese resumen operativo.

@@ -1,17 +1,19 @@
 ---
+schema_version: 2
+kind: process
 id: PB-DEFINITION-DONE
-type: process
-status: Active
-created: 2026-05-05
-updated: 2026-05-05
+title: Definition of Done
+lifecycle: active
+created: '2026-05-05'
+updated: '2026-05-08'
 aliases:
   - Definition of Done
 tags:
   - product-brain
   - process
   - done
+generated: false
 ---
-
 # Definition of Done
 
 Una issue esta hecha cuando el cambio esta integrado, verificable y el brain no miente.

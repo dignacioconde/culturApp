@@ -18,6 +18,12 @@
 - Durable memory: `cultura-agent-orchestration` decide cuándo usar trabajo directo, subagentes nativos de Codex/Claude, agentes OpenCode, revisión paralela, ownership de escritura y verificación. Mantiene OpenCode para peticiones explícitas o flujos que lo requieran, y evita delegación en tareas triviales.
 - Source: `.agents/skills/cultura-agent-orchestration/SKILL.md`; `docs/agent-skills-strategy.md`.
 
+## 2026-05-08 - Product Brain Orient Reemplaza Brain Orient Legacy
+
+- Context: Product Brain migró a v2 plano y los agentes necesitan orientación eficiente sin cargar todo `docs/project/`.
+- Durable memory: `product-brain-orient` vive en `.agents/skills/product-brain-orient/SKILL.md` y se expone en `.claude/skills/product-brain-orient`. `.claude/skills/brain-orient` legacy queda eliminado. `compact-memory` debe exponerse como symlink de directorio `.claude/skills/compact-memory`, no como `.md`.
+- Source: `.agents/skills/product-brain-orient/SKILL.md`; `docs/agent-skills-strategy.md`.
+
 ## 2026-05-06 - memory-orient: Briefing De Memoria Por Contexto De Tarea
 
 - Context: No existía una forma rápida de obtener solo la memoria relevante para una tarea concreta sin leer los 17 archivos completos. Análogo a `brain-orient` pero para `.memory/`.

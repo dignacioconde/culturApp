@@ -1,15 +1,11 @@
 ---
+schema_version: 2
+kind: issue
 id: CACH-B0005
 title: Importacion exportacion y portabilidad de datos
-type: feature
-status: done
-cycle: unassigned
-release: RELEASE-0.1.0-beta.7
-priority: p1
-estimate: m
-area: db
-created_at: 2026-05-04
-updated_at: 2026-05-07
+lifecycle: historical
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - CACH-B0005
 tags:
@@ -17,8 +13,24 @@ tags:
   - issue
   - data
   - beta
+generated: false
+work_type: feature
+work_level: slice
+issue_workflow: done
+priority: p1
+size: m
+area: data
+components:
+  - data-portability
+  - auth-onboarding
+parent: null
+related: []
+depends_on: []
+blocked_by: []
+adr: []
+release: RELEASE-0.1.0-beta.7
+theme: beta-trust
 ---
-
 # CACH-B0005 — Importación, exportación y portabilidad de datos
 
 ## Summary

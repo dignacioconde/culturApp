@@ -20,6 +20,7 @@ Lee solo el contexto minimo antes de planificar:
 - `.memory/MEMORY.md` — indice de memoria; usalo para decidir que mas leer.
 
 Carga la issue activa si existe y fue citada por el usuario. `docs/project/DIGEST.md` puede cargarse como estado actual cuando la tarea requiera contexto de producto o planificacion; no es obligatorio para tareas tecnicas pequenas.
+Para orientar agentes sin cargar el Brain completo, prefiere `npm run pb:orient -- --json` y abre solo los enlaces necesarios.
 
 No cargues por defecto backlog completo, releases completas, todas las issues, historico ni Product Brain completo.
 
@@ -45,13 +46,28 @@ Redacta una propuesta de issue Markdown usando esta plantilla. No la escribas en
 ```markdown
 ---
 id: CACH-XXXX
+schema_version: 2
+kind: issue
 title: "<titulo>"
-type: feature | bug | chore | docs | refactor
-status: inbox
-release: null
+lifecycle: active
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+generated: false
+work_type: feature | bug | chore | spike | doc
+work_level: initiative | slice | task
+issue_workflow: inbox
 priority: p0 | p1 | p2 | p3
-estimate: s | m | l
-area: frontend | data | infra | docs | product
+size: xs | s | m
+area: frontend | data | backend | infra | docs | brain | security
+components:
+  - dashboard
+parent: null
+related: []
+depends_on: []
+blocked_by: []
+adr: []
+release: null
+theme: beta-trust | core-work-ux | finance-operations | portability-onboarding | pro-growth | internal-agent-ops | null
 ---
 
 # CACH-XXXX — <titulo>
@@ -75,6 +91,20 @@ Reparto por dominio si la tarea cruza varios.
 ## Validacion
 
 Comandos y smoke tests esperados.
+
+## Desarrollo
+
+- Rama:
+- PR:
+- Estado actual:
+
+## Validación ejecutada
+
+Pendiente hasta ejecutar la issue.
+
+## Memoria
+
+No aplica por ahora.
 ```
 
 Usa `CACH-XXXX` si no puedes descubrir el siguiente ID sin cargar indices adicionales. El implementador o el modo execute resolvera el ID real.
@@ -88,5 +118,10 @@ Devuelve:
 - Recomendacion de agentes/ownership si aplica.
 - Comandos de validacion.
 - Si la tarea necesita mutar repo o remoto, indica que debe relanzarse con `npm run agents:plan:execute`.
+- `Contexto leído`
+- `Product Brain leído`
+- `Product Brain actualizado`
+- `Validación PB`
+- `Feedback/Memory`
 
 Nada mas. No arranques agentes de implementacion.

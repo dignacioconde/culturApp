@@ -1,17 +1,19 @@
 ---
+schema_version: 2
+kind: index
 id: PB-DECISIONS
-type: index
-status: Active
-created: 2026-05-04
-updated: 2026-05-04
+title: Decisions
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - Decisions
   - ADRs
 tags:
   - product-brain
   - decisions
+generated: false
 ---
-
 # Decisions
 
 ADRs y decisiones importantes de producto, arquitectura, datos, UX o negocio.

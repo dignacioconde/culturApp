@@ -1,9 +1,11 @@
 ---
+schema_version: 2
+kind: inbox
 id: PB-INBOX-20260506-105949
-type: inbox
-status: Active
-created: 2026-05-06
-updated: 2026-05-06
+title: Mejoras infraestructura agentes OpenCode 2026-05-06
+lifecycle: active
+created: '2026-05-06'
+updated: '2026-05-08'
 aliases:
   - Mejoras infraestructura agentes OpenCode 2026-05-06
 tags:
@@ -12,6 +14,8 @@ tags:
   - agentes
   - infraestructura
   - memoria
+generated: false
+capture_intent: inbox
 ---
 # Mejoras infraestructura agentes OpenCode 2026-05-06
 

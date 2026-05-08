@@ -1,17 +1,20 @@
 ---
+schema_version: 2
+kind: decision
 id: ADR-0002
-type: decision
-status: Accepted
-created: 2026-05-04
-updated: 2026-05-04
+title: Beta prioriza confianza antes que features Pro
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - ADR-0002
 tags:
   - product-brain
   - adr
   - beta
+generated: false
+decision_status: Accepted
 ---
-
 # ADR-0002 — Beta prioriza confianza antes que features Pro
 
 ## Context

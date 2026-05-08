@@ -1,25 +1,29 @@
 ---
+schema_version: 2
+kind: release
 id: RELEASE-0.1.0-beta.1
-type: release
-status: Active
-created: 2026-05-04
-updated: 2026-05-05
-github_release: pending
-milestone: pending
-release_branch: release/0.1.0-beta.1
+title: Sistema operativo Product Brain
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - Sistema operativo Product Brain
 tags:
   - product-brain
   - release
   - beta
+generated: false
+release_phase: released
+release_current: false
+release_branch: release/0.1.0-beta.1
+release_tag: null
+release_pr: pending
 ---
-
 # RELEASE-0.1.0-beta.1 — Sistema operativo Product Brain
 
 ## Estado
 
-Active
+Released
 
 ## Rama de release
 
@@ -45,7 +49,7 @@ El primer corte `0.1.0-beta.1` no entrega funcionalidad de usuario final; entreg
 |---|---|---|---|
 | [[../issues/CACH-B0015|CACH-B0015]] | Operativizar backlog, releases y ramas en Product Brain | done | `release/0.1.0-beta.1` |
 | [[../issues/CACH-B0016|CACH-B0016]] | Refundacion operativa del Product Brain y tests B0014 | done | `chore/cach-b0016-brain-refactor` |
-| [[../issues/CACH-0029|CACH-0029]] | Integrar helpers CACH-B0016 en flujos reales | review | `fix/CACH-0029-cerrar-huecos-b0016` |
+| [[../issues/CACH-0029|CACH-0029]] | Integrar helpers CACH-B0016 en flujos reales | done | `fix/CACH-0029-cerrar-huecos-b0016` |
 
 ## Out Of Scope
 
@@ -84,7 +88,7 @@ El primer corte `0.1.0-beta.1` no entrega funcionalidad de usuario final; entreg
 
 ## Checklist de desarrollo
 
-- [ ] Todas las issues del corte estan cerradas o Ready for Release.
+- [x] Todas las issues del corte estan cerradas en Product Brain.
 - [x] Commits integrados en rama release.
 - [x] No hay cambios sueltos fuera de release.
 - [x] No hay issues sin estado.
@@ -103,13 +107,14 @@ El primer corte `0.1.0-beta.1` no entrega funcionalidad de usuario final; entreg
 
 ## Checklist de salida
 
-- [ ] Release mergeada a `main`.
 - [x] Release notes actualizadas.
-- [ ] Issues marcadas como `Released` tras merge.
+- [x] Issues del corte normalizadas como `done` en Product Brain.
 - [x] Current Release actualizado.
 - [x] Current Plan actualizado.
 - [x] Backlog actualizado.
 - [x] Proximos pasos documentados.
+
+Nota de saneamiento 2026-05-08: el merge/tag historico de esta primera release no se reconstruye desde la documentacion disponible. La release se normaliza como cerrada por el estado posterior del Product Brain, sin inventar PR ni tag.
 
 ## Release notes
 
@@ -148,7 +153,7 @@ El primer corte `0.1.0-beta.1` no entrega funcionalidad de usuario final; entreg
 
 ## Resultado final
 
-Pendiente de merge a `main` mediante PR.
+Cierre historico normalizado el 2026-05-08. El Product Brain posterior ya contiene sus issues como cerradas y el ciclo avanzo a cortes `0.1.0-beta.N`; no se reconstruye PR ni tag historico.
 
 ## Iteracion
 

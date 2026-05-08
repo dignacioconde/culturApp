@@ -1,15 +1,11 @@
 ---
+schema_version: 2
+kind: issue
 id: CACH-B0016
 title: Refundacion operativa del Product Brain y tests B0014
-type: chore
-status: done
-cycle: beta-1
-release: RELEASE-0.1.0-beta.1
-priority: p1
-estimate: m
-area: brain
-created_at: 2026-05-05
-updated_at: 2026-05-05
+lifecycle: historical
+created: '2026-05-05'
+updated: '2026-05-08'
 aliases:
   - CACH-B0016
 tags:
@@ -17,6 +13,20 @@ tags:
   - issue
   - testing
   - hardening
+generated: false
+work_type: chore
+work_level: task
+issue_workflow: done
+priority: p1
+size: m
+area: brain
+components:
+  - product-brain
+parent: null
+related:
+  - CACH-B0014
+depends_on: []
+blocked_by: []
 adr:
   - ADR-0009
   - ADR-0010
@@ -24,10 +34,9 @@ adr:
   - ADR-0012
   - ADR-0013
   - ADR-0014
-related:
-  - CACH-B0014
+release: RELEASE-0.1.0-beta.1
+theme: internal-agent-ops
 ---
-
 # CACH-B0016 — Refundacion operativa del Product Brain y tests B0014
 
 ## Summary

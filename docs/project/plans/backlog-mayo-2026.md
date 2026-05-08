@@ -1,17 +1,19 @@
 ---
+schema_version: 2
+kind: plan
 id: PB-PLAN-BACKLOG-202605
-type: plan
-status: Active
-created: 2026-05-04
-updated: 2026-05-04
+title: Mayo 2026
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - Backlog completo Mayo 2026
 tags:
   - product-brain
   - plan
   - backlog
+generated: false
 ---
-
 # Backlog completo — Mayo 2026
 
 Curación del backlog bruto de 52 ideas/issues. GitHub Issues solo se crearán cuando una entrada vaya a implementarse con rama, agentes, PR y merge.

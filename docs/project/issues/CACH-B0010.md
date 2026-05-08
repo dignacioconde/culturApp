@@ -1,15 +1,11 @@
 ---
+schema_version: 2
+kind: issue
 id: CACH-B0010
 title: Tooling de agentes y modelos de desarrollo
-type: chore
-status: backlog
-cycle: unassigned
-release: null
-priority: p2
-estimate: m
-area: infra
-created_at: 2026-05-04
-updated_at: 2026-05-08
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - CACH-B0010
 tags:
@@ -17,8 +13,24 @@ tags:
   - issue
   - tooling
   - agents
+generated: false
+work_type: chore
+work_level: initiative
+issue_workflow: backlog
+priority: p2
+size: m
+area: infra
+components:
+  - agents
+  - infra-deploy
+parent: null
+related: []
+depends_on: []
+blocked_by: []
+adr: []
+release: null
+theme: internal-agent-ops
 ---
-
 # CACH-B0010 — Tooling de agentes y modelos de desarrollo
 
 ## Summary
@@ -68,3 +80,26 @@ El proyecto depende cada vez más de rituales de agentes. Hace falta reducir fri
 - [[CACH-0028|CACH-0028]]
 - [[../context/agent-workflow-guardrails-20260504|agent-workflow-guardrails-20260504]]
 - [[../decisions/ADR-0007-product-brain-sync-delete|ADR-0007-product-brain-sync-delete]]
+
+## Desarrollo
+
+- Rama:
+- PR:
+- Estado actual:
+
+## Notas de progreso
+
+
+## Cambios de alcance y decisiones
+
+
+## Bloqueos
+
+
+## Validación ejecutada
+
+Pendiente hasta ejecutar la issue.
+
+## Memoria
+
+No aplica por ahora.

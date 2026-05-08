@@ -1,17 +1,19 @@
 ---
+schema_version: 2
+kind: context
 id: PB-CTX-TECHNICAL-STACK-20260504
-type: context
-status: Active
-created: 2026-05-04
-updated: 2026-05-04
+title: '2026-05-04'
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - Stack tecnico Cachés 2026-05-04
 tags:
   - product-brain
   - context
   - technical
+generated: false
 ---
-
 # Stack tecnico — 2026-05-04
 
 ## Elecciones Actuales

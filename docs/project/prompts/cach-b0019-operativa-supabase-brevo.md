@@ -1,10 +1,11 @@
 ---
+schema_version: 2
+kind: prompt
 id: PB-PROMPT-CACH-B0019
-type: prompt
-status: Active
-created: 2026-05-07
-updated: 2026-05-07
-load_policy: load_on_request
+title: Operativa Supabase/Brevo desde agente
+lifecycle: active
+created: '2026-05-07'
+updated: '2026-05-08'
 aliases:
   - Prompt CACH-B0019 operativa Supabase Brevo
 tags:
@@ -13,8 +14,8 @@ tags:
   - supabase
   - brevo
   - operations
+generated: false
 ---
-
 # CACH-B0019 — Operativa Supabase/Brevo desde agente
 
 Usa este prompt cuando un agente tenga que terminar o verificar la operativa de emails transaccionales de Cachés sin volver a pasar comandos manuales al usuario.

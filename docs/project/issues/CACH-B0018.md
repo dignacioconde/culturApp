@@ -1,15 +1,11 @@
 ---
+schema_version: 2
+kind: issue
 id: CACH-B0018
 title: Adaptador Codex-native para perfiles Cultura
-type: chore
-status: done
-cycle: beta-1
-release: RELEASE-0.1.0-beta.9
-priority: p2
-estimate: s
-area: infra
-created_at: 2026-05-07
-updated_at: 2026-05-07
+lifecycle: historical
+created: '2026-05-07'
+updated: '2026-05-08'
 aliases:
   - CACH-B0018
 tags:
@@ -18,8 +14,26 @@ tags:
   - beta
   - agents
   - tooling
+generated: false
+work_type: chore
+work_level: task
+issue_workflow: done
+priority: p2
+size: s
+area: infra
+components:
+  - auth-onboarding
+  - settings-profile
+  - agents
+  - infra-deploy
+parent: null
+related: []
+depends_on: []
+blocked_by: []
+adr: []
+release: RELEASE-0.1.0-beta.9
+theme: beta-trust
 ---
-
 # CACH-B0018 — Adaptador Codex-native para perfiles Cultura
 
 ## Summary

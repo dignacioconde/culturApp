@@ -1,17 +1,32 @@
 ---
+schema_version: 2
+kind: issue
 id: CACH-XXXX
 title: Titulo de la issue
-type: bug | feature | chore | spike | doc
-status: inbox | backlog | ready | in-progress | review | done | blocked | wontfix
-priority: p1
-release: null
-created_at: YYYY-MM-DD
-updated_at: YYYY-MM-DD
+lifecycle: active
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
 aliases:
   - CACH-XXXX
 tags:
   - product-brain
   - issue
+generated: false
+work_type: bug | feature | chore | spike | doc
+work_level: initiative | slice | task
+issue_workflow: inbox | backlog | ready | in_progress | review | blocked | done | wont_fix
+priority: p1
+size: xs | s | m
+area: frontend | data | backend | infra | docs | brain | security
+components:
+  - dashboard
+parent: null
+related: []
+depends_on: []
+blocked_by: []
+adr: []
+release: null
+theme: beta-trust | core-work-ux | finance-operations | portability-onboarding | pro-growth | internal-agent-ops | null
 ---
 
 # CACH-XXXX — Titulo de la issue
@@ -36,19 +51,22 @@ Que comandos o checks se ejecutaran al terminar.
 
 Pendiente hasta cerrar la issue.
 
----
+## Desarrollo
 
-<!-- Campos opcionales: rellenar solo si aportan contexto -->
+- Rama:
+- PR:
+- Estado actual:
 
-<!-- ## Rama sugerida -->
-<!-- `feature/CACH-XXXX-short-name` -->
+## Notas de progreso
 
-<!-- ## Riesgos -->
+## Cambios de alcance y decisiones
 
-<!-- ## Dependencias -->
+## Bloqueos
 
-<!-- ## Notas tecnicas -->
+## Validación ejecutada
 
-<!-- ## Commits relacionados -->
+Pendiente hasta ejecutar la issue.
 
-<!-- ## PR relacionada -->
+## Memoria
+
+Actualizada en ... / no aplica.

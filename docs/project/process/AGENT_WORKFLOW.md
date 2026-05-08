@@ -1,9 +1,11 @@
 ---
+schema_version: 2
+kind: process
 id: PB-PROCESS-AGENT-WORKFLOW
-type: process
-status: Deprecated
-created: 2026-05-05
-updated: 2026-05-05
+title: Agent Workflow
+lifecycle: deprecated
+created: '2026-05-05'
+updated: '2026-05-08'
 aliases:
   - Agent Workflow
   - Workflow de agentes
@@ -11,8 +13,8 @@ tags:
   - product-brain
   - process
   - agents
+generated: false
 ---
-
 # Agent Workflow
 
 Consolidado en [[WORKFLOW]].

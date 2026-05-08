@@ -1,14 +1,17 @@
 ---
+schema_version: 2
+kind: index
 id: PB-KNOWLEDGE-INDEX
-type: index
-status: Active
-created: 2026-05-07
+title: Knowledge Index
+lifecycle: active
+created: 2026-05-08
 updated: 2026-05-08
 aliases:
   - Knowledge Index
 tags:
   - product-brain
   - knowledge
+generated: true
 ---
 # Knowledge Index
 

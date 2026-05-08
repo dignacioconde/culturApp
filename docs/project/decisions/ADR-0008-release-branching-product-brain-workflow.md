@@ -1,9 +1,11 @@
 ---
+schema_version: 2
+kind: decision
 id: ADR-0008
-type: decision
-status: Accepted
-created: 2026-05-05
-updated: 2026-05-06
+title: Release branching gobernado por Product Brain
+lifecycle: active
+created: '2026-05-05'
+updated: '2026-05-08'
 aliases:
   - ADR-0008
 tags:
@@ -11,8 +13,9 @@ tags:
   - adr
   - workflow
   - releases
+generated: false
+decision_status: Accepted
 ---
-
 # ADR-0008 — Release branching gobernado por Product Brain
 
 ## Estado

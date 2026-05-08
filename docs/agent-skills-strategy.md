@@ -31,7 +31,12 @@ Do not copy the same skill into both `.agents` and `.claude`. If a tool cannot f
 | `cultura-code-review` | Cross-cutting code review of diffs, PRs, architecture, risk, and maintainability. |
 | `cultura-release-task-flow` | Integrate finished CACH tasks and documentation into the active beta release branch with Product Brain validation. |
 | `cultura-agent-orchestration` | Decide when to use native Codex/Claude subagents, OpenCode agents, parallel review, ownership, and verification. |
+| `product-brain-orient` | Orient agents on Product Brain v2 with `pb:orient` without loading the full Brain. |
+| `product-brain-capture` | Capture ideas, decisions, context, or issue candidates into Product Brain inbox. |
+| `cultura-issue-launch` | Turn rough work into Product Brain v2 issue context and, in execute mode, branch/agent setup. |
 | `memory-protocol` | File-based Markdown memory for durable agent context, recall, curation, and forgetting. |
+| `memory-orient` | Read only task-relevant memory files before implementation or planning. |
+| `compact-memory` | Compact `.memory/` while keeping durable lessons and removing operational history. |
 | `agent-context-maintenance` | Maintain agent context hygiene, review context-check warnings, and compact prompts/memory without losing critical rules. |
 | `caveman` | Ultra-concise communication mode adapted for CulturaApp, with safety fallbacks for reviews, data, finance, RLS, and irreversible actions. |
 
@@ -120,7 +125,13 @@ Validation status for the current setup:
 | `cultura-testing-release-check` | Valid |
 | `cultura-code-review` | Valid |
 | `cultura-agent-orchestration` | Valid |
+| `product-brain-orient` | Valid |
+| `product-brain-capture` | Valid |
+| `cultura-issue-launch` | Valid |
 | `memory-protocol` | Valid |
+| `memory-orient` | Valid |
+| `compact-memory` | Valid |
+| `agent-context-maintenance` | Valid |
 | `.agents/templates/portable-skill` | Valid |
 | `git diff --check` | Pass |
 

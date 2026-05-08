@@ -1,17 +1,19 @@
 ---
+schema_version: 2
+kind: process
 id: PB-RELEASE-FLOW
-type: process
-status: Active
-created: 2026-05-05
-updated: 2026-05-06
+title: Release flow
+lifecycle: active
+created: '2026-05-05'
+updated: '2026-05-08'
 aliases:
   - Release flow
 tags:
   - product-brain
   - process
   - release
+generated: false
 ---
-
 # Release flow
 
 ## Regla

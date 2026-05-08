@@ -1,17 +1,19 @@
 ---
+schema_version: 2
+kind: backlog
 id: PB-BACKLOG-IDEAS
-type: backlog
-status: Active
-created: 2026-05-05
-updated: 2026-05-05
+title: Ideas
+lifecycle: active
+created: '2026-05-05'
+updated: '2026-05-08'
 aliases:
   - Ideas backlog
 tags:
   - product-brain
   - backlog
   - ideas
+generated: false
 ---
-
 # Ideas
 
 Entrada ligera para posibilidades que aun no tienen problema, usuario, alcance o release claros.

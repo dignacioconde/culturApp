@@ -213,9 +213,11 @@ function buildPrompt(agentName, task, options) {
     "Usa AGENTS.md como contrato corto y docs/agent-context-policy.md como politica canonica: indices primero, detalle bajo demanda, sin historico por defecto.",
     "Lee .opencode/AGENT_STATE.md solo si el modo y la tarea lo requieren. No lo modifiques en modo solo lectura.",
     "No cargues Product Brain completo, backlog, releases, issues cerradas ni historico por defecto; usa archivos/secciones concretas solo si la tarea lo requiere.",
+    "Si hace falta orientar Product Brain, usa npm run pb:orient -- --json y abre solo issue, parent, release o source-touchpoints relevantes.",
     "Routing de modelos: GPT-5.5 debe conservar planificacion, ambiguedad, datos/RLS, seguridad, finanzas, review, verificacion final, PR/release y coordinacion multi-area. GPT-5.3-Codex-Spark solo encaja como worker rapido con ownership claro, bajo riesgo y verificacion objetiva.",
     "Escala a GPT-5.5 si un worker Spark falla verificacion, toca zona sensible, necesita mas de 1 retry o devuelve un diff demasiado amplio.",
     "Devuelve un resumen breve con hallazgos, recomendaciones y cualquier bloqueo.",
+    "Incluye: Contexto leído; Product Brain leído; Product Brain actualizado; Validación PB; Feedback/Memory.",
     "",
     `Tarea: ${task}`,
   ].join("\n")

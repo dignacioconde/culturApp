@@ -1,17 +1,19 @@
 ---
+schema_version: 2
+kind: knowledge
 id: PB-ZK-20260504-TECH-AUDIT
-type: zk
-status: Active
-created: 2026-05-04
-updated: 2026-05-04
+title: '2026-05-04'
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - Auditoría técnica repo 2026-05-04
 tags:
   - product-brain
   - knowledge
   - technical-audit
+generated: false
 ---
-
 # Auditoría técnica repo — 2026-05-04
 
 ## Resumen

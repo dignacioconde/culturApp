@@ -1,18 +1,22 @@
 ---
+schema_version: 2
+kind: index
 id: PB-RELEASES-INDEX
-type: index
-status: Active
-created: 2026-05-07
+title: Releases Index
+lifecycle: active
+created: 2026-05-08
 updated: 2026-05-08
 aliases:
   - Releases Index
 tags:
   - product-brain
   - releases
+generated: true
 ---
 # Releases Index
 
 - [[../releases/CURRENT_RELEASE|PB-CURRENT-RELEASE]] — Current Release
+- [[../releases/RELEASE_TEMPLATE|PB-RELEASE-TEMPLATE]] — RELEASE_TEMPLATE
 - [[../releases/RELEASE-0.1.0-beta.1|RELEASE-0.1.0-beta.1]] — Sistema operativo Product Brain
 - [[../releases/RELEASE-0.1.0-beta.10|RELEASE-0.1.0-beta.10]] — Emails transaccionales beta
 - [[../releases/RELEASE-0.1.0-beta.11|RELEASE-0.1.0-beta.11]] — Guardrails de agentes
@@ -27,4 +31,3 @@ tags:
 - [[../releases/RELEASE-0.1.0-beta.7|RELEASE-0.1.0-beta.7]] — Portabilidad mínima de datos
 - [[../releases/RELEASE-0.1.0-beta.8|RELEASE-0.1.0-beta.8]] — Onboarding y acceso beta privado
 - [[../releases/RELEASE-0.1.0-beta.9|RELEASE-0.1.0-beta.9]] — Panel admin de invitaciones
-- [[../releases/RELEASE_TEMPLATE|PB-RELEASE-TEMPLATE]] — RELEASE_TEMPLATE

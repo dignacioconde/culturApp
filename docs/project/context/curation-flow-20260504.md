@@ -1,15 +1,19 @@
 ---
+schema_version: 2
+kind: context
 id: PB-CURATION-FLOW
-type: context
-status: Active
-created: 2026-05-04
-updated: 2026-05-04
+title: Flujo de Curation del Inbox
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
+aliases:
+  - PB-CURATION-FLOW
 tags:
   - product-brain
   - workflow
   - inbox
+generated: false
 ---
-
 # Flujo de Curation del Inbox
 
 Proceso para clasificar y gestionar capturas rápidas en el inbox del Product Brain.
@@ -44,13 +48,28 @@ Cuando capturas una idea rápida con `/product-brain-capture` o directamente en 
 
 ```markdown
 ---
+schema_version: 2
+kind: issue
 id: CACH-0026
-type: issue
-status: Backlog
-priority: High
-release: RELEASE-0.1.0-beta.1
+lifecycle: active
 created: 2026-05-04
 updated: 2026-05-04
+generated: false
+work_type: feature
+work_level: slice
+issue_workflow: backlog
+priority: p1
+size: s
+area: frontend
+components:
+  - work
+parent: null
+related: []
+depends_on: []
+blocked_by: []
+adr: []
+release: RELEASE-0.1.0-beta.1
+theme: core-work-ux
 ---
 
 # CACH-0026 — Título descriptivo

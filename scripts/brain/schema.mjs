@@ -1,73 +1,107 @@
 import { z } from 'zod'
+import {
+  AREAS,
+  COMPONENTS,
+  ISSUE_WORKFLOWS,
+  PRIORITIES,
+  SIZES,
+  THEMES,
+  WORK_LEVELS,
+  WORK_TYPES,
+} from './lib.mjs'
 
 const dateString = z.preprocess((value) => {
   if (value instanceof Date) return value.toISOString().slice(0, 10)
   return value
 }, z.string().regex(/^\d{4}-\d{2}-\d{2}$/))
-const issueRef = z.string().regex(/^CACH-(B)?\d{4}$/)
-const adrRef = z.string().regex(/^ADR-\d{4}$/)
-const nullableRelease = z.union([z.string().min(1), z.null()]).default(null)
 
-const baseFrontmatter = z.object({
+export const issueRef = z.string().regex(/^CACH-(?:B)?\d{4}$/)
+export const adrRef = z.string().regex(/^ADR-\d{4}$/)
+export const releaseRef = z.string().regex(/^RELEASE-[0-9]+\.[0-9]+\.[0-9]+(?:-[a-z]+\.[0-9]+)?$/)
+export const nullableIssueRef = z.union([issueRef, z.null()])
+export const nullableRelease = z.union([releaseRef, z.null()])
+export const nullableTheme = z.union([z.enum(THEMES), z.null()])
+
+export const BaseFrontmatter = z.object({
+  schema_version: z.literal(2),
+  kind: z.string().min(1),
   id: z.string().min(1),
-  status: z.string().min(1),
-  created: dateString.optional(),
-  updated: dateString.optional(),
-  created_at: dateString.optional(),
-  updated_at: dateString.optional(),
-  aliases: z.array(z.string()).optional(),
-  tags: z.array(z.string()).optional(),
+  title: z.string().min(1).max(160),
+  lifecycle: z.enum(['active', 'draft', 'historical', 'deprecated', 'archived']),
+  created: dateString,
+  updated: dateString,
+  aliases: z.array(z.string()).default([]),
+  tags: z.array(z.string()).default([]),
+  generated: z.boolean(),
 }).passthrough()
 
-export const IssueFrontmatter = baseFrontmatter.extend({
+export const IssueFrontmatter = BaseFrontmatter.extend({
+  kind: z.literal('issue'),
   id: issueRef,
-  title: z.string().min(1).max(120),
-  type: z.enum(['bug', 'feature', 'chore', 'spike', 'doc']),
-  status: z.enum(['inbox', 'backlog', 'ready', 'in-progress', 'review', 'done', 'blocked', 'wontfix']),
-  cycle: z.enum(['beta-1', 'beta-2', 'rc', 'ga', 'unassigned']),
+  work_type: z.enum(WORK_TYPES),
+  work_level: z.enum(WORK_LEVELS),
+  issue_workflow: z.enum(ISSUE_WORKFLOWS),
+  priority: z.enum(PRIORITIES),
+  size: z.enum(SIZES),
+  area: z.enum(AREAS),
+  components: z.array(z.enum(COMPONENTS)).min(1),
+  parent: nullableIssueRef,
+  related: z.array(issueRef).default([]),
+  depends_on: z.array(issueRef).default([]),
+  blocked_by: z.array(issueRef).default([]),
+  adr: z.array(adrRef).default([]),
   release: nullableRelease,
-  priority: z.enum(['p0', 'p1', 'p2', 'p3']),
-  estimate: z.enum(['xs', 's', 'm', 'l']),
-  area: z.enum(['frontend', 'backend', 'db', 'docs', 'infra', 'brain']),
-  created_at: dateString,
-  updated_at: dateString,
-  closes: z.array(issueRef).optional(),
-  related: z.array(issueRef).optional(),
-  adr: z.array(adrRef).optional(),
+  theme: nullableTheme,
 })
 
-export const AdrFrontmatter = baseFrontmatter.extend({
+export const DecisionFrontmatter = BaseFrontmatter.extend({
+  kind: z.literal('decision'),
   id: adrRef,
-  type: z.literal('decision'),
-  status: z.enum(['Proposed', 'Accepted', 'Superseded']),
+  decision_status: z.enum(['Proposed', 'Accepted', 'Superseded']),
 })
 
-export const ReleaseFrontmatter = baseFrontmatter.extend({
-  id: z.string().regex(/^(RELEASE-[0-9]+\.[0-9]+\.[0-9]+(-[a-z]+\.[0-9]+)?|PB-CURRENT-RELEASE|RELEASE-TEMPLATE)$/),
-  type: z.enum(['release', 'release-status']),
+export const ReleaseFrontmatter = BaseFrontmatter.extend({
+  kind: z.literal('release'),
+  id: releaseRef,
+  release_phase: z.enum(['draft', 'active', 'released', 'deprecated', 'archived']),
+  release_current: z.boolean(),
+  release_branch: z.union([z.string().min(1), z.null()]),
+  release_tag: z.union([z.string().min(1), z.null()]),
+  release_pr: z.union([z.string().min(1), z.null()]).default(null),
 })
 
-export const FeedbackFrontmatter = baseFrontmatter.extend({
-  id: z.string().min(1),
-  type: z.literal('feedback'),
-  source: z.enum(['widget', 'email', 'telegram', 'other']).optional(),
-  severity: z.enum(['low', 'medium', 'high']).optional(),
+export const ReleaseStatusFrontmatter = BaseFrontmatter.extend({
+  kind: z.literal('release_status'),
+  id: z.literal('PB-CURRENT-RELEASE'),
+  release_current: z.boolean(),
+})
+
+export const FeedbackFrontmatter = BaseFrontmatter.extend({
+  kind: z.literal('feedback'),
+  feedback_source: z.enum(['widget', 'email', 'telegram', 'other']).optional(),
+  feedback_severity: z.enum(['low', 'medium', 'high']).optional(),
   area: z.string().optional(),
-  linked_issue: issueRef.nullable().optional(),
+  linked_issue: nullableIssueRef.optional(),
 })
 
-export const GenericFrontmatter = baseFrontmatter
+export const CaptureFrontmatter = BaseFrontmatter.extend({
+  kind: z.enum(['inbox', 'knowledge', 'context']),
+  capture_intent: z.enum(['inbox', 'idea', 'issue', 'decision', 'context']).optional(),
+})
+
+export const GenericFrontmatter = BaseFrontmatter
 
 export function schemaForPath(relPath) {
   if (relPath.startsWith('templates/')) return null
   if (relPath.startsWith('issues/') && relPath !== 'issues/README.md') return IssueFrontmatter
-  if (relPath.startsWith('decisions/') && relPath !== 'decisions/README.md') return AdrFrontmatter
+  if (relPath.startsWith('decisions/') && relPath !== 'decisions/README.md') return DecisionFrontmatter
+  if (relPath === 'releases/CURRENT_RELEASE.md') return ReleaseStatusFrontmatter
   if (
     relPath.startsWith('releases/') &&
     relPath !== 'releases/README.md' &&
     relPath !== 'releases/RELEASE_TEMPLATE.md'
   ) return ReleaseFrontmatter
-  if (relPath === 'releases/RELEASE_TEMPLATE.md') return null
   if (relPath.startsWith('feedback/') && relPath !== 'feedback/.gitkeep') return FeedbackFrontmatter
+  if (relPath.startsWith('inbox/') && relPath !== 'inbox/README.md') return CaptureFrontmatter
   return GenericFrontmatter
 }

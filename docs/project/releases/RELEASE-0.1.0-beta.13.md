@@ -1,19 +1,24 @@
 ---
+schema_version: 2
+kind: release
 id: RELEASE-0.1.0-beta.13
-type: release
-status: Released
-created: 2026-05-08
-updated: 2026-05-08
-release_branch: release/0.1.0-beta.13
-release_tag: v0.1.0-beta.13
+title: Dashboard movil y estado Ahora
+lifecycle: active
+created: '2026-05-08'
+updated: '2026-05-08'
 aliases:
   - RELEASE-0.1.0-beta.13
 tags:
   - product-brain
   - release
   - beta
+generated: false
+release_phase: released
+release_current: false
+release_branch: release/0.1.0-beta.13
+release_tag: v0.1.0-beta.13
+release_pr: null
 ---
-
 # RELEASE-0.1.0-beta.13 — Dashboard movil y estado Ahora
 
 ## Estado

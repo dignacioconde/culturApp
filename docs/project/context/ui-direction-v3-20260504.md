@@ -1,9 +1,11 @@
 ---
+schema_version: 2
+kind: context
 id: PB-CTX-UI-DIRECTION-V3-20260504
-type: context
-status: Active
-created: 2026-05-04
-updated: 2026-05-04
+title: '2026-05-04'
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - Dirección visual UI v3
 tags:
@@ -11,8 +13,8 @@ tags:
   - context
   - ui
   - design
+generated: false
 ---
-
 # Direccion visual UI v3 — 2026-05-04
 
 ## Norte De Producto

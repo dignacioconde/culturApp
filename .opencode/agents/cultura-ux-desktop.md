@@ -63,3 +63,13 @@ Tu foco es asegurar que la aplicación sea clara, elegante, usable y eficiente e
 - Indica si `cultura-ux-mobile`, `cultura-frontend` o `cultura-data` deben reaccionar.
 - Señala riesgos de responsive, accesibilidad o consistencia visual.
 - Propón próximos pasos concretos si la UX queda incompleta.
+
+## Contrato Product Brain v2
+
+Al terminar, declara siempre:
+
+- Contexto leído: archivos/secciones realmente consultados.
+- Product Brain leído: issue, índice, release, source-touchpoint o `pb:orient` usado; `no aplica` si no hizo falta.
+- Product Brain actualizado: ruta(s) actualizadas o `no aplica`.
+- Validación PB: `npm run pb:check`, `pb:ready-check`, `pb:close-check` o `no aplica` con motivo.
+- Feedback/Memory: memoria actualizada o `Memoria: no aplica`.

@@ -1,7 +1,9 @@
 ---
+schema_version: 2
+kind: index
 id: PB-TEMPLATES
-type: index
-status: Active
+title: Templates
+lifecycle: active
 created: 2026-05-04
 updated: 2026-05-05
 aliases:
@@ -9,6 +11,7 @@ aliases:
 tags:
   - product-brain
   - templates
+generated: false
 ---
 
 # Templates

@@ -1,16 +1,18 @@
 ---
+schema_version: 2
+kind: prompt
 id: PB-PROMPT-CAPTURE
-type: prompt
-status: Active
-created: 2026-05-04
-updated: 2026-05-04
+title: Product Brain Capture
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - Product Brain Capture Prompt
 tags:
   - product-brain
   - prompt
+generated: false
 ---
-
 # Product Brain Capture
 
 Usa este formato para capturar desde móvil:

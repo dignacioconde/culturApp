@@ -1,9 +1,11 @@
 ---
+schema_version: 2
+kind: context
 id: PB-CTX-DESIGN-SYSTEM-CACHES-20260506
-type: context
-status: Active
-created: 2026-05-06
-updated: 2026-05-06
+title: Cachés
+lifecycle: active
+created: '2026-05-06'
+updated: '2026-05-08'
 aliases:
   - Sistema de diseño Cachés 2026-05-06
   - Design system Cachés
@@ -12,8 +14,8 @@ tags:
   - context
   - design
   - ui
+generated: false
 ---
-
 # Sistema de Diseño — Cachés
 
 ## Principios de Diseño

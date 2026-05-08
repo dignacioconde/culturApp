@@ -1,15 +1,11 @@
 ---
+schema_version: 2
+kind: issue
 id: CACH-B0007
 title: Calendario unificado e interaccion rapida
-type: feature
-status: backlog
-cycle: unassigned
-release: null
-priority: p1
-estimate: m
-area: frontend
-created_at: 2026-05-04
-updated_at: 2026-05-04
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - CACH-B0007
 tags:
@@ -17,8 +13,24 @@ tags:
   - issue
   - calendar
   - ux
+generated: false
+work_type: feature
+work_level: initiative
+issue_workflow: backlog
+priority: p1
+size: m
+area: frontend
+components:
+  - calendar
+  - design-system
+parent: null
+related: []
+depends_on: []
+blocked_by: []
+adr: []
+release: null
+theme: core-work-ux
 ---
-
 # CACH-B0007 — Calendario unificado e interacción rápida
 
 ## Summary
@@ -54,3 +66,26 @@ Tener calendarios separados y detalles lentos puede dificultar la visión global
 - [[CACH-B0008|CACH-B0008]]
 - [[../context/ux-mobile-guardrails-20260504|ux-mobile-guardrails-20260504]]
 - [[../knowledge/PB-ZK-20260504-rbc-height|PB-ZK-20260504-rbc-height]]
+
+## Desarrollo
+
+- Rama:
+- PR:
+- Estado actual:
+
+## Notas de progreso
+
+
+## Cambios de alcance y decisiones
+
+
+## Bloqueos
+
+
+## Validación ejecutada
+
+Pendiente hasta ejecutar la issue.
+
+## Memoria
+
+No aplica por ahora.

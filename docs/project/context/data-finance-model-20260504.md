@@ -1,9 +1,11 @@
 ---
+schema_version: 2
+kind: context
 id: PB-CTX-DATA-FINANCE-20260504
-type: context
-status: Active
-created: 2026-05-04
-updated: 2026-05-04
+title: '2026-05-04'
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - Modelo datos y finanzas 2026-05-04
 tags:
@@ -11,8 +13,8 @@ tags:
   - context
   - data
   - finance
+generated: false
 ---
-
 # Modelo de datos y finanzas — 2026-05-04
 
 ## Esquema Actual

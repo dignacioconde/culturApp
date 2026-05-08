@@ -1,15 +1,11 @@
 ---
+schema_version: 2
+kind: issue
 id: CACH-B0019
 title: Emails transaccionales beta con Brevo
-type: feature
-status: done
-cycle: beta-1
-release: RELEASE-0.1.0-beta.10
-priority: p1
-estimate: m
-area: backend
-created_at: 2026-05-07
-updated_at: 2026-05-08
+lifecycle: historical
+created: '2026-05-07'
+updated: '2026-05-08'
 aliases:
   - CACH-B0019
 tags:
@@ -19,8 +15,24 @@ tags:
   - email
   - auth
   - security
+generated: false
+work_type: feature
+work_level: slice
+issue_workflow: done
+priority: p1
+size: m
+area: backend
+components:
+  - auth-onboarding
+  - email
+parent: null
+related: []
+depends_on: []
+blocked_by: []
+adr: []
+release: RELEASE-0.1.0-beta.10
+theme: beta-trust
 ---
-
 # CACH-B0019 — Emails transaccionales beta con Brevo
 
 ## Objetivo

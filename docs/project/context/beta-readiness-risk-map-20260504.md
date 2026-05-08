@@ -1,9 +1,11 @@
 ---
+schema_version: 2
+kind: context
 id: PB-CTX-BETA-RISK-20260504
-type: context
-status: Active
-created: 2026-05-04
-updated: 2026-05-05
+title: '2026-05-04'
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - Mapa beta y riesgos 2026-05-04
 tags:
@@ -11,8 +13,8 @@ tags:
   - context
   - beta
   - risk
+generated: false
 ---
-
 # Beta readiness y mapa de riesgos — 2026-05-04
 
 ## Estado General

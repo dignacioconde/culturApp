@@ -1,9 +1,11 @@
 ---
+schema_version: 2
+kind: process
 id: PB-PROCESS-COMMIT-CONVENTION
-type: process
-status: Active
-created: 2026-05-05
-updated: 2026-05-05
+title: Commit Convention
+lifecycle: active
+created: '2026-05-05'
+updated: '2026-05-08'
 aliases:
   - Commit Convention
   - Convencion de commits
@@ -12,8 +14,8 @@ tags:
   - process
   - git
   - commits
+generated: false
 ---
-
 # Commit Convention
 
 Los commits deben permitir reconstruir issue, release, rama y validacion.

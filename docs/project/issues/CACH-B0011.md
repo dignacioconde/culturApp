@@ -1,15 +1,11 @@
 ---
+schema_version: 2
+kind: issue
 id: CACH-B0011
 title: Categorias etiquetas y taxonomia
-type: spike
-status: backlog
-cycle: unassigned
-release: null
-priority: p2
-estimate: s
-area: db
-created_at: 2026-05-04
-updated_at: 2026-05-08
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - CACH-B0011
 tags:
@@ -17,8 +13,23 @@ tags:
   - issue
   - ux
   - data
+generated: false
+work_type: spike
+work_level: initiative
+issue_workflow: backlog
+priority: p2
+size: s
+area: data
+components:
+  - design-system
+parent: null
+related: []
+depends_on: []
+blocked_by: []
+adr: []
+release: null
+theme: core-work-ux
 ---
-
 # CACH-B0011 — Categorías, etiquetas y taxonomía
 
 ## Summary
@@ -79,3 +90,26 @@ Dejar una decision accionable sobre categorias y etiquetas que indique que se ma
 ## Related
 
 - [[CACH-B0009]]
+
+## Desarrollo
+
+- Rama:
+- PR:
+- Estado actual:
+
+## Notas de progreso
+
+
+## Cambios de alcance y decisiones
+
+
+## Bloqueos
+
+
+## Validación ejecutada
+
+Pendiente hasta ejecutar la issue.
+
+## Memoria
+
+No aplica por ahora.

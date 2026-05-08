@@ -1,15 +1,19 @@
 ---
+schema_version: 2
+kind: exploration
 id: PB-UX-MOBILE-EXPLORATION-20260505
-type: exploration
-status: done
-created: 2026-05-05
-updated: 2026-05-05
+title: CulturaApp
+lifecycle: historical
+created: '2026-05-05'
+updated: '2026-05-08'
+aliases:
+  - PB-UX-MOBILE-EXPLORATION-20260505
 tags:
   - ux
   - mobile
   - exploration
+generated: false
 ---
-
 # Exploración UX Móvil — CulturaApp
 
 Exploración paralela en modo solo lectura: rutas principales y calendarios/formularios.

@@ -1,17 +1,20 @@
 ---
+schema_version: 2
+kind: decision
 id: ADR-0006
-type: decision
-status: Accepted
-created: 2026-05-04
-updated: 2026-05-04
+title: Definicion estricta de Caché bruto/hora
+lifecycle: active
+created: '2026-05-04'
+updated: '2026-05-08'
 aliases:
   - ADR-0006
 tags:
   - product-brain
   - adr
   - finance
+generated: false
+decision_status: Accepted
 ---
-
 # ADR-0006 — Definicion estricta de Caché bruto/hora
 
 ## Context
