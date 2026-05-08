@@ -9,7 +9,7 @@ priority: p1
 estimate: m
 area: backend
 created_at: 2026-05-07
-updated_at: 2026-05-07
+updated_at: 2026-05-08
 aliases:
   - CACH-B0019
 tags:
@@ -59,4 +59,6 @@ Quedan fuera newsletters, contactos, audiencias, automatizaciones, CRM, webhooks
 
 ## Resultado
 
-Implementado y asociado a [[../releases/RELEASE-0.1.0-beta.10|RELEASE-0.1.0-beta.10]]. La migración y la Edge Function quedaron desplegadas manualmente en Supabase; el envío funciona usando un remitente personal validado temporalmente. Queda pendiente validar el remitente definitivo `hola@updates.caches.es` antes de producción estable.
+Implementado y asociado a [[../releases/RELEASE-0.1.0-beta.10|RELEASE-0.1.0-beta.10]]. La migración y la Edge Function quedaron desplegadas en Supabase; el envío funciona usando un remitente personal validado temporalmente. Queda pendiente crear o activar un remitente real de Cachés, validarlo en Brevo, cambiar el remitente temporal en Supabase Auth/Edge Function y configurar SPF/DKIM/DMARC antes de producción estable.
+
+Nota operativa posterior: un fallo de recepción del email de confirmación se debió a que el remitente SMTP de Supabase Auth no estaba bien configurado/confirmado en Brevo. No diagnosticar de entrada como caída de Supabase si Auth registra `user_confirmation_requested`; revisar primero remitente SMTP, logs de Brevo y DNS del dominio emisor.

@@ -3,7 +3,7 @@ id: PB-CURRENT-PLAN
 type: plan
 status: Active
 created: 2026-05-05
-updated: 2026-05-07
+updated: 2026-05-08
 aliases:
   - Current Plan
 tags:
@@ -16,19 +16,25 @@ tags:
 
 ## Foco actual
 
-Sin release activa tras el cierre de [[../releases/RELEASE-0.1.0-beta.9|RELEASE-0.1.0-beta.9]].
+Cerrar la operativa de email transaccional: email/alias real, dominio/remitente definitivo, DNS y verificación real de invitación + confirmación.
 
 ## Release activa
 
-Ninguna.
+[[../releases/RELEASE-0.1.0-beta.11|RELEASE-0.1.0-beta.11]] — Dominio email transaccional.
 
-Ultimo corte: [[../releases/RELEASE-0.1.0-beta.9|RELEASE-0.1.0-beta.9]] — mergeada a `main` por PR #88 el 2026-05-07.
+Ultimo corte: [[../releases/RELEASE-0.1.0-beta.10|RELEASE-0.1.0-beta.10]] — emails transaccionales beta con Brevo.
+
+## Cambios consolidados desde beta 10
+
+- Beta 10 queda como corte técnico cerrado: invitaciones por Brevo Edge Function, auditoría y flujo de confirmación de email preparados.
+- Beta 11 absorbe la deuda operativa de beta 10: remitente real de Cachés, validación Brevo, SPF/DKIM/DMARC y sustitución del remitente temporal en Supabase Auth y Edge Function.
+- CACH-B0020 es el único scope activo de beta 11 hasta cerrar la verificación real de invitación y confirmación.
 
 ## Prioridades
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
-2. Mantener el backlog preparado para elegir el próximo corte desde `main`.
-3. Mantener fuera de cierres ya publicados calendario unificado, mobile financiero, tooling interno amplio, analítica real, i18n y growth salvo release nueva explícita.
+2. Máxima prioridad para el **8 de mayo de 2026**: [[../issues/CACH-B0020|CACH-B0020]] — validar dominio de email transaccional y cambiar remitentes definitivos.
+3. Mantener fuera de este corte calendario unificado, mobile financiero, tooling interno amplio, analítica real, i18n y growth.
 
 ## Plan operativo
 
@@ -41,4 +47,4 @@ Ultimo corte: [[../releases/RELEASE-0.1.0-beta.9|RELEASE-0.1.0-beta.9]] — merg
 
 ## Próximo checkpoint
 
-Elegir el siguiente corte: calendario unificado, mobile financiero, tooling interno amplio o una micro-release técnica.
+Cerrar CACH-B0020 antes de invitar a más usuarios reales.

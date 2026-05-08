@@ -3,7 +3,7 @@ id: PB-CURRENT-RELEASE
 type: release-status
 status: Active
 created: 2026-05-05
-updated: 2026-05-07
+updated: 2026-05-08
 aliases:
   - Current Release
 tags:
@@ -16,7 +16,7 @@ tags:
 
 ## Release activa
 
-`RELEASE-0.1.0-beta.11` — Próximo corte beta.
+`RELEASE-0.1.0-beta.11` — Dominio email transaccional.
 
 ## Rama activa
 
@@ -28,7 +28,7 @@ tags:
 
 ## Scope actual
 
-Sin scope activo. Release vacía hasta asociar la primera issue.
+Máxima prioridad para el **8 de mayo de 2026**: crear o activar un remitente real de Cachés, validar dominio/remitente transaccional en Brevo, cambiar remitentes temporales y verificar invitación + confirmación de cuenta. Issue asociada: [[../issues/CACH-B0020|CACH-B0020]].
 
 ## Regla de trabajo para esta release
 
@@ -36,4 +36,4 @@ Crear o actualizar issue `CACH-*` antes de meter trabajo en `release/0.1.0-beta.
 
 ## Como cerrar esta release
 
-Pendiente. La release está abierta y sin scope.
+Cerrar [[../issues/CACH-B0020|CACH-B0020]], verificar invitación + confirmación con el remitente definitivo, abrir PR `release/0.1.0-beta.11` -> `main`, esperar CI verde, mergear, etiquetar y verificar producción si aplica.

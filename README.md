@@ -359,7 +359,7 @@ Desde la app, las invitaciones se gestionan en `/admin/invitaciones`. El cliente
 
 ### 4.3. Operaciones directas de base de datos
 
-Para agentes y mantenimiento, la vía preferida es Supabase MCP acotado al proyecto. Si no está disponible, usar SQL Editor como fallback manual. Las reglas completas viven en `docs/project/process/supabase-db-access.md`: no guardar secretos, enseñar el SQL exacto antes de mutar producción, aplicar cambios como migraciones versionadas y ejecutar `notify pgrst, 'reload schema';` tras cambiar RPCs.
+Para agentes y mantenimiento, la vía preferida es Supabase MCP acotado al proyecto. Las operaciones manuales de BD que antes se hacían en SQL Editor pueden ejecutarse desde agente cuando el MCP expone las herramientas necesarias (`execute_sql`, `apply_migration`, logs, tablas), manteniendo la misma regla de seguridad: enseñar el SQL/migración exacta y esperar confirmación explícita antes de mutar producción. Si el MCP no está disponible, usar SQL Editor como fallback manual. Las reglas completas viven en `docs/project/process/supabase-db-access.md`: no guardar secretos, aplicar cambios como migraciones versionadas y ejecutar `notify pgrst, 'reload schema';` tras cambiar RPCs.
 
 ### 4.4. Emails transaccionales
 
@@ -368,15 +368,15 @@ Cachés usa Brevo para emails transaccionales en dos caminos separados:
 - Invitaciones beta propias de la app: Supabase Edge Function `send-beta-invite` + Brevo Transactional API.
 - Confirmaciones de alta de Supabase Auth: configuración manual de Custom SMTP en Supabase Dashboard usando Brevo SMTP.
 
-Secrets requeridos para la Edge Function:
+Secrets requeridos para la Edge Function. Mientras el dominio/remitente definitivo no exista y no esté confirmado en Brevo, usar el remitente temporal personal ya validado fuera del repo:
 
 ```bash
 supabase secrets set EMAIL_PROVIDER=brevo
 supabase secrets set BREVO_API_KEY=...
 supabase secrets set APP_URL=https://culturapp-rho.vercel.app
-supabase secrets set EMAIL_FROM_ADDRESS=hola@updates.caches.es
+supabase secrets set EMAIL_FROM_ADDRESS=<EMAIL_CONFIRMADO_EN_BREVO>
 supabase secrets set EMAIL_FROM_NAME="Cachés"
-supabase secrets set EMAIL_REPLY_TO=hola@caches.es
+supabase secrets set EMAIL_REPLY_TO=<EMAIL_REAL_DE_RESPUESTA>
 
 supabase functions deploy send-beta-invite
 ```
@@ -391,12 +391,14 @@ Configuración manual en Supabase Dashboard:
    - Port: `587`
    - Username: SMTP login de Brevo
    - Password: SMTP key / master password de Brevo
-   - Sender email: `hola@updates.caches.es`
+   - Sender email: `<EMAIL_CONFIRMADO_EN_BREVO>`
    - Sender name: `Cachés`
 3. Revisar `Authentication > URL Configuration`:
    - Site URL: `https://culturapp-rho.vercel.app`
    - Redirect URLs: `https://culturapp-rho.vercel.app/**` y localhost si se prueba en local.
 4. Personalizar la plantilla `Confirm signup` con copy de Cachés en español.
+
+Gotcha operativo: si el `Sender email` de Supabase Auth no coincide con un email real y confirmado/validado en Brevo, Supabase puede registrar la solicitud de confirmación pero el usuario no recibirá el email. Durante la activación inicial se usó temporalmente un email personal validado como remitente para desbloquear pruebas; no cambiarlo al remitente definitivo de Cachés hasta que exista como email/alias real y Brevo marque ese dominio/remitente como validado.
 
 Antes de invitar usuarios reales, verifica el dominio/remitente en Brevo y configura SPF, DKIM y DMARC. No añadas claves Brevo como variables `VITE_*`: solo pertenecen a Supabase Edge Functions o al panel de Supabase Auth.
 

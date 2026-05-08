@@ -3,7 +3,7 @@ id: RELEASE-0.1.0-beta.10
 type: release
 status: Released
 created: 2026-05-07
-updated: 2026-05-07
+updated: 2026-05-08
 release_branch: main
 release_tag: v0.1.0-beta.10
 aliases:
@@ -71,6 +71,7 @@ Permitir enviar invitaciones beta por email desde el panel admin y preparar la c
 ## Riesgos
 
 - Brevo rechaza remitentes no validados; temporalmente se usa un email personal validado hasta autenticar `updates.caches.es`.
+- La confirmación de email de Supabase Auth depende del `Sender email` configurado manualmente en SMTP; si ese remitente no está confirmado/validado en Brevo, el registro puede solicitar confirmación pero el usuario no recibe el correo.
 - La invitación se consume al crear `auth.users`, antes de confirmar email, por el trigger actual.
 - El entorno de agentes necesita un token Supabase válido para poder operar CLI/MCP desde Codex.
 
@@ -127,6 +128,7 @@ Permitir enviar invitaciones beta por email desde el panel admin y preparar la c
 - El panel admin conserva `Crear solo código` y añade envío opcional por email.
 - `signUp` incluye `emailRedirectTo` hacia `/login?confirmed=1`.
 - La documentación separa Brevo API key v3 de Brevo SMTP key.
+- La documentación operativa avisa de que el remitente SMTP de Supabase Auth debe ser un remitente validado en Brevo.
 
 ### Corregido
 
@@ -143,4 +145,4 @@ Permitir enviar invitaciones beta por email desde el panel admin y preparar la c
 
 ## Resultado final
 
-Release técnica subida a producción el 2026-05-07. Queda como deuda operativa validar `hola@updates.caches.es` o `updates.caches.es` en Brevo y configurar SPF/DKIM/DMARC.
+Release técnica subida a producción el 2026-05-07. Queda como deuda operativa crear o activar un remitente real de Cachés, validarlo en Brevo, cambiar el remitente temporal personal de Supabase Auth/Edge Function al remitente definitivo y configurar SPF/DKIM/DMARC.

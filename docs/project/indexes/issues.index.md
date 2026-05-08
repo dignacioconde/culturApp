@@ -3,7 +3,7 @@ id: PB-ISSUES-INDEX
 type: index
 status: Active
 created: 2026-05-07
-updated: 2026-05-07
+updated: 2026-05-08
 aliases:
   - Issues Index
 tags:
@@ -43,3 +43,4 @@ tags:
 - [[../issues/CACH-B0017|CACH-B0017]] — Panel admin para invitaciones beta
 - [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura
 - [[../issues/CACH-B0019|CACH-B0019]] — Emails transaccionales beta con Brevo
+- [[../issues/CACH-B0020|CACH-B0020]] — Validar dominio de email transaccional y cambiar remitentes definitivos
