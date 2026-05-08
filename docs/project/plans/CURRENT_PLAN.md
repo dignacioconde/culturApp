@@ -3,7 +3,7 @@ id: PB-CURRENT-PLAN
 type: plan
 status: Active
 created: 2026-05-05
-updated: 2026-05-08
+updated: 2026-05-07
 aliases:
   - Current Plan
 tags:
@@ -16,25 +16,19 @@ tags:
 
 ## Foco actual
 
-Avanzar beta 11 con tareas desarrollables y verificables desde repo, sin pasos manuales externos.
+Sin release activa tras el cierre de [[../releases/RELEASE-0.1.0-beta.9|RELEASE-0.1.0-beta.9]].
 
 ## Release activa
 
-[[../releases/RELEASE-0.1.0-beta.11|RELEASE-0.1.0-beta.11]] — Desarrollo sin pasos manuales.
+Ninguna.
 
-Ultimo corte: [[../releases/RELEASE-0.1.0-beta.10|RELEASE-0.1.0-beta.10]] — emails transaccionales beta con Brevo.
-
-## Cambios consolidados desde beta 10
-
-- Beta 10 queda como corte técnico cerrado: invitaciones por Brevo Edge Function, auditoría y flujo de confirmación de email preparados.
-- Beta 11 deja fuera la deuda operativa manual de email/remitente para no bloquear desarrollo.
-- [[../issues/CACH-B0020|CACH-B0020]] pasa a [[../releases/RELEASE-0.1.0-beta.12|RELEASE-0.1.0-beta.12]], donde sí se asumirán pasos manuales de dominio, DNS, Brevo y Supabase Auth SMTP.
+Ultimo corte: [[../releases/RELEASE-0.1.0-beta.9|RELEASE-0.1.0-beta.9]] — mergeada a `main` por PR #88 el 2026-05-07.
 
 ## Prioridades
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
-2. Escoger para beta 11 tareas pequeñas que no requieran pasos manuales externos.
-3. Mantener [[../issues/CACH-B0020|CACH-B0020]] fuera de beta 11 y retomarlo en beta 12.
+2. Mantener el backlog preparado para elegir el próximo corte desde `main`.
+3. Mantener fuera de cierres ya publicados calendario unificado, mobile financiero, tooling interno amplio, analítica real, i18n y growth salvo release nueva explícita.
 
 ## Plan operativo
 
@@ -47,4 +41,4 @@ Ultimo corte: [[../releases/RELEASE-0.1.0-beta.10|RELEASE-0.1.0-beta.10]] — em
 
 ## Próximo checkpoint
 
-Seleccionar la siguiente issue de beta 11 con verificación local/CI clara.
+Elegir el siguiente corte: calendario unificado, mobile financiero, tooling interno amplio o una micro-release técnica.

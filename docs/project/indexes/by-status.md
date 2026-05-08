@@ -3,7 +3,7 @@ id: PB-BY-STATUS
 type: index
 status: Active
 created: 2026-05-07
-updated: 2026-05-08
+updated: 2026-05-07
 aliases:
   - Issues por estado
 tags:
@@ -48,7 +48,3 @@ tags:
 - [[../issues/CACH-B0011|CACH-B0011]] — Categorias etiquetas y taxonomia
 - [[../issues/CACH-B0012|CACH-B0012]] — Perfil publico viralidad y referidos
 - [[../issues/CACH-B0013|CACH-B0013]] — Gestion documental por proyecto evento
-
-## blocked
-
-- [[../issues/CACH-B0020|CACH-B0020]] — Validar dominio de email transaccional y cambiar remitentes definitivos

@@ -3,7 +3,7 @@ id: PB-CURRENT-RELEASE
 type: release-status
 status: Active
 created: 2026-05-05
-updated: 2026-05-08
+updated: 2026-05-07
 aliases:
   - Current Release
 tags:
@@ -16,7 +16,7 @@ tags:
 
 ## Release activa
 
-`RELEASE-0.1.0-beta.11` — Desarrollo sin pasos manuales.
+`RELEASE-0.1.0-beta.11` — Próximo corte beta.
 
 ## Rama activa
 
@@ -28,9 +28,7 @@ tags:
 
 ## Scope actual
 
-Beta 11 queda reservada para tareas desarrollables y verificables desde repo, sin pasos manuales externos en Brevo, DNS, Supabase Dashboard o producción.
-
-La deuda manual de email/remitente queda aplazada a [[RELEASE-0.1.0-beta.12]] con [[../issues/CACH-B0020|CACH-B0020]].
+Sin scope activo. Release vacía hasta asociar la primera issue.
 
 ## Regla de trabajo para esta release
 
@@ -38,4 +36,4 @@ Crear o actualizar issue `CACH-*` antes de meter trabajo en `release/0.1.0-beta.
 
 ## Como cerrar esta release
 
-Añadir una o varias issues `CACH-*` sin pasos manuales externos, implementarlas y verificarlas localmente, abrir PR `release/0.1.0-beta.11` -> `main`, esperar CI verde, mergear, etiquetar y verificar producción si aplica.
+Pendiente. La release está abierta y sin scope.

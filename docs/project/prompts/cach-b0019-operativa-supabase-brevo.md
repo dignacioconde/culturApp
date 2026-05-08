@@ -35,8 +35,7 @@ Dejar operativa la ejecución desde agente de comandos Supabase necesarios para 
 - `BREVO_API_KEY` debe ser API key v3 (`xkeysib-...`), no SMTP key.
 - SMTP login/key de Brevo solo va en `Authentication > Email > SMTP Settings`.
 - Remitente temporal usado: email personal validado en Brevo.
-- Remitente objetivo: pendiente de crear/activar como email o alias real de Cachés, validar en Brevo y proteger con SPF/DKIM/DMARC.
-- Gotcha: el `Sender email` de Supabase Auth SMTP debe coincidir con un remitente confirmado/validado en Brevo; si está mal, Auth puede registrar `user_confirmation_requested` sin que el usuario reciba el email.
+- Remitente objetivo: `hola@updates.caches.es`, pendiente de validación de dominio/remitente y SPF/DKIM/DMARC.
 
 ## Restricciones
 
@@ -85,7 +84,6 @@ Dejar operativa la ejecución desde agente de comandos Supabase necesarios para 
    - `unauthorized / Key not found`: `BREVO_API_KEY` no es API key v3 válida.
    - `sender ... is not valid`: remitente no validado en Brevo.
    - `sent`: Edge Function y Brevo API aceptaron el envío; revisar logs transaccionales de Brevo para entrega.
-   - `user_confirmation_requested` en Auth sin email recibido: revisar primero `Sender email` SMTP de Supabase Auth, validación del remitente en Brevo, supresiones/bounces y DNS SPF/DKIM/DMARC.
 
 7. Verificación funcional:
    - Crear invitación desde `/admin/invitaciones`.
@@ -101,5 +99,5 @@ Responder con:
 - Estado de secrets, sin valores.
 - Últimos eventos de auditoría, sin emails completos.
 - Resultado del smoke test.
-- Pendientes: crear/activar email o alias real de Cachés, validarlo en Brevo, cambiar `EMAIL_FROM_ADDRESS` y `Sender email` SMTP al remitente definitivo, SPF/DKIM/DMARC y revalidar.
+- Pendientes: validar `updates.caches.es`, cambiar `EMAIL_FROM_ADDRESS`, SPF/DKIM/DMARC y revalidar.
 ```
