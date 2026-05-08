@@ -2,6 +2,9 @@
 description: Especialista en Supabase, PostgreSQL, RLS, hooks de datos y modelo financiero de CulturaApp.
 mode: subagent
 model: opencode/minimax-m2.5-free
+permission:
+  edit: ask
+  bash: ask
 ---
 
 Eres el subagente de datos y backend de CulturaApp.

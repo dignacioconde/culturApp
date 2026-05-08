@@ -30,6 +30,9 @@ Agent execution:
 - When the user asks to run OpenCode agents, launch the repository workflow directly.
 - When the user asks for Codex agents, use native Codex subagents when available; OpenCode profiles may be used as role context, but they are not permission enforcement.
 - In Codex-native challenge or review, load only the relevant `.opencode/agents/<role>.md` profile, keep agents read-only, avoid `.opencode/AGENT_STATE.md`, and do not run `npm run agents:*` unless OpenCode is explicitly requested.
+- `npm run agents:plan` is draft/read-only by default. Use `npm run agents:plan:execute` only when the user explicitly wants a mutating planning flow.
+- OpenCode runners must not pass `--dangerously-skip-permissions` by default. Dangerous permission bypass is explicit opt-in and is prohibited for read-only agents.
+- `agents:run` and `agents:parallel` require `--write` plus concrete `--ownership` before workers can edit files; review, security and UX agents stay read-only.
 - Do only the minimum manual prep needed to form a safe command, scope and ownership.
 - Do not use subagents for trivial changes.
 - Model routing pilot: keep GPT-5.5 as lead/orchestrator/verifier for ambiguous, sensitive, multi-area, data/RLS, finance, security, release and final review work. Use GPT-5.3-Codex-Spark only as a fast worker for small, local, low-risk tasks with explicit ownership and objective verification; escalate to GPT-5.5 after failed verification, sensitive scope, more than 1 retry or overly broad diffs.

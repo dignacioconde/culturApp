@@ -16,7 +16,7 @@ tags:
 
 ## Release activa
 
-`RELEASE-0.1.0-beta.11` — Dominio email transaccional.
+`RELEASE-0.1.0-beta.11` — Guardrails de agentes.
 
 ## Rama activa
 
@@ -28,7 +28,12 @@ tags:
 
 ## Scope actual
 
-Máxima prioridad para el **8 de mayo de 2026**: crear o activar un remitente real de Cachés, validar dominio/remitente transaccional en Brevo, cambiar remitentes temporales y verificar invitación + confirmación de cuenta. Issue asociada: [[../issues/CACH-B0020|CACH-B0020]].
+Beta de desarrollo local para endurecer el flujo OpenCode antes de apoyar más trabajo en agentes especializados.
+
+Issues asociadas:
+
+- [[../issues/CACH-0039|CACH-0039]] — Respetar permisos reales en lanzadores OpenCode.
+- [[../issues/CACH-0040|CACH-0040]] — Separar plan draft de ejecucion mutante.
 
 ## Regla de trabajo para esta release
 
@@ -36,4 +41,4 @@ Crear o actualizar issue `CACH-*` antes de meter trabajo en `release/0.1.0-beta.
 
 ## Como cerrar esta release
 
-Cerrar [[../issues/CACH-B0020|CACH-B0020]], verificar invitación + confirmación con el remitente definitivo, abrir PR `release/0.1.0-beta.11` -> `main`, esperar CI verde, mergear, etiquetar y verificar producción si aplica.
+Cerrar CACH-0039 y CACH-0040, validar runners con dry-run, `context:check`, `agents:status`, lint/build y abrir PR `release/0.1.0-beta.11` -> `main`.

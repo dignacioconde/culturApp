@@ -46,8 +46,6 @@ Sin issues en inbox.
 | ID | Titulo | Tipo | Prioridad | Nota |
 |---|---|---|---|---|
 | [[../issues/CACH-B0020|CACH-B0020]] | Validar dominio de email transaccional y cambiar remitentes definitivos | chore | p0 | Máxima prioridad para el 8 de mayo de 2026. |
-| [[../issues/CACH-0039|CACH-0039]] | [Agents] Respetar permisos reales en lanzadores OpenCode | chore | p0 | Hardening antes de crecer el sistema de agentes. |
-| [[../issues/CACH-0040|CACH-0040]] | [Agents] Separar plan draft de ejecucion mutante | chore | p0 | Product Brain-first; remoto solo con intencion explicita. |
 | [[../issues/CACH-0041|CACH-0041]] | [UX] Simplificar dashboard movil y estado Ahora | feature | p1 | Primer corte de simplificacion UX core. |
 | [[../issues/CACH-0042|CACH-0042]] | [UX] Racionalizar navegacion inferior | feature | p1 | Reducir friccion movil sin cambiar rutas mayores. |
 | [[../issues/CACH-0043|CACH-0043]] | [UX] Limpiar acciones en detalle de proyecto | feature | p1 | Jerarquia clara de acciones primarias y secundarias. |
@@ -70,6 +68,8 @@ Sin issues en inbox.
 
 | ID | Titulo | Tipo | Prioridad | Nota |
 |---|---|---|---|---|
+| [[../issues/CACH-0039|CACH-0039]] | [Agents] Respetar permisos reales en lanzadores OpenCode | chore | p0 | Scope beta 11: permisos reales y dangerous opt-in. |
+| [[../issues/CACH-0040|CACH-0040]] | [Agents] Separar plan draft de ejecucion mutante | chore | p0 | Scope beta 11: draft read-only y execute explicito. |
 
 ## Review
 

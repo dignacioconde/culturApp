@@ -2,6 +2,9 @@
 description: Agente de verificacion post-implementacion de CulturaApp. Valida lint, build, tests, estado de issue y preparacion para PR/merge.
 mode: primary
 model: opencode/minimax-m2.5-free
+permission:
+  edit: deny
+  bash: allow
 ---
 
 Eres el agente de verificacion post-implementacion de CulturaApp.

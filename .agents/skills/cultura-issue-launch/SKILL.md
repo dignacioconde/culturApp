@@ -1,13 +1,13 @@
 ---
 name: cultura-issue-launch
-description: Lanzar una tarea de CulturaApp convirtiendo un prompt rough en una issue de GitHub estructurada, creando rama desde main y arrancando agentes con el modelo barato. Usar cuando el usuario diga "lanza esto", "crea una issue para", "quiero que los agentes hagan", "implementa X" o similar. No usar para revisiones, auditorías ni preguntas de contexto puro.
+description: Lanzar una tarea de CulturaApp convirtiendo un prompt rough en una issue Product Brain estructurada y, solo en modo execute, creando rama y arrancando agentes. Usar cuando el usuario diga "lanza esto", "crea una issue para", "quiero que los agentes hagan", "implementa X" o similar. No usar para revisiones, auditorías ni preguntas de contexto puro.
 ---
 
 # Cultura Issue Launch
 
 ## Purpose
 
-Convierte el prompt del usuario en una issue de GitHub estructurada, prepara una rama de tarea desde `main` y lanza los agentes de implementación sin que el usuario tenga que formatear nada manualmente. El paso de planificación lo ejecuta el agente `cultura-planner` con el modelo barato (Kimi), no Claude Code.
+Convierte el prompt del usuario en una issue Product Brain estructurada y, cuando el usuario pide ejecución, prepara una rama de tarea y lanza agentes de implementación sin que tenga que formatear nada manualmente. El modo draft de planificación es read-only; el modo execute es el único que puede mutar repo o arrancar agentes.
 
 ## When to use this skill
 
@@ -24,38 +24,40 @@ Convierte el prompt del usuario en una issue de GitHub estructurada, prepara una
 
 ## Inputs to inspect
 
-Ninguno. No investigues el repo antes de lanzar. El agente `cultura-planner` lee `AGENTS.md` y la memoria relevante por sí mismo.
+Ninguno. No investigues el repo antes de lanzar. El agente `cultura-planner-execute` lee `AGENTS.md` y la memoria relevante por sí mismo.
 
 ## Procedure
 
 1. Extrae el prompt en bruto del usuario tal como lo escribió. No lo reformatees ni lo amplíes.
-2. Ejecuta:
+2. Ejecuta el modo mutante explicito:
    ```bash
-   npm run agents:plan -- "<prompt del usuario>"
+   npm run agents:plan:execute -- "<prompt del usuario>"
    ```
-3. `cultura-planner` (Kimi, modelo barato) hará:
+3. `cultura-planner-execute` hará:
    - Clasificar el dominio de la tarea
    - Cargar solo la memoria relevante para ese dominio
-   - Generar la issue estructurada
-   - Crear la issue en GitHub con `gh`
-   - Crear una rama de tarea desde `main` actualizado
-   - Lanzar `npm run agents:run` con el objetivo, la URL y el contrato de PR a `main`
-4. Informa al usuario del resultado: URL de la issue creada, rama creada y confirmación de que los agentes arrancaron.
+   - Crear o actualizar la issue Markdown en `docs/project/issues/`
+   - Crear GitHub Issue solo si el usuario lo pidió explícitamente o si el flujo inmediato de PR lo requiere
+   - Crear una rama de tarea desde `main` actualizado o desde la release activa si aplica
+   - Lanzar `npm run agents:run -- --write --ownership ...` solo cuando el ownership esté claro
+4. Informa al usuario del resultado: issue Product Brain, GitHub Issue si aplica, rama creada y confirmación de que los agentes arrancaron o motivo de bloqueo.
 
 ## Output format
 
 ```
-Issue creada: <URL>
+Issue Product Brain: <ruta>
+GitHub Issue: <URL o "no aplica">
 Rama: <branch>
-Agentes lanzados con: <OBJETIVO resumido>
+Agentes lanzados con: <OBJETIVO resumido o "no lanzados: <motivo>">
 ```
 
-Si `gh` no está disponible, `cultura-planner` mostrará la issue generada para creación manual.
+Si `gh` no está disponible, `cultura-planner-execute` debe continuar con Product Brain y reportar que GitHub no aplica o quedó bloqueado.
 
 ## Quality bar
 
 - El prompt se pasa sin modificar — no hay que "mejorar" el input, eso lo hace el planificador.
 - No se hace ningún trabajo de código ni exploración antes de llamar al script.
+- El resultado debe quedar en Product Brain primero. GitHub, rama y agentes son pasos de execute, no del draft.
 - El resultado debe terminar en PR a `main` y merge cuando las verificaciones pasen, salvo bloqueo o instrucción explícita de dejar la PR abierta.
 - Si el cambio debe verse en la app publicada, un Vercel Preview Deployment no es suficiente: hay que verificar producción después del merge.
 - Si el usuario da un prompt de menos de 5 palabras sin verbo claro, pedir una aclaración mínima antes de lanzar.
@@ -64,11 +66,11 @@ Si `gh` no está disponible, `cultura-planner` mostrará la issue generada para 
 
 - Explorar el repo antes de lanzar — el planificador ya lo hace.
 - Reformatear el prompt del usuario antes de pasarlo — perderías la señal de dominio.
-- Lanzar `agents:run` directamente sin pasar por `agents:plan` cuando no hay issue estructurada.
-- Crear la issue manualmente con Claude Code en lugar de dejar que `cultura-planner` lo haga.
+- Lanzar `agents:run` directamente sin pasar por `agents:plan:execute` cuando no hay issue estructurada.
+- Crear GitHub Issue antes de Product Brain salvo petición explícita.
 
 ## Safety notes
 
 - No ejecutar si la tarea implica cambios remotos en Supabase, Vercel o credenciales sin confirmación explícita del usuario.
 - No pasar secretos ni valores de `.env.local` en el prompt.
-- `agents:plan` crea rama desde `main` y lanza `agents:run` automáticamente al final — confirmar con el usuario si hay duda sobre si debe arrancar inmediatamente.
+- `agents:plan` es draft read-only. Usa `agents:plan:execute` solo cuando el usuario haya pedido arrancar implementación.

@@ -7,7 +7,7 @@ cycle: beta-1
 priority: p0
 estimate: s
 area: infra
-release: RELEASE-0.1.0-beta.11
+release: null
 created_at: 2026-05-07
 updated_at: 2026-05-08
 due_at: 2026-05-08
@@ -62,6 +62,8 @@ Contexto operativo: ahora mismo el envío funciona porque el remitente temporal 
 ## Prioridad operativa
 
 Máxima prioridad para el **8 de mayo de 2026**.
+
+Queda fuera de `RELEASE-0.1.0-beta.11`; candidata para beta 12 por requerir pasos manuales de email, DNS, Brevo y Supabase SMTP.
 
 ## Resultado
 

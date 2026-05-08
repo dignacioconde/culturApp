@@ -27,18 +27,38 @@ Revisa presupuestos de tamaño y posibles regresiones de carga amplia de context
 
 ## Ejecucion recomendada
 
-Para tareas de implementacion sin issue estructurada, la entrada por defecto debe ser el planner:
+Para tareas sin issue estructurada, la entrada por defecto es un draft seguro:
 
 ```bash
 npm run agents:plan -- "Describe la tarea"
 ```
 
-El planner crea o localiza la issue, prepara una rama desde `main` y lanza los agentes.
+`agents:plan` es equivalente a `agents:plan:draft`: genera una propuesta Product Brain-first sin crear ramas, GitHub Issues, commits, pushes ni runs de implementacion.
+
+Cuando quieras que el planner pueda mutar repo local, preparar rama o lanzar agentes, usa el modo explicito:
+
+```bash
+npm run agents:plan:execute -- "Describe la tarea"
+```
+
+Si un flujo no interactivo necesita autoaprobar permisos de OpenCode, el bypass peligroso debe declararse de forma visible:
+
+```bash
+npm run agents:plan:execute -- --dangerously-skip-permissions "Describe la tarea"
+```
+
+No uses ese flag con agentes read-only ni para exploracion/review.
 
 Cuando ya existe issue estructurada y rama de tarea preparada, usa el lanzador estandar:
 
 ```bash
 npm run agents:run -- "Describe la tarea"
+```
+
+Sin flags adicionales, `agents:run` lanza un contrato de solo lectura. Para permitir escritura local hay que declarar `--write` y `--ownership` concreto:
+
+```bash
+npm run agents:run -- --write --scope "src/pages/Events" --ownership "frontend:src/pages/Events" "Implementa filtros avanzados de eventos"
 ```
 
 Este comando envuelve la peticion en un contrato operativo con objetivo, autonomia, contexto, alcance, ownership, verificacion y salida esperada. Internamente usa `cultura-lead`, pero `cultura-lead` debe actuar como dispatcher minimo: enruta a subagentes, coordina dependencias y cierra con verificacion.
@@ -53,20 +73,40 @@ Las ramas de PR generan Vercel Preview Deployments. Un preview no cuenta como pr
 
 Antes de abrir una PR, todos los agentes deben completar el **checkpoint de memoria pre-PR**: revisar issue, diff y commits contra la base; activar `@cultura-docs` si hay preferencias, decisiones duraderas, gotchas recurrentes o reglas de trabajo que guardar; o declarar `Memoria: no aplica`. Si `.memory/` cambia, esos archivos deben quedar commiteados y pusheados antes de crear la PR. La descripcion de PR debe incluir `Memoria: actualizada` o `Memoria: no aplica`.
 
-Ejemplo con alcance explicito:
+Ejemplo con alcance explicito y escritura:
 
 ```bash
-npm run agents:run -- --scope "src/pages/Events,src/hooks" --ownership "frontend: src/pages/Events; data: src/hooks" "Implementa filtros avanzados de eventos"
+npm run agents:run -- --write --scope "src/pages/Events,src/hooks" --ownership "frontend:src/pages/Events; data:src/hooks" "Implementa filtros avanzados de eventos"
 ```
 
 Usa `opencode run` directamente solo para depuracion o pruebas de agentes.
+
+## Permisos reales y dry-run
+
+Los runners no pasan `--dangerously-skip-permissions` por defecto. Ese flag solo se acepta como opt-in explicito en modos mutantes.
+
+Perfiles protegidos por script:
+
+- `cultura-review`, `cultura-security`, `cultura-ux-mobile` y `cultura-ux-desktop` son read-only: no admiten `--write` ni bypass peligroso.
+- `cultura-testing` y `verification-agent` pueden ejecutar bash de verificacion, pero no editar.
+- `cultura-frontend`, `cultura-data`, `cultura-docs` y `cultura-release` requieren escritura declarada y ownership cuando se lanzan desde runners.
+- `cultura-lead` tiene `edit: deny`; su funcion es coordinar y delegar.
+
+Para revisar el comando efectivo sin lanzar OpenCode ni escribir `.opencode/runs/`:
+
+```bash
+npm run agents:plan -- --dry-run "Describe la tarea"
+npm run agents:run -- --dry-run --agent cultura-review "Revisa el diff"
+npm run agents:parallel -- --dry-run --agents review,security "Revisa riesgos"
+```
 
 ## Agentes primarios
 
 | Agente | Comando | Uso |
 | --- | --- | --- |
 | `cultura-lead` | `npm run agents:run -- "tarea"` | Dispatcher principal: enruta a subagentes y cierra con verificacion |
-| `cultura-planner` | `npm run agents:plan -- "tarea"` | Convierte prompt rough en issue estructurada y lanza agentes |
+| `cultura-planner` | `npm run agents:plan -- "tarea"` | Draft read-only Product Brain-first |
+| `cultura-planner-execute` | `npm run agents:plan:execute -- "tarea"` | Modo mutante explicito para issue/rama/agentes |
 | `verification-agent` | `npm run agents:verify -- "contexto"` | Verificacion post-implementacion: lint, build, tests, issue, PR readiness |
 
 ## Agente principal
@@ -147,7 +187,7 @@ Para tareas de revision o exploracion, puedes lanzar varios agentes a la vez des
 npm run agents:parallel -- "Revisa riesgos antes del deploy"
 ```
 
-Por defecto ejecuta `cultura-data`, `cultura-testing`, `cultura-review` y `cultura-security` en modo solo lectura. Cada proceso usa `cultura-lead` y le pide delegar en un unico subagente, porque OpenCode no ejecuta directamente los archivos con `mode: subagent`.
+Por defecto ejecuta `cultura-data`, `cultura-testing`, `cultura-review` y `cultura-security` en modo solo lectura. En ese modo no deben editar codigo, docs, memoria ni `.opencode/AGENT_STATE.md`. Cada proceso usa `cultura-lead` y le pide delegar en un unico subagente, porque OpenCode no ejecuta directamente los archivos con `mode: subagent`.
 
 Puedes elegir agentes concretos:
 
@@ -181,10 +221,10 @@ Lecciones recientes de UX móvil:
 
 Los resultados se guardan en `.opencode/runs/<timestamp>/`, con un archivo Markdown por agente.
 
-Para cambios de codigo en paralelo, usa `--write` solo cuando la tarea ya este dividida por ownership de archivos o modulos:
+Para cambios de codigo en paralelo, usa `--write` solo cuando la tarea ya este dividida por ownership de archivos o modulos. No se permite `--write` con agentes read-only:
 
 ```bash
-npm run agents:parallel -- --write --agents frontend,data "Frontend toca src/pages/Events; data toca src/hooks. Implementad la mejora sin modificar archivos fuera de vuestro ownership."
+npm run agents:parallel -- --write --ownership "frontend:src/pages/Events; data:src/hooks" --agents frontend,data "Implementad la mejora sin modificar archivos fuera de vuestro ownership."
 ```
 
 Flujo recomendado:

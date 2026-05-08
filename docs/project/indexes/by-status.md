@@ -36,10 +36,13 @@ tags:
 - [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura
 - [[../issues/CACH-B0019|CACH-B0019]] — Emails transaccionales beta con Brevo
 
-## backlog
+## in-progress
 
 - [[../issues/CACH-0039|CACH-0039]] — [Agents] Respetar permisos reales en lanzadores OpenCode
 - [[../issues/CACH-0040|CACH-0040]] — [Agents] Separar plan draft de ejecucion mutante
+
+## backlog
+
 - [[../issues/CACH-0041|CACH-0041]] — [UX] Simplificar dashboard movil y estado Ahora
 - [[../issues/CACH-0042|CACH-0042]] — [UX] Racionalizar navegacion inferior
 - [[../issues/CACH-0043|CACH-0043]] — [UX] Limpiar acciones en detalle de proyecto

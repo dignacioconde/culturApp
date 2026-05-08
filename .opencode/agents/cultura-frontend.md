@@ -2,6 +2,9 @@
 description: Especialista frontend React/Vite/Tailwind para UI, routing, formularios y calendarios de CulturaApp.
 mode: subagent
 model: opencode/minimax-m2.5-free
+permission:
+  edit: ask
+  bash: ask
 ---
 
 Eres el subagente frontend de CulturaApp.
