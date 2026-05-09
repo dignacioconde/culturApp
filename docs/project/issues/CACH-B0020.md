@@ -55,10 +55,10 @@ Contexto operativo: ahora mismo el envío funciona porque el remitente temporal 
 
 ## Criterios de aceptacion
 
-- [ ] El remitente definitivo existe como email o alias real.
-- [ ] Brevo marca el dominio/remitente definitivo como validado.
-- [ ] DNS de `updates.caches.es`/`caches.es` incluye los registros SPF, DKIM y DMARC requeridos.
-- [ ] Edge Function `send-beta-invite` usa el remitente definitivo solo después de validarlo en Brevo.
+- [x] El remitente definitivo existe como email o alias real.
+- [x] Brevo marca el dominio/remitente definitivo como validado.
+- [x] DNS de `updates.caches.es`/`caches.es` incluye los registros SPF, DKIM y DMARC requeridos.
+- [x] Edge Function `send-beta-invite` usa el remitente definitivo solo después de validarlo en Brevo.
 - [ ] Supabase Auth SMTP usa el remitente definitivo como `Sender email` solo después de validarlo en Brevo.
 - [ ] Una invitación enviada desde `/admin/invitaciones` llega a bandeja o aparece como entregada en logs de Brevo.
 - [ ] Un registro nuevo recibe email de confirmación y puede confirmar la cuenta.
@@ -91,16 +91,38 @@ En progreso en `RELEASE-0.1.0-beta.14`.
 ## Notas de progreso
 
 - 2026-05-09: inicio operativo de beta 14. La rama `release/0.1.0-beta.14` queda preparada para ejecutar la validacion de email transaccional definitivo.
+- 2026-05-09: `caches.es` queda registrado en Hostinger. Se crea el buzon real `contacto@caches.es` y el alias `no-reply@caches.es` apuntando a `contacto@caches.es`.
+- 2026-05-09: `caches.es` queda anadido en Brevo para autenticacion manual por DNS. Se anaden en Hostinger los registros de codigo Brevo TXT, DKIM 1, DKIM 2 y DMARC indicados por Brevo.
+- 2026-05-09: se detecta DMARC duplicado y se corrige dejando un unico registro `_dmarc` con `v=DMARC1; p=none; rua=mailto:rua@dmarc.brevo.com`. SPF revisado: solo existe un registro SPF.
+- 2026-05-09: `dig` confirma codigo Brevo TXT, SPF unico de Hostinger, DKIM 1, DKIM 2 y DMARC. Brevo marca `caches.es` como autenticado.
+- 2026-05-09: se actualizan secrets de Supabase Edge Function para usar `no-reply@caches.es` como `EMAIL_FROM_ADDRESS`, `Cachés` como `EMAIL_FROM_NAME` y `contacto@caches.es` como `EMAIL_REPLY_TO`. Se despliega `send-beta-invite`, que queda activa en version 10.
 
 ## Cambios de alcance y decisiones
 
 
 ## Bloqueos
 
+- Pendiente cambiar `Sender email` de Supabase Auth SMTP al remitente definitivo en Dashboard.
+- Pendiente smoke test real de invitacion beta y confirmacion de cuenta.
 
 ## Validación ejecutada
 
-Pendiente hasta ejecutar la issue.
+Validado por `dig`:
+
+```bash
+dig TXT caches.es
+dig CNAME brevo1._domainkey.caches.es
+dig CNAME brevo2._domainkey.caches.es
+dig TXT _dmarc.caches.es
+```
+
+Supabase Edge Function:
+
+- Secrets de remitente actualizados sin imprimir valores sensibles.
+- `send-beta-invite` desplegada en el proyecto `mkidexrkhjhrsjnjmugw`.
+- MCP/CLI confirma funcion activa en version 10.
+
+Pendiente completar validacion funcional con invitacion beta y confirmacion de cuenta.
 
 ## Memoria
 

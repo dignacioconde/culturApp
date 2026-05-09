@@ -90,9 +90,9 @@ Dejar un email/remitente definitivo real de Cachés operativo para emails transa
 
 ## Checklist de estabilizacion
 
-- [ ] DNS verificado
-- [ ] Brevo valida dominio/remitente
-- [ ] Edge Function usa remitente definitivo
+- [x] DNS verificado
+- [x] Brevo valida dominio/remitente
+- [x] Edge Function usa remitente definitivo
 - [ ] Supabase Auth SMTP usa remitente definitivo
 - [ ] Invitacion beta verificada
 - [ ] Confirmacion de cuenta verificada
@@ -131,7 +131,7 @@ Dejar un email/remitente definitivo real de Cachés operativo para emails transa
 
 ### Tecnico
 
-- Pendiente.
+- `caches.es` autenticado en Brevo y `send-beta-invite` desplegada con `no-reply@caches.es` como remitente y `contacto@caches.es` como reply-to.
 
 ## Resultado final
 
