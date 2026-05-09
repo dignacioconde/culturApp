@@ -5,7 +5,7 @@ id: PB-CONTEXT
 title: Context
 lifecycle: active
 created: '2026-05-04'
-updated: '2026-05-08'
+updated: '2026-05-09'
 aliases:
   - Contexto
 tags:
@@ -21,6 +21,7 @@ Contexto estable de producto para Cachés: usuarios, propuesta de valor, restric
 
 - [[product-snapshot-20260504|Snapshot producto — 2026-05-04]]
 - [[prd-caches-20260506|PRD — Cachés]]
+- [[prd-lovable-20260509|PRD para Lovable — Cachés (rediseño UI)]]
 - [[design-system-caches-20260506|Sistema de Diseño — Cachés]]
 - [[data-finance-model-20260504|Modelo de datos y finanzas — 2026-05-04]]
 - [[ux-mobile-guardrails-20260504|Guardrails UX y mobile — 2026-05-04]]
