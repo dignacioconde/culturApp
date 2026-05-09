@@ -5,7 +5,7 @@ id: CACH-B0020
 title: Validar dominio de email transaccional y cambiar remitentes definitivos
 lifecycle: active
 created: '2026-05-07'
-updated: '2026-05-08'
+updated: '2026-05-09'
 aliases:
   - CACH-B0020
 tags:
@@ -84,12 +84,13 @@ En progreso en `RELEASE-0.1.0-beta.14`.
 
 ## Desarrollo
 
-- Rama:
-- PR:
-- Estado actual:
+- Rama: `release/0.1.0-beta.14`
+- PR: pendiente
+- Estado actual: release branch creada y alineada con `main`; pendiente de pasos manuales de email, DNS, Brevo y Supabase SMTP.
 
 ## Notas de progreso
 
+- 2026-05-09: inicio operativo de beta 14. La rama `release/0.1.0-beta.14` queda preparada para ejecutar la validacion de email transaccional definitivo.
 
 ## Cambios de alcance y decisiones
 

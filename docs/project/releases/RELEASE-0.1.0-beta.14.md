@@ -5,7 +5,7 @@ id: RELEASE-0.1.0-beta.14
 title: Email definitivo transaccional
 lifecycle: active
 created: '2026-05-08'
-updated: '2026-05-08'
+updated: '2026-05-09'
 aliases:
   - RELEASE-0.1.0-beta.14
 tags:
@@ -75,7 +75,7 @@ Dejar un email/remitente definitivo real de Cachés operativo para emails transa
 ## Checklist de entrada
 
 - [x] Release creada
-- [ ] Rama de release creada
+- [x] Rama de release creada
 - [x] Issues asociadas
 - [x] Alcance definido
 - [x] Criterios de validacion definidos
@@ -135,4 +135,4 @@ Dejar un email/remitente definitivo real de Cachés operativo para emails transa
 
 ## Resultado final
 
-Release activa.
+Release activa. Rama `release/0.1.0-beta.14` creada y alineada con `main` al inicio operativo de beta 14.
