@@ -85,7 +85,7 @@ Cerrado en `RELEASE-0.1.0-beta.14`. Cachés usa `caches.es` como dominio de emai
 ## Desarrollo
 
 - Rama: `release/0.1.0-beta.14`
-- PR: pendiente
+- PR: #94
 - Estado actual: implementado, validado y listo para PR de release a `main`.
 
 ## Notas de progreso

@@ -17,7 +17,7 @@ release_phase: active
 release_current: true
 release_branch: release/0.1.0-beta.14
 release_tag: null
-release_pr: null
+release_pr: 'https://github.com/dignacioconde/culturApp/pull/94'
 ---
 # RELEASE-0.1.0-beta.14 — Email definitivo transaccional
 
@@ -101,7 +101,7 @@ Dejar un email/remitente definitivo real de Cachés operativo para emails transa
 
 ## Checklist de salida
 
-- [ ] PR `release/0.1.0-beta.14` -> `main` abierta si hay cambios versionados
+- [x] PR `release/0.1.0-beta.14` -> `main` abierta si hay cambios versionados
 - [ ] CI en verde si aplica
 - [ ] Revision aprobada
 - [ ] PR mergeada en `main` si aplica
