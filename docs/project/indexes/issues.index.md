@@ -39,6 +39,7 @@ generated: true
 - [[../issues/CACH-0048|CACH-0048]] — [Context] Compactar workflow OpenCode
 - [[../issues/CACH-0049|CACH-0049]] — Migrar Product Brain a v2 lean agile para agentes
 - [[../issues/CACH-0050|CACH-0050]] — [Deploy] Tooling local-first de PR release y smoke
+- [[../issues/CACH-0051|CACH-0051]] — [Deploy] Dominio publico de app y estrategia multientorno
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes

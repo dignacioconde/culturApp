@@ -17,7 +17,7 @@ tags:
 generated: false
 work_type: chore
 work_level: task
-issue_workflow: in_progress
+issue_workflow: done
 priority: p0
 size: s
 area: infra
@@ -59,10 +59,10 @@ Contexto operativo: ahora mismo el envío funciona porque el remitente temporal 
 - [x] Brevo marca el dominio/remitente definitivo como validado.
 - [x] DNS de `updates.caches.es`/`caches.es` incluye los registros SPF, DKIM y DMARC requeridos.
 - [x] Edge Function `send-beta-invite` usa el remitente definitivo solo después de validarlo en Brevo.
-- [ ] Supabase Auth SMTP usa el remitente definitivo como `Sender email` solo después de validarlo en Brevo.
-- [ ] Una invitación enviada desde `/admin/invitaciones` llega a bandeja o aparece como entregada en logs de Brevo.
-- [ ] Un registro nuevo recibe email de confirmación y puede confirmar la cuenta.
-- [ ] No quedan emails personales como remitente operativo documentado ni configurado.
+- [x] Supabase Auth SMTP usa el remitente definitivo como `Sender email` solo después de validarlo en Brevo.
+- [x] Una invitación enviada desde `/admin/invitaciones` llega a bandeja o aparece como entregada en logs de Brevo.
+- [x] Un registro nuevo recibe email de confirmación y puede confirmar la cuenta.
+- [x] No quedan emails personales como remitente operativo documentado ni configurado.
 
 ## Validacion
 
@@ -80,13 +80,13 @@ Queda fuera de `RELEASE-0.1.0-beta.11`, `RELEASE-0.1.0-beta.12` y `RELEASE-0.1.0
 
 ## Resultado
 
-En progreso en `RELEASE-0.1.0-beta.14`.
+Cerrado en `RELEASE-0.1.0-beta.14`. Cachés usa `caches.es` como dominio de email definitivo, `no-reply@caches.es` como remitente transaccional y `contacto@caches.es` como reply-to/buzón humano. Queda fuera el cambio de dominio público de la app y la estrategia multientorno, trazados en `CACH-0051`.
 
 ## Desarrollo
 
 - Rama: `release/0.1.0-beta.14`
 - PR: pendiente
-- Estado actual: release branch creada y alineada con `main`; pendiente de pasos manuales de email, DNS, Brevo y Supabase SMTP.
+- Estado actual: implementado, validado y listo para PR de release a `main`.
 
 ## Notas de progreso
 
@@ -96,14 +96,16 @@ En progreso en `RELEASE-0.1.0-beta.14`.
 - 2026-05-09: se detecta DMARC duplicado y se corrige dejando un unico registro `_dmarc` con `v=DMARC1; p=none; rua=mailto:rua@dmarc.brevo.com`. SPF revisado: solo existe un registro SPF.
 - 2026-05-09: `dig` confirma codigo Brevo TXT, SPF unico de Hostinger, DKIM 1, DKIM 2 y DMARC. Brevo marca `caches.es` como autenticado.
 - 2026-05-09: se actualizan secrets de Supabase Edge Function para usar `no-reply@caches.es` como `EMAIL_FROM_ADDRESS`, `Cachés` como `EMAIL_FROM_NAME` y `contacto@caches.es` como `EMAIL_REPLY_TO`. Se despliega `send-beta-invite`, que queda activa en version 10.
+- 2026-05-09: el redirect de confirmacion de Supabase Auth deja de depender de `window.location.origin` y pasa a usar `VITE_APP_URL` con fallback a `https://culturapp-rho.vercel.app`, evitando confirmaciones hacia `localhost` en pruebas locales.
+- 2026-05-09: smoke test real confirma recepcion de invitacion beta y email de confirmacion de Supabase Auth desde el remitente `Cachés`.
 
 ## Cambios de alcance y decisiones
 
+- El cambio del dominio publico de la app a `app.caches.es` y la configuracion multientorno quedan fuera de beta 14 y pasan a `CACH-0051`.
 
 ## Bloqueos
 
-- Pendiente cambiar `Sender email` de Supabase Auth SMTP al remitente definitivo en Dashboard.
-- Pendiente smoke test real de invitacion beta y confirmacion de cuenta.
+Sin bloqueos.
 
 ## Validación ejecutada
 
@@ -121,9 +123,11 @@ Supabase Edge Function:
 - Secrets de remitente actualizados sin imprimir valores sensibles.
 - `send-beta-invite` desplegada en el proyecto `mkidexrkhjhrsjnjmugw`.
 - MCP/CLI confirma funcion activa en version 10.
+- Supabase Auth SMTP configurado en Dashboard con `Sender email` definitivo.
+- Smoke test real: invitacion beta recibida y confirmacion de cuenta recibida.
 
-Pendiente completar validacion funcional con invitacion beta y confirmacion de cuenta.
+Pendiente fuera de esta issue: dominio publico `app.caches.es` y estrategia multientorno, trazado en `CACH-0051`.
 
 ## Memoria
 
-No aplica por ahora.
+Actualizada en `.memory/projects/email-ops.md`.

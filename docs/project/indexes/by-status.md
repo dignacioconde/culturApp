@@ -17,6 +17,7 @@ generated: true
 
 ## backlog
 
+- [[../issues/CACH-0051|CACH-0051]] — [Deploy] Dominio publico de app y estrategia multientorno · backlog · p1 · task
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento · backlog · p1 · initiative
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera · backlog · p1 · initiative
 - [[../issues/CACH-B0004|CACH-B0004]] — Contratantes facturacion y liquidacion neta · backlog · p1 · initiative
@@ -33,6 +34,7 @@ generated: true
 - [[../issues/CACH-0039|CACH-0039]] — [Agents] Respetar permisos reales en lanzadores OpenCode · done · p0 · task
 - [[../issues/CACH-0040|CACH-0040]] — [Agents] Separar plan draft de ejecucion mutante · done · p0 · task
 - [[../issues/CACH-0049|CACH-0049]] — Migrar Product Brain a v2 lean agile para agentes · done · p0 · task
+- [[../issues/CACH-B0020|CACH-B0020]] — Validar dominio de email transaccional y cambiar remitentes definitivos · done · p0 · task
 - [[../issues/CACH-0026|CACH-0026]] — Setup inicial Product Brain · done · p1 · task
 - [[../issues/CACH-0028|CACH-0028]] — Corregir sync iCloud y estructura versionada · done · p1 · slice
 - [[../issues/CACH-0029|CACH-0029]] — Integrar helpers CACH-B0016 en flujos reales · done · p1 · slice
@@ -62,10 +64,6 @@ generated: true
 - [[../issues/CACH-0033|CACH-0033]] — Vista anual en calendario de proyectos · done · p2 · slice
 - [[../issues/CACH-0048|CACH-0048]] — [Context] Compactar workflow OpenCode · done · p2 · task
 - [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura · done · p2 · task
-
-## in_progress
-
-- [[../issues/CACH-B0020|CACH-B0020]] — Validar dominio de email transaccional y cambiar remitentes definitivos · in_progress · p0 · task
 
 ## ready
 

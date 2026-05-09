@@ -23,7 +23,7 @@ release_pr: null
 
 ## Estado
 
-Active
+Active, lista para PR `release/0.1.0-beta.14` -> `main`.
 
 ## Rama de release
 
@@ -57,7 +57,7 @@ Dejar un email/remitente definitivo real de Cachés operativo para emails transa
 
 | Issue | Titulo | Estado | Rama |
 |---|---|---|---|
-| [[../issues/CACH-B0020|CACH-B0020]] | Validar dominio de email transaccional y cambiar remitentes definitivos | In progress | `release/0.1.0-beta.14` |
+| [[../issues/CACH-B0020|CACH-B0020]] | Validar dominio de email transaccional y cambiar remitentes definitivos | Done | `release/0.1.0-beta.14` |
 
 ## Fuera de alcance
 
@@ -65,6 +65,7 @@ Dejar un email/remitente definitivo real de Cachés operativo para emails transa
 - Cambios de UX de proyecto-evento, cubiertos por `RELEASE-0.1.0-beta.12`.
 - Newsletter, CRM, automatizaciones y redisenos de plantillas.
 - Cambios de tooling de agentes o verificadores.
+- Dominio publico de app (`app.caches.es`) y configuracion multientorno, trazados en [[../issues/CACH-0051|CACH-0051]].
 
 ## Riesgos
 
@@ -82,21 +83,21 @@ Dejar un email/remitente definitivo real de Cachés operativo para emails transa
 
 ## Checklist de desarrollo
 
-- [ ] Todas las issues estan en progreso o cerradas
-- [ ] Commits preparados en rama release
-- [ ] No hay cambios sueltos fuera de release
-- [ ] No hay issues sin estado
-- [ ] No hay decisiones importantes sin documentar
+- [x] Todas las issues estan en progreso o cerradas
+- [x] Commits preparados en rama release
+- [x] No hay cambios sueltos fuera de release
+- [x] No hay issues sin estado
+- [x] No hay decisiones importantes sin documentar
 
 ## Checklist de estabilizacion
 
 - [x] DNS verificado
 - [x] Brevo valida dominio/remitente
 - [x] Edge Function usa remitente definitivo
-- [ ] Supabase Auth SMTP usa remitente definitivo
-- [ ] Invitacion beta verificada
-- [ ] Confirmacion de cuenta verificada
-- [ ] Documentacion actualizada
+- [x] Supabase Auth SMTP usa remitente definitivo
+- [x] Invitacion beta verificada
+- [x] Confirmacion de cuenta verificada
+- [x] Documentacion actualizada
 
 ## Checklist de salida
 
@@ -115,24 +116,27 @@ Dejar un email/remitente definitivo real de Cachés operativo para emails transa
 
 ### Aniadido
 
-- Pendiente.
+- Dominio de email definitivo `caches.es`.
+- Buzon real `contacto@caches.es` y alias transaccional `no-reply@caches.es`.
 
 ### Cambiado
 
-- Pendiente.
+- Invitaciones beta y confirmaciones de Supabase Auth pasan a usar `no-reply@caches.es` como remitente visible.
+- Los redirects de confirmacion de Supabase Auth usan `VITE_APP_URL` con fallback temporal a `https://culturapp-rho.vercel.app`.
 
 ### Corregido
 
-- Pendiente.
+- Evitado que registros hechos desde local generen confirmaciones Auth hacia `localhost`.
 
 ### Eliminado
 
-- Pendiente.
+- Remitente personal temporal como remitente operativo.
 
 ### Tecnico
 
 - `caches.es` autenticado en Brevo y `send-beta-invite` desplegada con `no-reply@caches.es` como remitente y `contacto@caches.es` como reply-to.
+- `CACH-0051` captura el trabajo pendiente de dominio publico de app y multientorno.
 
 ## Resultado final
 
-Release activa. Rama `release/0.1.0-beta.14` creada y alineada con `main` al inicio operativo de beta 14.
+Release activa y lista para PR a `main`. Email transaccional definitivo verificado; dominio publico de app y multientorno quedan fuera de scope en `CACH-0051`.

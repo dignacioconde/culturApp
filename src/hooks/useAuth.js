@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../supabaseClient'
 
+const authRedirectOrigin = (import.meta.env.VITE_APP_URL ?? 'https://culturapp-rho.vercel.app').replace(/\/$/, '')
+
 export function useAuth() {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -39,7 +41,7 @@ export function useAuth() {
       password,
       options: {
         data: metadata,
-        emailRedirectTo: `${window.location.origin}/login?confirmed=1`,
+        emailRedirectTo: `${authRedirectOrigin}/login?confirmed=1`,
       },
     })
     return { data, error }

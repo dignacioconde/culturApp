@@ -50,6 +50,7 @@ _Sin issues._
 
 | ID | Titulo | Tipo | Nivel | P | Componentes |
 |---|---|---|---|---|---|
+| [[../issues/CACH-0051|CACH-0051]] | [Deploy] Dominio publico de app y estrategia multientorno | chore | task | p1 | infra-deploy, supabase, email |
 | [[../issues/CACH-B0001|CACH-B0001]] | Redisenar Trabajos y jerarquia proyecto-evento | feature | initiative | p1 | work, projects, events, design-system |
 | [[../issues/CACH-B0002|CACH-B0002]] | Simplificar experiencia mobile financiera | feature | initiative | p1 | finance |
 | [[../issues/CACH-B0004|CACH-B0004]] | Contratantes facturacion y liquidacion neta | feature | initiative | p1 | finance, design-system |
@@ -69,9 +70,7 @@ _Sin issues._
 
 ## In progress
 
-| ID | Titulo | Tipo | Nivel | P | Componentes |
-|---|---|---|---|---|---|
-| [[../issues/CACH-B0020|CACH-B0020]] | Validar dominio de email transaccional y cambiar remitentes definitivos | chore | task | p0 | infra-deploy, email, supabase |
+_Sin issues._
 
 ## Review / Verify
 
@@ -84,6 +83,7 @@ _Sin issues._
 | [[../issues/CACH-0039|CACH-0039]] | [Agents] Respetar permisos reales en lanzadores OpenCode | RELEASE-0.1.0-beta.11 | Cerrada por `RELEASE-0.1.0-beta.11` en `main` mediante commit `15c0743`. |
 | [[../issues/CACH-0040|CACH-0040]] | [Agents] Separar plan draft de ejecucion mutante | RELEASE-0.1.0-beta.11 | Cerrada por `RELEASE-0.1.0-beta.11` en `main` mediante commit `15c0743`. |
 | [[../issues/CACH-0049|CACH-0049]] | Migrar Product Brain a v2 lean agile para agentes | null | Product Brain queda migrado a v2 completo. El repositorio dispone de schema, migrador, orientador, generadores, validadores, checks de cierre y contratos de agente alineados con Product Brain-first. |
+| [[../issues/CACH-B0020|CACH-B0020]] | Validar dominio de email transaccional y cambiar remitentes definitivos | RELEASE-0.1.0-beta.14 | Cerrado en `RELEASE-0.1.0-beta.14`. Cachés usa `caches.es` como dominio de email definitivo, `no-reply@caches.es` como remitente transaccional y `contacto@caches.es` como reply-to/buzón humano. Queda fuera el cambio de dominio público de la app y la estrategia multientorno, trazados en `CACH-0051`. |
 | [[../issues/CACH-0026|CACH-0026]] | Setup inicial Product Brain | null | Sin resultado documentado. |
 | [[../issues/CACH-0028|CACH-0028]] | Corregir sync iCloud y estructura versionada | null | Sin resultado documentado. |
 | [[../issues/CACH-0029|CACH-0029]] | Integrar helpers CACH-B0016 en flujos reales | RELEASE-0.1.0-beta.1 | Listo para revision. CACH-0029 integra los helpers de CACH-B0016 en flujos reales: |

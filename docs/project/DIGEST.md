@@ -51,9 +51,7 @@ _Sin entradas._
 
 ### In progress
 
-| ID | Título | Tipo | Nivel | P |
-|---|---|---|---|---|
-| CACH-B0020 | Validar dominio de email transaccional y cambiar remitentes definitivos | chore | task | p0 |
+_Sin entradas._
 
 ### Review / Verify
 
@@ -63,6 +61,7 @@ _Sin entradas._
 
 | ID | Título | Tipo | Nivel | P |
 |---|---|---|---|---|
+| CACH-0051 | [Deploy] Dominio publico de app y estrategia multientorno | chore | task | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | feature | initiative | p1 |
@@ -72,8 +71,8 @@ _Sin entradas._
 
 | ID | Título | Workflow | Tipo | Nivel | P |
 |---|---|---|---|---|---|
-| CACH-B0020 | Validar dominio de email transaccional y cambiar remitentes definitivos | in_progress | chore | task | p0 |
 | CACH-0042 | [UX] Racionalizar navegacion inferior | ready | feature | slice | p1 |
+| CACH-0051 | [Deploy] Dominio publico de app y estrategia multientorno | backlog | chore | task | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | backlog | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | backlog | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | backlog | feature | initiative | p1 |
