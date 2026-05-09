@@ -310,6 +310,26 @@ function printList(label, files) {
   }
 }
 
+function serializableAnalysis(result) {
+  return {
+    repoPath: REPO_BRAIN_PATH,
+    vaultPath: VAULT_PATH,
+    repoCount: result.repoFiles.size,
+    vaultCount: result.vaultFiles.size,
+    repoOnly: result.repoOnly,
+    vaultOnly: result.vaultOnly,
+    changedInRepo: result.changedInRepo,
+    changedInVault: result.changedInVault,
+    conflicts: result.conflicts,
+    inSync:
+      result.repoOnly.length === 0 &&
+      result.vaultOnly.length === 0 &&
+      result.changedInRepo.length === 0 &&
+      result.changedInVault.length === 0 &&
+      result.conflicts.length === 0,
+  };
+}
+
 function commandInit() {
   ensureBaseDirs();
   log(`Repo Product Brain: ${REPO_BRAIN_PATH}`);
@@ -317,8 +337,15 @@ function commandInit() {
   log('Estructura base lista.');
 }
 
-function commandStatus() {
+function commandStatus(options = {}) {
   const result = analyze();
+  const summary = serializableAnalysis(result);
+
+  if (options.json) {
+    console.log(JSON.stringify({ ok: summary.conflicts.length === 0, ...summary }, null, 2));
+    if (options.strict && summary.conflicts.length > 0) process.exitCode = 1;
+    return;
+  }
 
   log(`Repo Product Brain: ${REPO_BRAIN_PATH}`);
   log(`Vault Obsidian: ${VAULT_PATH}`);
@@ -339,9 +366,11 @@ function commandStatus() {
   ) {
     log('Repo y vault estan sincronizados.');
   }
+
+  if (options.strict && result.conflicts.length > 0) process.exitCode = 1;
 }
 
-function commandPull() {
+function commandPull(options = {}) {
   ensureBaseDirs();
   const result = analyze();
   if (result.conflicts.length > 0) {
@@ -350,6 +379,22 @@ function commandPull() {
   }
 
   const filesToPull = [...new Set([...result.vaultOnly, ...result.changedInVault])].sort();
+  if (options.dryRun) {
+    if (options.json) {
+      console.log(JSON.stringify({
+        ok: true,
+        dryRun: true,
+        action: 'pull',
+        filesToPull,
+        analysis: serializableAnalysis(result),
+      }, null, 2));
+    } else {
+      printList('Se importarian desde iCloud', filesToPull);
+      log(`Dry-run: 0 archivos modificados.`);
+    }
+    return;
+  }
+
   copyFiles(filesToPull, VAULT_PATH, REPO_BRAIN_PATH);
 
   const refreshedRepo = listFiles(REPO_BRAIN_PATH);
@@ -367,6 +412,10 @@ function commandPull() {
 
 function commandPush(options = {}) {
   const shouldDelete = options.delete ?? false;
+  if (shouldDelete && !options.confirmDelete) {
+    fail('Push con borrado cancelado. Usa --delete --confirm-delete para borrar archivos solo-vault.');
+  }
+
   ensureBaseDirs();
   const result = analyze();
   if (result.conflicts.length > 0) {
@@ -375,6 +424,25 @@ function commandPush(options = {}) {
   }
 
   const filesToPush = [...new Set([...result.repoOnly, ...result.changedInRepo])].sort();
+  if (options.dryRun) {
+    if (options.json) {
+      console.log(JSON.stringify({
+        ok: true,
+        dryRun: true,
+        action: 'push',
+        delete: shouldDelete,
+        filesToPush,
+        filesToDelete: shouldDelete ? result.vaultOnly : [],
+        analysis: serializableAnalysis(result),
+      }, null, 2));
+    } else {
+      printList('Se exportarian al vault', filesToPush);
+      if (shouldDelete) printList('Se eliminarian del vault', result.vaultOnly);
+      log('Dry-run: 0 archivos modificados.');
+    }
+    return;
+  }
+
   copyFiles(filesToPush, REPO_BRAIN_PATH, VAULT_PATH);
 
   // Delete files that only exist in vault (when --delete flag is passed)
@@ -422,6 +490,14 @@ for (let i = 1; i < args.length; i++) {
   const arg = args[i];
   if (arg === '--delete') {
     options.delete = true;
+  } else if (arg === '--confirm-delete') {
+    options.confirmDelete = true;
+  } else if (arg === '--dry-run') {
+    options.dryRun = true;
+  } else if (arg === '--json') {
+    options.json = true;
+  } else if (arg === '--strict') {
+    options.strict = true;
   } else if (arg.startsWith('--')) {
     log(`Opcion desconocida: ${arg}`);
     process.exit(1);
@@ -430,7 +506,7 @@ for (let i = 1; i < args.length; i++) {
 
 if (!command || !commands[command]) {
   const script = relative(PROJECT_ROOT, resolve(process.argv[1]));
-  console.log(`Usage: node ${script} <init|status|pull|push> [--delete]`);
+  console.log(`Usage: node ${script} <init|status|pull|push> [--json] [--strict] [--dry-run] [--delete --confirm-delete]`);
   process.exit(1);
 }
 

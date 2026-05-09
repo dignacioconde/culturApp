@@ -42,6 +42,7 @@ Opciones:
   --model-reviewer gpt-5.5           Modelo esperado para review/verificacion
   --dry-run                    Imprime el comando efectivo sin lanzar OpenCode ni escribir runs
   --print-command              Alias de --dry-run
+  --concise | --caveman        Pide salida breve cuando sea seguro; no aplica a bloques sensibles
   --dangerously-skip-permissions Opt-in explicito al bypass de permisos de OpenCode; solo con --write
   --no-verify                  Indica que no se requiere verificacion automatica
   --help                       Muestra esta ayuda.
@@ -64,6 +65,7 @@ function parseArgs(argv) {
     models: { ...MODEL_DEFAULTS },
     write: false,
     dryRun: false,
+    concise: false,
     dangerouslySkipPermissions: false,
     task: "",
   }
@@ -85,6 +87,11 @@ function parseArgs(argv) {
 
     if (arg === "--dry-run" || arg === "--print-command") {
       options.dryRun = true
+      continue
+    }
+
+    if (arg === "--concise" || arg === "--caveman") {
+      options.concise = true
       continue
     }
 
@@ -117,6 +124,9 @@ function parseArgs(argv) {
   }
 
   options.task = taskParts.join(" ").trim()
+  if (/caveman|menos tokens|responde breve|se mas conciso|sé más conciso/i.test(options.task)) {
+    options.concise = true
+  }
   return options
 }
 
@@ -184,10 +194,20 @@ function buildContract(options) {
         "Puedes inspeccionar archivos y proponer cambios. Testing/verificacion puede ejecutar checks locales si su perfil lo permite, sin modificar archivos tracked.",
       ]
 
+  const conciseMode = options.concise
+    ? [
+        "",
+        "MODO DE SALIDA CONCISO:",
+        "Usa estilo caveman/lite solo para resumenes y updates: breve, directo y sin relleno.",
+        "No comprimas seguridad, privacidad, RLS, finanzas, SQL, migraciones, hallazgos de review con archivo/linea, verificacion exacta ni confirmaciones de acciones remotas/destructivas.",
+      ]
+    : []
+
   return [
     "DIRECTRIZ ESTANDAR PARA CULTURAAPP",
     "",
     ...mode,
+    ...conciseMode,
     "",
     "OBJETIVO:",
     options.task,
@@ -252,6 +272,7 @@ function printDryRun(options, prompt, args) {
         agent: options.agent,
         title: options.title,
         dangerouslySkipPermissions: options.dangerouslySkipPermissions,
+        concise: options.concise,
         writesRunFiles: false,
         command: ["opencode", ...args.map((arg) => (arg === prompt ? "<prompt>" : arg))],
         scope: options.scope,
@@ -304,6 +325,7 @@ async function main() {
     status,
     mode: options.write ? "write" : "read-only",
     dangerouslySkipPermissions: options.dangerouslySkipPermissions,
+    concise: options.concise,
     title: options.title,
     agent: options.agent,
     taskType: options.taskType,

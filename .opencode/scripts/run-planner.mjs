@@ -24,6 +24,7 @@ Opciones:
   --execute                     Modo mutante explicito; puede preparar issue/rama/agentes
   --dry-run                     Imprime el comando efectivo sin lanzar OpenCode ni escribir runs
   --print-command               Alias de --dry-run
+  --concise | --caveman         Pide salida breve cuando sea seguro; no aplica a bloques sensibles
   --dangerously-skip-permissions Opt-in explicito al bypass de permisos; solo con --execute
   --help                        Muestra esta ayuda.
 
@@ -38,6 +39,7 @@ function parseArgs(argv) {
   const options = {
     mode: "draft",
     dryRun: false,
+    concise: false,
     dangerouslySkipPermissions: false,
     prompt: "",
   }
@@ -64,6 +66,11 @@ function parseArgs(argv) {
       continue
     }
 
+    if (arg === "--concise" || arg === "--caveman") {
+      options.concise = true
+      continue
+    }
+
     if (arg === "--dangerously-skip-permissions") {
       options.dangerouslySkipPermissions = true
       continue
@@ -73,6 +80,9 @@ function parseArgs(argv) {
   }
 
   options.prompt = promptParts.join(" ").trim()
+  if (/caveman|menos tokens|responde breve|se mas conciso|sé más conciso/i.test(options.prompt)) {
+    options.concise = true
+  }
   return options
 }
 
@@ -82,13 +92,24 @@ function validateOptions(options) {
   }
 }
 
-function buildDraftContract(prompt) {
+function conciseBlock(enabled) {
+  return enabled
+    ? [
+        "",
+        "MODO DE SALIDA CONCISO:",
+        "Resume breve cuando sea seguro. No comprimas seguridad/RLS/finanzas/SQL/migraciones/review con lineas/verificacion exacta/acciones remotas.",
+      ]
+    : []
+}
+
+function buildDraftContract(prompt, options) {
   return [
     "TAREA DE PLANIFICACION DRAFT READ-ONLY:",
     prompt,
     "",
     "MODO:",
     "Solo lectura. No edites archivos, no crees issues, no crees ramas, no ejecutes git/gh, no hagas push y no lances npm run agents:run.",
+    ...conciseBlock(options.concise),
     "",
     "OBJETIVO:",
     "Transforma el prompt en una propuesta lista para Product Brain: issue Markdown sugerida, alcance, ownership, criterios de aceptacion, validacion y riesgos.",
@@ -107,13 +128,14 @@ function buildDraftContract(prompt) {
   ].join("\n")
 }
 
-function buildExecuteContract(prompt) {
+function buildExecuteContract(prompt, options) {
   return [
     "TAREA DE PLANIFICACION EXECUTE:",
     prompt,
     "",
     "MODO:",
     "Ejecucion mutante explicita. Puedes preparar trazabilidad local, rama y agentes solo si el worktree y el scope lo permiten.",
+    ...conciseBlock(options.concise),
     "",
     "Sigue el protocolo del agente cultura-planner-execute:",
     "1. Lee AGENTS.md, docs/agent-context-policy.md y .memory/MEMORY.md como indice.",
@@ -121,7 +143,7 @@ function buildExecuteContract(prompt) {
     "3. Para contexto Product Brain, prefiere npm run pb:orient -- --json y abre solo enlaces relevantes.",
     "4. Product Brain primero: crea o actualiza issue Markdown v2 en docs/project/issues/ salvo que ya exista una issue relacionada.",
     "5. Crea GitHub Issue solo si el usuario lo pidio explicitamente o si la ejecucion inmediata con PR lo requiere.",
-    "6. Prepara una rama de tarea desde main actualizado; si el worktree esta sucio, reporta bloqueo.",
+    "6. Prepara una rama desde main actualizado o desde la release activa si aplica; si el worktree esta sucio, reporta bloqueo.",
     "7. Lanza npm run agents:run con --write y --ownership concreto solo si el scope de escritura esta claro.",
     "",
     "SALIDA:",
@@ -155,6 +177,7 @@ function printDryRun(options, contract, command) {
         agent: command.agent,
         title: command.title,
         dangerouslySkipPermissions: options.dangerouslySkipPermissions,
+        concise: options.concise,
         writesRunFiles: false,
         command: ["opencode", ...command.args.map((arg) => (arg === contract ? "<prompt>" : arg))],
         promptPreview: contract.split("\n").slice(0, 18).join("\n"),
@@ -180,7 +203,7 @@ async function main() {
 
   validateOptions(options)
 
-  const contract = options.mode === "execute" ? buildExecuteContract(options.prompt) : buildDraftContract(options.prompt)
+  const contract = options.mode === "execute" ? buildExecuteContract(options.prompt, options) : buildDraftContract(options.prompt, options)
   const command = buildOpenCodeArgs(options, contract)
 
   if (options.dryRun) {
@@ -200,6 +223,7 @@ async function main() {
     status: "running",
     mode: options.mode,
     dangerouslySkipPermissions: options.dangerouslySkipPermissions,
+    concise: options.concise,
     title: command.title,
     agent: command.agent,
     taskType: options.mode === "execute" ? "planning-execute" : "planning-draft",
@@ -222,6 +246,7 @@ async function main() {
       status: code === 0 ? "done" : "error",
       mode: options.mode,
       dangerouslySkipPermissions: options.dangerouslySkipPermissions,
+      concise: options.concise,
       title: command.title,
       agent: command.agent,
       taskType: options.mode === "execute" ? "planning-execute" : "planning-draft",

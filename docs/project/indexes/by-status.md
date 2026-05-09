@@ -18,13 +18,10 @@ generated: true
 ## backlog
 
 - [[../issues/CACH-0042|CACH-0042]] — [UX] Racionalizar navegacion inferior · backlog · p1 · slice
-- [[../issues/CACH-0046|CACH-0046]] — [Verify] Anadir verificacion por tipo de cambio · backlog · p1 · task
-- [[../issues/CACH-0047|CACH-0047]] — [Skills] Actualizar catalogo y symlinks de skills · backlog · p1 · task
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento · backlog · p1 · initiative
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera · backlog · p1 · initiative
 - [[../issues/CACH-B0004|CACH-B0004]] — Contratantes facturacion y liquidacion neta · backlog · p1 · initiative
 - [[../issues/CACH-B0007|CACH-B0007]] — Calendario unificado e interaccion rapida · backlog · p1 · initiative
-- [[../issues/CACH-0048|CACH-0048]] — [Context] Compactar workflow OpenCode · backlog · p2 · task
 - [[../issues/CACH-B0008|CACH-B0008]] — PWA notificaciones y offline · backlog · p2 · initiative
 - [[../issues/CACH-B0009|CACH-B0009]] — Inteligencia financiera y features Pro · backlog · p2 · initiative
 - [[../issues/CACH-B0010|CACH-B0010]] — Tooling de agentes y modelos de desarrollo · backlog · p2 · initiative
@@ -52,6 +49,9 @@ generated: true
 - [[../issues/CACH-0043|CACH-0043]] — [UX] Limpiar acciones en detalle de proyecto · done · p1 · slice
 - [[../issues/CACH-0044|CACH-0044]] — [UX] Crear evento desde proyecto con proyecto preseleccionado · done · p1 · slice
 - [[../issues/CACH-0045|CACH-0045]] — [UX] Anadir confirmacion a borrados destructivos · done · p1 · slice
+- [[../issues/CACH-0046|CACH-0046]] — [Verify] Anadir verificacion por tipo de cambio · done · p1 · task
+- [[../issues/CACH-0047|CACH-0047]] — [Skills] Actualizar catalogo y symlinks de skills · done · p1 · task
+- [[../issues/CACH-0050|CACH-0050]] — [Deploy] Tooling local-first de PR release y smoke · done · p1 · task
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes · done · p1 · slice
 - [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos · done · p1 · slice
 - [[../issues/CACH-B0006|CACH-B0006]] — Onboarding y acceso beta · done · p1 · slice
@@ -61,6 +61,7 @@ generated: true
 - [[../issues/CACH-B0017|CACH-B0017]] — Panel admin para invitaciones beta · done · p1 · slice
 - [[../issues/CACH-B0019|CACH-B0019]] — Emails transaccionales beta con Brevo · done · p1 · slice
 - [[../issues/CACH-0033|CACH-0033]] — Vista anual en calendario de proyectos · done · p2 · slice
+- [[../issues/CACH-0048|CACH-0048]] — [Context] Compactar workflow OpenCode · done · p2 · task
 - [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura · done · p2 · task
 
 ## in_progress

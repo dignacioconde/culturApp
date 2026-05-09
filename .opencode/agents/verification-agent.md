@@ -31,7 +31,8 @@ Ejecuta los comandos relevantes segun lo que haya cambiado:
 
 - Si se toco codigo JS/TS/JSX/TSX o configuracion de build: `npm run lint` y `npm run build`.
 - Si existe suite de tests y aplica al cambio: `npm run test`.
-- Si se toco `docs/project/`: `npm run pb:check -- --strict --json`.
+- Si se toco `docs/project/`: `npm run pb:guard`.
+- Para preflight completo de PR local: `npm run verify:pr -- --base origin/main`.
 - Si se cierra una issue: `npm run pb:close-check -- CACH-XXXX`.
 - Si se promueve una issue a ready: `npm run pb:ready-check -- CACH-XXXX`.
 - Si hay un Vercel Preview disponible: anota la URL en el resultado; no lo trates como produccion.

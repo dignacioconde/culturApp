@@ -103,6 +103,8 @@ PR, release y verificación:
 
 Cuando el usuario pida OpenCode agents, usa el flujo estipulado en `.opencode/README.md`; no hagas una investigación manual amplia salvo bloqueo real.
 
+Si el usuario pide `caveman`, `menos tokens` o respuesta breve, aplica salida concisa solo donde sea seguro; no comprimas seguridad/RLS, finanzas, SQL, migraciones, reviews con evidencia ni verificaciones exactas.
+
 ## Comandos Esenciales
 
 ```bash
@@ -113,6 +115,8 @@ npm run agents:plan -- "tarea"
 npm run agents:run -- "tarea"
 npm run agents:verify -- "contexto"
 npm run pb:check
+npm run verify:pr -- --base origin/main
+npm run pb:guard
 ```
 
 ## Detalle Bajo Demanda

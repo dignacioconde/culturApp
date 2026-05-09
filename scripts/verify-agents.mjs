@@ -44,6 +44,12 @@ for (const file of ['run-agent.mjs', 'run-planner.mjs', 'run-parallel-agents.mjs
     if (!content.includes(label)) fail(`${rel}: falta contrato v2 "${label}"`)
   }
   if (!content.includes('pb:orient')) fail(`${rel}: debe orientar Product Brain con pb:orient bajo demanda`)
+  if (!content.includes('--concise') || !content.includes('--caveman')) {
+    fail(`${rel}: debe soportar modo conciso/caveman explicito`)
+  }
+  for (const guardrail of ['RLS', 'finanzas', 'SQL', 'migraciones', 'review']) {
+    if (!content.includes(guardrail)) fail(`${rel}: modo caveman debe preservar ${guardrail}`)
+  }
 }
 
 if (errors.length > 0) {

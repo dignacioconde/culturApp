@@ -62,8 +62,6 @@ _Sin entradas._
 | ID | Título | Tipo | Nivel | P |
 |---|---|---|---|---|
 | CACH-0042 | [UX] Racionalizar navegacion inferior | feature | slice | p1 |
-| CACH-0046 | [Verify] Anadir verificacion por tipo de cambio | chore | task | p1 |
-| CACH-0047 | [Skills] Actualizar catalogo y symlinks de skills | chore | task | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | feature | initiative | p1 |
@@ -75,13 +73,10 @@ _Sin entradas._
 |---|---|---|---|---|---|
 | CACH-B0020 | Validar dominio de email transaccional y cambiar remitentes definitivos | in_progress | chore | task | p0 |
 | CACH-0042 | [UX] Racionalizar navegacion inferior | backlog | feature | slice | p1 |
-| CACH-0046 | [Verify] Anadir verificacion por tipo de cambio | backlog | chore | task | p1 |
-| CACH-0047 | [Skills] Actualizar catalogo y symlinks de skills | backlog | chore | task | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | backlog | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | backlog | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | backlog | feature | initiative | p1 |
 | CACH-B0007 | Calendario unificado e interaccion rapida | backlog | feature | initiative | p1 |
-| CACH-0048 | [Context] Compactar workflow OpenCode | backlog | chore | task | p2 |
 | CACH-B0008 | PWA notificaciones y offline | backlog | feature | initiative | p2 |
 | CACH-B0009 | Inteligencia financiera y features Pro | backlog | feature | initiative | p2 |
 | CACH-B0010 | Tooling de agentes y modelos de desarrollo | backlog | chore | initiative | p2 |

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-import { join } from 'node:path'
+import { existsSync, readFileSync } from 'node:fs'
+import { join, relative } from 'node:path'
 import {
   AREAS,
   COMPONENTS,
@@ -9,6 +10,7 @@ import {
   ensureDir,
   indexesRoot,
   linkTo,
+  normalizeDate,
   readAllDocs,
   sectionContent,
   sortById,
@@ -17,7 +19,28 @@ import {
   writeIfChanged,
 } from './lib.mjs'
 
-const generatedDate = today()
+const args = new Set(process.argv.slice(2))
+const checkMode = args.has('--check')
+const jsonOutput = args.has('--json')
+const stale = []
+let generatedDate = today()
+
+function latestUpdated(items) {
+  const dates = items.map((doc) => normalizeDate(doc.frontmatter?.updated)).filter(Boolean).sort()
+  return dates.at(-1) ?? today()
+}
+
+function verifyOrWrite(file, content) {
+  const next = `${content.trimEnd()}\n`
+  if (checkMode) {
+    if (!existsSync(file) || readFileSync(file, 'utf8') !== next) {
+      stale.push(relative(brainRoot, file).split('/').join('/'))
+      return true
+    }
+    return false
+  }
+  return writeIfChanged(file, content)
+}
 
 function frontmatter(id, title, aliases, tags) {
   return [
@@ -41,7 +64,7 @@ function frontmatter(id, title, aliases, tags) {
 
 function writeIndex(fileName, id, title, aliases, tags, lines) {
   const content = `${frontmatter(id, title, aliases, tags)}# ${title}\n\n${lines.join('\n')}`.trimEnd()
-  return writeIfChanged(join(indexesRoot, fileName), content)
+  return verifyOrWrite(join(indexesRoot, fileName), content)
 }
 
 function groupBy(items, getKeys) {
@@ -198,7 +221,7 @@ function writeBacklog(issues) {
     'No edites este tablero a mano salvo emergencia: ejecuta `npm run pb:index`. Si el tablero y las issues divergen, `npm run pb:check` falla.',
   ].join('\n')
 
-  return writeIfChanged(join(brainRoot, 'backlog', 'BACKLOG.md'), content)
+  return verifyOrWrite(join(brainRoot, 'backlog', 'BACKLOG.md'), content)
 }
 
 function writeSourceTouchpoints() {
@@ -208,7 +231,7 @@ function writeSourceTouchpoints() {
     ['src/pages/Calendar*.jsx, src/components/*Calendar*', 'frontend', 'calendar, events, projects', '[[../knowledge/PB-ZK-20260504-rbc-height]], [[../context/ux-mobile-guardrails-20260504]]', 'desktop/mobile visual check'],
     ['src/hooks/**, supabase/migrations/**', 'data/security', 'supabase, finance, auth-onboarding', '[[../process/supabase-db-access]], [[../decisions/ADR-0004-profile-data-source-and-hooks]]', 'lint, build, test:db when relevant'],
     ['.opencode/**, .agents/skills/**, docs/agent-context-policy.md', 'brain', 'agents, product-brain', '[[../process/WORKFLOW]], [[../indexes/issues-open.index]]', 'verify:agents, verify:skills, context:check'],
-    ['docs/project/**, scripts/brain/**', 'brain', 'product-brain, agents', '[[../process/frontmatter-schema]], [[../decisions/ADR-0010-frontmatter-schema]]', 'pb:check, verify:brain, git diff --check'],
+    ['docs/project/**, scripts/brain/**', 'brain', 'product-brain, agents', '[[../process/frontmatter-schema]], [[../decisions/ADR-0010-frontmatter-schema]]', 'pb:guard, verify:brain, git diff --check'],
   ]
 
   return writeIndex(
@@ -230,6 +253,7 @@ function writeSourceTouchpoints() {
 ensureDir(indexesRoot)
 
 const docs = readAllDocs().filter((doc) => !doc.rel.startsWith('templates/'))
+generatedDate = latestUpdated(docs.filter((doc) => !doc.frontmatter?.generated))
 const issues = readDocsByKind('issue')
 const decisions = readDocsByKind('decision')
 const knowledge = docs.filter((doc) => doc.rel.startsWith('knowledge/') && doc.rel !== 'knowledge/README.md')
@@ -321,4 +345,22 @@ changed += Number(writeIndex(
 changed += Number(writeSourceTouchpoints())
 changed += Number(writeBacklog(issues))
 
-console.log(`[pb:index] Indices v2 actualizados (${changed} archivo(s) cambiados)`)
+if (jsonOutput) {
+  console.log(JSON.stringify({
+    ok: stale.length === 0,
+    check: checkMode,
+    changed,
+    stale,
+  }, null, 2))
+} else if (checkMode) {
+  if (stale.length === 0) {
+    console.log('[pb:index] OK: indices y backlog generados estan frescos')
+  } else {
+    for (const file of stale) console.error(`[pb:index] stale: ${file}`)
+    console.error(`[pb:index] ${stale.length} archivo(s) generado(s) no estan frescos; ejecuta npm run pb:index`)
+  }
+} else {
+  console.log(`[pb:index] Indices v2 actualizados (${changed} archivo(s) cambiados)`)
+}
+
+process.exitCode = checkMode && stale.length > 0 ? 1 : 0

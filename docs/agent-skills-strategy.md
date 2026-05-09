@@ -124,6 +124,7 @@ Validation status for the current setup:
 | `cultura-security-privacy-review` | Valid |
 | `cultura-testing-release-check` | Valid |
 | `cultura-code-review` | Valid |
+| `cultura-release-task-flow` | Valid |
 | `cultura-agent-orchestration` | Valid |
 | `product-brain-orient` | Valid |
 | `product-brain-capture` | Valid |
@@ -132,6 +133,7 @@ Validation status for the current setup:
 | `memory-orient` | Valid |
 | `compact-memory` | Valid |
 | `agent-context-maintenance` | Valid |
+| `caveman` | Valid |
 | `.agents/templates/portable-skill` | Valid |
 | `git diff --check` | Pass |
 

@@ -61,10 +61,10 @@ Solo leer otros archivos si aparecen en el diff o son necesarios para resolver c
    - `docs/project/releases/CURRENT_RELEASE.md`
    - release activa en `docs/project/releases/`
    - `docs/project/backlog/BACKLOG.md`
-   - `docs/project/indexes/issues.index.md`
-   - índices adicionales solo si `npm run pb:check` lo exige o si ya formaban parte del cambio
+   - regenerar índices/digest con scripts si cambian docs Product Brain
 5. Validar antes de integrar:
-   - `npm run pb:check` si toca `docs/project/`
+   - `npm run pb:guard` si toca `docs/project/`
+   - `npm run release:sync-check` si se trabaja sobre release activa
    - `git diff --check`
 6. Commit en rama de tarea si hay cambios sin commit:
    - formato: `docs(CACH-XXXX): resumen` o `docs(CACH-XXXX+CACH-YYYY): resumen`
@@ -73,7 +73,7 @@ Solo leer otros archivos si aparecen en el diff o son necesarios para resolver c
    - cambiar a la rama `release/<version>`
    - hacer `git merge --squash <rama-tarea>`
    - resolver conflictos conservando el estado más avanzado de la release y añadiendo el nuevo scope
-   - repetir `npm run pb:check` y `git diff --check`
+   - repetir `npm run pb:guard`, `npm run release:status` y `git diff --check`
    - commitear con formato `docs(CACH-XXXX+CACH-YYYY): prepare <version> release docs`
 8. Push:
    - si el usuario pidió que quede en la rama beta/remota o dijo "meter en beta", empujar `release/<version>` a `origin`
@@ -87,7 +87,7 @@ Release: <RELEASE-ID> / <branch>
 Issues: <CACH-XXXX>, <CACH-YYYY>
 Integración: local / pushed
 Commits: <sha> — <subject>
-Validación: pb:check OK, diff --check OK
+Validación: pb:guard OK, release:status OK, diff --check OK
 Pendiente: PR release -> main / tag / producción si aplica
 ```
 

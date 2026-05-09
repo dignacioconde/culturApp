@@ -100,6 +100,8 @@ npm run agents:run -- --dry-run --agent cultura-review "Revisa el diff"
 npm run agents:parallel -- --dry-run --agents review,security "Revisa riesgos"
 ```
 
+Para ahorrar tokens en salidas no sensibles, los runners aceptan `--concise` o `--caveman` y tambien lo detectan en el texto de la tarea. Solo comprime la salida: no reduce razonamiento ni omite hallazgos de seguridad, RLS, finanzas, SQL, migraciones, reviews con lineas, verificaciones ni acciones remotas/destructivas.
+
 ## Agentes primarios
 
 | Agente | Comando | Uso |

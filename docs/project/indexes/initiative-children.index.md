@@ -47,11 +47,12 @@ _Sin children._
 
 ## CACH-B0010 — Tooling de agentes y modelos de desarrollo
 
-- [[../issues/CACH-0046|CACH-0046]] — [Verify] Anadir verificacion por tipo de cambio · backlog · p1 · task
-- [[../issues/CACH-0047|CACH-0047]] — [Skills] Actualizar catalogo y symlinks de skills · backlog · p1 · task
-- [[../issues/CACH-0048|CACH-0048]] — [Context] Compactar workflow OpenCode · backlog · p2 · task
 - [[../issues/CACH-0039|CACH-0039]] — [Agents] Respetar permisos reales en lanzadores OpenCode · done · p0 · task
 - [[../issues/CACH-0040|CACH-0040]] — [Agents] Separar plan draft de ejecucion mutante · done · p0 · task
+- [[../issues/CACH-0046|CACH-0046]] — [Verify] Anadir verificacion por tipo de cambio · done · p1 · task
+- [[../issues/CACH-0047|CACH-0047]] — [Skills] Actualizar catalogo y symlinks de skills · done · p1 · task
+- [[../issues/CACH-0050|CACH-0050]] — [Deploy] Tooling local-first de PR release y smoke · done · p1 · task
+- [[../issues/CACH-0048|CACH-0048]] — [Context] Compactar workflow OpenCode · done · p2 · task
 
 ## CACH-B0011 — Categorias etiquetas y taxonomia
 

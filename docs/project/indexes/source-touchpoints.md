@@ -25,4 +25,4 @@ Mapa operativo para orientar agentes sin leer el Brain completo.
 | src/pages/Calendar*.jsx, src/components/*Calendar* | frontend | calendar, events, projects | [[../knowledge/PB-ZK-20260504-rbc-height]], [[../context/ux-mobile-guardrails-20260504]] | desktop/mobile visual check |
 | src/hooks/**, supabase/migrations/** | data/security | supabase, finance, auth-onboarding | [[../process/supabase-db-access]], [[../decisions/ADR-0004-profile-data-source-and-hooks]] | lint, build, test:db when relevant |
 | .opencode/**, .agents/skills/**, docs/agent-context-policy.md | brain | agents, product-brain | [[../process/WORKFLOW]], [[../indexes/issues-open.index]] | verify:agents, verify:skills, context:check |
-| docs/project/**, scripts/brain/** | brain | product-brain, agents | [[../process/frontmatter-schema]], [[../decisions/ADR-0010-frontmatter-schema]] | pb:check, verify:brain, git diff --check |
+| docs/project/**, scripts/brain/** | brain | product-brain, agents | [[../process/frontmatter-schema]], [[../decisions/ADR-0010-frontmatter-schema]] | pb:guard, verify:brain, git diff --check |

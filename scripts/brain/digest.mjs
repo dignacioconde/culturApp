@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-import { join } from 'node:path'
+import { existsSync, readFileSync } from 'node:fs'
+import { join, relative } from 'node:path'
 import {
   brainRoot,
   docTitle,
@@ -11,6 +12,10 @@ import {
   today,
   writeIfChanged,
 } from './lib.mjs'
+
+const args = new Set(process.argv.slice(2))
+const checkMode = args.has('--check')
+const jsonOutput = args.has('--json')
 
 function priorityOrder(value) {
   return { p0: 0, p1: 1, p2: 2, p3: 3 }[value] ?? 99
@@ -60,7 +65,7 @@ const releaseStatus = docs.find((doc) => doc.rel === 'releases/CURRENT_RELEASE.m
 const currentRelease = docs.find((doc) => doc.frontmatter?.kind === 'release' && doc.frontmatter.release_current)
 const currentPlan = docs.find((doc) => doc.rel === 'plans/CURRENT_PLAN.md')
 const backlog = docs.find((doc) => doc.rel === 'backlog/BACKLOG.md')
-const updated = latestUpdated(docs)
+const updated = latestUpdated(docs.filter((doc) => !doc.frontmatter?.generated))
 
 const releaseActiva = currentRelease
   ? `${currentRelease.frontmatter.id} — ${titleOf(currentRelease)}`
@@ -175,5 +180,26 @@ ${proximoCheckpoint || 'Sin checkpoint documentado.'}
 `
 
 const outputPath = join(brainRoot, 'DIGEST.md')
-const changed = writeIfChanged(outputPath, digest)
-console.log(`[pb:digest] DIGEST.md ${changed ? 'generado' : 'sin cambios'} en docs/project/DIGEST.md`)
+const next = `${digest.trimEnd()}\n`
+const stale = !existsSync(outputPath) || readFileSync(outputPath, 'utf8') !== next
+const changed = checkMode ? stale : writeIfChanged(outputPath, digest)
+
+if (jsonOutput) {
+  console.log(JSON.stringify({
+    ok: !stale,
+    check: checkMode,
+    changed,
+    stale: stale ? [relative(brainRoot, outputPath).split('/').join('/')] : [],
+  }, null, 2))
+} else if (checkMode) {
+  if (!stale) {
+    console.log('[pb:digest] OK: DIGEST.md esta fresco')
+  } else {
+    console.error('[pb:digest] stale: DIGEST.md')
+    console.error('[pb:digest] DIGEST.md no esta fresco; ejecuta npm run pb:digest')
+  }
+} else {
+  console.log(`[pb:digest] DIGEST.md ${changed ? 'generado' : 'sin cambios'} en docs/project/DIGEST.md`)
+}
+
+process.exitCode = checkMode && stale ? 1 : 0

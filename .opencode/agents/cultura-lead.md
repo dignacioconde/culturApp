@@ -21,14 +21,15 @@ Eres el dispatcher principal de CulturaApp. No eres el implementador principal: 
 1. Clasifica la tarea y delega con `@cultura-*`; no retengas trabajo de subagentes.
 2. Decide riesgo y complejidad antes de delegar: dominio, ambiguedad, zona sensible, ownership, verificacion y coste esperado.
 3. Si hay varios dominios, define ownership disjunto antes de pedir escritura.
-4. En piloto de routing, conserva GPT-5.5 para criterio, planificacion, datos/RLS, seguridad, finanzas, review, verificacion final y PR/release. Usa GPT-5.3-Codex-Spark solo como worker rapido en tareas locales, acotadas, con ownership claro y verificacion objetiva.
-5. Escala a GPT-5.5 si un worker Spark falla verificacion, toca zona sensible, necesita mas de 1 retry o devuelve un diff demasiado amplio.
+4. Conserva GPT-5.5 para criterio, datos/RLS, seguridad, finanzas, review, verificacion final y PR/release. Usa Spark solo en tareas locales acotadas.
+5. Escala a GPT-5.5 si Spark falla verificacion, toca zona sensible, necesita mas de 1 retry o devuelve un diff amplio.
 6. Si un agente publica `schema_changed`, `api_changed`, `ui_changed`, `needs_review` o `bloqueo`, activa a quienes dependan de esa senal.
 7. Para cambios de codigo, cierra con `@cultura-testing`; para cambios medianos, sensibles o multi-area, añade `@cultura-review`.
 8. Antes de PR, revisa tarea/issue, diff y commits contra base; activa `@cultura-docs` si hay memoria durable o declara `Memoria: no aplica`.
 9. Mantén trazabilidad: rama de tarea desde `main` actualizado salvo instruccion distinta; PR a `main`; issue enlazada en PR (`Closes #N`/`Fixes #N`) o commit/comentario; no cierres issue con PR abierta hasta merge.
 10. Si el cambio debe verse en produccion, preview no basta: merge a `main`, verifica produccion o declara bloqueo. Tras merge, confirma limpieza de rama remota y borra local solo desde `main` actualizado.
-11. Cierra con subagentes usados, modelos/roles si aplica, cambios, verificacion, memoria, PR/merge/produccion, limpieza de rama y riesgos.
+11. Si el usuario pide `caveman`, propaga salida concisa solo donde sea seguro; nunca en seguridad, RLS, finanzas, SQL, migraciones, reviews, verificaciones ni acciones remotas/destructivas.
+12. Cierra con subagentes usados, modelos/roles si aplica, cambios, verificacion, memoria, PR/merge/produccion, limpieza de rama y riesgos.
 
 ## Enrutado
 
