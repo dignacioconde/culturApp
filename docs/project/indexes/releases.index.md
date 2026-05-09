@@ -4,8 +4,8 @@ kind: index
 id: PB-RELEASES-INDEX
 title: Releases Index
 lifecycle: active
-created: 2026-05-08
-updated: 2026-05-08
+created: 2026-05-09
+updated: 2026-05-09
 aliases:
   - Releases Index
 tags:
@@ -23,6 +23,7 @@ generated: true
 - [[../releases/RELEASE-0.1.0-beta.12|RELEASE-0.1.0-beta.12]] — Pulido proyecto-evento y borrados seguros
 - [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — Dashboard movil y estado Ahora
 - [[../releases/RELEASE-0.1.0-beta.14|RELEASE-0.1.0-beta.14]] — Email definitivo transaccional
+- [[../releases/RELEASE-0.1.0-beta.15|RELEASE-0.1.0-beta.15]] — Navegacion movil esencial
 - [[../releases/RELEASE-0.1.0-beta.2|RELEASE-0.1.0-beta.2]] — Endurecer confianza de datos
 - [[../releases/RELEASE-0.1.0-beta.3|RELEASE-0.1.0-beta.3]] — Rediseño financiero del Dashboard
 - [[../releases/RELEASE-0.1.0-beta.4|RELEASE-0.1.0-beta.4]] — Planificacion anual de proyectos

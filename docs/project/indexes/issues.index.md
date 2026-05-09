@@ -4,8 +4,8 @@ kind: index
 id: PB-ISSUES-INDEX
 title: Issues Index
 lifecycle: active
-created: 2026-05-08
-updated: 2026-05-08
+created: 2026-05-09
+updated: 2026-05-09
 aliases:
   - Issues Index
 tags:

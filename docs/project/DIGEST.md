@@ -5,7 +5,7 @@ id: PB-DIGEST
 title: Product Brain Digest
 lifecycle: active
 created: 2026-05-05
-updated: 2026-05-08
+updated: 2026-05-09
 aliases:
   - Digest
   - Brain Digest
@@ -45,7 +45,9 @@ _Sin entradas._
 
 ### Ready
 
-_Sin entradas._
+| ID | Título | Tipo | Nivel | P |
+|---|---|---|---|---|
+| CACH-0042 | [UX] Racionalizar navegacion inferior | feature | slice | p1 |
 
 ### In progress
 
@@ -61,7 +63,6 @@ _Sin entradas._
 
 | ID | Título | Tipo | Nivel | P |
 |---|---|---|---|---|
-| CACH-0042 | [UX] Racionalizar navegacion inferior | feature | slice | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | feature | initiative | p1 |
@@ -72,7 +73,7 @@ _Sin entradas._
 | ID | Título | Workflow | Tipo | Nivel | P |
 |---|---|---|---|---|---|
 | CACH-B0020 | Validar dominio de email transaccional y cambiar remitentes definitivos | in_progress | chore | task | p0 |
-| CACH-0042 | [UX] Racionalizar navegacion inferior | backlog | feature | slice | p1 |
+| CACH-0042 | [UX] Racionalizar navegacion inferior | ready | feature | slice | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | backlog | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | backlog | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | backlog | feature | initiative | p1 |

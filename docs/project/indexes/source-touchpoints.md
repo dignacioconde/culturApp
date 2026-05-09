@@ -4,8 +4,8 @@ kind: index
 id: PB-SOURCE-TOUCHPOINTS
 title: Source Touchpoints
 lifecycle: active
-created: 2026-05-08
-updated: 2026-05-08
+created: 2026-05-09
+updated: 2026-05-09
 aliases:
   - Source Touchpoints
 tags:

@@ -4,8 +4,8 @@ kind: index
 id: PB-INITIATIVE-CHILDREN
 title: Initiative Children Index
 lifecycle: active
-created: 2026-05-08
-updated: 2026-05-08
+created: 2026-05-09
+updated: 2026-05-09
 aliases:
   - Initiative Children Index
 tags:
@@ -23,7 +23,7 @@ generated: true
 
 ## CACH-B0002 — Simplificar experiencia mobile financiera
 
-- [[../issues/CACH-0042|CACH-0042]] — [UX] Racionalizar navegacion inferior · backlog · p1 · slice
+- [[../issues/CACH-0042|CACH-0042]] — [UX] Racionalizar navegacion inferior · ready · p1 · slice
 - [[../issues/CACH-0032|CACH-0032]] — Priorizar operativa diaria en dashboard movil · done · p1 · slice
 - [[../issues/CACH-0038|CACH-0038]] — Compactar mobile financiero y detalles accionables · done · p1 · slice
 - [[../issues/CACH-0041|CACH-0041]] — [UX] Simplificar dashboard movil y estado Ahora · done · p1 · slice

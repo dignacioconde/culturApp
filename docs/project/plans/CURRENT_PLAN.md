@@ -5,7 +5,7 @@ id: PB-CURRENT-PLAN
 title: Current Plan
 lifecycle: active
 created: '2026-05-05'
-updated: '2026-05-08'
+updated: '2026-05-09'
 aliases:
   - Current Plan
 tags:
@@ -60,3 +60,7 @@ Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboa
 ## Próximo checkpoint
 
 Cerrar CACH-B0020 en beta 14 antes de invitar a más usuarios reales.
+
+## Siguiente release candidata
+
+[[../releases/RELEASE-0.1.0-beta.15|RELEASE-0.1.0-beta.15]] — Navegacion movil esencial queda consolidada como draft para abordar [[../issues/CACH-0042|CACH-0042]] cuando beta 14 este cerrada o explicitamente apartada. No sustituye a beta 14 como release activa.
