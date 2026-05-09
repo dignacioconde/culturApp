@@ -13,17 +13,17 @@ tags:
   - release
   - beta
 generated: false
-release_phase: active
-release_current: true
+release_phase: released
+release_current: false
 release_branch: release/0.1.0-beta.14
-release_tag: null
+release_tag: v0.1.0-beta.14
 release_pr: 'https://github.com/dignacioconde/culturApp/pull/94'
 ---
 # RELEASE-0.1.0-beta.14 — Email definitivo transaccional
 
 ## Estado
 
-Active, lista para PR `release/0.1.0-beta.14` -> `main`.
+Released.
 
 ## Rama de release
 
@@ -31,7 +31,7 @@ Active, lista para PR `release/0.1.0-beta.14` -> `main`.
 
 ## Tag
 
-Pendiente.
+`v0.1.0-beta.14`
 
 ## Ciclo
 
@@ -102,15 +102,15 @@ Dejar un email/remitente definitivo real de Cachés operativo para emails transa
 ## Checklist de salida
 
 - [x] PR `release/0.1.0-beta.14` -> `main` abierta si hay cambios versionados
-- [ ] CI en verde si aplica
-- [ ] Revision aprobada
-- [ ] PR mergeada en `main` si aplica
-- [ ] Tag creado desde `main` si aplica
-- [ ] Produccion verificada si aplica
-- [ ] Release notes actualizadas
-- [ ] Issues marcadas como `Released`
-- [ ] Current Release actualizado
-- [ ] Backlog actualizado
+- [x] CI en verde si aplica
+- [x] Revision aprobada
+- [x] PR mergeada en `main` si aplica
+- [x] Tag creado desde `main` si aplica
+- [x] Produccion verificada
+- [x] Release notes actualizadas
+- [x] Issues marcadas como `done`
+- [x] Current Release actualizado
+- [x] Backlog actualizado
 
 ## Release notes
 
@@ -135,8 +135,8 @@ Dejar un email/remitente definitivo real de Cachés operativo para emails transa
 ### Tecnico
 
 - `caches.es` autenticado en Brevo y `send-beta-invite` desplegada con `no-reply@caches.es` como remitente y `contacto@caches.es` como reply-to.
-- `CACH-0051` captura el trabajo pendiente de dominio publico de app y multientorno.
+- `CACH-0051` captura el trabajo posterior de dominio publico de app y multientorno.
 
 ## Resultado final
 
-Release activa y lista para PR a `main`. Email transaccional definitivo verificado; dominio publico de app y multientorno quedan fuera de scope en `CACH-0051`.
+Release cerrada y mergeada en `main` mediante PR #94. Tag `v0.1.0-beta.14` creado desde `main`; produccion verificada en `https://culturapp-rho.vercel.app`. Email transaccional definitivo verificado; dominio publico de app y multientorno quedan fuera de scope en `CACH-0051`.

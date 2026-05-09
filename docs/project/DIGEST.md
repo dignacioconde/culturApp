@@ -23,19 +23,21 @@ Resumen determinista generado desde Product Brain v2.
 
 ## Estado operacional
 
-- **Release activa:** RELEASE-0.1.0-beta.14 — Email definitivo transaccional
+- **Release activa:** No hay release activa.
 - **Últimos cortes:** `RELEASE-0.1.0-beta.10` — emails transaccionales beta con Brevo. Ver RELEASE-0.1.0-beta.10.
 
 `RELEASE-0.1.0-beta.12` — pulido proyecto-evento y borrados seguros. Ver RELEASE-0.1.0-beta.12.
 
 `RELEASE-0.1.0-beta.13` — dashboard movil y estado Ahora. Ver RELEASE-0.1.0-beta.13.
-- **Foco:** Cerrar la operativa de email transaccional en beta 14: email/alias real, dominio/remitente definitivo, DNS y verificación real de invitación + confirmación.
+
+`RELEASE-0.1.0-beta.14` — email definitivo transaccional. Ver RELEASE-0.1.0-beta.14.
+- **Foco:** Beta 14 queda cerrada. Preparar el siguiente corte sin mezclarlo con el pendiente de dominio publico de app y multientorno.
 
 ## Prioridades del plan
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
-2. Máxima prioridad operativa en beta 14: CACH-B0020 — validar dominio de email transaccional y cambiar remitentes definitivos.
-3. Mantener fuera de este corte navegacion inferior, tooling interno, skills, contexto, analitica real, i18n y growth.
+2. Mantener fuera de beta 14 el dominio publico de app y multientorno, trazado en CACH-0051.
+3. Activar explicitamente el siguiente corte antes de implementar trabajo de beta 15.
 
 ## Tablero
 
@@ -106,4 +108,4 @@ _Sin entradas._
 
 ## Próxima acción
 
-Cerrar CACH-B0020 en beta 14 antes de invitar a más usuarios reales.
+Elegir siguiente foco: activar beta 15 para navegacion movil o priorizar CACH-0051 si el dominio publico de app bloquea invitaciones reales.
