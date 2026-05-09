@@ -122,11 +122,12 @@ Las ramas de tarea son locales por defecto. Subirlas al remoto es una excepcion 
 
 ## Estabilizacion
 
-Antes de cerrar:
+Antes de abrir PR de release:
 
-- todas las issues estan `Ready for Release` o `Released`;
-- `npm run lint` y `npm run build` pasan si toca app;
-- `npm run pb:check` pasa si toca Product Brain;
+- todas las issues del scope estan en `issue_workflow: done` o tienen un bloqueo documentado;
+- `npm run verify:pr -- --base origin/main` pasa o se documenta por que no aplica;
+- `npm run release:sync-check` no detecta desfase entre release activa, rama y `main`;
+- `npm run pb:guard` pasa si toca Product Brain;
 - QA visual/responsive/accesibilidad hecho si toca UI;
 - release notes completas;
 - ADRs creadas para decisiones importantes.
@@ -154,8 +155,8 @@ git push origin --delete release/0.1.0-beta.1
 
 Despues:
 
-- marcar issues como `Released`;
-- actualizar release a `Released`;
+- mantener issues cerradas como `issue_workflow: done`;
+- actualizar release a `release_phase: released`;
 - actualizar [[../releases/CURRENT_RELEASE|Current Release]];
 - actualizar estado del producto;
 - verificar produccion si aplica;
@@ -200,7 +201,8 @@ Despues:
 - [ ] Produccion verificada si aplica.
 - [ ] Rama remota `release/<version>` eliminada.
 - [ ] Release notes actualizadas.
-- [ ] Issues marcadas como `Released`.
+- [ ] Issues incluidas siguen en `issue_workflow: done`.
+- [ ] Release marcada como `release_phase: released`.
 - [ ] Estado actual actualizado.
 - [ ] Current Release actualizado.
 - [ ] Backlog actualizado.
@@ -225,6 +227,6 @@ Cuando un ciclo se da por completado:
 
 1. Crear o actualizar la release final del ciclo, por ejemplo `RELEASE-0.1.0`.
 2. Agrupar las release notes de `RELEASE-0.1.0-beta.1`, `RELEASE-0.1.0-beta.2`, etc.
-3. Marcar las issues incluidas como `Released` si ya llegaron a `main`.
+3. Mantener las issues incluidas en `issue_workflow: done` y marcar la release final con `release_phase: released`.
 4. Actualizar `CURRENT_RELEASE.md`, `CURRENT_PLAN.md` y `BACKLOG.md`.
 5. Abrir el siguiente ciclo si procede, por ejemplo `RELEASE-0.2.0-beta.1`.

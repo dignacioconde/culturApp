@@ -6,6 +6,8 @@ import { repoRoot } from './brain/lib.mjs'
 const errors = []
 const agentsSkills = join(repoRoot, '.agents', 'skills')
 const claudeSkills = join(repoRoot, '.claude', 'skills')
+const strategyPath = join(repoRoot, 'docs', 'agent-skills-strategy.md')
+const strategy = existsSync(strategyPath) ? readFileSync(strategyPath, 'utf8') : ''
 
 function fail(message) {
   errors.push(message)
@@ -25,6 +27,15 @@ for (const name of readdirSync(agentsSkills).sort()) {
     continue
   }
   if (!lstatSync(claudePath).isSymbolicLink()) fail(`${relative(repoRoot, claudePath)} debe ser symlink`)
+  else {
+    const target = realpathSync(claudePath)
+    const expected = resolve(agentsSkills, name)
+    if (target !== expected) fail(`${relative(repoRoot, claudePath)} apunta a ${target}, esperado ${expected}`)
+  }
+
+  if (strategy && !strategy.includes(`\`${name}\``)) {
+    fail(`docs/agent-skills-strategy.md no lista la skill ${name}`)
+  }
 }
 
 const compactPath = join(claudeSkills, 'compact-memory')
@@ -42,6 +53,17 @@ if (!existsSync(productBrainOrient) || !lstatSync(productBrainOrient).isSymbolic
   const target = realpathSync(productBrainOrient)
   const expected = resolve(agentsSkills, 'product-brain-orient')
   if (target !== expected) fail(`product-brain-orient apunta a ${target}, esperado ${expected}`)
+}
+
+if (strategy) {
+  for (const name of readdirSync(agentsSkills).sort()) {
+    const skillPath = join(agentsSkills, name, 'SKILL.md')
+    if (!existsSync(skillPath)) continue
+    const validationPattern = new RegExp(`\\|\\s*\\\`${name}\\\`\\s*\\|\\s*Valid\\s*\\|`)
+    if (!validationPattern.test(strategy)) {
+      fail(`docs/agent-skills-strategy.md no incluye ${name} en la tabla de validacion`)
+    }
+  }
 }
 
 if (existsSync(join(claudeSkills, 'brain-orient'))) {

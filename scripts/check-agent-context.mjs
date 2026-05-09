@@ -101,12 +101,25 @@ function listMarkdownFiles(dirPath) {
   const absoluteDir = repoPath(dirPath)
   if (!existsSync(absoluteDir)) return []
 
-  return readdirSync(absoluteDir)
-    .map((entry) => join(absoluteDir, entry))
-    .filter((absolutePath) => statSync(absolutePath).isFile())
-    .filter((absolutePath) => absolutePath.endsWith(".md"))
-    .map(toRepoRelative)
-    .sort()
+  const files = []
+  const visit = (dir) => {
+    for (const entry of readdirSync(dir)) {
+      const absolutePath = join(dir, entry)
+      const stat = statSync(absolutePath)
+      if (stat.isDirectory()) {
+        visit(absolutePath)
+      } else if (stat.isFile() && absolutePath.endsWith(".md")) {
+        files.push(absolutePath)
+      }
+    }
+  }
+
+  visit(absoluteDir)
+  return files.map(toRepoRelative).sort()
+}
+
+function listSkillFiles() {
+  return listMarkdownFiles(".agents/skills").filter((path) => path.endsWith("/SKILL.md"))
 }
 
 function unique(items) {
@@ -135,9 +148,12 @@ function findPhraseMatches(path, text) {
     const needle = phrase.toLowerCase()
     lines.forEach((line, index) => {
       if (line.toLowerCase().includes(needle)) {
+        const contextText = lines.slice(Math.max(0, index - 2), index + 3).join(" ")
         matches.push({
           path,
           line: index + 1,
+          lineText: line,
+          contextText,
           phrase,
           snippet: lineSnippet(line),
           historical: isHistoricalOrDoNotLoad(text),
@@ -147,6 +163,10 @@ function findPhraseMatches(path, text) {
   }
 
   return matches
+}
+
+function isAcceptableBroadLoadingLine(line) {
+  return /no\s+(cargues|leas)|do not\s+(load|read|use)|sin\s+(historico|histórico|cargar|leer)|solo si|only if|salvo que|\bsi\b|\bif\b|when to use|use when|task mentions|before first|common mistakes|mistakes to avoid|avoid|evitar|critical:|medium:|not loaded by default|no se cargan por defecto|not its purpose|not backlog|never load all|docs\/project\/(releases|plans|backlog)\//i.test(line)
 }
 
 function hasHistoryTerms(text) {
@@ -196,6 +216,23 @@ function checkWordBudgets(agentFiles) {
   }
 }
 
+function checkSkillBudgets(skillFiles) {
+  console.log("")
+  console.log("Skill budgets:")
+
+  for (const path of skillFiles) {
+    if (!fileExists(path)) continue
+    const words = countWords(read(path))
+    if (words > 1200) {
+      results.warnings.push(`${path}: ${words} words exceeds target <= 1200. Suggestion: keep skills compact and link to canonical contracts.`)
+      printLine("WARN", `${path}: ${words} words exceeds target <= 1200.`)
+    } else {
+      results.ok += 1
+      printLine("OK", `${path}: ${words} words, target <= 1200`)
+    }
+  }
+}
+
 function checkBroadLoadingPhrases(scanFiles) {
   const matches = scanFiles.flatMap((path) => (fileExists(path) ? findPhraseMatches(path, read(path)) : []))
 
@@ -210,9 +247,9 @@ function checkBroadLoadingPhrases(scanFiles) {
 
   for (const match of matches) {
     const message = `${match.path}:${match.line} "${match.phrase}" — ${match.snippet}`
-    if (match.historical) {
+    if (match.historical || isAcceptableBroadLoadingLine(match.contextText)) {
       results.info.push(`${message} — historical/do-not-load file; review only if it is treated as current instructions.`)
-      printLine("INFO", `${message} — historical/do-not-load file.`)
+      printLine("INFO", `${message} — prohibitive/conditional or historical/do-not-load file.`)
     } else {
       results.warnings.push(`${message} — review if this is a mandatory broad read or an acceptable prohibition/conditional reference.`)
       printLine("WARN", `${message} — review if mandatory or acceptable.`)
@@ -247,6 +284,7 @@ function checkMemoryHistory(memoryTopicFiles) {
 
 function main() {
   const agentFiles = listMarkdownFiles(".opencode/agents")
+  const skillFiles = listSkillFiles()
   const memoryTopicFiles = listMarkdownFiles(".memory/topics")
   const promptFiles = listMarkdownFiles("docs/project/prompts")
 
@@ -254,6 +292,7 @@ function main() {
     ...requiredFiles,
     ...optionalFiles,
     ...agentFiles,
+    ...skillFiles,
     ...memoryTopicFiles,
     ...promptFiles,
   ])
@@ -264,6 +303,7 @@ function main() {
 
   checkRequiredFiles()
   checkWordBudgets(agentFiles)
+  checkSkillBudgets(skillFiles)
   checkBroadLoadingPhrases(scanFiles)
   checkMemoryHistory(memoryTopicFiles)
 

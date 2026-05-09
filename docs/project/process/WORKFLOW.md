@@ -179,13 +179,14 @@ No crear ADR para: reglas menores de estilo, decisiones reversibles, convencione
 
 Son bloqueantes para PR o merge:
 
-- `npm run lint` — si se toca código JS/TS.
-- `npm run build` — si se toca código de app.
-- `npm run pb:check` — si se toca `docs/project/`.
+- `npm run verify:pr -- --base origin/main` — preflight local de PR, incluyendo checks del job `app` y whitespace.
+- `npm run lint` — si se toca código JS/TS y se ejecuta una validación acotada.
+- `npm run test` — requerido por CI `app`; no tratarlo como solo aviso.
+- `npm run build` — si se toca código de app o tooling que afecta build.
+- `npm run pb:guard` — si se toca `docs/project/` o `scripts/brain/`.
 
 ### Solo aviso (no bloquean merge)
 
-- `npm run test` — si los tests fallan por razones conocidas o cubren funcionalidad no afectada.
 - `npm run pb:status` — muestra estado de sync con Obsidian; no es criterio de merge.
 - `npm run pb:push` / `npm run pb:pull` — Obsidian sync; útil pero no bloquea.
 
@@ -199,7 +200,7 @@ Si se toca UI: verificar en navegador en la ruta afectada, con viewport relevant
 
 `pb:status` y `pb:push` / `pb:pull` son útiles para mantener el vault sincronizado.
 
-No son criterio bloqueante de merge. Si el repo está consistente (`pb:check` OK) y el vault tiene drift leve, el merge puede hacerse. Sincronizar con Obsidian después si aplica.
+No son criterio bloqueante de merge. Si el repo está consistente (`pb:guard` OK) y el vault tiene drift leve, el merge puede hacerse. Sincronizar con Obsidian después si aplica.
 
 ---
 

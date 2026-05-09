@@ -33,14 +33,15 @@ Close changes with practical verification: lint/build, targeted smoke tests, hig
 ## Procedure
 
 1. Identify what changed and map it to risk areas: UI, data, auth, financial logic, calendar, docs, skills, or deploy.
-2. Run or request `npm run lint` and `npm run build` when code changed.
-3. For form changes, verify create/edit/delete paths, validation, loading/error states, and reset behavior.
-4. For data changes, verify event without project, project without events, project with mixed direct and event-linked incomes/expenses, pending income, paid income, and profile-missing 409 behavior if relevant.
-5. For financial changes, verify gross expected, gross paid, retentions, expenses, net profit, billable hours, and gross hourly rate.
-6. For calendar or responsive changes, verify `/calendar/events` and `/calendar/projects` at 320, 375, 640, 768, 1024, and 1280 px when browser tooling is available; confirm toolbar, headers, rows/cells, and events are visible.
-7. For release readiness, check `.gitignore`, environment variable documentation, Vercel framework assumptions, build output, and smoke paths.
-8. For post-deploy smoke plans, cover register, login, create project, create event, add income, add expense, review dashboard, and sign out.
-9. Separate checks actually run from checks recommended but not run.
+2. Prefer `npm run verify:pr -- --base origin/main` for PR readiness and `npm run verify:ci` for the local equivalent of the required `app` CI job.
+3. Run or request `npm run lint` and `npm run build` when a narrower check is enough or the full preflight is too broad for the task.
+4. For form changes, verify create/edit/delete paths, validation, loading/error states, and reset behavior.
+5. For data changes, verify event without project, project without events, project with mixed direct and event-linked incomes/expenses, pending income, paid income, and profile-missing 409 behavior if relevant.
+6. For financial changes, verify gross expected, gross paid, retentions, expenses, net profit, billable hours, and gross hourly rate.
+7. For calendar or responsive changes, verify `/calendar/events` and `/calendar/projects` at 320, 375, 640, 768, 1024, and 1280 px when browser tooling is available; confirm toolbar, headers, rows/cells, and events are visible.
+8. For release readiness, use `npm run release:status` / `npm run release:sync-check` plus `.gitignore`, environment variable documentation, Vercel framework assumptions, build output, and smoke paths.
+9. For post-deploy smoke plans, run or propose `npm run smoke:postdeploy -- --url <public-url>`; auth/CRUD smoke needs explicit smoke credentials.
+10. Separate checks actually run from checks recommended but not run.
 
 ## Output format
 

@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { spawnSync } from 'node:child_process'
 import { existsSync } from 'node:fs'
 import {
   addLookup,
@@ -7,6 +8,7 @@ import {
   issueIdsIn,
   normalizeTarget,
   readAllDocs,
+  repoRoot,
   sectionContent,
   wikilinkTargets,
 } from './lib.mjs'
@@ -55,6 +57,20 @@ const sections = {
   hierarchy: false,
   backlog: false,
   indexes: false,
+  generatedFreshness: false,
+}
+
+function runGeneratedCheck(script, label) {
+  const result = spawnSync('node', [script, '--check', '--json'], { cwd: repoRoot, encoding: 'utf8' })
+  if (result.status !== 0) {
+    try {
+      const payload = JSON.parse(result.stdout)
+      const stale = payload.stale?.length ? `: ${payload.stale.join(', ')}` : ''
+      addError(`${label}: artefactos generados desfasados${stale}`)
+    } catch {
+      addError(`${label}: check de frescura fallo\n${result.stdout}${result.stderr}`)
+    }
+  }
 }
 
 function addError(message) {
@@ -278,6 +294,13 @@ if (!existsSync(brainRoot)) {
   }
 
   sections.indexes = errors.length === 0
+
+  if (strict) {
+    const beforeGeneratedChecks = errors.length
+    runGeneratedCheck('scripts/brain/index.mjs', 'pb:index --check')
+    runGeneratedCheck('scripts/brain/digest.mjs', 'pb:digest --check')
+    sections.generatedFreshness = errors.length === beforeGeneratedChecks
+  }
 }
 
 const failed = errors.length > 0 || (strict && warnings.length > 0)

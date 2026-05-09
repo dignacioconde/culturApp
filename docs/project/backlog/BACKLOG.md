@@ -51,13 +51,10 @@ _Sin issues._
 | ID | Titulo | Tipo | Nivel | P | Componentes |
 |---|---|---|---|---|---|
 | [[../issues/CACH-0042|CACH-0042]] | [UX] Racionalizar navegacion inferior | feature | slice | p1 | design-system |
-| [[../issues/CACH-0046|CACH-0046]] | [Verify] Anadir verificacion por tipo de cambio | chore | task | p1 | agents, infra-deploy |
-| [[../issues/CACH-0047|CACH-0047]] | [Skills] Actualizar catalogo y symlinks de skills | chore | task | p1 | agents |
 | [[../issues/CACH-B0001|CACH-B0001]] | Redisenar Trabajos y jerarquia proyecto-evento | feature | initiative | p1 | work, projects, events, design-system |
 | [[../issues/CACH-B0002|CACH-B0002]] | Simplificar experiencia mobile financiera | feature | initiative | p1 | finance |
 | [[../issues/CACH-B0004|CACH-B0004]] | Contratantes facturacion y liquidacion neta | feature | initiative | p1 | finance, design-system |
 | [[../issues/CACH-B0007|CACH-B0007]] | Calendario unificado e interaccion rapida | feature | initiative | p1 | calendar, design-system |
-| [[../issues/CACH-0048|CACH-0048]] | [Context] Compactar workflow OpenCode | chore | task | p2 | work, agents |
 | [[../issues/CACH-B0008|CACH-B0008]] | PWA notificaciones y offline | feature | initiative | p2 | infra-deploy |
 | [[../issues/CACH-B0009|CACH-B0009]] | Inteligencia financiera y features Pro | feature | initiative | p2 | finance |
 | [[../issues/CACH-B0010|CACH-B0010]] | Tooling de agentes y modelos de desarrollo | chore | initiative | p2 | agents, infra-deploy |
@@ -101,6 +98,9 @@ _Sin issues._
 | [[../issues/CACH-0043|CACH-0043]] | [UX] Limpiar acciones en detalle de proyecto | RELEASE-0.1.0-beta.12 | Cerrada por `RELEASE-0.1.0-beta.12`. |
 | [[../issues/CACH-0044|CACH-0044]] | [UX] Crear evento desde proyecto con proyecto preseleccionado | RELEASE-0.1.0-beta.12 | Cerrada por `RELEASE-0.1.0-beta.12`. |
 | [[../issues/CACH-0045|CACH-0045]] | [UX] Anadir confirmacion a borrados destructivos | RELEASE-0.1.0-beta.12 | Cerrada por `RELEASE-0.1.0-beta.12`. |
+| [[../issues/CACH-0046|CACH-0046]] | [Verify] Anadir verificacion por tipo de cambio | null | Implementado un preflight local-first: `verify:ci` replica el job `app`, `verify:pr` valida diff contra base y cierre de issue cuando se pasa `--issue`, y `pb:guard` agrupa Product Brain strict, brain, index y digest. |
+| [[../issues/CACH-0047|CACH-0047]] | [Skills] Actualizar catalogo y symlinks de skills | null | Catalogo y validacion de skills alineados con las 16 skills portables actuales. `caveman` queda integrado como modo de salida conciso en runners OpenCode, con excepciones obligatorias para seguridad, RLS, finanzas, SQL, migraciones, reviews, verificacion y acciones remotas/destructivas. |
+| [[../issues/CACH-0050|CACH-0050]] | [Deploy] Tooling local-first de PR release y smoke | null | Implementado tooling local-first de deploy/PR/release: estado y sync de release, PR body, `ship` dry-run/execute acotado, smoke postdeploy, limpieza local de ramas, `verify:ci`, `verify:pr` y `installCommand: "npm ci"` en Vercel sin tocar el rewrite SPA. |
 | [[../issues/CACH-B0003|CACH-B0003]] | Cobro rapido y gestion de pendientes | RELEASE-0.1.0-beta.5 | Released en RELEASE-0.1.0-beta.5 por ampliacion explicita de scope. Integrado en `main` mediante PR #84. |
 | [[../issues/CACH-B0005|CACH-B0005]] | Importacion exportacion y portabilidad de datos | RELEASE-0.1.0-beta.7 | Released en RELEASE-0.1.0-beta.7. Integrado en `main` mediante PR #86. |
 | [[../issues/CACH-B0006|CACH-B0006]] | Onboarding y acceso beta | RELEASE-0.1.0-beta.8 | Released en RELEASE-0.1.0-beta.8. Integrado en `main` mediante PR #87. |
@@ -110,6 +110,7 @@ _Sin issues._
 | [[../issues/CACH-B0017|CACH-B0017]] | Panel admin para invitaciones beta | RELEASE-0.1.0-beta.9 | Sin resultado documentado. |
 | [[../issues/CACH-B0019|CACH-B0019]] | Emails transaccionales beta con Brevo | RELEASE-0.1.0-beta.10 | Implementado y asociado a RELEASE-0.1.0-beta.10. La migración y la Edge Function quedaron desplegadas en Supabase; el envío funciona usando un remitente personal validado temporalmente. Queda pendiente crear o activar un remitente real de Cachés, validarlo en Brevo, cambiar el remitente temporal en Supabase Auth/Edge Function y configurar SPF/DKIM/DMARC antes de producción estable. |
 | [[../issues/CACH-0033|CACH-0033]] | Vista anual en calendario de proyectos | RELEASE-0.1.0-beta.4 | Released en RELEASE-0.1.0-beta.4. Se implemento una planificacion anual de proyectos con timeline desktop, Gantt compacto movil, lista mensual y helpers puros testeados para rangos y cruces de anos. |
+| [[../issues/CACH-0048|CACH-0048]] | [Context] Compactar workflow OpenCode | null | Compactacion aplicada en la capa de verificadores y prompts cargados por defecto: `context:check` ahora mide skills anidadas, reduce falsos positivos y mantiene cada prompt principal dentro de presupuesto. |
 | [[../issues/CACH-B0018|CACH-B0018]] | Adaptador Codex-native para perfiles Cultura | RELEASE-0.1.0-beta.9 | Sin resultado documentado. |
 
 ## Regla de mantenimiento

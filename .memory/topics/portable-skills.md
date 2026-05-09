@@ -6,11 +6,11 @@
 - Durable memory: `.agents/skills/<skill-name>/SKILL.md` is the canonical source; `.claude/skills/<skill-name>` should remain a relative symlink to `../../.agents/skills/<skill-name>`. Do not duplicate skill bodies into `.claude`.
 - Source: `docs/agent-skills-strategy.md`; `README.md`; `TECHDOC.md`; `AGENTS.md`.
 
-## 2026-05-06 - Skill Set Actualizado: 12 Skills Incluyendo memory-orient
+## 2026-05-08 - Skill Set Actualizado: 16 Skills Portables
 
-- Context: Sesión 2026-05-06 añadió `memory-orient` (briefing de memoria por contexto de tarea) y ya existían `compact-memory`, `caveman`, `product-brain-capture`, `cultura-issue-launch` y `brain-orient` (en `.claude/skills/` pero fuente en otro directorio). El recuento es ahora 12.
-- Durable memory: las skills en `.agents/skills/` son: `portable-skill-authoring`, `cultura-frontend-review`, `cultura-data-finance-review`, `cultura-security-privacy-review`, `cultura-testing-release-check`, `cultura-code-review`, `memory-protocol`, `compact-memory`, `caveman`, `product-brain-capture`, `cultura-issue-launch`, `memory-orient`. Symlinks en `.claude/skills/`. Patrón: fuente canónica siempre en `.agents/skills/<nombre>/SKILL.md`.
-- Source: `ls .agents/skills/`; análisis 2026-05-06.
+- Context: Product Brain v2 consolidó skills de orientación, release, revisión, memoria, contexto y comunicación concisa. `brain-orient` legacy fue sustituido por `product-brain-orient`.
+- Durable memory: las skills canónicas viven en `.agents/skills/` y se exponen como symlinks en `.claude/skills/`. El catálogo actual incluye: `agent-context-maintenance`, `caveman`, `compact-memory`, `cultura-agent-orchestration`, `cultura-code-review`, `cultura-data-finance-review`, `cultura-frontend-review`, `cultura-issue-launch`, `cultura-release-task-flow`, `cultura-security-privacy-review`, `cultura-testing-release-check`, `memory-orient`, `memory-protocol`, `portable-skill-authoring`, `product-brain-capture` y `product-brain-orient`.
+- Source: `docs/agent-skills-strategy.md`; `npm run verify:skills`.
 
 ## 2026-05-07 - cultura-agent-orchestration: Delegación Codex/Claude/OpenCode
 

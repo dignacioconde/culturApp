@@ -58,7 +58,7 @@ Si `gh` no está disponible, `cultura-planner-execute` debe continuar con Produc
 - El prompt se pasa sin modificar — no hay que "mejorar" el input, eso lo hace el planificador.
 - No se hace ningún trabajo de código ni exploración antes de llamar al script.
 - El resultado debe quedar en Product Brain primero. GitHub, rama y agentes son pasos de execute, no del draft.
-- El resultado debe terminar en PR a `main` y merge cuando las verificaciones pasen, salvo bloqueo o instrucción explícita de dejar la PR abierta.
+- El resultado debe terminar en PR a la base correcta (`main` o `release/<version>`) y merge cuando las verificaciones pasen, salvo bloqueo o instrucción explícita de dejar la PR abierta.
 - Si el cambio debe verse en la app publicada, un Vercel Preview Deployment no es suficiente: hay que verificar producción después del merge.
 - Si el usuario da un prompt de menos de 5 palabras sin verbo claro, pedir una aclaración mínima antes de lanzar.
 

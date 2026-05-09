@@ -44,6 +44,7 @@ Opciones:
   --model-reviewer gpt-5.5          Modelo esperado para review/verificacion
   --dry-run                         Imprime comandos efectivos sin lanzar OpenCode ni escribir runs
   --print-command                   Alias de --dry-run
+  --concise | --caveman             Pide salida breve cuando sea seguro; no aplica a bloques sensibles
   --dangerously-skip-permissions    Opt-in explicito al bypass de permisos; solo con --write
   --help                            Muestra esta ayuda.
 
@@ -64,6 +65,7 @@ function parseArgs(argv) {
     routingReason: "revision paralela por dominio",
     models: { ...MODEL_DEFAULTS },
     dryRun: false,
+    concise: false,
     dangerouslySkipPermissions: false,
     task: "",
   }
@@ -85,6 +87,11 @@ function parseArgs(argv) {
 
     if (arg === "--dry-run" || arg === "--print-command") {
       options.dryRun = true
+      continue
+    }
+
+    if (arg === "--concise" || arg === "--caveman") {
+      options.concise = true
       continue
     }
 
@@ -137,6 +144,9 @@ function parseArgs(argv) {
   }
 
   options.task = taskParts.join(" ").trim()
+  if (/caveman|menos tokens|responde breve|se mas conciso|sé más conciso/i.test(options.task)) {
+    options.concise = true
+  }
   return options
 }
 
@@ -209,6 +219,11 @@ function buildPrompt(agentName, task, options) {
 
   return [
     ...mode,
+    ...(options.concise
+      ? [
+          "Modo de salida conciso: resume breve cuando sea seguro. No comprimas seguridad/RLS/finanzas/SQL/migraciones/review con lineas/verificacion exacta/acciones remotas.",
+        ]
+      : []),
     `Invoca y usa exclusivamente a @${agentName} para esta tarea.`,
     "Usa AGENTS.md como contrato corto y docs/agent-context-policy.md como politica canonica: indices primero, detalle bajo demanda, sin historico por defecto.",
     "Lee .opencode/AGENT_STATE.md solo si el modo y la tarea lo requieren. No lo modifiques en modo solo lectura.",
@@ -254,6 +269,7 @@ function printDryRun(options) {
       {
         mode: options.write ? "write" : "read-only",
         dangerouslySkipPermissions: options.dangerouslySkipPermissions,
+        concise: options.concise,
         writesRunFiles: false,
         ownership: options.ownership || null,
         commands,
@@ -376,6 +392,7 @@ async function main() {
         status: "running",
         mode: options.write ? "write" : "read-only",
         dangerouslySkipPermissions: options.dangerouslySkipPermissions,
+        concise: options.concise,
         agents: options.agents.map((agent) => AGENTS[agent]),
         taskType: options.taskType,
         routingReason: options.routingReason,
@@ -408,6 +425,7 @@ async function main() {
         status: failed.length > 0 ? "error" : "done",
         mode: options.write ? "write" : "read-only",
         dangerouslySkipPermissions: options.dangerouslySkipPermissions,
+        concise: options.concise,
         agents: options.agents.map((agent) => AGENTS[agent]),
         taskType: options.taskType,
         routingReason: options.routingReason,

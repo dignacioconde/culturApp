@@ -41,6 +41,10 @@ Explica el objetivo principal.
 
 - ...
 
+## Scope
+
+- [[../issues/CACH-XXXX|CACH-XXXX]] — ...
+
 ## Issues incluidas
 
 | Issue | Titulo | Workflow | Rama |
@@ -87,7 +91,12 @@ Explica el objetivo principal.
 
 ## Checklist de salida
 
-- [ ] Release mergeada a `main`
+- [ ] PR `release/<version>` -> `main` abierta
+- [ ] CI en verde
+- [ ] PR mergeada en `main`
+- [ ] Tag creado desde `main` si aplica
+- [ ] Produccion verificada o marcada no aplica
+- [ ] Rama remota `release/<version>` eliminada si aplica
 - [ ] Release notes actualizadas
 - [ ] Issues marcadas como `done`
 - [ ] Estado actual actualizado
