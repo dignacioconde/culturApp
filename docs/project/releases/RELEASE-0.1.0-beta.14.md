@@ -5,7 +5,7 @@ id: RELEASE-0.1.0-beta.14
 title: Email definitivo transaccional
 lifecycle: active
 created: '2026-05-08'
-updated: '2026-05-08'
+updated: '2026-05-09'
 aliases:
   - RELEASE-0.1.0-beta.14
 tags:
@@ -17,13 +17,13 @@ release_phase: active
 release_current: true
 release_branch: release/0.1.0-beta.14
 release_tag: null
-release_pr: null
+release_pr: 'https://github.com/dignacioconde/culturApp/pull/94'
 ---
 # RELEASE-0.1.0-beta.14 — Email definitivo transaccional
 
 ## Estado
 
-Active
+Active, lista para PR `release/0.1.0-beta.14` -> `main`.
 
 ## Rama de release
 
@@ -57,7 +57,7 @@ Dejar un email/remitente definitivo real de Cachés operativo para emails transa
 
 | Issue | Titulo | Estado | Rama |
 |---|---|---|---|
-| [[../issues/CACH-B0020|CACH-B0020]] | Validar dominio de email transaccional y cambiar remitentes definitivos | In progress | `release/0.1.0-beta.14` |
+| [[../issues/CACH-B0020|CACH-B0020]] | Validar dominio de email transaccional y cambiar remitentes definitivos | Done | `release/0.1.0-beta.14` |
 
 ## Fuera de alcance
 
@@ -65,6 +65,7 @@ Dejar un email/remitente definitivo real de Cachés operativo para emails transa
 - Cambios de UX de proyecto-evento, cubiertos por `RELEASE-0.1.0-beta.12`.
 - Newsletter, CRM, automatizaciones y redisenos de plantillas.
 - Cambios de tooling de agentes o verificadores.
+- Dominio publico de app (`app.caches.es`) y configuracion multientorno, trazados en [[../issues/CACH-0051|CACH-0051]].
 
 ## Riesgos
 
@@ -75,32 +76,32 @@ Dejar un email/remitente definitivo real de Cachés operativo para emails transa
 ## Checklist de entrada
 
 - [x] Release creada
-- [ ] Rama de release creada
+- [x] Rama de release creada
 - [x] Issues asociadas
 - [x] Alcance definido
 - [x] Criterios de validacion definidos
 
 ## Checklist de desarrollo
 
-- [ ] Todas las issues estan en progreso o cerradas
-- [ ] Commits preparados en rama release
-- [ ] No hay cambios sueltos fuera de release
-- [ ] No hay issues sin estado
-- [ ] No hay decisiones importantes sin documentar
+- [x] Todas las issues estan en progreso o cerradas
+- [x] Commits preparados en rama release
+- [x] No hay cambios sueltos fuera de release
+- [x] No hay issues sin estado
+- [x] No hay decisiones importantes sin documentar
 
 ## Checklist de estabilizacion
 
-- [ ] DNS verificado
-- [ ] Brevo valida dominio/remitente
-- [ ] Edge Function usa remitente definitivo
-- [ ] Supabase Auth SMTP usa remitente definitivo
-- [ ] Invitacion beta verificada
-- [ ] Confirmacion de cuenta verificada
-- [ ] Documentacion actualizada
+- [x] DNS verificado
+- [x] Brevo valida dominio/remitente
+- [x] Edge Function usa remitente definitivo
+- [x] Supabase Auth SMTP usa remitente definitivo
+- [x] Invitacion beta verificada
+- [x] Confirmacion de cuenta verificada
+- [x] Documentacion actualizada
 
 ## Checklist de salida
 
-- [ ] PR `release/0.1.0-beta.14` -> `main` abierta si hay cambios versionados
+- [x] PR `release/0.1.0-beta.14` -> `main` abierta si hay cambios versionados
 - [ ] CI en verde si aplica
 - [ ] Revision aprobada
 - [ ] PR mergeada en `main` si aplica
@@ -115,24 +116,27 @@ Dejar un email/remitente definitivo real de Cachés operativo para emails transa
 
 ### Aniadido
 
-- Pendiente.
+- Dominio de email definitivo `caches.es`.
+- Buzon real `contacto@caches.es` y alias transaccional `no-reply@caches.es`.
 
 ### Cambiado
 
-- Pendiente.
+- Invitaciones beta y confirmaciones de Supabase Auth pasan a usar `no-reply@caches.es` como remitente visible.
+- Los redirects de confirmacion de Supabase Auth usan `VITE_APP_URL` con fallback temporal a `https://culturapp-rho.vercel.app`.
 
 ### Corregido
 
-- Pendiente.
+- Evitado que registros hechos desde local generen confirmaciones Auth hacia `localhost`.
 
 ### Eliminado
 
-- Pendiente.
+- Remitente personal temporal como remitente operativo.
 
 ### Tecnico
 
-- Pendiente.
+- `caches.es` autenticado en Brevo y `send-beta-invite` desplegada con `no-reply@caches.es` como remitente y `contacto@caches.es` como reply-to.
+- `CACH-0051` captura el trabajo pendiente de dominio publico de app y multientorno.
 
 ## Resultado final
 
-Release activa.
+Release activa y lista para PR a `main`. Email transaccional definitivo verificado; dominio publico de app y multientorno quedan fuera de scope en `CACH-0051`.

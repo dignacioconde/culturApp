@@ -409,7 +409,10 @@ Crea `.env.local` en la raíz del proyecto (no lo subas a git):
 ```
 VITE_SUPABASE_URL=https://xxxx.supabase.co
 VITE_SUPABASE_ANON_KEY=tu_anon_key
+VITE_APP_URL=https://culturapp-rho.vercel.app
 ```
+
+`VITE_APP_URL` es la URL canonica que se usa para enlaces de confirmacion de Supabase Auth. En local puede seguir apuntando a produccion para evitar que los usuarios beta acaben en `localhost` al confirmar email.
 
 ---
 
