@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../supabaseClient'
+import { buildEmailConfirmationRedirect, resolveAuthRedirectBaseUrl } from '../lib/authRedirect'
 
-const authRedirectOrigin = (import.meta.env.VITE_APP_URL ?? 'https://culturapp-rho.vercel.app').replace(/\/$/, '')
+const authRedirectBaseUrl = resolveAuthRedirectBaseUrl(import.meta.env.VITE_APP_URL, {
+  allowLocalhost: import.meta.env.VITE_ALLOW_LOCAL_AUTH_REDIRECT === 'true',
+})
 
 export function useAuth() {
   const [user, setUser] = useState(null)
@@ -41,7 +44,7 @@ export function useAuth() {
       password,
       options: {
         data: metadata,
-        emailRedirectTo: `${authRedirectOrigin}/login?confirmed=1`,
+        emailRedirectTo: buildEmailConfirmationRedirect(authRedirectBaseUrl),
       },
     })
     return { data, error }
