@@ -17,13 +17,13 @@ release_phase: active
 release_current: true
 release_branch: release/0.1.0-beta.15
 release_tag: v0.1.0-beta.15
-release_pr: null
+release_pr: https://github.com/dignacioconde/culturApp/pull/96
 ---
 # RELEASE-0.1.0-beta.15 — Dominio publico de app
 
 ## Estado
 
-Ready for PR.
+PR abierta: https://github.com/dignacioconde/culturApp/pull/96.
 
 ## Rama de release
 
@@ -107,7 +107,7 @@ Dejar `https://app.caches.es` como dominio publico canonico de Cachés para app,
 
 ## Checklist de salida
 
-- [ ] PR `release/0.1.0-beta.15` -> `main` abierta
+- [x] PR `release/0.1.0-beta.15` -> `main` abierta
 - [ ] CI en verde
 - [ ] Revision aprobada
 - [ ] PR mergeada en `main`
@@ -147,4 +147,4 @@ Dejar `https://app.caches.es` como dominio publico canonico de Cachés para app,
 
 ## Resultado final
 
-Pendiente de PR, merge, tag y smoke posterior a produccion.
+PR #96 abierta. Pendiente de CI, revision, merge, tag y smoke posterior a produccion.
