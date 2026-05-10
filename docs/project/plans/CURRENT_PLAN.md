@@ -18,11 +18,11 @@ generated: false
 
 ## Foco actual
 
-Beta 14 queda cerrada. Beta 15 se usa para cerrar el dominio publico de app y multientorno minimo antes de seguir con navegacion movil.
+Beta 15 queda cerrada con dominio publico de app. El siguiente avance debe coordinarse con el rediseño que se esta preparando en Lovable y, si encaja, retomar navegacion movil como slice separada.
 
 ## Release activa
 
-Release activa: [[../releases/RELEASE-0.1.0-beta.15|RELEASE-0.1.0-beta.15]] — Dominio publico de app.
+No hay release activa.
 
 Últimos cortes:
 
@@ -46,8 +46,8 @@ Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboa
 ## Prioridades
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
-2. Cerrar beta 15 con dominio publico de app antes de retomar navegacion movil.
-3. Mantener navegacion movil como siguiente slice candidata, fuera de este corte.
+2. No mezclar rediseño Lovable con fixes pequenos salvo que desbloqueen beta o confianza.
+3. Mantener navegacion movil como siguiente slice candidata, fuera del corte de dominio.
 
 ## Plan operativo
 
@@ -60,7 +60,7 @@ Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboa
 
 ## Próximo checkpoint
 
-Cerrar PR/tag de beta 15 y verificar produccion en `https://app.caches.es`.
+Elegir siguiente foco tras el rediseño Lovable: retomar [[../issues/CACH-0042|CACH-0042]] o abrir el siguiente corte beta con el primer slice visual validable.
 
 ## Siguiente release candidata
 
