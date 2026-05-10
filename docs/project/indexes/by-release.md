@@ -4,8 +4,8 @@ kind: index
 id: PB-BY-RELEASE
 title: Issues por release
 lifecycle: active
-created: 2026-05-09
-updated: 2026-05-09
+created: 2026-05-10
+updated: 2026-05-10
 aliases:
   - Issues por release
 tags:
@@ -17,7 +17,6 @@ generated: true
 
 ## none
 
-- [[../issues/CACH-0051|CACH-0051]] — [Deploy] Dominio publico de app y estrategia multientorno · backlog · p1 · task
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento · backlog · p1 · initiative
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera · backlog · p1 · initiative
 - [[../issues/CACH-B0004|CACH-B0004]] — Contratantes facturacion y liquidacion neta · backlog · p1 · initiative
@@ -28,6 +27,7 @@ generated: true
 - [[../issues/CACH-B0011|CACH-B0011]] — Categorias etiquetas y taxonomia · backlog · p2 · initiative
 - [[../issues/CACH-B0012|CACH-B0012]] — Perfil publico viralidad y referidos · backlog · p3 · initiative
 - [[../issues/CACH-B0013|CACH-B0013]] — Gestion documental por proyecto evento · backlog · p3 · initiative
+- [[../issues/CACH-0042|CACH-0042]] — [UX] Racionalizar navegacion inferior · ready · p1 · slice
 - [[../issues/CACH-0049|CACH-0049]] — Migrar Product Brain a v2 lean agile para agentes · done · p0 · task
 - [[../issues/CACH-0026|CACH-0026]] — Setup inicial Product Brain · done · p1 · task
 - [[../issues/CACH-0028|CACH-0028]] — Corregir sync iCloud y estructura versionada · done · p1 · slice
@@ -70,7 +70,7 @@ generated: true
 
 ## RELEASE-0.1.0-beta.15
 
-- [[../issues/CACH-0042|CACH-0042]] — [UX] Racionalizar navegacion inferior · ready · p1 · slice
+- [[../issues/CACH-0051|CACH-0051]] — [Deploy] Dominio publico de app y estrategia multientorno · done · p1 · task
 
 ## RELEASE-0.1.0-beta.2
 

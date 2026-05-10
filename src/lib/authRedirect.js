@@ -1,4 +1,4 @@
-export const DEFAULT_AUTH_REDIRECT_BASE_URL = 'https://culturapp-rho.vercel.app'
+export const DEFAULT_AUTH_REDIRECT_BASE_URL = 'https://app.caches.es'
 
 function isLocalHostname(hostname) {
   const normalizedHostname = hostname.toLowerCase()
