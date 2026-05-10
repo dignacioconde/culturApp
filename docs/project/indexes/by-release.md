@@ -73,7 +73,7 @@ generated: true
 
 ## RELEASE-0.1.0-beta.16
 
-- [[../issues/CACH-0042|CACH-0042]] — [UX] Racionalizar navegacion inferior · ready · p1 · slice
+- [[../issues/CACH-0042|CACH-0042]] — [UX] Racionalizar navegacion inferior · review · p1 · slice
 
 ## RELEASE-0.1.0-beta.2
 

@@ -1,9 +1,14 @@
 import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
+import { BottomNavigation } from './BottomNavigation'
+import { shouldShowBottomNavigation } from './navigation'
 import { Sidebar } from './Sidebar'
 import { TopBar } from './TopBar'
 
 export function PageWrapper({ title, children }) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+  const location = useLocation()
+  const showBottomNavigation = shouldShowBottomNavigation(location.pathname)
 
   return (
     <div className="flex min-h-screen flex-col bg-[var(--color-surface-alt)] lg:flex-row">
@@ -30,12 +35,18 @@ export function PageWrapper({ title, children }) {
           onMenuClick={() => setIsDrawerOpen(true)}
           showMenuButton={true}
         />
-        <main className="min-w-0 flex-1 px-4 py-5 sm:px-6 lg:px-8">
+        <main className={`min-w-0 flex-1 px-4 pt-5 sm:px-6 lg:px-8 ${
+          showBottomNavigation
+            ? 'pb-[calc(5.25rem+env(safe-area-inset-bottom))] lg:pb-5'
+            : 'pb-5'
+        }`}>
           <div className="mx-auto w-full max-w-7xl">
             {children}
           </div>
         </main>
       </div>
+
+      {showBottomNavigation && !isDrawerOpen && <BottomNavigation />}
     </div>
   )
 }

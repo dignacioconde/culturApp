@@ -63,9 +63,7 @@ _Sin issues._
 
 ## Ready
 
-| ID | Titulo | Tipo | Nivel | P | Componentes |
-|---|---|---|---|---|---|
-| [[../issues/CACH-0042|CACH-0042]] | [UX] Racionalizar navegacion inferior | feature | slice | p1 | design-system |
+_Sin issues._
 
 ## In progress
 
@@ -73,7 +71,9 @@ _Sin issues._
 
 ## Review / Verify
 
-_Sin issues._
+| ID | Titulo | Tipo | Nivel | P | Componentes |
+|---|---|---|---|---|---|
+| [[../issues/CACH-0042|CACH-0042]] | [UX] Racionalizar navegacion inferior | feature | slice | p1 | design-system |
 
 ## Done
 

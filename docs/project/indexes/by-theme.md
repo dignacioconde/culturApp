@@ -30,7 +30,7 @@ generated: true
 
 - [[../issues/CACH-B0007|CACH-B0007]] — Calendario unificado e interaccion rapida · backlog · p1 · initiative
 - [[../issues/CACH-B0011|CACH-B0011]] — Categorias etiquetas y taxonomia · backlog · p2 · initiative
-- [[../issues/CACH-0042|CACH-0042]] — [UX] Racionalizar navegacion inferior · ready · p1 · slice
+- [[../issues/CACH-0042|CACH-0042]] — [UX] Racionalizar navegacion inferior · review · p1 · slice
 - [[../issues/CACH-0029|CACH-0029]] — Integrar helpers CACH-B0016 en flujos reales · done · p1 · slice
 - [[../issues/CACH-0030|CACH-0030]] — Homogeneizar diseno con nueva paleta de colores y fuentes · done · p1 · task
 - [[../issues/CACH-0032|CACH-0032]] — Priorizar operativa diaria en dashboard movil · done · p1 · slice

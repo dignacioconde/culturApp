@@ -56,14 +56,14 @@ Reducir friccion en la navegacion movil manteniendo accesos claros a las areas p
 
 | Issue | Titulo | Workflow | Rama |
 |---|---|---|---|
-| [[../issues/CACH-0042|CACH-0042]] | Racionalizar navegacion inferior | ready | `feat/CACH-0042-bottom-navigation` |
+| [[../issues/CACH-0042|CACH-0042]] | Racionalizar navegacion inferior | review | `feat/CACH-0042-bottom-navigation` |
 
 ## Fuera de alcance
 
 - Rediseño completo de UI/Lovable.
 - Cambiar rutas, autenticacion, permisos o arquitectura de navegacion desktop.
 - Cambios de Supabase, schema, entorno o produccion.
-- Implementar la UI directamente durante la preparacion de release.
+- Cambios visuales ajenos a la navegacion inferior movil.
 
 ## Riesgos
 
@@ -86,18 +86,18 @@ Reducir friccion en la navegacion movil manteniendo accesos claros a las areas p
 ## Checklist de desarrollo
 
 - [ ] Todas las issues estan en progreso o cerradas
-- [ ] Commits integrados en rama release
+- [x] Commits integrados en rama release
 - [x] No hay cambios sueltos fuera de release
 - [x] No hay issues sin `issue_workflow`
 - [x] No hay decisiones importantes sin documentar
 
 ## Checklist de estabilizacion
 
-- [ ] `npm run lint`
-- [ ] `npm run build`
-- [ ] Revision movil en 320, 375, 390 y 768 px
-- [ ] Estado activo visible sin depender solo del color
-- [ ] Targets tactiles y safe areas verificados
+- [x] `npm run lint`
+- [x] `npm run build`
+- [x] Revision movil en 320, 375, 390 y 768 px
+- [x] Estado activo visible sin depender solo del color
+- [x] Targets tactiles y safe areas verificados
 - [ ] Navegacion atras verificada
 
 ## Checklist de salida
@@ -119,11 +119,12 @@ Reducir friccion en la navegacion movil manteniendo accesos claros a las areas p
 
 ### Aniadido
 
-- Pendiente hasta integrar `CACH-0042`.
+- Barra inferior movil compacta con accesos a Trabajos, Inicio, Agenda, Plan, Datos y Ajustes.
 
 ### Cambiado
 
-- Pendiente hasta integrar `CACH-0042`.
+- La navegacion principal comparte configuracion entre sidebar/drawer y barra inferior movil.
+- Los paneles moviles de calendario y los toasts se elevan sobre la nueva barra inferior.
 
 ### Corregido
 
@@ -136,6 +137,7 @@ Reducir friccion en la navegacion movil manteniendo accesos claros a las areas p
 ### Tecnico
 
 - Release activada para que la rama de implementacion `feat/CACH-0042-bottom-navigation` salga de `release/0.1.0-beta.16`.
+- Implementacion local de `CACH-0042` integrada por squash en `release/0.1.0-beta.16`, pendiente de review final y PR `release/0.1.0-beta.16` -> `main`.
 
 ## Resultado final
 

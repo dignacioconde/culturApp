@@ -34,7 +34,7 @@ export function ToastContainer({ toasts, onRemove }) {
     <div
       aria-live="polite"
       aria-atomic="true"
-      className="fixed inset-x-3 bottom-3 z-50 flex flex-col gap-2 sm:inset-x-auto sm:right-4 sm:bottom-4 sm:w-96"
+      className="fixed inset-x-3 bottom-[calc(5.25rem+env(safe-area-inset-bottom))] z-50 flex flex-col gap-2 sm:inset-x-auto sm:right-4 sm:bottom-4 sm:w-96"
     >
       {toasts.map((toast) => (
         <div

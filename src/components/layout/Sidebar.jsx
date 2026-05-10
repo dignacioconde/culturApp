@@ -1,27 +1,11 @@
 import { NavLink, useLocation } from 'react-router-dom'
-import { Database, Drama, LayoutDashboard, CalendarDays, CalendarRange, Briefcase, Settings } from 'lucide-react'
-
-const navItems = [
-  { to: '/work', icon: Briefcase, label: 'Trabajos', activePaths: ['/work', '/projects', '/events'] },
-  { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-  { to: '/calendar/events', icon: CalendarDays, label: 'Cal. eventos' },
-  { to: '/calendar/projects', icon: CalendarRange, label: 'Cal. proyectos' },
-  { to: '/data', icon: Database, label: 'Tus datos' },
-  { to: '/settings', icon: Settings, label: 'Ajustes' },
-]
+import { Drama } from 'lucide-react'
+import { isNavigationItemActive, navItems } from './navigation'
 
 export function Sidebar({ onNavigate, isDrawer = false }) {
   const location = useLocation()
   const handleNavClick = () => {
     if (onNavigate) onNavigate()
-  }
-
-  const isItemActive = (item, navLinkActive) => {
-    if (navLinkActive) return true
-    return item.activePaths?.some((path) => {
-      if (location.pathname === path) return true
-      return location.pathname.startsWith(`${path}/`)
-    })
   }
 
   return (
@@ -56,7 +40,7 @@ export function Sidebar({ onNavigate, isDrawer = false }) {
             onClick={handleNavClick}
             className={({ isActive }) =>
               `flex min-h-10 shrink-0 items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2 lg:shrink
-              ${isItemActive(item, isActive)
+              ${isNavigationItemActive(item, location.pathname, isActive)
                 ? 'bg-[#C94035] text-[#F5EFE0]'
                 : 'text-[rgba(245,239,224,.75)] hover:bg-[rgba(245,239,224,.08)] hover:text-[#F5EFE0]'
               }`

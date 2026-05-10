@@ -65,6 +65,6 @@ generated: true
 - [[../issues/CACH-0048|CACH-0048]] — [Context] Compactar workflow OpenCode · done · p2 · task
 - [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura · done · p2 · task
 
-## ready
+## review
 
-- [[../issues/CACH-0042|CACH-0042]] — [UX] Racionalizar navegacion inferior · ready · p1 · slice
+- [[../issues/CACH-0042|CACH-0042]] — [UX] Racionalizar navegacion inferior · review · p1 · slice
