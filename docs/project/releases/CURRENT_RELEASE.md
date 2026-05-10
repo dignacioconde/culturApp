@@ -13,17 +13,17 @@ tags:
   - release
   - current
 generated: false
-release_current: true
+release_current: false
 ---
 # Current Release
 
 ## Release activa
 
-[[RELEASE-0.1.0-beta.15|RELEASE-0.1.0-beta.15]] — Dominio publico de app.
+No hay release activa.
 
 ## Rama activa
 
-`release/0.1.0-beta.15`
+No aplica.
 
 ## Últimos cortes
 
@@ -35,18 +35,20 @@ release_current: true
 
 `RELEASE-0.1.0-beta.14` — email definitivo transaccional. Ver [[RELEASE-0.1.0-beta.14]].
 
+`RELEASE-0.1.0-beta.15` — dominio publico de app. Ver [[RELEASE-0.1.0-beta.15]].
+
 ## Scope actual
 
-Beta 15 prepara el cierre de [[../issues/CACH-0051|CACH-0051]]: dominio publico canonico `https://app.caches.es`, variables de entorno, Supabase Auth redirects y Edge Function `send-beta-invite`.
+Beta 15 queda cerrada. El dominio publico canonico de la app es `https://app.caches.es`; Vercel, `VITE_APP_URL`, Supabase Auth redirects y Edge Function `send-beta-invite` quedaron alineados con ese dominio.
 
-Issues incluidas:
+Issues cerradas:
 
 - [[../issues/CACH-0051|CACH-0051]] — Dominio publico de app y estrategia multientorno.
 
 ## Regla de trabajo para esta release
 
-No anadir navegacion movil, redisenos Lovable ni cambios de schema. Beta 15 se limita al dominio publico de app y configuracion multientorno minima.
+No iniciar trabajo nuevo desde una release activa hasta activar explicitamente el siguiente corte. La siguiente candidata puede retomar [[../issues/CACH-0042|CACH-0042]] o ajustarse al rediseño Lovable.
 
 ## Como cerrar esta release
 
-Abrir PR `release/0.1.0-beta.15` -> `main`, esperar CI verde, mergear, crear tag `v0.1.0-beta.15` desde `main` y verificar produccion en `https://app.caches.es`.
+Cerrada mediante PR #96, tag `v0.1.0-beta.15` y smoke de produccion sobre `https://app.caches.es`.

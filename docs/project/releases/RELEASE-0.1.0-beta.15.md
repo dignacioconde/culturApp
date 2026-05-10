@@ -13,17 +13,17 @@ tags:
   - release
   - beta
 generated: false
-release_phase: active
-release_current: true
+release_phase: released
+release_current: false
 release_branch: release/0.1.0-beta.15
 release_tag: v0.1.0-beta.15
-release_pr: https://github.com/dignacioconde/culturApp/pull/96
+release_pr: 'https://github.com/dignacioconde/culturApp/pull/96'
 ---
 # RELEASE-0.1.0-beta.15 — Dominio publico de app
 
 ## Estado
 
-PR abierta: https://github.com/dignacioconde/culturApp/pull/96.
+Released.
 
 ## Rama de release
 
@@ -108,14 +108,14 @@ Dejar `https://app.caches.es` como dominio publico canonico de Cachés para app,
 ## Checklist de salida
 
 - [x] PR `release/0.1.0-beta.15` -> `main` abierta
-- [ ] CI en verde
-- [ ] Revision aprobada
-- [ ] PR mergeada en `main`
-- [ ] Tag creado desde `main`
-- [ ] Produccion verificada
+- [x] CI en verde
+- [x] Revision aprobada
+- [x] PR mergeada en `main`
+- [x] Tag creado desde `main`
+- [x] Produccion verificada
 - [x] Release notes actualizadas
 - [x] Issues marcadas como `done`
-- [x] Current Release actualizado para preparar el corte
+- [x] Current Release actualizado
 - [x] Backlog actualizado
 
 ## Release notes
@@ -147,4 +147,4 @@ Dejar `https://app.caches.es` como dominio publico canonico de Cachés para app,
 
 ## Resultado final
 
-PR #96 abierta. Pendiente de CI, revision, merge, tag y smoke posterior a produccion.
+Release cerrada y mergeada en `main` mediante PR #96. Tag `v0.1.0-beta.15` creado desde `main`; produccion verificada en `https://app.caches.es` con smoke de rutas SPA. La prueba auth/CRUD del smoke queda saltada sin `SMOKE_EMAIL`/`SMOKE_PASSWORD`; la recepcion real de email puede repetirse como smoke manual si se quiere comprobar entrega end-to-end.
