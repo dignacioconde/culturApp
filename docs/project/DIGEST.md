@@ -23,7 +23,7 @@ Resumen determinista generado desde Product Brain v2.
 
 ## Estado operacional
 
-- **Release activa:** No hay release activa.
+- **Release activa:** RELEASE-0.1.0-beta.16 — Navegación inferior móvil
 - **Últimos cortes:** `RELEASE-0.1.0-beta.10` — emails transaccionales beta con Brevo. Ver RELEASE-0.1.0-beta.10.
 
 `RELEASE-0.1.0-beta.12` — pulido proyecto-evento y borrados seguros. Ver RELEASE-0.1.0-beta.12.
@@ -33,13 +33,13 @@ Resumen determinista generado desde Product Brain v2.
 `RELEASE-0.1.0-beta.14` — email definitivo transaccional. Ver RELEASE-0.1.0-beta.14.
 
 `RELEASE-0.1.0-beta.15` — dominio publico de app. Ver RELEASE-0.1.0-beta.15.
-- **Foco:** Beta 15 queda cerrada con dominio publico de app. El siguiente avance debe coordinarse con el rediseño que se esta preparando en Lovable y, si encaja, retomar navegacion movil como slice separada.
+- **Foco:** Beta 16 queda activa para retomar navegacion movil como slice pequeno y verificable, limitada a CACH-0042.
 
 ## Prioridades del plan
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
-2. No mezclar rediseño Lovable con fixes pequenos salvo que desbloqueen beta o confianza.
-3. Mantener navegacion movil como siguiente slice candidata, fuera del corte de dominio.
+2. Mantener beta 16 acotada a navegacion inferior movil.
+3. No mezclar rediseño Lovable ni cambios de rutas/schema salvo decision explicita posterior.
 
 ## Tablero
 
@@ -108,4 +108,4 @@ _Sin entradas._
 
 ## Próxima acción
 
-Elegir siguiente foco tras el rediseño Lovable: retomar CACH-0042 o abrir el siguiente corte beta con el primer slice visual validable.
+Implementar CACH-0042 desde `feat/CACH-0042-bottom-navigation`, validar lint/build y revisar mobile en 320, 375, 390 y 768 px.

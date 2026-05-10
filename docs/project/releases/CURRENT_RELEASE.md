@@ -13,17 +13,17 @@ tags:
   - release
   - current
 generated: false
-release_current: false
+release_current: true
 ---
 # Current Release
 
 ## Release activa
 
-No hay release activa.
+[[RELEASE-0.1.0-beta.16|RELEASE-0.1.0-beta.16]] — Navegación inferior móvil.
 
 ## Rama activa
 
-No aplica.
+`release/0.1.0-beta.16`
 
 ## Últimos cortes
 
@@ -39,16 +39,16 @@ No aplica.
 
 ## Scope actual
 
-Beta 15 queda cerrada. El dominio publico canonico de la app es `https://app.caches.es`; Vercel, `VITE_APP_URL`, Supabase Auth redirects y Edge Function `send-beta-invite` quedaron alineados con ese dominio.
+Beta 16 prepara el cierre de [[../issues/CACH-0042|CACH-0042]]: racionalizar la navegacion inferior movil manteniendo accesos claros, targets tactiles razonables y una barra que quepa en 320 px.
 
-Issues cerradas:
+Issues incluidas:
 
-- [[../issues/CACH-0051|CACH-0051]] — Dominio publico de app y estrategia multientorno.
+- [[../issues/CACH-0042|CACH-0042]] — Racionalizar navegacion inferior.
 
 ## Regla de trabajo para esta release
 
-No iniciar trabajo nuevo desde una release activa hasta activar explicitamente el siguiente corte. La siguiente candidata puede retomar [[../issues/CACH-0042|CACH-0042]] o ajustarse al rediseño Lovable.
+No anadir rediseño Lovable, cambios de rutas, autenticacion, permisos, Supabase, schema, entorno o produccion. Beta 16 se limita a navegacion inferior movil.
 
 ## Como cerrar esta release
 
-Cerrada mediante PR #96, tag `v0.1.0-beta.15` y smoke de produccion sobre `https://app.caches.es`.
+Implementar `CACH-0042` desde `feat/CACH-0042-bottom-navigation`, validar lint/build y revisar mobile en 320, 375, 390 y 768 px. Despues, abrir PR `release/0.1.0-beta.16` -> `main`, esperar CI verde, mergear y crear tag `v0.1.0-beta.16` desde `main` si aplica.
