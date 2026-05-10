@@ -17,7 +17,7 @@ release_phase: active
 release_current: true
 release_branch: release/0.1.0-beta.16
 release_tag: null
-release_pr: null
+release_pr: https://github.com/dignacioconde/culturApp/pull/98
 ---
 # RELEASE-0.1.0-beta.16 — Navegación inferior móvil
 
@@ -102,7 +102,7 @@ Reducir friccion en la navegacion movil manteniendo accesos claros a las areas p
 
 ## Checklist de salida
 
-- [ ] PR `release/0.1.0-beta.16` -> `main` abierta
+- [x] PR `release/0.1.0-beta.16` -> `main` abierta
 - [ ] CI en verde
 - [ ] PR mergeada en `main`
 - [ ] Tag creado desde `main` si aplica
@@ -137,7 +137,7 @@ Reducir friccion en la navegacion movil manteniendo accesos claros a las areas p
 ### Tecnico
 
 - Release activada para que la rama de implementacion `feat/CACH-0042-bottom-navigation` salga de `release/0.1.0-beta.16`.
-- Implementacion local de `CACH-0042` integrada por squash en `release/0.1.0-beta.16`, pendiente de review final y PR `release/0.1.0-beta.16` -> `main`.
+- Implementacion local de `CACH-0042` integrada por squash en `release/0.1.0-beta.16`; PR #98 abierta hacia `main`.
 
 ## Resultado final
 
