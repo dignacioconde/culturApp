@@ -37,18 +37,20 @@ No aplica.
 
 `RELEASE-0.1.0-beta.15` — dominio publico de app. Ver [[RELEASE-0.1.0-beta.15]].
 
+`RELEASE-0.1.0-beta.16` — navegacion inferior movil. Ver [[RELEASE-0.1.0-beta.16]].
+
 ## Scope actual
 
-Beta 15 queda cerrada. El dominio publico canonico de la app es `https://app.caches.es`; Vercel, `VITE_APP_URL`, Supabase Auth redirects y Edge Function `send-beta-invite` quedaron alineados con ese dominio.
+Beta 16 queda cerrada. La navegacion inferior movil se racionaliza con accesos a Trabajos, Inicio, Agenda, Plan, Datos y Ajustes; la barra cabe en 320 px y mantiene targets tactiles razonables.
 
 Issues cerradas:
 
-- [[../issues/CACH-0051|CACH-0051]] — Dominio publico de app y estrategia multientorno.
+- [[../issues/CACH-0042|CACH-0042]] — Racionalizar navegacion inferior.
 
 ## Regla de trabajo para esta release
 
-No iniciar trabajo nuevo desde una release activa hasta activar explicitamente el siguiente corte. La siguiente candidata puede retomar [[../issues/CACH-0042|CACH-0042]] o ajustarse al rediseño Lovable.
+No iniciar trabajo nuevo desde una release activa hasta activar explicitamente el siguiente corte.
 
 ## Como cerrar esta release
 
-Cerrada mediante PR #96, tag `v0.1.0-beta.15` y smoke de produccion sobre `https://app.caches.es`.
+Cerrada mediante PR #98, tag `v0.1.0-beta.16` y smoke de produccion sobre `https://app.caches.es`.

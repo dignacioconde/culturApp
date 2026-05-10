@@ -45,6 +45,12 @@ From the EventDetail/ProjectDetail UX session:
 
 **Pattern reuse:** Bottom bar + minimal lists + quick modals is the canonical mobile detail pattern. Replicate for any new detail page.
 
+## Mobile Bottom Navigation Pattern (2026-05-10)
+
+Global mobile navigation uses a compact bottom bar for primary routes and keeps the drawer as secondary navigation. Keep labels short enough for 320 px, preserve at least 44 px touch targets, and make the active state visible through structure (not color only).
+
+Do not stack the global bottom nav over contextual bottom action bars on EventDetail/ProjectDetail. Hide global nav on those detail routes, and offset fixed mobile panels/toasts above the nav when both can appear.
+
 ## Modal UX Requires Iteration
 
 **Rule:** Mobile modal UX (scroll, zoom, keyboard, animations) needs multiple deploy cycles to refine. Plan for 3-5 commits minimum for "polished" modals.

@@ -18,11 +18,11 @@ generated: false
 
 ## Foco actual
 
-Beta 15 queda cerrada con dominio publico de app. El siguiente avance debe coordinarse con el rediseño que se esta preparando en Lovable y, si encaja, retomar navegacion movil como slice separada.
+Beta 16 queda activa para retomar navegacion movil como slice pequeno y verificable, limitada a [[../issues/CACH-0042|CACH-0042]].
 
 ## Release activa
 
-No hay release activa.
+Release activa: [[../releases/RELEASE-0.1.0-beta.16|RELEASE-0.1.0-beta.16]] — Navegación inferior móvil.
 
 Últimos cortes:
 
@@ -42,12 +42,13 @@ Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboa
 - Beta 13 vuelve a ser un corte normal de desarrollo: `CACH-0041` simplifica el dashboard movil y estado "Ahora".
 - Beta 14 cierra `CACH-B0020`: email/DNS/Brevo/Supabase SMTP definitivo con `caches.es`.
 - Beta 15 cierra `CACH-0051`: dominio publico canonico `app.caches.es`, Vercel, Supabase Auth redirects y Edge Function `APP_URL`.
+- Beta 16 queda activa para `CACH-0042`: racionalizar navegacion inferior movil.
 
 ## Prioridades
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
-2. No mezclar rediseño Lovable con fixes pequenos salvo que desbloqueen beta o confianza.
-3. Mantener navegacion movil como siguiente slice candidata, fuera del corte de dominio.
+2. Mantener beta 16 acotada a navegacion inferior movil.
+3. No mezclar rediseño Lovable ni cambios de rutas/schema salvo decision explicita posterior.
 
 ## Plan operativo
 
@@ -60,8 +61,8 @@ Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboa
 
 ## Próximo checkpoint
 
-Elegir siguiente foco tras el rediseño Lovable: retomar [[../issues/CACH-0042|CACH-0042]] o abrir el siguiente corte beta con el primer slice visual validable.
+Implementar [[../issues/CACH-0042|CACH-0042]] desde `feat/CACH-0042-bottom-navigation`, validar lint/build y revisar mobile en 320, 375, 390 y 768 px.
 
 ## Siguiente release candidata
 
-Tras beta 15, retomar [[../issues/CACH-0042|CACH-0042]] como slice candidata de navegacion movil o abrir el siguiente corte si Lovable redefine la interfaz.
+Tras beta 16, elegir el siguiente corte segun resultado de navegacion movil y estado del rediseño Lovable.

@@ -63,9 +63,7 @@ _Sin issues._
 
 ## Ready
 
-| ID | Titulo | Tipo | Nivel | P | Componentes |
-|---|---|---|---|---|---|
-| [[../issues/CACH-0042|CACH-0042]] | [UX] Racionalizar navegacion inferior | feature | slice | p1 | design-system |
+_Sin issues._
 
 ## In progress
 
@@ -95,6 +93,7 @@ _Sin issues._
 | [[../issues/CACH-0037|CACH-0037]] | Consolidar PRD y sistema de diseno de Cachés | RELEASE-0.1.0-beta.5 | Released en RELEASE-0.1.0-beta.5. PRD y sistema de diseno integrados en `main` mediante PR #84. |
 | [[../issues/CACH-0038|CACH-0038]] | Compactar mobile financiero y detalles accionables | RELEASE-0.1.0-beta.6 | Sin resultado documentado. |
 | [[../issues/CACH-0041|CACH-0041]] | [UX] Simplificar dashboard movil y estado Ahora | RELEASE-0.1.0-beta.13 | Cerrada por `RELEASE-0.1.0-beta.13`. |
+| [[../issues/CACH-0042|CACH-0042]] | [UX] Racionalizar navegacion inferior | RELEASE-0.1.0-beta.16 | Implementada y cerrada en `RELEASE-0.1.0-beta.16` una barra inferior movil compacta con seis destinos principales: Trabajos, Inicio, Agenda, Plan, Datos y Ajustes. |
 | [[../issues/CACH-0043|CACH-0043]] | [UX] Limpiar acciones en detalle de proyecto | RELEASE-0.1.0-beta.12 | Cerrada por `RELEASE-0.1.0-beta.12`. |
 | [[../issues/CACH-0044|CACH-0044]] | [UX] Crear evento desde proyecto con proyecto preseleccionado | RELEASE-0.1.0-beta.12 | Cerrada por `RELEASE-0.1.0-beta.12`. |
 | [[../issues/CACH-0045|CACH-0045]] | [UX] Anadir confirmacion a borrados destructivos | RELEASE-0.1.0-beta.12 | Cerrada por `RELEASE-0.1.0-beta.12`. |

@@ -129,7 +129,7 @@ export default function CalendarProjects() {
           <div className={`
             w-full lg:w-80 bg-white rounded-xl border border-gray-200 p-5 flex flex-col gap-4
             lg:relative
-            ${isMobile ? 'fixed bottom-0 left-0 right-0 max-h-[70vh] overflow-y-auto rounded-b-none border-b-0 shadow-lg z-30' : ''}
+            ${isMobile ? 'fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom))] left-0 right-0 max-h-[calc(70dvh-4rem)] overflow-y-auto rounded-b-none border-b-0 shadow-lg z-30' : ''}
           `}>
             {/* Toggle para móvil */}
             {isMobile && (
