@@ -26,4 +26,3 @@ generated: true
 - [[../issues/CACH-B0011|CACH-B0011]] — Categorias etiquetas y taxonomia · backlog · p2 · initiative
 - [[../issues/CACH-B0012|CACH-B0012]] — Perfil publico viralidad y referidos · backlog · p3 · initiative
 - [[../issues/CACH-B0013|CACH-B0013]] — Gestion documental por proyecto evento · backlog · p3 · initiative
-- [[../issues/CACH-0042|CACH-0042]] — [UX] Racionalizar navegacion inferior · review · p1 · slice

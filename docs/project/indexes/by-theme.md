@@ -30,11 +30,11 @@ generated: true
 
 - [[../issues/CACH-B0007|CACH-B0007]] — Calendario unificado e interaccion rapida · backlog · p1 · initiative
 - [[../issues/CACH-B0011|CACH-B0011]] — Categorias etiquetas y taxonomia · backlog · p2 · initiative
-- [[../issues/CACH-0042|CACH-0042]] — [UX] Racionalizar navegacion inferior · review · p1 · slice
 - [[../issues/CACH-0029|CACH-0029]] — Integrar helpers CACH-B0016 en flujos reales · done · p1 · slice
 - [[../issues/CACH-0030|CACH-0030]] — Homogeneizar diseno con nueva paleta de colores y fuentes · done · p1 · task
 - [[../issues/CACH-0032|CACH-0032]] — Priorizar operativa diaria en dashboard movil · done · p1 · slice
 - [[../issues/CACH-0041|CACH-0041]] — [UX] Simplificar dashboard movil y estado Ahora · done · p1 · slice
+- [[../issues/CACH-0042|CACH-0042]] — [UX] Racionalizar navegacion inferior · done · p1 · slice
 - [[../issues/CACH-0045|CACH-0045]] — [UX] Anadir confirmacion a borrados destructivos · done · p1 · slice
 
 ## finance-operations

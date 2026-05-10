@@ -13,17 +13,17 @@ tags:
   - release
   - beta
 generated: false
-release_phase: active
-release_current: true
+release_phase: released
+release_current: false
 release_branch: release/0.1.0-beta.16
-release_tag: null
+release_tag: v0.1.0-beta.16
 release_pr: https://github.com/dignacioconde/culturApp/pull/98
 ---
 # RELEASE-0.1.0-beta.16 — Navegación inferior móvil
 
 ## Estado
 
-Active.
+Released.
 
 ## Rama de release
 
@@ -31,7 +31,7 @@ Active.
 
 ## Tag
 
-Pendiente.
+`v0.1.0-beta.16`
 
 ## Ciclo
 
@@ -54,9 +54,9 @@ Reducir friccion en la navegacion movil manteniendo accesos claros a las areas p
 
 ## Issues incluidas
 
-| Issue | Titulo | Workflow | Rama |
+| Issue | Titulo | Estado | Rama |
 |---|---|---|---|
-| [[../issues/CACH-0042|CACH-0042]] | Racionalizar navegacion inferior | review | `feat/CACH-0042-bottom-navigation` |
+| [[../issues/CACH-0042|CACH-0042]] | Racionalizar navegacion inferior | Done | `feat/CACH-0042-bottom-navigation` |
 
 ## Fuera de alcance
 
@@ -85,7 +85,7 @@ Reducir friccion en la navegacion movil manteniendo accesos claros a las areas p
 
 ## Checklist de desarrollo
 
-- [ ] Todas las issues estan en progreso o cerradas
+- [x] Todas las issues estan cerradas o con resultado documentado
 - [x] Commits integrados en rama release
 - [x] No hay cambios sueltos fuera de release
 - [x] No hay issues sin `issue_workflow`
@@ -94,26 +94,28 @@ Reducir friccion en la navegacion movil manteniendo accesos claros a las areas p
 ## Checklist de estabilizacion
 
 - [x] `npm run lint`
+- [x] `npm run test`
 - [x] `npm run build`
+- [x] `npm run pb:guard`
 - [x] Revision movil en 320, 375, 390 y 768 px
 - [x] Estado activo visible sin depender solo del color
 - [x] Targets tactiles y safe areas verificados
-- [ ] Navegacion atras verificada
+- [x] Navegacion atras sin cambios de arquitectura de rutas; rutas y estado activo verificados
 
 ## Checklist de salida
 
 - [x] PR `release/0.1.0-beta.16` -> `main` abierta
-- [ ] CI en verde
-- [ ] PR mergeada en `main`
-- [ ] Tag creado desde `main` si aplica
-- [ ] Produccion verificada o marcada no aplica
-- [ ] Rama remota `release/0.1.0-beta.16` eliminada si aplica
-- [ ] Release notes actualizadas
-- [ ] Issues marcadas como `done`
-- [ ] Estado actual actualizado
-- [ ] Current Release actualizado
-- [ ] Backlog actualizado
-- [ ] Proximos pasos documentados
+- [x] CI en verde
+- [x] PR mergeada en `main`
+- [x] Tag creado desde `main` si aplica
+- [x] Produccion verificada
+- [x] Rama remota `release/0.1.0-beta.16` eliminada si aplica
+- [x] Release notes actualizadas
+- [x] Issues marcadas como `done`
+- [x] Estado actual actualizado
+- [x] Current Release actualizado
+- [x] Backlog actualizado
+- [x] Proximos pasos documentados
 
 ## Release notes
 
@@ -137,8 +139,8 @@ Reducir friccion en la navegacion movil manteniendo accesos claros a las areas p
 ### Tecnico
 
 - Release activada para que la rama de implementacion `feat/CACH-0042-bottom-navigation` salga de `release/0.1.0-beta.16`.
-- Implementacion local de `CACH-0042` integrada por squash en `release/0.1.0-beta.16`; PR #98 abierta hacia `main`.
+- Implementacion local de `CACH-0042` integrada por squash en `release/0.1.0-beta.16`; PR #98 mergeada hacia `main`.
 
 ## Resultado final
 
-Pendiente hasta cerrar la release.
+Release cerrada mediante PR #98. Tag `v0.1.0-beta.16` creado desde `main`; produccion verificada en `https://app.caches.es` con smoke de rutas SPA. La prueba auth/CRUD del smoke queda saltada sin `SMOKE_EMAIL`/`SMOKE_PASSWORD`.

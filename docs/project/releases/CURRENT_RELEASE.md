@@ -13,17 +13,17 @@ tags:
   - release
   - current
 generated: false
-release_current: true
+release_current: false
 ---
 # Current Release
 
 ## Release activa
 
-[[RELEASE-0.1.0-beta.16|RELEASE-0.1.0-beta.16]] — Navegación inferior móvil.
+No hay release activa.
 
 ## Rama activa
 
-`release/0.1.0-beta.16`
+No aplica.
 
 ## Últimos cortes
 
@@ -37,18 +37,20 @@ release_current: true
 
 `RELEASE-0.1.0-beta.15` — dominio publico de app. Ver [[RELEASE-0.1.0-beta.15]].
 
+`RELEASE-0.1.0-beta.16` — navegacion inferior movil. Ver [[RELEASE-0.1.0-beta.16]].
+
 ## Scope actual
 
-Beta 16 prepara el cierre de [[../issues/CACH-0042|CACH-0042]]: racionalizar la navegacion inferior movil manteniendo accesos claros, targets tactiles razonables y una barra que quepa en 320 px.
+Beta 16 queda cerrada. La navegacion inferior movil se racionaliza con accesos a Trabajos, Inicio, Agenda, Plan, Datos y Ajustes; la barra cabe en 320 px y mantiene targets tactiles razonables.
 
-Issues incluidas:
+Issues cerradas:
 
 - [[../issues/CACH-0042|CACH-0042]] — Racionalizar navegacion inferior.
 
 ## Regla de trabajo para esta release
 
-No anadir rediseño Lovable, cambios de rutas, autenticacion, permisos, Supabase, schema, entorno o produccion. Beta 16 se limita a navegacion inferior movil.
+No iniciar trabajo nuevo desde una release activa hasta activar explicitamente el siguiente corte.
 
 ## Como cerrar esta release
 
-Implementar `CACH-0042` desde `feat/CACH-0042-bottom-navigation`, validar lint/build y revisar mobile en 320, 375, 390 y 768 px. Despues, abrir PR `release/0.1.0-beta.16` -> `main`, esperar CI verde, mergear y crear tag `v0.1.0-beta.16` desde `main` si aplica.
+Cerrada mediante PR #98, tag `v0.1.0-beta.16` y smoke de produccion sobre `https://app.caches.es`.

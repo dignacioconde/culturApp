@@ -114,12 +114,12 @@ generated: true
 - [[../issues/CACH-B0004|CACH-B0004]] — Contratantes facturacion y liquidacion neta · backlog · p1 · initiative
 - [[../issues/CACH-B0007|CACH-B0007]] — Calendario unificado e interaccion rapida · backlog · p1 · initiative
 - [[../issues/CACH-B0011|CACH-B0011]] — Categorias etiquetas y taxonomia · backlog · p2 · initiative
-- [[../issues/CACH-0042|CACH-0042]] — [UX] Racionalizar navegacion inferior · review · p1 · slice
 - [[../issues/CACH-0030|CACH-0030]] — Homogeneizar diseno con nueva paleta de colores y fuentes · done · p1 · task
 - [[../issues/CACH-0031|CACH-0031]] — Corregir ajustes UX movil detectados en exploracion · done · p1 · slice
 - [[../issues/CACH-0035|CACH-0035]] — Rediseño financiero del Dashboard y paid_date en cobros rapidos · done · p1 · slice
 - [[../issues/CACH-0037|CACH-0037]] — Consolidar PRD y sistema de diseno de Cachés · done · p1 · task
 - [[../issues/CACH-0041|CACH-0041]] — [UX] Simplificar dashboard movil y estado Ahora · done · p1 · slice
+- [[../issues/CACH-0042|CACH-0042]] — [UX] Racionalizar navegacion inferior · done · p1 · slice
 - [[../issues/CACH-0043|CACH-0043]] — [UX] Limpiar acciones en detalle de proyecto · done · p1 · slice
 - [[../issues/CACH-0044|CACH-0044]] — [UX] Crear evento desde proyecto con proyecto preseleccionado · done · p1 · slice
 - [[../issues/CACH-0045|CACH-0045]] — [UX] Anadir confirmacion a borrados destructivos · done · p1 · slice

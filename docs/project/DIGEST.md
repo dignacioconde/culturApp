@@ -23,7 +23,7 @@ Resumen determinista generado desde Product Brain v2.
 
 ## Estado operacional
 
-- **Release activa:** RELEASE-0.1.0-beta.16 — Navegación inferior móvil
+- **Release activa:** No hay release activa.
 - **Últimos cortes:** `RELEASE-0.1.0-beta.10` — emails transaccionales beta con Brevo. Ver RELEASE-0.1.0-beta.10.
 
 `RELEASE-0.1.0-beta.12` — pulido proyecto-evento y borrados seguros. Ver RELEASE-0.1.0-beta.12.
@@ -33,6 +33,8 @@ Resumen determinista generado desde Product Brain v2.
 `RELEASE-0.1.0-beta.14` — email definitivo transaccional. Ver RELEASE-0.1.0-beta.14.
 
 `RELEASE-0.1.0-beta.15` — dominio publico de app. Ver RELEASE-0.1.0-beta.15.
+
+`RELEASE-0.1.0-beta.16` — navegacion inferior movil. Ver RELEASE-0.1.0-beta.16.
 - **Foco:** Beta 16 queda activa para retomar navegacion movil como slice pequeno y verificable, limitada a CACH-0042.
 
 ## Prioridades del plan
@@ -57,9 +59,7 @@ _Sin entradas._
 
 ### Review / Verify
 
-| ID | Título | Tipo | Nivel | P |
-|---|---|---|---|---|
-| CACH-0042 | [UX] Racionalizar navegacion inferior | feature | slice | p1 |
+_Sin entradas._
 
 ### Backlog (p1)
 
@@ -74,7 +74,6 @@ _Sin entradas._
 
 | ID | Título | Workflow | Tipo | Nivel | P |
 |---|---|---|---|---|---|
-| CACH-0042 | [UX] Racionalizar navegacion inferior | review | feature | slice | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | backlog | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | backlog | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | backlog | feature | initiative | p1 |
