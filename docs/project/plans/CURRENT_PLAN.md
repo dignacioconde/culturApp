@@ -5,7 +5,7 @@ id: PB-CURRENT-PLAN
 title: Current Plan
 lifecycle: active
 created: '2026-05-05'
-updated: '2026-05-09'
+updated: '2026-05-10'
 aliases:
   - Current Plan
 tags:
@@ -18,11 +18,11 @@ generated: false
 
 ## Foco actual
 
-Beta 14 queda cerrada. Preparar el siguiente corte sin mezclarlo con el pendiente de dominio publico de app y multientorno.
+Beta 14 queda cerrada. Beta 15 se usa para cerrar el dominio publico de app y multientorno minimo antes de seguir con navegacion movil.
 
 ## Release activa
 
-No hay release activa. [[../releases/RELEASE-0.1.0-beta.15|RELEASE-0.1.0-beta.15]] queda como siguiente candidata draft.
+Release activa: [[../releases/RELEASE-0.1.0-beta.15|RELEASE-0.1.0-beta.15]] — Dominio publico de app.
 
 Últimos cortes:
 
@@ -41,12 +41,13 @@ Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboa
 - Beta 12 cierra un paquete de codigo visible: `CACH-0044`, `CACH-0045` y `CACH-0043`.
 - Beta 13 vuelve a ser un corte normal de desarrollo: `CACH-0041` simplifica el dashboard movil y estado "Ahora".
 - Beta 14 cierra `CACH-B0020`: email/DNS/Brevo/Supabase SMTP definitivo con `caches.es`.
+- Beta 15 cierra `CACH-0051`: dominio publico canonico `app.caches.es`, Vercel, Supabase Auth redirects y Edge Function `APP_URL`.
 
 ## Prioridades
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
-2. Mantener fuera de beta 14 el dominio publico de app y multientorno, trazado en [[../issues/CACH-0051|CACH-0051]].
-3. Activar explicitamente el siguiente corte antes de implementar trabajo de beta 15.
+2. Cerrar beta 15 con dominio publico de app antes de retomar navegacion movil.
+3. Mantener navegacion movil como siguiente slice candidata, fuera de este corte.
 
 ## Plan operativo
 
@@ -59,8 +60,8 @@ Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboa
 
 ## Próximo checkpoint
 
-Elegir siguiente foco: activar beta 15 para navegacion movil o priorizar [[../issues/CACH-0051|CACH-0051]] si el dominio publico de app bloquea invitaciones reales.
+Cerrar PR/tag de beta 15 y verificar produccion en `https://app.caches.es`.
 
 ## Siguiente release candidata
 
-[[../releases/RELEASE-0.1.0-beta.15|RELEASE-0.1.0-beta.15]] — Navegacion movil esencial queda consolidada como draft para abordar [[../issues/CACH-0042|CACH-0042]]. [[../issues/CACH-0051|CACH-0051]] queda como pendiente infra separado para dominio publico de app y multientorno.
+Tras beta 15, retomar [[../issues/CACH-0042|CACH-0042]] como slice candidata de navegacion movil o abrir el siguiente corte si Lovable redefine la interfaz.

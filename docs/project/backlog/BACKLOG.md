@@ -5,7 +5,7 @@ id: PB-BACKLOG
 title: Backlog operativo
 lifecycle: active
 created: 2026-05-05
-updated: 2026-05-09
+updated: 2026-05-10
 aliases:
   - Backlog operativo
   - Backlog
@@ -50,7 +50,6 @@ _Sin issues._
 
 | ID | Titulo | Tipo | Nivel | P | Componentes |
 |---|---|---|---|---|---|
-| [[../issues/CACH-0051|CACH-0051]] | [Deploy] Dominio publico de app y estrategia multientorno | chore | task | p1 | infra-deploy, supabase, email |
 | [[../issues/CACH-B0001|CACH-B0001]] | Redisenar Trabajos y jerarquia proyecto-evento | feature | initiative | p1 | work, projects, events, design-system |
 | [[../issues/CACH-B0002|CACH-B0002]] | Simplificar experiencia mobile financiera | feature | initiative | p1 | finance |
 | [[../issues/CACH-B0004|CACH-B0004]] | Contratantes facturacion y liquidacion neta | feature | initiative | p1 | finance, design-system |
@@ -102,6 +101,7 @@ _Sin issues._
 | [[../issues/CACH-0046|CACH-0046]] | [Verify] Anadir verificacion por tipo de cambio | null | Implementado un preflight local-first: `verify:ci` replica el job `app`, `verify:pr` valida diff contra base y cierre de issue cuando se pasa `--issue`, y `pb:guard` agrupa Product Brain strict, brain, index y digest. |
 | [[../issues/CACH-0047|CACH-0047]] | [Skills] Actualizar catalogo y symlinks de skills | null | Catalogo y validacion de skills alineados con las 16 skills portables actuales. `caveman` queda integrado como modo de salida conciso en runners OpenCode, con excepciones obligatorias para seguridad, RLS, finanzas, SQL, migraciones, reviews, verificacion y acciones remotas/destructivas. |
 | [[../issues/CACH-0050|CACH-0050]] | [Deploy] Tooling local-first de PR release y smoke | null | Implementado tooling local-first de deploy/PR/release: estado y sync de release, PR body, `ship` dry-run/execute acotado, smoke postdeploy, limpieza local de ramas, `verify:ci`, `verify:pr` y `installCommand: "npm ci"` en Vercel sin tocar el rewrite SPA. |
+| [[../issues/CACH-0051|CACH-0051]] | [Deploy] Dominio publico de app y estrategia multientorno | RELEASE-0.1.0-beta.15 | Cerrado en `RELEASE-0.1.0-beta.15`. El dominio publico canonico de la app queda definido como `https://app.caches.es`, asignado al proyecto Vercel, resuelto por DNS de Hostinger y verificado con smoke de rutas SPA. `VITE_APP_URL` queda configurado en Vercel para produccion, preview y development. La Edge Function `send-beta-invite` usa `APP_URL=https://app.caches.es`. Supabase Auth URL Configuration queda actualizada con `Site URL` canonico y redirects permitidos para `app.caches.es`, alias temporal de Vercel y localhost local. |
 | [[../issues/CACH-B0003|CACH-B0003]] | Cobro rapido y gestion de pendientes | RELEASE-0.1.0-beta.5 | Released en RELEASE-0.1.0-beta.5 por ampliacion explicita de scope. Integrado en `main` mediante PR #84. |
 | [[../issues/CACH-B0005|CACH-B0005]] | Importacion exportacion y portabilidad de datos | RELEASE-0.1.0-beta.7 | Released en RELEASE-0.1.0-beta.7. Integrado en `main` mediante PR #86. |
 | [[../issues/CACH-B0006|CACH-B0006]] | Onboarding y acceso beta | RELEASE-0.1.0-beta.8 | Released en RELEASE-0.1.0-beta.8. Integrado en `main` mediante PR #87. |

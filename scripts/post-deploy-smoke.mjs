@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const argv = process.argv.slice(2)
-const baseUrl = (valueFor('--url') ?? process.env.CULTURAAPP_PROD_URL ?? 'https://culturapp-rho.vercel.app').replace(/\/$/, '')
+const baseUrl = (valueFor('--url') ?? process.env.CULTURAAPP_PROD_URL ?? 'https://app.caches.es').replace(/\/$/, '')
 const paths = ['/', '/login', '/dashboard', '/work', '/calendar/events']
 const results = []
 

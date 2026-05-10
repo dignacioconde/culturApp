@@ -5,7 +5,7 @@ id: PB-CURRENT-RELEASE
 title: Current Release
 lifecycle: active
 created: '2026-05-05'
-updated: '2026-05-09'
+updated: '2026-05-10'
 aliases:
   - Current Release
 tags:
@@ -13,17 +13,17 @@ tags:
   - release
   - current
 generated: false
-release_current: false
+release_current: true
 ---
 # Current Release
 
 ## Release activa
 
-No hay release activa.
+[[RELEASE-0.1.0-beta.15|RELEASE-0.1.0-beta.15]] — Dominio publico de app.
 
 ## Rama activa
 
-No aplica.
+`release/0.1.0-beta.15`
 
 ## Últimos cortes
 
@@ -37,16 +37,16 @@ No aplica.
 
 ## Scope actual
 
-Beta 14 cerrada. El email/remitente definitivo de Cachés queda operativo con `caches.es`, Brevo, Edge Function y Supabase Auth SMTP validados.
+Beta 15 prepara el cierre de [[../issues/CACH-0051|CACH-0051]]: dominio publico canonico `https://app.caches.es`, variables de entorno, Supabase Auth redirects y Edge Function `send-beta-invite`.
 
-Issues cerradas:
+Issues incluidas:
 
-- [[../issues/CACH-B0020|CACH-B0020]] — Validar dominio de email transaccional y cambiar remitentes definitivos.
+- [[../issues/CACH-0051|CACH-0051]] — Dominio publico de app y estrategia multientorno.
 
 ## Regla de trabajo para esta release
 
-No iniciar trabajo nuevo desde una release activa hasta activar explicitamente el siguiente corte. La siguiente candidata documentada es [[RELEASE-0.1.0-beta.15|RELEASE-0.1.0-beta.15]].
+No anadir navegacion movil, redisenos Lovable ni cambios de schema. Beta 15 se limita al dominio publico de app y configuracion multientorno minima.
 
 ## Como cerrar esta release
 
-Cerrada mediante PR #94, tag `v0.1.0-beta.14` y smoke de produccion sobre `https://culturapp-rho.vercel.app`.
+Abrir PR `release/0.1.0-beta.15` -> `main`, esperar CI verde, mergear, crear tag `v0.1.0-beta.15` desde `main` y verificar produccion en `https://app.caches.es`.

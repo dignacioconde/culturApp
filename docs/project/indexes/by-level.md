@@ -4,8 +4,8 @@ kind: index
 id: PB-BY-LEVEL
 title: Issues por nivel
 lifecycle: active
-created: 2026-05-09
-updated: 2026-05-09
+created: 2026-05-10
+updated: 2026-05-10
 aliases:
   - Issues por nivel
 tags:
@@ -52,7 +52,6 @@ generated: true
 
 ## task
 
-- [[../issues/CACH-0051|CACH-0051]] — [Deploy] Dominio publico de app y estrategia multientorno · backlog · p1 · task
 - [[../issues/CACH-0039|CACH-0039]] — [Agents] Respetar permisos reales en lanzadores OpenCode · done · p0 · task
 - [[../issues/CACH-0040|CACH-0040]] — [Agents] Separar plan draft de ejecucion mutante · done · p0 · task
 - [[../issues/CACH-0049|CACH-0049]] — Migrar Product Brain a v2 lean agile para agentes · done · p0 · task
@@ -64,6 +63,7 @@ generated: true
 - [[../issues/CACH-0046|CACH-0046]] — [Verify] Anadir verificacion por tipo de cambio · done · p1 · task
 - [[../issues/CACH-0047|CACH-0047]] — [Skills] Actualizar catalogo y symlinks de skills · done · p1 · task
 - [[../issues/CACH-0050|CACH-0050]] — [Deploy] Tooling local-first de PR release y smoke · done · p1 · task
+- [[../issues/CACH-0051|CACH-0051]] — [Deploy] Dominio publico de app y estrategia multientorno · done · p1 · task
 - [[../issues/CACH-B0015|CACH-B0015]] — Operativizar backlog releases y ramas en Product Brain · done · p1 · task
 - [[../issues/CACH-B0016|CACH-B0016]] — Refundacion operativa del Product Brain y tests B0014 · done · p1 · task
 - [[../issues/CACH-0048|CACH-0048]] — [Context] Compactar workflow OpenCode · done · p2 · task

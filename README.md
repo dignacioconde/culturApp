@@ -373,7 +373,7 @@ Secrets requeridos para la Edge Function. Mientras el dominio/remitente definiti
 ```bash
 supabase secrets set EMAIL_PROVIDER=brevo
 supabase secrets set BREVO_API_KEY=...
-supabase secrets set APP_URL=https://culturapp-rho.vercel.app
+supabase secrets set APP_URL=https://app.caches.es
 supabase secrets set EMAIL_FROM_ADDRESS=<EMAIL_CONFIRMADO_EN_BREVO>
 supabase secrets set EMAIL_FROM_NAME="Cachés"
 supabase secrets set EMAIL_REPLY_TO=<EMAIL_REAL_DE_RESPUESTA>
@@ -394,8 +394,8 @@ Configuración manual en Supabase Dashboard:
    - Sender email: `<EMAIL_CONFIRMADO_EN_BREVO>`
    - Sender name: `Cachés`
 3. Revisar `Authentication > URL Configuration`:
-   - Site URL: `https://culturapp-rho.vercel.app`
-   - Redirect URLs: `https://culturapp-rho.vercel.app/**` y localhost si se prueba en local.
+   - Site URL: `https://app.caches.es`
+   - Redirect URLs: `https://app.caches.es/**`, `https://culturapp-rho.vercel.app/**` como alias temporal y localhost solo si se prueba en local de forma deliberada.
 4. Personalizar la plantilla `Confirm signup` con copy de Cachés en español.
 
 Gotcha operativo: si el `Sender email` de Supabase Auth no coincide con un email real y confirmado/validado en Brevo, Supabase puede registrar la solicitud de confirmación pero el usuario no recibirá el email. Durante la activación inicial se usó temporalmente un email personal validado como remitente para desbloquear pruebas; no cambiarlo al remitente definitivo de Cachés hasta que exista como email/alias real y Brevo marque ese dominio/remitente como validado.
@@ -409,13 +409,13 @@ Crea `.env.local` en la raíz del proyecto (no lo subas a git):
 ```
 VITE_SUPABASE_URL=https://xxxx.supabase.co
 VITE_SUPABASE_ANON_KEY=tu_anon_key
-VITE_APP_URL=https://culturapp-rho.vercel.app
+VITE_APP_URL=https://app.caches.es
 # Opcional y solo para pruebas locales deliberadas:
 # VITE_ALLOW_LOCAL_AUTH_REDIRECT=true
 ```
 
-`VITE_APP_URL` es la URL canonica que se usa para enlaces de confirmacion de Supabase Auth. En local puede seguir apuntando a produccion para evitar que los usuarios beta acaben en `localhost` al confirmar email.
-Si `VITE_APP_URL` apunta a `localhost`, `127.0.0.1` u otra URL local, el registro cae por defecto a `https://culturapp-rho.vercel.app`; solo se permite redirect local con `VITE_ALLOW_LOCAL_AUTH_REDIRECT=true`.
+`VITE_APP_URL` es la URL canonica que se usa para enlaces de confirmacion de Supabase Auth. En local debe apuntar normalmente a produccion para evitar que los usuarios beta acaben en `localhost` al confirmar email.
+Si `VITE_APP_URL` apunta a `localhost`, `127.0.0.1` u otra URL local, el registro cae por defecto a `https://app.caches.es`; solo se permite redirect local con `VITE_ALLOW_LOCAL_AUTH_REDIRECT=true`.
 
 ---
 
@@ -462,6 +462,8 @@ Las skills son instruction-only por defecto. No incluyen scripts externos, depen
 
 ## Deploy en Vercel
 
-Producción verificada: https://culturapp-rho.vercel.app
+Producción canonica: https://app.caches.es
 
-El proyecto está importado en Vercel y despliega automáticamente desde GitHub en cada push a `main`. Las variables necesarias son `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`.
+Alias temporal heredado: https://culturapp-rho.vercel.app
+
+El proyecto está importado en Vercel y despliega automáticamente desde GitHub en cada push a `main`. Las variables necesarias son `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` y `VITE_APP_URL`.

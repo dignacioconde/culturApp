@@ -5,7 +5,7 @@ id: PB-DIGEST
 title: Product Brain Digest
 lifecycle: active
 created: 2026-05-05
-updated: 2026-05-09
+updated: 2026-05-10
 aliases:
   - Digest
   - Brain Digest
@@ -23,7 +23,7 @@ Resumen determinista generado desde Product Brain v2.
 
 ## Estado operacional
 
-- **Release activa:** No hay release activa.
+- **Release activa:** RELEASE-0.1.0-beta.15 — Dominio publico de app
 - **Últimos cortes:** `RELEASE-0.1.0-beta.10` — emails transaccionales beta con Brevo. Ver RELEASE-0.1.0-beta.10.
 
 `RELEASE-0.1.0-beta.12` — pulido proyecto-evento y borrados seguros. Ver RELEASE-0.1.0-beta.12.
@@ -31,13 +31,13 @@ Resumen determinista generado desde Product Brain v2.
 `RELEASE-0.1.0-beta.13` — dashboard movil y estado Ahora. Ver RELEASE-0.1.0-beta.13.
 
 `RELEASE-0.1.0-beta.14` — email definitivo transaccional. Ver RELEASE-0.1.0-beta.14.
-- **Foco:** Beta 14 queda cerrada. Preparar el siguiente corte sin mezclarlo con el pendiente de dominio publico de app y multientorno.
+- **Foco:** Beta 14 queda cerrada. Beta 15 se usa para cerrar el dominio publico de app y multientorno minimo antes de seguir con navegacion movil.
 
 ## Prioridades del plan
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
-2. Mantener fuera de beta 14 el dominio publico de app y multientorno, trazado en CACH-0051.
-3. Activar explicitamente el siguiente corte antes de implementar trabajo de beta 15.
+2. Cerrar beta 15 con dominio publico de app antes de retomar navegacion movil.
+3. Mantener navegacion movil como siguiente slice candidata, fuera de este corte.
 
 ## Tablero
 
@@ -63,7 +63,6 @@ _Sin entradas._
 
 | ID | Título | Tipo | Nivel | P |
 |---|---|---|---|---|
-| CACH-0051 | [Deploy] Dominio publico de app y estrategia multientorno | chore | task | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | feature | initiative | p1 |
@@ -74,7 +73,6 @@ _Sin entradas._
 | ID | Título | Workflow | Tipo | Nivel | P |
 |---|---|---|---|---|---|
 | CACH-0042 | [UX] Racionalizar navegacion inferior | ready | feature | slice | p1 |
-| CACH-0051 | [Deploy] Dominio publico de app y estrategia multientorno | backlog | chore | task | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | backlog | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | backlog | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | backlog | feature | initiative | p1 |
@@ -108,4 +106,4 @@ _Sin entradas._
 
 ## Próxima acción
 
-Elegir siguiente foco: activar beta 15 para navegacion movil o priorizar CACH-0051 si el dominio publico de app bloquea invitaciones reales.
+Cerrar PR/tag de beta 15 y verificar produccion en `https://app.caches.es`.

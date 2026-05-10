@@ -4,8 +4,8 @@ kind: index
 id: PB-BY-COMPONENT
 title: Issues por componente
 lifecycle: active
-created: 2026-05-09
-updated: 2026-05-09
+created: 2026-05-10
+updated: 2026-05-10
 aliases:
   - Issues por componente
 tags:
@@ -126,7 +126,6 @@ generated: true
 
 ## infra-deploy
 
-- [[../issues/CACH-0051|CACH-0051]] — [Deploy] Dominio publico de app y estrategia multientorno · backlog · p1 · task
 - [[../issues/CACH-B0008|CACH-B0008]] — PWA notificaciones y offline · backlog · p2 · initiative
 - [[../issues/CACH-B0010|CACH-B0010]] — Tooling de agentes y modelos de desarrollo · backlog · p2 · initiative
 - [[../issues/CACH-0039|CACH-0039]] — [Agents] Respetar permisos reales en lanzadores OpenCode · done · p0 · task
@@ -135,15 +134,16 @@ generated: true
 - [[../issues/CACH-B0020|CACH-B0020]] — Validar dominio de email transaccional y cambiar remitentes definitivos · done · p0 · task
 - [[../issues/CACH-0046|CACH-0046]] — [Verify] Anadir verificacion por tipo de cambio · done · p1 · task
 - [[../issues/CACH-0050|CACH-0050]] — [Deploy] Tooling local-first de PR release y smoke · done · p1 · task
+- [[../issues/CACH-0051|CACH-0051]] — [Deploy] Dominio publico de app y estrategia multientorno · done · p1 · task
 - [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura · done · p2 · task
 
 ## email
 
-- [[../issues/CACH-0051|CACH-0051]] — [Deploy] Dominio publico de app y estrategia multientorno · backlog · p1 · task
 - [[../issues/CACH-B0020|CACH-B0020]] — Validar dominio de email transaccional y cambiar remitentes definitivos · done · p0 · task
+- [[../issues/CACH-0051|CACH-0051]] — [Deploy] Dominio publico de app y estrategia multientorno · done · p1 · task
 - [[../issues/CACH-B0019|CACH-B0019]] — Emails transaccionales beta con Brevo · done · p1 · slice
 
 ## supabase
 
-- [[../issues/CACH-0051|CACH-0051]] — [Deploy] Dominio publico de app y estrategia multientorno · backlog · p1 · task
 - [[../issues/CACH-B0020|CACH-B0020]] — Validar dominio de email transaccional y cambiar remitentes definitivos · done · p0 · task
+- [[../issues/CACH-0051|CACH-0051]] — [Deploy] Dominio publico de app y estrategia multientorno · done · p1 · task
