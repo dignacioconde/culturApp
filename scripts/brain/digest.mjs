@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { existsSync, readFileSync } from 'node:fs'
 import { join, relative } from 'node:path'
+import matter from 'gray-matter'
 import {
   brainRoot,
   docTitle,
@@ -39,11 +40,6 @@ function titleOf(doc) {
   return doc.frontmatter?.title ?? docTitle(doc.body, doc.basename)
 }
 
-function latestUpdated(docs) {
-  const dates = docs.map((doc) => normalizeDate(doc.frontmatter?.updated)).filter(Boolean).sort()
-  return dates.at(-1) ?? today()
-}
-
 function table(rows, headers) {
   if (rows.length === 0) return '_Sin entradas._\n'
   return [
@@ -65,7 +61,7 @@ const releaseStatus = docs.find((doc) => doc.rel === 'releases/CURRENT_RELEASE.m
 const currentRelease = docs.find((doc) => doc.frontmatter?.kind === 'release' && doc.frontmatter.release_current)
 const currentPlan = docs.find((doc) => doc.rel === 'plans/CURRENT_PLAN.md')
 const backlog = docs.find((doc) => doc.rel === 'backlog/BACKLOG.md')
-const updated = latestUpdated(docs.filter((doc) => !doc.frontmatter?.generated))
+const outputPath = join(brainRoot, 'DIGEST.md')
 
 const releaseActiva = currentRelease
   ? `${currentRelease.frontmatter.id} — ${titleOf(currentRelease)}`
@@ -98,24 +94,7 @@ function boardTable(heading) {
   return table(rows, ['ID', 'Título', 'Tipo', 'Nivel', 'P'])
 }
 
-const digest = `---
-schema_version: 2
-kind: digest
-id: PB-DIGEST
-title: Product Brain Digest
-lifecycle: active
-created: 2026-05-05
-updated: ${updated}
-aliases:
-  - Digest
-  - Brain Digest
-tags:
-  - product-brain
-  - digest
-generated: true
----
-
-# Product Brain Digest
+const body = `# Product Brain Digest
 
 Resumen determinista generado desde Product Brain v2.
 
@@ -176,10 +155,36 @@ ${table(
 )}
 ## Próxima acción
 
-${proximoCheckpoint || 'Sin checkpoint documentado.'}
+${proximoCheckpoint || 'Sin checkpoint documentado.'}`
+
+function digestUpdatedDate() {
+  if (!existsSync(outputPath)) return today()
+  const parsed = matter(readFileSync(outputPath, 'utf8'))
+  const bodyChanged = parsed.content.trim() !== body.trim()
+  if (bodyChanged) return today()
+  return normalizeDate(parsed.data?.updated) ?? normalizeDate(parsed.data?.created) ?? today()
+}
+
+const digest = `---
+schema_version: 2
+kind: digest
+id: PB-DIGEST
+title: Product Brain Digest
+lifecycle: active
+created: 2026-05-05
+updated: ${digestUpdatedDate()}
+aliases:
+  - Digest
+  - Brain Digest
+tags:
+  - product-brain
+  - digest
+generated: true
+---
+
+${body}
 `
 
-const outputPath = join(brainRoot, 'DIGEST.md')
 const next = `${digest.trimEnd()}\n`
 const stale = !existsSync(outputPath) || readFileSync(outputPath, 'utf8') !== next
 const changed = checkMode ? stale : writeIfChanged(outputPath, digest)

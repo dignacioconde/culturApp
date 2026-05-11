@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { existsSync, readFileSync } from 'node:fs'
 import { join, relative } from 'node:path'
+import matter from 'gray-matter'
 import {
   AREAS,
   COMPONENTS,
@@ -23,12 +24,9 @@ const args = new Set(process.argv.slice(2))
 const checkMode = args.has('--check')
 const jsonOutput = args.has('--json')
 const stale = []
-let generatedDate = today()
 
-function latestUpdated(items) {
-  const dates = items.map((doc) => normalizeDate(doc.frontmatter?.updated)).filter(Boolean).sort()
-  return dates.at(-1) ?? today()
-}
+const defaultIndexCreated = '2026-05-10'
+const defaultBacklogCreated = '2026-05-05'
 
 function verifyOrWrite(file, content) {
   const next = `${content.trimEnd()}\n`
@@ -42,7 +40,26 @@ function verifyOrWrite(file, content) {
   return writeIfChanged(file, content)
 }
 
-function frontmatter(id, title, aliases, tags) {
+function readExistingGenerated(file) {
+  if (!existsSync(file)) return null
+  const raw = readFileSync(file, 'utf8')
+  const parsed = matter(raw)
+  return {
+    body: parsed.content.trim(),
+    created: normalizeDate(parsed.data?.created),
+    updated: normalizeDate(parsed.data?.updated),
+  }
+}
+
+function generatedDates(file, body, defaultCreated) {
+  const existing = readExistingGenerated(file)
+  const created = existing?.created ?? defaultCreated
+  const bodyChanged = existing?.body !== body.trim()
+  const updated = bodyChanged ? today() : (existing?.updated ?? created)
+  return { created, updated }
+}
+
+function frontmatter(id, title, aliases, tags, created, updated) {
   return [
     '---',
     'schema_version: 2',
@@ -50,8 +67,8 @@ function frontmatter(id, title, aliases, tags) {
     `id: ${id}`,
     `title: ${title}`,
     'lifecycle: active',
-    `created: ${generatedDate}`,
-    `updated: ${generatedDate}`,
+    `created: ${created}`,
+    `updated: ${updated}`,
     'aliases:',
     ...aliases.map((alias) => `  - ${alias}`),
     'tags:',
@@ -63,8 +80,11 @@ function frontmatter(id, title, aliases, tags) {
 }
 
 function writeIndex(fileName, id, title, aliases, tags, lines) {
-  const content = `${frontmatter(id, title, aliases, tags)}# ${title}\n\n${lines.join('\n')}`.trimEnd()
-  return verifyOrWrite(join(indexesRoot, fileName), content)
+  const file = join(indexesRoot, fileName)
+  const body = `# ${title}\n\n${lines.join('\n')}`.trimEnd()
+  const { created, updated } = generatedDates(file, body, defaultIndexCreated)
+  const content = `${frontmatter(id, title, aliases, tags, created, updated)}${body}`.trimEnd()
+  return verifyOrWrite(file, content)
 }
 
 function groupBy(items, getKeys) {
@@ -142,25 +162,7 @@ function resultFrom(doc) {
 
 function writeBacklog(issues) {
   const byWorkflow = groupBy(issues, (doc) => doc.frontmatter.issue_workflow)
-  const content = [
-    '---',
-    'schema_version: 2',
-    'kind: backlog',
-    'id: PB-BACKLOG',
-    'title: Backlog operativo',
-    'lifecycle: active',
-    'created: 2026-05-05',
-    `updated: ${generatedDate}`,
-    'aliases:',
-    '  - Backlog operativo',
-    '  - Backlog',
-    'tags:',
-    '  - product-brain',
-    '  - backlog',
-    '  - workflow',
-    'generated: true',
-    '---',
-    '',
+  const body = [
     '# Backlog operativo',
     '',
     'Tablero ligero generado desde las issues Markdown. Las columnas visibles son `issue_workflow`; el detalle vive en cada issue.',
@@ -220,8 +222,31 @@ function writeBacklog(issues) {
     '',
     'No edites este tablero a mano salvo emergencia: ejecuta `npm run pb:index`. Si el tablero y las issues divergen, `npm run pb:check` falla.',
   ].join('\n')
+  const file = join(brainRoot, 'backlog', 'BACKLOG.md')
+  const { updated } = generatedDates(file, body, defaultBacklogCreated)
+  const content = [
+    '---',
+    'schema_version: 2',
+    'kind: backlog',
+    'id: PB-BACKLOG',
+    'title: Backlog operativo',
+    'lifecycle: active',
+    `created: ${defaultBacklogCreated}`,
+    `updated: ${updated}`,
+    'aliases:',
+    '  - Backlog operativo',
+    '  - Backlog',
+    'tags:',
+    '  - product-brain',
+    '  - backlog',
+    '  - workflow',
+    'generated: true',
+    '---',
+    '',
+    body,
+  ].join('\n')
 
-  return verifyOrWrite(join(brainRoot, 'backlog', 'BACKLOG.md'), content)
+  return verifyOrWrite(file, content)
 }
 
 function writeSourceTouchpoints() {
@@ -253,7 +278,6 @@ function writeSourceTouchpoints() {
 ensureDir(indexesRoot)
 
 const docs = readAllDocs().filter((doc) => !doc.rel.startsWith('templates/'))
-generatedDate = latestUpdated(docs.filter((doc) => !doc.frontmatter?.generated))
 const issues = readDocsByKind('issue')
 const decisions = readDocsByKind('decision')
 const knowledge = docs.filter((doc) => doc.rel.startsWith('knowledge/') && doc.rel !== 'knowledge/README.md')

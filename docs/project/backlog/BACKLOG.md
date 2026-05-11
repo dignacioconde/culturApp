@@ -5,7 +5,7 @@ id: PB-BACKLOG
 title: Backlog operativo
 lifecycle: active
 created: 2026-05-05
-updated: 2026-05-11
+updated: 2026-05-10
 aliases:
   - Backlog operativo
   - Backlog

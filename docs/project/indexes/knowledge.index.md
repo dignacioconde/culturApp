@@ -4,8 +4,8 @@ kind: index
 id: PB-KNOWLEDGE-INDEX
 title: Knowledge Index
 lifecycle: active
-created: 2026-05-11
-updated: 2026-05-11
+created: 2026-05-10
+updated: 2026-05-10
 aliases:
   - Knowledge Index
 tags:

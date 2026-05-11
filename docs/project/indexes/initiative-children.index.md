@@ -4,8 +4,8 @@ kind: index
 id: PB-INITIATIVE-CHILDREN
 title: Initiative Children Index
 lifecycle: active
-created: 2026-05-11
-updated: 2026-05-11
+created: 2026-05-10
+updated: 2026-05-10
 aliases:
   - Initiative Children Index
 tags:
