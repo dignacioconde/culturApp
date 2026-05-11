@@ -18,7 +18,7 @@ release_phase: active
 release_current: true
 release_branch: release/0.1.0-beta.17
 release_tag: null
-release_pr: null
+release_pr: https://github.com/dignacioconde/culturApp/pull/99
 ---
 # RELEASE-0.1.0-beta.17 — Feedback simple beta
 
@@ -102,7 +102,7 @@ Permitir que usuarios de beta envien feedback desde Cachés sin introducir anali
 
 ## Checklist de salida
 
-- [ ] PR `release/0.1.0-beta.17` -> `main` abierta
+- [x] PR `release/0.1.0-beta.17` -> `main` abierta
 - [ ] CI en verde
 - [ ] PR mergeada en `main`
 - [ ] Tag creado desde `main` si aplica
@@ -138,6 +138,7 @@ Permitir que usuarios de beta envien feedback desde Cachés sin introducir anali
 - PostHog queda fuera del bundle y documentado como migracion futura.
 - Validacion local completada: lint, tests, build, Product Brain, release status y diff check.
 - Smoke visual/funcional con Playwright en 320 px y 1280 px usando sesion Supabase mockeada.
+- PR #99 abierta hacia `main`.
 
 ## Resultado final
 
