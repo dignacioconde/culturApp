@@ -17,3 +17,9 @@
 - Context: Commit `e7267d4` fixed income forms that still defaulted IRPF from `user.user_metadata.tax_rate`.
 - Durable memory: default IRPF in settings, event incomes, and project incomes must come from `profiles.tax_rate` via `useProfile`; do not rely on Supabase auth metadata for the current profile tax rate.
 - Source: commit `e7267d4`; `src/hooks/useProfile.js`; `src/pages/Events/EventDetail.jsx`; `src/pages/Projects/ProjectDetail.jsx`.
+
+## 2026-05-11 - Onboarding Completion Lands On Editable Profile
+
+- Context: A beta hotfix fixed new users completing onboarding and being sent to Dashboard instead of their editable profile.
+- Durable memory: completing `/onboarding` should save `onboarding_completed` through `useProfile` and navigate to `/settings`, because Ajustes is the current editable profile surface. Do not route onboarding completion back to `/dashboard` unless the product explicitly changes the profile destination.
+- Source: commit `ff8e8d6`; `src/pages/Auth/Onboarding.jsx`; `docs/project/feedback/FEEDBACK-20260511-onboarding-perfil.md`.

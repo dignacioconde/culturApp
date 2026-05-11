@@ -4,8 +4,8 @@ kind: index
 id: PB-BY-LEVEL
 title: Issues por nivel
 lifecycle: active
-created: 2026-05-10
-updated: 2026-05-10
+created: 2026-05-11
+updated: 2026-05-11
 aliases:
   - Issues por nivel
 tags:

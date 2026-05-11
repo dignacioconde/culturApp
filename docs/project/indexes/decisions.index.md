@@ -4,8 +4,8 @@ kind: index
 id: PB-DECISIONS-INDEX
 title: Decisions Index
 lifecycle: active
-created: 2026-05-10
-updated: 2026-05-10
+created: 2026-05-11
+updated: 2026-05-11
 aliases:
   - Decisions Index
 tags:
