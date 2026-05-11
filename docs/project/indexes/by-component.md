@@ -5,7 +5,7 @@ id: PB-BY-COMPONENT
 title: Issues por componente
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-10
+updated: 2026-05-11
 aliases:
   - Issues por componente
 tags:
@@ -123,6 +123,7 @@ generated: true
 - [[../issues/CACH-0043|CACH-0043]] — [UX] Limpiar acciones en detalle de proyecto · done · p1 · slice
 - [[../issues/CACH-0044|CACH-0044]] — [UX] Crear evento desde proyecto con proyecto preseleccionado · done · p1 · slice
 - [[../issues/CACH-0045|CACH-0045]] — [UX] Anadir confirmacion a borrados destructivos · done · p1 · slice
+- [[../issues/CACH-0052|CACH-0052]] — [Feedback] Formulario simple de feedback beta · done · p1 · slice
 
 ## infra-deploy
 
@@ -147,3 +148,4 @@ generated: true
 
 - [[../issues/CACH-B0020|CACH-B0020]] — Validar dominio de email transaccional y cambiar remitentes definitivos · done · p0 · task
 - [[../issues/CACH-0051|CACH-0051]] — [Deploy] Dominio publico de app y estrategia multientorno · done · p1 · task
+- [[../issues/CACH-0052|CACH-0052]] — [Feedback] Formulario simple de feedback beta · done · p1 · slice

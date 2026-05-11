@@ -1,40 +1,63 @@
+import { useState } from 'react'
 import { useAuth } from '../../hooks/useAuth'
-import { Drama, LogOut, User, Menu } from 'lucide-react'
+import { Drama, LogOut, User, Menu, MessageSquare } from 'lucide-react'
+import { ToastContainer, useToast } from '../ui/Toast'
+import { FeedbackDialog } from './FeedbackDialog'
 
 export function TopBar({ title, onMenuClick, showMenuButton }) {
   const { user, signOut } = useAuth()
+  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false)
+  const { toasts, addToast, removeToast } = useToast()
 
   return (
-    <header className="flex min-h-16 items-center justify-between gap-4 border-b border-[#E2D9C2] bg-[#F5EFE0] px-4 py-3 sm:px-6">
-      <div className="flex min-w-0 items-center gap-2">
-        {showMenuButton && (
+    <>
+      <header className="flex min-h-16 items-center justify-between gap-4 border-b border-[#E2D9C2] bg-[#F5EFE0] px-4 py-3 sm:px-6">
+        <div className="flex min-w-0 items-center gap-2">
+          {showMenuButton && (
+            <button
+              type="button"
+              onClick={onMenuClick}
+              className="flex lg:hidden items-center justify-center p-2 -ml-2 rounded-lg text-[#5C5149] hover:bg-[#EBE3CE] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035]"
+              aria-label="Abrir menú de navegación"
+            >
+              <Menu size={24} />
+            </button>
+          )}
+          <Drama size={28} strokeWidth={1.5} className="hidden sm:block text-[#C94035]" />
+          <h1 className="min-w-0 truncate text-lg font-semibold leading-7 text-[#211C18] font-['DM_Serif_Display']">{title}</h1>
+        </div>
+        <div className="flex min-w-0 shrink-0 items-center gap-1 sm:gap-2">
           <button
             type="button"
-            onClick={onMenuClick}
-            className="flex lg:hidden items-center justify-center p-2 -ml-2 rounded-lg text-[#5C5149] hover:bg-[#EBE3CE] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035]"
-            aria-label="Abrir menú de navegación"
+            onClick={() => setIsFeedbackOpen(true)}
+            className="inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-lg text-sm font-medium text-[#5C5149] transition-colors hover:bg-[#EBE3CE] hover:text-[#211C18] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2 md:w-auto md:px-3"
+            aria-label="Enviar feedback"
           >
-            <Menu size={24} />
+            <MessageSquare size={16} className="shrink-0" />
+            <span className="hidden md:inline">Feedback</span>
           </button>
-        )}
-        <Drama size={28} strokeWidth={1.5} className="hidden sm:block text-[#C94035]" />
-        <h1 className="min-w-0 truncate text-lg font-semibold leading-7 text-[#211C18] font-['DM_Serif_Display']">{title}</h1>
-      </div>
-      <div className="flex min-w-0 shrink-0 items-center gap-2 sm:gap-3">
-        <div className="hidden min-w-0 items-center gap-2 rounded-lg bg-[#EBE3CE] px-3 py-2 text-sm text-[#5C5149] ring-1 ring-inset ring-[#E2D9C2] sm:flex">
-          <User size={16} className="shrink-0 text-[#5C5149]" />
-          <span className="max-w-48 truncate">{user?.email}</span>
+          <div className="hidden min-w-0 items-center gap-2 rounded-lg bg-[#EBE3CE] px-3 py-2 text-sm text-[#5C5149] ring-1 ring-inset ring-[#E2D9C2] sm:flex">
+            <User size={16} className="shrink-0 text-[#5C5149]" />
+            <span className="max-w-48 truncate">{user?.email}</span>
+          </div>
+          <button
+            type="button"
+            onClick={signOut}
+            className="inline-flex h-10 shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-lg px-2 text-sm font-medium text-[#5C5149] transition-colors hover:bg-[#EBE3CE] hover:text-[#211C18] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2 sm:px-3"
+          >
+            <LogOut size={16} className="shrink-0" />
+            <span className="hidden sm:inline">Salir</span>
+            <span className="sr-only sm:hidden">Salir</span>
+          </button>
         </div>
-        <button
-          type="button"
-          onClick={signOut}
-          className="inline-flex h-10 shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-lg px-3 text-sm font-medium text-[#5C5149] transition-colors hover:bg-[#EBE3CE] hover:text-[#211C18] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2"
-        >
-          <LogOut size={16} className="shrink-0" />
-          <span className="hidden sm:inline">Salir</span>
-          <span className="sr-only sm:hidden">Salir</span>
-        </button>
-      </div>
-    </header>
+      </header>
+      <FeedbackDialog
+        isOpen={isFeedbackOpen}
+        onClose={() => setIsFeedbackOpen(false)}
+        userId={user?.id}
+        onSubmitted={() => addToast('Gracias, lo revisamos para la beta.')}
+      />
+      <ToastContainer toasts={toasts} onRemove={removeToast} />
+    </>
   )
 }

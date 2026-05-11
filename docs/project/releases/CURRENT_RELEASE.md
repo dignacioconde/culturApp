@@ -5,7 +5,7 @@ id: PB-CURRENT-RELEASE
 title: Current Release
 lifecycle: active
 created: '2026-05-05'
-updated: '2026-05-10'
+updated: '2026-05-11'
 aliases:
   - Current Release
 tags:
@@ -13,17 +13,17 @@ tags:
   - release
   - current
 generated: false
-release_current: false
+release_current: true
 ---
 # Current Release
 
 ## Release activa
 
-No hay release activa.
+[[RELEASE-0.1.0-beta.17|RELEASE-0.1.0-beta.17]] — Feedback simple beta.
 
 ## Rama activa
 
-No aplica.
+`release/0.1.0-beta.17`
 
 ## Últimos cortes
 
@@ -41,16 +41,16 @@ No aplica.
 
 ## Scope actual
 
-Beta 16 queda cerrada. La navegacion inferior movil se racionaliza con accesos a Trabajos, Inicio, Agenda, Plan, Datos y Ajustes; la barra cabe en 320 px y mantiene targets tactiles razonables.
+Beta 17 queda activa para capturar feedback cualitativo desde la app con formulario propio en Supabase, sin PostHog, Plausible ni analitica de eventos.
 
-Issues cerradas:
+Issues incluidas:
 
-- [[../issues/CACH-0042|CACH-0042]] — Racionalizar navegacion inferior.
+- [[../issues/CACH-0052|CACH-0052]] — Formulario simple de feedback beta.
 
 ## Regla de trabajo para esta release
 
-No iniciar trabajo nuevo desde una release activa hasta activar explicitamente el siguiente corte.
+Mantener el corte acotado a feedback cualitativo simple y hardening de RLS. Cualquier analitica de producto, PostHog o dashboard de metricas requiere issue/ADR propia posterior.
 
 ## Como cerrar esta release
 
-Cerrada mediante PR #98, tag `v0.1.0-beta.16` y smoke de produccion sobre `https://app.caches.es`.
+Abrir PR `release/0.1.0-beta.17` -> `main`, validar CI, mergear, crear tag `v0.1.0-beta.17` si aplica y verificar produccion en `https://app.caches.es`.

@@ -5,7 +5,7 @@ id: PB-BY-STATUS
 title: Issues por workflow
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-10
+updated: 2026-05-11
 aliases:
   - Issues por workflow
 tags:
@@ -54,6 +54,7 @@ generated: true
 - [[../issues/CACH-0047|CACH-0047]] — [Skills] Actualizar catalogo y symlinks de skills · done · p1 · task
 - [[../issues/CACH-0050|CACH-0050]] — [Deploy] Tooling local-first de PR release y smoke · done · p1 · task
 - [[../issues/CACH-0051|CACH-0051]] — [Deploy] Dominio publico de app y estrategia multientorno · done · p1 · task
+- [[../issues/CACH-0052|CACH-0052]] — [Feedback] Formulario simple de feedback beta · done · p1 · slice
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes · done · p1 · slice
 - [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos · done · p1 · slice
 - [[../issues/CACH-B0006|CACH-B0006]] — Onboarding y acceso beta · done · p1 · slice

@@ -5,7 +5,7 @@ id: PB-RELEASES-INDEX
 title: Releases Index
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-10
+updated: 2026-05-11
 aliases:
   - Releases Index
 tags:
@@ -25,6 +25,7 @@ generated: true
 - [[../releases/RELEASE-0.1.0-beta.14|RELEASE-0.1.0-beta.14]] — Email definitivo transaccional
 - [[../releases/RELEASE-0.1.0-beta.15|RELEASE-0.1.0-beta.15]] — Dominio publico de app
 - [[../releases/RELEASE-0.1.0-beta.16|RELEASE-0.1.0-beta.16]] — Navegación inferior móvil
+- [[../releases/RELEASE-0.1.0-beta.17|RELEASE-0.1.0-beta.17]] — Feedback simple beta
 - [[../releases/RELEASE-0.1.0-beta.2|RELEASE-0.1.0-beta.2]] — Endurecer confianza de datos
 - [[../releases/RELEASE-0.1.0-beta.3|RELEASE-0.1.0-beta.3]] — Rediseño financiero del Dashboard
 - [[../releases/RELEASE-0.1.0-beta.4|RELEASE-0.1.0-beta.4]] — Planificacion anual de proyectos

@@ -5,7 +5,7 @@ id: ADR-0014
 title: Beta feedback propio y Plausible comentado
 lifecycle: active
 created: '2026-05-05'
-updated: '2026-05-08'
+updated: '2026-05-11'
 aliases:
   - ADR-0014
 tags:
@@ -13,9 +13,13 @@ tags:
   - adr
   - feedback
 generated: false
-decision_status: Accepted
+decision_status: Superseded
 ---
 # ADR-0014 — Beta feedback propio y Plausible comentado
+
+## Decision status
+
+Superseded por [[ADR-0015-feedback-simple-posthog-futuro|ADR-0015]].
 
 ## Contexto
 
@@ -36,3 +40,4 @@ No se anade PostHog en esta fase.
 ## Relacionado
 
 - [[../issues/CACH-B0016|CACH-B0016]]
+- [[ADR-0015-feedback-simple-posthog-futuro|ADR-0015]]

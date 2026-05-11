@@ -5,7 +5,7 @@ id: PB-DIGEST
 title: Product Brain Digest
 lifecycle: active
 created: 2026-05-05
-updated: 2026-05-10
+updated: 2026-05-11
 aliases:
   - Digest
   - Brain Digest
@@ -23,7 +23,7 @@ Resumen determinista generado desde Product Brain v2.
 
 ## Estado operacional
 
-- **Release activa:** No hay release activa.
+- **Release activa:** RELEASE-0.1.0-beta.17 — Feedback simple beta
 - **Últimos cortes:** `RELEASE-0.1.0-beta.10` — emails transaccionales beta con Brevo. Ver RELEASE-0.1.0-beta.10.
 
 `RELEASE-0.1.0-beta.12` — pulido proyecto-evento y borrados seguros. Ver RELEASE-0.1.0-beta.12.
@@ -35,13 +35,13 @@ Resumen determinista generado desde Product Brain v2.
 `RELEASE-0.1.0-beta.15` — dominio publico de app. Ver RELEASE-0.1.0-beta.15.
 
 `RELEASE-0.1.0-beta.16` — navegacion inferior movil. Ver RELEASE-0.1.0-beta.16.
-- **Foco:** Beta 16 queda activa para retomar navegacion movil como slice pequeno y verificable, limitada a CACH-0042.
+- **Foco:** Beta 17 queda activa para capturar feedback cualitativo con un formulario simple propio, limitada a CACH-0052.
 
 ## Prioridades del plan
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
-2. Mantener beta 16 acotada a navegacion inferior movil.
-3. No mezclar rediseño Lovable ni cambios de rutas/schema salvo decision explicita posterior.
+2. Mantener beta 17 acotada a feedback cualitativo simple.
+3. No introducir PostHog, Plausible ni analitica de eventos sin issue/ADR posterior.
 
 ## Tablero
 
@@ -89,11 +89,11 @@ _Sin entradas._
 
 | ID | Título | Updated | Estado |
 |---|---|---|---|
+| ADR-0014 | Beta feedback propio y Plausible comentado | 2026-05-11 | Superseded |
+| ADR-0015 | Feedback simple propio y PostHog diferido | 2026-05-11 | Accepted |
 | ADR-0001 | Mantener el modelo proyecto-evento con finanzas en ambos niveles | 2026-05-08 | Accepted |
 | ADR-0002 | Beta prioriza confianza antes que features Pro | 2026-05-08 | Accepted |
 | ADR-0003 | Product Brain repo-native y GitHub solo para implementacion | 2026-05-08 | Accepted |
-| ADR-0004 | Perfil, IRPF y datos de perfil pasan por useProfile | 2026-05-08 | Accepted |
-| ADR-0005 | Controles propios para selectores, fechas y decimales | 2026-05-08 | Accepted |
 
 ## Knowledge
 
@@ -107,4 +107,4 @@ _Sin entradas._
 
 ## Próxima acción
 
-Implementar CACH-0042 desde `feat/CACH-0042-bottom-navigation`, validar lint/build y revisar mobile en 320, 375, 390 y 768 px.
+Implementar CACH-0052 desde `release/0.1.0-beta.17`, validar lint/build/Product Brain y revisar boton/modal en mobile y desktop.
