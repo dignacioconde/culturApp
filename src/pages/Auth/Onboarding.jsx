@@ -67,7 +67,7 @@ export default function Onboarding() {
       setError('No hemos podido guardar tu primera configuración.')
       return
     }
-    navigate('/dashboard', { replace: true })
+    navigate('/settings', { replace: true })
   }
 
   return (
@@ -116,7 +116,7 @@ export default function Onboarding() {
             {isLastStep ? (
               <>
                 <CheckCircle2 size={16} />
-                {saving ? 'Guardando...' : 'Entrar en Cachés'}
+                {saving ? 'Guardando...' : 'Guardar y ver perfil'}
               </>
             ) : 'Continuar'}
           </Button>
