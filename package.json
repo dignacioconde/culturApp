@@ -7,6 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
+    "doctor:react": "npx -y react-doctor@latest . --full --offline --fail-on none",
+    "doctor:react:diff": "npx -y react-doctor@latest . --diff main --offline --fail-on none",
     "context:check": "node scripts/check-agent-context.mjs",
     "agents:plan": "node .opencode/scripts/run-planner.mjs --draft",
     "agents:plan:draft": "node .opencode/scripts/run-planner.mjs --draft",

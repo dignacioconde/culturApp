@@ -432,6 +432,15 @@ npm run dev
 | `npm run build` | Build de producción |
 | `npm run preview` | Preview del build |
 | `npm run lint` | Linting con ESLint |
+| `npm run doctor:react` | Escaneo completo advisory con React Doctor |
+| `npm run doctor:react:diff` | Escaneo advisory de cambios React contra `main` |
+| `npm run verify:skills` | Valida catálogo y symlinks de skills portables |
+
+### React Doctor
+
+El proyecto integra [React Doctor](https://github.com/millionco/react-doctor) como herramienta advisory de salud React. No sustituye `lint`, `build`, tests ni revisiones específicas de CulturaApp; sirve para detectar señales de arquitectura, accesibilidad, rendimiento, efectos y dead code.
+
+El baseline inicial del 12 de mayo de 2026 fue `77 / 100 Great` con `react-doctor v0.1.6`. La guía completa está en `docs/react-doctor.md`.
 
 ---
 
@@ -454,9 +463,21 @@ Skills disponibles:
 | `cultura-security-privacy-review` | Revisar auth, RLS, secretos, privacidad, dependencias y seguridad de skills/agentes. |
 | `cultura-testing-release-check` | Preparar lint/build, smoke tests, matrices de regresión y readiness de Vercel. |
 | `cultura-code-review` | Revisar diffs de forma transversal: bugs, arquitectura, seguridad, performance y tests. |
+| `cultura-release-task-flow` | Integrar tareas terminadas en una release beta activa con validación Product Brain. |
+| `cultura-agent-orchestration` | Decidir cuándo usar subagentes Codex/Claude u OpenCode con ownership claro. |
+| `cultura-learning-loop` | Convertir incidentes o conversaciones en aprendizaje durable y correcciones. |
+| `cultura-issue-launch` | Convertir prompts rough en issues Product Brain y, si procede, arrancar ejecución. |
 | `memory-protocol` | Mantener memoria local en Markdown bajo `.memory/` para contexto durable de agentes. |
+| `memory-orient` | Leer solo memoria relevante para una tarea antes de planificar o implementar. |
+| `compact-memory` | Compactar `.memory/` eliminando histórico operativo y redundancias. |
+| `agent-context-maintenance` | Mantener higiene de contexto, prompts y presupuestos de carga. |
+| `product-brain-orient` | Orientar agentes sobre Product Brain v2 sin cargar todo `docs/project/`. |
+| `product-brain-capture` | Capturar ideas, decisiones o contexto en Product Brain. |
+| `product-brain-sdd-review` | Revisar si una issue CACH está lista para ejecución con SDD ligero. |
+| `caveman` | Modo de comunicación ultraconciso con excepciones para seguridad, datos y reviews. |
+| `react-doctor` | Ejecutar React Doctor como escaneo advisory de salud React. |
 
-Las skills son instruction-only por defecto. No incluyen scripts externos, dependencias nuevas ni comandos destructivos.
+Las skills son instruction-only por defecto. `react-doctor` es la excepción de tooling externo: invoca `npx -y react-doctor@latest` mediante scripts npm, sin vendorear código ni añadir dependencia fija.
 
 ---
 

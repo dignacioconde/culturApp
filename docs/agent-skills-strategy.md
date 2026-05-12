@@ -19,7 +19,7 @@ Do not copy the same skill into both `.agents` and `.claude`. If a tool cannot f
 | Portable skill skeleton | `.agents/templates/portable-skill/SKILL.md` |
 | OpenCode-specific dispatcher and subagent behavior | `.opencode/agents/**` |
 
-## Initial Skill Set
+## Current Skill Set
 
 | Skill | Use |
 | --- | --- |
@@ -41,6 +41,7 @@ Do not copy the same skill into both `.agents` and `.claude`. If a tool cannot f
 | `compact-memory` | Compact `.memory/` while keeping durable lessons and removing operational history. |
 | `agent-context-maintenance` | Maintain agent context hygiene, review context-check warnings, and compact prompts/memory without losing critical rules. |
 | `caveman` | Ultra-concise communication mode adapted for CulturaApp, with safety fallbacks for reviews, data, finance, RLS, and irreversible actions. |
+| `react-doctor` | Run React Doctor as an advisory React health scan for frontend changes, cleanup, score regression checks, dead code, accessibility, effects, and performance diagnostics. |
 
 This is intentionally small. Add a new skill only when a workflow repeats and cannot be captured by one of these without becoming vague.
 
@@ -55,8 +56,9 @@ Current portable-skill setup:
 - Documented the user-facing overview in `README.md`.
 - Documented the technical inventory and validation status in `TECHDOC.md`.
 - Added `memory-protocol` as a portable Markdown memory workflow with `.memory/` as the auditable local store.
+- Added `react-doctor` as an advisory external React health workflow with project-local npm scripts and a dedicated guide in `docs/react-doctor.md`.
 
-No third-party skill text, scripts, dependencies, or external scanner code were imported.
+No third-party skill text, dependencies, or external scanner code were vendored. `react-doctor` is invoked through npm scripts with `npx` and documented as an advisory external scanner.
 
 ## How To Use From Codex
 
@@ -65,6 +67,7 @@ Ask naturally with a trigger such as:
 - "Usa la skill `cultura-security-privacy-review` para revisar este cambio."
 - "Crea una skill portable para este workflow."
 - "Haz una code review de este diff."
+- "Pasa React Doctor antes de abrir PR."
 
 Codex should discover project skills from `.agents/skills/`. If a skill is newly added and not visible in the current session, restart Codex.
 
@@ -113,6 +116,7 @@ After creating or updating skills, run:
 ```bash
 python3 /Users/diconde/.codex/skills/.system/skill-creator/scripts/quick_validate.py .agents/skills/<skill-name>
 python3 /Users/diconde/.codex/skills/.system/skill-creator/scripts/quick_validate.py .agents/templates/portable-skill
+npm run verify:skills
 git diff --check
 ```
 
@@ -138,6 +142,7 @@ Validation status for the current setup:
 | `compact-memory` | Valid |
 | `agent-context-maintenance` | Valid |
 | `caveman` | Valid |
+| `react-doctor` | Valid |
 | `.agents/templates/portable-skill` | Valid |
 | `git diff --check` | Pass |
 
@@ -149,10 +154,11 @@ Validation status for the current setup:
 - `awesomeskills.dev/es`: used as a catalog signal for the breadth of reusable skill categories and the need to curate instead of bulk-generate.
 - `securityfortech/awesome-security-skills`: used to identify security review categories worth covering locally, especially secure code review, OWASP-oriented checks, and agent security.
 - `MV1-him/agent-audit-kit`: used for agent-supply-chain ideas such as skill poisoning, tool drift, secret exposure, local-first scanning, severity thresholds, and avoiding cloud dependency by default.
+- `millionco/react-doctor`: reviewed as the upstream React Doctor CLI/action source; used only through npm scripts, with no vendored package code or upstream skill text.
 - `Kalitone/claude-code-review-skill`: attempted, but the referenced public repo/path was not accessible through GitHub search/API during this review. No content was used.
 - `hanfang/claude-memory-skill`: used only as conceptual inspiration for simple hierarchical Markdown memory; MIT license confirmed. No upstream skill text, commands, install scripts, or implementation files were imported.
 
-External material was used only as inspiration for structure, categories, severity, and safety posture. No external scripts or third-party skill text were imported.
+External material was used only as inspiration for structure, categories, severity, and safety posture. No external scripts or third-party skill text were vendored; React Doctor is referenced through npm scripts as an advisory scanner.
 
 ## Governance Rules
 
@@ -162,4 +168,5 @@ External material was used only as inspiration for structure, categories, severi
 - Skills must not contain secrets, private paths, or instructions to exfiltrate data.
 - Skills must ask for confirmation before destructive, remote, credentialed, or irreversible actions.
 - Prefer instruction-only skills. Add scripts only after reviewing security, license, and deterministic value.
+- External scanners such as React Doctor must remain advisory unless a pinned version and CI threshold are explicitly documented.
 - Keep skills concise enough that agents can load them without burying the task context.
