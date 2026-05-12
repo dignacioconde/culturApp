@@ -95,6 +95,7 @@ export default function App() {
         <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
         <Route path="/onboarding" element={<PrivateRoute><Onboarding /></PrivateRoute>} />
         <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+        <Route path="/calendar" element={<Navigate to="/calendar/events" replace />} />
         <Route path="/calendar/events" element={<PrivateRoute><CalendarEvents /></PrivateRoute>} />
         <Route path="/calendar/projects" element={<PrivateRoute><CalendarProjects /></PrivateRoute>} />
         <Route path="/events" element={<PrivateRoute><EventList /></PrivateRoute>} />
@@ -105,7 +106,6 @@ export default function App() {
         <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>} />
         <Route path="/data" element={<PrivateRoute><Data /></PrivateRoute>} />
         <Route path="/admin/invitaciones" element={<PrivateRoute requireAdmin><AdminInvites /></PrivateRoute>} />
-        <Route path="/calendar" element={<Navigate to="/calendar/events" replace />} />
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </BrowserRouter>

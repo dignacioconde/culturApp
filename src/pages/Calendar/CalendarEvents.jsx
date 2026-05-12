@@ -69,8 +69,8 @@ export default function CalendarEvents() {
   
   // En móvil solo mostrar month y day, no week
   const availableViews = isMobile ? ['month', 'day'] : ['month', 'week', 'day']
-  
-  const timeGridMinWidth = calendarView === 'week' ? 'min-w-[46rem]' : calendarView === 'day' ? 'min-w-[22rem]' : 'min-w-full'
+  const activeCalendarView = isMobile && calendarView === 'week' ? 'month' : calendarView
+  const timeGridMinWidth = activeCalendarView === 'week' ? 'min-w-[46rem]' : activeCalendarView === 'day' ? 'min-w-[22rem]' : 'min-w-full'
 
   const calendarEvents = useMemo(() =>
     events.map((e) => ({
@@ -115,10 +115,10 @@ export default function CalendarEvents() {
   const handleSelectSlot = ({ start, end }) => {
     const slotStart = dayjs(start)
     const startsAtMidnight = slotStart.hour() === 0 && slotStart.minute() === 0
-    const eventStart = startsAtMidnight && calendarView === 'month'
+    const eventStart = startsAtMidnight && activeCalendarView === 'month'
       ? slotStart.hour(8)
       : slotStart
-    const eventEnd = calendarView === 'month'
+    const eventEnd = activeCalendarView === 'month'
       ? eventStart.add(1, 'hour')
       : dayjs(end).isAfter(eventStart)
       ? dayjs(end)
@@ -162,7 +162,7 @@ export default function CalendarEvents() {
                     localizer={localizer}
                     events={calendarEvents}
                     date={calendarDate}
-                    view={calendarView}
+                    view={activeCalendarView}
                     views={availableViews}
                     messages={messages}
                     formats={calendarFormats}

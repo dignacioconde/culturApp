@@ -5,7 +5,7 @@ id: PB-INITIATIVE-CHILDREN
 title: Initiative Children Index
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-10
+updated: 2026-05-12
 aliases:
   - Initiative Children Index
 tags:
@@ -20,6 +20,7 @@ generated: true
 
 - [[../issues/CACH-0043|CACH-0043]] — [UX] Limpiar acciones en detalle de proyecto · done · p1 · slice
 - [[../issues/CACH-0044|CACH-0044]] — [UX] Crear evento desde proyecto con proyecto preseleccionado · done · p1 · slice
+- [[../issues/CACH-0054|CACH-0054]] — Editar notas desde detalles de proyecto y evento · done · p1 · slice
 
 ## CACH-B0002 — Simplificar experiencia mobile financiera
 
@@ -28,6 +29,7 @@ generated: true
 - [[../issues/CACH-0041|CACH-0041]] — [UX] Simplificar dashboard movil y estado Ahora · done · p1 · slice
 - [[../issues/CACH-0042|CACH-0042]] — [UX] Racionalizar navegacion inferior · done · p1 · slice
 - [[../issues/CACH-0045|CACH-0045]] — [UX] Anadir confirmacion a borrados destructivos · done · p1 · slice
+- [[../issues/CACH-0055|CACH-0055]] — Pulido financiero movil sin cambiar formulas · done · p1 · slice
 
 ## CACH-B0004 — Contratantes facturacion y liquidacion neta
 
@@ -35,6 +37,7 @@ _Sin children._
 
 ## CACH-B0007 — Calendario unificado e interaccion rapida
 
+- [[../issues/CACH-0056|CACH-0056]] — Calendario de eventos y plan anual separados · done · p1 · slice
 - [[../issues/CACH-0033|CACH-0033]] — Vista anual en calendario de proyectos · done · p2 · slice
 
 ## CACH-B0008 — PWA notificaciones y offline

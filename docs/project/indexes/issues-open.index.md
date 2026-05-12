@@ -5,7 +5,7 @@ id: PB-ISSUES-OPEN
 title: Issues Open Index
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-11
+updated: 2026-05-12
 aliases:
   - Issues Open Index
 tags:
