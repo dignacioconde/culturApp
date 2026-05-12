@@ -18,11 +18,11 @@ generated: false
 
 ## Foco actual
 
-Beta 17 queda activa para capturar feedback cualitativo con un formulario simple propio, limitada a [[../issues/CACH-0052|CACH-0052]].
+Beta 17 queda cerrada con feedback cualitativo simple propio en Supabase. No hay release activa.
 
 ## Release activa
 
-Release activa: [[../releases/RELEASE-0.1.0-beta.17|RELEASE-0.1.0-beta.17]] — Feedback simple beta.
+No hay release activa.
 
 Últimos cortes:
 
@@ -43,12 +43,12 @@ Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboa
 - Beta 14 cierra `CACH-B0020`: email/DNS/Brevo/Supabase SMTP definitivo con `caches.es`.
 - Beta 15 cierra `CACH-0051`: dominio publico canonico `app.caches.es`, Vercel, Supabase Auth redirects y Edge Function `APP_URL`.
 - Beta 16 cierra `CACH-0042`: racionalizar navegacion inferior movil.
-- Beta 17 queda activa para `CACH-0052`: feedback simple propio en Supabase y PostHog diferido.
+- Beta 17 cierra `CACH-0052`: feedback simple propio en Supabase y PostHog diferido.
 
 ## Prioridades
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
-2. Mantener beta 17 acotada a feedback cualitativo simple.
+2. Mantener el feedback beta simple antes de introducir analitica de producto.
 3. No introducir PostHog, Plausible ni analitica de eventos sin issue/ADR posterior.
 
 ## Plan operativo
@@ -62,7 +62,7 @@ Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboa
 
 ## Próximo checkpoint
 
-Implementar [[../issues/CACH-0052|CACH-0052]] desde `release/0.1.0-beta.17`, validar lint/build/Product Brain y revisar boton/modal en mobile y desktop.
+Aplicar la migracion remota de Supabase de beta 17 solo con confirmacion humana explicita, y elegir el siguiente corte cuando haga falta.
 
 ## Siguiente release candidata
 

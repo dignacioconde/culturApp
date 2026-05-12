@@ -5,7 +5,7 @@ id: PB-BACKLOG
 title: Backlog operativo
 lifecycle: active
 created: 2026-05-05
-updated: 2026-05-11
+updated: 2026-05-12
 aliases:
   - Backlog operativo
   - Backlog
@@ -101,7 +101,7 @@ _Sin issues._
 | [[../issues/CACH-0047|CACH-0047]] | [Skills] Actualizar catalogo y symlinks de skills | null | Catalogo y validacion de skills alineados con las 16 skills portables actuales. `caveman` queda integrado como modo de salida conciso en runners OpenCode, con excepciones obligatorias para seguridad, RLS, finanzas, SQL, migraciones, reviews, verificacion y acciones remotas/destructivas. |
 | [[../issues/CACH-0050|CACH-0050]] | [Deploy] Tooling local-first de PR release y smoke | null | Implementado tooling local-first de deploy/PR/release: estado y sync de release, PR body, `ship` dry-run/execute acotado, smoke postdeploy, limpieza local de ramas, `verify:ci`, `verify:pr` y `installCommand: "npm ci"` en Vercel sin tocar el rewrite SPA. |
 | [[../issues/CACH-0051|CACH-0051]] | [Deploy] Dominio publico de app y estrategia multientorno | RELEASE-0.1.0-beta.15 | Cerrado en `RELEASE-0.1.0-beta.15`. El dominio publico canonico de la app queda definido como `https://app.caches.es`, asignado al proyecto Vercel, resuelto por DNS de Hostinger y verificado con smoke de rutas SPA. `VITE_APP_URL` queda configurado en Vercel para produccion, preview y development. La Edge Function `send-beta-invite` usa `APP_URL=https://app.caches.es`. Supabase Auth URL Configuration queda actualizada con `Site URL` canonico y redirects permitidos para `app.caches.es`, alias temporal de Vercel y localhost local. |
-| [[../issues/CACH-0052|CACH-0052]] | [Feedback] Formulario simple de feedback beta | RELEASE-0.1.0-beta.17 | Implementado para `RELEASE-0.1.0-beta.17`. La release anade el formulario global de feedback, el hook de envio, elimina el snippet comentado de Plausible y endurece la politica de insert de la tabla `feedback`. |
+| [[../issues/CACH-0052|CACH-0052]] | [Feedback] Formulario simple de feedback beta | RELEASE-0.1.0-beta.17 | Implementado y cerrado en `RELEASE-0.1.0-beta.17`. La release anade el formulario global de feedback, el hook de envio, elimina el snippet comentado de Plausible y deja versionada la migracion que endurece la politica de insert de la tabla `feedback`. |
 | [[../issues/CACH-B0003|CACH-B0003]] | Cobro rapido y gestion de pendientes | RELEASE-0.1.0-beta.5 | Released en RELEASE-0.1.0-beta.5 por ampliacion explicita de scope. Integrado en `main` mediante PR #84. |
 | [[../issues/CACH-B0005|CACH-B0005]] | Importacion exportacion y portabilidad de datos | RELEASE-0.1.0-beta.7 | Released en RELEASE-0.1.0-beta.7. Integrado en `main` mediante PR #86. |
 | [[../issues/CACH-B0006|CACH-B0006]] | Onboarding y acceso beta | RELEASE-0.1.0-beta.8 | Released en RELEASE-0.1.0-beta.8. Integrado en `main` mediante PR #87. |

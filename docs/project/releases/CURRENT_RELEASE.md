@@ -13,17 +13,17 @@ tags:
   - release
   - current
 generated: false
-release_current: true
+release_current: false
 ---
 # Current Release
 
 ## Release activa
 
-[[RELEASE-0.1.0-beta.17|RELEASE-0.1.0-beta.17]] — Feedback simple beta.
+No hay release activa.
 
 ## Rama activa
 
-`release/0.1.0-beta.17`
+No aplica.
 
 ## Últimos cortes
 
@@ -39,9 +39,11 @@ release_current: true
 
 `RELEASE-0.1.0-beta.16` — navegacion inferior movil. Ver [[RELEASE-0.1.0-beta.16]].
 
+`RELEASE-0.1.0-beta.17` — feedback simple beta. Ver [[RELEASE-0.1.0-beta.17]].
+
 ## Scope actual
 
-Beta 17 queda activa para capturar feedback cualitativo desde la app con formulario propio en Supabase, sin PostHog, Plausible ni analitica de eventos.
+Beta 17 queda cerrada. La app incorpora un formulario global de feedback propio en Supabase, sin PostHog, Plausible ni analitica de eventos.
 
 Issues incluidas:
 
@@ -49,8 +51,8 @@ Issues incluidas:
 
 ## Regla de trabajo para esta release
 
-Mantener el corte acotado a feedback cualitativo simple y hardening de RLS. Cualquier analitica de producto, PostHog o dashboard de metricas requiere issue/ADR propia posterior.
+No iniciar trabajo nuevo desde una release activa hasta activar explicitamente el siguiente corte.
 
 ## Como cerrar esta release
 
-Abrir PR `release/0.1.0-beta.17` -> `main`, validar CI, mergear, crear tag `v0.1.0-beta.17` si aplica y verificar produccion en `https://app.caches.es`.
+Cerrada mediante PR #99. Tag `v0.1.0-beta.17` y smoke de produccion sobre `https://app.caches.es` tras merge a `main`. La migracion remota de Supabase queda pendiente de confirmacion humana explicita.

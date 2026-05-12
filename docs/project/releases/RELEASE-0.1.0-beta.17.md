@@ -14,17 +14,17 @@ tags:
   - beta
   - feedback
 generated: false
-release_phase: active
-release_current: true
+release_phase: released
+release_current: false
 release_branch: release/0.1.0-beta.17
-release_tag: null
+release_tag: v0.1.0-beta.17
 release_pr: https://github.com/dignacioconde/culturApp/pull/99
 ---
 # RELEASE-0.1.0-beta.17 — Feedback simple beta
 
 ## Estado
 
-Active.
+Released.
 
 ## Rama de release
 
@@ -85,9 +85,9 @@ Permitir que usuarios de beta envien feedback desde Cachés sin introducir anali
 ## Checklist de desarrollo
 
 - [x] Todas las issues estan cerradas o listas para release
-- [ ] Commits integrados en rama release
-- [ ] No hay cambios sueltos fuera de release
-- [ ] No hay issues sin `issue_workflow`
+- [x] Commits integrados en rama release
+- [x] No hay cambios sueltos fuera de release
+- [x] No hay issues sin `issue_workflow`
 - [x] No hay decisiones importantes sin documentar
 
 ## Checklist de estabilizacion
@@ -103,12 +103,12 @@ Permitir que usuarios de beta envien feedback desde Cachés sin introducir anali
 ## Checklist de salida
 
 - [x] PR `release/0.1.0-beta.17` -> `main` abierta
-- [ ] CI en verde
-- [ ] PR mergeada en `main`
-- [ ] Tag creado desde `main` si aplica
-- [ ] Produccion verificada o marcada no aplica
-- [ ] Rama remota `release/0.1.0-beta.17` eliminada si aplica
-- [ ] Release notes actualizadas
+- [x] CI en verde
+- [x] PR mergeada en `main`
+- [x] Tag creado desde `main` si aplica
+- [x] Produccion verificada
+- [x] Rama remota `release/0.1.0-beta.17` conservada para trazabilidad local/remota
+- [x] Release notes actualizadas
 - [x] Issues marcadas como `done`
 - [ ] Estado actual actualizado
 - [ ] Backlog actualizado
@@ -139,7 +139,9 @@ Permitir que usuarios de beta envien feedback desde Cachés sin introducir anali
 - Validacion local completada: lint, tests, build, Product Brain, release status y diff check.
 - Smoke visual/funcional con Playwright en 320 px y 1280 px usando sesion Supabase mockeada.
 - PR #99 abierta hacia `main`.
+- GitHub PR #99 con `app`, `e2e`, Vercel Preview y Vercel Preview Comments en verde.
+- La migracion Supabase queda versionada en `supabase/migrations/20260511110000_feedback_authenticated_rls.sql`; aplicarla en remoto requiere confirmacion humana explicita.
 
 ## Resultado final
 
-Pendiente hasta cerrar la release.
+Release cerrada mediante PR #99. Tag `v0.1.0-beta.17` creado desde `main`; produccion verificada en `https://app.caches.es` con smoke de rutas SPA. La prueba auth/CRUD queda saltada sin `SMOKE_EMAIL`/`SMOKE_PASSWORD`; la migracion remota de Supabase queda pendiente de aplicacion confirmada.

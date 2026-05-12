@@ -5,7 +5,7 @@ id: PB-DIGEST
 title: Product Brain Digest
 lifecycle: active
 created: 2026-05-05
-updated: 2026-05-11
+updated: 2026-05-12
 aliases:
   - Digest
   - Brain Digest
@@ -23,7 +23,7 @@ Resumen determinista generado desde Product Brain v2.
 
 ## Estado operacional
 
-- **Release activa:** RELEASE-0.1.0-beta.17 — Feedback simple beta
+- **Release activa:** No hay release activa.
 - **Últimos cortes:** `RELEASE-0.1.0-beta.10` — emails transaccionales beta con Brevo. Ver RELEASE-0.1.0-beta.10.
 
 `RELEASE-0.1.0-beta.12` — pulido proyecto-evento y borrados seguros. Ver RELEASE-0.1.0-beta.12.
@@ -35,12 +35,14 @@ Resumen determinista generado desde Product Brain v2.
 `RELEASE-0.1.0-beta.15` — dominio publico de app. Ver RELEASE-0.1.0-beta.15.
 
 `RELEASE-0.1.0-beta.16` — navegacion inferior movil. Ver RELEASE-0.1.0-beta.16.
-- **Foco:** Beta 17 queda activa para capturar feedback cualitativo con un formulario simple propio, limitada a CACH-0052.
+
+`RELEASE-0.1.0-beta.17` — feedback simple beta. Ver RELEASE-0.1.0-beta.17.
+- **Foco:** Beta 17 queda cerrada con feedback cualitativo simple propio en Supabase. No hay release activa.
 
 ## Prioridades del plan
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
-2. Mantener beta 17 acotada a feedback cualitativo simple.
+2. Mantener el feedback beta simple antes de introducir analitica de producto.
 3. No introducir PostHog, Plausible ni analitica de eventos sin issue/ADR posterior.
 
 ## Tablero
@@ -107,4 +109,4 @@ _Sin entradas._
 
 ## Próxima acción
 
-Implementar CACH-0052 desde `release/0.1.0-beta.17`, validar lint/build/Product Brain y revisar boton/modal en mobile y desktop.
+Aplicar la migracion remota de Supabase de beta 17 solo con confirmacion humana explicita, y elegir el siguiente corte cuando haga falta.
