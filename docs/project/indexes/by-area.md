@@ -5,7 +5,7 @@ id: PB-BY-AREA
 title: Issues por area
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-10
+updated: 2026-05-11
 aliases:
   - Issues por area
 tags:
@@ -34,6 +34,7 @@ generated: true
 - [[../issues/CACH-0043|CACH-0043]] — [UX] Limpiar acciones en detalle de proyecto · done · p1 · slice
 - [[../issues/CACH-0044|CACH-0044]] — [UX] Crear evento desde proyecto con proyecto preseleccionado · done · p1 · slice
 - [[../issues/CACH-0045|CACH-0045]] — [UX] Anadir confirmacion a borrados destructivos · done · p1 · slice
+- [[../issues/CACH-0052|CACH-0052]] — [Feedback] Formulario simple de feedback beta · done · p1 · slice
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes · done · p1 · slice
 - [[../issues/CACH-B0006|CACH-B0006]] — Onboarding y acceso beta · done · p1 · slice
 - [[../issues/CACH-B0014|CACH-B0014]] — Endurecer agenda cobros y captura del MVP · done · p1 · slice

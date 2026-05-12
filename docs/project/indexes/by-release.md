@@ -5,7 +5,7 @@ id: PB-BY-RELEASE
 title: Issues por release
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-10
+updated: 2026-05-11
 aliases:
   - Issues por release
 tags:
@@ -74,6 +74,10 @@ generated: true
 ## RELEASE-0.1.0-beta.16
 
 - [[../issues/CACH-0042|CACH-0042]] — [UX] Racionalizar navegacion inferior · done · p1 · slice
+
+## RELEASE-0.1.0-beta.17
+
+- [[../issues/CACH-0052|CACH-0052]] — [Feedback] Formulario simple de feedback beta · done · p1 · slice
 
 ## RELEASE-0.1.0-beta.2
 
