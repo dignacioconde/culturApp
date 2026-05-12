@@ -34,6 +34,7 @@ Documento técnico de referencia del estado real del proyecto. Para Codex, la fu
 | `.agents/templates/portable-skill/` | — | Plantilla base para nuevas skills `SKILL.md` |
 | `.claude/skills/` | — | Symlinks para que Claude Code descubra las mismas skills |
 | `docs/agent-skills-strategy.md` | — | Estrategia, gobernanza, fuentes revisadas y uso de skills |
+| `docs/react-doctor.md` | — | Guía de uso, baseline e interpretación de React Doctor |
 
 ### Core de la aplicación
 
@@ -114,7 +115,7 @@ Todos los hooks exponen `loading`, `error`, métodos CRUD y `refetch`. Los datos
 | Vistas/Páginas | 12 |
 | Tablas en base de datos | 5 |
 | Rutas definidas | 12 |
-| Skills portables | 7 |
+| Skills portables | 19 |
 
 ---
 
@@ -147,6 +148,7 @@ Todos los hooks exponen `loading`, `error`, métodos CRUD y `refetch`. Los datos
 - Sistema de notificaciones toast (éxito/error)
 - RLS habilitado en todas las tablas
 - Skills portables para Codex y Claude Code en `.agents/skills` con symlinks desde `.claude/skills`
+- React Doctor integrado como escaneo advisory reproducible mediante `npm run doctor:react` y `npm run doctor:react:diff`
 - Agentes OpenCode especializados en `.opencode/agents` para frontend, datos, testing, review, release y documentacion
 
 ### Skills portables Codex/Claude
@@ -161,7 +163,19 @@ La carpeta `.agents/skills/` contiene la fuente única de workflows portables ba
 | `cultura-security-privacy-review` | Revisar auth, RLS, secretos, privacidad, dependencias y seguridad de instrucciones de agentes. |
 | `cultura-testing-release-check` | Definir y ejecutar checks de lint/build, smoke tests, regresión y predeploy. |
 | `cultura-code-review` | Hacer code review transversal de diffs o PRs con severidades y hallazgos accionables. |
+| `cultura-release-task-flow` | Integrar tareas completadas en una release beta activa con validación Product Brain. |
+| `cultura-agent-orchestration` | Decidir cuándo usar subagentes nativos, OpenCode, paralelismo y ownership. |
+| `cultura-learning-loop` | Convertir conversaciones, incidentes y fallos de proceso en aprendizaje durable. |
+| `cultura-issue-launch` | Transformar prompts rough en issues Product Brain y ejecución acotada. |
 | `memory-protocol` | Mantener memoria local auditable en Markdown bajo `.memory/`. |
+| `memory-orient` | Cargar solo memoria relevante para una tarea concreta. |
+| `compact-memory` | Compactar `.memory/` sin guardar histórico operativo. |
+| `agent-context-maintenance` | Mantener higiene de contexto, prompts y presupuestos de carga. |
+| `product-brain-orient` | Orientar agentes sobre Product Brain v2 sin cargar todo el árbol. |
+| `product-brain-capture` | Capturar ideas, decisiones o contexto en Product Brain. |
+| `product-brain-sdd-review` | Revisar si una issue CACH está lista para ejecución con SDD ligero. |
+| `caveman` | Modo de salida ultraconciso con excepciones de seguridad y exactitud. |
+| `react-doctor` | Ejecutar React Doctor como diagnóstico advisory de salud React. |
 
 Reglas de mantenimiento:
 
@@ -174,10 +188,23 @@ Reglas de mantenimiento:
 
 Validación realizada:
 
-- `quick_validate.py` pasa para las 7 skills.
-- `quick_validate.py` pasa para la plantilla.
+- `npm run verify:skills` pasa para el catálogo y symlinks.
+- `quick_validate.py` pasa para `.agents/skills/react-doctor`.
 - `git diff --check` pasa.
-- No se añadieron dependencias ni scripts externos.
+- No se vendorearon dependencias ni scripts externos; React Doctor se invoca con `npx`.
+
+### React Doctor
+
+React Doctor está documentado en `docs/react-doctor.md` y se integra con dos scripts:
+
+```bash
+npm run doctor:react
+npm run doctor:react:diff
+```
+
+La integración usa `npx -y react-doctor@latest` con `--offline` y `--fail-on none`, por lo que actúa como diagnóstico advisory y no como compuerta de CI. El baseline inicial del 12/05/2026 fue `77 / 100 Great` con `react-doctor v0.1.6`.
+
+Categorías principales detectadas en el baseline: arquitectura/Tailwind, dead code, performance, state/effects y accesibilidad. Para convertirlo en check de CI hay que fijar una versión concreta y decidir un umbral explícito.
 
 ### Agentes OpenCode
 
