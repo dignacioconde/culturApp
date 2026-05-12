@@ -5,7 +5,7 @@ id: PB-BY-COMPONENT
 title: Issues por componente
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-11
+updated: 2026-05-12
 aliases:
   - Issues por componente
 tags:
@@ -124,6 +124,7 @@ generated: true
 - [[../issues/CACH-0044|CACH-0044]] — [UX] Crear evento desde proyecto con proyecto preseleccionado · done · p1 · slice
 - [[../issues/CACH-0045|CACH-0045]] — [UX] Anadir confirmacion a borrados destructivos · done · p1 · slice
 - [[../issues/CACH-0052|CACH-0052]] — [Feedback] Formulario simple de feedback beta · done · p1 · slice
+- [[../issues/CACH-0053|CACH-0053]] — [Bug] Mantener foco al escribir feedback · done · p1 · task
 
 ## infra-deploy
 

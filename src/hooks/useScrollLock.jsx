@@ -1,12 +1,13 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 
 const ScrollLockContext = createContext()
 
 export function ScrollLockProvider({ children }) {
   const [lockCount, setLockCount] = useState(0)
 
-  const lock = () => setLockCount((c) => c + 1)
-  const unlock = () => setLockCount((c) => Math.max(0, c - 1))
+  const lock = useCallback(() => setLockCount((c) => c + 1), [])
+  const unlock = useCallback(() => setLockCount((c) => Math.max(0, c - 1)), [])
+  const contextValue = useMemo(() => ({ lock, unlock }), [lock, unlock])
 
   useEffect(() => {
     if (lockCount > 0) {
@@ -26,7 +27,7 @@ export function ScrollLockProvider({ children }) {
   }, [lockCount])
 
   return (
-    <ScrollLockContext.Provider value={{ lock, unlock }}>
+    <ScrollLockContext.Provider value={contextValue}>
       {children}
     </ScrollLockContext.Provider>
   )

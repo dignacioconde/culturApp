@@ -5,7 +5,7 @@ id: PB-ISSUES-INDEX
 title: Issues Index
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-11
+updated: 2026-05-12
 aliases:
   - Issues Index
 tags:
@@ -41,6 +41,7 @@ generated: true
 - [[../issues/CACH-0050|CACH-0050]] — [Deploy] Tooling local-first de PR release y smoke
 - [[../issues/CACH-0051|CACH-0051]] — [Deploy] Dominio publico de app y estrategia multientorno
 - [[../issues/CACH-0052|CACH-0052]] — [Feedback] Formulario simple de feedback beta
+- [[../issues/CACH-0053|CACH-0053]] — [Bug] Mantener foco al escribir feedback
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes
