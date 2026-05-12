@@ -1,7 +1,9 @@
 import { expect, test } from '@playwright/test'
 
 const userId = '00000000-0000-4000-8000-000000000053'
-const authStorageKey = 'sb-mkidexrkhjhrsjnjmugw-auth-token'
+const supabaseUrl = process.env.VITE_SUPABASE_URL ?? 'https://mkidexrkhjhrsjnjmugw.supabase.co'
+const projectRef = new URL(supabaseUrl).hostname.split('.')[0]
+const authStorageKey = `sb-${projectRef}-auth-token`
 
 const authSession = {
   access_token: 'local-feedback-e2e-token',
@@ -43,6 +45,9 @@ test('mantiene el foco al escribir en el feedback', async ({ page }) => {
 
   await page.route('**/rest/v1/{projects,events,incomes,expenses}**', async (route) => {
     await route.fulfill({ status: 200, contentType: 'application/json', body: '[]' })
+  })
+  await page.route('**/auth/v1/**', async (route) => {
+    await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(authSession) })
   })
 
   await page.goto('/dashboard')
