@@ -20,3 +20,12 @@ Reglas duraderas:
 - Si el MCP no está disponible en la sesión, usar SQL Editor como fallback manual.
 - Los subagentes Codex heredan solo las herramientas de la sesión Codex; si Codex no tiene Supabase MCP, sus subagentes tampoco lo tienen.
 - Documento operativo canónico: `docs/project/process/supabase-db-access.md`.
+
+## 2026-05-12 - Drift remoto en features con migraciones
+
+Contexto: el formulario de feedback falló en producción porque `public.feedback` existía en migraciones locales, pero no en Supabase remoto. PostgREST devolvía `404` para `POST /rest/v1/feedback`.
+
+Durable memory:
+- Si una feature depende de una tabla/policy/RPC nueva, verificar remoto antes de marcar producción como OK: `to_regclass('public.<tabla>')`, `pg_policies` cuando aplique y smoke real o transaccional con `rollback`.
+- Si una release deja la migración remota pendiente, la feature puede estar code-complete, pero no released funcionalmente.
+- Si un hotfix remoto incluye SQL no reflejado en migraciones locales, versionar el delta o confirmar que ya queda cubierto por una migración existente.
