@@ -41,11 +41,15 @@ Que esta incluido y que queda fuera.
 
 ## Criterios de aceptacion
 
-- [ ] ...
+- [ ] Criterio observable y verificable desde comportamiento de usuario, sistema o datos.
+
+## Plan tecnico
+
+Solo si aplica: obligatorio para `size: m`, datos/RLS/seguridad/infra, `finance`, `supabase`, `auth-onboarding` o cambios multi-componente. Mantener corto: contratos afectados, hooks/modulos esperados, migraciones, estados UX o riesgos de integracion. No copiar reglas globales ni cerrar una solucion innecesariamente.
 
 ## Validacion
 
-Que comandos o checks se ejecutaran al terminar.
+Checks esperados al terminar. Deben demostrar los criterios de aceptacion y ser especificos del dominio cuando toque datos, seguridad, infra, finanzas, Supabase, calendario o sistema visual.
 
 ## Resultado
 
