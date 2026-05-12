@@ -30,6 +30,9 @@ generated: true
 
 ## slice
 
+- [[../issues/CACH-0054|CACH-0054]] — Editar notas desde detalles de proyecto y evento · review · p1 · slice
+- [[../issues/CACH-0055|CACH-0055]] — Pulido financiero movil sin cambiar formulas · review · p1 · slice
+- [[../issues/CACH-0056|CACH-0056]] — Calendario de eventos y plan anual separados · review · p1 · slice
 - [[../issues/CACH-0028|CACH-0028]] — Corregir sync iCloud y estructura versionada · done · p1 · slice
 - [[../issues/CACH-0029|CACH-0029]] — Integrar helpers CACH-B0016 en flujos reales · done · p1 · slice
 - [[../issues/CACH-0031|CACH-0031]] — Corregir ajustes UX movil detectados en exploracion · done · p1 · slice

@@ -23,7 +23,7 @@ Resumen determinista generado desde Product Brain v2.
 
 ## Estado operacional
 
-- **Release activa:** No hay release activa.
+- **Release activa:** RELEASE-0.1.0-beta.18 — Cierre P1 UX core
 - **Últimos cortes:** `RELEASE-0.1.0-beta.10` — emails transaccionales beta con Brevo. Ver RELEASE-0.1.0-beta.10.
 
 `RELEASE-0.1.0-beta.12` — pulido proyecto-evento y borrados seguros. Ver RELEASE-0.1.0-beta.12.
@@ -37,13 +37,14 @@ Resumen determinista generado desde Product Brain v2.
 `RELEASE-0.1.0-beta.16` — navegacion inferior movil. Ver RELEASE-0.1.0-beta.16.
 
 `RELEASE-0.1.0-beta.17` — feedback simple beta. Ver RELEASE-0.1.0-beta.17.
-- **Foco:** Beta 17 queda cerrada con feedback cualitativo simple propio en Supabase. No hay release activa.
+- **Foco:** Beta 18 activa: cerrar P1 visible de UX core con notas contextuales, pulido financiero movil y calendarios separados más claros, sin tocar `CACH-B0004` ni modelo financiero.
 
 ## Prioridades del plan
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
 2. Mantener el feedback beta simple antes de introducir analitica de producto.
 3. No introducir PostHog, Plausible ni analitica de eventos sin issue/ADR posterior.
+4. No mezclar beta 18 con contratantes, facturacion, liquidacion neta, migraciones, RLS ni cambios de formulas financieras.
 
 ## Tablero
 
@@ -61,7 +62,11 @@ _Sin entradas._
 
 ### Review / Verify
 
-_Sin entradas._
+| ID | Título | Tipo | Nivel | P |
+|---|---|---|---|---|
+| CACH-0054 | Editar notas desde detalles de proyecto y evento | feature | slice | p1 |
+| CACH-0055 | Pulido financiero movil sin cambiar formulas | feature | slice | p1 |
+| CACH-0056 | Calendario de eventos y plan anual separados | feature | slice | p1 |
 
 ### Backlog (p1)
 
@@ -76,6 +81,9 @@ _Sin entradas._
 
 | ID | Título | Workflow | Tipo | Nivel | P |
 |---|---|---|---|---|---|
+| CACH-0054 | Editar notas desde detalles de proyecto y evento | review | feature | slice | p1 |
+| CACH-0055 | Pulido financiero movil sin cambiar formulas | review | feature | slice | p1 |
+| CACH-0056 | Calendario de eventos y plan anual separados | review | feature | slice | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | backlog | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | backlog | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | backlog | feature | initiative | p1 |
@@ -109,4 +117,4 @@ _Sin entradas._
 
 ## Próxima acción
 
-Aplicar la migracion remota de Supabase de beta 17 solo con confirmacion humana explicita, y elegir el siguiente corte cuando haga falta.
+Completar beta 18 y verificar visualmente dashboard, detalles y calendarios en mobile/desktop.

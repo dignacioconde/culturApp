@@ -5,7 +5,7 @@ id: PB-CURRENT-RELEASE
 title: Current Release
 lifecycle: active
 created: '2026-05-05'
-updated: '2026-05-11'
+updated: '2026-05-13'
 aliases:
   - Current Release
 tags:
@@ -13,17 +13,17 @@ tags:
   - release
   - current
 generated: false
-release_current: false
+release_current: true
 ---
 # Current Release
 
 ## Release activa
 
-No hay release activa.
+[[RELEASE-0.1.0-beta.18|RELEASE-0.1.0-beta.18]] — Cierre P1 UX core.
 
 ## Rama activa
 
-No aplica.
+`release/0.1.0-beta.18`
 
 ## Últimos cortes
 
@@ -43,16 +43,18 @@ No aplica.
 
 ## Scope actual
 
-Beta 17 queda cerrada. La app incorpora un formulario global de feedback propio en Supabase, sin PostHog, Plausible ni analitica de eventos.
+Beta 18 cierra P1 visible de UX core sin abrir modelo financiero nuevo.
 
 Issues incluidas:
 
-- [[../issues/CACH-0052|CACH-0052]] — Formulario simple de feedback beta.
+- [[../issues/CACH-0054|CACH-0054]] — Editar notas desde detalles de proyecto y evento.
+- [[../issues/CACH-0055|CACH-0055]] — Pulido financiero movil sin cambiar formulas.
+- [[../issues/CACH-0056|CACH-0056]] — Calendario de eventos y plan anual separados.
 
 ## Regla de trabajo para esta release
 
-No iniciar trabajo nuevo desde una release activa hasta activar explicitamente el siguiente corte.
+Solo entra trabajo vinculado al scope de beta 18. `CACH-B0004`, contratantes, facturacion, gastos repercutibles, liquidacion neta, migraciones, RLS y cambios de formulas financieras quedan fuera.
 
 ## Como cerrar esta release
 
-Cerrada mediante PR #99. Tag `v0.1.0-beta.17` y smoke de produccion sobre `https://app.caches.es` tras merge a `main`. La migracion remota de Supabase queda pendiente de confirmacion humana explicita.
+Pendiente: validar issues incluidas, abrir PR `release/0.1.0-beta.18` -> `main`, esperar CI verde, mergear, etiquetar y verificar produccion si aplica.

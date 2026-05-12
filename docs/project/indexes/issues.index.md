@@ -42,6 +42,9 @@ generated: true
 - [[../issues/CACH-0051|CACH-0051]] — [Deploy] Dominio publico de app y estrategia multientorno
 - [[../issues/CACH-0052|CACH-0052]] — [Feedback] Formulario simple de feedback beta
 - [[../issues/CACH-0053|CACH-0053]] — [Bug] Mantener foco al escribir feedback
+- [[../issues/CACH-0054|CACH-0054]] — Editar notas desde detalles de proyecto y evento
+- [[../issues/CACH-0055|CACH-0055]] — Pulido financiero movil sin cambiar formulas
+- [[../issues/CACH-0056|CACH-0056]] — Calendario de eventos y plan anual separados
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes

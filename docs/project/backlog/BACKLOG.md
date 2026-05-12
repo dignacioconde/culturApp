@@ -71,7 +71,11 @@ _Sin issues._
 
 ## Review / Verify
 
-_Sin issues._
+| ID | Titulo | Tipo | Nivel | P | Componentes |
+|---|---|---|---|---|---|
+| [[../issues/CACH-0054|CACH-0054]] | Editar notas desde detalles de proyecto y evento | feature | slice | p1 | work, projects, events |
+| [[../issues/CACH-0055|CACH-0055]] | Pulido financiero movil sin cambiar formulas | feature | slice | p1 | finance, design-system |
+| [[../issues/CACH-0056|CACH-0056]] | Calendario de eventos y plan anual separados | feature | slice | p1 | calendar, design-system |
 
 ## Done
 

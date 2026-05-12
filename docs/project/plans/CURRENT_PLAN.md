@@ -5,7 +5,7 @@ id: PB-CURRENT-PLAN
 title: Current Plan
 lifecycle: active
 created: '2026-05-05'
-updated: '2026-05-11'
+updated: '2026-05-13'
 aliases:
   - Current Plan
 tags:
@@ -18,11 +18,11 @@ generated: false
 
 ## Foco actual
 
-Beta 17 queda cerrada con feedback cualitativo simple propio en Supabase. No hay release activa.
+Beta 18 activa: cerrar P1 visible de UX core con notas contextuales, pulido financiero movil y calendarios separados más claros, sin tocar `CACH-B0004` ni modelo financiero.
 
 ## Release activa
 
-No hay release activa.
+[[../releases/RELEASE-0.1.0-beta.18|RELEASE-0.1.0-beta.18]] — Cierre P1 UX core.
 
 Últimos cortes:
 
@@ -44,12 +44,14 @@ Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboa
 - Beta 15 cierra `CACH-0051`: dominio publico canonico `app.caches.es`, Vercel, Supabase Auth redirects y Edge Function `APP_URL`.
 - Beta 16 cierra `CACH-0042`: racionalizar navegacion inferior movil.
 - Beta 17 cierra `CACH-0052`: feedback simple propio en Supabase y PostHog diferido.
+- Beta 18 queda activa para `CACH-0054`, `CACH-0055` y `CACH-0056`.
 
 ## Prioridades
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
 2. Mantener el feedback beta simple antes de introducir analitica de producto.
 3. No introducir PostHog, Plausible ni analitica de eventos sin issue/ADR posterior.
+4. No mezclar beta 18 con contratantes, facturacion, liquidacion neta, migraciones, RLS ni cambios de formulas financieras.
 
 ## Plan operativo
 
@@ -62,8 +64,8 @@ Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboa
 
 ## Próximo checkpoint
 
-Aplicar la migracion remota de Supabase de beta 17 solo con confirmacion humana explicita, y elegir el siguiente corte cuando haga falta.
+Completar beta 18 y verificar visualmente dashboard, detalles y calendarios en mobile/desktop.
 
 ## Siguiente release candidata
 
-Tras beta 17, evaluar si basta el feedback propio o si conviene abrir una ADR/issue especifica para PostHog con region UE y consentimiento explicito.
+Tras beta 18, evaluar `CACH-B0004` como release de datos separada para contratantes, facturacion y liquidacion neta.

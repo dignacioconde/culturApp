@@ -4,6 +4,7 @@ import { ArrowLeft, Plus, Trash2, CheckCircle, Circle, Edit, CalendarDays, Chevr
 import { PageWrapper } from '../../components/layout/PageWrapper'
 import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
+import { ContextNotesCard } from '../../components/ui/ContextNotesCard'
 import { StatusBadge } from '../../components/ui/Badge'
 import { Modal } from '../../components/ui/Modal'
 import { ConfirmDialog } from '../../components/ui/ConfirmDialog'
@@ -16,7 +17,7 @@ import { useProjects } from '../../hooks/useProjects'
 import { useEvents } from '../../hooks/useEvents'
 import { useIncomes } from '../../hooks/useIncomes'
 import { useExpenses } from '../../hooks/useExpenses'
-import { formatCurrency, formatCurrencyPerHour, formatDate, formatDatetime, formatHours, parseDecimal } from '../../lib/formatters'
+import { formatCurrency, formatCurrencyPerHour, formatDate, formatDatetime, formatHours } from '../../lib/formatters'
 import { normalizeExpenseForm, normalizeIncomeForm } from '../../lib/financeForms'
 import { formatDueDescription, formatDueText, getDueDays } from '../../lib/dueDates'
 import { isPaid, markPaid, markUnpaid, needsQuickPaidConfirmation, paymentDate } from '../../lib/payment'
@@ -74,16 +75,16 @@ export default function ProjectDetail() {
   const [savingIncomeId, setSavingIncomeId] = useState(null)
   const [pendingPaymentConfirmationIncome, setPendingPaymentConfirmationIncome] = useState(null)
   const [quickIncomeModal, setQuickIncomeModal] = useState(false)
-  const quickIncomeDefault = () => ({ amount: '', is_paid: true })
-  const [quickIncomeForm, setQuickIncomeForm] = useState(() => ({ amount: '', is_paid: true }))
+  const quickIncomeDefault = () => ({ concept: project?.name || 'Ingreso', amount: '', is_paid: true })
+  const [quickIncomeForm, setQuickIncomeForm] = useState(() => quickIncomeDefault())
 
   const [expenseModal, setExpenseModal] = useState(false)
   const [editingExpense, setEditingExpense] = useState(null)
   const [expenseForm, setExpenseForm] = useState(EMPTY_EXPENSE)
   const [savingExpense, setSavingExpense] = useState(false)
   const [quickExpenseModal, setQuickExpenseModal] = useState(false)
-  const quickExpenseDefault = () => ({ amount: '', category: 'otros' })
-  const [quickExpenseForm, setQuickExpenseForm] = useState(() => ({ amount: '', category: 'otros' }))
+  const quickExpenseDefault = () => ({ concept: project?.name || 'Gasto', amount: '', category: 'otros' })
+  const [quickExpenseForm, setQuickExpenseForm] = useState(() => quickExpenseDefault())
   const [financialSummaryExpanded, setFinancialSummaryExpanded] = useState(false)
 
   if (projectsLoading) {
@@ -130,6 +131,16 @@ export default function ProjectDetail() {
   const grossHourlyRate = projectHours > 0 ? totalPaidFromEvents / projectHours : 0
   const netProfit = totalPaid - totalRetentions - totalExpenses
   const createEventUrl = `/events?project=${id}&new=1&returnTo=project`
+
+  const openQuickIncome = () => {
+    setQuickIncomeForm(quickIncomeDefault())
+    setQuickIncomeModal(true)
+  }
+
+  const openQuickExpense = () => {
+    setQuickExpenseForm(quickExpenseDefault())
+    setQuickExpenseModal(true)
+  }
 
   const openEditIncome = (income) => {
     setEditingIncome(income)
@@ -333,51 +344,59 @@ export default function ProjectDetail() {
 
   const handleQuickSubmitIncome = async (e) => {
     e.preventDefault()
-    const amount = parseDecimal(quickIncomeForm.amount)
-    if (amount === null || amount <= 0) {
-      addToast('Pon un importe mayor que 0.', 'error')
-      return
-    }
     const projectDate = project?.start_date || ''
-    const payload = {
-      concept: project?.name || 'Ingreso',
-      amount,
+    const { payload, error: validationError } = normalizeIncomeForm({
+      concept: quickIncomeForm.concept.trim() || project?.name || 'Ingreso',
+      amount: quickIncomeForm.amount,
       tax_rate: defaultTaxRate,
       expected_date: projectDate,
       paid_date: quickIncomeForm.is_paid ? paymentDate(new Date()) : null,
       is_paid: quickIncomeForm.is_paid,
+    }, { defaultTaxRate })
+    if (validationError) {
+      addToast(validationError === 'amount' ? 'Pon un importe mayor que 0.' : 'Revisa el IRPF.', 'error')
+      return
     }
     setSavingIncome(true)
-    const { error } = await createIncome({ ...payload, project_id: id })
-    setSavingIncome(false)
-    if (error) { addToast('Error al guardar.', 'error'); return }
-    addToast('Ingreso añadido.')
-    setQuickIncomeForm(quickIncomeDefault())
-    setQuickIncomeModal(false)
+    try {
+      const { error } = await createIncome({ ...payload, project_id: id })
+      if (error) { addToast('Error al guardar.', 'error'); return }
+      addToast('Ingreso añadido.')
+      setQuickIncomeForm(quickIncomeDefault())
+      setQuickIncomeModal(false)
+    } catch {
+      addToast('Error al guardar.', 'error')
+    } finally {
+      setSavingIncome(false)
+    }
   }
 
   const handleQuickSubmitExpense = async (e) => {
     e.preventDefault()
-    const amount = parseDecimal(quickExpenseForm.amount)
-    if (amount === null || amount <= 0) {
-      addToast('Pon un importe mayor que 0.', 'error')
-      return
-    }
     const projectDate = project?.start_date || ''
-    const payload = {
-      concept: project?.name || 'Gasto',
-      amount,
+    const { payload, error: validationError } = normalizeExpenseForm({
+      concept: quickExpenseForm.concept.trim() || project?.name || 'Gasto',
+      amount: quickExpenseForm.amount,
       category: quickExpenseForm.category || 'otros',
       expense_date: projectDate,
       is_deductible: true,
+    })
+    if (validationError) {
+      addToast('Pon un importe mayor que 0.', 'error')
+      return
     }
     setSavingExpense(true)
-    const { error } = await createExpense({ ...payload, project_id: id })
-    setSavingExpense(false)
-    if (error) { addToast('Error al guardar.', 'error'); return }
-    addToast('Gasto añadido.')
-    setQuickExpenseForm(quickExpenseDefault())
-    setQuickExpenseModal(false)
+    try {
+      const { error } = await createExpense({ ...payload, project_id: id })
+      if (error) { addToast('Error al guardar.', 'error'); return }
+      addToast('Gasto añadido.')
+      setQuickExpenseForm(quickExpenseDefault())
+      setQuickExpenseModal(false)
+    } catch {
+      addToast('Error al guardar.', 'error')
+    } finally {
+      setSavingExpense(false)
+    }
   }
 
   return (
@@ -414,10 +433,10 @@ export default function ProjectDetail() {
               <Link to={createEventUrl} className={compactPrimaryAction}>
                 <Plus size={14} /> Crear evento
               </Link>
-              <button type="button" onClick={() => setQuickIncomeModal(true)} className={compactSecondaryAction}>
+              <button type="button" onClick={openQuickIncome} className={compactSecondaryAction}>
                 <Plus size={14} /> Ingreso
               </button>
-              <button type="button" onClick={() => setQuickExpenseModal(true)} className={compactSecondaryAction}>
+              <button type="button" onClick={openQuickExpense} className={compactSecondaryAction}>
                 <Plus size={14} /> Gasto
               </button>
               <button type="button" onClick={() => setEditModal(true)} className={compactSecondaryAction}>
@@ -716,12 +735,16 @@ export default function ProjectDetail() {
           )}
         </Card>
 
-        {project.notes && (
-          <Card className="p-5">
-            <h3 className="text-sm font-semibold text-gray-900 mb-2">Notas</h3>
-            <p className="text-sm text-gray-600 whitespace-pre-wrap">{project.notes}</p>
-          </Card>
-        )}
+        <ContextNotesCard
+          notes={project.notes}
+          emptyText="Aún no hay notas para este proyecto."
+          placeholder="Alcance, condiciones acordadas, producción pendiente..."
+          onSave={async (nextNotes) => {
+            const result = await updateProject(id, { notes: nextNotes })
+            if (!result.error) addToast(nextNotes ? 'Nota guardada.' : 'Nota limpia.')
+            return result
+          }}
+        />
 
         <div className="sm:hidden">
           <button
@@ -839,10 +862,10 @@ export default function ProjectDetail() {
         <Link to={createEventUrl} className="flex min-h-11 flex-[1.2] items-center justify-center rounded-lg bg-[var(--color-red)] px-2 text-center text-xs font-medium text-white sm:hidden">
           Crear evento
         </Link>
-        <button type="button" onClick={() => setQuickIncomeModal(true)} className="min-h-11 flex-1 rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-paper)] px-2 text-xs font-medium text-[var(--color-ink)] sm:hidden">
+        <button type="button" onClick={openQuickIncome} className="min-h-11 flex-1 rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-paper)] px-2 text-xs font-medium text-[var(--color-ink)] sm:hidden">
           Cobro
         </button>
-        <button type="button" onClick={() => setQuickExpenseModal(true)} className="min-h-11 flex-1 rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-paper)] px-2 text-xs font-medium text-[var(--color-ink)] sm:hidden">
+        <button type="button" onClick={openQuickExpense} className="min-h-11 flex-1 rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-paper)] px-2 text-xs font-medium text-[var(--color-ink)] sm:hidden">
           Gasto
         </button>
         <button type="button" onClick={() => setEditModal(true)} className="min-h-11 flex-1 rounded-lg border border-[var(--color-paper-mid)] px-2 text-xs font-medium text-[var(--color-ink-muted)] sm:hidden">
@@ -853,9 +876,12 @@ export default function ProjectDetail() {
       {/* Quick Income Modal */}
       <Modal isOpen={quickIncomeModal} onClose={() => setQuickIncomeModal(false)} title="Cobro rápido">
         <form onSubmit={handleQuickSubmitIncome} className="flex flex-col gap-4">
-          <p className="text-xs text-gray-500">
-            Concepto: <span className="font-medium text-gray-900">{project?.name || 'Ingreso'}</span>
-          </p>
+          <Input
+            label="Concepto"
+            value={quickIncomeForm.concept}
+            onChange={(e) => setQuickIncomeForm((p) => ({ ...p, concept: e.target.value }))}
+            placeholder={project?.name || 'Ingreso'}
+          />
           <Input
             label="Importe (€)"
             type="text"
@@ -883,9 +909,12 @@ export default function ProjectDetail() {
       {/* Quick Expense Modal */}
       <Modal isOpen={quickExpenseModal} onClose={() => setQuickExpenseModal(false)} title="Gasto rápido">
         <form onSubmit={handleQuickSubmitExpense} className="flex flex-col gap-4">
-          <p className="text-xs text-gray-500">
-            Concepto: <span className="font-medium text-gray-900">{project?.name || 'Gasto'}</span>
-          </p>
+          <Input
+            label="Concepto"
+            value={quickExpenseForm.concept}
+            onChange={(e) => setQuickExpenseForm((p) => ({ ...p, concept: e.target.value }))}
+            placeholder={project?.name || 'Gasto'}
+          />
           <Input
             label="Importe (€)"
             type="text"
