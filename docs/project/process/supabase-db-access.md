@@ -66,13 +66,15 @@ rollback;
 - Todo cambio de schema, trigger, policy o RPC debe vivir primero en `supabase/migrations/`.
 - Antes de aplicar en producción, el agente debe mostrar el SQL exacto y esperar confirmación explícita.
 - Aplicar con MCP `apply_migration` cuando esté disponible; si no, pegar la migración completa en SQL Editor.
+- Si una feature o release depende de una tabla, policy, trigger o RPC nueva, no marcarla como verificada en producción hasta confirmar el remoto con SQL read-only y smoke real o transaccional con `rollback`.
+- Si la migración remota queda pendiente, la release puede estar code-complete, pero la funcionalidad afectada no está released funcionalmente; documentarlo como pendiente o bloqueante.
 - Después de cambiar RPCs, ejecutar:
 
 ```sql
 notify pgrst, 'reload schema';
 ```
 
-- Verificar con SQL read-only y después con la app.
+- Verificar con SQL read-only y después con la app. Para tablas nuevas, incluir al menos `to_regclass('public.<tabla>')`; para RLS, revisar `pg_policies` y probar el flujo autenticado que usa la UI.
 
 ## Reglas de seguridad
 

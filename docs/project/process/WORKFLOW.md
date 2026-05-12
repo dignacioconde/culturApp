@@ -184,6 +184,7 @@ Son bloqueantes para PR o merge:
 - `npm run test` — requerido por CI `app`; no tratarlo como solo aviso.
 - `npm run build` — si se toca código de app o tooling que afecta build.
 - `npm run pb:guard` — si se toca `docs/project/` o `scripts/brain/`.
+- Verificación DB remoto — si se toca `supabase/migrations/` o la feature depende de schema/policy/RPC nuevo: confirmar migración aplicada/verificada en remoto, o declarar explícitamente que la funcionalidad no está lista en producción.
 
 ### Solo aviso (no bloquean merge)
 
@@ -193,6 +194,10 @@ Son bloqueantes para PR o merge:
 ### Validación visual
 
 Si se toca UI: verificar en navegador en la ruta afectada, con viewport relevante. Para calendarios: verificar que toolbar, cabecera y filas del mes son visibles.
+
+### Validación de Supabase remoto
+
+Si el cambio introduce o depende de objetos nuevos de Supabase, el smoke mockeado no basta para cerrar la funcionalidad como producción verificada. Antes de marcar una release como `released`, confirmar el schema remoto con SQL read-only, revisar RLS/policies cuando aplique y ejecutar un smoke real o transaccional con `rollback` del flujo afectado.
 
 ---
 

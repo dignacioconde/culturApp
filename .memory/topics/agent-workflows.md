@@ -67,6 +67,7 @@ Remote database operations:
 - For production mutations, agents must show the exact SQL or migration and wait for explicit human confirmation before executing.
 - Do not store or paste PATs, connection strings, service role keys, passwords or `.env.local` values in repo, memory, issues, prompts or PRs.
 - Canonical workflow: `docs/project/process/supabase-db-access.md`.
+- Releases/features that touch `supabase/migrations/**` need an explicit remote DB state before closure: `aplicado/verificado` or `pendiente/bloquea funcionalidad`. Do not mark Supabase persistence as production-verified from mock-only smoke tests.
 
 Memory hygiene:
 - Before opening a PR, review task context, diff and commits against base.

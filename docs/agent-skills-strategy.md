@@ -31,6 +31,7 @@ Do not copy the same skill into both `.agents` and `.claude`. If a tool cannot f
 | `cultura-code-review` | Cross-cutting code review of diffs, PRs, architecture, risk, and maintainability. |
 | `cultura-release-task-flow` | Integrate finished CACH tasks and documentation into the active beta release branch with Product Brain validation. |
 | `cultura-agent-orchestration` | Decide when to use native Codex/Claude subagents, OpenCode agents, parallel review, ownership, and verification. |
+| `cultura-learning-loop` | Turn conversations, incidents, failed checks, and process gaps into root-cause learning plus durable corrections. |
 | `product-brain-orient` | Orient agents on Product Brain v2 with `pb:orient` without loading the full Brain. |
 | `product-brain-capture` | Capture ideas, decisions, context, or issue candidates into Product Brain inbox. |
 | `product-brain-sdd-review` | Review CACH issues for lightweight SDD readiness before implementation. |
@@ -127,6 +128,7 @@ Validation status for the current setup:
 | `cultura-code-review` | Valid |
 | `cultura-release-task-flow` | Valid |
 | `cultura-agent-orchestration` | Valid |
+| `cultura-learning-loop` | Valid |
 | `product-brain-orient` | Valid |
 | `product-brain-capture` | Valid |
 | `product-brain-sdd-review` | Valid |
