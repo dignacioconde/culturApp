@@ -30,9 +30,6 @@ generated: true
 
 ## slice
 
-- [[../issues/CACH-0054|CACH-0054]] — Editar notas desde detalles de proyecto y evento · review · p1 · slice
-- [[../issues/CACH-0055|CACH-0055]] — Pulido financiero movil sin cambiar formulas · review · p1 · slice
-- [[../issues/CACH-0056|CACH-0056]] — Calendario de eventos y plan anual separados · review · p1 · slice
 - [[../issues/CACH-0028|CACH-0028]] — Corregir sync iCloud y estructura versionada · done · p1 · slice
 - [[../issues/CACH-0029|CACH-0029]] — Integrar helpers CACH-B0016 en flujos reales · done · p1 · slice
 - [[../issues/CACH-0031|CACH-0031]] — Corregir ajustes UX movil detectados en exploracion · done · p1 · slice
@@ -46,6 +43,9 @@ generated: true
 - [[../issues/CACH-0044|CACH-0044]] — [UX] Crear evento desde proyecto con proyecto preseleccionado · done · p1 · slice
 - [[../issues/CACH-0045|CACH-0045]] — [UX] Anadir confirmacion a borrados destructivos · done · p1 · slice
 - [[../issues/CACH-0052|CACH-0052]] — [Feedback] Formulario simple de feedback beta · done · p1 · slice
+- [[../issues/CACH-0054|CACH-0054]] — Editar notas desde detalles de proyecto y evento · done · p1 · slice
+- [[../issues/CACH-0055|CACH-0055]] — Pulido financiero movil sin cambiar formulas · done · p1 · slice
+- [[../issues/CACH-0056|CACH-0056]] — Calendario de eventos y plan anual separados · done · p1 · slice
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes · done · p1 · slice
 - [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos · done · p1 · slice
 - [[../issues/CACH-B0006|CACH-B0006]] — Onboarding y acceso beta · done · p1 · slice

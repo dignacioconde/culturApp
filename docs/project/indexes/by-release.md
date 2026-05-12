@@ -82,9 +82,9 @@ generated: true
 
 ## RELEASE-0.1.0-beta.18
 
-- [[../issues/CACH-0054|CACH-0054]] — Editar notas desde detalles de proyecto y evento · review · p1 · slice
-- [[../issues/CACH-0055|CACH-0055]] — Pulido financiero movil sin cambiar formulas · review · p1 · slice
-- [[../issues/CACH-0056|CACH-0056]] — Calendario de eventos y plan anual separados · review · p1 · slice
+- [[../issues/CACH-0054|CACH-0054]] — Editar notas desde detalles de proyecto y evento · done · p1 · slice
+- [[../issues/CACH-0055|CACH-0055]] — Pulido financiero movil sin cambiar formulas · done · p1 · slice
+- [[../issues/CACH-0056|CACH-0056]] — Calendario de eventos y plan anual separados · done · p1 · slice
 
 ## RELEASE-0.1.0-beta.2
 

@@ -13,17 +13,17 @@ tags:
   - release
   - current
 generated: false
-release_current: true
+release_current: false
 ---
 # Current Release
 
 ## Release activa
 
-[[RELEASE-0.1.0-beta.18|RELEASE-0.1.0-beta.18]] — Cierre P1 UX core.
+No hay release activa.
 
 ## Rama activa
 
-`release/0.1.0-beta.18`
+No aplica.
 
 ## Últimos cortes
 
@@ -41,9 +41,11 @@ release_current: true
 
 `RELEASE-0.1.0-beta.17` — feedback simple beta. Ver [[RELEASE-0.1.0-beta.17]].
 
+`RELEASE-0.1.0-beta.18` — cierre P1 UX core. Ver [[RELEASE-0.1.0-beta.18]].
+
 ## Scope actual
 
-Beta 18 cierra P1 visible de UX core sin abrir modelo financiero nuevo.
+Beta 18 queda cerrada. La app incorpora notas contextuales editables, quick forms financieros más ergonómicos y mantiene calendario de eventos separado del plan anual de proyectos.
 
 Issues incluidas:
 
@@ -53,8 +55,8 @@ Issues incluidas:
 
 ## Regla de trabajo para esta release
 
-Solo entra trabajo vinculado al scope de beta 18. `CACH-B0004`, contratantes, facturacion, gastos repercutibles, liquidacion neta, migraciones, RLS y cambios de formulas financieras quedan fuera.
+No iniciar trabajo nuevo desde una release activa hasta activar explicitamente el siguiente corte.
 
 ## Como cerrar esta release
 
-Pendiente: validar issues incluidas, abrir PR `release/0.1.0-beta.18` -> `main`, esperar CI verde, mergear, etiquetar y verificar produccion si aplica.
+Cerrada mediante PR #104. Tag `v0.1.0-beta.18` y smoke de produccion sobre `https://app.caches.es` tras merge a `main`.

@@ -26,6 +26,3 @@ generated: true
 - [[../issues/CACH-B0011|CACH-B0011]] — Categorias etiquetas y taxonomia · backlog · p2 · initiative
 - [[../issues/CACH-B0012|CACH-B0012]] — Perfil publico viralidad y referidos · backlog · p3 · initiative
 - [[../issues/CACH-B0013|CACH-B0013]] — Gestion documental por proyecto evento · backlog · p3 · initiative
-- [[../issues/CACH-0054|CACH-0054]] — Editar notas desde detalles de proyecto y evento · review · p1 · slice
-- [[../issues/CACH-0055|CACH-0055]] — Pulido financiero movil sin cambiar formulas · review · p1 · slice
-- [[../issues/CACH-0056|CACH-0056]] — Calendario de eventos y plan anual separados · review · p1 · slice

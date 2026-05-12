@@ -14,17 +14,17 @@ tags:
   - beta
   - ux
 generated: false
-release_phase: active
-release_current: true
+release_phase: released
+release_current: false
 release_branch: release/0.1.0-beta.18
-release_tag: null
-release_pr: null
+release_tag: v0.1.0-beta.18
+release_pr: https://github.com/dignacioconde/culturApp/pull/104
 ---
 # RELEASE-0.1.0-beta.18 — Cierre P1 UX core
 
 ## Estado
 
-Active.
+Released.
 
 ## Rama de release
 
@@ -55,9 +55,9 @@ Cerrar el P1 de UX core que falta: notas contextuales, pulido financiero móvil 
 
 | Issue | Titulo | Workflow | Rama |
 |---|---|---|---|
-| [[../issues/CACH-0054|CACH-0054]] | Editar notas desde detalles de proyecto y evento | review | `release/0.1.0-beta.18` |
-| [[../issues/CACH-0055|CACH-0055]] | Pulido financiero movil sin cambiar formulas | review | `release/0.1.0-beta.18` |
-| [[../issues/CACH-0056|CACH-0056]] | Calendario de eventos y plan anual separados | review | `release/0.1.0-beta.18` |
+| [[../issues/CACH-0054|CACH-0054]] | Editar notas desde detalles de proyecto y evento | done | `release/0.1.0-beta.18` |
+| [[../issues/CACH-0055|CACH-0055]] | Pulido financiero movil sin cambiar formulas | done | `release/0.1.0-beta.18` |
+| [[../issues/CACH-0056|CACH-0056]] | Calendario de eventos y plan anual separados | done | `release/0.1.0-beta.18` |
 
 ## Fuera de alcance
 
@@ -91,9 +91,9 @@ Cerrar el P1 de UX core que falta: notas contextuales, pulido financiero móvil 
 
 ## Checklist de desarrollo
 
-- [x] Todas las issues estan en progreso o cerradas
-- [ ] Commits integrados en rama release
-- [ ] No hay cambios sueltos fuera de release
+- [x] Todas las issues estan cerradas o listas para release
+- [x] Commits integrados en rama release
+- [x] No hay cambios sueltos fuera de release
 - [x] No hay issues sin `issue_workflow`
 - [x] No hay decisiones importantes sin documentar
 
@@ -110,18 +110,18 @@ Cerrar el P1 de UX core que falta: notas contextuales, pulido financiero móvil 
 
 ## Checklist de salida
 
-- [ ] PR `release/0.1.0-beta.18` -> `main` abierta
-- [ ] CI en verde
-- [ ] PR mergeada en `main`
-- [ ] Tag creado desde `main` si aplica
-- [ ] Produccion verificada o marcada no aplica
-- [ ] Rama remota `release/0.1.0-beta.18` eliminada si aplica
-- [ ] Release notes actualizadas
-- [ ] Issues marcadas como `done`
-- [ ] Estado actual actualizado
-- [ ] Current Release actualizado
-- [ ] Backlog actualizado
-- [ ] Proximos pasos documentados
+- [x] PR `release/0.1.0-beta.18` -> `main` abierta
+- [x] CI en verde
+- [x] PR mergeada en `main`
+- [x] Tag creado desde `main` si aplica
+- [x] Produccion verificada
+- [x] Rama remota `release/0.1.0-beta.18` conservada para trazabilidad
+- [x] Release notes actualizadas
+- [x] Issues marcadas como `done`
+- [x] Estado actual actualizado
+- [x] Current Release actualizado
+- [x] Backlog actualizado
+- [x] Proximos pasos documentados
 
 ## Release notes
 
@@ -147,7 +147,9 @@ Cerrar el P1 de UX core que falta: notas contextuales, pulido financiero móvil 
 - `/calendar` queda como redirect compatible hacia `/calendar/events`.
 - La vista unificada se descarta para beta 18: eventos y plan anual quedan separados.
 - No se añaden migraciones ni cambios de RLS.
+- Validacion local completada: lint, tests, build, Product Brain, release status, `verify:pr`, React Doctor diff y smoke E2E beta 18.
+- PR #104 abierta hacia `main`.
 
 ## Resultado final
 
-Implementación local completa en `release/0.1.0-beta.18`. Pendiente de commits, PR, CI, merge y verificación de producción si aplica.
+Release cerrada mediante PR #104. Tag `v0.1.0-beta.18` creado desde `main`; produccion verificada en `https://app.caches.es` con smoke de rutas SPA.
