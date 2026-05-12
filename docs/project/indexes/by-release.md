@@ -5,7 +5,7 @@ id: PB-BY-RELEASE
 title: Issues por release
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-11
+updated: 2026-05-12
 aliases:
   - Issues por release
 tags:
@@ -36,6 +36,7 @@ generated: true
 - [[../issues/CACH-0046|CACH-0046]] — [Verify] Anadir verificacion por tipo de cambio · done · p1 · task
 - [[../issues/CACH-0047|CACH-0047]] — [Skills] Actualizar catalogo y symlinks de skills · done · p1 · task
 - [[../issues/CACH-0050|CACH-0050]] — [Deploy] Tooling local-first de PR release y smoke · done · p1 · task
+- [[../issues/CACH-0053|CACH-0053]] — [Bug] Mantener foco al escribir feedback · done · p1 · task
 - [[../issues/CACH-0048|CACH-0048]] — [Context] Compactar workflow OpenCode · done · p2 · task
 
 ## RELEASE-0.1.0-beta.1

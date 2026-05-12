@@ -9,7 +9,12 @@ export function Modal({ isOpen, onClose, title, children }) {
   const titleId = useId()
   const modalId = useRef(nextModalId++)
   const dialogRef = useRef(null)
+  const onCloseRef = useRef(onClose)
   const { lock, unlock } = useScrollLock()
+
+  useEffect(() => {
+    onCloseRef.current = onClose
+  }, [onClose])
 
   useEffect(() => {
     if (!isOpen) return
@@ -29,7 +34,7 @@ export function Modal({ isOpen, onClose, title, children }) {
       const isTopModal = openModalStack.at(-1) === currentModalId
       if (!isTopModal) return
       if (e.key === 'Escape') {
-        onClose()
+        onCloseRef.current()
         return
       }
       if (e.key !== 'Tab') return
@@ -64,7 +69,7 @@ export function Modal({ isOpen, onClose, title, children }) {
       }
       unlock()
     }
-  }, [isOpen, onClose, lock, unlock])
+  }, [isOpen, lock, unlock])
 
   if (!isOpen) return null
 

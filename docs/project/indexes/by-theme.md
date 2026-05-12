@@ -5,7 +5,7 @@ id: PB-BY-THEME
 title: Issues por tema
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-11
+updated: 2026-05-12
 aliases:
   - Issues por tema
 tags:
@@ -21,6 +21,7 @@ generated: true
 - [[../issues/CACH-0036|CACH-0036]] — Profesionalizar flujo de ramas por beta · done · p1 · task
 - [[../issues/CACH-0051|CACH-0051]] — [Deploy] Dominio publico de app y estrategia multientorno · done · p1 · task
 - [[../issues/CACH-0052|CACH-0052]] — [Feedback] Formulario simple de feedback beta · done · p1 · slice
+- [[../issues/CACH-0053|CACH-0053]] — [Bug] Mantener foco al escribir feedback · done · p1 · task
 - [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos · done · p1 · slice
 - [[../issues/CACH-B0006|CACH-B0006]] — Onboarding y acceso beta · done · p1 · slice
 - [[../issues/CACH-B0017|CACH-B0017]] — Panel admin para invitaciones beta · done · p1 · slice
