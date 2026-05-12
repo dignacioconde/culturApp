@@ -33,6 +33,7 @@ Do not copy the same skill into both `.agents` and `.claude`. If a tool cannot f
 | `cultura-agent-orchestration` | Decide when to use native Codex/Claude subagents, OpenCode agents, parallel review, ownership, and verification. |
 | `product-brain-orient` | Orient agents on Product Brain v2 with `pb:orient` without loading the full Brain. |
 | `product-brain-capture` | Capture ideas, decisions, context, or issue candidates into Product Brain inbox. |
+| `product-brain-sdd-review` | Review CACH issues for lightweight SDD readiness before implementation. |
 | `cultura-issue-launch` | Turn rough work into Product Brain v2 issue context and, in execute mode, branch/agent setup. |
 | `memory-protocol` | File-based Markdown memory for durable agent context, recall, curation, and forgetting. |
 | `memory-orient` | Read only task-relevant memory files before implementation or planning. |
@@ -128,6 +129,7 @@ Validation status for the current setup:
 | `cultura-agent-orchestration` | Valid |
 | `product-brain-orient` | Valid |
 | `product-brain-capture` | Valid |
+| `product-brain-sdd-review` | Valid |
 | `cultura-issue-launch` | Valid |
 | `memory-protocol` | Valid |
 | `memory-orient` | Valid |

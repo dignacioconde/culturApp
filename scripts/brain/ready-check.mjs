@@ -7,9 +7,59 @@ import { IssueFrontmatter } from './schema.mjs'
 const issueId = process.argv.slice(2).find((arg) => !arg.startsWith('--'))
 const jsonOutput = process.argv.includes('--json')
 const errors = []
+const structuralPlaceholderPattern = /\b(tbd|todo|pendiente|por definir|placeholder)\b|\.{3}|<[^>]+>|Que debe quedar|Que esta incluido|Que comandos o checks|Criterio observable y verificable|Solo si aplica: obligatorio|Checks esperados/i
+const genericCriterionPattern = /^(funciona correctamente|se mejora|mejora general|implementar|hacer|actualizar|validar)$/i
+const riskyAreas = new Set(['data', 'infra', 'security'])
+const technicalPlanComponents = new Set(['finance', 'supabase', 'auth-onboarding'])
+const specificValidationComponents = new Set(['finance', 'supabase', 'calendar', 'design-system'])
+const genericValidationCommands = ['npm run lint', 'npm run build', 'npm run pb:check', 'npm run pb:guard', 'git diff --check']
 
 function fail(message) {
   errors.push(message)
+}
+
+function meaningful(text) {
+  return Boolean(text && !structuralPlaceholderPattern.test(text))
+}
+
+function checklistItems(text) {
+  return text
+    .split('\n')
+    .filter((line) => /^\s*-\s+\[[ xX]\]/.test(line))
+    .map((line) => line.replace(/^\s*-\s+\[[ xX]\]\s*/, '').trim())
+}
+
+function requiresTechnicalPlan(data) {
+  return (
+    data.size === 'm' ||
+    riskyAreas.has(data.area) ||
+    data.components.some((component) => technicalPlanComponents.has(component)) ||
+    data.components.length > 1
+  )
+}
+
+function requiresSpecificValidation(data) {
+  return (
+    ['data', 'infra', 'security'].includes(data.area) ||
+    data.components.some((component) => specificValidationComponents.has(component))
+  )
+}
+
+function hasSpecificValidation(data, validation) {
+  const lines = validation
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .filter((line) => {
+      const normalized = line.replace(/^-\s*/, '').replace(/`/g, '').replace(/[.;]$/, '').trim()
+      return !genericValidationCommands.some((command) => normalized === command || normalized.startsWith(`${command} `))
+    })
+
+  if (data.components.some((component) => ['calendar', 'design-system'].includes(component))) {
+    return lines.some((line) => /browser|manual|responsive|visual|playwright|viewport|smoke|captura|navegador/i.test(line))
+  }
+
+  return lines.some((line) => !structuralPlaceholderPattern.test(line))
 }
 
 if (!issueId) {
@@ -30,9 +80,21 @@ if (!issueId) {
       if (!hasSection(doc.content, ['Objetivo', 'Summary', 'Problem'])) fail('Falta seccion de objetivo/problema')
       if (!hasSection(doc.content, ['Alcance', 'Scope', 'Proposed Solution'])) fail('Falta seccion de alcance')
       if (!hasSection(doc.content, ['Criterios de aceptacion', 'Criterios de aceptación', 'Acceptance Criteria'])) fail('Falta criterios de aceptacion')
-      if (!/^\s*-\s+\[[ xX]\]/m.test(sectionContent(doc.content, ['Criterios de aceptacion', 'Criterios de aceptación', 'Acceptance Criteria']))) fail('Los criterios deben ser checklist')
+      const criteria = sectionContent(doc.content, ['Criterios de aceptacion', 'Criterios de aceptación', 'Acceptance Criteria'])
+      const items = checklistItems(criteria)
+      if (items.length === 0) fail('Los criterios deben ser checklist')
+      for (const item of items) {
+        if (!meaningful(item) || genericCriterionPattern.test(item)) fail(`Criterio de aceptacion demasiado generico o placeholder: ${item || '(vacio)'}`)
+      }
       const validation = sectionContent(doc.content, ['Validacion', 'Validación'])
-      if (!validation || /pendiente hasta cerrar/i.test(validation)) fail('Validacion debe indicar checks esperados antes de ejecutar')
+      if (!meaningful(validation) || /pendiente hasta cerrar/i.test(validation)) fail('Validacion debe indicar checks esperados antes de ejecutar')
+      if (requiresTechnicalPlan(data)) {
+        const plan = sectionContent(doc.content, ['Plan tecnico', 'Plan técnico', 'Technical Plan', 'Implementation Plan'])
+        if (!meaningful(plan)) fail('Plan tecnico requerido para size m, area/componente de riesgo o trabajo multi-componente')
+      }
+      if (requiresSpecificValidation(data) && !hasSpecificValidation(data, validation)) {
+        fail('Validacion debe incluir checks especificos del dominio, no solo lint/build/pb:check')
+      }
       if (data.components.length === 0) fail('components no puede estar vacio')
       if (data.parent) {
         const docs = readAllDocs()

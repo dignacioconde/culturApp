@@ -1,15 +1,21 @@
 # Portable Skills Memory
 
+## 2026-05-12 - product-brain-sdd-review: SDD Ligero Sin Agente Nuevo
+
+- Context: Se hizo challenge con agentes docs/testing/review y experto SDD temporal sobre como encajar Product Brain con spec-driven development.
+- Durable memory: no crear agente OpenCode experto en SDD por defecto. Usar la skill portable `product-brain-sdd-review` como compuerta semantica read-only para revisar si una issue CACH es ejecutable: requisitos observables, plan tecnico cuando aplica, tareas derivables, validacion trazable y bajo riesgo de drift/token dump.
+- Source: `.agents/skills/product-brain-sdd-review/SKILL.md`; `docs/agent-skills-strategy.md`; `scripts/brain/ready-check.mjs`.
+
 ## 2026-05-03 - Skills Use A Single Source With Claude Symlinks
 
 - Context: Commit `f542ffa` added portable skills under `.agents/skills/`, `.agents/templates/portable-skill/SKILL.md`, and `.claude/skills/*` symlinks.
 - Durable memory: `.agents/skills/<skill-name>/SKILL.md` is the canonical source; `.claude/skills/<skill-name>` should remain a relative symlink to `../../.agents/skills/<skill-name>`. Do not duplicate skill bodies into `.claude`.
 - Source: `docs/agent-skills-strategy.md`; `README.md`; `TECHDOC.md`; `AGENTS.md`.
 
-## 2026-05-08 - Skill Set Actualizado: 16 Skills Portables
+## 2026-05-08 - Skill Set Actualizado: 17 Skills Portables
 
 - Context: Product Brain v2 consolidó skills de orientación, release, revisión, memoria, contexto y comunicación concisa. `brain-orient` legacy fue sustituido por `product-brain-orient`.
-- Durable memory: las skills canónicas viven en `.agents/skills/` y se exponen como symlinks en `.claude/skills/`. El catálogo actual incluye: `agent-context-maintenance`, `caveman`, `compact-memory`, `cultura-agent-orchestration`, `cultura-code-review`, `cultura-data-finance-review`, `cultura-frontend-review`, `cultura-issue-launch`, `cultura-release-task-flow`, `cultura-security-privacy-review`, `cultura-testing-release-check`, `memory-orient`, `memory-protocol`, `portable-skill-authoring`, `product-brain-capture` y `product-brain-orient`.
+- Durable memory: las skills canónicas viven en `.agents/skills/` y se exponen como symlinks en `.claude/skills/`. El catálogo actual incluye: `agent-context-maintenance`, `caveman`, `compact-memory`, `cultura-agent-orchestration`, `cultura-code-review`, `cultura-data-finance-review`, `cultura-frontend-review`, `cultura-issue-launch`, `cultura-release-task-flow`, `cultura-security-privacy-review`, `cultura-testing-release-check`, `memory-orient`, `memory-protocol`, `portable-skill-authoring`, `product-brain-capture`, `product-brain-orient` y `product-brain-sdd-review`.
 - Source: `docs/agent-skills-strategy.md`; `npm run verify:skills`.
 
 ## 2026-05-07 - cultura-agent-orchestration: Delegación Codex/Claude/OpenCode
