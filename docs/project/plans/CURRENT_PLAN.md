@@ -18,11 +18,11 @@ generated: false
 
 ## Foco actual
 
-`RELEASE-0.1.0-beta.20` queda abierta como hardening UX móvil financiera antes de abrir liquidación neta o facturación completa. El scope es `CACH-0063`: unificar la barra contextual de detalles de proyecto y evento sin tocar fórmulas, schema, RLS ni semántica financiera.
+Beta 20 queda cerrada. El foco vuelve a evaluar el siguiente corte del ciclo `0.1` sin absorber tareas nuevas por defecto: o bien abrir una nueva beta para `CACH-B0004`, o mantener un corte pequeño de hardening si el feedback privado lo pide.
 
 ## Release activa
 
-[[../releases/RELEASE-0.1.0-beta.20|RELEASE-0.1.0-beta.20]] — hardening UX móvil financiera.
+No hay release activa en este momento.
 
 Últimos cortes:
 
@@ -46,14 +46,14 @@ Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboa
 - Beta 17 cierra `CACH-0052`: feedback simple propio en Supabase y PostHog diferido.
 - Beta 18 cierra `CACH-0054`, `CACH-0055` y `CACH-0056`: notas contextuales, quick forms financieros y calendario de eventos separado del plan anual.
 - Beta 19 cierra el primer corte de `CACH-B0004`: contratantes estructurados, schema/RLS, hooks, portabilidad, UX mínima y regresión financiera.
+- Beta 20 cierra `CACH-0063`: `BottomActionBar` compartido en detalles de proyecto y evento.
 
 ## Prioridades
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
 2. Mantener el feedback beta simple antes de introducir analitica de producto.
 3. No introducir PostHog, Plausible ni analitica de eventos sin issue/ADR posterior.
-4. En beta 20, mantener el alcance limitado a `CACH-0063`; cualquier cambio de datos o fórmula queda fuera.
-5. No abrir liquidacion neta, facturacion completa ni CRM salvo issue nueva con criterios de datos/RLS.
+4. No abrir liquidacion neta, facturacion completa ni CRM salvo issue nueva con criterios de datos/RLS.
 
 ## Plan operativo
 
@@ -66,7 +66,7 @@ Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboa
 
 ## Próximo checkpoint
 
-Implementar `CACH-0063` desde `release/0.1.0-beta.20`, validar responsive en detalles de proyecto/evento y cerrar la release mediante PR única a `main`.
+Decidir si el próximo corte es `CACH-B0004` liquidación neta gasto-ingreso o un hardening pequeño derivado del feedback beta.
 
 ## Siguiente release candidata
 
