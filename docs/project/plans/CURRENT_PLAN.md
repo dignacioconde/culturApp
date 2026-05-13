@@ -18,11 +18,11 @@ generated: false
 
 ## Foco actual
 
-Beta 19 está activa para introducir contratantes estructurados como primer slice de `CACH-B0004`, manteniendo fuera liquidación neta, facturación completa, CRM y cambios de fórmulas financieras.
+Beta 19 queda cerrada como primer slice de `CACH-B0004`: contratantes estructurados, schema/RLS, hooks, portabilidad, UX mínima y regresión financiera sin cambios de fórmula. El siguiente foco queda pendiente de elegir entre hardening o abrir liquidación neta con criterios de datos/RLS.
 
 ## Release activa
 
-[[../releases/RELEASE-0.1.0-beta.19|RELEASE-0.1.0-beta.19]] — Contratantes estructurados.
+No hay release activa ahora mismo.
 
 Últimos cortes:
 
@@ -45,14 +45,14 @@ Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboa
 - Beta 16 cierra `CACH-0042`: racionalizar navegacion inferior movil.
 - Beta 17 cierra `CACH-0052`: feedback simple propio en Supabase y PostHog diferido.
 - Beta 18 cierra `CACH-0054`, `CACH-0055` y `CACH-0056`: notas contextuales, quick forms financieros y calendario de eventos separado del plan anual.
-- Beta 19 queda activa como primer corte de `CACH-B0004`: contratantes estructurados, schema/RLS, hooks, portabilidad, UX mínima y regresión financiera.
+- Beta 19 cierra el primer corte de `CACH-B0004`: contratantes estructurados, schema/RLS, hooks, portabilidad, UX mínima y regresión financiera.
 
 ## Prioridades
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
 2. Mantener el feedback beta simple antes de introducir analitica de producto.
 3. No introducir PostHog, Plausible ni analitica de eventos sin issue/ADR posterior.
-4. Durante beta 19, permitir contratantes estructurados, migraciones/RLS y portabilidad necesarias; mantener fuera liquidacion neta, facturacion completa y cambios de formulas financieras.
+4. Antes de abrir beta 20, decidir si toca hardening o liquidacion neta; en ambos casos mantener fuera facturacion completa y CRM salvo issue nueva con criterios de datos/RLS.
 
 ## Plan operativo
 
@@ -65,7 +65,7 @@ Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboa
 
 ## Próximo checkpoint
 
-Ejecutar beta 19 por slices: modelo mínimo, schema/RLS, hooks/portabilidad, UX mínima y regresión financiera.
+Cerrar beta 19 en `main`, etiquetar `v0.1.0-beta.19`, verificar producción y decidir el próximo corte.
 
 ## Siguiente release candidata
 

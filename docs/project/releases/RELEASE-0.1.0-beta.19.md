@@ -15,17 +15,17 @@ tags:
   - finance
   - data
 generated: false
-release_phase: active
-release_current: true
+release_phase: released
+release_current: false
 release_branch: release/0.1.0-beta.19
-release_tag: null
+release_tag: v0.1.0-beta.19
 release_pr: null
 ---
 # RELEASE-0.1.0-beta.19 — Contratantes estructurados
 
 ## Estado
 
-Active.
+Released.
 
 ## Rama de release
 
@@ -60,11 +60,11 @@ Crear la base de datos, contrato técnico y UX mínima para que proyectos y even
 
 | Issue | Titulo | Workflow | Rama |
 |---|---|---|---|
-| [[../issues/CACH-0057|CACH-0057]] | Definir modelo mínimo de contratantes | ready | `release/0.1.0-beta.19` |
-| [[../issues/CACH-0058|CACH-0058]] | Versionar schema de contratantes y RLS | ready | `release/0.1.0-beta.19` |
-| [[../issues/CACH-0059|CACH-0059]] | Integrar hooks y portabilidad de contratantes | ready | `release/0.1.0-beta.19` |
-| [[../issues/CACH-0060|CACH-0060]] | Añadir UX mínima de contratantes en proyectos y eventos | ready | `release/0.1.0-beta.19` |
-| [[../issues/CACH-0061|CACH-0061]] | Verificar regresión financiera y cierre técnico beta 19 | ready | `release/0.1.0-beta.19` |
+| [[../issues/CACH-0057|CACH-0057]] | Definir modelo mínimo de contratantes | done | `release/0.1.0-beta.19` |
+| [[../issues/CACH-0058|CACH-0058]] | Versionar schema de contratantes y RLS | done | `release/0.1.0-beta.19` |
+| [[../issues/CACH-0059|CACH-0059]] | Integrar hooks y portabilidad de contratantes | done | `release/0.1.0-beta.19` |
+| [[../issues/CACH-0060|CACH-0060]] | Añadir UX mínima de contratantes en proyectos y eventos | done | `release/0.1.0-beta.19` |
+| [[../issues/CACH-0061|CACH-0061]] | Verificar regresión financiera y cierre técnico beta 19 | done | `release/0.1.0-beta.19` |
 
 ## Fuera de alcance
 
@@ -101,37 +101,37 @@ Crear la base de datos, contrato técnico y UX mínima para que proyectos y even
 
 ## Checklist de desarrollo
 
-- [x] Todas las issues estan en progreso o review
-- [ ] Commits integrados en rama release
-- [ ] No hay cambios sueltos fuera de release
-- [ ] No hay issues sin `issue_workflow`
-- [ ] No hay decisiones importantes sin documentar
+- [x] Todas las issues estan cerradas o listas para release
+- [x] Commits integrados en rama release
+- [x] No hay cambios sueltos fuera de release
+- [x] No hay issues sin `issue_workflow`
+- [x] No hay decisiones importantes sin documentar
 
 ## Checklist de estabilizacion
 
-- [ ] `npm run lint`
-- [ ] `npm run test`
-- [ ] `npm run build`
-- [ ] `npm run pb:guard`
-- [ ] `npm run release:sync-check`
-- [ ] Smoke proyecto/evento/listados/dashboard/exportacion
-- [ ] Verificacion remota Supabase o bloqueo documentado
-- [ ] Regresion financiera confirmada sin cambios de formulas
+- [x] `npm run lint`
+- [x] `npm run test`
+- [x] `npm run build`
+- [x] `npm run pb:guard`
+- [x] `npm run release:sync-check`
+- [x] Smoke proyecto/evento/listados/dashboard/exportacion
+- [x] Verificacion remota Supabase o bloqueo documentado
+- [x] Regresion financiera confirmada sin cambios de formulas
 
 ## Checklist de salida
 
-- [ ] PR `release/0.1.0-beta.19` -> `main` abierta
-- [ ] CI en verde
-- [ ] PR mergeada en `main`
-- [ ] Tag creado desde `main` si aplica
-- [ ] Produccion verificada o marcada como pendiente por migracion remota
-- [ ] Rama remota `release/0.1.0-beta.19` eliminada si aplica
-- [ ] Release notes actualizadas
-- [ ] Issues marcadas como `done`
-- [ ] Estado actual actualizado
-- [ ] Current Release actualizado
-- [ ] Backlog actualizado
-- [ ] Proximos pasos documentados
+- [x] PR `release/0.1.0-beta.19` -> `main` abierta
+- [x] CI en verde
+- [x] PR mergeada en `main`
+- [x] Tag creado desde `main` si aplica
+- [x] Produccion verificada o marcada como pendiente por migracion remota
+- [x] Rama remota `release/0.1.0-beta.19` eliminada si aplica
+- [x] Release notes actualizadas
+- [x] Issues marcadas como `done`
+- [x] Estado actual actualizado
+- [x] Current Release actualizado
+- [x] Backlog actualizado
+- [x] Proximos pasos documentados
 
 ## Release notes
 
@@ -150,7 +150,7 @@ Crear la base de datos, contrato técnico y UX mínima para que proyectos y even
 
 ### Corregido
 
-- Pendiente.
+- La app ya no muestra errores genéricos de carga en trabajos/contratantes cuando el schema de contratantes está pendiente: se informa el estado de migración de forma específica.
 
 ### Eliminado
 
@@ -159,9 +159,10 @@ Crear la base de datos, contrato técnico y UX mínima para que proyectos y even
 ### Tecnico
 
 - Migración local `supabase/migrations/20260513120000_contractors.sql`.
-- Validación local inicial: `npm run lint`, `npm run test`, `npm run build`.
-- Pendiente antes de release funcional: aplicar/verificar migración remota Supabase y smoke autenticado.
+- Validación local completada: `npm run lint`, `npm run test`, `npm run build`, `npm run pb:guard`, `npm run release:sync-check` y `npm run verify:pr -- --base origin/main`.
+- Migración remota Supabase aplicada, verificada con SQL read-only y sincronizada en historial con `migration repair`.
+- Smoke manual autenticado confirmado por usuario: `/work`, `/contractors` y herencia de contratante desde proyecto hacia evento.
 
 ## Resultado final
 
-Pendiente hasta cerrar la release.
+Release cerrada mediante PR final a `main`. Tag `v0.1.0-beta.19` preparado desde `main`; produccion verificada en `https://app.caches.es` con smoke de rutas SPA.

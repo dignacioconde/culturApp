@@ -23,7 +23,7 @@ Resumen determinista generado desde Product Brain v2.
 
 ## Estado operacional
 
-- **Release activa:** RELEASE-0.1.0-beta.19 — Contratantes estructurados
+- **Release activa:** No hay release activa ahora mismo.
 - **Últimos cortes:** `RELEASE-0.1.0-beta.10` — emails transaccionales beta con Brevo. Ver RELEASE-0.1.0-beta.10.
 
 `RELEASE-0.1.0-beta.12` — pulido proyecto-evento y borrados seguros. Ver RELEASE-0.1.0-beta.12.
@@ -39,14 +39,16 @@ Resumen determinista generado desde Product Brain v2.
 `RELEASE-0.1.0-beta.17` — feedback simple beta. Ver RELEASE-0.1.0-beta.17.
 
 `RELEASE-0.1.0-beta.18` — cierre P1 UX core. Ver RELEASE-0.1.0-beta.18.
-- **Foco:** Beta 19 está activa para introducir contratantes estructurados como primer slice de `CACH-B0004`, manteniendo fuera liquidación neta, facturación completa, CRM y cambios de fórmulas financieras.
+
+`RELEASE-0.1.0-beta.19` — contratantes estructurados. Ver RELEASE-0.1.0-beta.19.
+- **Foco:** Beta 19 queda cerrada como primer slice de `CACH-B0004`: contratantes estructurados, schema/RLS, hooks, portabilidad, UX mínima y regresión financiera sin cambios de fórmula. El siguiente foco queda pendiente de elegir entre hardening o abrir liquidación neta con criterios de datos/RLS.
 
 ## Prioridades del plan
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
 2. Mantener el feedback beta simple antes de introducir analitica de producto.
 3. No introducir PostHog, Plausible ni analitica de eventos sin issue/ADR posterior.
-4. Durante beta 19, permitir contratantes estructurados, migraciones/RLS y portabilidad necesarias; mantener fuera liquidacion neta, facturacion completa y cambios de formulas financieras.
+4. Antes de abrir beta 20, decidir si toca hardening o liquidacion neta; en ambos casos mantener fuera facturacion completa y CRM salvo issue nueva con criterios de datos/RLS.
 
 ## Tablero
 
@@ -60,18 +62,11 @@ _Sin entradas._
 
 ### In progress
 
-| ID | Título | Tipo | Nivel | P |
-|---|---|---|---|---|
-| CACH-0061 | Verificar regresion financiera y cierre tecnico beta 19 | chore | task | p1 |
+_Sin entradas._
 
 ### Review / Verify
 
-| ID | Título | Tipo | Nivel | P |
-|---|---|---|---|---|
-| CACH-0057 | Definir modelo minimo de contratantes | spike | task | p1 |
-| CACH-0058 | Versionar schema de contratantes y RLS | feature | slice | p1 |
-| CACH-0059 | Integrar hooks y portabilidad de contratantes | feature | slice | p1 |
-| CACH-0060 | Anadir UX minima de contratantes en proyectos y eventos | feature | slice | p1 |
+_Sin entradas._
 
 ### Backlog (p1)
 
@@ -86,11 +81,6 @@ _Sin entradas._
 
 | ID | Título | Workflow | Tipo | Nivel | P |
 |---|---|---|---|---|---|
-| CACH-0061 | Verificar regresion financiera y cierre tecnico beta 19 | in_progress | chore | task | p1 |
-| CACH-0057 | Definir modelo minimo de contratantes | review | spike | task | p1 |
-| CACH-0058 | Versionar schema de contratantes y RLS | review | feature | slice | p1 |
-| CACH-0059 | Integrar hooks y portabilidad de contratantes | review | feature | slice | p1 |
-| CACH-0060 | Anadir UX minima de contratantes en proyectos y eventos | review | feature | slice | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | backlog | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | backlog | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | backlog | feature | initiative | p1 |
@@ -124,4 +114,4 @@ _Sin entradas._
 
 ## Próxima acción
 
-Ejecutar beta 19 por slices: modelo mínimo, schema/RLS, hooks/portabilidad, UX mínima y regresión financiera.
+Cerrar beta 19 en `main`, etiquetar `v0.1.0-beta.19`, verificar producción y decidir el próximo corte.

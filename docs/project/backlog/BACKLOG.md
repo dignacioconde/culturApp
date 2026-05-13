@@ -67,18 +67,11 @@ _Sin issues._
 
 ## In progress
 
-| ID | Titulo | Tipo | Nivel | P | Componentes |
-|---|---|---|---|---|---|
-| [[../issues/CACH-0061|CACH-0061]] | Verificar regresion financiera y cierre tecnico beta 19 | chore | task | p1 | finance, dashboard, product-brain |
+_Sin issues._
 
 ## Review / Verify
 
-| ID | Titulo | Tipo | Nivel | P | Componentes |
-|---|---|---|---|---|---|
-| [[../issues/CACH-0057|CACH-0057]] | Definir modelo minimo de contratantes | spike | task | p1 | finance |
-| [[../issues/CACH-0058|CACH-0058]] | Versionar schema de contratantes y RLS | feature | slice | p1 | finance, supabase |
-| [[../issues/CACH-0059|CACH-0059]] | Integrar hooks y portabilidad de contratantes | feature | slice | p1 | finance, data-portability |
-| [[../issues/CACH-0060|CACH-0060]] | Anadir UX minima de contratantes en proyectos y eventos | feature | slice | p1 | projects, events, work, design-system |
+_Sin issues._
 
 ## Done
 
@@ -113,6 +106,11 @@ _Sin issues._
 | [[../issues/CACH-0054|CACH-0054]] | Editar notas desde detalles de proyecto y evento | RELEASE-0.1.0-beta.18 | Implementado y cerrado en `RELEASE-0.1.0-beta.18`. |
 | [[../issues/CACH-0055|CACH-0055]] | Pulido financiero movil sin cambiar formulas | RELEASE-0.1.0-beta.18 | Implementado y cerrado en `RELEASE-0.1.0-beta.18`. |
 | [[../issues/CACH-0056|CACH-0056]] | Calendario de eventos y plan anual separados | RELEASE-0.1.0-beta.18 | Implementado y cerrado en `RELEASE-0.1.0-beta.18`. |
+| [[../issues/CACH-0057|CACH-0057]] | Definir modelo minimo de contratantes | RELEASE-0.1.0-beta.19 | Implementado y cerrado en `RELEASE-0.1.0-beta.19`: el modelo mínimo diferencia contratante estructurado de `client` legacy, mantiene herencia proyecto -> evento y deja fuera facturación completa, liquidación neta, CRM y colaboración multiusuario. |
+| [[../issues/CACH-0058|CACH-0058]] | Versionar schema de contratantes y RLS | RELEASE-0.1.0-beta.19 | Implementado y cerrado en `RELEASE-0.1.0-beta.19`: la migración `20260513120000_contractors.sql` crea `contractors`, añade `contractor_id` opcional a proyectos/eventos, mantiene `client` legacy, activa RLS y ejecuta backfill seguro con herencia proyecto -> evento. |
+| [[../issues/CACH-0059|CACH-0059]] | Integrar hooks y portabilidad de contratantes | RELEASE-0.1.0-beta.19 | Implementado y cerrado en `RELEASE-0.1.0-beta.19`: `useContractors` centraliza CRUD y creación inline, portabilidad exporta/importa contratantes sin `user_id` y los datasets legacy siguen funcionando. |
+| [[../issues/CACH-0060|CACH-0060]] | Anadir UX minima de contratantes en proyectos y eventos | RELEASE-0.1.0-beta.19 | Implementado y cerrado en `RELEASE-0.1.0-beta.19`: proyectos y eventos pueden elegir o crear contratante, eventos vinculados heredan el contratante del proyecto, `/contractors` permite gestionar la entidad ligera y las vistas principales muestran contratante estructurado o `client` legacy sin duplicidades. |
+| [[../issues/CACH-0061|CACH-0061]] | Verificar regresion financiera y cierre tecnico beta 19 | RELEASE-0.1.0-beta.19 | Implementado y cerrado en `RELEASE-0.1.0-beta.19`: la regresión financiera queda verificada sin cambios de fórmula, los checks locales pasan, la migración remota está aplicada/verificada y el smoke manual básico de contratantes está confirmado. |
 | [[../issues/CACH-B0003|CACH-B0003]] | Cobro rapido y gestion de pendientes | RELEASE-0.1.0-beta.5 | Released en RELEASE-0.1.0-beta.5 por ampliacion explicita de scope. Integrado en `main` mediante PR #84. |
 | [[../issues/CACH-B0005|CACH-B0005]] | Importacion exportacion y portabilidad de datos | RELEASE-0.1.0-beta.7 | Released en RELEASE-0.1.0-beta.7. Integrado en `main` mediante PR #86. |
 | [[../issues/CACH-B0006|CACH-B0006]] | Onboarding y acceso beta | RELEASE-0.1.0-beta.8 | Released en RELEASE-0.1.0-beta.8. Integrado en `main` mediante PR #87. |
