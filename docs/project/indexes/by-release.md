@@ -17,7 +17,6 @@ generated: true
 
 ## none
 
-- [[../issues/CACH-0063|CACH-0063]] — Unificar BottomActionBar en detalles · backlog · p1 · slice
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento · backlog · p1 · initiative
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera · backlog · p1 · initiative
 - [[../issues/CACH-B0004|CACH-B0004]] — Contratantes facturacion y liquidacion neta · backlog · p1 · initiative
@@ -98,6 +97,10 @@ generated: true
 ## RELEASE-0.1.0-beta.2
 
 - [[../issues/CACH-B0014|CACH-B0014]] — Endurecer agenda cobros y captura del MVP · done · p1 · slice
+
+## RELEASE-0.1.0-beta.20
+
+- [[../issues/CACH-0063|CACH-0063]] — Unificar BottomActionBar en detalles · ready · p1 · slice
 
 ## RELEASE-0.1.0-beta.3
 

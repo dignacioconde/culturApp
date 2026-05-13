@@ -16,7 +16,6 @@ generated: true
 ---
 # Issues Open Index
 
-- [[../issues/CACH-0063|CACH-0063]] — Unificar BottomActionBar en detalles · backlog · p1 · slice
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento · backlog · p1 · initiative
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera · backlog · p1 · initiative
 - [[../issues/CACH-B0004|CACH-B0004]] — Contratantes facturacion y liquidacion neta · backlog · p1 · initiative
@@ -27,3 +26,4 @@ generated: true
 - [[../issues/CACH-B0011|CACH-B0011]] — Categorias etiquetas y taxonomia · backlog · p2 · initiative
 - [[../issues/CACH-B0012|CACH-B0012]] — Perfil publico viralidad y referidos · backlog · p3 · initiative
 - [[../issues/CACH-B0013|CACH-B0013]] — Gestion documental por proyecto evento · backlog · p3 · initiative
+- [[../issues/CACH-0063|CACH-0063]] — Unificar BottomActionBar en detalles · ready · p1 · slice

@@ -42,10 +42,10 @@ generated: true
 
 ## finance-operations
 
-- [[../issues/CACH-0063|CACH-0063]] — Unificar BottomActionBar en detalles · backlog · p1 · slice
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera · backlog · p1 · initiative
 - [[../issues/CACH-B0004|CACH-B0004]] — Contratantes facturacion y liquidacion neta · backlog · p1 · initiative
 - [[../issues/CACH-B0009|CACH-B0009]] — Inteligencia financiera y features Pro · backlog · p2 · initiative
+- [[../issues/CACH-0063|CACH-0063]] — Unificar BottomActionBar en detalles · ready · p1 · slice
 - [[../issues/CACH-0034|CACH-0034]] — €/h muestra valor incorrecto cuando no hay eventos con horas · done · p1 · slice
 - [[../issues/CACH-0035|CACH-0035]] — Rediseño financiero del Dashboard y paid_date en cobros rapidos · done · p1 · slice
 - [[../issues/CACH-0038|CACH-0038]] — Compactar mobile financiero y detalles accionables · done · p1 · slice
