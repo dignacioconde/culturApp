@@ -49,6 +49,7 @@ Planning and implementation:
 - Work that belongs to an active release branches from the release branch; small fixes may branch from `main` when outside release scope.
 - Active release does not mean every new task belongs to it: if the task is outside release scope, postpone it, use the lightweight `main` -> PR flow, or add it explicitly to the release document first.
 - For active beta releases, agents create task branches locally from the active `release/<version>` branch, prefer `feat/` for new feature branches (`feature/` is legacy), do not push task branches by default, review diff/log against the release, and integrate completed work into the release via squash after local verification.
+- `npm run ship -- --execute --issue CACH-XXXX` must block `work_type: feature` issues with `release: null`; use `--allow-no-release` only for a deliberate lightweight exception and explain it in the issue/PR.
 - Release closure standard: consolidate implementation, Product Brain updates, generated indexes/digest, memory notes and validation status into the cleanest possible final history. Prefer a single clear release commit or squash-style merge result over scattered fixups; leave `main`/release branches clean, no uncommitted generated artifacts, no stray pushed task branches, and no unexplained git traces.
 - Commit format for CACH work: `<type>(CACH-XXXX): summary`.
 - Do not add `Co-Authored-By` or AI co-author lines to commits.

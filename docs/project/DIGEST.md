@@ -45,6 +45,8 @@ Resumen determinista generado desde Product Brain v2.
 `RELEASE-0.1.0-beta.20` — hardening UX móvil financiera. Ver RELEASE-0.1.0-beta.20.
 
 `RELEASE-0.1.0-beta.21` — primera sesion guiada y PWA instalable. Ver RELEASE-0.1.0-beta.21.
+
+`RELEASE-0.1.0-beta.22` — historial de novedades beta. Ver RELEASE-0.1.0-beta.22.
 - **Foco:** Beta 20 queda cerrada. El foco vuelve a evaluar el siguiente corte del ciclo `0.1` sin absorber tareas nuevas por defecto: o bien abrir una nueva beta para `CACH-B0004`, o mantener un corte pequeño de hardening si el feedback privado lo pide.
 
 ## Prioridades del plan
@@ -70,9 +72,7 @@ _Sin entradas._
 
 ### Review / Verify
 
-| ID | Título | Tipo | Nivel | P |
-|---|---|---|---|---|
-| CACH-0074 | Historial user friendly de novedades beta | feature | slice | p1 |
+_Sin entradas._
 
 ### Backlog (p1)
 
@@ -87,7 +87,6 @@ _Sin entradas._
 
 | ID | Título | Workflow | Tipo | Nivel | P |
 |---|---|---|---|---|---|
-| CACH-0074 | Historial user friendly de novedades beta | review | feature | slice | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | backlog | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | backlog | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | backlog | feature | initiative | p1 |

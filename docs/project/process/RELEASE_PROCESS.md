@@ -98,6 +98,8 @@ Si hay release activa pero una tarea nueva no pertenece a ella, elegir una de es
 - ejecutarla por flujo ligero desde `main`;
 - anadirla explicitamente al documento de la release activa.
 
+El flujo `npm run ship -- --execute --issue CACH-XXXX` bloquea features con `release: null`. Para una feature pequena que salga deliberadamente fuera de release, usar `--allow-no-release` y explicar la excepcion en la issue/PR.
+
 ```bash
 git fetch --prune origin
 git switch release/0.1.0-beta.1

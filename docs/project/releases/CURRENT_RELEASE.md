@@ -49,9 +49,11 @@ No aplica. Las siguientes tareas pequeñas salen de `main` salvo que se abra una
 
 `RELEASE-0.1.0-beta.21` — primera sesion guiada y PWA instalable. Ver [[RELEASE-0.1.0-beta.21]].
 
+`RELEASE-0.1.0-beta.22` — historial de novedades beta. Ver [[RELEASE-0.1.0-beta.22]].
+
 ## Scope actual
 
-Sin scope activo. Beta 21 queda cerrada como corte pequeno de confianza movil: tutorial ampliado, consentimiento actualizado, checklist compacto y PWA instalable basica.
+Sin scope activo. Beta 22 queda cerrada como corte ligero de confianza beta: historial de novedades user friendly y guardrail para no lanzar features sin release asignada.
 
 Issues incluidas:
 
@@ -63,4 +65,4 @@ No hay release activa. Las tareas fuera de release usan el flujo ligero desde `m
 
 ## Como cerrar esta release
 
-Beta 21 ya esta cerrada mediante PR #108, CI verde, tag `v0.1.0-beta.21` y smoke postdeploy basico de rutas SPA/PWA. La instalacion real iPhone/Android queda como verificacion manual humana.
+Beta 22 queda cerrada mediante PR #109, CI verde, tag `v0.1.0-beta.22` y smoke postdeploy basico. No hay release activa hasta abrir el siguiente corte.
