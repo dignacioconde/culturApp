@@ -19,11 +19,11 @@ release_current: true
 
 ## Release activa
 
-No hay release activa en este momento.
+`RELEASE-0.1.0-beta.23` — tokens Lovable para sistema visual. Ver [[RELEASE-0.1.0-beta.23]].
 
 ## Rama activa
 
-No aplica. Las siguientes tareas pequeñas salen de `main` salvo que se abra una nueva release.
+`release/0.1.0-beta.23`
 
 ## Últimos cortes
 
@@ -53,16 +53,16 @@ No aplica. Las siguientes tareas pequeñas salen de `main` salvo que se abra una
 
 ## Scope actual
 
-Sin scope activo. Beta 22 queda cerrada como corte ligero de confianza beta: historial de novedades user friendly y guardrail para no lanzar features sin release asignada.
+Beta 23 es un corte pequeno de sistema visual para alinear Cachés con el export Lovable `artistic-rhythm` sin importar su stack completo ni redisenar pantallas.
 
 Issues incluidas:
 
-- No aplica hasta abrir nueva release.
+- [[../issues/CACH-0076|CACH-0076]] — Alinear tokens de diseno con export Lovable.
 
 ## Regla de trabajo para esta release
 
-No hay release activa. Las tareas fuera de release usan el flujo ligero desde `main`; si se abre una nueva beta, documentar primero release, scope, rama y criterios.
+Solo entra trabajo de compatibilidad de tokens/estilos para `CACH-0076`. Cualquier rediseño visible, dark mode, import de componentes Lovable o cambio funcional requiere issue nueva.
 
 ## Como cerrar esta release
 
-Beta 22 queda cerrada mediante PR #109, CI verde, tag `v0.1.0-beta.22` y smoke postdeploy basico. No hay release activa hasta abrir el siguiente corte.
+Abrir PR `release/0.1.0-beta.23` -> `main`, validar `lint`, `build`, `pb:guard`, `release:status` y `git diff --check`. Si se mergea, crear tag `v0.1.0-beta.23` desde `main` y actualizar esta nota a "No hay release activa".

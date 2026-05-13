@@ -1,5 +1,56 @@
 @import "tailwindcss";
 
+@theme inline {
+  /* Lovable/Tailwind compatibility tokens */
+  --font-sans: 'Instrument Sans', system-ui, sans-serif;
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-mono: 'DM Mono', 'Cascadia Code', monospace;
+  --font-ui: 'Instrument Sans', system-ui, sans-serif;
+  --font-data: 'DM Mono', 'Cascadia Code', monospace;
+
+  --color-background: var(--surface-page);
+  --color-foreground: var(--text-primary);
+  --color-card: var(--surface-card);
+  --color-card-foreground: var(--text-primary);
+  --color-popover: var(--surface-card);
+  --color-popover-foreground: var(--text-primary);
+  --color-primary: var(--accent-primary);
+  --color-primary-foreground: #ffffff;
+  --color-secondary: var(--surface-page-dark);
+  --color-secondary-foreground: var(--text-primary);
+  --color-muted: var(--surface-muted);
+  --color-muted-foreground: var(--text-secondary);
+  --color-accent: var(--accent-soft);
+  --color-accent-foreground: var(--accent-primary-hover);
+  --color-destructive: var(--semantic-danger);
+  --color-destructive-foreground: #ffffff;
+  --color-border: var(--border-subtle);
+  --color-input: var(--border-subtle);
+  --color-ring: var(--accent-primary);
+
+  --color-surface-page: var(--surface-page);
+  --color-surface-page-dark: var(--surface-page-dark);
+  --color-surface-card: var(--surface-card);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-alt: var(--surface-alt);
+  --color-border-subtle: var(--border-subtle);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-cool: var(--text-cool);
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-primary-hover: var(--accent-primary-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-warning: var(--semantic-warning);
+  --color-warning-soft: var(--semantic-warning-soft);
+  --color-success: var(--semantic-success);
+  --color-success-soft: var(--semantic-success-soft);
+  --color-danger: var(--semantic-danger);
+  --color-danger-soft: var(--semantic-danger-soft);
+  --color-sidebar-bg: var(--sidebar-bg);
+  --color-sidebar-fg: var(--sidebar-fg);
+  --color-sidebar-muted: var(--sidebar-muted);
+}
+
 :root {
   /* ─────────────────────────────────────────
      PAPER / INKA / RED (warm editorial palette)
@@ -30,6 +81,31 @@
   /* Surface — cards, modals */
   --color-surface:    #FFFFFF;
   --color-surface-alt: #FAF7F2;
+
+  /* Semantic aliases from the Lovable design export.
+     These keep current variables stable while allowing classes such as
+     bg-surface-page, text-text-primary and font-display. */
+  --surface-page: var(--color-paper);
+  --surface-page-dark: var(--color-paper-dark);
+  --surface-card: var(--color-surface);
+  --surface-muted: var(--color-surface-alt);
+  --surface-alt: var(--color-surface-alt);
+  --border-subtle: var(--color-paper-mid);
+  --text-primary: var(--color-ink);
+  --text-secondary: var(--color-ink-muted);
+  --text-cool: var(--color-ink-light);
+  --accent-primary: var(--color-red);
+  --accent-primary-hover: var(--color-red-hover);
+  --accent-soft: var(--color-red-light);
+  --semantic-warning: var(--color-amber);
+  --semantic-warning-soft: var(--color-amber-light);
+  --semantic-success: var(--color-green);
+  --semantic-success-soft: var(--color-green-light);
+  --semantic-danger: var(--color-red);
+  --semantic-danger-soft: var(--color-red-light);
+  --sidebar-bg: #2C2420;
+  --sidebar-fg: var(--color-paper);
+  --sidebar-muted: rgb(245 239 224 / 0.72);
 
   /* ─────────────────────────────────────────
      NEUTRAL — legacy support / fallback
@@ -225,6 +301,7 @@
   --radius-md:   0.375rem;  /* 6px — calendar day buttons */
   --radius-lg:   0.5rem;    /* 8px — buttons, inputs, nav items, dropdowns */
   --radius-xl:   0.75rem;   /* 12px — cards, modals */
+  --radius-2xl:   1rem;      /* 16px — large feature cards */
   --radius-full: 9999px;    /* badges, color dots, icon containers */
 
   /* ─────────────────────────────────────────
@@ -264,6 +341,7 @@
   html {
     font-family: var(--font-sans);
     font-size: 16px;
+    font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -482,6 +560,11 @@
   to { opacity: 1; }
 }
 
+@keyframes cachesShimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
 @keyframes scaleIn {
   from { 
     opacity: 0;
@@ -499,4 +582,39 @@
 
 .animate-scale-in {
   animation: scaleIn 0.2s ease-out forwards;
+}
+
+.card-lift {
+  transition:
+    transform 220ms cubic-bezier(0.2, 0.6, 0.2, 1),
+    box-shadow 220ms cubic-bezier(0.2, 0.6, 0.2, 1),
+    border-color 220ms ease;
+}
+
+.card-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px -18px color-mix(in oklab, var(--color-ink) 35%, transparent);
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--surface-muted) 80%, transparent) 0%,
+    color-mix(in oklab, var(--border-subtle) 60%, transparent) 50%,
+    color-mix(in oklab, var(--surface-muted) 80%, transparent) 100%
+  );
+  background-size: 200% 100%;
+  animation: cachesShimmer 1.6s ease-in-out infinite;
+  border-radius: var(--radius-lg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-lift,
+  .animate-fade-in,
+  .animate-scale-in,
+  .skeleton {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }

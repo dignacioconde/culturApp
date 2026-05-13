@@ -58,6 +58,7 @@ generated: true
 - [[../issues/CACH-0068|CACH-0068]] — Verificacion responsive PWA y cierre beta 21
 - [[../issues/CACH-0074|CACH-0074]] — Historial user friendly de novedades beta
 - [[../issues/CACH-0075|CACH-0075]] — Bloquear ship de features sin release
+- [[../issues/CACH-0076|CACH-0076]] — Alinear tokens de diseno con export Lovable
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes

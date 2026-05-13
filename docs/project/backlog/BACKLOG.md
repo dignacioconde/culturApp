@@ -129,6 +129,7 @@ _Sin issues._
 | [[../issues/CACH-B0019|CACH-B0019]] | Emails transaccionales beta con Brevo | RELEASE-0.1.0-beta.10 | Implementado y asociado a RELEASE-0.1.0-beta.10. La migración y la Edge Function quedaron desplegadas en Supabase; el envío funciona usando un remitente personal validado temporalmente. Queda pendiente crear o activar un remitente real de Cachés, validarlo en Brevo, cambiar el remitente temporal en Supabase Auth/Edge Function y configurar SPF/DKIM/DMARC antes de producción estable. |
 | [[../issues/CACH-0033|CACH-0033]] | Vista anual en calendario de proyectos | RELEASE-0.1.0-beta.4 | Released en RELEASE-0.1.0-beta.4. Se implemento una planificacion anual de proyectos con timeline desktop, Gantt compacto movil, lista mensual y helpers puros testeados para rangos y cruces de anos. |
 | [[../issues/CACH-0048|CACH-0048]] | [Context] Compactar workflow OpenCode | null | Compactacion aplicada en la capa de verificadores y prompts cargados por defecto: `context:check` ahora mide skills anidadas, reduce falsos positivos y mantiene cada prompt principal dentro de presupuesto. |
+| [[../issues/CACH-0076|CACH-0076]] | Alinear tokens de diseno con export Lovable | RELEASE-0.1.0-beta.23 | Implementado y validado en `RELEASE-0.1.0-beta.23`. `src/index.css` mantiene los tokens existentes de Cachés y anade aliases semanticos compatibles con el export Lovable para uso incremental. |
 | [[../issues/CACH-B0018|CACH-B0018]] | Adaptador Codex-native para perfiles Cultura | RELEASE-0.1.0-beta.9 | Sin resultado documentado. |
 
 ## Regla de mantenimiento
