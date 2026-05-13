@@ -56,21 +56,22 @@ _Sin entradas._
 
 ### Ready
 
+_Sin entradas._
+
+### In progress
+
+| ID | Título | Tipo | Nivel | P |
+|---|---|---|---|---|
+| CACH-0061 | Verificar regresion financiera y cierre tecnico beta 19 | chore | task | p1 |
+
+### Review / Verify
+
 | ID | Título | Tipo | Nivel | P |
 |---|---|---|---|---|
 | CACH-0057 | Definir modelo minimo de contratantes | spike | task | p1 |
 | CACH-0058 | Versionar schema de contratantes y RLS | feature | slice | p1 |
 | CACH-0059 | Integrar hooks y portabilidad de contratantes | feature | slice | p1 |
 | CACH-0060 | Anadir UX minima de contratantes en proyectos y eventos | feature | slice | p1 |
-| CACH-0061 | Verificar regresion financiera y cierre tecnico beta 19 | chore | task | p1 |
-
-### In progress
-
-_Sin entradas._
-
-### Review / Verify
-
-_Sin entradas._
 
 ### Backlog (p1)
 
@@ -85,11 +86,11 @@ _Sin entradas._
 
 | ID | Título | Workflow | Tipo | Nivel | P |
 |---|---|---|---|---|---|
-| CACH-0057 | Definir modelo minimo de contratantes | ready | spike | task | p1 |
-| CACH-0058 | Versionar schema de contratantes y RLS | ready | feature | slice | p1 |
-| CACH-0059 | Integrar hooks y portabilidad de contratantes | ready | feature | slice | p1 |
-| CACH-0060 | Anadir UX minima de contratantes en proyectos y eventos | ready | feature | slice | p1 |
-| CACH-0061 | Verificar regresion financiera y cierre tecnico beta 19 | ready | chore | task | p1 |
+| CACH-0061 | Verificar regresion financiera y cierre tecnico beta 19 | in_progress | chore | task | p1 |
+| CACH-0057 | Definir modelo minimo de contratantes | review | spike | task | p1 |
+| CACH-0058 | Versionar schema de contratantes y RLS | review | feature | slice | p1 |
+| CACH-0059 | Integrar hooks y portabilidad de contratantes | review | feature | slice | p1 |
+| CACH-0060 | Anadir UX minima de contratantes en proyectos y eventos | review | feature | slice | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | backlog | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | backlog | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | backlog | feature | initiative | p1 |

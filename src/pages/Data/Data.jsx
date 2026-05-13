@@ -6,32 +6,11 @@ import { Button } from '../../components/ui/Button'
 import { useToast, ToastContainer } from '../../components/ui/Toast'
 import { useAuth } from '../../hooks/useAuth'
 import { useDataPortability } from '../../hooks/useDataPortability'
+import { IMPORT_HEADERS } from '../../lib/portability/index.ts'
 
 const MAX_FILE_SIZE_BYTES = 1024 * 1024
 const MAX_ROWS = 500
-const importTemplateHeaders = [
-  'entity',
-  'project_key',
-  'event_key',
-  'concept',
-  'name',
-  'client',
-  'category',
-  'status',
-  'start_date',
-  'end_date',
-  'start_datetime',
-  'end_datetime',
-  'amount',
-  'tax_rate',
-  'expected_date',
-  'paid_date',
-  'is_paid',
-  'expense_date',
-  'is_deductible',
-  'color',
-  'notes',
-]
+const importTemplateHeaders = [...IMPORT_HEADERS]
 
 const exportActions = [
   {
@@ -93,8 +72,16 @@ function buildDownloadBlob(result, action) {
 function buildImportTemplateCsv() {
   const exampleRows = [
     {
+      entity: 'contractor',
+      contractor_key: 'contratante-1',
+      name: 'Ayuntamiento de ejemplo',
+      billing_name: 'Ayuntamiento de ejemplo',
+      tax_id: 'P0000000A',
+    },
+    {
       entity: 'project',
       project_key: 'proyecto-1',
+      contractor_key: 'contratante-1',
       name: 'Proyecto de ejemplo',
       category: 'otros',
       status: 'draft',
@@ -107,6 +94,7 @@ function buildImportTemplateCsv() {
       entity: 'event',
       project_key: 'proyecto-1',
       event_key: 'evento-1',
+      contractor_name: 'Sala de ejemplo',
       name: 'Evento de ejemplo',
       category: 'otros',
       status: 'draft',
@@ -167,7 +155,7 @@ function getValidationSummary(validation) {
     (total, value) => total + (Number.isFinite(value) ? value : 0),
     0,
   )
-  const entityValidRows = ['projects', 'events', 'incomes', 'expenses'].reduce((total, key) => {
+  const entityValidRows = ['contractors', 'projects', 'events', 'incomes', 'expenses'].reduce((total, key) => {
     const rows = validation?.[key]
     return total + (Array.isArray(rows) ? rows.length : 0)
   }, 0)
@@ -485,7 +473,7 @@ export default function Data() {
             <div className="rounded-lg border border-[var(--color-paper-mid)] bg-[#FDFBF6] px-4 py-3 text-sm text-[var(--color-ink-muted)]">
               <p className="font-medium text-[var(--color-ink)]">Formato esperado</p>
               <p className="mt-1">
-                Usa punto y coma, fechas `YYYY-MM-DD`, eventos como `YYYY-MM-DD HH:mm`, importes con coma o punto decimal y claves locales `project_key` / `event_key`. El CSV no puede traer `id`, `user_id`, `created_at`, `project_id` ni `event_id`.
+                Usa punto y coma, fechas `YYYY-MM-DD`, eventos como `YYYY-MM-DD HH:mm`, importes con coma o punto decimal y claves locales `contractor_key`, `project_key` y `event_key`. El CSV no puede traer `id`, `user_id`, `created_at`, `project_id`, `event_id` ni `contractor_id`.
               </p>
               <p className="mt-1">
                 Las filas se crean desde cero: no actualizan registros existentes y no son una restauración atómica.

@@ -12,11 +12,13 @@ import { Input, Select } from '../../components/ui/Input'
 import { useToast, ToastContainer } from '../../components/ui/Toast'
 import { ProjectForm } from './ProjectForm'
 import { useAuth } from '../../hooks/useAuth'
+import { useContractors } from '../../hooks/useContractors'
 import { useProfile } from '../../hooks/useProfile'
 import { useProjects } from '../../hooks/useProjects'
 import { useEvents } from '../../hooks/useEvents'
 import { useIncomes } from '../../hooks/useIncomes'
 import { useExpenses } from '../../hooks/useExpenses'
+import { getEventContractor, getProjectContractor } from '../../lib/contractors'
 import { formatCurrency, formatCurrencyPerHour, formatDate, formatDatetime, formatHours } from '../../lib/formatters'
 import { normalizeExpenseForm, normalizeIncomeForm } from '../../lib/financeForms'
 import { formatDueDescription, formatDueText, getDueDays } from '../../lib/dueDates'
@@ -53,6 +55,7 @@ export default function ProjectDetail() {
   const { user } = useAuth()
   const { profile } = useProfile(user?.id)
   const { projects, loading: projectsLoading, error: projectsError, updateProject, deleteProject } = useProjects(user?.id)
+  const { contractors, findOrCreateContractor } = useContractors(user?.id)
   const { events, loading: eventsLoading } = useEvents(user?.id, id)
   const eventIds = useMemo(() => events.map((e) => e.id), [events])
   const { incomes, loading: incomesLoading, createIncome, updateIncome, deleteIncome } = useIncomes(user?.id, { projectId: id, eventIds })
@@ -60,6 +63,7 @@ export default function ProjectDetail() {
   const { toasts, addToast, removeToast } = useToast()
 
   const project = projects.find((p) => p.id === id)
+  const projectContractor = getProjectContractor(project, contractors)
 
   const [editModal, setEditModal] = useState(false)
   const [savingProject, setSavingProject] = useState(false)
@@ -421,8 +425,8 @@ export default function ProjectDetail() {
                   <h2 className="min-w-0 truncate text-lg font-semibold text-[var(--color-ink)]">{project.name}</h2>
                   <QuietStatusBadge status={project.status} />
                 </div>
-                {project.client && (
-                  <p className="mt-1 text-sm text-[var(--color-ink-muted)]">{project.client}</p>
+                {projectContractor && (
+                  <p className="mt-1 text-sm text-[var(--color-ink-muted)]">{projectContractor.name}</p>
                 )}
                 <p className="mt-1 text-xs text-[var(--color-ink-muted)]">
                   {project.category} · {formatDate(project.start_date)}{project.end_date && ` – ${formatDate(project.end_date)}`}
@@ -528,6 +532,9 @@ export default function ProjectDetail() {
           ) : (
             <div className="flex flex-col gap-2">
               {events.map((event) => (
+                (() => {
+                  const eventContractor = getEventContractor(event, projects, contractors)
+                  return (
                 <Link
                   key={event.id}
                   to={`/events/${event.id}`}
@@ -537,11 +544,16 @@ export default function ProjectDetail() {
                     <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: event.color ?? '#4f98a3' }} />
                     <div className="min-w-0">
                       <p className="truncate text-sm font-medium text-gray-900">{event.name}</p>
-                      <p className="text-xs text-gray-400">{formatDatetime(event.start_datetime)}</p>
+                      <p className="text-xs text-gray-400">
+                        {formatDatetime(event.start_datetime)}
+                        {eventContractor ? ` · ${eventContractor.name}` : ''}
+                      </p>
                     </div>
                   </div>
                   <QuietStatusBadge status={event.status} />
                 </Link>
+                  )
+                })()
               ))}
             </div>
           )}
@@ -758,7 +770,14 @@ export default function ProjectDetail() {
       </div>
 
       <Modal isOpen={editModal} onClose={() => setEditModal(false)} title="Editar proyecto">
-        <ProjectForm initialData={project} onSubmit={handleUpdateProject} onCancel={() => setEditModal(false)} loading={savingProject} />
+        <ProjectForm
+          initialData={project}
+          contractors={contractors}
+          onCreateContractor={findOrCreateContractor}
+          onSubmit={handleUpdateProject}
+          onCancel={() => setEditModal(false)}
+          loading={savingProject}
+        />
       </Modal>
 
       <Modal isOpen={incomeModal} onClose={() => setIncomeModal(false)} title={editingIncome ? 'Editar ingreso' : 'Añadir ingreso'}>

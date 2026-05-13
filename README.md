@@ -134,9 +134,24 @@ alter table profiles
   add constraint profiles_beta_invite_id_fkey
   foreign key (beta_invite_id) references public.beta_invites(id) on delete set null;
 
+create table contractors (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references public.profiles(id) on delete cascade not null,
+  name text not null,
+  billing_name text,
+  tax_id text,
+  email text,
+  phone text,
+  billing_address text,
+  notes text,
+  created_at timestamptz default now(),
+  constraint contractors_name_not_blank check (btrim(name) <> '')
+);
+
 create table projects (
   id uuid primary key default gen_random_uuid(),
   user_id uuid references public.profiles(id) on delete cascade not null,
+  contractor_id uuid references public.contractors(id) on delete set null,
   name text not null,
   client text,
   category text default 'otros',
@@ -152,6 +167,7 @@ create table events (
   id uuid primary key default gen_random_uuid(),
   user_id uuid references public.profiles(id) on delete cascade not null,
   project_id uuid references public.projects(id) on delete set null,
+  contractor_id uuid references public.contractors(id) on delete set null,
   name text not null,
   client text,
   category text default 'otros',
@@ -201,6 +217,7 @@ alter table beta_invites enable row level security;
 alter table beta_invite_redemptions enable row level security;
 alter table projects enable row level security;
 alter table events enable row level security;
+alter table contractors enable row level security;
 alter table incomes enable row level security;
 alter table expenses enable row level security;
 
@@ -215,6 +232,9 @@ create policy "projects: usuario propio" on projects
 
 create policy "events: usuario propio" on events
   for all using (auth.uid() = user_id);
+
+create policy "contractors: usuario propio" on contractors
+  for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
 create policy "incomes: usuario propio" on incomes
   for all using (auth.uid() = user_id);

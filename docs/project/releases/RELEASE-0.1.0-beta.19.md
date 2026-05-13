@@ -101,7 +101,7 @@ Crear la base de datos, contrato técnico y UX mínima para que proyectos y even
 
 ## Checklist de desarrollo
 
-- [ ] Todas las issues estan en progreso o cerradas
+- [x] Todas las issues estan en progreso o review
 - [ ] Commits integrados en rama release
 - [ ] No hay cambios sueltos fuera de release
 - [ ] No hay issues sin `issue_workflow`
@@ -137,11 +137,16 @@ Crear la base de datos, contrato técnico y UX mínima para que proyectos y even
 
 ### Aniadido
 
-- Pendiente.
+- Tabla `contractors` con RLS por usuario y backfill desde `client`.
+- `contractor_id` opcional en proyectos y eventos.
+- Herencia persistida de `project.contractor_id` hacia eventos vinculados cuando no tienen contratante propio.
+- Hook `useContractors`, selector de contratante y creación inline desde formularios de proyecto/evento.
+- Ruta `/contractors` para gestionar contratantes como entidad ligera.
+- Exportación/importación de contratantes con compatibilidad CSV legacy.
 
 ### Cambiado
 
-- Pendiente.
+- Proyectos, eventos, calendarios y `/work` muestran contratante estructurado, heredado o `client` legacy sin duplicar texto.
 
 ### Corregido
 
@@ -153,7 +158,9 @@ Crear la base de datos, contrato técnico y UX mínima para que proyectos y even
 
 ### Tecnico
 
-- Pendiente.
+- Migración local `supabase/migrations/20260513120000_contractors.sql`.
+- Validación local inicial: `npm run lint`, `npm run test`, `npm run build`.
+- Pendiente antes de release funcional: aplicar/verificar migración remota Supabase y smoke autenticado.
 
 ## Resultado final
 

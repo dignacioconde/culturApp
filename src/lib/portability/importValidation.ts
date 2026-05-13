@@ -2,7 +2,7 @@ import { parseDecimal } from '../decimal'
 import { DEFAULT_TZ, fromLocalInputValue, toIsoUtc } from '../datetime'
 import { isFormulaLike, parseCsv } from './csv'
 
-export const IMPORT_HEADERS = [
+export const REQUIRED_IMPORT_HEADERS = [
   'entity',
   'project_key',
   'event_key',
@@ -26,14 +26,30 @@ export const IMPORT_HEADERS = [
   'notes',
 ] as const
 
-export const FORBIDDEN_IMPORT_HEADERS = ['id', 'user_id', 'created_at', 'project_id', 'event_id'] as const
+export const OPTIONAL_IMPORT_HEADERS = [
+  'contractor_key',
+  'contractor_name',
+  'billing_name',
+  'tax_id',
+  'email',
+  'phone',
+  'billing_address',
+] as const
+
+export const IMPORT_HEADERS = [
+  ...REQUIRED_IMPORT_HEADERS,
+  ...OPTIONAL_IMPORT_HEADERS,
+] as const
+
+export const FORBIDDEN_IMPORT_HEADERS = ['id', 'user_id', 'created_at', 'project_id', 'event_id', 'contractor_id'] as const
 export const MAX_IMPORT_BYTES = 1024 * 1024
 export const MAX_IMPORT_ROWS = 500
 export const MAX_IMPORT_COLUMNS = 30
 export const MAX_IMPORT_CELL_LENGTH = 5000
 export const MAX_DISPLAYED_ERRORS = 100
 
-type Entity = 'project' | 'event' | 'income' | 'expense'
+type Entity = 'contractor' | 'project' | 'event' | 'income' | 'expense'
+type ContractorLink = { type: 'key' | 'name'; value: string } | null
 
 export type ImportError = {
   row: number
@@ -41,9 +57,24 @@ export type ImportError = {
   message: string
 }
 
+export type ImportContractor = {
+  row: number
+  key: string
+  payload: {
+    name: string
+    billing_name: string | null
+    tax_id: string | null
+    email: string | null
+    phone: string | null
+    billing_address: string | null
+    notes: string | null
+  }
+}
+
 export type ImportProject = {
   row: number
   key: string
+  contractor: ContractorLink
   payload: {
     name: string
     client: string | null
@@ -60,6 +91,7 @@ export type ImportEvent = {
   row: number
   key: string
   project_key: string | null
+  contractor: ContractorLink
   payload: {
     name: string
     client: string | null
@@ -90,6 +122,7 @@ export type ImportFinanceRow = {
 
 export type ImportPreview = {
   valid: boolean
+  contractors: ImportContractor[]
   projects: ImportProject[]
   events: ImportEvent[]
   incomes: ImportFinanceRow[]
@@ -109,13 +142,14 @@ type ParsedImportRow = {
 function emptyPreview(errors: ImportError[] = []): ImportPreview {
   return {
     valid: errors.length === 0,
+    contractors: [],
     projects: [],
     events: [],
     incomes: [],
     expenses: [],
     errors: errors.slice(0, MAX_DISPLAYED_ERRORS),
     hiddenErrorCount: Math.max(0, errors.length - MAX_DISPLAYED_ERRORS),
-    summary: { project: 0, event: 0, income: 0, expense: 0 },
+    summary: { contractor: 0, project: 0, event: 0, income: 0, expense: 0 },
   }
 }
 
@@ -125,6 +159,10 @@ function normalizeHeader(header: string): string {
 
 function compact(value: string | null | undefined): string {
   return String(value ?? '').trim()
+}
+
+function normalizeContractorName(value: string | null | undefined): string {
+  return compact(value).replace(/\s+/g, ' ').toLowerCase()
 }
 
 function optionalText(value: string | null | undefined): string | null {
@@ -229,6 +267,16 @@ function validateTaxRate(errorsByRow: Map<number, ImportError[]>, row: number, r
   return taxRate
 }
 
+function contractorLink(record: Record<string, string>): ContractorLink {
+  const key = optionalText(record.contractor_key)
+  if (key) return { type: 'key', value: key }
+
+  const name = optionalText(record.contractor_name)
+  if (name) return { type: 'name', value: name }
+
+  return null
+}
+
 export function validateCsvImport(text: string, options: { fileSize?: number } = {}): { preview: ImportPreview; error: Error | null } {
   const byteSize = options.fileSize ?? new Blob([text]).size
   if (byteSize > MAX_IMPORT_BYTES) {
@@ -257,7 +305,7 @@ export function validateCsvImport(text: string, options: { fileSize?: number } =
     }
   }
 
-  for (const requiredHeader of IMPORT_HEADERS) {
+  for (const requiredHeader of REQUIRED_IMPORT_HEADERS) {
     if (!headers.includes(requiredHeader)) {
       addError(errorsByRow, 1, requiredHeader, `Falta la cabecera ${requiredHeader}.`)
     }
@@ -286,7 +334,8 @@ export function validateCsvImport(text: string, options: { fileSize?: number } =
     }
   })
 
-  const summary: Record<Entity, number> = { project: 0, event: 0, income: 0, expense: 0 }
+  const summary: Record<Entity, number> = { contractor: 0, project: 0, event: 0, income: 0, expense: 0 }
+  const contractorKeyRows = new Map<string, number[]>()
   const projectKeyRows = new Map<string, number[]>()
   const eventKeyRows = new Map<string, number[]>()
 
@@ -309,13 +358,19 @@ export function validateCsvImport(text: string, options: { fileSize?: number } =
       }
     }
 
-    if (!['project', 'event', 'income', 'expense'].includes(compact(row.record.entity))) {
+    if (!['contractor', 'project', 'event', 'income', 'expense'].includes(compact(row.record.entity))) {
       addError(errorsByRow, row.row, 'entity', 'Entidad no reconocida.')
       row.entity = null
       continue
     }
 
     summary[row.entity as Entity] += 1
+
+    if (row.entity === 'contractor') {
+      const contractorKey = compact(row.record.contractor_key)
+      if (contractorKey === '') addError(errorsByRow, row.row, 'contractor_key', 'contractor_key es obligatorio.')
+      else contractorKeyRows.set(contractorKey, [...(contractorKeyRows.get(contractorKey) ?? []), row.row])
+    }
 
     if (row.entity === 'project') {
       const projectKey = compact(row.record.project_key)
@@ -330,8 +385,15 @@ export function validateCsvImport(text: string, options: { fileSize?: number } =
     }
   }
 
+  const duplicateContractorKeys = new Set([...contractorKeyRows.entries()].filter(([, rowNumbers]) => rowNumbers.length > 1).map(([key]) => key))
   const duplicateProjectKeys = new Set([...projectKeyRows.entries()].filter(([, rowNumbers]) => rowNumbers.length > 1).map(([key]) => key))
   const duplicateEventKeys = new Set([...eventKeyRows.entries()].filter(([, rowNumbers]) => rowNumbers.length > 1).map(([key]) => key))
+
+  for (const key of duplicateContractorKeys) {
+    for (const row of contractorKeyRows.get(key) ?? []) {
+      addError(errorsByRow, row, 'contractor_key', `contractor_key duplicado: ${key}.`)
+    }
+  }
 
   for (const key of duplicateProjectKeys) {
     for (const row of projectKeyRows.get(key) ?? []) {
@@ -346,12 +408,19 @@ export function validateCsvImport(text: string, options: { fileSize?: number } =
   }
 
   for (const row of rows) {
+    if (row.entity === 'contractor') {
+      if (compact(row.record.name) === '') addError(errorsByRow, row.row, 'name', 'El nombre es obligatorio.')
+    }
+
     if (row.entity === 'project') {
       if (compact(row.record.name) === '') addError(errorsByRow, row.row, 'name', 'El nombre es obligatorio.')
       const startDate = validateDateField(errorsByRow, row.row, row.record, 'start_date', true)
       const endDate = validateDateField(errorsByRow, row.row, row.record, 'end_date')
       if (startDate && endDate && endDate < startDate) {
         addError(errorsByRow, row.row, 'end_date', 'La fecha de fin no puede ser anterior al inicio.')
+      }
+      if (compact(row.record.contractor_key) && compact(row.record.contractor_name)) {
+        addError(errorsByRow, row.row, 'contractor_key', 'Indica contractor_key o contractor_name, no ambos.')
       }
     }
 
@@ -362,6 +431,9 @@ export function validateCsvImport(text: string, options: { fileSize?: number } =
       if (!start) addError(errorsByRow, row.row, 'start_datetime', 'Usa fecha y hora local YYYY-MM-DD HH:mm.')
       if (compact(row.record.end_datetime) && !end) addError(errorsByRow, row.row, 'end_datetime', 'Usa fecha y hora local YYYY-MM-DD HH:mm.')
       if (start && end && end.minutes < start.minutes) addError(errorsByRow, row.row, 'end_datetime', 'La fecha de fin no puede ser anterior al inicio.')
+      if (compact(row.record.contractor_key) && compact(row.record.contractor_name)) {
+        addError(errorsByRow, row.row, 'contractor_key', 'Indica contractor_key o contractor_name, no ambos.')
+      }
     }
 
     if (row.entity === 'income' || row.entity === 'expense') {
@@ -385,6 +457,12 @@ export function validateCsvImport(text: string, options: { fileSize?: number } =
     }
   }
 
+  const validContractorKeys = new Set(
+    rows
+      .filter((row) => row.entity === 'contractor' && !rowHasErrors(errorsByRow, row.row))
+      .map((row) => compact(row.record.contractor_key)),
+  )
+
   const validProjectKeys = new Set(
     rows
       .filter((row) => row.entity === 'project' && !rowHasErrors(errorsByRow, row.row))
@@ -392,6 +470,13 @@ export function validateCsvImport(text: string, options: { fileSize?: number } =
   )
 
   for (const row of rows) {
+    if (row.entity === 'project' || row.entity === 'event') {
+      const contractorKey = compact(row.record.contractor_key)
+      if (contractorKey && !validContractorKeys.has(contractorKey)) {
+        addError(errorsByRow, row.row, 'contractor_key', `No existe un contractor_key válido en el archivo: ${contractorKey}.`)
+      }
+    }
+
     if (row.entity === 'event') {
       const projectKey = compact(row.record.project_key)
       if (projectKey && !validProjectKeys.has(projectKey)) {
@@ -420,6 +505,7 @@ export function validateCsvImport(text: string, options: { fileSize?: number } =
 
   const preview: ImportPreview = {
     valid: false,
+    contractors: [],
     projects: [],
     events: [],
     incomes: [],
@@ -431,10 +517,27 @@ export function validateCsvImport(text: string, options: { fileSize?: number } =
 
   for (const row of rows) {
     if (!row.entity || rowHasErrors(errorsByRow, row.row)) continue
+    if (row.entity === 'contractor') {
+      preview.contractors.push({
+        row: row.row,
+        key: compact(row.record.contractor_key),
+        payload: {
+          name: compact(row.record.name),
+          billing_name: optionalText(row.record.billing_name),
+          tax_id: optionalText(row.record.tax_id),
+          email: optionalText(row.record.email),
+          phone: optionalText(row.record.phone),
+          billing_address: optionalText(row.record.billing_address),
+          notes: optionalText(row.record.notes),
+        },
+      })
+    }
+
     if (row.entity === 'project') {
       preview.projects.push({
         row: row.row,
         key: compact(row.record.project_key),
+        contractor: contractorLink(row.record),
         payload: {
           name: compact(row.record.name),
           client: optionalText(row.record.client),
@@ -453,6 +556,7 @@ export function validateCsvImport(text: string, options: { fileSize?: number } =
         row: row.row,
         key: compact(row.record.event_key),
         project_key: optionalText(row.record.project_key),
+        contractor: contractorLink(row.record),
         payload: {
           name: compact(row.record.name),
           client: optionalText(row.record.client),

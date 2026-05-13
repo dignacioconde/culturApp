@@ -9,7 +9,9 @@ import { Modal } from '../../components/ui/Modal'
 import { useToast, ToastContainer } from '../../components/ui/Toast'
 import { ProjectForm } from '../Projects/ProjectForm'
 import { useAuth } from '../../hooks/useAuth'
+import { useContractors } from '../../hooks/useContractors'
 import { useProjects } from '../../hooks/useProjects'
+import { getProjectContractor } from '../../lib/contractors'
 import { formatDate } from '../../lib/formatters'
 import { getDefaultSelectedMonth } from '../../lib/projectYearCalendar'
 import { AlertCircle, FolderOpen, Plus, X, ChevronDown, ChevronUp, ChevronLeft, ChevronRight } from 'lucide-react'
@@ -29,6 +31,7 @@ function useIsMobile() {
 export default function CalendarProjects() {
   const { user } = useAuth()
   const { projects, loading, error, createProject } = useProjects(user?.id)
+  const { contractors, findOrCreateContractor } = useContractors(user?.id)
   const isMobile = useIsMobile()
   const [visibleYear, setVisibleYear] = useState(() => dayjs().year())
   const [selectedMonth, setSelectedMonth] = useState(() => dayjs().month())
@@ -126,6 +129,9 @@ export default function CalendarProjects() {
         </div>
 
         {selectedProject && (
+          (() => {
+            const selectedContractor = getProjectContractor(selectedProject, contractors)
+            return (
           <div className={`
             w-full lg:w-80 bg-white rounded-xl border border-gray-200 p-5 flex flex-col gap-4
             lg:relative
@@ -149,8 +155,8 @@ export default function CalendarProjects() {
             </div>
             <div className="min-w-0">
               <h3 className="font-semibold text-gray-900 break-words">{selectedProject.name}</h3>
-              {selectedProject.client && (
-                <p className="text-sm text-gray-500 mt-0.5 break-words">{selectedProject.client}</p>
+              {selectedContractor && (
+                <p className="text-sm text-gray-500 mt-0.5 break-words">{selectedContractor.name}</p>
               )}
             </div>
             <div className={`flex flex-col gap-2 text-sm text-gray-600 ${isMobile && !panelExpanded ? 'hidden' : ''}`}>
@@ -179,12 +185,16 @@ export default function CalendarProjects() {
               </Button>
             </Link>
           </div>
+            )
+          })()
         )}
       </div>
 
       <Modal isOpen={newModal} onClose={closeNewProject} title="Nuevo proyecto">
         <ProjectForm
           initialData={newProjectInitialData}
+          contractors={contractors}
+          onCreateContractor={findOrCreateContractor}
           onSubmit={handleCreate}
           onCancel={closeNewProject}
           loading={saving}

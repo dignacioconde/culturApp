@@ -63,21 +63,22 @@ _Sin issues._
 
 ## Ready
 
+_Sin issues._
+
+## In progress
+
+| ID | Titulo | Tipo | Nivel | P | Componentes |
+|---|---|---|---|---|---|
+| [[../issues/CACH-0061|CACH-0061]] | Verificar regresion financiera y cierre tecnico beta 19 | chore | task | p1 | finance, dashboard, product-brain |
+
+## Review / Verify
+
 | ID | Titulo | Tipo | Nivel | P | Componentes |
 |---|---|---|---|---|---|
 | [[../issues/CACH-0057|CACH-0057]] | Definir modelo minimo de contratantes | spike | task | p1 | finance |
 | [[../issues/CACH-0058|CACH-0058]] | Versionar schema de contratantes y RLS | feature | slice | p1 | finance, supabase |
 | [[../issues/CACH-0059|CACH-0059]] | Integrar hooks y portabilidad de contratantes | feature | slice | p1 | finance, data-portability |
 | [[../issues/CACH-0060|CACH-0060]] | Anadir UX minima de contratantes en proyectos y eventos | feature | slice | p1 | projects, events, work, design-system |
-| [[../issues/CACH-0061|CACH-0061]] | Verificar regresion financiera y cierre tecnico beta 19 | chore | task | p1 | finance, dashboard, product-brain |
-
-## In progress
-
-_Sin issues._
-
-## Review / Verify
-
-_Sin issues._
 
 ## Done
 

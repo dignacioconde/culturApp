@@ -88,6 +88,8 @@ Quedan fuera de beta 19: facturas emitidas, liquidación neta gasto-ingreso, CRM
 
 2026-05-13: Se activa `RELEASE-0.1.0-beta.19` como primer corte de la iniciativa, limitado a contratantes estructurados y compatibilidad con `client` legacy.
 
+2026-05-13: Implementación local de beta 19 preparada: schema/RLS local, hook, portabilidad y UX mínima de contratantes. Quedan pendientes verificación remota Supabase y smoke autenticado antes de considerar la release production-ready.
+
 ## Cambios de alcance y decisiones
 
 Beta 19 no implementa liquidación neta ni facturación completa. Es una base de datos/UX para contratantes reutilizables.
@@ -97,7 +99,10 @@ Beta 19 no implementa liquidación neta ni facturación completa. Es una base de
 
 ## Validación ejecutada
 
-Pendiente hasta ejecutar la issue.
+- `npm run lint` OK.
+- `npm run test` OK.
+- `npm run build` OK.
+- Verificación remota Supabase pendiente.
 
 ## Memoria
 

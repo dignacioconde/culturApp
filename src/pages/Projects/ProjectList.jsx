@@ -10,13 +10,16 @@ import { Select } from '../../components/ui/Input'
 import { useToast, ToastContainer } from '../../components/ui/Toast'
 import { ProjectForm } from './ProjectForm'
 import { useAuth } from '../../hooks/useAuth'
+import { useContractors } from '../../hooks/useContractors'
 import { useProjects } from '../../hooks/useProjects'
+import { getProjectContractor } from '../../lib/contractors'
 import { formatDate } from '../../lib/formatters'
 import { PROJECT_STATUSES, PROJECT_CATEGORIES } from '../../lib/constants'
 
 export default function ProjectList() {
   const { user } = useAuth()
   const { projects, loading, error, createProject } = useProjects(user?.id)
+  const { contractors, findOrCreateContractor } = useContractors(user?.id)
   const { toasts, addToast, removeToast } = useToast()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [saving, setSaving] = useState(false)
@@ -29,9 +32,11 @@ export default function ProjectList() {
 
   const filtered = projects.filter((p) => {
     const query = search.trim().toLowerCase()
+    const contractor = getProjectContractor(p, contractors)
     const matchesSearch = !query ||
       p.name.toLowerCase().includes(query) ||
-      p.client?.toLowerCase().includes(query)
+      p.client?.toLowerCase().includes(query) ||
+      contractor?.name.toLowerCase().includes(query)
 
     if (!matchesSearch) return false
     if (filterStatus && p.status !== filterStatus) return false
@@ -155,6 +160,9 @@ export default function ProjectList() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             {filtered.map((project) => (
+              (() => {
+                const contractor = getProjectContractor(project, contractors)
+                return (
               <Link key={project.id} to={`/projects/${project.id}`} className="block min-w-0">
                 <Card className="p-5 h-full hover:shadow-md transition-shadow cursor-pointer">
                   <div className="flex items-start gap-3 min-w-0">
@@ -169,8 +177,8 @@ export default function ProjectList() {
                           <StatusBadge status={project.status} />
                         </div>
                       </div>
-                      {project.client && (
-                        <p className="text-sm text-gray-500 mt-0.5 truncate">{project.client}</p>
+                      {contractor && (
+                        <p className="text-sm text-gray-500 mt-0.5 truncate">{contractor.name}</p>
                       )}
                       <div className="mt-4 flex flex-wrap items-center gap-2 text-xs">
                         <span className="rounded-full bg-gray-100 px-2.5 py-1 font-medium text-gray-600">
@@ -185,6 +193,8 @@ export default function ProjectList() {
                   </div>
                 </Card>
               </Link>
+                )
+              })()
             ))}
           </div>
         )}
@@ -192,6 +202,8 @@ export default function ProjectList() {
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Nuevo proyecto">
         <ProjectForm
+          contractors={contractors}
+          onCreateContractor={findOrCreateContractor}
           onSubmit={handleCreate}
           onCancel={() => setIsModalOpen(false)}
           loading={saving}

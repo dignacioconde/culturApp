@@ -48,13 +48,67 @@ describe('validateCsvImport', () => {
 
     expect(error).toBeNull()
     expect(preview.valid).toBe(true)
-    expect(preview.summary).toEqual({ project: 1, event: 1, income: 1, expense: 1 })
+    expect(preview.summary).toEqual({ contractor: 0, project: 1, event: 1, income: 1, expense: 1 })
     expect(preview.projects[0].payload).not.toHaveProperty('user_id')
     expect(preview.events[0].payload.start_datetime).toBe('2026-05-16T20:00:00.000Z')
     expect(preview.incomes[0].payload.amount).toBe(1234.56)
     expect(preview.incomes[0].payload.tax_rate).toBe(15.5)
     expect(preview.incomes[0]).not.toHaveProperty('project_id')
     expect(preview.expenses[0].payload.is_deductible).toBe(false)
+  })
+
+  it('acepta CSV legacy sin columnas de contratante', () => {
+    const legacyHeaders = IMPORT_HEADERS.filter((header) => ![
+      'contractor_key',
+      'contractor_name',
+      'billing_name',
+      'tax_id',
+      'email',
+      'phone',
+      'billing_address',
+    ].includes(header))
+    const legacyRow = legacyHeaders.map((header) => ({
+      entity: 'project',
+      project_key: 'p1',
+      name: 'Proyecto legacy',
+      start_date: '2026-05-01',
+    }[header] ?? '')).join(';')
+
+    const { preview, error } = validateCsvImport(`${legacyHeaders.join(';')}\n${legacyRow}\n`)
+
+    expect(error).toBeNull()
+    expect(preview.valid).toBe(true)
+    expect(preview.projects[0].contractor).toBeNull()
+  })
+
+  it('resuelve contratantes por clave o por nombre en preview', () => {
+    const { preview, error } = validateCsvImport(importCsv([
+      csvRow({
+        entity: 'contractor',
+        contractor_key: 'c1',
+        name: 'Contratante guardado',
+      }),
+      csvRow({
+        entity: 'project',
+        project_key: 'p1',
+        contractor_key: 'c1',
+        name: 'Proyecto',
+        start_date: '2026-05-01',
+      }),
+      csvRow({
+        entity: 'event',
+        event_key: 'e1',
+        contractor_name: 'Sala nueva',
+        name: 'Evento',
+        start_datetime: '2026-05-10 08:00',
+      }),
+    ]))
+
+    expect(error).toBeNull()
+    expect(preview.valid).toBe(true)
+    expect(preview.contractors[0].key).toBe('c1')
+    expect(preview.projects[0].contractor).toEqual({ type: 'key', value: 'c1' })
+    expect(preview.events[0].contractor).toEqual({ type: 'name', value: 'Sala nueva' })
   })
 
   it('rechaza cabeceras prohibidas antes de planificar filas', () => {

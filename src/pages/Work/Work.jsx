@@ -1,12 +1,14 @@
 import { useMemo } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { Briefcase, CalendarDays, ChevronRight, FolderOpen, Plus, Ticket } from 'lucide-react'
+import { Briefcase, Building2, CalendarDays, ChevronRight, FolderOpen, Plus, Ticket } from 'lucide-react'
 import { PageWrapper } from '../../components/layout/PageWrapper'
 import { Card } from '../../components/ui/Card'
 import { StatusBadge } from '../../components/ui/Badge'
 import { useAuth } from '../../hooks/useAuth'
+import { useContractors } from '../../hooks/useContractors'
 import { useProjects } from '../../hooks/useProjects'
 import { useEvents } from '../../hooks/useEvents'
+import { getEventContractor, getProjectContractor } from '../../lib/contractors'
 import { formatDateRange, formatDatetime } from '../../lib/formatters'
 
 const views = [
@@ -23,7 +25,9 @@ function QuietStatusBadge({ status }) {
   return <StatusBadge status={status} />
 }
 
-function EventRow({ event, compact = false }) {
+function EventRow({ event, projects = [], contractors = [], compact = false }) {
+  const contractor = getEventContractor(event, projects, contractors)
+
   return (
     <Link
       to={`/events/${event.id}`}
@@ -39,7 +43,7 @@ function EventRow({ event, compact = false }) {
         </span>
         <span className="mt-0.5 block truncate text-xs text-[#5C5149]">
           {formatDatetime(event.start_datetime)}
-          {event.client ? ` · ${event.client}` : ''}
+          {contractor ? ` · ${contractor.name}` : ''}
         </span>
       </span>
       <ChevronRight size={16} className="shrink-0 text-[#8A7A6D] transition-transform group-hover:translate-x-0.5" />
@@ -47,7 +51,9 @@ function EventRow({ event, compact = false }) {
   )
 }
 
-function ProjectBlock({ project, events }) {
+function ProjectBlock({ project, events, allProjects = [], contractors = [] }) {
+  const contractor = getProjectContractor(project, contractors)
+
   return (
     <Card className="overflow-hidden">
       <div className="flex flex-col gap-4 p-4 sm:p-5">
@@ -68,7 +74,7 @@ function ProjectBlock({ project, events }) {
               <QuietStatusBadge status={project.status} />
             </div>
             <p className="mt-1 truncate text-sm text-[#5C5149]">
-              {project.client ? `${project.client} · ` : ''}
+              {contractor ? `${contractor.name} · ` : ''}
               {formatDateRange(project.start_date, project.end_date)}
             </p>
           </div>
@@ -84,7 +90,7 @@ function ProjectBlock({ project, events }) {
         {events.length > 0 ? (
           <div className="grid gap-2">
             {events.map((event) => (
-              <EventRow key={event.id} event={event} compact />
+              <EventRow key={event.id} event={event} projects={allProjects} contractors={contractors} compact />
             ))}
           </div>
         ) : (
@@ -101,6 +107,7 @@ export default function Work() {
   const { user } = useAuth()
   const { projects, loading: projectsLoading, error: projectsError } = useProjects(user?.id)
   const { events, loading: eventsLoading, error: eventsError } = useEvents(user?.id)
+  const { contractors, loading: contractorsLoading, error: contractorsError, schemaReady: contractorsSchemaReady } = useContractors(user?.id)
   const [searchParams, setSearchParams] = useSearchParams()
 
   const currentView = views.some((view) => view.value === searchParams.get('view'))
@@ -124,8 +131,8 @@ export default function Work() {
     [events, projectIds]
   )
 
-  const loading = projectsLoading || eventsLoading
-  const error = projectsError || eventsError
+  const loading = projectsLoading || eventsLoading || contractorsLoading
+  const error = projectsError || eventsError || (contractorsSchemaReady ? contractorsError : null)
   const showProjects = currentView === 'all' || currentView === 'projects'
   const showEvents = currentView === 'all' || currentView === 'events'
   const visibleProjectCount = showProjects ? projects.length : 0
@@ -156,6 +163,10 @@ export default function Work() {
             <Link to="/events" className={linkButtonClass}>
               <Plus size={16} />
               Evento
+            </Link>
+            <Link to="/contractors" className={secondaryLinkButtonClass}>
+              <Building2 size={16} />
+              Contratantes
             </Link>
           </div>
         </div>
@@ -238,6 +249,8 @@ export default function Work() {
                       key={project.id}
                       project={project}
                       events={eventsByProject.get(project.id) ?? []}
+                      allProjects={projects}
+                      contractors={contractors}
                     />
                   ))}
                 </div>
@@ -251,7 +264,7 @@ export default function Work() {
                 </h2>
                 <div className="grid gap-2 xl:grid-cols-2">
                   {standaloneEvents.map((event) => (
-                    <EventRow key={event.id} event={event} />
+                    <EventRow key={event.id} event={event} projects={projects} contractors={contractors} />
                   ))}
                 </div>
               </section>

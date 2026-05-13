@@ -88,11 +88,11 @@ generated: true
 
 ## RELEASE-0.1.0-beta.19
 
-- [[../issues/CACH-0057|CACH-0057]] — Definir modelo minimo de contratantes · ready · p1 · task
-- [[../issues/CACH-0058|CACH-0058]] — Versionar schema de contratantes y RLS · ready · p1 · slice
-- [[../issues/CACH-0059|CACH-0059]] — Integrar hooks y portabilidad de contratantes · ready · p1 · slice
-- [[../issues/CACH-0060|CACH-0060]] — Anadir UX minima de contratantes en proyectos y eventos · ready · p1 · slice
-- [[../issues/CACH-0061|CACH-0061]] — Verificar regresion financiera y cierre tecnico beta 19 · ready · p1 · task
+- [[../issues/CACH-0061|CACH-0061]] — Verificar regresion financiera y cierre tecnico beta 19 · in_progress · p1 · task
+- [[../issues/CACH-0057|CACH-0057]] — Definir modelo minimo de contratantes · review · p1 · task
+- [[../issues/CACH-0058|CACH-0058]] — Versionar schema de contratantes y RLS · review · p1 · slice
+- [[../issues/CACH-0059|CACH-0059]] — Integrar hooks y portabilidad de contratantes · review · p1 · slice
+- [[../issues/CACH-0060|CACH-0060]] — Anadir UX minima de contratantes en proyectos y eventos · review · p1 · slice
 
 ## RELEASE-0.1.0-beta.2
 

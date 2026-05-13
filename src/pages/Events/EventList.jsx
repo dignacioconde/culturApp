@@ -10,8 +10,10 @@ import { Select } from '../../components/ui/Input'
 import { useToast, ToastContainer } from '../../components/ui/Toast'
 import { EventForm } from './EventForm'
 import { useAuth } from '../../hooks/useAuth'
+import { useContractors } from '../../hooks/useContractors'
 import { useEvents } from '../../hooks/useEvents'
 import { useProjects } from '../../hooks/useProjects'
+import { getEventContractor } from '../../lib/contractors'
 import { formatDatetime } from '../../lib/formatters'
 import { EVENT_STATUSES, EVENT_CATEGORIES } from '../../lib/constants'
 
@@ -19,6 +21,7 @@ export default function EventList() {
   const { user } = useAuth()
   const { events, loading, error, createEvent } = useEvents(user?.id)
   const { projects, loading: projectsLoading, error: projectsError } = useProjects(user?.id)
+  const { contractors, findOrCreateContractor } = useContractors(user?.id)
   const { toasts, addToast, removeToast } = useToast()
   const [searchParams, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
@@ -51,9 +54,11 @@ export default function EventList() {
   const filtered = events.filter((e) => {
     const query = search.trim().toLowerCase()
     const project = projectById[e.project_id]
+    const contractor = getEventContractor(e, projects, contractors)
     const matchesSearch = !query ||
       e.name.toLowerCase().includes(query) ||
       e.client?.toLowerCase().includes(query) ||
+      contractor?.name.toLowerCase().includes(query) ||
       project?.name.toLowerCase().includes(query)
 
     if (!matchesSearch) return false
@@ -277,6 +282,7 @@ export default function EventList() {
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             {filtered.map((event) => {
               const project = projectById[event.project_id]
+              const contractor = getEventContractor(event, projects, contractors)
               return (
                 <Link key={event.id} to={`/events/${event.id}`} className="block min-w-0">
                   <Card className="p-5 h-full hover:shadow-md transition-shadow cursor-pointer">
@@ -292,8 +298,8 @@ export default function EventList() {
                             <StatusBadge status={event.status} />
                           </div>
                         </div>
-                        {event.client && (
-                          <p className="text-sm text-gray-500 mt-0.5 truncate">{event.client}</p>
+                        {contractor && (
+                          <p className="text-sm text-gray-500 mt-0.5 truncate">{contractor.name}</p>
                         )}
                         <div className="mt-4 flex flex-wrap items-center gap-2 text-xs">
                           <span className="rounded-full bg-gray-100 px-2.5 py-1 font-medium text-gray-600">
@@ -318,6 +324,8 @@ export default function EventList() {
         <EventForm
           initialData={createFromProject ? { project_id: projectParam } : undefined}
           projects={projects}
+          contractors={contractors}
+          onCreateContractor={findOrCreateContractor}
           onSubmit={handleCreate}
           onCancel={closeCreateModal}
           loading={saving}

@@ -66,9 +66,16 @@ rollback;
 - Todo cambio de schema, trigger, policy o RPC debe vivir primero en `supabase/migrations/`.
 - Antes de aplicar en producción, el agente debe mostrar el SQL exacto y esperar confirmación explícita.
 - Aplicar con MCP `apply_migration` cuando esté disponible; si no, pegar la migración completa en SQL Editor.
+- Si una migración se aplica a mano en SQL Editor, reparar después el historial remoto para evitar drift futuro con Supabase CLI:
+
+```bash
+npx supabase migration repair <version> --status applied --linked
+npx supabase migration list --linked
+```
+
 - Si una feature o release depende de una tabla, policy, trigger o RPC nueva, no marcarla como verificada en producción hasta confirmar el remoto con SQL read-only y smoke real o transaccional con `rollback`.
 - Si la migración remota queda pendiente, la release puede estar code-complete, pero la funcionalidad afectada no está released funcionalmente; documentarlo como pendiente o bloqueante.
-- Después de cambiar RPCs, ejecutar:
+- Después de cambiar RPCs o schema consumido por PostgREST, ejecutar:
 
 ```sql
 notify pgrst, 'reload schema';
