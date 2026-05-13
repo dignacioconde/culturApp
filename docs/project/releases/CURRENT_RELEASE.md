@@ -13,17 +13,17 @@ tags:
   - release
   - current
 generated: false
-release_current: false
+release_current: true
 ---
 # Current Release
 
 ## Release activa
 
-No hay release activa.
+[[RELEASE-0.1.0-beta.19|RELEASE-0.1.0-beta.19]] — Contratantes estructurados.
 
 ## Rama activa
 
-No aplica.
+`release/0.1.0-beta.19`
 
 ## Últimos cortes
 
@@ -45,18 +45,20 @@ No aplica.
 
 ## Scope actual
 
-Beta 18 queda cerrada. La app incorpora notas contextuales editables, quick forms financieros más ergonómicos y mantiene calendario de eventos separado del plan anual de proyectos.
+Beta 19 abre `CACH-B0004` por el slice seguro de contratantes estructurados. El objetivo es introducir contratantes reutilizables para proyectos y eventos sin cambiar fórmulas financieras ni implementar facturación completa.
 
 Issues incluidas:
 
-- [[../issues/CACH-0054|CACH-0054]] — Editar notas desde detalles de proyecto y evento.
-- [[../issues/CACH-0055|CACH-0055]] — Pulido financiero movil sin cambiar formulas.
-- [[../issues/CACH-0056|CACH-0056]] — Calendario de eventos y plan anual separados.
+- [[../issues/CACH-0057|CACH-0057]] — Definir modelo mínimo de contratantes.
+- [[../issues/CACH-0058|CACH-0058]] — Versionar schema de contratantes y RLS.
+- [[../issues/CACH-0059|CACH-0059]] — Integrar hooks y portabilidad de contratantes.
+- [[../issues/CACH-0060|CACH-0060]] — Añadir UX mínima de contratantes en proyectos y eventos.
+- [[../issues/CACH-0061|CACH-0061]] — Verificar regresión financiera y cierre técnico beta 19.
 
 ## Regla de trabajo para esta release
 
-No iniciar trabajo nuevo desde una release activa hasta activar explicitamente el siguiente corte.
+Solo entran cambios necesarios para contratantes estructurados y su verificación. Liquidación neta, facturas, CRM, multiusuario, PWA, notificaciones, features Pro y cambios de fórmulas financieras quedan fuera.
 
 ## Como cerrar esta release
 
-Cerrada mediante PR #104. Tag `v0.1.0-beta.18` y smoke de produccion sobre `https://app.caches.es` tras merge a `main`.
+Cerrar mediante PR única `release/0.1.0-beta.19` -> `main`, CI verde, `pb:guard`, `release:sync-check`, verificación remota Supabase cuando aplique, tag `v0.1.0-beta.19` y smoke de producción sobre `https://app.caches.es` tras merge.

@@ -5,7 +5,7 @@ id: PB-ISSUES-INDEX
 title: Issues Index
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-12
+updated: 2026-05-13
 aliases:
   - Issues Index
 tags:
@@ -45,6 +45,11 @@ generated: true
 - [[../issues/CACH-0054|CACH-0054]] — Editar notas desde detalles de proyecto y evento
 - [[../issues/CACH-0055|CACH-0055]] — Pulido financiero movil sin cambiar formulas
 - [[../issues/CACH-0056|CACH-0056]] — Calendario de eventos y plan anual separados
+- [[../issues/CACH-0057|CACH-0057]] — Definir modelo minimo de contratantes
+- [[../issues/CACH-0058|CACH-0058]] — Versionar schema de contratantes y RLS
+- [[../issues/CACH-0059|CACH-0059]] — Integrar hooks y portabilidad de contratantes
+- [[../issues/CACH-0060|CACH-0060]] — Anadir UX minima de contratantes en proyectos y eventos
+- [[../issues/CACH-0061|CACH-0061]] — Verificar regresion financiera y cierre tecnico beta 19
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes

@@ -5,7 +5,7 @@ id: PB-BY-AREA
 title: Issues por area
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-12
+updated: 2026-05-13
 aliases:
   - Issues por area
 tags:
@@ -22,6 +22,7 @@ generated: true
 - [[../issues/CACH-B0007|CACH-B0007]] — Calendario unificado e interaccion rapida · backlog · p1 · initiative
 - [[../issues/CACH-B0009|CACH-B0009]] — Inteligencia financiera y features Pro · backlog · p2 · initiative
 - [[../issues/CACH-B0012|CACH-B0012]] — Perfil publico viralidad y referidos · backlog · p3 · initiative
+- [[../issues/CACH-0060|CACH-0060]] — Anadir UX minima de contratantes en proyectos y eventos · ready · p1 · slice
 - [[../issues/CACH-0029|CACH-0029]] — Integrar helpers CACH-B0016 en flujos reales · done · p1 · slice
 - [[../issues/CACH-0030|CACH-0030]] — Homogeneizar diseno con nueva paleta de colores y fuentes · done · p1 · task
 - [[../issues/CACH-0031|CACH-0031]] — Corregir ajustes UX movil detectados en exploracion · done · p1 · slice
@@ -49,6 +50,10 @@ generated: true
 - [[../issues/CACH-B0004|CACH-B0004]] — Contratantes facturacion y liquidacion neta · backlog · p1 · initiative
 - [[../issues/CACH-B0011|CACH-B0011]] — Categorias etiquetas y taxonomia · backlog · p2 · initiative
 - [[../issues/CACH-B0013|CACH-B0013]] — Gestion documental por proyecto evento · backlog · p3 · initiative
+- [[../issues/CACH-0057|CACH-0057]] — Definir modelo minimo de contratantes · ready · p1 · task
+- [[../issues/CACH-0058|CACH-0058]] — Versionar schema de contratantes y RLS · ready · p1 · slice
+- [[../issues/CACH-0059|CACH-0059]] — Integrar hooks y portabilidad de contratantes · ready · p1 · slice
+- [[../issues/CACH-0061|CACH-0061]] — Verificar regresion financiera y cierre tecnico beta 19 · ready · p1 · task
 - [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos · done · p1 · slice
 - [[../issues/CACH-B0017|CACH-B0017]] — Panel admin para invitaciones beta · done · p1 · slice
 

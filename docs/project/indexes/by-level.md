@@ -5,7 +5,7 @@ id: PB-BY-LEVEL
 title: Issues por nivel
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-12
+updated: 2026-05-13
 aliases:
   - Issues por nivel
 tags:
@@ -30,6 +30,9 @@ generated: true
 
 ## slice
 
+- [[../issues/CACH-0058|CACH-0058]] — Versionar schema de contratantes y RLS · ready · p1 · slice
+- [[../issues/CACH-0059|CACH-0059]] — Integrar hooks y portabilidad de contratantes · ready · p1 · slice
+- [[../issues/CACH-0060|CACH-0060]] — Anadir UX minima de contratantes en proyectos y eventos · ready · p1 · slice
 - [[../issues/CACH-0028|CACH-0028]] — Corregir sync iCloud y estructura versionada · done · p1 · slice
 - [[../issues/CACH-0029|CACH-0029]] — Integrar helpers CACH-B0016 en flujos reales · done · p1 · slice
 - [[../issues/CACH-0031|CACH-0031]] — Corregir ajustes UX movil detectados en exploracion · done · p1 · slice
@@ -56,6 +59,8 @@ generated: true
 
 ## task
 
+- [[../issues/CACH-0057|CACH-0057]] — Definir modelo minimo de contratantes · ready · p1 · task
+- [[../issues/CACH-0061|CACH-0061]] — Verificar regresion financiera y cierre tecnico beta 19 · ready · p1 · task
 - [[../issues/CACH-0039|CACH-0039]] — [Agents] Respetar permisos reales en lanzadores OpenCode · done · p0 · task
 - [[../issues/CACH-0040|CACH-0040]] — [Agents] Separar plan draft de ejecucion mutante · done · p0 · task
 - [[../issues/CACH-0049|CACH-0049]] — Migrar Product Brain a v2 lean agile para agentes · done · p0 · task
