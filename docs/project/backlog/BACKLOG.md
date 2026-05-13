@@ -50,8 +50,9 @@ _Sin issues._
 
 | ID | Titulo | Tipo | Nivel | P | Componentes |
 |---|---|---|---|---|---|
+| [[../issues/CACH-0063|CACH-0063]] | Unificar BottomActionBar en detalles | feature | slice | p1 | finance, design-system |
 | [[../issues/CACH-B0001|CACH-B0001]] | Redisenar Trabajos y jerarquia proyecto-evento | feature | initiative | p1 | work, projects, events, design-system |
-| [[../issues/CACH-B0002|CACH-B0002]] | Simplificar experiencia mobile financiera | feature | initiative | p1 | finance |
+| [[../issues/CACH-B0002|CACH-B0002]] | Simplificar experiencia mobile financiera | feature | initiative | p1 | finance, design-system |
 | [[../issues/CACH-B0004|CACH-B0004]] | Contratantes facturacion y liquidacion neta | feature | initiative | p1 | finance, design-system |
 | [[../issues/CACH-B0007|CACH-B0007]] | Calendario unificado e interaccion rapida | feature | initiative | p1 | calendar, design-system |
 | [[../issues/CACH-B0008|CACH-B0008]] | PWA notificaciones y offline | feature | initiative | p2 | infra-deploy |

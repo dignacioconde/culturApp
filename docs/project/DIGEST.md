@@ -72,6 +72,7 @@ _Sin entradas._
 
 | ID | Título | Tipo | Nivel | P |
 |---|---|---|---|---|
+| CACH-0063 | Unificar BottomActionBar en detalles | feature | slice | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | feature | initiative | p1 |
@@ -81,6 +82,7 @@ _Sin entradas._
 
 | ID | Título | Workflow | Tipo | Nivel | P |
 |---|---|---|---|---|---|
+| CACH-0063 | Unificar BottomActionBar en detalles | backlog | feature | slice | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | backlog | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | backlog | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | backlog | feature | initiative | p1 |
@@ -96,11 +98,11 @@ _Sin entradas._
 
 | ID | Título | Updated | Estado |
 |---|---|---|---|
+| ADR-0016 | UX móvil financiera: operativa primero y acciones contextuales | 2026-05-13 | Accepted |
 | ADR-0014 | Beta feedback propio y Plausible comentado | 2026-05-11 | Superseded |
 | ADR-0015 | Feedback simple propio y PostHog diferido | 2026-05-11 | Accepted |
 | ADR-0001 | Mantener el modelo proyecto-evento con finanzas en ambos niveles | 2026-05-08 | Accepted |
 | ADR-0002 | Beta prioriza confianza antes que features Pro | 2026-05-08 | Accepted |
-| ADR-0003 | Product Brain repo-native y GitHub solo para implementacion | 2026-05-08 | Accepted |
 
 ## Knowledge
 

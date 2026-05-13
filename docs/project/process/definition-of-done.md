@@ -5,7 +5,7 @@ id: PB-DEFINITION-DONE
 title: Definition of Done
 lifecycle: active
 created: '2026-05-05'
-updated: '2026-05-08'
+updated: '2026-05-13'
 aliases:
   - Definition of Done
 tags:
@@ -26,6 +26,7 @@ Una issue esta hecha cuando el cambio esta integrado, verificable y el brain no 
 - `npm run test` pasa si toca logica cubierta por tests.
 - `npm run pb:check` pasa si toca `docs/project/`.
 - La issue y la release reflejan el estado real.
+- Si la issue consolida una regla transversal de producto, UX, datos, seguridad o proceso, la decisión queda en `docs/project/decisions/` y enlazada desde la épica o parent.
 - Si abre PR, incluye checkpoint de memoria: actualizada o no aplica.
 
 ## Nota

@@ -42,6 +42,7 @@ generated: true
 
 ## finance-operations
 
+- [[../issues/CACH-0063|CACH-0063]] — Unificar BottomActionBar en detalles · backlog · p1 · slice
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera · backlog · p1 · initiative
 - [[../issues/CACH-B0004|CACH-B0004]] — Contratantes facturacion y liquidacion neta · backlog · p1 · initiative
 - [[../issues/CACH-B0009|CACH-B0009]] — Inteligencia financiera y features Pro · backlog · p2 · initiative

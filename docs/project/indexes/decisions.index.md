@@ -5,7 +5,7 @@ id: PB-DECISIONS-INDEX
 title: Decisions Index
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-11
+updated: 2026-05-13
 aliases:
   - Decisions Index
 tags:
@@ -30,3 +30,4 @@ generated: true
 - [[../decisions/ADR-0013-testing-strategy|ADR-0013]] — Testing quirurgico para beta privada
 - [[../decisions/ADR-0014-analytics-feedback|ADR-0014]] — Beta feedback propio y Plausible comentado
 - [[../decisions/ADR-0015-feedback-simple-posthog-futuro|ADR-0015]] — Feedback simple propio y PostHog diferido
+- [[../decisions/ADR-0016-ux-mobile-financiera-operativa-acciones-contextuales|ADR-0016]] — UX móvil financiera: operativa primero y acciones contextuales

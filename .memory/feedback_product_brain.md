@@ -72,6 +72,7 @@ npm run pb:capture # Capturar nota (argumento o stdin)
 - No capturar secretos ni datos sensibles de clientes sin confirmación explícita.
 - En barridos del Product Brain, revisar tambien que `decisions/` y `releases/` tengan las decisiones y cortes de producto realmente duraderos; no quedarse solo en `context/`, `knowledge/` e `issues/`.
 - Si el usuario trae un prompt ejecutable y pide tirar directamente con el, tratarlo como implementacion directa; no desviarlo primero a `pb:capture`/inbox salvo que pida capturarlo.
+- Aprendizaje 2026-05-13: si una épica se ejecuta mediante slices y esos slices fijan reglas transversales de producto/UX/datos, no basta con dejar la decisión en resultados de issues o memoria. Crear o actualizar un ADR/decision canónico y enlazarlo desde la épica, para que el siguiente agente no reabra decisiones ya tomadas.
 
 ## Lectura IA y consistencia
 
@@ -80,4 +81,4 @@ npm run pb:capture # Capturar nota (argumento o stdin)
 - Antes de abrir PR que toque `docs/project/`, ejecutar `npm run pb:check`; el validador cubre frontmatter de issues, índices principales y wikilinks internos.
 - Para implementación, leer `CURRENT_RELEASE.md`, `CURRENT_PLAN.md`, `BACKLOG.md` y la issue `CACH-*` relacionada antes de tocar código. Si la tarea pertenece a una release, la rama sale de la rama de release activa.
 
-Actualizado: 2026-05-08
+Actualizado: 2026-05-13
