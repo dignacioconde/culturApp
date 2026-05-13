@@ -1,11 +1,14 @@
 import { useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { Input, Select, Textarea } from '../../components/ui/Input'
+import { ContractorSelector, NEW_CONTRACTOR_VALUE } from '../../components/contractors/ContractorSelector'
 import { PROJECT_STATUSES, PROJECT_CATEGORIES, DEFAULT_PROJECT_COLORS } from '../../lib/constants'
 
 const EMPTY_FORM = {
   name: '',
   client: '',
+  contractor_id: '',
+  new_contractor_name: '',
   category: 'otros',
   status: 'draft',
   start_date: '',
@@ -14,16 +17,19 @@ const EMPTY_FORM = {
   notes: '',
 }
 
-export function ProjectForm({ initialData, onSubmit, onCancel, loading }) {
+export function ProjectForm({ initialData, contractors = [], onCreateContractor, onSubmit, onCancel, loading }) {
   const [form, setForm] = useState({
     ...EMPTY_FORM,
     ...initialData,
     name: initialData?.name ?? '',
     client: initialData?.client ?? '',
+    contractor_id: initialData?.contractor_id ?? '',
+    new_contractor_name: '',
     end_date: initialData?.end_date ?? '',
     notes: initialData?.notes ?? '',
   })
   const [error, setError] = useState('')
+  const [submittingContractor, setSubmittingContractor] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -31,7 +37,7 @@ export function ProjectForm({ initialData, onSubmit, onCancel, loading }) {
     setError('')
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!form.name.trim()) {
       setError('Pon un nombre para identificar el proyecto.')
@@ -45,12 +51,36 @@ export function ProjectForm({ initialData, onSubmit, onCancel, loading }) {
       setError('La fecha de fin no puede ser anterior a la de inicio.')
       return
     }
-    onSubmit({
-      ...form,
+
+    let contractorId = form.contractor_id || null
+    if (form.contractor_id === NEW_CONTRACTOR_VALUE) {
+      if (!form.new_contractor_name.trim()) {
+        setError('Pon un nombre para el contratante.')
+        return
+      }
+      if (!onCreateContractor) {
+        setError('No se ha podido crear el contratante.')
+        return
+      }
+      setSubmittingContractor(true)
+      const { data, error } = await onCreateContractor(form.new_contractor_name)
+      setSubmittingContractor(false)
+      if (error || !data?.id) {
+        setError('No se ha podido crear el contratante.')
+        return
+      }
+      contractorId = data.id
+    }
+
+    const payload = { ...form }
+    delete payload.new_contractor_name
+    await onSubmit({
+      ...payload,
       name: form.name.trim(),
-      client: form.client.trim(),
+      client: form.client.trim() || null,
+      contractor_id: contractorId,
       end_date: form.end_date || null,
-      notes: form.notes.trim(),
+      notes: form.notes.trim() || null,
     })
   }
 
@@ -69,12 +99,14 @@ export function ProjectForm({ initialData, onSubmit, onCancel, loading }) {
           placeholder="Concierto de primavera"
           required
         />
-        <Input
-          label="Cliente o contratante"
-          name="client"
-          value={form.client}
+        <ContractorSelector
+          contractors={contractors}
+          value={form.contractor_id}
+          newName={form.new_contractor_name}
+          clientValue={form.client}
           onChange={handleChange}
-          placeholder="Ayuntamiento de Madrid"
+          onNewNameChange={handleChange}
+          onClientChange={handleChange}
         />
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <Select label="Categoría" name="category" value={form.category} onChange={handleChange}>
@@ -150,8 +182,8 @@ export function ProjectForm({ initialData, onSubmit, onCancel, loading }) {
         <Button type="button" variant="secondary" onClick={onCancel} className="justify-center">
           Cancelar
         </Button>
-        <Button type="submit" disabled={loading} className="justify-center">
-          {loading ? 'Guardando...' : 'Guardar proyecto'}
+        <Button type="submit" disabled={loading || submittingContractor} className="justify-center">
+          {loading || submittingContractor ? 'Guardando...' : 'Guardar proyecto'}
         </Button>
       </div>
     </form>

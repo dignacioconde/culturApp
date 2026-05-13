@@ -5,7 +5,7 @@ id: CACH-B0004
 title: Contratantes facturacion y liquidacion neta
 lifecycle: active
 created: '2026-05-04'
-updated: '2026-05-08'
+updated: '2026-05-13'
 aliases:
   - CACH-B0004
 tags:
@@ -53,6 +53,18 @@ El modelo actual cubre ingresos/gastos por proyecto o evento, pero no expresa bi
 - Asociar gastos a ingresos para calcular cobro neto real.
 - Tratar CRM ligero y cooperativa como spikes estratégicos antes de modelo multiusuario.
 
+## Slicing beta
+
+`RELEASE-0.1.0-beta.19` abre esta iniciativa con el slice seguro de contratantes estructurados:
+
+- [[CACH-0057|CACH-0057]] — Definir modelo mínimo de contratantes.
+- [[CACH-0058|CACH-0058]] — Versionar schema de contratantes y RLS.
+- [[CACH-0059|CACH-0059]] — Integrar hooks y portabilidad de contratantes.
+- [[CACH-0060|CACH-0060]] — Añadir UX mínima de contratantes en proyectos y eventos.
+- [[CACH-0061|CACH-0061]] — Verificar regresión financiera y cierre técnico beta 19.
+
+Quedan fuera de beta 19: facturas emitidas, liquidación neta gasto-ingreso, CRM ligero, colaboración multiusuario y cambios de fórmulas financieras.
+
 ## Acceptance Criteria
 
 - [ ] El diseño de datos diferencia cliente/contratante de texto libre.
@@ -74,16 +86,23 @@ El modelo actual cubre ingresos/gastos por proyecto o evento, pero no expresa bi
 
 ## Notas de progreso
 
+2026-05-13: Se activa `RELEASE-0.1.0-beta.19` como primer corte de la iniciativa, limitado a contratantes estructurados y compatibilidad con `client` legacy.
+
+2026-05-13: Implementación local de beta 19 preparada: schema/RLS local, hook, portabilidad y UX mínima de contratantes. Quedan pendientes verificación remota Supabase y smoke autenticado antes de considerar la release production-ready.
 
 ## Cambios de alcance y decisiones
 
+Beta 19 no implementa liquidación neta ni facturación completa. Es una base de datos/UX para contratantes reutilizables.
 
 ## Bloqueos
 
 
 ## Validación ejecutada
 
-Pendiente hasta ejecutar la issue.
+- `npm run lint` OK.
+- `npm run test` OK.
+- `npm run build` OK.
+- Verificación remota Supabase pendiente.
 
 ## Memoria
 

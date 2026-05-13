@@ -29,3 +29,4 @@ Durable memory:
 - Si una feature depende de una tabla/policy/RPC nueva, verificar remoto antes de marcar producción como OK: `to_regclass('public.<tabla>')`, `pg_policies` cuando aplique y smoke real o transaccional con `rollback`.
 - Si una release deja la migración remota pendiente, la feature puede estar code-complete, pero no released funcionalmente.
 - Si un hotfix remoto incluye SQL no reflejado en migraciones locales, versionar el delta o confirmar que ya queda cubierto por una migración existente.
+- Si se aplica una migración versionada a mano por SQL Editor, confirmar el schema con SQL read-only, refrescar PostgREST con `notify pgrst, 'reload schema';` y ejecutar `npx supabase migration repair <version> --status applied --linked` antes de cerrar la tarea.

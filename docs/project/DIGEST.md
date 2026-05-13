@@ -5,7 +5,7 @@ id: PB-DIGEST
 title: Product Brain Digest
 lifecycle: active
 created: 2026-05-05
-updated: 2026-05-12
+updated: 2026-05-13
 aliases:
   - Digest
   - Brain Digest
@@ -23,7 +23,7 @@ Resumen determinista generado desde Product Brain v2.
 
 ## Estado operacional
 
-- **Release activa:** No hay release activa.
+- **Release activa:** No hay release activa ahora mismo.
 - **Últimos cortes:** `RELEASE-0.1.0-beta.10` — emails transaccionales beta con Brevo. Ver RELEASE-0.1.0-beta.10.
 
 `RELEASE-0.1.0-beta.12` — pulido proyecto-evento y borrados seguros. Ver RELEASE-0.1.0-beta.12.
@@ -39,14 +39,16 @@ Resumen determinista generado desde Product Brain v2.
 `RELEASE-0.1.0-beta.17` — feedback simple beta. Ver RELEASE-0.1.0-beta.17.
 
 `RELEASE-0.1.0-beta.18` — cierre P1 UX core. Ver RELEASE-0.1.0-beta.18.
-- **Foco:** Beta 18 queda cerrada con notas contextuales, pulido financiero movil y calendarios separados más claros. No hay release activa.
+
+`RELEASE-0.1.0-beta.19` — contratantes estructurados. Ver RELEASE-0.1.0-beta.19.
+- **Foco:** Beta 19 queda cerrada como primer slice de `CACH-B0004`: contratantes estructurados, schema/RLS, hooks, portabilidad, UX mínima y regresión financiera sin cambios de fórmula. El siguiente foco queda pendiente de elegir entre hardening o abrir liquidación neta con criterios de datos/RLS.
 
 ## Prioridades del plan
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
 2. Mantener el feedback beta simple antes de introducir analitica de producto.
 3. No introducir PostHog, Plausible ni analitica de eventos sin issue/ADR posterior.
-4. No abrir contratantes, facturacion, liquidacion neta, migraciones, RLS ni cambios de formulas financieras sin release nueva.
+4. Antes de abrir beta 20, decidir si toca hardening o liquidacion neta; en ambos casos mantener fuera facturacion completa y CRM salvo issue nueva con criterios de datos/RLS.
 
 ## Tablero
 
@@ -112,4 +114,4 @@ _Sin entradas._
 
 ## Próxima acción
 
-Elegir siguiente corte. Candidato principal: `CACH-B0004` como release de datos separada para contratantes, facturacion y liquidacion neta.
+Cerrar beta 19 en `main`, etiquetar `v0.1.0-beta.19`, verificar producción y decidir el próximo corte.

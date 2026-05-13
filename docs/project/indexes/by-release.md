@@ -5,7 +5,7 @@ id: PB-BY-RELEASE
 title: Issues por release
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-12
+updated: 2026-05-13
 aliases:
   - Issues por release
 tags:
@@ -85,6 +85,14 @@ generated: true
 - [[../issues/CACH-0054|CACH-0054]] — Editar notas desde detalles de proyecto y evento · done · p1 · slice
 - [[../issues/CACH-0055|CACH-0055]] — Pulido financiero movil sin cambiar formulas · done · p1 · slice
 - [[../issues/CACH-0056|CACH-0056]] — Calendario de eventos y plan anual separados · done · p1 · slice
+
+## RELEASE-0.1.0-beta.19
+
+- [[../issues/CACH-0057|CACH-0057]] — Definir modelo minimo de contratantes · done · p1 · task
+- [[../issues/CACH-0058|CACH-0058]] — Versionar schema de contratantes y RLS · done · p1 · slice
+- [[../issues/CACH-0059|CACH-0059]] — Integrar hooks y portabilidad de contratantes · done · p1 · slice
+- [[../issues/CACH-0060|CACH-0060]] — Anadir UX minima de contratantes en proyectos y eventos · done · p1 · slice
+- [[../issues/CACH-0061|CACH-0061]] — Verificar regresion financiera y cierre tecnico beta 19 · done · p1 · task
 
 ## RELEASE-0.1.0-beta.2
 

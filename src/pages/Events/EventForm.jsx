@@ -1,13 +1,17 @@
 import { useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { Input, Select, Textarea } from '../../components/ui/Input'
+import { ContractorSelector, NEW_CONTRACTOR_VALUE } from '../../components/contractors/ContractorSelector'
 import { EVENT_STATUSES, EVENT_CATEGORIES, DEFAULT_PROJECT_COLORS } from '../../lib/constants'
 import { toDatetimeLocal } from '../../lib/formatters'
+import { formatContractorDisplay, getProjectContractor } from '../../lib/contractors'
 import { buildEventPayload } from '../../lib/eventPayload'
 
 const EMPTY_FORM = {
   name: '',
   client: '',
+  contractor_id: '',
+  new_contractor_name: '',
   category: 'otros',
   status: 'draft',
   project_id: '',
@@ -43,7 +47,7 @@ const getDefaultEndDatetime = (startDatetime, multiDay = false) => {
   return `${endDatePart}T${endHours}:${endMinutes}`
 }
 
-export function EventForm({ initialData, projects = [], onSubmit, onCancel, loading }) {
+export function EventForm({ initialData, projects = [], contractors = [], onCreateContractor, onSubmit, onCancel, loading }) {
   const initialStartDatetime = toDatetimeLocal(initialData?.start_datetime)
   const initialEndDatetime = toDatetimeLocal(initialData?.end_datetime)
   const [form, setForm] = useState({
@@ -51,12 +55,15 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
     ...initialData,
     name: initialData?.name ?? '',
     client: initialData?.client ?? '',
+    contractor_id: initialData?.contractor_id ?? '',
+    new_contractor_name: '',
     start_datetime: initialStartDatetime,
     end_datetime: initialEndDatetime,
     project_id: initialData?.project_id ?? '',
     notes: initialData?.notes ?? '',
   })
   const [error, setError] = useState('')
+  const [submittingContractor, setSubmittingContractor] = useState(false)
   const [isMultiDay, setIsMultiDay] = useState(() => {
     if (!initialEndDatetime) return false
     const startDate = initialStartDatetime.split('T')[0]
@@ -71,6 +78,13 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
 
       if (name === 'start_datetime' && !isMultiDay && value) {
         updated.end_datetime = getDefaultEndDatetime(value)
+      }
+
+      if (name === 'project_id') {
+        const previousProjectContractorId = projects.find((project) => project.id === prev.project_id)?.contractor_id
+        const nextProjectContractorId = projects.find((project) => project.id === value)?.contractor_id ?? ''
+        const shouldInheritNextProject = !prev.contractor_id || prev.contractor_id === previousProjectContractorId
+        if (shouldInheritNextProject) updated.contractor_id = nextProjectContractorId
       }
 
       return updated
@@ -95,7 +109,7 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!form.name.trim()) {
       setError('Pon un nombre para identificar el evento.')
@@ -109,16 +123,47 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
       setError('La fecha de fin no puede ser anterior al inicio.')
       return
     }
+
+    const selectedProject = form.project_id ? projects.find((project) => project.id === form.project_id) : null
+    let contractorId = form.contractor_id || selectedProject?.contractor_id || null
+    if (form.contractor_id === NEW_CONTRACTOR_VALUE) {
+      if (!form.new_contractor_name.trim()) {
+        setError('Pon un nombre para el contratante.')
+        return
+      }
+      if (!onCreateContractor) {
+        setError('No se ha podido crear el contratante.')
+        return
+      }
+      setSubmittingContractor(true)
+      const { data, error } = await onCreateContractor(form.new_contractor_name)
+      setSubmittingContractor(false)
+      if (error || !data?.id) {
+        setError('No se ha podido crear el contratante.')
+        return
+      }
+      contractorId = data.id
+    }
+
+    const formPayload = { ...form }
+    delete formPayload.new_contractor_name
     const payload = buildEventPayload({
-      ...form,
+      ...formPayload,
       name: form.name.trim(),
-      client: form.client.trim(),
+      client: form.client.trim() || null,
+      contractor_id: contractorId,
       project_id: form.project_id || null,
       end_datetime: form.end_datetime || null,
-      notes: form.notes.trim(),
+      notes: form.notes.trim() || null,
     })
-    onSubmit(payload)
+    await onSubmit(payload)
   }
+
+  const selectedProject = form.project_id ? projects.find((project) => project.id === form.project_id) : null
+  const inheritedContractor = getProjectContractor(selectedProject, contractors)
+  const inheritedLabel = inheritedContractor
+    ? `Heredar: ${formatContractorDisplay(inheritedContractor)}`
+    : ''
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -135,12 +180,15 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
           placeholder="Concierto en el Auditorio"
           required
         />
-        <Input
-          label="Cliente o contratante"
-          name="client"
-          value={form.client}
+        <ContractorSelector
+          contractors={contractors}
+          value={form.contractor_id}
+          newName={form.new_contractor_name}
+          clientValue={form.client}
+          inheritedLabel={inheritedLabel}
           onChange={handleChange}
-          placeholder="Ayuntamiento de Madrid"
+          onNewNameChange={handleChange}
+          onClientChange={handleChange}
         />
 
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -239,8 +287,8 @@ export function EventForm({ initialData, projects = [], onSubmit, onCancel, load
         <Button type="button" variant="secondary" onClick={onCancel} className="justify-center">
           Cancelar
         </Button>
-        <Button type="submit" disabled={loading} className="justify-center">
-          {loading ? 'Guardando...' : 'Guardar evento'}
+        <Button type="submit" disabled={loading || submittingContractor} className="justify-center">
+          {loading || submittingContractor ? 'Guardando...' : 'Guardar evento'}
         </Button>
       </div>
     </form>

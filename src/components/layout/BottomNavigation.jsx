@@ -3,6 +3,7 @@ import { isNavigationItemActive, navItems, shouldShowBottomNavigation } from './
 
 export function BottomNavigation() {
   const location = useLocation()
+  const mobileNavItems = navItems.filter((item) => item.showOnMobile !== false)
 
   if (!shouldShowBottomNavigation(location.pathname)) return null
 
@@ -11,8 +12,8 @@ export function BottomNavigation() {
       aria-label="Navegación principal móvil"
       className="fixed inset-x-0 bottom-0 z-40 border-t border-[#E2D9C2] bg-[#FFFCF5]/95 px-1.5 pt-1.5 pb-[calc(0.5rem+env(safe-area-inset-bottom))] shadow-[0_-6px_18px_rgba(33,28,24,0.08)] backdrop-blur lg:hidden"
     >
-      <div className="grid grid-cols-6 gap-0.5">
-        {navItems.map((item) => (
+      <div className="grid gap-0.5" style={{ gridTemplateColumns: `repeat(${mobileNavItems.length}, minmax(0, 1fr))` }}>
+        {mobileNavItems.map((item) => (
           <NavLink
             key={item.to}
             to={item.to}

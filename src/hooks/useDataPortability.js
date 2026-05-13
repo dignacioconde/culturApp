@@ -7,30 +7,33 @@ import {
   hasImportErrors,
   validateCsvImport,
 } from '../lib/portability/index.ts'
+import { normalizeContractorName } from '../lib/contractors'
 
 function portabilityError(message) {
   return { message }
 }
 
 function emptyInserted() {
-  return { projects: 0, events: 0, incomes: 0, expenses: 0 }
+  return { contractors: 0, projects: 0, events: 0, incomes: 0, expenses: 0 }
 }
 
 export async function exportPortableData(client, userId) {
   if (!userId) return { data: null, error: portabilityError('Necesitas una sesión activa para exportar datos.') }
 
   try {
-    const [projectsResult, eventsResult, incomesResult, expensesResult] = await Promise.all([
+    const [contractorsResult, projectsResult, eventsResult, incomesResult, expensesResult] = await Promise.all([
+      client.from('contractors').select('*').eq('user_id', userId).order('name', { ascending: true }),
       client.from('projects').select('*').eq('user_id', userId).order('start_date', { ascending: true }),
       client.from('events').select('*').eq('user_id', userId).order('start_datetime', { ascending: true }),
       client.from('incomes').select('*').eq('user_id', userId).order('expected_date', { ascending: true }),
       client.from('expenses').select('*').eq('user_id', userId).order('expense_date', { ascending: true }),
     ])
 
-    const firstError = [projectsResult, eventsResult, incomesResult, expensesResult].find((result) => result.error)?.error
+    const firstError = [contractorsResult, projectsResult, eventsResult, incomesResult, expensesResult].find((result) => result.error)?.error
     if (firstError) return { data: null, error: firstError }
 
     const entities = {
+      contractors: contractorsResult.data ?? [],
       projects: projectsResult.data ?? [],
       events: eventsResult.data ?? [],
       incomes: incomesResult.data ?? [],
@@ -58,14 +61,91 @@ export async function commitPortableImport(client, userId, preview) {
 
   const inserted = emptyInserted()
   const failures = []
+  const contractorIds = new Map()
+  const contractorIdsByName = new Map()
   const projectIds = new Map()
+  const projectContractorIds = new Map()
   const eventIds = new Map()
 
   try {
+    const existingContractors = await client
+      .from('contractors')
+      .select('id,name')
+      .eq('user_id', userId)
+
+    if (existingContractors.error) {
+      return { data: { inserted, failures }, error: existingContractors.error }
+    }
+
+    for (const contractor of existingContractors.data ?? []) {
+      contractorIdsByName.set(normalizeContractorName(contractor.name), contractor.id)
+    }
+
+    const resolveContractorByName = async (name, row, entity = 'contractor') => {
+      const normalized = normalizeContractorName(name)
+      if (!normalized) return null
+      const existingId = contractorIdsByName.get(normalized)
+      if (existingId) return existingId
+
+      const { data, error } = await client
+        .from('contractors')
+        .insert({ name: String(name).trim(), user_id: userId })
+        .select('id,name')
+        .single()
+
+      if (error) {
+        failures.push({ row, entity, error })
+        return null
+      }
+
+      inserted.contractors += 1
+      contractorIdsByName.set(normalizeContractorName(data.name), data.id)
+      return data.id
+    }
+
+    const resolveContractorLink = async (link, row, entity) => {
+      if (!link) return null
+      if (link.type === 'key') {
+        const contractorId = contractorIds.get(link.value)
+        if (!contractorId) {
+          failures.push({ row, entity, error: portabilityError('No se ha podido resolver el contratante importado.') })
+          return null
+        }
+        return contractorId
+      }
+
+      return resolveContractorByName(link.value, row, entity)
+    }
+
+    for (const contractor of preview.contractors ?? []) {
+      const existingId = contractorIdsByName.get(normalizeContractorName(contractor.payload.name))
+      if (existingId) {
+        contractorIds.set(contractor.key, existingId)
+        continue
+      }
+
+      const { data, error } = await client
+        .from('contractors')
+        .insert({ ...contractor.payload, user_id: userId })
+        .select('id,name')
+        .single()
+
+      if (error) {
+        failures.push({ row: contractor.row, entity: 'contractor', error })
+      } else {
+        inserted.contractors += 1
+        contractorIds.set(contractor.key, data.id)
+        contractorIdsByName.set(normalizeContractorName(data.name), data.id)
+      }
+    }
+
     for (const project of preview.projects) {
+      const contractorId = await resolveContractorLink(project.contractor, project.row, 'project')
+      if (project.contractor && !contractorId) continue
+
       const { data, error } = await client
         .from('projects')
-        .insert({ ...project.payload, user_id: userId })
+        .insert({ ...project.payload, contractor_id: contractorId, user_id: userId })
         .select('id')
         .single()
 
@@ -74,19 +154,26 @@ export async function commitPortableImport(client, userId, preview) {
       } else {
         inserted.projects += 1
         projectIds.set(project.key, data.id)
+        if (contractorId) projectContractorIds.set(project.key, contractorId)
       }
     }
 
     for (const event of preview.events) {
       const projectId = event.project_key ? projectIds.get(event.project_key) : null
+      const contractorId = event.contractor
+        ? await resolveContractorLink(event.contractor, event.row, 'event')
+        : event.project_key
+        ? projectContractorIds.get(event.project_key) ?? null
+        : null
       if (event.project_key && !projectId) {
         failures.push({ row: event.row, entity: 'event', error: portabilityError('No se ha podido resolver el proyecto importado.') })
         continue
       }
+      if (event.contractor && !contractorId) continue
 
       const { data, error } = await client
         .from('events')
-        .insert({ ...event.payload, project_id: projectId, user_id: userId })
+        .insert({ ...event.payload, project_id: projectId, contractor_id: contractorId, user_id: userId })
         .select('id')
         .single()
 

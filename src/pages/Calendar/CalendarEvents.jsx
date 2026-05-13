@@ -10,8 +10,10 @@ import { Modal } from '../../components/ui/Modal'
 import { useToast, ToastContainer } from '../../components/ui/Toast'
 import { EventForm } from '../Events/EventForm'
 import { useAuth } from '../../hooks/useAuth'
+import { useContractors } from '../../hooks/useContractors'
 import { useEvents } from '../../hooks/useEvents'
 import { useProjects } from '../../hooks/useProjects'
+import { formatContractorDisplay, getEventContractor } from '../../lib/contractors'
 import { formatDatetime } from '../../lib/formatters'
 import { AlertCircle, CalendarDays, Plus, X, ChevronDown, ChevronUp } from 'lucide-react'
 
@@ -57,6 +59,7 @@ export default function CalendarEvents() {
   const { user } = useAuth()
   const { events, loading, error, createEvent } = useEvents(user?.id)
   const { projects, loading: projectsLoading, error: projectsError } = useProjects(user?.id)
+  const { contractors, findOrCreateContractor } = useContractors(user?.id)
   const isMobile = useIsMobile()
   const [calendarDate, setCalendarDate] = useState(() => new Date())
   const [calendarView, setCalendarView] = useState(() => isMobile ? 'month' : 'month')
@@ -190,6 +193,9 @@ export default function CalendarEvents() {
         </div>
 
         {selectedEvent && (
+          (() => {
+            const selectedContractor = getEventContractor(selectedEvent, projects, contractors)
+            return (
           <div className={`
             w-full lg:w-80 bg-white rounded-xl border border-gray-200 p-5 flex flex-col gap-4
             lg:relative
@@ -213,8 +219,10 @@ export default function CalendarEvents() {
             </div>
             <div className="min-w-0">
               <h3 className="font-semibold text-gray-900 break-words">{selectedEvent.name}</h3>
-              {selectedEvent.client && (
-                <p className="text-sm text-gray-500 mt-0.5 break-words">{selectedEvent.client}</p>
+              {selectedContractor && (
+                <p className="text-sm text-gray-500 mt-0.5 break-words">
+                  {formatContractorDisplay(selectedContractor, { showInherited: true })}
+                </p>
               )}
             </div>
             <div className={`flex flex-col gap-2 text-sm text-gray-600 ${isMobile && !panelExpanded ? 'hidden' : ''}`}>
@@ -254,6 +262,8 @@ export default function CalendarEvents() {
               </Button>
             </Link>
           </div>
+            )
+          })()
         )}
       </div>
 
@@ -261,6 +271,8 @@ export default function CalendarEvents() {
         <EventForm
           initialData={newEventInitialData}
           projects={projects}
+          contractors={contractors}
+          onCreateContractor={findOrCreateContractor}
           onSubmit={handleCreate}
           onCancel={closeNewEvent}
           loading={saving}

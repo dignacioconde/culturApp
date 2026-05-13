@@ -1,9 +1,22 @@
 import { serializeCsv } from './csv'
 
-export const BACKUP_VERSION = 1
+export const BACKUP_VERSION = 2
+
+export const CONTRACTOR_CSV_HEADERS = [
+  'id',
+  'name',
+  'billing_name',
+  'tax_id',
+  'email',
+  'phone',
+  'billing_address',
+  'notes',
+  'created_at',
+] as const
 
 export const PROJECT_CSV_HEADERS = [
   'id',
+  'contractor_id',
   'name',
   'client',
   'category',
@@ -18,6 +31,7 @@ export const PROJECT_CSV_HEADERS = [
 export const EVENT_CSV_HEADERS = [
   'id',
   'project_id',
+  'contractor_id',
   'name',
   'client',
   'category',
@@ -55,6 +69,7 @@ export const EXPENSE_CSV_HEADERS = [
 ] as const
 
 type EntityRows = {
+  contractors?: Record<string, unknown>[]
   projects: Record<string, unknown>[]
   events: Record<string, unknown>[]
   incomes: Record<string, unknown>[]
@@ -75,6 +90,7 @@ export function buildBackupJson(entities: EntityRows, exportedAt = new Date()): 
     version: BACKUP_VERSION,
     exported_at: exportedAt.toISOString(),
     entities: {
+      contractors: (entities.contractors ?? []).map(withoutUserId),
       projects: entities.projects.map(withoutUserId),
       events: entities.events.map(withoutUserId),
       incomes: entities.incomes.map(withoutUserId),
@@ -85,6 +101,11 @@ export function buildBackupJson(entities: EntityRows, exportedAt = new Date()): 
 
 export function buildCsvFiles(entities: EntityRows) {
   return {
+    contractors: {
+      filename: 'caches-contractors.csv',
+      headers: [...CONTRACTOR_CSV_HEADERS],
+      content: serializeCsv([...CONTRACTOR_CSV_HEADERS], (entities.contractors ?? []).map((row) => pick(CONTRACTOR_CSV_HEADERS, row))),
+    },
     projects: {
       filename: 'caches-projects.csv',
       headers: [...PROJECT_CSV_HEADERS],
@@ -110,6 +131,7 @@ export function buildCsvFiles(entities: EntityRows) {
 
 export function buildExportSummary(entities: EntityRows) {
   return {
+    contractors: (entities.contractors ?? []).length,
     projects: entities.projects.length,
     events: entities.events.length,
     incomes: entities.incomes.length,

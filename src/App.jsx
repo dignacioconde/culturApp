@@ -12,6 +12,7 @@ import EventList from './pages/Events/EventList'
 import EventDetail from './pages/Events/EventDetail'
 import ProjectList from './pages/Projects/ProjectList'
 import ProjectDetail from './pages/Projects/ProjectDetail'
+import ContractorList from './pages/Contractors/ContractorList'
 import Work from './pages/Work/Work'
 import Settings from './pages/Settings/Settings'
 import Data from './pages/Data/Data'
@@ -102,6 +103,7 @@ export default function App() {
         <Route path="/events/:id" element={<PrivateRoute><EventDetail /></PrivateRoute>} />
         <Route path="/projects" element={<PrivateRoute><ProjectList /></PrivateRoute>} />
         <Route path="/projects/:id" element={<PrivateRoute><ProjectDetail /></PrivateRoute>} />
+        <Route path="/contractors" element={<PrivateRoute><ContractorList /></PrivateRoute>} />
         <Route path="/work" element={<PrivateRoute><Work /></PrivateRoute>} />
         <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>} />
         <Route path="/data" element={<PrivateRoute><Data /></PrivateRoute>} />

@@ -12,11 +12,13 @@ import { Input, Select } from '../../components/ui/Input'
 import { useToast, ToastContainer } from '../../components/ui/Toast'
 import { EventForm } from './EventForm'
 import { useAuth } from '../../hooks/useAuth'
+import { useContractors } from '../../hooks/useContractors'
 import { useProfile } from '../../hooks/useProfile'
 import { useEvents } from '../../hooks/useEvents'
 import { useProjects } from '../../hooks/useProjects'
 import { useIncomes } from '../../hooks/useIncomes'
 import { useExpenses } from '../../hooks/useExpenses'
+import { formatContractorDisplay, getEventContractor } from '../../lib/contractors'
 import { formatCurrency, formatCurrencyPerHour, formatDate, formatDatetime, formatHours } from '../../lib/formatters'
 import { normalizeExpenseForm, normalizeIncomeForm } from '../../lib/financeForms'
 import { formatDueDescription, formatDueText, getDueDays } from '../../lib/dueDates'
@@ -55,12 +57,14 @@ export default function EventDetail() {
   const { profile } = useProfile(user?.id)
   const { events, loading: eventsLoading, error: eventsError, updateEvent, deleteEvent } = useEvents(user?.id)
   const { projects } = useProjects(user?.id)
+  const { contractors, findOrCreateContractor } = useContractors(user?.id)
   const { incomes, loading: incomesLoading, createIncome, updateIncome, deleteIncome } = useIncomes(user?.id, { eventId: id })
   const { expenses, loading: expensesLoading, createExpense, updateExpense, deleteExpense } = useExpenses(user?.id, { eventId: id })
   const { toasts, addToast, removeToast } = useToast()
 
   const event = events.find((e) => e.id === id)
   const project = event?.project_id ? projects.find((p) => p.id === event.project_id) : null
+  const eventContractor = getEventContractor(event, projects, contractors)
 
   const [editModal, setEditModal] = useState(false)
   const [savingEvent, setSavingEvent] = useState(false)
@@ -419,8 +423,10 @@ export default function EventDetail() {
                   <h2 className="min-w-0 truncate text-lg font-semibold text-[var(--color-ink)]">{event.name}</h2>
                   <QuietStatusBadge status={event.status} />
                 </div>
-                {event.client && (
-                  <p className="mt-1 text-sm text-[var(--color-ink-muted)]">{event.client}</p>
+                {eventContractor && (
+                  <p className="mt-1 text-sm text-[var(--color-ink-muted)]">
+                    {formatContractorDisplay(eventContractor, { showInherited: true })}
+                  </p>
                 )}
                 <p className="mt-1 text-xs text-[var(--color-ink-muted)]">
                   {formatDatetime(event.start_datetime)}
@@ -751,6 +757,8 @@ export default function EventDetail() {
         <EventForm
           initialData={event}
           projects={projects}
+          contractors={contractors}
+          onCreateContractor={findOrCreateContractor}
           onSubmit={handleUpdateEvent}
           onCancel={() => setEditModal(false)}
           loading={savingEvent}

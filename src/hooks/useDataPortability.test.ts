@@ -31,16 +31,26 @@ function createExportClient(rowsByTable = {}) {
 
 function createImportClient() {
   const inserts = []
-  const ids = { projects: 0, events: 0 }
+  const ids = { contractors: 0, projects: 0, events: 0 }
 
   return {
     inserts,
     from(table) {
       return {
+        select(columns) {
+          if (table === 'contractors') {
+            return {
+              async eq() {
+                return { data: [], error: null, columns }
+              },
+            }
+          }
+          return this
+        },
         insert(payload) {
           inserts.push({ table, payload })
 
-          if (table === 'projects' || table === 'events') {
+          if (table === 'contractors' || table === 'projects' || table === 'events') {
             ids[table] += 1
             const id = `${table}-${ids[table]}`
             return {
@@ -66,6 +76,7 @@ describe('data portability Supabase contract', () => {
     const client = createExportClient({
       projects: [{ id: 'p1', user_id: 'u1', name: 'Proyecto' }],
       events: [{ id: 'e1', user_id: 'u1', name: 'Evento' }],
+      contractors: [{ id: 'c1', user_id: 'u1', name: 'Contratante' }],
       incomes: [{ id: 'i1', user_id: 'u1', amount: 100 }],
       expenses: [{ id: 'x1', user_id: 'u1', amount: 10 }],
     })
@@ -73,8 +84,9 @@ describe('data portability Supabase contract', () => {
     const { data, error } = await exportPortableData(client, 'auth-user')
 
     expect(error).toBeNull()
-    expect(data.summary).toEqual({ projects: 1, events: 1, incomes: 1, expenses: 1 })
+    expect(data.summary).toEqual({ contractors: 1, projects: 1, events: 1, incomes: 1, expenses: 1 })
     expect(client.calls.filter((call) => call.method === 'eq')).toEqual([
+      { table: 'contractors', method: 'eq', column: 'user_id', value: 'auth-user' },
       { table: 'projects', method: 'eq', column: 'user_id', value: 'auth-user' },
       { table: 'events', method: 'eq', column: 'user_id', value: 'auth-user' },
       { table: 'incomes', method: 'eq', column: 'user_id', value: 'auth-user' },
@@ -88,9 +100,18 @@ describe('data portability Supabase contract', () => {
       valid: true,
       errors: [],
       hiddenErrorCount: 0,
-      projects: [{
+      contractors: [{
         row: 2,
+        key: 'c1',
+        payload: {
+          name: 'Contratante',
+          user_id: 'csv-user',
+        },
+      }],
+      projects: [{
+        row: 3,
         key: 'p1',
+        contractor: { type: 'key', value: 'c1' },
         payload: {
           name: 'Proyecto',
           start_date: '2026-05-01',
@@ -98,9 +119,10 @@ describe('data portability Supabase contract', () => {
         },
       }],
       events: [{
-        row: 3,
+        row: 4,
         key: 'e1',
         project_key: 'p1',
+        contractor: { type: 'name', value: 'Sala nueva' },
         payload: {
           name: 'Evento',
           start_datetime: '2026-05-02T06:00:00.000Z',
@@ -109,7 +131,7 @@ describe('data portability Supabase contract', () => {
         },
       }],
       incomes: [{
-        row: 4,
+        row: 5,
         link: { type: 'event', key: 'e1' },
         payload: {
           concept: 'Caché',
@@ -120,7 +142,7 @@ describe('data portability Supabase contract', () => {
         },
       }],
       expenses: [{
-        row: 5,
+        row: 6,
         link: { type: 'project', key: 'p1' },
         payload: {
           concept: 'Material',
@@ -135,15 +157,23 @@ describe('data portability Supabase contract', () => {
     const { data, error } = await commitPortableImport(client, 'auth-user', preview)
 
     expect(error).toBeNull()
-    expect(data.inserted).toEqual({ projects: 1, events: 1, incomes: 1, expenses: 1 })
+    expect(data.inserted).toEqual({ contractors: 2, projects: 1, events: 1, incomes: 1, expenses: 1 })
     expect(client.inserts).toEqual([
       {
+        table: 'contractors',
+        payload: expect.objectContaining({ name: 'Contratante', user_id: 'auth-user' }),
+      },
+      {
         table: 'projects',
-        payload: expect.objectContaining({ name: 'Proyecto', user_id: 'auth-user' }),
+        payload: expect.objectContaining({ name: 'Proyecto', contractor_id: 'contractors-1', user_id: 'auth-user' }),
+      },
+      {
+        table: 'contractors',
+        payload: expect.objectContaining({ name: 'Sala nueva', user_id: 'auth-user' }),
       },
       {
         table: 'events',
-        payload: expect.objectContaining({ name: 'Evento', project_id: 'projects-1', user_id: 'auth-user' }),
+        payload: expect.objectContaining({ name: 'Evento', project_id: 'projects-1', contractor_id: 'contractors-2', user_id: 'auth-user' }),
       },
       {
         table: 'incomes',
@@ -154,5 +184,56 @@ describe('data portability Supabase contract', () => {
         payload: expect.objectContaining({ concept: 'Material', project_id: 'projects-1', event_id: null, user_id: 'auth-user' }),
       },
     ])
+  })
+
+  it('hereda contractor_id del proyecto al importar eventos sin contratante propio', async () => {
+    const client = createImportClient()
+    const preview = {
+      valid: true,
+      errors: [],
+      hiddenErrorCount: 0,
+      contractors: [{
+        row: 2,
+        key: 'c1',
+        payload: {
+          name: 'Contratante',
+        },
+      }],
+      projects: [{
+        row: 3,
+        key: 'p1',
+        contractor: { type: 'key', value: 'c1' },
+        payload: {
+          name: 'Proyecto',
+          start_date: '2026-05-01',
+        },
+      }],
+      events: [{
+        row: 4,
+        key: 'e1',
+        project_key: 'p1',
+        contractor: null,
+        payload: {
+          name: 'Evento heredado',
+          start_datetime: '2026-05-02T06:00:00.000Z',
+        },
+      }],
+      incomes: [],
+      expenses: [],
+    }
+
+    const { data, error } = await commitPortableImport(client, 'auth-user', preview)
+
+    expect(error).toBeNull()
+    expect(data.inserted).toEqual({ contractors: 1, projects: 1, events: 1, incomes: 0, expenses: 0 })
+    expect(client.inserts).toContainEqual({
+      table: 'events',
+      payload: expect.objectContaining({
+        name: 'Evento heredado',
+        project_id: 'projects-1',
+        contractor_id: 'contractors-1',
+        user_id: 'auth-user',
+      }),
+    })
   })
 })

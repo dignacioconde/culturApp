@@ -76,6 +76,7 @@ Calendarios:
 Memoria y documentación:
 - `.memory/` es memoria versionada del proyecto. Guarda preferencias, decisiones duraderas y gotchas reutilizables.
 - No guardar histórico operativo, logs, ramas, listas de commits, secretos ni datos sensibles en memoria.
+- Al cerrar una tarea, pasar siempre el learning loop: detectar si hay aprendizaje durable, actualizar memoria/docs/proceso cuando aplique o declarar `Memoria: no aplica`.
 - Si surge memoria durable, actualizar `.memory/` o declarar `Memoria: no aplica` cuando corresponda.
 - Todo contenido persistente debe estar en español o inglés limpio.
 

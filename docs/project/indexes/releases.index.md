@@ -5,7 +5,7 @@ id: PB-RELEASES-INDEX
 title: Releases Index
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-12
+updated: 2026-05-13
 aliases:
   - Releases Index
 tags:
@@ -27,6 +27,7 @@ generated: true
 - [[../releases/RELEASE-0.1.0-beta.16|RELEASE-0.1.0-beta.16]] — Navegación inferior móvil
 - [[../releases/RELEASE-0.1.0-beta.17|RELEASE-0.1.0-beta.17]] — Feedback simple beta
 - [[../releases/RELEASE-0.1.0-beta.18|RELEASE-0.1.0-beta.18]] — Cierre P1 UX core
+- [[../releases/RELEASE-0.1.0-beta.19|RELEASE-0.1.0-beta.19]] — Contratantes estructurados
 - [[../releases/RELEASE-0.1.0-beta.2|RELEASE-0.1.0-beta.2]] — Endurecer confianza de datos
 - [[../releases/RELEASE-0.1.0-beta.3|RELEASE-0.1.0-beta.3]] — Rediseño financiero del Dashboard
 - [[../releases/RELEASE-0.1.0-beta.4|RELEASE-0.1.0-beta.4]] — Planificacion anual de proyectos
