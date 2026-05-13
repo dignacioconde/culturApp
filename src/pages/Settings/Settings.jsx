@@ -164,6 +164,20 @@ export default function Settings() {
             </Link>
           </div>
         </Card>
+        <Card className="p-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 className="text-sm font-semibold text-gray-900 mb-1">Novedades de la beta</h2>
+              <p className="text-sm text-gray-500">Consulta las mejoras recientes en formato corto y sin notas técnicas.</p>
+            </div>
+            <Link
+              to="/novedades"
+              className="inline-flex min-h-10 items-center justify-center rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-paper)] px-4 py-2 text-sm font-medium leading-none text-[var(--color-ink)] shadow-sm transition-colors hover:bg-[var(--color-paper-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2"
+            >
+              Ver novedades
+            </Link>
+          </div>
+        </Card>
       </div>
       <ToastContainer toasts={toasts} onRemove={removeToast} />
     </PageWrapper>

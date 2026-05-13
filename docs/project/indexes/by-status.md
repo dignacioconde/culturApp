@@ -81,3 +81,7 @@ generated: true
 - [[../issues/CACH-0033|CACH-0033]] — Vista anual en calendario de proyectos · done · p2 · slice
 - [[../issues/CACH-0048|CACH-0048]] — [Context] Compactar workflow OpenCode · done · p2 · task
 - [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura · done · p2 · task
+
+## review
+
+- [[../issues/CACH-0074|CACH-0074]] — Historial user friendly de novedades beta · review · p1 · slice

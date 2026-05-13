@@ -17,6 +17,7 @@ generated: true
 
 ## beta-trust
 
+- [[../issues/CACH-0074|CACH-0074]] — Historial user friendly de novedades beta · review · p1 · slice
 - [[../issues/CACH-B0020|CACH-B0020]] — Validar dominio de email transaccional y cambiar remitentes definitivos · done · p0 · task
 - [[../issues/CACH-0036|CACH-0036]] — Profesionalizar flujo de ramas por beta · done · p1 · task
 - [[../issues/CACH-0051|CACH-0051]] — [Deploy] Dominio publico de app y estrategia multientorno · done · p1 · task

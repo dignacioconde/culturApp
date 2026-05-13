@@ -22,6 +22,7 @@ generated: true
 - [[../issues/CACH-B0007|CACH-B0007]] — Calendario unificado e interaccion rapida · backlog · p1 · initiative
 - [[../issues/CACH-B0009|CACH-B0009]] — Inteligencia financiera y features Pro · backlog · p2 · initiative
 - [[../issues/CACH-B0012|CACH-B0012]] — Perfil publico viralidad y referidos · backlog · p3 · initiative
+- [[../issues/CACH-0074|CACH-0074]] — Historial user friendly de novedades beta · review · p1 · slice
 - [[../issues/CACH-0029|CACH-0029]] — Integrar helpers CACH-B0016 en flujos reales · done · p1 · slice
 - [[../issues/CACH-0030|CACH-0030]] — Homogeneizar diseno con nueva paleta de colores y fuentes · done · p1 · task
 - [[../issues/CACH-0031|CACH-0031]] — Corregir ajustes UX movil detectados en exploracion · done · p1 · slice

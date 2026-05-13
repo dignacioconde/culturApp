@@ -70,7 +70,9 @@ _Sin entradas._
 
 ### Review / Verify
 
-_Sin entradas._
+| ID | Título | Tipo | Nivel | P |
+|---|---|---|---|---|
+| CACH-0074 | Historial user friendly de novedades beta | feature | slice | p1 |
 
 ### Backlog (p1)
 
@@ -85,6 +87,7 @@ _Sin entradas._
 
 | ID | Título | Workflow | Tipo | Nivel | P |
 |---|---|---|---|---|---|
+| CACH-0074 | Historial user friendly de novedades beta | review | feature | slice | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | backlog | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | backlog | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | backlog | feature | initiative | p1 |

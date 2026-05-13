@@ -71,7 +71,9 @@ _Sin issues._
 
 ## Review / Verify
 
-_Sin issues._
+| ID | Titulo | Tipo | Nivel | P | Componentes |
+|---|---|---|---|---|---|
+| [[../issues/CACH-0074|CACH-0074]] | Historial user friendly de novedades beta | feature | slice | p1 | auth-onboarding, settings-profile, design-system |
 
 ## Done
 

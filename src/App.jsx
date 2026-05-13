@@ -17,6 +17,7 @@ import ContractorList from './pages/Contractors/ContractorList'
 import Work from './pages/Work/Work'
 import Settings from './pages/Settings/Settings'
 import Data from './pages/Data/Data'
+import Updates from './pages/Updates/Updates'
 import AdminInvites from './pages/Admin/AdminInvites'
 
 function PrivateRoute({ children, requireAdmin = false }) {
@@ -113,6 +114,7 @@ export default function App() {
         <Route path="/work" element={<PrivateRoute><Work /></PrivateRoute>} />
         <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>} />
         <Route path="/data" element={<PrivateRoute><Data /></PrivateRoute>} />
+        <Route path="/novedades" element={<PrivateRoute><Updates /></PrivateRoute>} />
         <Route path="/admin/invitaciones" element={<PrivateRoute requireAdmin><AdminInvites /></PrivateRoute>} />
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>

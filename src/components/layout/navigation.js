@@ -1,4 +1,4 @@
-import { Building2, Database, LayoutDashboard, CalendarDays, CalendarRange, Briefcase, Settings } from 'lucide-react'
+import { Building2, Database, LayoutDashboard, CalendarDays, CalendarRange, Briefcase, Megaphone, Settings } from 'lucide-react'
 
 export const navItems = [
   { to: '/dashboard', icon: LayoutDashboard, label: 'Inicio', mobileLabel: 'Inicio' },
@@ -7,6 +7,7 @@ export const navItems = [
   { to: '/calendar/events', icon: CalendarDays, label: 'Agenda', mobileLabel: 'Agenda', activePaths: ['/calendar', '/calendar/events'] },
   { to: '/calendar/projects', icon: CalendarRange, label: 'Plan anual', mobileLabel: 'Plan' },
   { to: '/data', icon: Database, label: 'Tus datos', mobileLabel: 'Datos' },
+  { to: '/novedades', icon: Megaphone, label: 'Novedades', mobileLabel: 'Noved.', showOnMobile: false },
   { to: '/settings', icon: Settings, label: 'Ajustes', mobileLabel: 'Ajustes' },
 ]
 
