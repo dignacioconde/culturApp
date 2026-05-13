@@ -19,7 +19,7 @@ release_phase: released
 release_current: false
 release_branch: release/0.1.0-beta.19
 release_tag: v0.1.0-beta.19
-release_pr: null
+release_pr: https://github.com/dignacioconde/culturApp/pull/105
 ---
 # RELEASE-0.1.0-beta.19 — Contratantes estructurados
 
