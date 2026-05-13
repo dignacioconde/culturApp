@@ -41,7 +41,7 @@ export function ToastContainer({ toasts, onRemove }) {
           key={toast.id}
           role="status"
           className={`flex w-full items-start gap-3 rounded-lg px-4 py-3 text-sm font-medium text-white shadow-lg ring-1 ring-black/10 transition-all
-            ${toast.type === 'error' ? 'bg-red-600' : 'bg-emerald-600'}`}
+            ${toast.type === 'error' ? 'bg-danger' : 'bg-success'}`}
         >
           {toast.type === 'error' ? <XCircle size={18} className="mt-0.5 shrink-0" /> : <CheckCircle size={18} className="mt-0.5 shrink-0" />}
           <div className="min-w-0 flex-1">
@@ -64,7 +64,7 @@ export function ToastContainer({ toasts, onRemove }) {
                   <button
                     type="button"
                     onClick={() => onRemove(toast.id)}
-                    className={`rounded-md bg-white px-2.5 py-1 text-xs font-semibold transition-colors hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 ${toast.type === 'error' ? 'text-red-700' : 'text-emerald-700'}`}
+                    className={`rounded-md bg-white px-2.5 py-1 text-xs font-semibold transition-colors hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 ${toast.type === 'error' ? 'text-danger' : 'text-success'}`}
                   >
                     {toast.dismissLabel}
                   </button>

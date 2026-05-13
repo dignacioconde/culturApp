@@ -10,7 +10,7 @@ export function BottomNavigation() {
   return (
     <nav
       aria-label="Navegación principal móvil"
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-[#E2D9C2] bg-[#FFFCF5]/95 px-1.5 pt-1.5 pb-[calc(0.5rem+env(safe-area-inset-bottom))] shadow-[0_-6px_18px_rgba(33,28,24,0.08)] backdrop-blur lg:hidden"
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-border-subtle bg-surface-card/95 px-1.5 pt-1.5 pb-[calc(0.5rem+env(safe-area-inset-bottom))] shadow-[0_-6px_18px_color-mix(in_oklab,var(--text-primary)_8%,transparent)] backdrop-blur lg:hidden"
     >
       <div className="grid gap-0.5" style={{ gridTemplateColumns: `repeat(${mobileNavItems.length}, minmax(0, 1fr))` }}>
         {mobileNavItems.map((item) => (
@@ -19,10 +19,10 @@ export function BottomNavigation() {
             to={item.to}
             className={({ isActive }) => {
               const active = isNavigationItemActive(item, location.pathname, isActive)
-              return `flex min-h-14 min-w-0 flex-col items-center justify-center gap-1 rounded-lg border-t-2 px-0.5 text-[0.625rem] leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2 ${
+              return `flex min-h-14 min-w-0 flex-col items-center justify-center gap-1 rounded-lg border-t-2 px-0.5 text-[0.625rem] leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 ${
                 active
-                  ? 'border-[#C94035] bg-[#F9EDEB] font-semibold text-[#A8342B] shadow-[inset_0_0_0_1px_rgba(201,64,53,0.14)]'
-                  : 'border-transparent text-[#5C5149] hover:bg-[#F5EFE0] hover:text-[#211C18]'
+                  ? 'border-accent-primary bg-accent-soft font-semibold text-accent-primary-hover shadow-[inset_0_0_0_1px_color-mix(in_oklab,var(--accent-primary)_14%,transparent)]'
+                  : 'border-transparent text-text-secondary hover:bg-surface-page hover:text-text-primary'
               }`
             }}
             aria-label={item.label}
@@ -35,7 +35,7 @@ export function BottomNavigation() {
                 <>
                   <span
                     className={`flex h-5 w-8 items-center justify-center rounded-md ${
-                      active ? 'bg-white text-[#C94035]' : 'text-[#5C5149]'
+                      active ? 'bg-surface-card text-accent-primary' : 'text-text-secondary'
                     }`}
                     aria-hidden="true"
                   >

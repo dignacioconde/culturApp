@@ -9,7 +9,7 @@ export function PageWrapper({ title, children }) {
   const showBottomNavigation = shouldShowBottomNavigation(location.pathname)
 
   return (
-    <div className="flex min-h-dvh flex-col bg-[var(--color-surface-alt)] lg:flex-row">
+    <div className="flex min-h-dvh flex-col bg-surface-muted lg:flex-row">
       <div className="hidden lg:block">
         <Sidebar />
       </div>

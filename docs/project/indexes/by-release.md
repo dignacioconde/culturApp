@@ -118,6 +118,10 @@ generated: true
 ## RELEASE-0.1.0-beta.23
 
 - [[../issues/CACH-0076|CACH-0076]] — Alinear tokens de diseno con export Lovable · done · p2 · task
+- [[../issues/CACH-0077|CACH-0077]] — Aplicar tokens Lovable al shell y navegacion · done · p2 · slice
+- [[../issues/CACH-0078|CACH-0078]] — Pulir Trabajos y listas con visual Lovable acotada · done · p2 · slice
+- [[../issues/CACH-0079|CACH-0079]] — Pulir Dashboard financiero con visual Lovable acotada · done · p2 · slice
+- [[../issues/CACH-0080|CACH-0080]] — Inventariar gaps funcionales Lovable fuera de beta 23 · done · p2 · task
 
 ## RELEASE-0.1.0-beta.3
 

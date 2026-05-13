@@ -83,4 +83,8 @@ generated: true
 - [[../issues/CACH-0033|CACH-0033]] — Vista anual en calendario de proyectos · done · p2 · slice
 - [[../issues/CACH-0048|CACH-0048]] — [Context] Compactar workflow OpenCode · done · p2 · task
 - [[../issues/CACH-0076|CACH-0076]] — Alinear tokens de diseno con export Lovable · done · p2 · task
+- [[../issues/CACH-0077|CACH-0077]] — Aplicar tokens Lovable al shell y navegacion · done · p2 · slice
+- [[../issues/CACH-0078|CACH-0078]] — Pulir Trabajos y listas con visual Lovable acotada · done · p2 · slice
+- [[../issues/CACH-0079|CACH-0079]] — Pulir Dashboard financiero con visual Lovable acotada · done · p2 · slice
+- [[../issues/CACH-0080|CACH-0080]] — Inventariar gaps funcionales Lovable fuera de beta 23 · done · p2 · task
 - [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura · done · p2 · task

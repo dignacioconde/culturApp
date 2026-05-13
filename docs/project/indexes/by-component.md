@@ -23,6 +23,7 @@ generated: true
 - [[../issues/CACH-0060|CACH-0060]] — Anadir UX minima de contratantes en proyectos y eventos · done · p1 · slice
 - [[../issues/CACH-B0015|CACH-B0015]] — Operativizar backlog releases y ramas en Product Brain · done · p1 · task
 - [[../issues/CACH-0048|CACH-0048]] — [Context] Compactar workflow OpenCode · done · p2 · task
+- [[../issues/CACH-0078|CACH-0078]] — Pulir Trabajos y listas con visual Lovable acotada · done · p2 · slice
 
 ## projects
 
@@ -33,6 +34,7 @@ generated: true
 - [[../issues/CACH-0054|CACH-0054]] — Editar notas desde detalles de proyecto y evento · done · p1 · slice
 - [[../issues/CACH-0060|CACH-0060]] — Anadir UX minima de contratantes en proyectos y eventos · done · p1 · slice
 - [[../issues/CACH-0033|CACH-0033]] — Vista anual en calendario de proyectos · done · p2 · slice
+- [[../issues/CACH-0078|CACH-0078]] — Pulir Trabajos y listas con visual Lovable acotada · done · p2 · slice
 
 ## events
 
@@ -42,6 +44,7 @@ generated: true
 - [[../issues/CACH-0044|CACH-0044]] — [UX] Crear evento desde proyecto con proyecto preseleccionado · done · p1 · slice
 - [[../issues/CACH-0054|CACH-0054]] — Editar notas desde detalles de proyecto y evento · done · p1 · slice
 - [[../issues/CACH-0060|CACH-0060]] — Anadir UX minima de contratantes en proyectos y eventos · done · p1 · slice
+- [[../issues/CACH-0078|CACH-0078]] — Pulir Trabajos y listas con visual Lovable acotada · done · p2 · slice
 
 ## calendar
 
@@ -59,6 +62,7 @@ generated: true
 - [[../issues/CACH-0061|CACH-0061]] — Verificar regresion financiera y cierre tecnico beta 19 · done · p1 · task
 - [[../issues/CACH-0066|CACH-0066]] — Checklist compacto de primeros pasos · done · p1 · slice
 - [[../issues/CACH-0068|CACH-0068]] — Verificacion responsive PWA y cierre beta 21 · done · p1 · task
+- [[../issues/CACH-0079|CACH-0079]] — Pulir Dashboard financiero con visual Lovable acotada · done · p2 · slice
 
 ## finance
 
@@ -76,6 +80,7 @@ generated: true
 - [[../issues/CACH-0063|CACH-0063]] — Unificar BottomActionBar en detalles · done · p1 · slice
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes · done · p1 · slice
 - [[../issues/CACH-B0014|CACH-B0014]] — Endurecer agenda cobros y captura del MVP · done · p1 · slice
+- [[../issues/CACH-0079|CACH-0079]] — Pulir Dashboard financiero con visual Lovable acotada · done · p2 · slice
 
 ## data-portability
 
@@ -120,6 +125,7 @@ generated: true
 - [[../issues/CACH-0061|CACH-0061]] — Verificar regresion financiera y cierre tecnico beta 19 · done · p1 · task
 - [[../issues/CACH-B0015|CACH-B0015]] — Operativizar backlog releases y ramas en Product Brain · done · p1 · task
 - [[../issues/CACH-B0016|CACH-B0016]] — Refundacion operativa del Product Brain y tests B0014 · done · p1 · task
+- [[../issues/CACH-0080|CACH-0080]] — Inventariar gaps funcionales Lovable fuera de beta 23 · done · p2 · task
 
 ## agents
 
@@ -159,6 +165,10 @@ generated: true
 - [[../issues/CACH-0063|CACH-0063]] — Unificar BottomActionBar en detalles · done · p1 · slice
 - [[../issues/CACH-0074|CACH-0074]] — Historial user friendly de novedades beta · done · p1 · slice
 - [[../issues/CACH-0076|CACH-0076]] — Alinear tokens de diseno con export Lovable · done · p2 · task
+- [[../issues/CACH-0077|CACH-0077]] — Aplicar tokens Lovable al shell y navegacion · done · p2 · slice
+- [[../issues/CACH-0078|CACH-0078]] — Pulir Trabajos y listas con visual Lovable acotada · done · p2 · slice
+- [[../issues/CACH-0079|CACH-0079]] — Pulir Dashboard financiero con visual Lovable acotada · done · p2 · slice
+- [[../issues/CACH-0080|CACH-0080]] — Inventariar gaps funcionales Lovable fuera de beta 23 · done · p2 · task
 
 ## infra-deploy
 

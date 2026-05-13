@@ -38,6 +38,7 @@ Agent execution:
 - Do not use subagents for trivial changes.
 - Model routing pilot: keep GPT-5.5 as lead/orchestrator/verifier for ambiguous, sensitive, multi-area, data/RLS, finance, security, release and final review work. Use GPT-5.3-Codex-Spark only as a fast worker for small, local, low-risk tasks with explicit ownership and objective verification; escalate to GPT-5.5 after failed verification, sensitive scope, more than 1 retry or overly broad diffs.
 - Parallel agents need isolated write ownership or explicit coordination through `.opencode/AGENT_STATE.md`.
+- For parallel release slices, freeze Product Brain issue IDs, titles, ownership and out-of-scope rules before launching code workers. If a docs worker runs concurrently, the lead must reconcile Product Brain against the accepted plan and the actual implementation before marking issues done; docs workers must not invent adjacent scope.
 - `.opencode/AGENT_STATE.md` is a live scratchboard; keep active signals and events empty after completed tasks.
 - Permanent history lives in GitHub issues, PRs and commits, not in `.opencode/AGENT_STATE.md` or `.memory/`.
 

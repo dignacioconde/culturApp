@@ -19,7 +19,7 @@ release_current: true
 
 ## Release activa
 
-`RELEASE-0.1.0-beta.23` — tokens Lovable para sistema visual. Ver [[RELEASE-0.1.0-beta.23]].
+`RELEASE-0.1.0-beta.23` — tokens Lovable y visual acotada. Ver [[RELEASE-0.1.0-beta.23]].
 
 ## Rama activa
 
@@ -53,16 +53,20 @@ release_current: true
 
 ## Scope actual
 
-Beta 23 es un corte pequeno de sistema visual para alinear Cachés con el export Lovable `artistic-rhythm` sin importar su stack completo ni redisenar pantallas.
+Beta 23 es un corte pequeno de sistema visual para alinear Cachés con el export Lovable `artistic-rhythm`: tokens base ya integrados y visual acotada en pantallas core, sin importar su stack completo ni abrir funcionalidades nuevas.
 
 Issues incluidas:
 
 - [[../issues/CACH-0076|CACH-0076]] — Alinear tokens de diseno con export Lovable.
+- [[../issues/CACH-0077|CACH-0077]] — Aplicar tokens Lovable al shell y navegacion.
+- [[../issues/CACH-0078|CACH-0078]] — Pulir Trabajos y listas con visual Lovable acotada.
+- [[../issues/CACH-0079|CACH-0079]] — Pulir Dashboard financiero con visual Lovable acotada.
+- [[../issues/CACH-0080|CACH-0080]] — Inventariar gaps funcionales Lovable fuera de beta 23.
 
 ## Regla de trabajo para esta release
 
-Solo entra trabajo de compatibilidad de tokens/estilos para `CACH-0076`. Cualquier rediseño visible, dark mode, import de componentes Lovable o cambio funcional requiere issue nueva.
+Solo entra trabajo de tokens y visual acotada para `CACH-0076`, `CACH-0077`, `CACH-0078`, `CACH-0079` y la frontera documental `CACH-0080`. Quedan fuera: import shadcn/Radix/TanStack, Supabase/RLS/data, formulas financieras, calendario custom, dark mode, command palette, FAB/sheets, origin-aware back nav, busqueda/tab de ano en Work, settings fiscal/preferencias nuevas, notificaciones y soporte/privacidad/about.
 
 ## Como cerrar esta release
 
-Abrir PR `release/0.1.0-beta.23` -> `main`, validar `lint`, `build`, `pb:guard`, `release:status` y `git diff --check`. Si se mergea, crear tag `v0.1.0-beta.23` desde `main` y actualizar esta nota a "No hay release activa".
+Abrir PR `release/0.1.0-beta.23` -> `main`, validar `lint`, `test`, `build`, `pb:guard`, `release:status`, `verify:pr`, checks visuales de las rutas tocadas y `git diff --check`. Si se mergea, crear tag `v0.1.0-beta.23` desde `main` y actualizar esta nota a "No hay release activa".

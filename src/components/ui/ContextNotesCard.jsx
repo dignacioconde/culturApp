@@ -53,14 +53,14 @@ export function ContextNotesCard({
       <div className="flex flex-col gap-3">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <h3 className="text-sm font-semibold text-[var(--color-ink)]">{title}</h3>
-            <p className="mt-1 text-xs text-[var(--color-ink-muted)]">Apuntes privados para preparar y recordar detalles.</p>
+            <h3 className="text-sm font-semibold text-text-primary">{title}</h3>
+            <p className="mt-1 text-xs text-text-secondary">Apuntes privados para preparar y recordar detalles.</p>
           </div>
           {!editing && (
             <button
               type="button"
               onClick={startEditing}
-              className="inline-flex min-h-9 shrink-0 items-center gap-1 rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-paper)] px-3 py-1.5 text-xs font-medium text-[var(--color-ink)] transition-colors hover:bg-[var(--color-paper-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2"
+              className="inline-flex min-h-9 shrink-0 items-center gap-1 rounded-lg border border-border-subtle bg-surface-page px-3 py-1.5 text-xs font-medium text-text-primary transition-colors hover:bg-surface-page-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2"
             >
               <Edit size={14} />
               {hasNotes ? 'Editar' : 'Añadir'}
@@ -78,7 +78,7 @@ export function ContextNotesCard({
               className="min-h-32"
               disabled={saving}
             />
-            {error && <p className="rounded-lg bg-[var(--color-red-light)] px-3 py-2 text-sm text-[var(--color-red)]">{error}</p>}
+            {error && <p className="rounded-lg bg-danger-soft px-3 py-2 text-sm text-danger">{error}</p>}
             <div className="flex flex-col-reverse gap-2 sm:flex-row sm:items-center sm:justify-between">
               <Button type="button" variant="ghost" onClick={() => saveNotes('')} disabled={saving || !hasNotes} className="justify-center">
                 Limpiar nota
@@ -94,11 +94,11 @@ export function ContextNotesCard({
             </div>
           </div>
         ) : hasNotes ? (
-          <div className="rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-surface-alt)] px-3 py-3">
-            <p className="whitespace-pre-wrap break-words text-sm leading-6 text-[var(--color-ink)]">{currentNotes}</p>
+          <div className="rounded-lg border border-border-subtle bg-surface-muted px-3 py-3">
+            <p className="whitespace-pre-wrap break-words text-sm leading-6 text-text-primary">{currentNotes}</p>
           </div>
         ) : (
-          <div className="rounded-lg border border-dashed border-[var(--color-paper-mid)] bg-[var(--color-surface-alt)] px-3 py-4 text-sm text-[var(--color-ink-muted)]">
+          <div className="rounded-lg border border-dashed border-border-subtle bg-surface-muted px-3 py-4 text-sm text-text-secondary">
             {emptyText}
           </div>
         )}

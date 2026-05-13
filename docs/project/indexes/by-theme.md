@@ -44,6 +44,10 @@ generated: true
 - [[../issues/CACH-0045|CACH-0045]] — [UX] Anadir confirmacion a borrados destructivos · done · p1 · slice
 - [[../issues/CACH-0056|CACH-0056]] — Calendario de eventos y plan anual separados · done · p1 · slice
 - [[../issues/CACH-0076|CACH-0076]] — Alinear tokens de diseno con export Lovable · done · p2 · task
+- [[../issues/CACH-0077|CACH-0077]] — Aplicar tokens Lovable al shell y navegacion · done · p2 · slice
+- [[../issues/CACH-0078|CACH-0078]] — Pulir Trabajos y listas con visual Lovable acotada · done · p2 · slice
+- [[../issues/CACH-0079|CACH-0079]] — Pulir Dashboard financiero con visual Lovable acotada · done · p2 · slice
+- [[../issues/CACH-0080|CACH-0080]] — Inventariar gaps funcionales Lovable fuera de beta 23 · done · p2 · task
 
 ## finance-operations
 

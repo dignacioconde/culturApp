@@ -1,7 +1,7 @@
 import { Children, isValidElement, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { CalendarDays, Check, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react'
 
-const fieldBaseClass = 'w-full rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-surface)] px-3 py-3 text-sm text-[var(--color-ink)] shadow-sm transition-colors placeholder:text-[var(--color-ink-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:border-[var(--color-paper-mid)] disabled:bg-[var(--color-surface)] disabled:text-[var(--color-ink-muted)]'
+const fieldBaseClass = 'w-full rounded-lg border border-border-subtle bg-surface-card px-3 py-3 text-sm text-text-primary shadow-sm transition-colors placeholder:text-text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:border-border-subtle disabled:bg-surface-muted disabled:text-text-secondary'
 const monthFormatter = new Intl.DateTimeFormat('es-ES', { month: 'long', year: 'numeric' })
 const weekDays = ['L', 'M', 'X', 'J', 'V', 'S', 'D']
 const timeOptions = Array.from({ length: 96 }, (_, index) => {
@@ -14,18 +14,18 @@ function FieldWrapper({ label, error, inputId, errorId, children }) {
   return (
     <div className="flex min-w-0 flex-col gap-1.5">
       {label && (
-        <label htmlFor={inputId} className="text-sm font-medium text-[var(--color-ink)]">{label}</label>
+        <label htmlFor={inputId} className="text-sm font-medium text-text-primary">{label}</label>
       )}
       {children}
-      {error && <p id={errorId} className="text-xs font-medium text-red-600">{error}</p>}
+      {error && <p id={errorId} className="text-xs font-medium text-danger">{error}</p>}
     </div>
   )
 }
 
 function getFieldStateClass(error) {
   return error
-    ? 'border-[var(--color-red)] focus-visible:border-[var(--color-red-hover)] focus-visible:ring-[var(--color-red-hover)]'
-    : 'border-[var(--color-paper-mid)] focus-visible:border-[var(--color-red)]'
+    ? 'border-danger focus-visible:border-accent-primary-hover focus-visible:ring-accent-primary-hover'
+    : 'border-border-subtle focus-visible:border-accent-primary'
 }
 
 function parseDateValue(value) {
@@ -206,33 +206,33 @@ function DateInput({
               setVisibleMonth(selectedDate ?? new Date())
               setShowCalendar((prev) => !prev)
             }}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)] rounded"
+            className="absolute right-3 top-1/2 -translate-y-1/2 rounded text-text-secondary hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary"
           >
             <CalendarDays size={18} />
           </button>
         </div>
         {showCalendar && (
-          <div className="fixed inset-x-3 bottom-3 top-auto z-[90] rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-surface)] p-3 text-sm shadow-xl ring-1 ring-[var(--color-ink)]/5 sm:absolute sm:bottom-auto sm:right-0 sm:top-[calc(100%+0.375rem)] sm:w-full sm:min-w-[280px] sm:max-w-[calc(100vw-2rem)]">
+          <div className="fixed inset-x-3 bottom-3 top-auto z-[90] rounded-lg border border-border-subtle bg-surface-card p-3 text-sm shadow-xl ring-1 ring-text-primary/5 sm:absolute sm:bottom-auto sm:right-0 sm:top-[calc(100%+0.375rem)] sm:w-full sm:min-w-[280px] sm:max-w-[calc(100vw-2rem)]">
             <div className="mb-3 flex items-center justify-between gap-2">
               <button
                 type="button"
                 onClick={() => moveMonth(-1)}
                 aria-label="Mes anterior"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-[var(--color-ink-muted)] hover:bg-[var(--color-paper-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)]"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-text-secondary hover:bg-surface-page-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary"
               >
                 <ChevronLeft size={20} />
               </button>
-              <p className="text-sm font-semibold text-[var(--color-ink)] capitalize">{monthFormatter.format(visibleMonth)}</p>
+              <p className="text-sm font-semibold text-text-primary capitalize">{monthFormatter.format(visibleMonth)}</p>
               <button
                 type="button"
                 onClick={() => moveMonth(1)}
                 aria-label="Mes siguiente"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-[var(--color-ink-muted)] hover:bg-[var(--color-paper-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)]"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-text-secondary hover:bg-surface-page-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary"
               >
                 <ChevronRight size={20} />
               </button>
             </div>
-            <div className="grid grid-cols-7 gap-1 text-center text-xs font-semibold text-[var(--color-ink-muted)]">
+            <div className="grid grid-cols-7 gap-1 text-center text-xs font-semibold text-text-secondary">
               {weekDays.map((day) => <div key={day} className="py-1">{day}</div>)}
             </div>
             <div className="mt-1 grid grid-cols-7 gap-1">
@@ -246,22 +246,22 @@ function DateInput({
                     key={dayValue}
                     type="button"
                     onClick={() => selectDate(date)}
-                    className={`flex h-10 items-center justify-center rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)] ${
+                    className={`flex h-10 items-center justify-center rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary ${
                       isSelected
-                        ? 'bg-[var(--color-primary-500)] text-white hover:bg-[var(--color-primary-600)]'
-                        : 'text-[var(--color-ink)] hover:bg-[var(--color-red-light)] hover:text-[var(--color-primary-600)]'
-                    } ${isOutsideMonth && !isSelected ? 'text-[var(--color-ink-muted)]' : ''} ${isToday && !isSelected ? 'ring-1 ring-[var(--color-primary-200)]' : ''}`}
+                        ? 'bg-accent-primary text-white hover:bg-accent-primary-hover'
+                        : 'text-text-primary hover:bg-accent-soft hover:text-accent-primary-hover'
+                    } ${isOutsideMonth && !isSelected ? 'text-text-secondary' : ''} ${isToday && !isSelected ? 'ring-1 ring-accent-soft' : ''}`}
                   >
                     {date.getDate()}
                   </button>
                 )
               })}
             </div>
-            <div className="mt-3 flex items-center justify-between border-t border-[var(--color-paper-mid)] pt-3">
-              <button type="button" onClick={clearDate} className="min-h-10 rounded-lg px-3 text-sm font-medium text-[var(--color-ink-muted)] hover:bg-[var(--color-paper-dark)] hover:text-[var(--color-ink)]">
+            <div className="mt-3 flex items-center justify-between border-t border-border-subtle pt-3">
+              <button type="button" onClick={clearDate} className="min-h-10 rounded-lg px-3 text-sm font-medium text-text-secondary hover:bg-surface-page-dark hover:text-text-primary">
                 Borrar
               </button>
-              <button type="button" onClick={() => selectDate(new Date())} className="min-h-10 rounded-lg px-3 text-sm font-medium text-[var(--color-primary-500)] hover:bg-[#fef3f2]">
+              <button type="button" onClick={() => selectDate(new Date())} className="min-h-10 rounded-lg px-3 text-sm font-medium text-accent-primary hover:bg-accent-soft">
                 Hoy
               </button>
             </div>
@@ -484,14 +484,14 @@ export function Select({
           {...props}
         >
           <span className="min-w-0 truncate">{selectedOption?.label}</span>
-          <ChevronDown size={18} className={`shrink-0 text-[var(--color-ink-muted)] transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+          <ChevronDown size={18} className={`shrink-0 text-text-secondary transition-transform ${isOpen ? 'rotate-180' : ''}`} />
         </button>
         {isOpen && (
           <div
             id={listboxId}
             role="listbox"
             aria-labelledby={inputId}
-            className="fixed inset-x-3 bottom-3 top-auto z-[80] max-h-[60vh] overflow-y-auto rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-surface)] p-1.5 text-base shadow-xl ring-1 ring-[var(--color-ink)]/5 sm:absolute sm:bottom-auto sm:right-0 sm:top-[calc(100%+0.375rem)] sm:w-max sm:min-w-full sm:max-w-[calc(100vw-2rem)]"
+            className="fixed inset-x-3 bottom-3 top-auto z-[80] max-h-[60vh] overflow-y-auto rounded-lg border border-border-subtle bg-surface-card p-1.5 text-base shadow-xl ring-1 ring-text-primary/5 sm:absolute sm:bottom-auto sm:right-0 sm:top-[calc(100%+0.375rem)] sm:w-max sm:min-w-full sm:max-w-[calc(100vw-2rem)]"
           >
             {options.map((option) => {
               const isSelected = option.value === String(value ?? '')
@@ -504,9 +504,9 @@ export function Select({
                   aria-selected={isSelected}
                   disabled={option.disabled}
                   onClick={() => handleSelect(option.value)}
-                  className="flex min-h-11 w-full items-center gap-3 rounded-md px-3 py-2.5 text-left text-[var(--color-ink)] transition-colors hover:bg-[var(--color-red-light)] hover:text-[var(--color-primary-600)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)] disabled:cursor-not-allowed disabled:text-[var(--color-ink-muted)]"
+                  className="flex min-h-11 w-full items-center gap-3 rounded-md px-3 py-2.5 text-left text-text-primary transition-colors hover:bg-accent-soft hover:text-accent-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary disabled:cursor-not-allowed disabled:text-text-secondary"
                 >
-                  <Check size={16} className={`shrink-0 ${isSelected ? 'text-[var(--color-primary-500)]' : 'text-transparent'}`} />
+                  <Check size={16} className={`shrink-0 ${isSelected ? 'text-accent-primary' : 'text-transparent'}`} />
                   <span className="min-w-0 flex-1 whitespace-nowrap">{option.label}</span>
                 </button>
               )
