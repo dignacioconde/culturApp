@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { ArrowLeft, Plus, Trash2, CheckCircle, Circle, Edit, CalendarDays, ChevronDown } from 'lucide-react'
 import { PageWrapper } from '../../components/layout/PageWrapper'
+import { BottomActionBar } from '../../components/layout/BottomActionBar'
 import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
 import { ContextNotesCard } from '../../components/ui/ContextNotesCard'
@@ -405,7 +406,7 @@ export default function ProjectDetail() {
 
   return (
     <PageWrapper title={project.name}>
-      <div className="flex max-w-4xl flex-col gap-4 sm:gap-5 pb-20 sm:pb-5">
+      <div className="flex max-w-4xl flex-col gap-4 pb-[calc(5.75rem+env(safe-area-inset-bottom))] sm:gap-5 sm:pb-5">
         <nav className="flex items-center gap-1.5 text-xs text-[var(--color-ink-muted)] breadcrumbs">
           <Link to="/work" className="hover:text-[var(--color-ink)]">Trabajos</Link>
           <span>/</span>
@@ -758,16 +759,17 @@ export default function ProjectDetail() {
           }}
         />
 
-        <div className="sm:hidden">
-          <button
-            type="button"
-            onClick={requestDeleteProject}
-            className="inline-flex min-h-10 items-center text-sm font-medium text-[var(--color-red)] hover:text-[var(--color-red-hover)]"
-          >
-            Eliminar proyecto
-          </button>
-        </div>
       </div>
+
+      <BottomActionBar
+        ariaLabel="Acciones del proyecto"
+        actions={[
+          { label: 'Cobro', icon: Plus, onClick: openQuickIncome, variant: 'primary' },
+          { label: 'Gasto', icon: Plus, onClick: openQuickExpense, variant: 'secondary' },
+          { label: 'Editar', icon: Edit, onClick: () => setEditModal(true), variant: 'secondary' },
+          { label: 'Eliminar', icon: Trash2, onClick: requestDeleteProject, variant: 'danger', ariaLabel: 'Eliminar proyecto' },
+        ]}
+      />
 
       <Modal isOpen={editModal} onClose={() => setEditModal(false)} title="Editar proyecto">
         <ProjectForm
@@ -875,22 +877,6 @@ export default function ProjectDetail() {
           </div>
         </form>
       </Modal>
-
-      {/* Bottom bar para móvil */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 flex gap-1 border-t border-[var(--color-paper-mid)] bg-[var(--color-surface)] px-2 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] shadow-[0_-2px_10px_rgba(0,0,0,0.1)] sm:hidden">
-        <Link to={createEventUrl} className="flex min-h-11 flex-[1.2] items-center justify-center rounded-lg bg-[var(--color-red)] px-2 text-center text-xs font-medium text-white sm:hidden">
-          Crear evento
-        </Link>
-        <button type="button" onClick={openQuickIncome} className="min-h-11 flex-1 rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-paper)] px-2 text-xs font-medium text-[var(--color-ink)] sm:hidden">
-          Cobro
-        </button>
-        <button type="button" onClick={openQuickExpense} className="min-h-11 flex-1 rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-paper)] px-2 text-xs font-medium text-[var(--color-ink)] sm:hidden">
-          Gasto
-        </button>
-        <button type="button" onClick={() => setEditModal(true)} className="min-h-11 flex-1 rounded-lg border border-[var(--color-paper-mid)] px-2 text-xs font-medium text-[var(--color-ink-muted)] sm:hidden">
-          Editar
-        </button>
-      </div>
 
       {/* Quick Income Modal */}
       <Modal isOpen={quickIncomeModal} onClose={() => setQuickIncomeModal(false)} title="Cobro rápido">

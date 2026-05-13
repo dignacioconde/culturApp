@@ -218,6 +218,7 @@ Implementados en `src/components/ui/Badge.jsx`.
 - Topbar con título y usuario.
 - Segment controls para alternar vistas (`Caja del mes` / `Trabajos`, tabs de `/work`).
 - Navegación temporal con flechas iconográficas y selector de año.
+- `BottomActionBar` en `src/components/layout/BottomActionBar.jsx` para acciones contextuales móviles de detalle. Reutilizarlo antes de crear nuevas barras fijas en páginas.
 
 ## Componentes de Producto
 
@@ -385,13 +386,13 @@ Evitar:
 - `CalendarEvents.jsx` y `CalendarProjects.jsx` duplican lógica `useIsMobile` y patrones de panel.
 - Los importes no usan todavía una regla tipográfica mono consistente.
 - La app mezcla `gray-*` de Tailwind con tokens cálidos, lo que puede enfriar visualmente algunas vistas.
-- Faltan componentes formales para `IconButton`, `SegmentControl`, `Panel`, `ListRow`, `FinanceRow` y `BottomActionBar`.
+- Faltan componentes formales para `IconButton`, `SegmentControl`, `Panel`, `ListRow` y `FinanceRow`.
 
 ## Recomendaciones de Implementación
 
 - Consolidar tokens semánticos en `src/index.css` sin romper los `--color-*` actuales.
 - Migrar gradualmente colores hardcodeados a tokens, empezando por `Dashboard`, `Work`, calendarios y formularios.
-- Añadir componentes compartidos: `IconButton`, `SegmentControl`, `Panel`, `ListRow`, `FinanceSummary`, `BottomActionBar`.
+- Añadir componentes compartidos: `IconButton`, `SegmentControl`, `Panel`, `ListRow` y `FinanceSummary`.
 - Unificar radio y sombra entre `Card.jsx` y clases CSS.
 - Extraer patrones repetidos de panel móvil de calendario.
 - Confirmar carga real de fuentes o ajustar documentación a la pila disponible.

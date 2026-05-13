@@ -100,7 +100,7 @@ generated: true
 
 ## RELEASE-0.1.0-beta.20
 
-- [[../issues/CACH-0063|CACH-0063]] — Unificar BottomActionBar en detalles · ready · p1 · slice
+- [[../issues/CACH-0063|CACH-0063]] — Unificar BottomActionBar en detalles · done · p1 · slice
 
 ## RELEASE-0.1.0-beta.3
 

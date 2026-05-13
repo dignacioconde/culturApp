@@ -59,9 +59,7 @@ _Sin entradas._
 
 ### Ready
 
-| ID | Título | Tipo | Nivel | P |
-|---|---|---|---|---|
-| CACH-0063 | Unificar BottomActionBar en detalles | feature | slice | p1 |
+_Sin entradas._
 
 ### In progress
 
@@ -84,7 +82,6 @@ _Sin entradas._
 
 | ID | Título | Workflow | Tipo | Nivel | P |
 |---|---|---|---|---|---|
-| CACH-0063 | Unificar BottomActionBar en detalles | ready | feature | slice | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | backlog | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | backlog | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | backlog | feature | initiative | p1 |

@@ -63,9 +63,7 @@ _Sin issues._
 
 ## Ready
 
-| ID | Titulo | Tipo | Nivel | P | Componentes |
-|---|---|---|---|---|---|
-| [[../issues/CACH-0063|CACH-0063]] | Unificar BottomActionBar en detalles | feature | slice | p1 | finance, design-system |
+_Sin issues._
 
 ## In progress
 
@@ -113,6 +111,7 @@ _Sin issues._
 | [[../issues/CACH-0059|CACH-0059]] | Integrar hooks y portabilidad de contratantes | RELEASE-0.1.0-beta.19 | Implementado y cerrado en `RELEASE-0.1.0-beta.19`: `useContractors` centraliza CRUD y creación inline, portabilidad exporta/importa contratantes sin `user_id` y los datasets legacy siguen funcionando. |
 | [[../issues/CACH-0060|CACH-0060]] | Anadir UX minima de contratantes en proyectos y eventos | RELEASE-0.1.0-beta.19 | Implementado y cerrado en `RELEASE-0.1.0-beta.19`: proyectos y eventos pueden elegir o crear contratante, eventos vinculados heredan el contratante del proyecto, `/contractors` permite gestionar la entidad ligera y las vistas principales muestran contratante estructurado o `client` legacy sin duplicidades. |
 | [[../issues/CACH-0061|CACH-0061]] | Verificar regresion financiera y cierre tecnico beta 19 | RELEASE-0.1.0-beta.19 | Implementado y cerrado en `RELEASE-0.1.0-beta.19`: la regresión financiera queda verificada sin cambios de fórmula, los checks locales pasan, la migración remota está aplicada/verificada y el smoke manual básico de contratantes está confirmado. |
+| [[../issues/CACH-0063|CACH-0063]] | Unificar BottomActionBar en detalles | RELEASE-0.1.0-beta.20 | Implementado en `RELEASE-0.1.0-beta.20`: `EventDetail` y `ProjectDetail` usan un `BottomActionBar` compartido para Cobro, Gasto, Editar y Eliminar en móvil. La acción destructiva queda como secundaria visual y mantiene confirmación. Desktop conserva las acciones existentes. |
 | [[../issues/CACH-B0003|CACH-B0003]] | Cobro rapido y gestion de pendientes | RELEASE-0.1.0-beta.5 | Released en RELEASE-0.1.0-beta.5 por ampliacion explicita de scope. Integrado en `main` mediante PR #84. |
 | [[../issues/CACH-B0005|CACH-B0005]] | Importacion exportacion y portabilidad de datos | RELEASE-0.1.0-beta.7 | Released en RELEASE-0.1.0-beta.7. Integrado en `main` mediante PR #86. |
 | [[../issues/CACH-B0006|CACH-B0006]] | Onboarding y acceso beta | RELEASE-0.1.0-beta.8 | Released en RELEASE-0.1.0-beta.8. Integrado en `main` mediante PR #87. |

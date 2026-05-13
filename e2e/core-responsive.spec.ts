@@ -6,12 +6,12 @@ const projectRef = new URL(supabaseUrl).hostname.split('.')[0]
 const authStorageKey = `sb-${projectRef}-auth-token`
 const currentYear = new Date().getFullYear()
 const currentMonth = String(new Date().getMonth() + 1).padStart(2, '0')
-const projectId = 'project-beta-18'
-const eventId = 'event-beta-18'
+const projectId = 'project-core-smoke'
+const eventId = 'event-core-smoke'
 
 const authSession = {
-  access_token: 'local-beta18-e2e-token',
-  refresh_token: 'local-beta18-e2e-refresh',
+  access_token: 'local-core-smoke-e2e-token',
+  refresh_token: 'local-core-smoke-e2e-refresh',
   expires_at: Math.floor(Date.now() / 1000) + 3600,
   expires_in: 3600,
   token_type: 'bearer',
@@ -19,7 +19,7 @@ const authSession = {
     id: userId,
     aud: 'authenticated',
     role: 'authenticated',
-    email: 'beta18@example.com',
+    email: 'core-smoke@example.com',
     app_metadata: { provider: 'email', providers: ['email'] },
     user_metadata: {},
     created_at: new Date().toISOString(),
@@ -28,7 +28,7 @@ const authSession = {
 
 const profile = {
   id: userId,
-  full_name: 'Beta 18',
+  full_name: 'Core Smoke',
   profession: 'Gestora cultural',
   tax_rate: 15,
   onboarding_completed: true,
@@ -65,7 +65,7 @@ const event = {
 
 const incomes = [
   {
-    id: 'income-beta-18',
+    id: 'income-core-smoke',
     user_id: userId,
     project_id: null,
     event_id: eventId,
@@ -80,7 +80,7 @@ const incomes = [
 
 const expenses = [
   {
-    id: 'expense-beta-18',
+    id: 'expense-core-smoke',
     user_id: userId,
     project_id: projectId,
     event_id: null,
@@ -108,7 +108,7 @@ function jsonResponse(body: unknown) {
   }
 }
 
-async function setupBeta18(page: Page) {
+async function setupCoreResponsiveSmoke(page: Page) {
   let projects = [{ ...project }]
   let events = [{ ...event }]
 
@@ -184,6 +184,45 @@ async function expectQuickIncomeDialog(page: Page, isMobile: boolean) {
   await dialog.getByRole('button', { name: 'Cerrar' }).click()
 }
 
+async function expectContextActionBar(page: Page, entity: 'proyecto' | 'evento', isMobile: boolean) {
+  await expect(page.getByRole('navigation', { name: 'Navegación principal móvil' })).toHaveCount(0)
+
+  const actionBar = page.getByRole('navigation', { name: `Acciones del ${entity}` })
+  if (!isMobile) {
+    await expect(actionBar).toHaveCount(0)
+    return
+  }
+
+  await expect(actionBar).toBeVisible()
+
+  for (const label of ['Cobro', 'Gasto', 'Editar', 'Eliminar']) {
+    const actionName = label === 'Eliminar' ? `Eliminar ${entity}` : label
+    const action = actionBar.getByRole('button', { name: actionName })
+    await expect(action).toBeVisible()
+    const box = await action.boundingBox()
+    expect(box?.height).toBeGreaterThanOrEqual(40)
+  }
+
+  await actionBar.getByRole('button', { name: 'Gasto' }).click()
+  await expect(page.getByRole('dialog', { name: 'Gasto rápido' })).toBeVisible()
+  await page.getByRole('dialog', { name: 'Gasto rápido' }).getByRole('button', { name: 'Cerrar' }).click()
+
+  await actionBar.getByRole('button', { name: 'Editar' }).click()
+  await expect(page.getByRole('dialog', { name: `Editar ${entity}` })).toBeVisible()
+  await page.getByRole('dialog', { name: `Editar ${entity}` }).getByRole('button', { name: 'Cerrar' }).click()
+
+  await actionBar.getByRole('button', { name: `Eliminar ${entity}` }).click()
+  await expect(page.getByRole('dialog', { name: `Eliminar ${entity}` })).toBeVisible()
+  await page.getByRole('dialog', { name: `Eliminar ${entity}` }).getByRole('button', { name: 'Cancelar' }).click()
+
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight))
+  const noteText = page.getByText(entity === 'proyecto' ? 'Necesidades tecnicas confirmadas.' : 'Llegar 30 minutos antes.')
+  await expect(noteText).toBeVisible()
+  const actionBarTop = await actionBar.evaluate((element) => element.getBoundingClientRect().top)
+  const noteTextBottom = await noteText.evaluate((element) => element.getBoundingClientRect().bottom)
+  expect(noteTextBottom).toBeLessThanOrEqual(actionBarTop + 1)
+}
+
 function contextNotesCard(page: Page) {
   return page
     .getByRole('heading', { name: 'Notas' })
@@ -210,10 +249,10 @@ async function editAndClearContextNote(page: Page, nextNote: string) {
 }
 
 for (const viewport of viewports) {
-  test(`beta 18 smoke visual en ${viewport.label}`, async ({ page }) => {
+  test(`core responsive smoke en ${viewport.label}`, async ({ page }) => {
     const isMobile = viewport.width < 640
     await page.setViewportSize({ width: viewport.width, height: viewport.height })
-    await setupBeta18(page)
+    await setupCoreResponsiveSmoke(page)
 
     await page.goto('/dashboard')
     await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible()
@@ -223,12 +262,14 @@ for (const viewport of viewports) {
     await expect(page.getByText('Apuntes privados para preparar y recordar detalles.')).toBeVisible()
     await expect(page.getByText('Necesidades tecnicas confirmadas.')).toBeVisible()
     await expectQuickIncomeDialog(page, isMobile)
+    await expectContextActionBar(page, 'proyecto', isMobile)
 
     await page.goto(`/events/${eventId}`)
     await expect(page.getByRole('heading', { name: 'Ensayo general' }).first()).toBeVisible()
     await expect(page.getByText('Apuntes privados para preparar y recordar detalles.')).toBeVisible()
     await expect(page.getByText('Llegar 30 minutos antes.')).toBeVisible()
     await expectQuickIncomeDialog(page, isMobile)
+    await expectContextActionBar(page, 'evento', isMobile)
 
     await page.goto('/calendar')
     await expect(page).toHaveURL(/\/calendar\/events$/)
@@ -251,9 +292,9 @@ for (const viewport of viewports) {
   })
 }
 
-test('beta 18 permite editar y limpiar notas contextuales', async ({ page }) => {
+test('core responsive permite editar y limpiar notas contextuales', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
-  await setupBeta18(page)
+  await setupCoreResponsiveSmoke(page)
 
   await page.goto(`/projects/${projectId}`)
   await editAndClearContextNote(page, 'Nota actualizada de proyecto')

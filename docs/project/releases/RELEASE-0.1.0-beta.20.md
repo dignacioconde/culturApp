@@ -56,7 +56,7 @@ Cerrar la deuda residual de UX móvil financiera consolidada en `CACH-B0002`: un
 
 | Issue | Titulo | Workflow | Rama |
 |---|---|---|---|
-| [[../issues/CACH-0063|CACH-0063]] | Unificar BottomActionBar en detalles | ready | `feat/CACH-0063-bottom-action-bar` |
+| [[../issues/CACH-0063|CACH-0063]] | Unificar BottomActionBar en detalles | done | `feat/CACH-0063-bottom-action-bar` |
 
 ## Fuera de alcance
 
@@ -89,20 +89,20 @@ Cerrar la deuda residual de UX móvil financiera consolidada en `CACH-B0002`: un
 
 ## Checklist de desarrollo
 
-- [ ] CACH-0063 implementada
-- [ ] Commits integrados en rama release
-- [ ] No hay cambios sueltos fuera de release
-- [ ] No hay issues sin `issue_workflow`
-- [ ] No hay decisiones importantes sin documentar
+- [x] CACH-0063 implementada
+- [x] Commits integrados en rama release
+- [x] No hay cambios sueltos fuera de release
+- [x] No hay issues sin `issue_workflow`
+- [x] No hay decisiones importantes sin documentar
 
 ## Checklist de estabilizacion
 
-- [ ] `npm run lint`
-- [ ] `npm run build`
-- [ ] `npm run pb:guard`
-- [ ] `npm run release:sync-check`
-- [ ] Revision visual en 320 px, 390 px, 768 px y desktop
-- [ ] Confirmar que editar, cobro rápido, gasto rápido y eliminar mantienen los flujos actuales
+- [x] `npm run lint`
+- [x] `npm run build`
+- [x] `npm run pb:guard`
+- [x] `npm run release:sync-check`
+- [x] Revision visual en 320 px, 390 px, 768 px y desktop
+- [x] Confirmar que editar, cobro rápido, gasto rápido y eliminar mantienen los flujos actuales
 
 ## Checklist de salida
 
@@ -123,15 +123,15 @@ Cerrar la deuda residual de UX móvil financiera consolidada en `CACH-B0002`: un
 
 ### Aniadido
 
-- Pendiente hasta implementar `CACH-0063`.
+- `BottomActionBar` compartido para barras contextuales móviles de detalle.
 
 ### Cambiado
 
-- Pendiente hasta implementar `CACH-0063`.
+- `/events/:id` y `/projects/:id` usan el mismo patrón móvil para Cobro, Gasto, Editar y Eliminar.
 
 ### Corregido
 
-- Pendiente hasta implementar `CACH-0063`.
+- La acción destructiva queda consistente y secundaria en los detalles móviles, con confirmación conservada.
 
 ### Eliminado
 
@@ -139,8 +139,9 @@ Cerrar la deuda residual de UX móvil financiera consolidada en `CACH-B0002`: un
 
 ### Tecnico
 
-- Release abierta como hardening UX sin cambios de datos ni migraciones.
+- Release de hardening UX sin cambios de datos ni migraciones.
+- Smoke e2e ampliado para cubrir barra contextual, ocultación de navegación inferior global, targets táctiles y no solape del contenido final.
 
 ## Resultado final
 
-Pendiente hasta cerrar la release.
+Implementación integrada y validada localmente en la rama `release/0.1.0-beta.20`. Pendiente PR a `main`, CI, merge, tag si aplica y verificación de producción.
