@@ -16,17 +16,17 @@ tags:
   - mobile
   - finance
 generated: false
-release_phase: active
-release_current: true
+release_phase: released
+release_current: false
 release_branch: release/0.1.0-beta.20
-release_tag: null
-release_pr: null
+release_tag: v0.1.0-beta.20
+release_pr: https://github.com/dignacioconde/culturApp/pull/106
 ---
 # RELEASE-0.1.0-beta.20 — Hardening UX móvil financiera
 
 ## Estado
 
-Active.
+Released.
 
 ## Rama de release
 
@@ -106,18 +106,18 @@ Cerrar la deuda residual de UX móvil financiera consolidada en `CACH-B0002`: un
 
 ## Checklist de salida
 
-- [ ] PR `release/0.1.0-beta.20` -> `main` abierta
-- [ ] CI en verde
-- [ ] PR mergeada en `main`
-- [ ] Tag creado desde `main` si aplica
-- [ ] Produccion verificada o marcada no aplica
-- [ ] Rama remota `release/0.1.0-beta.20` eliminada si aplica
-- [ ] Release notes actualizadas
-- [ ] Issues marcadas como `done`
-- [ ] Estado actual actualizado
-- [ ] Current Release actualizado
-- [ ] Backlog actualizado
-- [ ] Proximos pasos documentados
+- [x] PR `release/0.1.0-beta.20` -> `main` abierta
+- [x] CI en verde
+- [x] PR mergeada en `main`
+- [x] Tag creado desde `main` si aplica
+- [x] Produccion verificada o marcada no aplica
+- [x] Rama remota `release/0.1.0-beta.20` eliminada si aplica
+- [x] Release notes actualizadas
+- [x] Issues marcadas como `done`
+- [x] Estado actual actualizado
+- [x] Current Release actualizado
+- [x] Backlog actualizado
+- [x] Proximos pasos documentados
 
 ## Release notes
 
@@ -144,4 +144,4 @@ Cerrar la deuda residual de UX móvil financiera consolidada en `CACH-B0002`: un
 
 ## Resultado final
 
-Implementación integrada y validada localmente en la rama `release/0.1.0-beta.20`. Pendiente PR a `main`, CI, merge, tag si aplica y verificación de producción.
+Release cerrada mediante PR #106 a `main`. Tag `v0.1.0-beta.20` preparado desde `main`; produccion verificada en `https://app.caches.es` con smoke de rutas SPA. Auth/CRUD smoke queda fuera del script al no haber credenciales `SMOKE_EMAIL`/`SMOKE_PASSWORD`.

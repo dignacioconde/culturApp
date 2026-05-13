@@ -19,11 +19,11 @@ release_current: true
 
 ## Release activa
 
-`RELEASE-0.1.0-beta.20` — hardening UX móvil financiera. Ver [[RELEASE-0.1.0-beta.20]].
+No hay release activa en este momento.
 
 ## Rama activa
 
-`release/0.1.0-beta.20`
+No aplica. Las siguientes tareas pequeñas salen de `main` salvo que se abra una nueva release.
 
 ## Últimos cortes
 
@@ -45,18 +45,20 @@ release_current: true
 
 `RELEASE-0.1.0-beta.19` — contratantes estructurados. Ver [[RELEASE-0.1.0-beta.19]].
 
+`RELEASE-0.1.0-beta.20` — hardening UX móvil financiera. Ver [[RELEASE-0.1.0-beta.20]].
+
 ## Scope actual
 
-Hardening pequeño antes de abrir liquidación neta o facturación completa. El corte se limita a consolidar la deuda residual de `CACH-B0002`: un patrón compartido de barra contextual móvil en detalles de proyecto y evento.
+Sin scope activo. Beta 20 quedó cerrada con `CACH-0063`: patrón compartido de barra contextual móvil en detalles de proyecto y evento.
 
 Issues incluidas:
 
-- [[../issues/CACH-0063|CACH-0063]] — Unificar BottomActionBar en detalles.
+- No aplica hasta abrir nueva release.
 
 ## Regla de trabajo para esta release
 
-Las ramas de tarea salen de `release/0.1.0-beta.20`. No tocar fórmulas financieras, hooks públicos, schema, RLS, Supabase remoto, liquidación neta, facturación ni CRM. La verificación visual debe cubrir `/events/:id` y `/projects/:id` en 320 px, 390 px, 768 px y desktop.
+No hay release activa. Las tareas fuera de release usan el flujo ligero desde `main`; si se abre una nueva beta, documentar primero release, scope, rama y criterios.
 
 ## Como cerrar esta release
 
-Beta 20 se cierra mediante PR única `release/0.1.0-beta.20` -> `main`, CI verde, `npm run lint`, `npm run build`, `npm run pb:guard`, `npm run release:sync-check` y smoke visual de los detalles afectados.
+Beta 20 ya está cerrada mediante PR #106, CI verde, tag `v0.1.0-beta.20` y smoke postdeploy básico de rutas SPA.
