@@ -8,6 +8,11 @@ export const PROJECT_STATUSES = [
 
 export const EVENT_STATUSES = PROJECT_STATUSES
 
+export const USAGE_CONSENT_VERSION = 'usage-consent-2026-05'
+
+export const USAGE_CONSENT_DESCRIPTION =
+  'Guardamos tu preferencia de consentimiento en el perfil. En esta versión no activamos analítica real ni enviamos eventos de uso.'
+
 export const PROJECT_CATEGORIES = [
   { value: 'concierto', label: 'Concierto' },
   { value: 'exposición', label: 'Exposición' },

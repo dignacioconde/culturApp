@@ -51,6 +51,11 @@ generated: true
 - [[../issues/CACH-0060|CACH-0060]] — Anadir UX minima de contratantes en proyectos y eventos
 - [[../issues/CACH-0061|CACH-0061]] — Verificar regresion financiera y cierre tecnico beta 19
 - [[../issues/CACH-0063|CACH-0063]] — Unificar BottomActionBar en detalles
+- [[../issues/CACH-0064|CACH-0064]] — Corregir version y copy de consentimiento beta
+- [[../issues/CACH-0065|CACH-0065]] — Ampliar onboarding como tutorial revisitable
+- [[../issues/CACH-0066|CACH-0066]] — Checklist compacto de primeros pasos
+- [[../issues/CACH-0067|CACH-0067]] — PWA instalable basica y navegacion standalone
+- [[../issues/CACH-0068|CACH-0068]] — Verificacion responsive PWA y cierre beta 21
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes

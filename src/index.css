@@ -276,9 +276,9 @@
     touch-action: pan-x pan-y;
   }
 
-  #root {
-    min-height: 100vh;
-  }
+	  #root {
+	    min-height: 100dvh;
+	  }
 
   button,
   input,

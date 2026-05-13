@@ -10,8 +10,10 @@ import { Button } from '../../components/ui/Button'
 import { Modal } from '../../components/ui/Modal'
 import { Select } from '../../components/ui/Input'
 import { useToast, ToastContainer } from '../../components/ui/Toast'
+import { FirstStepsChecklist } from '../../components/onboarding/FirstStepsChecklist'
 import { KpiCard } from './KpiCard'
 import { useAuth } from '../../hooks/useAuth'
+import { useProfile } from '../../hooks/useProfile'
 import { useProjects } from '../../hooks/useProjects'
 import { useEvents } from '../../hooks/useEvents'
 import { useIncomes } from '../../hooks/useIncomes'
@@ -177,6 +179,7 @@ export default function Dashboard() {
   const { projects, loading: projectsLoading, error: projectsError } = useProjects(user?.id)
   const { events, loading: eventsLoading, error: eventsError } = useEvents(user?.id)
   const { incomes, loading: incomesLoading, error: incomesError, updateIncome } = useIncomes(user?.id)
+  const { profile, loading: profileLoading } = useProfile(user?.id)
   const { toasts, addToast, removeToast } = useToast()
 
   const [selectedDate, setSelectedDate] = useState(dayjs())
@@ -273,7 +276,7 @@ export default function Dashboard() {
   const error = projectsError || eventsError || incomesError
 
   return (
-    <PageWrapper title="Dashboard">
+    <PageWrapper title="Inicio">
       <div className="flex flex-col gap-4 md:gap-6">
 
         <Card className="p-3 sm:p-4">
@@ -318,8 +321,18 @@ export default function Dashboard() {
         {error && (
           <div className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
             <AlertCircle size={18} className="mt-0.5 flex-shrink-0" />
-            <p>No se han podido cargar todos los datos del dashboard. Revisa la conexión y vuelve a intentarlo.</p>
+            <p>No se han podido cargar todos los datos de Inicio. Revisa la conexión y vuelve a intentarlo.</p>
           </div>
+        )}
+
+        {!loading && !profileLoading && (
+          <FirstStepsChecklist
+            profile={profile}
+            projects={projects}
+            events={events}
+            incomes={incomes}
+            onNavigate={navigate}
+          />
         )}
 
         {!loading && <MobileNowCard state={nowDashboardState} onOpen={navigate} />}

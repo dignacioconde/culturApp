@@ -43,6 +43,8 @@ Resumen determinista generado desde Product Brain v2.
 `RELEASE-0.1.0-beta.19` — contratantes estructurados. Ver RELEASE-0.1.0-beta.19.
 
 `RELEASE-0.1.0-beta.20` — hardening UX móvil financiera. Ver RELEASE-0.1.0-beta.20.
+
+`RELEASE-0.1.0-beta.21` — primera sesion guiada y PWA instalable. Ver RELEASE-0.1.0-beta.21.
 - **Foco:** Beta 20 queda cerrada. El foco vuelve a evaluar el siguiente corte del ciclo `0.1` sin absorber tareas nuevas por defecto: o bien abrir una nueva beta para `CACH-B0004`, o mantener un corte pequeño de hardening si el feedback privado lo pide.
 
 ## Prioridades del plan

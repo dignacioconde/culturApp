@@ -351,7 +351,7 @@ Guarda solo el hash SHA-256 normalizado del código (`lower(trim(codigo))`). Eje
 insert into public.beta_invites (code_hash, label, max_redemptions, expires_at)
 values (
   encode(extensions.digest(lower(trim('CACHES-BETA-2026-EJEMPLO')), 'sha256'), 'hex'),
-  'Beta 8 - ejemplo manual',
+  'Beta privada - ejemplo manual',
   1,
   now() + interval '30 days'
 );

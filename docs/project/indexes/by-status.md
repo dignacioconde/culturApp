@@ -65,6 +65,11 @@ generated: true
 - [[../issues/CACH-0060|CACH-0060]] — Anadir UX minima de contratantes en proyectos y eventos · done · p1 · slice
 - [[../issues/CACH-0061|CACH-0061]] — Verificar regresion financiera y cierre tecnico beta 19 · done · p1 · task
 - [[../issues/CACH-0063|CACH-0063]] — Unificar BottomActionBar en detalles · done · p1 · slice
+- [[../issues/CACH-0064|CACH-0064]] — Corregir version y copy de consentimiento beta · done · p1 · task
+- [[../issues/CACH-0065|CACH-0065]] — Ampliar onboarding como tutorial revisitable · done · p1 · slice
+- [[../issues/CACH-0066|CACH-0066]] — Checklist compacto de primeros pasos · done · p1 · slice
+- [[../issues/CACH-0067|CACH-0067]] — PWA instalable basica y navegacion standalone · done · p1 · slice
+- [[../issues/CACH-0068|CACH-0068]] — Verificacion responsive PWA y cierre beta 21 · done · p1 · task
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes · done · p1 · slice
 - [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos · done · p1 · slice
 - [[../issues/CACH-B0006|CACH-B0006]] — Onboarding y acceso beta · done · p1 · slice

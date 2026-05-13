@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, Link, useLocation } from 'react-router-dom'
 import { useAuth } from './hooks/useAuth'
 import { useProfile } from './hooks/useProfile'
@@ -29,6 +30,11 @@ function ProfileGate({ user, requireAdmin, children }) {
   const location = useLocation()
   const { profile, loading, error, refetch } = useProfile(user?.id)
   const isOnboardingRoute = location.pathname === '/onboarding'
+  const onboardingJustCompleted = location.state?.onboardingCompleted === true
+
+  useEffect(() => {
+    if (onboardingJustCompleted) refetch()
+  }, [onboardingJustCompleted, refetch])
 
   if (loading) {
     return <div className="min-h-screen flex items-center justify-center text-sm text-gray-400">Cargando perfil...</div>
@@ -54,7 +60,7 @@ function ProfileGate({ user, requireAdmin, children }) {
     )
   }
 
-  if (!profile.onboarding_completed && !isOnboardingRoute) {
+  if (!profile.onboarding_completed && !isOnboardingRoute && !onboardingJustCompleted) {
     return <Navigate to="/onboarding" replace state={{ from: location.pathname }} />
   }
 
@@ -70,7 +76,7 @@ function ProfileGate({ user, requireAdmin, children }) {
             to="/dashboard"
             className="mt-5 inline-flex min-h-10 items-center justify-center rounded-lg bg-[var(--color-red)] px-4 py-2 text-sm font-medium text-white hover:bg-[var(--color-red-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2"
           >
-            Volver al dashboard
+            Volver a Inicio
           </Link>
         </div>
       </div>

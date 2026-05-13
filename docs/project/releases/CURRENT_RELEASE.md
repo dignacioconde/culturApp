@@ -47,9 +47,11 @@ No aplica. Las siguientes tareas pequeñas salen de `main` salvo que se abra una
 
 `RELEASE-0.1.0-beta.20` — hardening UX móvil financiera. Ver [[RELEASE-0.1.0-beta.20]].
 
+`RELEASE-0.1.0-beta.21` — primera sesion guiada y PWA instalable. Ver [[RELEASE-0.1.0-beta.21]].
+
 ## Scope actual
 
-Sin scope activo. Beta 20 quedó cerrada con `CACH-0063`: patrón compartido de barra contextual móvil en detalles de proyecto y evento.
+Sin scope activo. Beta 21 queda cerrada como corte pequeno de confianza movil: tutorial ampliado, consentimiento actualizado, checklist compacto y PWA instalable basica.
 
 Issues incluidas:
 
@@ -61,4 +63,4 @@ No hay release activa. Las tareas fuera de release usan el flujo ligero desde `m
 
 ## Como cerrar esta release
 
-Beta 20 ya está cerrada mediante PR #106, CI verde, tag `v0.1.0-beta.20` y smoke postdeploy básico de rutas SPA.
+Beta 21 ya esta cerrada mediante PR #108, CI verde, tag `v0.1.0-beta.21` y smoke postdeploy basico de rutas SPA/PWA. La instalacion real iPhone/Android queda como verificacion manual humana.
