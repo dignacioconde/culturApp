@@ -23,7 +23,7 @@ Resumen determinista generado desde Product Brain v2.
 
 ## Estado operacional
 
-- **Release activa:** RELEASE-0.1.0-beta.21 — Primera sesion guiada y PWA instalable
+- **Release activa:** No hay release activa en este momento.
 - **Últimos cortes:** `RELEASE-0.1.0-beta.10` — emails transaccionales beta con Brevo. Ver RELEASE-0.1.0-beta.10.
 
 `RELEASE-0.1.0-beta.12` — pulido proyecto-evento y borrados seguros. Ver RELEASE-0.1.0-beta.12.
@@ -43,6 +43,8 @@ Resumen determinista generado desde Product Brain v2.
 `RELEASE-0.1.0-beta.19` — contratantes estructurados. Ver RELEASE-0.1.0-beta.19.
 
 `RELEASE-0.1.0-beta.20` — hardening UX móvil financiera. Ver RELEASE-0.1.0-beta.20.
+
+`RELEASE-0.1.0-beta.21` — primera sesion guiada y PWA instalable. Ver RELEASE-0.1.0-beta.21.
 - **Foco:** Beta 20 queda cerrada. El foco vuelve a evaluar el siguiente corte del ciclo `0.1` sin absorber tareas nuevas por defecto: o bien abrir una nueva beta para `CACH-B0004`, o mantener un corte pequeño de hardening si el feedback privado lo pide.
 
 ## Prioridades del plan
@@ -68,13 +70,7 @@ _Sin entradas._
 
 ### Review / Verify
 
-| ID | Título | Tipo | Nivel | P |
-|---|---|---|---|---|
-| CACH-0064 | Corregir version y copy de consentimiento beta | bug | task | p1 |
-| CACH-0065 | Ampliar onboarding como tutorial revisitable | feature | slice | p1 |
-| CACH-0066 | Checklist compacto de primeros pasos | feature | slice | p1 |
-| CACH-0067 | PWA instalable basica y navegacion standalone | feature | slice | p1 |
-| CACH-0068 | Verificacion responsive PWA y cierre beta 21 | chore | task | p1 |
+_Sin entradas._
 
 ### Backlog (p1)
 
@@ -89,11 +85,6 @@ _Sin entradas._
 
 | ID | Título | Workflow | Tipo | Nivel | P |
 |---|---|---|---|---|---|
-| CACH-0064 | Corregir version y copy de consentimiento beta | review | bug | task | p1 |
-| CACH-0065 | Ampliar onboarding como tutorial revisitable | review | feature | slice | p1 |
-| CACH-0066 | Checklist compacto de primeros pasos | review | feature | slice | p1 |
-| CACH-0067 | PWA instalable basica y navegacion standalone | review | feature | slice | p1 |
-| CACH-0068 | Verificacion responsive PWA y cierre beta 21 | review | chore | task | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | backlog | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | backlog | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | backlog | feature | initiative | p1 |

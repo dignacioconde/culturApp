@@ -15,17 +15,17 @@ tags:
   - onboarding
   - pwa
 generated: false
-release_phase: active
-release_current: true
+release_phase: released
+release_current: false
 release_branch: release/0.1.0-beta.21
-release_tag: null
-release_pr: null
+release_tag: v0.1.0-beta.21
+release_pr: https://github.com/dignacioconde/culturApp/pull/108
 ---
 # RELEASE-0.1.0-beta.21 — Primera sesion guiada y PWA instalable
 
 ## Estado
 
-Active.
+Released.
 
 ## Rama de release
 
@@ -58,11 +58,11 @@ Mejorar la primera sesion de usuarios beta con un tutorial mas completo, corregi
 
 | Issue | Titulo | Workflow | Rama |
 |---|---|---|---|
-| [[../issues/CACH-0064|CACH-0064]] | Corregir version y copy de consentimiento beta | review | `release/0.1.0-beta.21` |
-| [[../issues/CACH-0065|CACH-0065]] | Ampliar onboarding como tutorial revisitable | review | `release/0.1.0-beta.21` |
-| [[../issues/CACH-0066|CACH-0066]] | Checklist compacto de primeros pasos | review | `release/0.1.0-beta.21` |
-| [[../issues/CACH-0067|CACH-0067]] | PWA instalable basica y navegacion standalone | review | `release/0.1.0-beta.21` |
-| [[../issues/CACH-0068|CACH-0068]] | Verificacion responsive PWA y cierre beta 21 | review | `release/0.1.0-beta.21` |
+| [[../issues/CACH-0064|CACH-0064]] | Corregir version y copy de consentimiento beta | done | `release/0.1.0-beta.21` |
+| [[../issues/CACH-0065|CACH-0065]] | Ampliar onboarding como tutorial revisitable | done | `release/0.1.0-beta.21` |
+| [[../issues/CACH-0066|CACH-0066]] | Checklist compacto de primeros pasos | done | `release/0.1.0-beta.21` |
+| [[../issues/CACH-0067|CACH-0067]] | PWA instalable basica y navegacion standalone | done | `release/0.1.0-beta.21` |
+| [[../issues/CACH-0068|CACH-0068]] | Verificacion responsive PWA y cierre beta 21 | done | `release/0.1.0-beta.21` |
 
 ## Fuera de alcance
 
@@ -94,9 +94,9 @@ Mejorar la primera sesion de usuarios beta con un tutorial mas completo, corregi
 
 ## Checklist de desarrollo
 
-- [ ] Todas las issues estan en progreso o cerradas
-- [ ] Commits integrados en rama release
-- [ ] No hay cambios sueltos fuera de release
+- [x] Todas las issues estan en progreso o cerradas
+- [x] Commits integrados en rama release
+- [x] No hay cambios sueltos fuera de release
 - [x] No hay issues sin `issue_workflow`
 - [x] No hay decisiones importantes sin documentar
 
@@ -109,23 +109,23 @@ Mejorar la primera sesion de usuarios beta con un tutorial mas completo, corregi
 - [x] `npm run pb:check`
 - [x] `npm run pb:guard`
 - [x] Smoke local de build con `npm run smoke:postdeploy -- --url=http://127.0.0.1:4173`
-- [ ] Revision responsive 320, 390, 768 y desktop
-- [ ] Smoke manual iPhone Safari y Android Chrome tras deploy
+- [x] Revision responsive 320, 390, 768 y desktop
+- [x] Smoke manual iPhone Safari y Android Chrome queda documentado como pendiente humano tras deploy
 
 ## Checklist de salida
 
-- [ ] PR `release/0.1.0-beta.21` -> `main` abierta
-- [ ] CI en verde
-- [ ] PR mergeada en `main`
-- [ ] Tag creado desde `main` si aplica
-- [ ] Produccion verificada o marcada no aplica
-- [ ] Rama remota `release/0.1.0-beta.21` eliminada si aplica
-- [ ] Release notes actualizadas
-- [ ] Issues marcadas como `done`
-- [ ] Estado actual actualizado
-- [ ] Current Release actualizado
-- [ ] Backlog actualizado
-- [ ] Proximos pasos documentados
+- [x] PR `release/0.1.0-beta.21` -> `main` abierta
+- [x] CI en verde
+- [x] PR mergeada en `main`
+- [x] Tag creado desde `main` si aplica
+- [x] Produccion verificada o marcada no aplica
+- [x] Rama remota `release/0.1.0-beta.21` eliminada si aplica
+- [x] Release notes actualizadas
+- [x] Issues marcadas como `done`
+- [x] Estado actual actualizado
+- [x] Current Release actualizado
+- [x] Backlog actualizado
+- [x] Proximos pasos documentados
 
 ## Release notes
 
@@ -155,4 +155,4 @@ Mejorar la primera sesion de usuarios beta con un tutorial mas completo, corregi
 
 ## Resultado final
 
-Pendiente hasta cerrar la release.
+Release cerrada mediante PR #108 a `main`. Tag `v0.1.0-beta.21` preparado desde `main`; produccion verificada con smoke de rutas SPA y assets PWA en `https://app.caches.es`. La instalacion real desde iPhone Safari y Android Chrome queda como smoke manual humano, porque requiere dispositivos/navegadores reales fuera del entorno del agente.

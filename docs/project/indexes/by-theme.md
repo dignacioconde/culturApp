@@ -17,14 +17,14 @@ generated: true
 
 ## beta-trust
 
-- [[../issues/CACH-0064|CACH-0064]] — Corregir version y copy de consentimiento beta · review · p1 · task
-- [[../issues/CACH-0067|CACH-0067]] — PWA instalable basica y navegacion standalone · review · p1 · slice
-- [[../issues/CACH-0068|CACH-0068]] — Verificacion responsive PWA y cierre beta 21 · review · p1 · task
 - [[../issues/CACH-B0020|CACH-B0020]] — Validar dominio de email transaccional y cambiar remitentes definitivos · done · p0 · task
 - [[../issues/CACH-0036|CACH-0036]] — Profesionalizar flujo de ramas por beta · done · p1 · task
 - [[../issues/CACH-0051|CACH-0051]] — [Deploy] Dominio publico de app y estrategia multientorno · done · p1 · task
 - [[../issues/CACH-0052|CACH-0052]] — [Feedback] Formulario simple de feedback beta · done · p1 · slice
 - [[../issues/CACH-0053|CACH-0053]] — [Bug] Mantener foco al escribir feedback · done · p1 · task
+- [[../issues/CACH-0064|CACH-0064]] — Corregir version y copy de consentimiento beta · done · p1 · task
+- [[../issues/CACH-0067|CACH-0067]] — PWA instalable basica y navegacion standalone · done · p1 · slice
+- [[../issues/CACH-0068|CACH-0068]] — Verificacion responsive PWA y cierre beta 21 · done · p1 · task
 - [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos · done · p1 · slice
 - [[../issues/CACH-B0006|CACH-B0006]] — Onboarding y acceso beta · done · p1 · slice
 - [[../issues/CACH-B0017|CACH-B0017]] — Panel admin para invitaciones beta · done · p1 · slice
@@ -63,8 +63,8 @@ generated: true
 
 ## portability-onboarding
 
-- [[../issues/CACH-0065|CACH-0065]] — Ampliar onboarding como tutorial revisitable · review · p1 · slice
-- [[../issues/CACH-0066|CACH-0066]] — Checklist compacto de primeros pasos · review · p1 · slice
+- [[../issues/CACH-0065|CACH-0065]] — Ampliar onboarding como tutorial revisitable · done · p1 · slice
+- [[../issues/CACH-0066|CACH-0066]] — Checklist compacto de primeros pasos · done · p1 · slice
 
 ## pro-growth
 

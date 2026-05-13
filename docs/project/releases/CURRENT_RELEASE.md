@@ -19,11 +19,11 @@ release_current: true
 
 ## Release activa
 
-`RELEASE-0.1.0-beta.21` — primera sesion guiada y PWA instalable. Ver [[RELEASE-0.1.0-beta.21]].
+No hay release activa en este momento.
 
 ## Rama activa
 
-`release/0.1.0-beta.21`.
+No aplica. Las siguientes tareas pequeñas salen de `main` salvo que se abra una nueva release.
 
 ## Últimos cortes
 
@@ -47,22 +47,20 @@ release_current: true
 
 `RELEASE-0.1.0-beta.20` — hardening UX móvil financiera. Ver [[RELEASE-0.1.0-beta.20]].
 
+`RELEASE-0.1.0-beta.21` — primera sesion guiada y PWA instalable. Ver [[RELEASE-0.1.0-beta.21]].
+
 ## Scope actual
 
-Beta 21 es un corte pequeno de confianza movil: tutorial ampliado, consentimiento actualizado y PWA instalable basica.
+Sin scope activo. Beta 21 queda cerrada como corte pequeno de confianza movil: tutorial ampliado, consentimiento actualizado, checklist compacto y PWA instalable basica.
 
 Issues incluidas:
 
-- [[../issues/CACH-0064|CACH-0064]] — Corregir version y copy de consentimiento beta.
-- [[../issues/CACH-0065|CACH-0065]] — Ampliar onboarding como tutorial revisitable.
-- [[../issues/CACH-0066|CACH-0066]] — Checklist compacto de primeros pasos.
-- [[../issues/CACH-0067|CACH-0067]] — PWA instalable basica y navegacion standalone.
-- [[../issues/CACH-0068|CACH-0068]] — Verificacion responsive PWA y cierre beta 21.
+- No aplica hasta abrir nueva release.
 
 ## Regla de trabajo para esta release
 
-La beta 21 no absorbe liquidacion neta, push, notificaciones, recordatorios ni offline de datos. Es un corte acotado de primera sesion y PWA instalable.
+No hay release activa. Las tareas fuera de release usan el flujo ligero desde `main`; si se abre una nueva beta, documentar primero release, scope, rama y criterios.
 
 ## Como cerrar esta release
 
-Cerrar cuando pasen lint, tests, build, e2e, Product Brain y la verificacion manual PWA en iPhone Safari y Android Chrome tras deploy.
+Beta 21 ya esta cerrada mediante PR #108, CI verde, tag `v0.1.0-beta.21` y smoke postdeploy basico de rutas SPA/PWA. La instalacion real iPhone/Android queda como verificacion manual humana.

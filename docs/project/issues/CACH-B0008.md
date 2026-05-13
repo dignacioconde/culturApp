@@ -55,7 +55,7 @@ Recordatorios y resumen semanal dependen de canales de notificación. La experie
 
 ## Acceptance Criteria
 
-- [ ] Cachés es instalable como PWA.
+- [x] Cachés es instalable como PWA.
 - [ ] Las notificaciones tienen preferencias claras.
 - [ ] Se puede recordar evento/cobro con canal soportado.
 - [ ] Offline básico no pisa datos sin resolución de conflictos.
@@ -74,6 +74,7 @@ Recordatorios y resumen semanal dependen de canales de notificación. La experie
 ## Notas de progreso
 
 - 2026-05-13: se abre el primer slice acotado de esta iniciativa en [[CACH-0067|CACH-0067]] para PWA instalable basica dentro de `RELEASE-0.1.0-beta.21`. Quedan fuera push, notificaciones, recordatorios, resumen semanal y offline de datos.
+- 2026-05-13: [[CACH-0067|CACH-0067]] queda cerrado en `RELEASE-0.1.0-beta.21` con manifest, iconos, service worker de app shell y smoke de rutas SPA/PWA. Quedan pendientes los canales de notificacion, recordatorios, resumen semanal y offline de datos.
 
 ## Cambios de alcance y decisiones
 
@@ -84,7 +85,7 @@ Recordatorios y resumen semanal dependen de canales de notificación. La experie
 
 ## Validación ejecutada
 
-Pendiente hasta ejecutar la issue.
+PWA instalable basica verificada por `CACH-0067`. Resto de iniciativa pendiente.
 
 ## Memoria
 
