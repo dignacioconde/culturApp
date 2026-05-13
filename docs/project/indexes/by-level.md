@@ -64,6 +64,7 @@ generated: true
 - [[../issues/CACH-0077|CACH-0077]] — Aplicar tokens Lovable al shell y navegacion · done · p2 · slice
 - [[../issues/CACH-0078|CACH-0078]] — Pulir Trabajos y listas con visual Lovable acotada · done · p2 · slice
 - [[../issues/CACH-0079|CACH-0079]] — Pulir Dashboard financiero con visual Lovable acotada · done · p2 · slice
+- [[../issues/CACH-0081|CACH-0081]] — Unificar visual Lovable tras comparacion real · done · p2 · slice
 
 ## task
 

@@ -48,6 +48,7 @@ generated: true
 - [[../issues/CACH-0078|CACH-0078]] — Pulir Trabajos y listas con visual Lovable acotada · done · p2 · slice
 - [[../issues/CACH-0079|CACH-0079]] — Pulir Dashboard financiero con visual Lovable acotada · done · p2 · slice
 - [[../issues/CACH-0080|CACH-0080]] — Inventariar gaps funcionales Lovable fuera de beta 23 · done · p2 · task
+- [[../issues/CACH-0081|CACH-0081]] — Unificar visual Lovable tras comparacion real · done · p2 · slice
 
 ## finance-operations
 

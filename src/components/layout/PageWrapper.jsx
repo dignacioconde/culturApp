@@ -16,7 +16,7 @@ export function PageWrapper({ title, children }) {
 
       <div className="flex min-w-0 flex-1 flex-col">
         <TopBar title={title} />
-        <main className={`min-w-0 flex-1 px-4 pt-5 sm:px-6 lg:px-8 ${
+        <main className={`min-w-0 flex-1 animate-fade-in px-4 pt-5 sm:px-6 lg:px-8 ${
           showBottomNavigation
             ? 'pb-[calc(5.25rem+env(safe-area-inset-bottom))] lg:pb-5'
             : 'pb-5'

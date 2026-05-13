@@ -18,8 +18,8 @@ const views = [
 ]
 
 const EMPTY_LIST = []
-const linkButtonClass = 'inline-flex min-h-10 items-center justify-center gap-2 rounded-lg bg-accent-primary px-4 py-2 text-sm font-medium leading-none text-white shadow-sm transition-colors hover:bg-accent-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2'
-const secondaryLinkButtonClass = 'inline-flex min-h-10 items-center justify-center gap-2 rounded-lg border border-border-subtle bg-surface-page px-4 py-2 text-sm font-medium leading-none text-text-primary shadow-sm transition-colors hover:bg-surface-page-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2'
+const linkButtonClass = 'inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-accent-primary px-4 py-2 text-sm font-medium leading-none text-surface-page shadow-sm transition-colors hover:bg-accent-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2'
+const secondaryLinkButtonClass = 'inline-flex min-h-10 items-center justify-center gap-2 rounded-full border border-border-subtle bg-surface-card px-4 py-2 text-sm font-medium leading-none text-text-primary shadow-sm transition-colors hover:bg-surface-page-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2'
 
 function QuietStatusBadge({ status }) {
   if (!status || status === 'confirmed') return null
@@ -28,26 +28,30 @@ function QuietStatusBadge({ status }) {
 
 function EventRow({ event, projects = EMPTY_LIST, contractors = EMPTY_LIST, compact = false }) {
   const contractor = getEventContractor(event, projects, contractors)
+  const accentColor = event.color ?? '#C94035'
 
   return (
     <Link
       to={`/events/${event.id}`}
-      className={`card-lift group flex min-w-0 items-center gap-3 rounded-lg border border-border-subtle bg-surface-muted px-3 py-3 transition-colors hover:border-accent-primary/40 hover:bg-surface-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 ${compact ? '' : 'sm:px-4'}`}
+      className={`card-lift group flex min-w-0 overflow-hidden rounded-2xl border border-border-subtle bg-surface-card transition-colors hover:border-text-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 ${compact ? '' : ''}`}
     >
-      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-surface-page-dark text-text-secondary">
-        <Ticket size={16} />
-      </span>
-      <span className="min-w-0 flex-1">
-        <span className="flex min-w-0 items-center gap-2">
-          <span className="truncate text-sm font-medium text-text-primary">{event.name}</span>
-          <QuietStatusBadge status={event.status} />
+      <span className="w-1.5 shrink-0 transition-[width] duration-200 group-hover:w-2" style={{ backgroundColor: accentColor }} aria-hidden="true" />
+      <span className={`flex min-w-0 flex-1 items-center gap-3 px-3 py-3 ${compact ? '' : 'sm:px-4'}`}>
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-surface-page-dark text-text-secondary">
+          <Ticket size={16} />
         </span>
-        <span className="mt-0.5 block truncate font-data text-xs text-text-secondary">
-          {formatDatetime(event.start_datetime)}
-          {contractor ? ` · ${contractor.name}` : ''}
+        <span className="min-w-0 flex-1">
+          <span className="flex min-w-0 items-center gap-2">
+            <span className="truncate text-sm font-medium text-text-primary">{event.name}</span>
+            <QuietStatusBadge status={event.status} />
+          </span>
+          <span className="mt-0.5 block truncate font-data text-xs text-text-secondary">
+            {formatDatetime(event.start_datetime)}
+            {contractor ? ` · ${contractor.name}` : ''}
+          </span>
         </span>
+        <ChevronRight size={16} className="shrink-0 text-text-secondary transition-transform group-hover:translate-x-0.5" />
       </span>
-      <ChevronRight size={16} className="shrink-0 text-text-secondary transition-transform group-hover:translate-x-0.5" />
     </Link>
   )
 }
@@ -57,48 +61,46 @@ function ProjectBlock({ project, events = EMPTY_LIST, allProjects = EMPTY_LIST, 
 
   return (
     <Card className="card-lift overflow-hidden border-border-subtle bg-surface-card">
-      <div className="flex flex-col gap-4 p-4 sm:p-5">
-        <div className="flex items-start gap-3">
-          <span
-            className="mt-1 h-3 w-3 shrink-0 rounded-full"
-            style={{ backgroundColor: project.color ?? '#4f98a3' }}
-            aria-hidden="true"
-          />
-          <div className="min-w-0 flex-1">
-            <div className="flex min-w-0 flex-wrap items-center gap-2">
-              <Link
-                to={`/projects/${project.id}`}
-                className="min-w-0 truncate font-display text-lg font-semibold leading-tight text-text-primary hover:text-accent-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2"
-              >
-                {project.name}
-              </Link>
-              <QuietStatusBadge status={project.status} />
+      <div className="flex items-stretch">
+        <span className="w-1.5 shrink-0 transition-[width] duration-200" style={{ backgroundColor: project.color ?? '#4f98a3' }} aria-hidden="true" />
+        <div className="flex min-w-0 flex-1 flex-col gap-4 p-4 sm:p-5">
+          <div className="flex items-start gap-3">
+            <div className="min-w-0 flex-1">
+              <div className="flex min-w-0 flex-wrap items-center gap-2">
+                <Link
+                  to={`/projects/${project.id}`}
+                  className="min-w-0 truncate font-display text-lg font-semibold leading-tight text-text-primary hover:text-accent-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2"
+                >
+                  {project.name}
+                </Link>
+                <QuietStatusBadge status={project.status} />
+              </div>
+              <p className="mt-1 truncate font-data text-xs text-text-secondary sm:text-sm">
+                {contractor ? `${contractor.name} · ` : ''}
+                {formatDateRange(project.start_date, project.end_date)}
+              </p>
             </div>
-            <p className="mt-1 truncate font-data text-xs text-text-secondary sm:text-sm">
-              {contractor ? `${contractor.name} · ` : ''}
-              {formatDateRange(project.start_date, project.end_date)}
-            </p>
+            <Link
+              to={`/projects/${project.id}`}
+              className="inline-flex h-9 shrink-0 items-center justify-center rounded-full px-2 text-text-secondary hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary"
+              aria-label={`Abrir proyecto ${project.name}`}
+            >
+              <ChevronRight size={18} />
+            </Link>
           </div>
-          <Link
-            to={`/projects/${project.id}`}
-            className="inline-flex h-9 shrink-0 items-center justify-center rounded-lg px-2 text-text-secondary hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary"
-            aria-label={`Abrir proyecto ${project.name}`}
-          >
-            <ChevronRight size={18} />
-          </Link>
-        </div>
 
-        {events.length > 0 ? (
-          <div className="grid gap-2">
-            {events.map((event) => (
-              <EventRow key={event.id} event={event} projects={allProjects} contractors={contractors} compact />
-            ))}
-          </div>
-        ) : (
-          <div className="rounded-lg border border-dashed border-border-subtle bg-surface-muted p-3 text-sm text-text-secondary">
-            Sin eventos asociados todavía.
-          </div>
-        )}
+          {events.length > 0 ? (
+            <div className="grid gap-2">
+              {events.map((event) => (
+                <EventRow key={event.id} event={event} projects={allProjects} contractors={contractors} compact />
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-dashed border-border-subtle bg-surface-muted p-3 text-sm text-text-secondary">
+              Sin eventos asociados todavía.
+            </div>
+          )}
+        </div>
       </div>
     </Card>
   )
@@ -172,7 +174,7 @@ export default function Work() {
           </div>
         </div>
 
-        <div className="flex w-full gap-1 rounded-lg border border-border-subtle bg-surface-page-dark p-1 sm:w-fit" role="tablist" aria-label="Filtrar trabajos">
+        <div className="inline-flex w-full items-center gap-1 rounded-full border border-border-subtle bg-surface-card p-1 sm:w-fit" role="tablist" aria-label="Filtrar trabajos">
           {views.map((view) => (
             <button
               key={view.value}
@@ -180,9 +182,9 @@ export default function Work() {
               role="tab"
               aria-selected={currentView === view.value}
               onClick={() => setView(view.value)}
-              className={`min-h-10 flex-1 rounded-md px-3 text-sm font-medium transition-colors sm:flex-none sm:min-w-24 ${
+              className={`min-h-10 flex-1 rounded-full px-3 text-sm font-medium transition-colors sm:flex-none sm:min-w-24 ${
                 currentView === view.value
-                  ? 'bg-surface-card text-text-primary shadow-sm'
+                  ? 'bg-text-primary text-surface-page shadow-sm'
                   : 'text-text-secondary hover:text-text-primary'
               }`}
             >
@@ -192,7 +194,7 @@ export default function Work() {
         </div>
 
         {error && (
-          <div className="rounded-lg border border-danger/20 bg-danger-soft px-4 py-3 text-sm text-danger">
+          <div className="rounded-2xl border border-danger/20 bg-danger-soft px-4 py-3 text-sm text-danger">
             No hemos podido cargar todos los trabajos. Revisa la conexión y vuelve a intentarlo.
           </div>
         )}
@@ -208,7 +210,7 @@ export default function Work() {
             ))}
           </div>
         ) : !hasAnyWork ? (
-          <Card className="border-border-subtle bg-surface-card p-6 text-center">
+          <Card className="border-dashed border-border-subtle bg-surface-muted/70 p-6 text-center">
             <Briefcase size={36} className="mx-auto text-text-secondary" />
             <p className="mt-3 font-display text-lg font-semibold leading-tight text-text-primary">No tienes ningún trabajo registrado.</p>
             <p className="mx-auto mt-1 max-w-md text-sm text-text-secondary">
@@ -226,7 +228,7 @@ export default function Work() {
             </div>
           </Card>
         ) : visibleProjectCount === 0 && visibleStandaloneCount === 0 ? (
-          <Card className="border-border-subtle bg-surface-card p-6 text-center">
+          <Card className="border-dashed border-border-subtle bg-surface-muted/70 p-6 text-center">
             <CalendarDays size={32} className="mx-auto text-text-secondary" />
             <p className="mt-3 font-display text-lg font-semibold leading-tight text-text-primary">No hay trabajos en esta vista.</p>
             <button

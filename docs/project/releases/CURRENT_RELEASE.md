@@ -62,10 +62,11 @@ Issues incluidas:
 - [[../issues/CACH-0078|CACH-0078]] — Pulir Trabajos y listas con visual Lovable acotada.
 - [[../issues/CACH-0079|CACH-0079]] — Pulir Dashboard financiero con visual Lovable acotada.
 - [[../issues/CACH-0080|CACH-0080]] — Inventariar gaps funcionales Lovable fuera de beta 23.
+- [[../issues/CACH-0081|CACH-0081]] — Unificar visual Lovable tras comparacion real.
 
 ## Regla de trabajo para esta release
 
-Solo entra trabajo de tokens y visual acotada para `CACH-0076`, `CACH-0077`, `CACH-0078`, `CACH-0079` y la frontera documental `CACH-0080`. Quedan fuera: import shadcn/Radix/TanStack, Supabase/RLS/data, formulas financieras, calendario custom, dark mode, command palette, FAB/sheets, origin-aware back nav, busqueda/tab de ano en Work, settings fiscal/preferencias nuevas, notificaciones y soporte/privacidad/about.
+Solo entra trabajo de tokens y visual acotada para `CACH-0076`, `CACH-0077`, `CACH-0078`, `CACH-0079`, la frontera documental `CACH-0080` y la unificacion visual `CACH-0081`. Quedan fuera: import shadcn/Radix/TanStack, Supabase/RLS/data, formulas financieras, calendario custom, dark mode, command palette, FAB/sheets, origin-aware back nav, busqueda/tab de ano en Work, settings fiscal/preferencias nuevas, notificaciones y soporte/privacidad/about.
 
 ## Como cerrar esta release
 

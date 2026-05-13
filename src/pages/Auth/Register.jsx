@@ -82,18 +82,18 @@ export default function Register() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 w-full max-w-md p-6 sm:p-8">
+    <div className="flex min-h-screen items-center justify-center bg-surface-page p-4">
+      <div className="w-full max-w-md rounded-2xl border border-border-subtle bg-surface-card p-6 shadow-sm sm:p-8">
         <div className="flex flex-col items-center gap-2 mb-8">
-          <div className="w-10 h-10 bg-[var(--color-primary-500)] rounded-xl flex items-center justify-center">
-            <Drama size={20} className="text-white" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent-primary">
+            <Drama size={20} className="text-surface-page" />
           </div>
-          <h1 className="text-xl font-semibold text-gray-900">Cachés</h1>
-          <p className="text-sm text-gray-500 text-center">Crea tu espacio para organizar proyectos, eventos y cobros.</p>
+          <h1 className="font-display text-2xl font-semibold leading-tight text-text-primary">Cachés</h1>
+          <p className="text-center text-sm text-text-secondary">Crea tu espacio para organizar proyectos, eventos y cobros.</p>
         </div>
 
         {confirmationEmail ? (
-          <div className="rounded-lg border border-green-200 bg-green-50 p-4 text-sm text-green-800">
+          <div className="rounded-2xl border border-success-soft bg-success-soft p-4 text-sm text-success">
             <p className="font-medium">Te hemos enviado un email para confirmar tu cuenta.</p>
             <p className="mt-2">
               Revisa {confirmationEmail} y abre el enlace de confirmación. Después podrás iniciar sesión.
@@ -150,17 +150,17 @@ export default function Register() {
               autoComplete="new-password"
               required
             />
-            <p className="text-xs text-gray-500">La contraseña debe tener al menos 6 caracteres.</p>
-            {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>}
+            <p className="text-xs text-text-secondary">La contraseña debe tener al menos 6 caracteres.</p>
+            {error && <p className="rounded-2xl bg-danger-soft px-3 py-2 text-sm text-danger">{error}</p>}
             <Button type="submit" disabled={loading} className="w-full justify-center mt-1">
               {loading ? 'Creando cuenta...' : 'Crear cuenta'}
             </Button>
           </form>
         )}
 
-        <p className="text-sm text-center text-gray-500 mt-6">
+        <p className="mt-6 text-center text-sm text-text-secondary">
           ¿Ya tienes cuenta?{' '}
-          <Link to="/login" className="text-[var(--color-primary-500)] font-medium hover:underline">
+          <Link to="/login" className="font-medium text-accent-primary hover:underline">
             Inicia sesión
           </Link>
         </p>

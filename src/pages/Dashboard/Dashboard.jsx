@@ -306,13 +306,13 @@ export default function Dashboard() {
         <Card className="border-border-subtle bg-surface-card p-3 sm:p-4">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="grid grid-cols-[2.75rem_minmax(0,1fr)_2.75rem_6.5rem] items-center gap-2 sm:flex sm:gap-1">
-              <button onClick={prevMonth} className="flex min-h-11 items-center justify-center rounded-lg text-text-secondary transition-colors hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2" aria-label="Mes anterior">
+              <button onClick={prevMonth} className="flex min-h-11 items-center justify-center rounded-full text-text-secondary transition-colors hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2" aria-label="Mes anterior">
                 <ChevronLeft size={18} />
               </button>
               <span className="min-w-0 truncate text-center text-sm font-medium capitalize text-text-primary sm:min-w-[130px]">
                 {selectedMonthLabel}
               </span>
-              <button onClick={nextMonth} className="flex min-h-11 items-center justify-center rounded-lg text-text-secondary transition-colors hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2" aria-label="Mes siguiente">
+              <button onClick={nextMonth} className="flex min-h-11 items-center justify-center rounded-full text-text-secondary transition-colors hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2" aria-label="Mes siguiente">
                 <ChevronRight size={18} />
               </button>
               <Select
@@ -325,16 +325,16 @@ export default function Dashboard() {
               </Select>
             </div>
 
-            <div className="flex self-start overflow-hidden rounded-lg border border-border-subtle bg-surface-muted text-sm">
+            <div className="inline-flex self-start rounded-full border border-border-subtle bg-surface-card p-1 text-sm">
               <button
                 onClick={() => setView('cash')}
-                className={`min-h-[44px] px-3 py-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 sm:min-h-[unset] sm:px-2.5 sm:py-1.5 ${view === 'cash' ? 'bg-accent-primary text-primary-foreground' : 'bg-surface-card text-text-secondary hover:bg-accent-soft hover:text-accent-primary'}`}
+                className={`min-h-[44px] rounded-full px-3 py-2 font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 sm:min-h-[unset] sm:px-3 sm:py-1.5 ${view === 'cash' ? 'bg-text-primary text-surface-page shadow-sm' : 'text-text-secondary hover:text-text-primary'}`}
               >
                 Caja del mes
               </button>
               <button
                 onClick={() => setView('work')}
-                className={`min-h-[44px] border-l border-border-subtle px-3 py-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 sm:min-h-[unset] sm:px-2.5 sm:py-1.5 ${view === 'work' ? 'bg-accent-primary text-primary-foreground' : 'bg-surface-card text-text-secondary hover:bg-accent-soft hover:text-accent-primary'}`}
+                className={`min-h-[44px] rounded-full px-3 py-2 font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 sm:min-h-[unset] sm:px-3 sm:py-1.5 ${view === 'work' ? 'bg-text-primary text-surface-page shadow-sm' : 'text-text-secondary hover:text-text-primary'}`}
               >
                 Trabajos
               </button>

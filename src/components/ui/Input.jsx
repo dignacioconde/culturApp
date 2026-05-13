@@ -248,7 +248,7 @@ function DateInput({
                     onClick={() => selectDate(date)}
                     className={`flex h-10 items-center justify-center rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary ${
                       isSelected
-                        ? 'bg-accent-primary text-white hover:bg-accent-primary-hover'
+                        ? 'bg-accent-primary text-surface-page hover:bg-accent-primary-hover'
                         : 'text-text-primary hover:bg-accent-soft hover:text-accent-primary-hover'
                     } ${isOutsideMonth && !isSelected ? 'text-text-secondary' : ''} ${isToday && !isSelected ? 'ring-1 ring-accent-soft' : ''}`}
                   >

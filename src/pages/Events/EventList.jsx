@@ -256,7 +256,7 @@ export default function EventList() {
             ))}
           </div>
         ) : filtered.length === 0 ? (
-          <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-border-subtle bg-surface-muted px-4 py-8 text-center">
+          <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border-subtle bg-surface-muted px-4 py-8 text-center">
             <CalendarDays size={36} className="text-text-secondary" />
             <p className="mt-3 font-display text-lg font-semibold leading-tight text-text-primary">
               {hasFilters ? 'No hay eventos que coincidan' : 'No hay eventos todavía'}
@@ -289,13 +289,10 @@ export default function EventList() {
                   to={`/events/${event.id}`}
                   className="group/card block min-w-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2"
                 >
-                  <Card className="card-lift h-full cursor-pointer border-border-subtle bg-surface-card p-4 transition-colors group-hover/card:border-accent-primary/40 sm:p-5">
-                    <div className="flex items-start gap-3 min-w-0">
-                      <div
-                        className="w-3 h-3 rounded-full mt-1 flex-shrink-0"
-                        style={{ backgroundColor: event.color ?? '#4f98a3' }}
-                      />
-                      <div className="flex-1 min-w-0">
+                  <Card className="card-lift h-full cursor-pointer overflow-hidden border-border-subtle bg-surface-card transition-colors group-hover/card:border-text-primary/30">
+                    <div className="flex h-full items-stretch">
+                      <span className="w-1.5 shrink-0 transition-[width] duration-200 group-hover/card:w-2" style={{ backgroundColor: event.color ?? '#4f98a3' }} aria-hidden="true" />
+                      <div className="min-w-0 flex-1 p-4 sm:p-5">
                         <div className="flex items-start justify-between gap-3">
                           <h3 className="truncate font-display text-lg font-semibold leading-tight text-text-primary group-hover/card:text-accent-primary">{event.name}</h3>
                           <div className="flex-shrink-0">

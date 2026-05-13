@@ -63,6 +63,7 @@ generated: true
 - [[../issues/CACH-0078|CACH-0078]] — Pulir Trabajos y listas con visual Lovable acotada
 - [[../issues/CACH-0079|CACH-0079]] — Pulir Dashboard financiero con visual Lovable acotada
 - [[../issues/CACH-0080|CACH-0080]] — Inventariar gaps funcionales Lovable fuera de beta 23
+- [[../issues/CACH-0081|CACH-0081]] — Unificar visual Lovable tras comparacion real
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes

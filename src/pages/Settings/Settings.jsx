@@ -49,13 +49,13 @@ export default function Settings() {
       <div className="max-w-3xl flex flex-col gap-6">
         <Card className="p-6">
           <div className="mb-5">
-            <h2 className="text-sm font-semibold text-gray-900">Perfil profesional</h2>
-            <p className="text-sm text-gray-500 mt-1">Estos datos se usan para personalizar tu cuenta y tus ingresos por defecto.</p>
+            <h2 className="font-display text-lg font-semibold leading-tight text-text-primary">Perfil profesional</h2>
+            <p className="mt-1 text-sm text-text-secondary">Estos datos se usan para personalizar tu cuenta y tus ingresos por defecto.</p>
           </div>
           {loading ? (
-            <p className="text-sm text-gray-400">Cargando...</p>
+            <p className="text-sm text-text-secondary">Cargando...</p>
           ) : profileError ? (
-            <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">No hemos podido cargar tu perfil.</p>
+            <p className="rounded-2xl bg-danger-soft px-3 py-2 text-sm text-danger">No hemos podido cargar tu perfil.</p>
           ) : (
             <form key={profile?.id ?? user?.id} onSubmit={handleSubmit} className="flex flex-col gap-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -86,25 +86,26 @@ export default function Settings() {
                   onChange={() => setError('')}
                 />
               </div>
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-text-secondary">
                 Este porcentaje se usará como valor por defecto al registrar nuevos ingresos.
               </p>
-              <label className="flex items-start gap-3 rounded-lg border border-[var(--color-paper-mid)] bg-[#FDFBF6] p-4 text-sm text-[var(--color-ink)]">
+              <label className="flex items-start gap-3 rounded-2xl border border-border-subtle bg-surface-muted p-4 text-sm text-text-primary">
                 <input
                   type="checkbox"
                   name="usage_consent"
+                  aria-label="Ayudar a mejorar la beta"
                   defaultChecked={Boolean(profile?.usage_consent)}
                   onChange={() => setError('')}
-                  className="mt-1 h-5 w-5 rounded border-[var(--color-paper-mid)] accent-[var(--color-red)]"
+                  className="mt-1 h-5 w-5 rounded border-border-subtle accent-[var(--accent-primary)]"
                 />
                 <span>
                   <span className="block font-medium">Ayudar a mejorar la beta</span>
-                  <span className="mt-1 block text-[var(--color-ink-muted)]">
+                  <span className="mt-1 block text-text-secondary">
                     {USAGE_CONSENT_DESCRIPTION}
                   </span>
                 </span>
               </label>
-              {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>}
+              {error && <p className="rounded-2xl bg-danger-soft px-3 py-2 text-sm text-danger">{error}</p>}
               <div className="flex justify-end">
                 <Button type="submit" disabled={saving} className="justify-center">
                   {saving ? 'Guardando...' : 'Guardar cambios'}
@@ -117,13 +118,13 @@ export default function Settings() {
         <Card className="p-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h2 className="text-sm font-semibold text-gray-900 mb-1">Cuenta</h2>
-              <p className="text-sm text-gray-500">{user?.email}</p>
+              <h2 className="mb-1 font-display text-lg font-semibold leading-tight text-text-primary">Cuenta</h2>
+              <p className="text-sm text-text-secondary">{user?.email}</p>
             </div>
             <div className="flex flex-col gap-2 sm:flex-row">
               <Link
                 to="/data"
-                className="inline-flex min-h-10 items-center justify-center rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-paper)] px-4 py-2 text-sm font-medium leading-none text-[var(--color-ink)] shadow-sm transition-colors hover:bg-[var(--color-paper-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2"
+                className="inline-flex min-h-10 items-center justify-center rounded-full border border-border-subtle bg-surface-card px-4 py-2 text-sm font-medium leading-none text-text-primary shadow-sm transition-colors hover:bg-surface-page-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2"
               >
                 Tus datos
               </Link>
@@ -137,12 +138,12 @@ export default function Settings() {
           <Card className="p-6">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <h2 className="text-sm font-semibold text-gray-900 mb-1">Administración beta</h2>
-                <p className="text-sm text-gray-500">Crea y revoca códigos de invitación para nuevas altas.</p>
+                <h2 className="mb-1 font-display text-lg font-semibold leading-tight text-text-primary">Administración beta</h2>
+                <p className="text-sm text-text-secondary">Crea y revoca códigos de invitación para nuevas altas.</p>
               </div>
               <Link
                 to="/admin/invitaciones"
-                className="inline-flex min-h-10 items-center justify-center rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-paper)] px-4 py-2 text-sm font-medium leading-none text-[var(--color-ink)] shadow-sm transition-colors hover:bg-[var(--color-paper-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2"
+                className="inline-flex min-h-10 items-center justify-center rounded-full border border-border-subtle bg-surface-card px-4 py-2 text-sm font-medium leading-none text-text-primary shadow-sm transition-colors hover:bg-surface-page-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2"
               >
                 Gestionar invitaciones
               </Link>
@@ -152,13 +153,13 @@ export default function Settings() {
         <Card className="p-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h2 className="text-sm font-semibold text-gray-900 mb-1">Primeros pasos</h2>
-              <p className="text-sm text-gray-500">Puedes volver a revisar el tutorial de proyectos, eventos, cobros y app móvil.</p>
+              <h2 className="mb-1 font-display text-lg font-semibold leading-tight text-text-primary">Primeros pasos</h2>
+              <p className="text-sm text-text-secondary">Puedes volver a revisar el tutorial de proyectos, eventos, cobros y app móvil.</p>
             </div>
             <Link
               to="/onboarding"
               state={{ from: '/settings' }}
-              className="inline-flex min-h-10 items-center justify-center rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-paper)] px-4 py-2 text-sm font-medium leading-none text-[var(--color-ink)] shadow-sm transition-colors hover:bg-[var(--color-paper-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2"
+              className="inline-flex min-h-10 items-center justify-center rounded-full border border-border-subtle bg-surface-card px-4 py-2 text-sm font-medium leading-none text-text-primary shadow-sm transition-colors hover:bg-surface-page-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2"
             >
               Ver tutorial
             </Link>
@@ -167,12 +168,12 @@ export default function Settings() {
         <Card className="p-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h2 className="text-sm font-semibold text-gray-900 mb-1">Novedades de la beta</h2>
-              <p className="text-sm text-gray-500">Consulta las mejoras recientes en formato corto y sin notas técnicas.</p>
+              <h2 className="mb-1 font-display text-lg font-semibold leading-tight text-text-primary">Novedades de la beta</h2>
+              <p className="text-sm text-text-secondary">Consulta las mejoras recientes en formato corto y sin notas técnicas.</p>
             </div>
             <Link
               to="/novedades"
-              className="inline-flex min-h-10 items-center justify-center rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-paper)] px-4 py-2 text-sm font-medium leading-none text-[var(--color-ink)] shadow-sm transition-colors hover:bg-[var(--color-paper-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2"
+              className="inline-flex min-h-10 items-center justify-center rounded-full border border-border-subtle bg-surface-card px-4 py-2 text-sm font-medium leading-none text-text-primary shadow-sm transition-colors hover:bg-surface-page-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2"
             >
               Ver novedades
             </Link>

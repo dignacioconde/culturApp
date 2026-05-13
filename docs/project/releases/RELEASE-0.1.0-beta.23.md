@@ -54,6 +54,7 @@ Dejar versionada una capa de tokens y aliases visuales que permita trasladar est
 - [[../issues/CACH-0078|CACH-0078]] — Pulir Trabajos y listas con visual Lovable acotada.
 - [[../issues/CACH-0079|CACH-0079]] — Pulir Dashboard financiero con visual Lovable acotada.
 - [[../issues/CACH-0080|CACH-0080]] — Inventariar gaps funcionales Lovable fuera de beta 23.
+- [[../issues/CACH-0081|CACH-0081]] — Unificar visual Lovable tras comparacion real.
 
 ## Issues incluidas
 
@@ -64,6 +65,7 @@ Dejar versionada una capa de tokens y aliases visuales que permita trasladar est
 | [[../issues/CACH-0078|CACH-0078]] | Pulir Trabajos y listas con visual Lovable acotada | done | `release/0.1.0-beta.23` |
 | [[../issues/CACH-0079|CACH-0079]] | Pulir Dashboard financiero con visual Lovable acotada | done | `release/0.1.0-beta.23` |
 | [[../issues/CACH-0080|CACH-0080]] | Inventariar gaps funcionales Lovable fuera de beta 23 | done | `release/0.1.0-beta.23` |
+| [[../issues/CACH-0081|CACH-0081]] | Unificar visual Lovable tras comparacion real | done | `release/0.1.0-beta.23` |
 
 ## Fuera de alcance
 
@@ -112,7 +114,7 @@ Dejar versionada una capa de tokens y aliases visuales que permita trasladar est
 - [x] `npm run release:status`
 - [x] `npm run verify:pr -- --base origin/main`
 - [x] `git diff --check`
-- [x] Revision visual de `/dashboard`, `/work`, `/projects`, `/events` y `/settings` en 390x844, 768x1024 y 1440x900.
+- [x] Revision visual de `/dashboard`, `/work`, `/projects`, `/events`, `/settings`, `/login`, `/register` y `/onboarding` en 390x844, 768x1024 y 1440x900.
 
 Validacion parcial ya ejecutada para `CACH-0076`: `lint`, `test`, `build`, `pb:guard`, `release:status`, `release:sync-check`, `verify:pr` y `git diff --check`.
 
@@ -140,6 +142,7 @@ Validacion parcial ya ejecutada para `CACH-0076`: `lint`, `test`, `build`, `pb:g
 - Utilidades `card-lift` y `skeleton` para componentes visuales futuros.
 - Issues de visual acotada para shell/navegacion, Work/listas y Dashboard.
 - Inventario de gaps funcionales Lovable que quedan fuera de beta 23.
+- Slice de unificacion visual tras comparar contra el export Lovable real.
 
 ### Cambiado
 
@@ -147,6 +150,7 @@ Validacion parcial ya ejecutada para `CACH-0076`: `lint`, `test`, `build`, `pb:g
 - Botones, cards, badges, modales, inputs, toast y barras de accion adoptan surfaces, textos, bordes, foco y acentos coherentes.
 - `/work`, `/projects` y `/events` pulen listas, filtros, tarjetas, loading/error/empty states y metadatos sin cambiar CRUD ni datos.
 - `/dashboard` pule KPIs, panel "Ahora", controles e ingresos pendientes sin tocar formulas financieras.
+- `/settings`, `/login`, `/register` y `/onboarding` sustituyen restos visuales grises por superficies, texto, radios y acentos semanticos.
 
 ### Corregido
 

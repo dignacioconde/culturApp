@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
 
 const variants = {
-  primary: 'border-transparent bg-accent-primary text-white shadow-sm hover:bg-accent-primary-hover',
-  secondary: 'border-border-subtle bg-surface-page text-text-primary shadow-sm hover:bg-surface-page-dark',
+  primary: 'border-transparent bg-accent-primary text-surface-page shadow-sm hover:bg-accent-primary-hover',
+  secondary: 'border-border-subtle bg-surface-card text-text-primary shadow-sm hover:bg-surface-page-dark',
   muted: 'border-transparent bg-transparent text-text-secondary hover:bg-surface-page-dark hover:text-text-primary',
   danger: 'border-danger-soft bg-transparent text-danger hover:bg-danger-soft hover:text-accent-primary-hover',
 }

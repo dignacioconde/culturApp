@@ -23,7 +23,7 @@ export function KpiCard({ title, value, subtitle, icon: Icon, color = 'red', pro
     <Card className={`card-lift min-w-0 border-border-subtle bg-surface-card p-4 sm:p-5 border-t-2 ${borderColors[color] ?? borderColors.red}`}>
       <div className="flex items-start gap-3 sm:gap-4">
         {Icon && (
-          <div className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg ring-1 ${colors[color] ?? colors.red}`}>
+          <div className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full ring-1 ${colors[color] ?? colors.red}`}>
             <Icon size={20} />
           </div>
         )}
