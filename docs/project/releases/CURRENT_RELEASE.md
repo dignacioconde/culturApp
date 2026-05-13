@@ -13,17 +13,17 @@ tags:
   - release
   - current
 generated: false
-release_current: false
+release_current: true
 ---
 # Current Release
 
 ## Release activa
 
-No hay release activa ahora mismo.
+`RELEASE-0.1.0-beta.20` — hardening UX móvil financiera. Ver [[RELEASE-0.1.0-beta.20]].
 
 ## Rama activa
 
-`release/0.1.0-beta.19`
+`release/0.1.0-beta.20`
 
 ## Últimos cortes
 
@@ -47,20 +47,16 @@ No hay release activa ahora mismo.
 
 ## Scope actual
 
-Pendiente de seleccionar. Beta 19 queda cerrada como primer slice seguro de `CACH-B0004`; el siguiente corte candidato puede ser liquidación neta gasto-ingreso o una release de hardening antes de abrir facturación completa.
+Hardening pequeño antes de abrir liquidación neta o facturación completa. El corte se limita a consolidar la deuda residual de `CACH-B0002`: un patrón compartido de barra contextual móvil en detalles de proyecto y evento.
 
 Issues incluidas:
 
-- [[../issues/CACH-0057|CACH-0057]] — Definir modelo mínimo de contratantes.
-- [[../issues/CACH-0058|CACH-0058]] — Versionar schema de contratantes y RLS.
-- [[../issues/CACH-0059|CACH-0059]] — Integrar hooks y portabilidad de contratantes.
-- [[../issues/CACH-0060|CACH-0060]] — Añadir UX mínima de contratantes en proyectos y eventos.
-- [[../issues/CACH-0061|CACH-0061]] — Verificar regresión financiera y cierre técnico beta 19.
+- [[../issues/CACH-0063|CACH-0063]] — Unificar BottomActionBar en detalles.
 
-## Regla de trabajo para la próxima release
+## Regla de trabajo para esta release
 
-Definir primero el scope en un documento de release y asociar issues `CACH-*` antes de crear rama. No abrir liquidación neta, facturación completa o CRM sin criterios de aceptación y validación de datos/RLS.
+Las ramas de tarea salen de `release/0.1.0-beta.20`. No tocar fórmulas financieras, hooks públicos, schema, RLS, Supabase remoto, liquidación neta, facturación ni CRM. La verificación visual debe cubrir `/events/:id` y `/projects/:id` en 320 px, 390 px, 768 px y desktop.
 
 ## Como cerrar esta release
 
-Beta 19 se cierra mediante PR única `release/0.1.0-beta.19` -> `main`, CI verde, `pb:guard`, `release:sync-check`, verificación remota Supabase, tag `v0.1.0-beta.19` y smoke de producción sobre `https://app.caches.es` tras merge.
+Beta 20 se cierra mediante PR única `release/0.1.0-beta.20` -> `main`, CI verde, `npm run lint`, `npm run build`, `npm run pb:guard`, `npm run release:sync-check` y smoke visual de los detalles afectados.

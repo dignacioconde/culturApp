@@ -23,7 +23,7 @@ Resumen determinista generado desde Product Brain v2.
 
 ## Estado operacional
 
-- **Release activa:** No hay release activa ahora mismo.
+- **Release activa:** RELEASE-0.1.0-beta.20 — Hardening UX móvil financiera
 - **Últimos cortes:** `RELEASE-0.1.0-beta.10` — emails transaccionales beta con Brevo. Ver RELEASE-0.1.0-beta.10.
 
 `RELEASE-0.1.0-beta.12` — pulido proyecto-evento y borrados seguros. Ver RELEASE-0.1.0-beta.12.
@@ -41,14 +41,15 @@ Resumen determinista generado desde Product Brain v2.
 `RELEASE-0.1.0-beta.18` — cierre P1 UX core. Ver RELEASE-0.1.0-beta.18.
 
 `RELEASE-0.1.0-beta.19` — contratantes estructurados. Ver RELEASE-0.1.0-beta.19.
-- **Foco:** Beta 19 queda cerrada como primer slice de `CACH-B0004`: contratantes estructurados, schema/RLS, hooks, portabilidad, UX mínima y regresión financiera sin cambios de fórmula. El siguiente foco queda pendiente de elegir entre hardening o abrir liquidación neta con criterios de datos/RLS.
+- **Foco:** `RELEASE-0.1.0-beta.20` queda abierta como hardening UX móvil financiera antes de abrir liquidación neta o facturación completa. El scope es `CACH-0063`: unificar la barra contextual de detalles de proyecto y evento sin tocar fórmulas, schema, RLS ni semántica financiera.
 
 ## Prioridades del plan
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
 2. Mantener el feedback beta simple antes de introducir analitica de producto.
 3. No introducir PostHog, Plausible ni analitica de eventos sin issue/ADR posterior.
-4. Antes de abrir beta 20, decidir si toca hardening o liquidacion neta; en ambos casos mantener fuera facturacion completa y CRM salvo issue nueva con criterios de datos/RLS.
+4. En beta 20, mantener el alcance limitado a `CACH-0063`; cualquier cambio de datos o fórmula queda fuera.
+5. No abrir liquidacion neta, facturacion completa ni CRM salvo issue nueva con criterios de datos/RLS.
 
 ## Tablero
 
@@ -96,11 +97,11 @@ _Sin entradas._
 
 | ID | Título | Updated | Estado |
 |---|---|---|---|
+| ADR-0016 | UX móvil financiera: operativa primero y acciones contextuales | 2026-05-13 | Accepted |
 | ADR-0014 | Beta feedback propio y Plausible comentado | 2026-05-11 | Superseded |
 | ADR-0015 | Feedback simple propio y PostHog diferido | 2026-05-11 | Accepted |
 | ADR-0001 | Mantener el modelo proyecto-evento con finanzas en ambos niveles | 2026-05-08 | Accepted |
 | ADR-0002 | Beta prioriza confianza antes que features Pro | 2026-05-08 | Accepted |
-| ADR-0003 | Product Brain repo-native y GitHub solo para implementacion | 2026-05-08 | Accepted |
 
 ## Knowledge
 
@@ -114,4 +115,4 @@ _Sin entradas._
 
 ## Próxima acción
 
-Cerrar beta 19 en `main`, etiquetar `v0.1.0-beta.19`, verificar producción y decidir el próximo corte.
+Implementar `CACH-0063` desde `release/0.1.0-beta.20`, validar responsive en detalles de proyecto/evento y cerrar la release mediante PR única a `main`.

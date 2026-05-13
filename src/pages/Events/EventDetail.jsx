@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { ArrowLeft, Plus, Trash2, CheckCircle, Circle, Edit, ChevronDown, ExternalLink } from 'lucide-react'
 import { PageWrapper } from '../../components/layout/PageWrapper'
+import { BottomActionBar } from '../../components/layout/BottomActionBar'
 import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
 import { ContextNotesCard } from '../../components/ui/ContextNotesCard'
@@ -403,7 +404,7 @@ export default function EventDetail() {
 
   return (
     <PageWrapper title={event.name}>
-      <div className="flex max-w-4xl flex-col gap-4 sm:gap-5 pb-20 sm:pb-5">
+      <div className="flex max-w-4xl flex-col gap-4 pb-[calc(5.75rem+env(safe-area-inset-bottom))] sm:gap-5 sm:pb-5">
         <nav className="flex items-center gap-1.5 text-xs text-[var(--color-ink-muted)] breadcrumbs">
           <Link to="/work" className="hover:text-[var(--color-ink)]">Trabajos</Link>
           <span>/</span>
@@ -443,20 +444,7 @@ export default function EventDetail() {
                 )}
               </div>
             </div>
-            <div className="fixed bottom-0 left-0 right-0 z-40 flex gap-1 border-t border-[var(--color-paper-mid)] bg-[var(--color-surface)] px-2 py-2 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] sm:static sm:border-0 sm:bg-transparent sm:p-0 sm:shadow-none">
-              <button type="button" onClick={openQuickIncome} className="flex-1 rounded-lg bg-[var(--color-red)] py-2 text-xs font-medium text-white sm:hidden">
-                Cobro
-              </button>
-              <button type="button" onClick={openQuickExpense} className="flex-1 rounded-lg bg-[var(--color-red)] py-2 text-xs font-medium text-white sm:hidden">
-                Gasto
-              </button>
-              <button type="button" onClick={() => setEditModal(true)} className="flex-1 rounded-lg bg-[var(--color-red)] py-2 text-xs font-medium text-white sm:hidden">
-                Editar
-              </button>
-              <button type="button" onClick={requestDeleteEvent} className="flex-1 rounded-lg border border-[var(--color-red-light)] py-2 text-xs font-medium text-[var(--color-red)] sm:hidden">
-                Eliminar
-              </button>
-              {/* Desktop - quick modals */}
+            <div className="hidden shrink-0 flex-wrap items-center gap-2 sm:flex">
               <button type="button" onClick={openQuickIncome} className={compactPrimaryActionDesktop}>
                 <Plus size={14} /> Ingreso
               </button>
@@ -752,6 +740,16 @@ export default function EventDetail() {
           }}
         />
       </div>
+
+      <BottomActionBar
+        ariaLabel="Acciones del evento"
+        actions={[
+          { label: 'Cobro', icon: Plus, onClick: openQuickIncome, variant: 'primary' },
+          { label: 'Gasto', icon: Plus, onClick: openQuickExpense, variant: 'secondary' },
+          { label: 'Editar', icon: Edit, onClick: () => setEditModal(true), variant: 'secondary' },
+          { label: 'Eliminar', icon: Trash2, onClick: requestDeleteEvent, variant: 'danger', ariaLabel: 'Eliminar evento' },
+        ]}
+      />
 
       <Modal isOpen={editModal} onClose={() => setEditModal(false)} title="Editar evento">
         <EventForm

@@ -29,6 +29,7 @@ generated: true
 - [[../releases/RELEASE-0.1.0-beta.18|RELEASE-0.1.0-beta.18]] — Cierre P1 UX core
 - [[../releases/RELEASE-0.1.0-beta.19|RELEASE-0.1.0-beta.19]] — Contratantes estructurados
 - [[../releases/RELEASE-0.1.0-beta.2|RELEASE-0.1.0-beta.2]] — Endurecer confianza de datos
+- [[../releases/RELEASE-0.1.0-beta.20|RELEASE-0.1.0-beta.20]] — Hardening UX móvil financiera
 - [[../releases/RELEASE-0.1.0-beta.3|RELEASE-0.1.0-beta.3]] — Rediseño financiero del Dashboard
 - [[../releases/RELEASE-0.1.0-beta.4|RELEASE-0.1.0-beta.4]] — Planificacion anual de proyectos
 - [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] — Flujo profesional de ramas beta

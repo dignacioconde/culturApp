@@ -50,6 +50,7 @@ generated: true
 - [[../issues/CACH-0059|CACH-0059]] — Integrar hooks y portabilidad de contratantes
 - [[../issues/CACH-0060|CACH-0060]] — Anadir UX minima de contratantes en proyectos y eventos
 - [[../issues/CACH-0061|CACH-0061]] — Verificar regresion financiera y cierre tecnico beta 19
+- [[../issues/CACH-0063|CACH-0063]] — Unificar BottomActionBar en detalles
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes

@@ -5,7 +5,7 @@ id: PB-PROCESS-WORKFLOW
 title: Workflow
 lifecycle: active
 created: '2026-05-05'
-updated: '2026-05-08'
+updated: '2026-05-13'
 aliases:
   - Workflow
   - Thin Product Brain Workflow
@@ -168,8 +168,11 @@ Solo para decisiones duraderas con impacto futuro:
 - Dependencias nuevas importantes.
 - Convenciones de producto o proceso que afecten trabajo futuro.
 - Decisiones de seguridad o privacidad con consecuencias duraderas.
+- Reglas transversales cerradas por un slice que gobernarán futuras implementaciones de producto, UX, datos o seguridad.
 
 No crear ADR para: reglas menores de estilo, decisiones reversibles, convenciones temporales.
+
+Si una issue hija descubre o consolida una regla transversal, no basta con dejarla enterrada en el resultado de la issue: crear o actualizar una decisión y enlazarla desde la épica o parent antes de cerrar el trabajo.
 
 ---
 
