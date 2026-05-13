@@ -25,6 +25,7 @@ Context loading:
 - Keep prompts compact; link to policy instead of duplicating it.
 - Do not turn reference paths into mandatory read lists.
 - Product Brain is canonical for product, planning, issues, releases and decisions, but full Product Brain is not loaded by default.
+- Use `npm run context:metrics` and runner `promptMetrics` as the cheap cost proxy for agent/context changes; split tasks or reduce agents when prompt estimates grow.
 
 Agent execution:
 - When the user asks to run OpenCode agents, launch the repository workflow directly.

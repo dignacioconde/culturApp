@@ -2,6 +2,7 @@
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs"
 import { dirname, join, relative, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
+import { countWords, measurePrompt, sumPromptMetrics } from "./context-metrics.mjs"
 
 const scriptDir = dirname(fileURLToPath(import.meta.url))
 const repoRoot = resolve(scriptDir, "..")
@@ -126,11 +127,6 @@ function unique(items) {
   return [...new Set(items)]
 }
 
-function countWords(text) {
-  const withoutCodeFences = text.replace(/```[\s\S]*?```/g, " ")
-  return (withoutCodeFences.match(/[A-Za-zÀ-ÿ0-9_'-]+/g) ?? []).length
-}
-
 function isHistoricalOrDoNotLoad(text) {
   return /status:\s*Historical\b/i.test(text) || /load_policy:\s*do_not_load_by_default\b/i.test(text)
 }
@@ -233,6 +229,66 @@ function checkSkillBudgets(skillFiles) {
   }
 }
 
+function printTokenMetric(status, metric, target, note = "") {
+  const targetText = target ? `, target <= ${target}` : ""
+  const noteText = note ? ` ${note}` : ""
+  printLine(status, `${metric.label}: ~${metric.estimatedTokens} tokens, ${metric.words} words${targetText}.${noteText}`)
+}
+
+function maxByTokenEstimate(items) {
+  return items.reduce((largest, item) => (item.estimatedTokens > largest.estimatedTokens ? item : largest), items[0])
+}
+
+function checkTokenCostMetrics(agentFiles, skillFiles) {
+  console.log("")
+  console.log("Token cost metrics (estimate):")
+
+  const entryFiles = ["AGENTS.md", "docs/agent-context-policy.md", ".memory/MEMORY.md"].filter(fileExists)
+  const entryMetrics = entryFiles.map((path) => measurePrompt(path, read(path)))
+  const entryBundle = sumPromptMetrics("Entry bundle (AGENTS + policy + memory index)", entryMetrics)
+  const entryTarget = 5000
+
+  if (entryBundle.estimatedTokens > entryTarget) {
+    results.warnings.push(`${entryBundle.label}: ~${entryBundle.estimatedTokens} prompt tokens exceeds target <= ${entryTarget}.`)
+    printTokenMetric("WARN", entryBundle, entryTarget, "Shrink entry context or move detail behind indexes.")
+  } else {
+    results.ok += 1
+    printTokenMetric("OK", entryBundle, entryTarget)
+  }
+
+  const agentMetrics = agentFiles.filter(fileExists).map((path) => measurePrompt(path, read(path)))
+  if (agentMetrics.length > 0) {
+    const largestAgent = maxByTokenEstimate(agentMetrics)
+    const roleTarget = 1400
+    if (largestAgent.estimatedTokens > roleTarget) {
+      results.warnings.push(`${largestAgent.label}: ~${largestAgent.estimatedTokens} prompt tokens exceeds role prompt target <= ${roleTarget}.`)
+      printTokenMetric("WARN", largestAgent, roleTarget, "Compact role-specific rules.")
+    } else {
+      results.ok += 1
+      printTokenMetric("OK", largestAgent, roleTarget, "Largest role prompt.")
+    }
+
+    const allRoles = sumPromptMetrics("All role prompts (anti-pattern if loaded together)", agentMetrics)
+    results.info.push(`${allRoles.label}: ~${allRoles.estimatedTokens} prompt tokens. Load only the relevant role.`)
+    printTokenMetric("INFO", allRoles, null, "Use as a smell, not a default read.")
+  }
+
+  const skillMetrics = skillFiles.filter(fileExists).map((path) => measurePrompt(path, read(path)))
+  if (skillMetrics.length > 0) {
+    const largestSkill = maxByTokenEstimate(skillMetrics)
+    const skillTarget = 2400
+    if (largestSkill.estimatedTokens > skillTarget) {
+      results.warnings.push(`${largestSkill.label}: ~${largestSkill.estimatedTokens} prompt tokens exceeds skill target <= ${skillTarget}.`)
+      printTokenMetric("WARN", largestSkill, skillTarget, "Split or link out reference detail.")
+    } else {
+      results.ok += 1
+      printTokenMetric("OK", largestSkill, skillTarget, "Largest skill.")
+    }
+  }
+
+  console.log("INFO  Token estimate basis: chars / 4. Provider-side completion tokens and USD are not available here.")
+}
+
 function checkBroadLoadingPhrases(scanFiles) {
   const matches = scanFiles.flatMap((path) => (fileExists(path) ? findPhraseMatches(path, read(path)) : []))
 
@@ -304,6 +360,7 @@ function main() {
   checkRequiredFiles()
   checkWordBudgets(agentFiles)
   checkSkillBudgets(skillFiles)
+  checkTokenCostMetrics(agentFiles, skillFiles)
   checkBroadLoadingPhrases(scanFiles)
   checkMemoryHistory(memoryTopicFiles)
 

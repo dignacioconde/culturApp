@@ -3,6 +3,7 @@ import { mkdir, writeFile } from "node:fs/promises"
 import { spawn } from "node:child_process"
 import { dirname, join, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
+import { buildPromptCostEstimate, measurePrompt, sumPromptMetrics } from "../../scripts/context-metrics.mjs"
 
 const AGENTS = {
   frontend: "cultura-frontend",
@@ -22,6 +23,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const repoRoot = resolve(__dirname, "../..")
 const ANSI_PATTERN = /\u001b\[[0-9;]*m/g
 const AGENT_TIMEOUT_MS = parseInt(process.env.AGENT_TIMEOUT_MS ?? "1800000", 10)
+const PROMPT_TOKEN_SOFT_LIMIT = parseInt(process.env.AGENT_PROMPT_SOFT_LIMIT ?? "3500", 10)
 const MODEL_DEFAULTS = {
   lead: process.env.AGENT_MODEL_LEAD ?? "frontmatter/default",
   worker: process.env.AGENT_MODEL_WORKER ?? "frontmatter/default",
@@ -253,6 +255,7 @@ function printDryRun(options) {
   const commands = options.agents.map((agentKey) => {
     const agentName = AGENTS[agentKey]
     const prompt = buildPrompt(agentName, options.task, options)
+    const promptMetrics = measurePrompt(`parallel-${agentKey} prompt`, prompt, { softLimit: PROMPT_TOKEN_SOFT_LIMIT })
     const title = `parallel-${agentKey}`
     const args = buildOpenCodeArgs(options, title, prompt)
     return {
@@ -260,9 +263,15 @@ function printDryRun(options) {
       agentName,
       mode: options.write ? "write" : "read-only",
       command: ["opencode", ...args.map((arg) => (arg === prompt ? "<prompt>" : arg))],
+      promptMetrics,
+      costEstimate: buildPromptCostEstimate(promptMetrics),
       promptPreview: prompt.split("\n").slice(0, 12).join("\n"),
     }
   })
+  const aggregatePromptMetrics = sumPromptMetrics(
+    "parallel prompts aggregate",
+    commands.map((command) => command.promptMetrics),
+  )
 
   console.log(
     JSON.stringify(
@@ -272,6 +281,7 @@ function printDryRun(options) {
         concise: options.concise,
         writesRunFiles: false,
         ownership: options.ownership || null,
+        aggregatePromptMetrics,
         commands,
       },
       null,
@@ -283,6 +293,7 @@ function printDryRun(options) {
 function runAgent(agentKey, options, runDir) {
   const agentName = AGENTS[agentKey]
   const prompt = buildPrompt(agentName, options.task, options)
+  const promptMetrics = measurePrompt(`parallel-${agentKey} prompt`, prompt, { softLimit: PROMPT_TOKEN_SOFT_LIMIT })
   const outputPath = join(runDir, `${agentKey}.md`)
   const title = `parallel-${agentKey}`
   const child = spawn("opencode", buildOpenCodeArgs(options, title, prompt), { cwd: repoRoot, stdio: ["ignore", "pipe", "pipe"] })
@@ -324,7 +335,7 @@ function runAgent(agentKey, options, runDir) {
       ].join("\n")
 
       await writeFile(outputPath, content)
-      resolve({ agentKey, agentName, code: 1, outputPath })
+      resolve({ agentKey, agentName, code: 1, outputPath, promptMetrics })
     })
 
     child.on("close", async (code) => {
@@ -346,9 +357,22 @@ function runAgent(agentKey, options, runDir) {
       ].join("\n")
 
       await writeFile(outputPath, content)
-      resolve({ agentKey, agentName, code: timedOut ? 124 : code, outputPath })
+      resolve({ agentKey, agentName, code: timedOut ? 124 : code, outputPath, promptMetrics })
     })
   })
+}
+
+function buildParallelPromptMetrics(options) {
+  const agents = Object.fromEntries(
+    options.agents.map((agentKey) => {
+      const prompt = buildPrompt(AGENTS[agentKey], options.task, options)
+      return [agentKey, measurePrompt(`parallel-${agentKey} prompt`, prompt, { softLimit: PROMPT_TOKEN_SOFT_LIMIT })]
+    }),
+  )
+  return {
+    agents,
+    aggregate: sumPromptMetrics("parallel prompts aggregate", Object.values(agents)),
+  }
 }
 
 async function main() {
@@ -377,11 +401,18 @@ async function main() {
   await mkdir(runDir, { recursive: true })
   const metadataPath = join(runDir, "metadata.json")
   const startedAt = new Date().toISOString()
+  const promptMetrics = buildParallelPromptMetrics(options)
 
   console.log(`Ejecutando ${options.agents.length} agentes en paralelo...`)
   console.log(`Modo: ${options.write ? "write" : "read-only"}`)
   console.log(`Dangerous permissions: ${options.dangerouslySkipPermissions ? "yes" : "no"}`)
   console.log(`Salida: ${runDir}`)
+  console.log(`Prompt tokens estimate: ~${promptMetrics.aggregate.estimatedTokens} aggregate`)
+  for (const [agentKey, metric] of Object.entries(promptMetrics.agents)) {
+    if (metric.estimatedTokens > PROMPT_TOKEN_SOFT_LIMIT) {
+      console.warn(`parallel-${agentKey} prompt estimate exceeds soft limit ${PROMPT_TOKEN_SOFT_LIMIT}. Consider narrowing scope, splitting the task or using --concise when safe.`)
+    }
+  }
   await writeFile(
     metadataPath,
     JSON.stringify(
@@ -398,6 +429,8 @@ async function main() {
         routingReason: options.routingReason,
         models: options.models,
         ownership: options.ownership || null,
+        promptMetrics,
+        costEstimate: buildPromptCostEstimate(promptMetrics.aggregate, { promptCount: options.agents.length }),
         result: null,
         notes: "Operational telemetry for model-routing pilot. Do not persist run history in .memory/.",
       },
@@ -431,6 +464,8 @@ async function main() {
         routingReason: options.routingReason,
         models: options.models,
         ownership: options.ownership || null,
+        promptMetrics,
+        costEstimate: buildPromptCostEstimate(promptMetrics.aggregate, { promptCount: options.agents.length }),
         result: failed.length > 0 ? "error" : "success",
         exitCode: failed.length > 0 ? 1 : 0,
         failedAgents: failed.map((result) => result.agentName),

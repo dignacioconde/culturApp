@@ -3,9 +3,11 @@ import { spawn } from "node:child_process"
 import { mkdir, writeFile } from "node:fs/promises"
 import { resolve } from "node:path"
 import { fileURLToPath } from "node:url"
+import { buildPromptCostEstimate, measurePrompt } from "../../scripts/context-metrics.mjs"
 
 const repoRoot = resolve(fileURLToPath(new URL("../..", import.meta.url)))
 const RUNS_DIR = resolve(repoRoot, ".opencode/runs")
+const PROMPT_TOKEN_SOFT_LIMIT = parseInt(process.env.AGENT_PROMPT_SOFT_LIMIT ?? "3500", 10)
 const MODEL_DEFAULTS = {
   lead: process.env.AGENT_MODEL_LEAD ?? "frontmatter/default",
   worker: process.env.AGENT_MODEL_WORKER ?? "frontmatter/default",
@@ -170,6 +172,7 @@ function buildOpenCodeArgs(options, contract) {
 }
 
 function printDryRun(options, contract, command) {
+  const promptMetrics = measurePrompt("planner contract", contract, { softLimit: PROMPT_TOKEN_SOFT_LIMIT })
   console.log(
     JSON.stringify(
       {
@@ -180,6 +183,8 @@ function printDryRun(options, contract, command) {
         concise: options.concise,
         writesRunFiles: false,
         command: ["opencode", ...command.args.map((arg) => (arg === contract ? "<prompt>" : arg))],
+        promptMetrics,
+        costEstimate: buildPromptCostEstimate(promptMetrics),
         promptPreview: contract.split("\n").slice(0, 18).join("\n"),
       },
       null,
@@ -204,6 +209,7 @@ async function main() {
   validateOptions(options)
 
   const contract = options.mode === "execute" ? buildExecuteContract(options.prompt, options) : buildDraftContract(options.prompt, options)
+  const promptMetrics = measurePrompt("planner contract", contract, { softLimit: PROMPT_TOKEN_SOFT_LIMIT })
   const command = buildOpenCodeArgs(options, contract)
 
   if (options.dryRun) {
@@ -216,6 +222,10 @@ async function main() {
   const runDir = resolve(RUNS_DIR, timestamp)
   const metadataPath = resolve(runDir, "metadata.json")
   await mkdir(runDir, { recursive: true })
+  console.log(`[${timestamp}] Prompt tokens estimate: ~${promptMetrics.estimatedTokens}`)
+  if (promptMetrics.estimatedTokens > PROMPT_TOKEN_SOFT_LIMIT) {
+    console.warn(`[${timestamp}] Prompt token estimate exceeds soft limit ${PROMPT_TOKEN_SOFT_LIMIT}. Consider narrowing scope, splitting the task or using --concise when safe.`)
+  }
   await writeMetadata(metadataPath, {
     startedAt,
     endedAt: null,
@@ -229,8 +239,9 @@ async function main() {
     taskType: options.mode === "execute" ? "planning-execute" : "planning-draft",
     routingReason: options.mode === "execute" ? "explicit mutating planning flow" : "read-only issue draft",
     models: MODEL_DEFAULTS,
+    promptMetrics,
     result: null,
-    costEstimate: "not-recorded",
+    costEstimate: buildPromptCostEstimate(promptMetrics),
     retries: "not-recorded",
     escalations: "not-recorded",
     notes: "Operational telemetry for model-routing pilot. Do not persist run history in .memory/.",
@@ -252,9 +263,10 @@ async function main() {
       taskType: options.mode === "execute" ? "planning-execute" : "planning-draft",
       routingReason: options.mode === "execute" ? "explicit mutating planning flow" : "read-only issue draft",
       models: MODEL_DEFAULTS,
+      promptMetrics,
       result: code === 0 ? "success" : "error",
       exitCode: code ?? 1,
-      costEstimate: "not-recorded",
+      costEstimate: buildPromptCostEstimate(promptMetrics),
       retries: "not-recorded",
       escalations: "not-recorded",
       notes: "Operational telemetry for model-routing pilot. Do not persist run history in .memory/.",

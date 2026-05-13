@@ -118,6 +118,18 @@ These are maintenance targets, not hard build limits:
 - Memory index files: 100-400 words.
 - Detailed docs: no fixed limit, but never loaded by default.
 
+## Token Metrics
+
+Use `npm run context:metrics` before broad prompt, agent, memory, or workflow changes. It reports approximate prompt tokens using `chars / 4`; this is a cheap proxy, not provider billing.
+
+Targets:
+
+- Entry bundle (`AGENTS.md` + this policy + `.memory/MEMORY.md`): <= 5,000 estimated prompt tokens.
+- Largest role prompt: <= 1,400 estimated prompt tokens.
+- Largest portable skill: <= 2,400 estimated prompt tokens.
+
+OpenCode runners write `promptMetrics` and prompt-only `costEstimate` to `.opencode/runs/*/metadata.json`. Treat those metrics as operational telemetry: keep them out of `.memory/`, use them to split oversized tasks, reduce agent count, narrow ownership, prefer `pb:orient`, or enable concise output when it is safe.
+
 ## Anti-Waste Rules
 
 - Read indexes before detail.

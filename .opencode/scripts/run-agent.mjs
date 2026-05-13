@@ -3,11 +3,13 @@ import { spawn } from "node:child_process"
 import { mkdir, writeFile } from "node:fs/promises"
 import { resolve } from "node:path"
 import { fileURLToPath } from "node:url"
+import { buildPromptCostEstimate, measurePrompt } from "../../scripts/context-metrics.mjs"
 
 const repoRoot = resolve(fileURLToPath(new URL("../..", import.meta.url)))
 
 const CHECKPOINT_INTERVAL = 30000
 const AGENT_TIMEOUT_MS = parseInt(process.env.AGENT_TIMEOUT_MS ?? "2700000", 10)
+const PROMPT_TOKEN_SOFT_LIMIT = parseInt(process.env.AGENT_PROMPT_SOFT_LIMIT ?? "3500", 10)
 const DEFAULT_SCOPE = "Debe inferirse desde AGENTS.md, la tarea y el codigo real; carga detalle bajo demanda."
 const DEFAULT_OWNERSHIP = "El lead debe definir ownership antes de delegar escritura si hay varios dominios."
 const READ_ONLY_AGENTS = new Set([
@@ -265,6 +267,7 @@ function buildOpenCodeArgs(options, prompt) {
 }
 
 function printDryRun(options, prompt, args) {
+  const promptMetrics = measurePrompt("opencode contract", prompt, { softLimit: PROMPT_TOKEN_SOFT_LIMIT })
   console.log(
     JSON.stringify(
       {
@@ -277,6 +280,8 @@ function printDryRun(options, prompt, args) {
         command: ["opencode", ...args.map((arg) => (arg === prompt ? "<prompt>" : arg))],
         scope: options.scope,
         ownership: options.ownership,
+        promptMetrics,
+        costEstimate: buildPromptCostEstimate(promptMetrics),
         promptPreview: prompt.split("\n").slice(0, 18).join("\n"),
       },
       null,
@@ -297,6 +302,7 @@ async function main() {
   validateOptions(options)
 
   const prompt = buildContract(options)
+  const promptMetrics = measurePrompt("opencode contract", prompt, { softLimit: PROMPT_TOKEN_SOFT_LIMIT })
   const opencodeArgs = buildOpenCodeArgs(options, prompt)
 
   if (options.dryRun) {
@@ -317,6 +323,10 @@ async function main() {
   console.log(`[${timestamp}] Dangerous permissions: ${options.dangerouslySkipPermissions ? "yes" : "no"}`)
   console.log(`[${timestamp}] Output: ${outputPath}`)
   console.log(`[${timestamp}] Timeout: ${AGENT_TIMEOUT_MS / 60000} min`)
+  console.log(`[${timestamp}] Prompt tokens estimate: ~${promptMetrics.estimatedTokens}`)
+  if (promptMetrics.estimatedTokens > PROMPT_TOKEN_SOFT_LIMIT) {
+    console.warn(`[${timestamp}] Prompt token estimate exceeds soft limit ${PROMPT_TOKEN_SOFT_LIMIT}. Consider narrowing scope, splitting the task or using --concise when safe.`)
+  }
 
   const buildMetadata = (status, extra = {}) => ({
     startedAt,
@@ -334,11 +344,12 @@ async function main() {
     scope: options.scope,
     ownership: options.ownership,
     verificationExpected: options.verify,
+    promptMetrics,
     result: extra.result ?? null,
     exitCode: extra.exitCode ?? null,
     retries: extra.retries ?? "not-recorded",
     escalations: extra.escalations ?? "not-recorded",
-    costEstimate: extra.costEstimate ?? "not-recorded",
+    costEstimate: extra.costEstimate ?? buildPromptCostEstimate(promptMetrics),
     notes: "Operational telemetry for model-routing pilot. Do not persist run history in .memory/.",
   })
 
@@ -360,6 +371,7 @@ async function main() {
           taskType: options.taskType,
           routingReason: options.routingReason,
           models: options.models,
+          promptTokensEstimate: promptMetrics.estimatedTokens,
           elapsedMin: elapsed,
           lastCheckpoint: new Date().toISOString(),
           lastLines,

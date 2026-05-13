@@ -17,7 +17,7 @@ This skill is read-only by default. It checks semantic readiness: observable req
 - A `CACH-*` issue is about to move to `issue_workflow: ready`.
 - A feature, bug, or slice looks ambiguous even though `pb:ready-check` passes structurally.
 - A planner draft needs a quality pass before agents implement it.
-- You need to decide whether an idea should become a slice, spike, ADR, or stay in backlog.
+- You need to decide whether an idea should become a slice, spike, ADR, or remain deferred in the intake queue.
 
 ## When not to use this skill
 
@@ -87,7 +87,7 @@ Checks PB:
 - `npm run pb:guard`: run/skip + motivo
 
 Decision:
-- Implementable now / create slice / create spike / create ADR / keep in backlog
+- Implementable now / create slice / create spike / create ADR / defer in intake queue
 
 Contexto leido:
 Product Brain leido:

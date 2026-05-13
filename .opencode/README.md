@@ -21,9 +21,10 @@ No guardes en memoria: convenciones de codigo, rutas de archivos, historial git 
 
 ```bash
 npm run context:check
+npm run context:metrics
 ```
 
-Revisa presupuestos de tamaño y posibles regresiones de carga amplia de contexto. Es un check orientado a warnings y sigue `docs/agent-context-policy.md`.
+Revisa presupuestos de tamano, estimacion aproximada de tokens y posibles regresiones de carga amplia de contexto. Es un check orientado a warnings y sigue `docs/agent-context-policy.md`.
 
 ## Ejecucion recomendada
 
@@ -99,6 +100,8 @@ npm run agents:plan -- --dry-run "Describe la tarea"
 npm run agents:run -- --dry-run --agent cultura-review "Revisa el diff"
 npm run agents:parallel -- --dry-run --agents review,security "Revisa riesgos"
 ```
+
+Los dry-runs incluyen `promptMetrics` y `costEstimate` aproximado. Si un prompt se acerca al limite, reduce agentes, divide la tarea, acota ownership o usa `--concise` cuando sea seguro.
 
 Para ahorrar tokens en salidas no sensibles, los runners aceptan `--concise` o `--caveman` y tambien lo detectan en el texto de la tarea. Solo comprime la salida: no reduce razonamiento ni omite hallazgos de seguridad, RLS, finanzas, SQL, migraciones, reviews con lineas, verificaciones ni acciones remotas/destructivas.
 
@@ -393,7 +396,7 @@ npm run agents:run -- \
   "Ajusta el copy de estados vacios en /work"
 ```
 
-Cada run escribe `metadata.json` en `.opencode/runs/<timestamp>/` con tipo de tarea, motivo de routing, modelos esperados, ownership, verificacion esperada, estado y duracion. Coste, retries y escalaciones quedan como campos operativos para completar durante el piloto; no se guardan en `.memory/`.
+Cada run escribe `metadata.json` en `.opencode/runs/<timestamp>/` con tipo de tarea, motivo de routing, modelos esperados, ownership, verificacion esperada, estado, duracion, `promptMetrics` y un `costEstimate` aproximado basado solo en prompt. Tokens de salida, coste real, retries y escalaciones quedan como telemetria operativa para completar durante el piloto; no se guardan en `.memory/`.
 
 Promociona Spark solo si el piloto de 20-30 tareas demuestra:
 
