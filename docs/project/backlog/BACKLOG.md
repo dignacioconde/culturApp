@@ -71,7 +71,13 @@ _Sin issues._
 
 ## Review / Verify
 
-_Sin issues._
+| ID | Titulo | Tipo | Nivel | P | Componentes |
+|---|---|---|---|---|---|
+| [[../issues/CACH-0064|CACH-0064]] | Corregir version y copy de consentimiento beta | bug | task | p1 | auth-onboarding, settings-profile |
+| [[../issues/CACH-0065|CACH-0065]] | Ampliar onboarding como tutorial revisitable | feature | slice | p1 | auth-onboarding, settings-profile |
+| [[../issues/CACH-0066|CACH-0066]] | Checklist compacto de primeros pasos | feature | slice | p1 | dashboard, auth-onboarding |
+| [[../issues/CACH-0067|CACH-0067]] | PWA instalable basica y navegacion standalone | feature | slice | p1 | infra-deploy |
+| [[../issues/CACH-0068|CACH-0068]] | Verificacion responsive PWA y cierre beta 21 | chore | task | p1 | auth-onboarding, dashboard, infra-deploy |
 
 ## Done
 

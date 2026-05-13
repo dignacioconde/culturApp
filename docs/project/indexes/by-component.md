@@ -52,6 +52,8 @@ generated: true
 
 ## dashboard
 
+- [[../issues/CACH-0066|CACH-0066]] — Checklist compacto de primeros pasos · review · p1 · slice
+- [[../issues/CACH-0068|CACH-0068]] — Verificacion responsive PWA y cierre beta 21 · review · p1 · task
 - [[../issues/CACH-0032|CACH-0032]] — Priorizar operativa diaria en dashboard movil · done · p1 · slice
 - [[../issues/CACH-0034|CACH-0034]] — €/h muestra valor incorrecto cuando no hay eventos con horas · done · p1 · slice
 - [[../issues/CACH-0035|CACH-0035]] — Rediseño financiero del Dashboard y paid_date en cobros rapidos · done · p1 · slice
@@ -82,6 +84,10 @@ generated: true
 
 ## auth-onboarding
 
+- [[../issues/CACH-0064|CACH-0064]] — Corregir version y copy de consentimiento beta · review · p1 · task
+- [[../issues/CACH-0065|CACH-0065]] — Ampliar onboarding como tutorial revisitable · review · p1 · slice
+- [[../issues/CACH-0066|CACH-0066]] — Checklist compacto de primeros pasos · review · p1 · slice
+- [[../issues/CACH-0068|CACH-0068]] — Verificacion responsive PWA y cierre beta 21 · review · p1 · task
 - [[../issues/CACH-0036|CACH-0036]] — Profesionalizar flujo de ramas por beta · done · p1 · task
 - [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos · done · p1 · slice
 - [[../issues/CACH-B0006|CACH-B0006]] — Onboarding y acceso beta · done · p1 · slice
@@ -92,6 +98,8 @@ generated: true
 ## settings-profile
 
 - [[../issues/CACH-B0012|CACH-B0012]] — Perfil publico viralidad y referidos · backlog · p3 · initiative
+- [[../issues/CACH-0064|CACH-0064]] — Corregir version y copy de consentimiento beta · review · p1 · task
+- [[../issues/CACH-0065|CACH-0065]] — Ampliar onboarding como tutorial revisitable · review · p1 · slice
 - [[../issues/CACH-0031|CACH-0031]] — Corregir ajustes UX movil detectados en exploracion · done · p1 · slice
 - [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura · done · p2 · task
 
@@ -151,6 +159,8 @@ generated: true
 
 - [[../issues/CACH-B0008|CACH-B0008]] — PWA notificaciones y offline · backlog · p2 · initiative
 - [[../issues/CACH-B0010|CACH-B0010]] — Tooling de agentes y modelos de desarrollo · backlog · p2 · initiative
+- [[../issues/CACH-0067|CACH-0067]] — PWA instalable basica y navegacion standalone · review · p1 · slice
+- [[../issues/CACH-0068|CACH-0068]] — Verificacion responsive PWA y cierre beta 21 · review · p1 · task
 - [[../issues/CACH-0039|CACH-0039]] — [Agents] Respetar permisos reales en lanzadores OpenCode · done · p0 · task
 - [[../issues/CACH-0040|CACH-0040]] — [Agents] Separar plan draft de ejecucion mutante · done · p0 · task
 - [[../issues/CACH-0049|CACH-0049]] — Migrar Product Brain a v2 lean agile para agentes · done · p0 · task

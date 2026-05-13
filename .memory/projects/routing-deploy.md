@@ -25,3 +25,10 @@
 - Durable memory: `https://app.caches.es` is the target for `VITE_APP_URL`, auth confirmations, beta invites and postdeploy smoke once DNS is live. Keep `https://culturapp-rho.vercel.app` only as a temporary legacy alias for continuity and rollback.
 - Gotcha: Hostinger DNS must contain `CNAME app -> cname.vercel-dns.com`. `app.caches.es` was verified by authoritative DNS and smoke on 2026-05-10. The Vercel apex-domain config endpoint can still call `caches.es` misconfigured because the root domain remains at Hostinger; use project-domain verification and app-domain smoke for `app.caches.es`.
 - Source: `docs/project/issues/CACH-0051.md`; `docs/project/context/deploy-environments-20260510.md`; Vercel API domain config.
+
+## 2026-05-13 - PWA Baseline Must Not Cache User Data
+
+- Context: `RELEASE-0.1.0-beta.21` introduced a basic installable PWA shell for Cachés.
+- Durable memory: keep the PWA manifest scoped to `/` so installed navigation remains inside the SPA, and keep `vercel.json` rewrite to `/` for deep routes.
+- Durable memory: the service worker may cache only same-origin app shell/static assets. Do not cache Supabase Auth, REST, Edge Functions, or user-owned data unless a future offline issue defines conflict handling and privacy criteria.
+- Source: `docs/project/issues/CACH-0067.md`; `public/manifest.webmanifest`; `public/sw.js`.

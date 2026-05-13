@@ -4,6 +4,11 @@ import { isNavigationItemActive, navItems, shouldShowBottomNavigation } from './
 const byLabel = (label) => navItems.find((item) => item.mobileLabel === label)
 
 describe('navigation active states', () => {
+  it('orders primary navigation with Inicio first and Trabajos second', () => {
+    expect(navItems.slice(0, 2).map((item) => item.mobileLabel)).toEqual(['Inicio', 'Trabajos'])
+    expect(navItems.slice(0, 2).map((item) => item.to)).toEqual(['/dashboard', '/work'])
+  })
+
   it('keeps Agenda active for the event calendar and /calendar redirect only', () => {
     const agenda = byLabel('Agenda')
 

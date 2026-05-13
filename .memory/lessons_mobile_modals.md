@@ -47,9 +47,15 @@ From the EventDetail/ProjectDetail UX session:
 
 ## Mobile Bottom Navigation Pattern (2026-05-10)
 
-Global mobile navigation uses a compact bottom bar for primary routes and keeps the drawer as secondary navigation. Keep labels short enough for 320 px, preserve at least 44 px touch targets, and make the active state visible through structure (not color only).
+Global mobile navigation uses a compact bottom bar for primary routes; do not add a duplicate drawer/sidebar on mobile unless there is a concrete secondary-navigation need. Keep labels short enough for 320 px, preserve at least 44 px touch targets, and make the active state visible through structure (not color only).
 
 Do not stack the global bottom nav over contextual bottom action bars on EventDetail/ProjectDetail. Hide global nav on those detail routes, and offset fixed mobile panels/toasts above the nav when both can appear.
+
+## Mobile Scroll Budget For Guidance Panels (2026-05-13)
+
+Onboarding, checklists, empty states, and guidance panels must be compact by default on mobile. If the content teaches more than one concept, provide a close/skip action, collapse secondary details, and keep a single clear next action visible without forcing a long vertical scroll.
+
+Use expanded lists for desktop or explicit user intent, not as the default mobile shape. This is especially important for first-session UI, where a blocking tutorial can feel restrictive.
 
 ## Modal UX Requires Iteration
 

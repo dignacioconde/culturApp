@@ -255,7 +255,14 @@ for (const viewport of viewports) {
     await setupCoreResponsiveSmoke(page)
 
     await page.goto('/dashboard')
-    await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Inicio' })).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Abrir menú de navegación' })).toHaveCount(0)
+    if (viewport.width < 1024) {
+      const mobileNav = page.getByRole('navigation', { name: 'Navegación principal móvil' })
+      await expect(mobileNav).toBeVisible()
+      await expect(mobileNav.getByRole('link').nth(0)).toHaveText(/Inicio/)
+      await expect(mobileNav.getByRole('link').nth(1)).toHaveText(/Trabajos/)
+    }
 
     await page.goto(`/projects/${projectId}`)
     await expect(page.getByRole('heading', { name: 'Gira Norte' }).first()).toBeVisible()

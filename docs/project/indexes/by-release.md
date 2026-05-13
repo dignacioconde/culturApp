@@ -102,6 +102,14 @@ generated: true
 
 - [[../issues/CACH-0063|CACH-0063]] — Unificar BottomActionBar en detalles · done · p1 · slice
 
+## RELEASE-0.1.0-beta.21
+
+- [[../issues/CACH-0064|CACH-0064]] — Corregir version y copy de consentimiento beta · review · p1 · task
+- [[../issues/CACH-0065|CACH-0065]] — Ampliar onboarding como tutorial revisitable · review · p1 · slice
+- [[../issues/CACH-0066|CACH-0066]] — Checklist compacto de primeros pasos · review · p1 · slice
+- [[../issues/CACH-0067|CACH-0067]] — PWA instalable basica y navegacion standalone · review · p1 · slice
+- [[../issues/CACH-0068|CACH-0068]] — Verificacion responsive PWA y cierre beta 21 · review · p1 · task
+
 ## RELEASE-0.1.0-beta.3
 
 - [[../issues/CACH-0035|CACH-0035]] — Rediseño financiero del Dashboard y paid_date en cobros rapidos · done · p1 · slice

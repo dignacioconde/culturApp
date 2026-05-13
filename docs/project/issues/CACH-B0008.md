@@ -73,9 +73,11 @@ Recordatorios y resumen semanal dependen de canales de notificación. La experie
 
 ## Notas de progreso
 
+- 2026-05-13: se abre el primer slice acotado de esta iniciativa en [[CACH-0067|CACH-0067]] para PWA instalable basica dentro de `RELEASE-0.1.0-beta.21`. Quedan fuera push, notificaciones, recordatorios, resumen semanal y offline de datos.
 
 ## Cambios de alcance y decisiones
 
+- La iniciativa se parte por seguridad y verificabilidad: primero instalabilidad y standalone; despues preferencias/canales; despues recordatorios; push y offline quedan para cortes separados con criterios de privacidad y conflictos.
 
 ## Bloqueos
 

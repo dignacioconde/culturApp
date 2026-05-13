@@ -19,11 +19,11 @@ release_current: true
 
 ## Release activa
 
-No hay release activa en este momento.
+`RELEASE-0.1.0-beta.21` — primera sesion guiada y PWA instalable. Ver [[RELEASE-0.1.0-beta.21]].
 
 ## Rama activa
 
-No aplica. Las siguientes tareas pequeñas salen de `main` salvo que se abra una nueva release.
+`release/0.1.0-beta.21`.
 
 ## Últimos cortes
 
@@ -49,16 +49,20 @@ No aplica. Las siguientes tareas pequeñas salen de `main` salvo que se abra una
 
 ## Scope actual
 
-Sin scope activo. Beta 20 quedó cerrada con `CACH-0063`: patrón compartido de barra contextual móvil en detalles de proyecto y evento.
+Beta 21 es un corte pequeno de confianza movil: tutorial ampliado, consentimiento actualizado y PWA instalable basica.
 
 Issues incluidas:
 
-- No aplica hasta abrir nueva release.
+- [[../issues/CACH-0064|CACH-0064]] — Corregir version y copy de consentimiento beta.
+- [[../issues/CACH-0065|CACH-0065]] — Ampliar onboarding como tutorial revisitable.
+- [[../issues/CACH-0066|CACH-0066]] — Checklist compacto de primeros pasos.
+- [[../issues/CACH-0067|CACH-0067]] — PWA instalable basica y navegacion standalone.
+- [[../issues/CACH-0068|CACH-0068]] — Verificacion responsive PWA y cierre beta 21.
 
 ## Regla de trabajo para esta release
 
-No hay release activa. Las tareas fuera de release usan el flujo ligero desde `main`; si se abre una nueva beta, documentar primero release, scope, rama y criterios.
+La beta 21 no absorbe liquidacion neta, push, notificaciones, recordatorios ni offline de datos. Es un corte acotado de primera sesion y PWA instalable.
 
 ## Como cerrar esta release
 
-Beta 20 ya está cerrada mediante PR #106, CI verde, tag `v0.1.0-beta.20` y smoke postdeploy básico de rutas SPA.
+Cerrar cuando pasen lint, tests, build, e2e, Product Brain y la verificacion manual PWA en iPhone Safari y Android Chrome tras deploy.

@@ -1,9 +1,9 @@
 import { Building2, Database, LayoutDashboard, CalendarDays, CalendarRange, Briefcase, Settings } from 'lucide-react'
 
 export const navItems = [
+  { to: '/dashboard', icon: LayoutDashboard, label: 'Inicio', mobileLabel: 'Inicio' },
   { to: '/work', icon: Briefcase, label: 'Trabajos', mobileLabel: 'Trabajos', activePaths: ['/work', '/projects', '/events'] },
   { to: '/contractors', icon: Building2, label: 'Contratantes', mobileLabel: 'Contr.', showOnMobile: false },
-  { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard', mobileLabel: 'Inicio' },
   { to: '/calendar/events', icon: CalendarDays, label: 'Agenda', mobileLabel: 'Agenda', activePaths: ['/calendar', '/calendar/events'] },
   { to: '/calendar/projects', icon: CalendarRange, label: 'Plan anual', mobileLabel: 'Plan' },
   { to: '/data', icon: Database, label: 'Tus datos', mobileLabel: 'Datos' },

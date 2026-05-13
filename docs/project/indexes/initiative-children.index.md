@@ -47,7 +47,7 @@ generated: true
 
 ## CACH-B0008 — PWA notificaciones y offline
 
-_Sin children._
+- [[../issues/CACH-0067|CACH-0067]] — PWA instalable basica y navegacion standalone · review · p1 · slice
 
 ## CACH-B0009 — Inteligencia financiera y features Pro
 

@@ -23,6 +23,36 @@ for (const path of paths) {
   }
 }
 
+try {
+  const response = await fetch(`${baseUrl}/manifest.webmanifest`, { redirect: 'follow' })
+  const manifest = await response.json()
+  const hasStandaloneDisplay = manifest.display === 'standalone'
+  const hasRootScope = manifest.scope === '/'
+  const hasRequiredIcons = Array.isArray(manifest.icons) &&
+    manifest.icons.some((icon) => icon.sizes === '192x192') &&
+    manifest.icons.some((icon) => icon.sizes === '512x512') &&
+    manifest.icons.some((icon) => icon.purpose?.includes('maskable'))
+  results.push({
+    path: '/manifest.webmanifest',
+    status: response.status,
+    ok: response.ok && hasStandaloneDisplay && hasRootScope && hasRequiredIcons,
+  })
+} catch (error) {
+  results.push({ path: '/manifest.webmanifest', status: null, ok: false, error: error.message })
+}
+
+try {
+  const response = await fetch(`${baseUrl}/sw.js`, { redirect: 'follow' })
+  const text = await response.text()
+  results.push({
+    path: '/sw.js',
+    status: response.status,
+    ok: response.ok && /caches-app-shell/.test(text),
+  })
+} catch (error) {
+  results.push({ path: '/sw.js', status: null, ok: false, error: error.message })
+}
+
 const authAvailable = Boolean(process.env.SMOKE_EMAIL && process.env.SMOKE_PASSWORD)
 const ok = results.every((result) => result.ok)
 for (const result of results) {

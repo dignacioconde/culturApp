@@ -8,6 +8,7 @@ import { useToast, ToastContainer } from '../../components/ui/Toast'
 import { useAuth } from '../../hooks/useAuth'
 import { useProfile } from '../../hooks/useProfile'
 import { parseDecimal } from '../../lib/formatters'
+import { USAGE_CONSENT_DESCRIPTION, USAGE_CONSENT_VERSION } from '../../lib/constants'
 
 export default function Settings() {
   const { user, signOut } = useAuth()
@@ -36,7 +37,7 @@ export default function Settings() {
       tax_rate: taxRate,
       usage_consent: usageConsent,
       usage_consent_at: consentTimestamp,
-      usage_consent_version: usageConsent ? 'beta-8' : profile?.usage_consent_version,
+      usage_consent_version: usageConsent ? USAGE_CONSENT_VERSION : null,
     })
     setSaving(false)
     if (updateError) { addToast('Error al guardar los ajustes.', 'error'); return }
@@ -99,7 +100,7 @@ export default function Settings() {
                 <span>
                   <span className="block font-medium">Ayudar a mejorar la beta</span>
                   <span className="mt-1 block text-[var(--color-ink-muted)]">
-                    Guardamos tu preferencia de consentimiento en el perfil. En beta 8 no se activa analítica real ni se envían eventos de uso.
+                    {USAGE_CONSENT_DESCRIPTION}
                   </span>
                 </span>
               </label>
@@ -152,13 +153,14 @@ export default function Settings() {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-sm font-semibold text-gray-900 mb-1">Primeros pasos</h2>
-              <p className="text-sm text-gray-500">Puedes volver a revisar el resumen inicial de proyectos, eventos y cobros.</p>
+              <p className="text-sm text-gray-500">Puedes volver a revisar el tutorial de proyectos, eventos, cobros y app móvil.</p>
             </div>
             <Link
               to="/onboarding"
+              state={{ from: '/settings' }}
               className="inline-flex min-h-10 items-center justify-center rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-paper)] px-4 py-2 text-sm font-medium leading-none text-[var(--color-ink)] shadow-sm transition-colors hover:bg-[var(--color-paper-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2"
             >
-              Ver onboarding
+              Ver tutorial
             </Link>
           </div>
         </Card>
