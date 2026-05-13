@@ -118,6 +118,8 @@ Si no hay release activa, las tareas van directamente a main por PR.
 
 Si hay release activa pero la tarea no pertenece a ella, tambien puede ir por flujo ligero desde `main` si es pequena, aislada y production-safe.
 
+Antes de abrir PR con `npm run ship -- --execute --issue CACH-XXXX`, una issue `work_type: feature` debe tener `release: RELEASE-...`. Si la feature sale intencionalmente por flujo ligero sin release, relanzar con `--allow-no-release` y dejarlo explicado en la issue/PR.
+
 ### Cierre de beta
 
 El cierre de beta se hace con una unica PR `release/<version>` -> `main`. No hacer merge local directo a `main`, aunque la release este validada.

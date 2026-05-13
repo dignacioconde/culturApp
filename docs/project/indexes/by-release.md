@@ -110,6 +110,11 @@ generated: true
 - [[../issues/CACH-0067|CACH-0067]] — PWA instalable basica y navegacion standalone · done · p1 · slice
 - [[../issues/CACH-0068|CACH-0068]] — Verificacion responsive PWA y cierre beta 21 · done · p1 · task
 
+## RELEASE-0.1.0-beta.22
+
+- [[../issues/CACH-0074|CACH-0074]] — Historial user friendly de novedades beta · done · p1 · slice
+- [[../issues/CACH-0075|CACH-0075]] — Bloquear ship de features sin release · done · p1 · task
+
 ## RELEASE-0.1.0-beta.3
 
 - [[../issues/CACH-0035|CACH-0035]] — Rediseño financiero del Dashboard y paid_date en cobros rapidos · done · p1 · slice

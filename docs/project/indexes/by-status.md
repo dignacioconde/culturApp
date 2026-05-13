@@ -70,6 +70,8 @@ generated: true
 - [[../issues/CACH-0066|CACH-0066]] — Checklist compacto de primeros pasos · done · p1 · slice
 - [[../issues/CACH-0067|CACH-0067]] — PWA instalable basica y navegacion standalone · done · p1 · slice
 - [[../issues/CACH-0068|CACH-0068]] — Verificacion responsive PWA y cierre beta 21 · done · p1 · task
+- [[../issues/CACH-0074|CACH-0074]] — Historial user friendly de novedades beta · done · p1 · slice
+- [[../issues/CACH-0075|CACH-0075]] — Bloquear ship de features sin release · done · p1 · task
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes · done · p1 · slice
 - [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos · done · p1 · slice
 - [[../issues/CACH-B0006|CACH-B0006]] — Onboarding y acceso beta · done · p1 · slice

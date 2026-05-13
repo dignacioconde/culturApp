@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
-import { Drama, LogOut, User, MessageSquare } from 'lucide-react'
+import { Drama, LogOut, User, MessageSquare, Megaphone } from 'lucide-react'
 import { ToastContainer, useToast } from '../ui/Toast'
 import { FeedbackDialog } from './FeedbackDialog'
 
@@ -17,6 +18,14 @@ export function TopBar({ title }) {
           <h1 className="min-w-0 truncate text-lg font-semibold leading-7 text-[#211C18] font-['DM_Serif_Display']">{title}</h1>
         </div>
         <div className="flex min-w-0 shrink-0 items-center gap-1 sm:gap-2">
+          <Link
+            to="/novedades"
+            className="inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-lg text-sm font-medium text-[#5C5149] transition-colors hover:bg-[#EBE3CE] hover:text-[#211C18] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2 md:w-auto md:px-3"
+            aria-label="Ver novedades"
+          >
+            <Megaphone size={16} className="shrink-0" />
+            <span className="hidden md:inline">Novedades</span>
+          </Link>
           <button
             type="button"
             onClick={() => setIsFeedbackOpen(true)}
