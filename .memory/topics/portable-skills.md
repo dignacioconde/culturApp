@@ -1,5 +1,11 @@
 # Portable Skills Memory
 
+## 2026-05-13 - Skill Roots: Resolver Alias Antes De Leer
+
+- Context: Durante preparacion de release, el agente intento leer `memory-orient` desde `/Users/diconde/.codex/skills/.system/...` aunque la skill Cultura vive en `.agents/skills/...`.
+- Durable memory: al usar la lista de skills de Codex, expandir siempre el `path` real con la tabla `Skill roots` antes de leer el archivo. Para skills Cultura (`r5`), usar `.agents/skills/<skill>/SKILL.md`; reservar `.system` (`r0`) para skills globales.
+- Source: conversacion 2026-05-13; `.agents/skills/memory-orient/SKILL.md`; `.memory/topics/portable-skills.md`.
+
 ## 2026-05-12 - react-doctor: Escaneo React Reproducible
 
 - Context: Se buscó `millionco/react-doctor` en GitHub y se integró como herramienta de salud React para CulturaApp.
