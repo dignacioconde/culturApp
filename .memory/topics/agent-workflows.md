@@ -56,6 +56,7 @@ Verification and closure:
 - Verification agents should verify from task, diff, acceptance criteria and relevant rules.
 - Visual/responsive tasks need route, viewport/condition, symptom or capture, and visual acceptance criteria.
 - For `react-big-calendar`, verify toolbar, header and month rows/cells are visible.
+- Before closing any task, pass the learning loop: identify whether the work produced durable learning, update memory/docs/process when it did, or explicitly declare `Memoria: no aplica`.
 - Do not close a tracked issue just because a local fix exists.
 - Resolved issues must stay linked to the PR or pushed commit that resolves them.
 - If there is an open PR, keep the issue open and use `Closes #N`, `Fixes #N` or equivalent in the PR body.
