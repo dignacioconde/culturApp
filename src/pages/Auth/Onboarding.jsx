@@ -134,7 +134,7 @@ export default function Onboarding() {
 
   return (
     <div className="min-h-dvh bg-surface-page px-3 py-3 sm:flex sm:items-center sm:justify-center sm:px-4 sm:py-6">
-      <Card className="mx-auto flex w-full max-w-3xl flex-col p-4 sm:min-h-[calc(100dvh-3rem)] sm:p-8">
+      <Card className="mx-auto flex w-full max-w-3xl flex-col p-4 sm:min-h-[calc(100dvh-3rem)] sm:p-8" data-testid="onboarding-tutorial-card">
         <div className="mb-4 sm:mb-6">
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">

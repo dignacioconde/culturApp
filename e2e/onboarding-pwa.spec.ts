@@ -104,7 +104,7 @@ test('nuevo usuario entra al tutorial, ve instalar como app y termina en ajustes
   await expect(page).toHaveURL(/\/onboarding$/)
   await expect(page.getByRole('heading', { name: 'Aprende lo esencial de Cachés' })).toBeVisible()
   await expect(page.getByText('Paso 1/7')).toBeVisible()
-  const tutorialCardBox = await page.getByRole('heading', { name: 'Aprende lo esencial de Cachés' }).locator('xpath=ancestor::div[contains(@class, "rounded-lg")][1]').boundingBox()
+  const tutorialCardBox = await page.getByTestId('onboarding-tutorial-card').boundingBox()
   expect(tutorialCardBox).toBeTruthy()
   expect(tutorialCardBox!.height).toBeLessThan(760)
 
@@ -131,7 +131,7 @@ test('nuevo usuario puede cerrar el tutorial y seguir en inicio', async ({ page 
   await page.getByRole('button', { name: 'Cerrar tutorial' }).click()
   await expect(page).toHaveURL(/\/dashboard$/)
   await expect(page.getByRole('heading', { name: 'Inicio' })).toBeVisible()
-  const firstSteps = page.getByRole('heading', { name: 'Deja Cachés listo para tu primer trabajo' }).locator('xpath=ancestor::div[contains(@class, "rounded-lg")][1]')
+  const firstSteps = page.getByTestId('first-steps-checklist')
   await expect(firstSteps.getByRole('button', { name: 'Mostrar primeros pasos' })).toBeVisible()
   await firstSteps.getByRole('button', { name: 'Mostrar primeros pasos' }).click()
   await expect(firstSteps.getByRole('button', { name: 'Ocultar primeros pasos' })).toBeVisible()

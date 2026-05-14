@@ -66,7 +66,7 @@ export function FirstStepsChecklist({ profile, projects, events, incomes, onNavi
   const ToggleIcon = expanded ? ChevronUp : ChevronDown
 
   return (
-    <Card className="p-3 sm:p-4">
+    <Card className="p-3 sm:p-4" data-testid="first-steps-checklist">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
           <p className="text-xs font-medium uppercase tracking-[0.02em] text-accent-primary">Primeros pasos</p>

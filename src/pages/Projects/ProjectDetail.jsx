@@ -27,7 +27,7 @@ import { isPaid, markPaid, markUnpaid, needsQuickPaidConfirmation, paymentDate }
 import { EXPENSE_CATEGORIES } from '../../lib/constants'
 
 const EMPTY_EXPENSE = { concept: '', amount: '', category: 'otros', expense_date: '', is_deductible: true }
-const compactPrimaryAction = 'inline-flex min-h-9 items-center justify-center gap-2 rounded-lg bg-accent-primary px-3 py-1.5 text-sm font-medium leading-none text-surface-page shadow-sm transition-colors hover:bg-accent-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2'
+const compactPrimaryAction = 'inline-flex min-h-9 items-center justify-center gap-2 rounded-lg bg-accent-primary px-3 py-1.5 text-sm font-medium leading-none text-primary-foreground shadow-sm transition-colors hover:bg-accent-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2'
 const compactSecondaryAction = 'inline-flex min-h-9 items-center justify-center gap-2 rounded-lg border border-border-subtle bg-surface-page px-3 py-1.5 text-sm font-medium leading-none text-text-primary shadow-sm transition-colors hover:bg-surface-page-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2'
 const compactDangerActionDesktop = 'hidden sm:inline-flex min-h-9 items-center justify-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium leading-none text-danger transition-colors hover:bg-danger-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2'
 const incomeConceptLabel = (income) => income.concept?.trim() || 'Ingreso sin concepto'

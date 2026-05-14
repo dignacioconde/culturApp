@@ -105,7 +105,7 @@ function ProfileGate({ user, requireAdmin, children }) {
         action={
           <Link
             to="/dashboard"
-            className="inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-accent-primary px-4 py-2 text-sm font-medium leading-none text-surface-page shadow-sm transition-colors hover:bg-accent-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2"
+            className="inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-accent-primary px-4 py-2 text-sm font-medium leading-none text-primary-foreground shadow-sm transition-colors hover:bg-accent-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2"
           >
             <Home size={16} />
             Volver a Inicio

@@ -183,7 +183,7 @@ function ProjectTimelineSegment({ project, onSelectProject }) {
     <button
       type="button"
       onClick={() => onSelectProject(project.source)}
-      className="group pointer-events-auto relative z-10 my-1 min-h-9 overflow-hidden rounded-full px-3 text-left text-xs font-semibold text-surface-page shadow-sm transition hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2"
+      className="group pointer-events-auto relative z-10 my-1 min-h-9 overflow-hidden rounded-full px-3 text-left text-xs font-semibold text-primary-foreground shadow-sm transition hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2"
       style={{ gridColumn, backgroundColor: project.color }}
       title={title}
     >
@@ -226,7 +226,7 @@ export function ProjectYearTimeline({ projects, year, selectedMonth, onSelectMon
               onClick={() => onSelectMonth(index)}
               className={`rounded-lg px-1 py-2 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary ${
                 selectedMonth === index
-                  ? 'bg-accent-primary text-surface-page shadow-sm'
+                  ? 'bg-accent-primary text-primary-foreground shadow-sm'
                   : 'text-text-secondary hover:bg-surface-page-dark hover:text-text-primary'
               }`}
               aria-pressed={selectedMonth === index}

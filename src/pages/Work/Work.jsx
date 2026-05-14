@@ -18,7 +18,7 @@ const views = [
 ]
 
 const EMPTY_LIST = []
-const linkButtonClass = 'inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-accent-primary px-4 py-2 text-sm font-medium leading-none text-surface-page shadow-sm transition-colors hover:bg-accent-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2'
+const linkButtonClass = 'inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-accent-primary px-4 py-2 text-sm font-medium leading-none text-primary-foreground shadow-sm transition-colors hover:bg-accent-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2'
 const secondaryLinkButtonClass = 'inline-flex min-h-10 items-center justify-center gap-2 rounded-full border border-border-subtle bg-surface-card px-4 py-2 text-sm font-medium leading-none text-text-primary shadow-sm transition-colors hover:bg-surface-page-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2'
 
 function QuietStatusBadge({ status }) {
@@ -184,7 +184,7 @@ export default function Work() {
               onClick={() => setView(view.value)}
               className={`min-h-10 flex-1 rounded-full px-3 text-sm font-medium transition-colors sm:flex-none sm:min-w-24 ${
                 currentView === view.value
-                  ? 'bg-text-primary text-surface-page shadow-sm'
+                  ? 'bg-text-primary text-primary-foreground shadow-sm'
                   : 'text-text-secondary hover:text-text-primary'
               }`}
             >

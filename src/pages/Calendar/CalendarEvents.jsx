@@ -50,7 +50,7 @@ const calendarFrameClass = [
   '[&_.rbc-toolbar_button]:rounded-full [&_.rbc-toolbar_button]:border-border-subtle [&_.rbc-toolbar_button]:bg-surface-card',
   '[&_.rbc-toolbar_button]:text-text-secondary [&_.rbc-toolbar_button]:shadow-sm',
   '[&_.rbc-toolbar_button:hover]:bg-surface-page-dark [&_.rbc-toolbar_button:hover]:text-text-primary',
-  '[&_.rbc-toolbar_button.rbc-active]:border-accent-primary [&_.rbc-toolbar_button.rbc-active]:bg-accent-primary [&_.rbc-toolbar_button.rbc-active]:text-surface-page',
+  '[&_.rbc-toolbar_button.rbc-active]:border-accent-primary [&_.rbc-toolbar_button.rbc-active]:bg-accent-primary [&_.rbc-toolbar_button.rbc-active]:text-primary-foreground',
   '[&_.rbc-header]:border-border-subtle [&_.rbc-header]:py-2 [&_.rbc-header]:text-xs [&_.rbc-header]:font-semibold [&_.rbc-header]:text-text-secondary',
   '[&_.rbc-month-view]:rounded-lg [&_.rbc-month-view]:border-border-subtle',
   '[&_.rbc-time-view]:rounded-lg [&_.rbc-time-view]:border-border-subtle',
@@ -175,7 +175,7 @@ export default function CalendarEvents() {
               <p className="text-sm font-medium text-text-primary">{events.length} eventos</p>
               <p className="text-xs text-text-secondary">Calendario compartible con fecha y hora exactas.</p>
             </div>
-            <Button size="sm" onClick={() => openNewEvent()} className="w-full justify-center sm:w-auto">
+            <Button size="sm" onClick={() => openNewEvent()} className="min-h-11 w-full justify-center sm:min-h-8 sm:w-auto">
               <Plus size={16} />
               Nuevo evento
             </Button>
@@ -292,7 +292,7 @@ export default function CalendarEvents() {
               })()}
             </div>
             <Link to={`/events/${selectedEvent.id}`} className={`mt-auto ${isMobile && !panelExpanded ? 'hidden' : ''}`}>
-              <Button variant="secondary" size="sm" className="w-full justify-center">
+              <Button variant="secondary" size="sm" className="min-h-11 w-full justify-center sm:min-h-8">
                 Ver detalle completo
               </Button>
             </Link>

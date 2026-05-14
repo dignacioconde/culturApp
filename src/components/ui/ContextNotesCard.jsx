@@ -49,7 +49,7 @@ export function ContextNotesCard({
   }
 
   return (
-    <Card className="p-4 sm:p-5">
+    <Card className="p-4 sm:p-5" data-testid="context-notes-card">
       <div className="flex flex-col gap-3">
         <div className="flex items-start justify-between gap-3">
           <div>

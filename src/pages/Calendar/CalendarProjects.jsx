@@ -93,7 +93,7 @@ export default function CalendarProjects() {
               <div className="flex items-center justify-center gap-2 rounded-lg border border-border-subtle bg-surface-muted px-2 py-1">
                 <button
                   onClick={() => changeYear(visibleYear - 1)}
-                  className="rounded-lg p-1.5 text-text-secondary hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary"
+                  className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-text-secondary hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary sm:min-h-9 sm:min-w-9"
                   aria-label="Año anterior"
                 >
                   <ChevronLeft size={20} />
@@ -101,13 +101,13 @@ export default function CalendarProjects() {
                 <span className="min-w-16 text-center text-base font-semibold text-text-primary">{visibleYear}</span>
                 <button
                   onClick={() => changeYear(visibleYear + 1)}
-                  className="rounded-lg p-1.5 text-text-secondary hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary"
+                  className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-text-secondary hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary sm:min-h-9 sm:min-w-9"
                   aria-label="Año siguiente"
                 >
                   <ChevronRight size={20} />
                 </button>
               </div>
-              <Button size="sm" onClick={() => openNewProject()} className="w-full justify-center sm:w-auto">
+              <Button size="sm" onClick={() => openNewProject()} className="min-h-11 w-full justify-center sm:min-h-8 sm:w-auto">
                 <Plus size={16} />
                 Nuevo proyecto
               </Button>
@@ -196,7 +196,7 @@ export default function CalendarProjects() {
               )}
             </div>
             <Link to={`/projects/${selectedProject.id}`} className={`mt-auto ${isMobile && !panelExpanded ? 'hidden' : ''}`}>
-              <Button variant="secondary" size="sm" className="w-full justify-center">
+              <Button variant="secondary" size="sm" className="min-h-11 w-full justify-center sm:min-h-8">
                 Ver detalle completo
               </Button>
             </Link>

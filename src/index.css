@@ -97,7 +97,7 @@
   --accent-primary: var(--color-red);
   --accent-primary-hover: var(--color-red-hover);
   --accent-soft: var(--color-red-light);
-  --semantic-warning: var(--color-amber);
+  --semantic-warning: #9B6210;
   --semantic-warning-soft: var(--color-amber-light);
   --semantic-success: var(--color-green);
   --semantic-success-soft: var(--color-green-light);
@@ -566,14 +566,14 @@
 .btn-md  { min-height: var(--touch-md);  padding: 0.5rem 1rem; }
 .btn-lg  { min-height: var(--touch-lg);  padding: 0.625rem 1.25rem; font-size: var(--text-base); }
 
-.btn-primary   { background: var(--accent-primary); color: var(--surface-page); box-shadow: var(--shadow-sm); }
+.btn-primary   { background: var(--accent-primary); color: var(--color-primary-foreground); box-shadow: var(--shadow-sm); }
 .btn-primary:hover  { background: var(--accent-primary-hover); }
 .btn-primary:active { background: var(--accent-primary-hover); }
 
 .btn-secondary { background: var(--surface-card); color: var(--text-primary); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-sm); }
 .btn-secondary:hover  { background: var(--surface-page-dark); color: var(--text-primary); }
 
-.btn-danger  { background: var(--semantic-danger); color: var(--surface-page); box-shadow: var(--shadow-sm); }
+.btn-danger  { background: var(--semantic-danger); color: var(--color-destructive-foreground); box-shadow: var(--shadow-sm); }
 .btn-danger:hover  { background: var(--accent-primary-hover); }
 
 .btn-ghost   { background: transparent; color: var(--text-secondary); }
@@ -595,8 +595,8 @@
    Modal animations
 ───────────────────────────────────────── */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes cachesShimmer {

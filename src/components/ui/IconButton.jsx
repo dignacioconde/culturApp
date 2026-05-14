@@ -1,7 +1,7 @@
 const variants = {
   ghost: 'text-text-secondary hover:bg-surface-page-dark hover:text-text-primary',
   secondary: 'border border-border-subtle bg-surface-card text-text-primary shadow-sm hover:bg-surface-page-dark',
-  primary: 'bg-accent-primary text-surface-page shadow-sm hover:bg-accent-primary-hover',
+  primary: 'bg-accent-primary text-primary-foreground shadow-sm hover:bg-accent-primary-hover',
   danger: 'text-danger hover:bg-danger-soft hover:text-accent-primary-hover',
 }
 
