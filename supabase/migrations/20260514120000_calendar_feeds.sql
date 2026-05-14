@@ -100,10 +100,10 @@ begin
       hint = 'revoke_calendar_feed requires an authenticated user';
   end if;
 
-  update public.calendar_feeds
-  set revoked_at = coalesce(revoked_at, now())
-  where calendar_feeds.id = feed_id
-    and calendar_feeds.user_id = current_user_id
+  update public.calendar_feeds as cf
+  set revoked_at = coalesce(cf.revoked_at, now())
+  where cf.id = feed_id
+    and cf.user_id = current_user_id
   returning * into updated_feed;
 
   if not found then
