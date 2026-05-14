@@ -34,7 +34,7 @@ generated: true
 
 ## core-work-ux
 
-- [[../issues/CACH-B0007|CACH-B0007]] — Calendario unificado e interaccion rapida · backlog · p1 · initiative
+- [[../issues/CACH-B0007|CACH-B0007]] — Calendarios claros y sincronizacion suscribible · backlog · p1 · initiative
 - [[../issues/CACH-B0011|CACH-B0011]] — Categorias etiquetas y taxonomia · backlog · p2 · initiative
 - [[../issues/CACH-0029|CACH-0029]] — Integrar helpers CACH-B0016 en flujos reales · done · p1 · slice
 - [[../issues/CACH-0030|CACH-0030]] — Homogeneizar diseno con nueva paleta de colores y fuentes · done · p1 · task
@@ -43,6 +43,11 @@ generated: true
 - [[../issues/CACH-0042|CACH-0042]] — [UX] Racionalizar navegacion inferior · done · p1 · slice
 - [[../issues/CACH-0045|CACH-0045]] — [UX] Anadir confirmacion a borrados destructivos · done · p1 · slice
 - [[../issues/CACH-0056|CACH-0056]] — Calendario de eventos y plan anual separados · done · p1 · slice
+- [[../issues/CACH-0089|CACH-0089]] — Preparar Beta 24 de calendario · done · p1 · task
+- [[../issues/CACH-0090|CACH-0090]] — Clarificar Agenda y Plan anual · done · p1 · slice
+- [[../issues/CACH-0091|CACH-0091]] — Rehacer visibilidad movil de calendarios · done · p1 · slice
+- [[../issues/CACH-0093|CACH-0093]] — UI de sincronizacion por proveedor · done · p1 · slice
+- [[../issues/CACH-0094|CACH-0094]] — QA y cierre de Beta 24 calendario · done · p1 · task
 - [[../issues/CACH-0076|CACH-0076]] — Alinear tokens de diseno con export Lovable · done · p2 · task
 - [[../issues/CACH-0077|CACH-0077]] — Aplicar tokens Lovable al shell y navegacion · done · p2 · slice
 - [[../issues/CACH-0078|CACH-0078]] — Pulir Trabajos y listas con visual Lovable acotada · done · p2 · slice
@@ -79,6 +84,7 @@ generated: true
 
 - [[../issues/CACH-0065|CACH-0065]] — Ampliar onboarding como tutorial revisitable · done · p1 · slice
 - [[../issues/CACH-0066|CACH-0066]] — Checklist compacto de primeros pasos · done · p1 · slice
+- [[../issues/CACH-0092|CACH-0092]] — Feed suscribible privado de eventos · done · p1 · slice
 
 ## pro-growth
 

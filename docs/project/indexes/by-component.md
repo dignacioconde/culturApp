@@ -56,8 +56,14 @@ generated: true
 
 ## calendar
 
-- [[../issues/CACH-B0007|CACH-B0007]] — Calendario unificado e interaccion rapida · backlog · p1 · initiative
+- [[../issues/CACH-B0007|CACH-B0007]] — Calendarios claros y sincronizacion suscribible · backlog · p1 · initiative
 - [[../issues/CACH-0056|CACH-0056]] — Calendario de eventos y plan anual separados · done · p1 · slice
+- [[../issues/CACH-0089|CACH-0089]] — Preparar Beta 24 de calendario · done · p1 · task
+- [[../issues/CACH-0090|CACH-0090]] — Clarificar Agenda y Plan anual · done · p1 · slice
+- [[../issues/CACH-0091|CACH-0091]] — Rehacer visibilidad movil de calendarios · done · p1 · slice
+- [[../issues/CACH-0092|CACH-0092]] — Feed suscribible privado de eventos · done · p1 · slice
+- [[../issues/CACH-0093|CACH-0093]] — UI de sincronizacion por proveedor · done · p1 · slice
+- [[../issues/CACH-0094|CACH-0094]] — QA y cierre de Beta 24 calendario · done · p1 · task
 - [[../issues/CACH-B0014|CACH-B0014]] — Endurecer agenda cobros y captura del MVP · done · p1 · slice
 - [[../issues/CACH-0033|CACH-0033]] — Vista anual en calendario de proyectos · done · p2 · slice
 - [[../issues/CACH-0082|CACH-0082]] — Auditar visual total Lovable y matriz QA · done · p2 · task
@@ -167,7 +173,7 @@ generated: true
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento · backlog · p1 · initiative
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera · backlog · p1 · initiative
 - [[../issues/CACH-B0004|CACH-B0004]] — Contratantes facturacion y liquidacion neta · backlog · p1 · initiative
-- [[../issues/CACH-B0007|CACH-B0007]] — Calendario unificado e interaccion rapida · backlog · p1 · initiative
+- [[../issues/CACH-B0007|CACH-B0007]] — Calendarios claros y sincronizacion suscribible · backlog · p1 · initiative
 - [[../issues/CACH-B0011|CACH-B0011]] — Categorias etiquetas y taxonomia · backlog · p2 · initiative
 - [[../issues/CACH-0030|CACH-0030]] — Homogeneizar diseno con nueva paleta de colores y fuentes · done · p1 · task
 - [[../issues/CACH-0031|CACH-0031]] — Corregir ajustes UX movil detectados en exploracion · done · p1 · slice
@@ -185,6 +191,9 @@ generated: true
 - [[../issues/CACH-0060|CACH-0060]] — Anadir UX minima de contratantes en proyectos y eventos · done · p1 · slice
 - [[../issues/CACH-0063|CACH-0063]] — Unificar BottomActionBar en detalles · done · p1 · slice
 - [[../issues/CACH-0074|CACH-0074]] — Historial user friendly de novedades beta · done · p1 · slice
+- [[../issues/CACH-0090|CACH-0090]] — Clarificar Agenda y Plan anual · done · p1 · slice
+- [[../issues/CACH-0091|CACH-0091]] — Rehacer visibilidad movil de calendarios · done · p1 · slice
+- [[../issues/CACH-0093|CACH-0093]] — UI de sincronizacion por proveedor · done · p1 · slice
 - [[../issues/CACH-0076|CACH-0076]] — Alinear tokens de diseno con export Lovable · done · p2 · task
 - [[../issues/CACH-0077|CACH-0077]] — Aplicar tokens Lovable al shell y navegacion · done · p2 · slice
 - [[../issues/CACH-0078|CACH-0078]] — Pulir Trabajos y listas con visual Lovable acotada · done · p2 · slice
@@ -213,6 +222,8 @@ generated: true
 - [[../issues/CACH-0067|CACH-0067]] — PWA instalable basica y navegacion standalone · done · p1 · slice
 - [[../issues/CACH-0068|CACH-0068]] — Verificacion responsive PWA y cierre beta 21 · done · p1 · task
 - [[../issues/CACH-0075|CACH-0075]] — Bloquear ship de features sin release · done · p1 · task
+- [[../issues/CACH-0092|CACH-0092]] — Feed suscribible privado de eventos · done · p1 · slice
+- [[../issues/CACH-0094|CACH-0094]] — QA y cierre de Beta 24 calendario · done · p1 · task
 - [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura · done · p2 · task
 
 ## email

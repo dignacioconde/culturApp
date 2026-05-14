@@ -5,7 +5,7 @@ id: PB-INITIATIVE-CHILDREN
 title: Initiative Children Index
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-13
+updated: 2026-05-14
 aliases:
   - Initiative Children Index
 tags:
@@ -40,9 +40,15 @@ generated: true
 - [[../issues/CACH-0060|CACH-0060]] — Anadir UX minima de contratantes en proyectos y eventos · done · p1 · slice
 - [[../issues/CACH-0061|CACH-0061]] — Verificar regresion financiera y cierre tecnico beta 19 · done · p1 · task
 
-## CACH-B0007 — Calendario unificado e interaccion rapida
+## CACH-B0007 — Calendarios claros y sincronizacion suscribible
 
 - [[../issues/CACH-0056|CACH-0056]] — Calendario de eventos y plan anual separados · done · p1 · slice
+- [[../issues/CACH-0089|CACH-0089]] — Preparar Beta 24 de calendario · done · p1 · task
+- [[../issues/CACH-0090|CACH-0090]] — Clarificar Agenda y Plan anual · done · p1 · slice
+- [[../issues/CACH-0091|CACH-0091]] — Rehacer visibilidad movil de calendarios · done · p1 · slice
+- [[../issues/CACH-0092|CACH-0092]] — Feed suscribible privado de eventos · done · p1 · slice
+- [[../issues/CACH-0093|CACH-0093]] — UI de sincronizacion por proveedor · done · p1 · slice
+- [[../issues/CACH-0094|CACH-0094]] — QA y cierre de Beta 24 calendario · done · p1 · task
 - [[../issues/CACH-0033|CACH-0033]] — Vista anual en calendario de proyectos · done · p2 · slice
 
 ## CACH-B0008 — PWA notificaciones y offline

@@ -4,18 +4,22 @@ import dayjs from 'dayjs'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { Link } from 'react-router-dom'
 import { PageWrapper } from '../../components/layout/PageWrapper'
+import { CalendarPageNav } from '../../components/calendar/CalendarPageNav'
+import { CalendarSyncPanel } from '../../components/calendar/CalendarSyncPanel'
 import { Button } from '../../components/ui/Button'
 import { StatusBadge } from '../../components/ui/Badge'
 import { Modal } from '../../components/ui/Modal'
 import { useToast, ToastContainer } from '../../components/ui/Toast'
 import { EventForm } from '../Events/EventForm'
 import { useAuth } from '../../hooks/useAuth'
+import { useCalendarFeeds } from '../../hooks/useCalendarFeeds'
 import { useContractors } from '../../hooks/useContractors'
 import { useEvents } from '../../hooks/useEvents'
 import { useProjects } from '../../hooks/useProjects'
 import { formatContractorDisplay, getEventContractor } from '../../lib/contractors'
-import { formatDatetime } from '../../lib/formatters'
-import { AlertCircle, CalendarDays, Plus, X, ChevronDown, ChevronUp } from 'lucide-react'
+import { STATUS_LABELS } from '../../lib/constants'
+import { formatDatetime, formatTime } from '../../lib/formatters'
+import { AlertCircle, CalendarDays, Clock, Plus, X } from 'lucide-react'
 
 const localizer = dayjsLocalizer(dayjs)
 const calendarMinTime = new Date(1970, 0, 1, 8, 0)
@@ -75,6 +79,87 @@ function CalendarFeedback({ icon: Icon, tone = 'muted', children }) {
   )
 }
 
+function getVisibleEvents(events, date, view) {
+  const anchor = dayjs(date)
+  const start = view === 'day'
+    ? anchor.startOf('day')
+    : view === 'week'
+    ? anchor.startOf('week')
+    : anchor.startOf('month')
+  const end = view === 'day'
+    ? anchor.endOf('day')
+    : view === 'week'
+    ? anchor.endOf('week')
+    : anchor.endOf('month')
+
+  return events.filter((event) => {
+    const eventStart = dayjs(event.start_datetime)
+    const eventEnd = event.end_datetime ? dayjs(event.end_datetime) : eventStart
+    return !eventStart.isAfter(end) && !eventEnd.isBefore(start)
+  })
+}
+
+function CalendarEventLegend({ events }) {
+  const visibleEvents = events.slice(0, 8)
+  const hiddenCount = events.length - visibleEvents.length
+
+  if (events.length === 0) return null
+
+  return (
+    <section className="mb-3 rounded-lg border border-border-subtle bg-surface-muted px-3 py-2">
+      <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-secondary">Colores visibles</p>
+      <div className="flex flex-wrap gap-2">
+        {visibleEvents.map((event) => (
+          <span key={event.id} className="inline-flex max-w-full items-center gap-2 rounded-full border border-border-subtle bg-surface-card px-2.5 py-1 text-xs text-text-secondary">
+            <span className="size-2.5 shrink-0 rounded-full" style={{ backgroundColor: event.color ?? 'var(--color-project-1)' }} />
+            <span className="truncate">{event.name}</span>
+            <span className="shrink-0 text-text-secondary/80">{STATUS_LABELS[event.status] ?? event.status}</span>
+          </span>
+        ))}
+        {hiddenCount > 0 && (
+          <span className="inline-flex items-center rounded-full border border-border-subtle bg-surface-card px-2.5 py-1 text-xs font-medium text-text-secondary">
+            +{hiddenCount} más
+          </span>
+        )}
+      </div>
+    </section>
+  )
+}
+
+function CalendarEventList({ events, onSelectEvent }) {
+  return (
+    <section className="mt-3 rounded-lg border border-border-subtle bg-surface-muted p-3">
+      <div className="mb-2 flex items-center gap-2 text-text-primary">
+        <Clock size={16} className="text-text-secondary" aria-hidden="true" />
+        <h2 className="text-sm font-semibold">Eventos visibles</h2>
+      </div>
+      {events.length === 0 ? (
+        <p className="text-sm text-text-secondary">No hay eventos en este periodo.</p>
+      ) : (
+        <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
+          {events.map((event) => (
+            <button
+              key={event.id}
+              type="button"
+              onClick={() => onSelectEvent(event)}
+              className="flex min-h-16 items-start gap-3 rounded-lg border border-border-subtle bg-surface-card px-3 py-2 text-left shadow-sm transition hover:bg-surface-page-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary"
+            >
+              <span className="mt-1 size-3 shrink-0 rounded-full" style={{ backgroundColor: event.color ?? 'var(--color-project-1)' }} />
+              <span className="min-w-0 flex-1">
+                <span className="block truncate text-sm font-semibold text-text-primary">{event.name}</span>
+                <span className="block text-xs text-text-secondary">{formatDatetime(event.start_datetime)}</span>
+                {event.end_datetime && (
+                  <span className="block text-xs text-text-secondary">Hasta {formatTime(event.end_datetime)}</span>
+                )}
+              </span>
+            </button>
+          ))}
+        </div>
+      )}
+    </section>
+  )
+}
+
 // Detectar si es viewport móvil
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false)
@@ -90,8 +175,9 @@ function useIsMobile() {
 export default function CalendarEvents() {
   const { user } = useAuth()
   const { events, loading, error, createEvent } = useEvents(user?.id)
-  const { projects, loading: projectsLoading, error: projectsError } = useProjects(user?.id)
+  const { projects, error: projectsError } = useProjects(user?.id)
   const { contractors, findOrCreateContractor } = useContractors(user?.id)
+  const calendarFeeds = useCalendarFeeds(user?.id)
   const isMobile = useIsMobile()
   const [calendarDate, setCalendarDate] = useState(() => new Date())
   const [calendarView, setCalendarView] = useState(() => isMobile ? 'month' : 'month')
@@ -99,7 +185,6 @@ export default function CalendarEvents() {
   const [newModal, setNewModal] = useState(false)
   const [newEventInitialData, setNewEventInitialData] = useState(null)
   const [saving, setSaving] = useState(false)
-  const [panelExpanded, setPanelExpanded] = useState(false)
   const { toasts, addToast, removeToast } = useToast()
   
   // En móvil solo mostrar month y day, no week
@@ -116,6 +201,11 @@ export default function CalendarEvents() {
       resource: e,
     }))
   , [events])
+
+  const visibleEvents = useMemo(
+    () => getVisibleEvents(events, calendarDate, activeCalendarView),
+    [events, calendarDate, activeCalendarView]
+  )
 
   const eventStyleGetter = (event) => ({
     style: {
@@ -168,12 +258,13 @@ export default function CalendarEvents() {
 
   return (
     <PageWrapper title="Calendario de eventos">
+      <CalendarPageNav />
       <div className="flex flex-col gap-4 lg:flex-row lg:h-[calc(100vh-8rem)]">
         <div className="flex flex-1 flex-col rounded-lg border border-border-subtle bg-surface-card p-3 shadow-sm sm:p-4 lg:min-h-0">
           <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-sm font-medium text-text-primary">{events.length} eventos</p>
-              <p className="text-xs text-text-secondary">Calendario compartible con fecha y hora exactas.</p>
+              <p className="text-xs text-text-secondary">Agenda de ocurrencias con fecha y hora exactas.</p>
             </div>
             <Button size="sm" onClick={() => openNewEvent()} className="min-h-11 w-full justify-center sm:min-h-8 sm:w-auto">
               <Plus size={16} />
@@ -187,12 +278,13 @@ export default function CalendarEvents() {
               </CalendarFeedback>
             </div>
           )}
-          {loading || projectsLoading ? (
+          {loading ? (
             <div className="flex h-[min(62dvh,520px)] min-h-[420px] flex-1 items-center justify-center rounded-lg border border-dashed border-border-subtle bg-surface-muted text-sm text-text-secondary sm:h-[560px] sm:min-h-[560px] lg:h-full lg:min-h-0">
-              Cargando calendario...
+              Cargando calendario…
             </div>
           ) : (
             <div className="flex flex-1 flex-col">
+              <CalendarEventLegend events={visibleEvents} />
               <div className={`${calendarFrameClass} h-[min(62dvh,520px)] min-h-[420px] overflow-x-auto overflow-y-hidden [touch-action:pan-x_pan-y] sm:h-[560px] sm:min-h-[560px] lg:h-full lg:min-h-0`}>
                 <div className={`h-full ${timeGridMinWidth}`}>
                   <Calendar
@@ -223,6 +315,7 @@ export default function CalendarEvents() {
                   </CalendarFeedback>
                 </div>
               )}
+              <CalendarEventList events={visibleEvents} onSelectEvent={setSelectedEvent} />
             </div>
           )}
         </div>
@@ -231,23 +324,9 @@ export default function CalendarEvents() {
           (() => {
             const selectedContractor = getEventContractor(selectedEvent, projects, contractors)
             return (
-          <div className={`
-            w-full lg:w-80 bg-surface-card rounded-lg border border-border-subtle p-5 flex flex-col gap-4 text-text-primary shadow-sm
-            lg:relative
-            ${isMobile ? 'fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom))] left-0 right-0 max-h-[calc(70dvh-4rem)] overflow-y-auto rounded-b-none border-b-0 shadow-lg z-30' : ''}
-          `}>
-            {/* Toggle para móvil */}
-            {isMobile && (
-              <button 
-                onClick={() => setPanelExpanded(!panelExpanded)}
-                className="flex w-full items-center justify-center py-2 text-text-secondary hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary"
-              >
-                {panelExpanded ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
-              </button>
-            )}
-            
+          <div className="flex w-full flex-col gap-4 rounded-lg border border-border-subtle bg-surface-card p-5 text-text-primary shadow-sm lg:w-80 lg:self-start">
             <div className="flex items-start justify-between">
-              <div className="w-3 h-3 rounded-full mt-1 flex-shrink-0" style={{ backgroundColor: selectedEvent.color ?? 'var(--color-project-1)' }} />
+              <div className="mt-1 size-3 shrink-0 rounded-full" style={{ backgroundColor: selectedEvent.color ?? 'var(--color-project-1)' }} />
               <button onClick={() => setSelectedEvent(null)} className="-mr-1 -mt-1 rounded-lg p-1.5 text-text-secondary hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary" aria-label="Cerrar panel">
                 <X size={20} />
               </button>
@@ -260,7 +339,7 @@ export default function CalendarEvents() {
                 </p>
               )}
             </div>
-            <div className={`flex flex-col gap-2 text-sm text-text-secondary ${isMobile && !panelExpanded ? 'hidden' : ''}`}>
+            <div className="flex flex-col gap-2 text-sm text-text-secondary">
               <div className="flex items-center justify-between gap-3">
                 <span>Estado</span>
                 <StatusBadge status={selectedEvent.status} />
@@ -291,7 +370,7 @@ export default function CalendarEvents() {
                 ) : null
               })()}
             </div>
-            <Link to={`/events/${selectedEvent.id}`} className={`mt-auto ${isMobile && !panelExpanded ? 'hidden' : ''}`}>
+            <Link to={`/events/${selectedEvent.id}`} className="mt-auto">
               <Button variant="secondary" size="sm" className="min-h-11 w-full justify-center sm:min-h-8">
                 Ver detalle completo
               </Button>
@@ -300,6 +379,13 @@ export default function CalendarEvents() {
             )
           })()
         )}
+      </div>
+
+      <div className="mt-4">
+        <CalendarSyncPanel
+          {...calendarFeeds}
+          onToast={addToast}
+        />
       </div>
 
       <Modal isOpen={newModal} onClose={closeNewEvent} title="Nuevo evento">

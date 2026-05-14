@@ -13,17 +13,17 @@ tags:
   - release
   - current
 generated: false
-release_current: false
+release_current: true
 ---
 # Current Release
 
 ## Release activa
 
-No hay release activa.
+[[RELEASE-0.1.0-beta.24|RELEASE-0.1.0-beta.24]] — calendario claro y sincronización suscribible.
 
 ## Rama activa
 
-No aplica.
+`release/0.1.0-beta.24`
 
 ## Últimos cortes
 
@@ -55,4 +55,4 @@ No aplica.
 
 ## Siguiente corte
 
-Pendiente de definir.
+Beta 24 está en desarrollo como release solo de calendario.

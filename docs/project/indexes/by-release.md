@@ -20,7 +20,7 @@ generated: true
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento · backlog · p1 · initiative
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera · backlog · p1 · initiative
 - [[../issues/CACH-B0004|CACH-B0004]] — Contratantes facturacion y liquidacion neta · backlog · p1 · initiative
-- [[../issues/CACH-B0007|CACH-B0007]] — Calendario unificado e interaccion rapida · backlog · p1 · initiative
+- [[../issues/CACH-B0007|CACH-B0007]] — Calendarios claros y sincronizacion suscribible · backlog · p1 · initiative
 - [[../issues/CACH-B0008|CACH-B0008]] — PWA notificaciones y offline · backlog · p2 · initiative
 - [[../issues/CACH-B0009|CACH-B0009]] — Inteligencia financiera y features Pro · backlog · p2 · initiative
 - [[../issues/CACH-B0010|CACH-B0010]] — Tooling de agentes y modelos de desarrollo · backlog · p2 · initiative
@@ -130,6 +130,15 @@ generated: true
 - [[../issues/CACH-0086|CACH-0086]] — Unificar pantallas secundarias operativas · done · p2 · slice
 - [[../issues/CACH-0087|CACH-0087]] — Unificar admin gates y layout global · done · p2 · slice
 - [[../issues/CACH-0088|CACH-0088]] — QA final de beta 23 visual total · done · p2 · task
+
+## RELEASE-0.1.0-beta.24
+
+- [[../issues/CACH-0089|CACH-0089]] — Preparar Beta 24 de calendario · done · p1 · task
+- [[../issues/CACH-0090|CACH-0090]] — Clarificar Agenda y Plan anual · done · p1 · slice
+- [[../issues/CACH-0091|CACH-0091]] — Rehacer visibilidad movil de calendarios · done · p1 · slice
+- [[../issues/CACH-0092|CACH-0092]] — Feed suscribible privado de eventos · done · p1 · slice
+- [[../issues/CACH-0093|CACH-0093]] — UI de sincronizacion por proveedor · done · p1 · slice
+- [[../issues/CACH-0094|CACH-0094]] — QA y cierre de Beta 24 calendario · done · p1 · task
 
 ## RELEASE-0.1.0-beta.3
 

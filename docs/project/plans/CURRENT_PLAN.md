@@ -18,11 +18,11 @@ generated: false
 
 ## Foco actual
 
-Beta 23 está activa en la rama `release/0.1.0-beta.23` como corte de sistema visual total: tokens Lovable, primitivas UI, pantallas core, detalles, calendarios, secundarias, admin/layout y QA final sin absorber funcionalidades Lovable nuevas.
+Beta 24 está activa en la rama `release/0.1.0-beta.24` como corte solo de calendario: claridad entre Agenda y Plan anual, visibilidad móvil y sincronización suscribible de eventos con calendarios externos.
 
 ## Release activa
 
-[[../releases/RELEASE-0.1.0-beta.23|RELEASE-0.1.0-beta.23]] — tokens Lovable y visual total.
+[[../releases/RELEASE-0.1.0-beta.24|RELEASE-0.1.0-beta.24]] — calendario claro y sincronización suscribible.
 
 Últimos cortes:
 
@@ -50,6 +50,7 @@ Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboa
 - Beta 21 cierra primera sesion guiada y PWA instalable.
 - Beta 22 cierra historial de novedades beta.
 - Beta 23 queda enfocada en unificacion visual total con `CACH-0076` a `CACH-0088`, sin cambios funcionales.
+- Beta 24 queda enfocada solo en calendario: Agenda/Plan más claros, móvil más escaneable y feed privado `.ics/webcal` de eventos.
 
 ## Prioridades
 
@@ -69,8 +70,8 @@ Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboa
 
 ## Próximo checkpoint
 
-Cerrar `RELEASE-0.1.0-beta.23`: PR `release/0.1.0-beta.23` -> `main`, CI verde, merge, tag `v0.1.0-beta.23` y verificacion de produccion si aplica.
+Cerrar `RELEASE-0.1.0-beta.24`: validar migración/Edge Function, calendario responsive, PR `release/0.1.0-beta.24` -> `main`, CI verde, merge, tag `v0.1.0-beta.24` y verificación de producción si aplica.
 
 ## Siguiente release candidata
 
-Tras beta 23, reevaluar si el siguiente corte vuelve a `CACH-B0004` o si el feedback beta pide un hardening pequeno.
+Tras beta 24, reevaluar si el siguiente corte vuelve a `CACH-B0004` o si el feedback beta pide un hardening pequeño.

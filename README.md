@@ -178,6 +178,22 @@ create table events (
   created_at timestamptz default now()
 );
 
+create table calendar_feeds (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references public.profiles(id) on delete cascade not null,
+  token_hash text not null unique,
+  label text not null,
+  provider text not null default 'other',
+  scope text not null default 'events',
+  revoked_at timestamptz,
+  last_accessed_at timestamptz,
+  created_at timestamptz default now(),
+  constraint calendar_feeds_token_hash_sha256 check (token_hash ~ '^[0-9a-f]{64}$'),
+  constraint calendar_feeds_label_not_blank check (btrim(label) <> ''),
+  constraint calendar_feeds_provider_known check (provider in ('apple', 'google', 'outlook', 'other')),
+  constraint calendar_feeds_scope_events check (scope = 'events')
+);
+
 create table incomes (
   id uuid primary key default gen_random_uuid(),
   user_id uuid references public.profiles(id) on delete cascade not null,
@@ -216,6 +232,7 @@ alter table beta_invites enable row level security;
 alter table beta_invite_redemptions enable row level security;
 alter table projects enable row level security;
 alter table events enable row level security;
+alter table calendar_feeds enable row level security;
 alter table contractors enable row level security;
 alter table incomes enable row level security;
 alter table expenses enable row level security;
@@ -231,6 +248,9 @@ create policy "projects: usuario propio" on projects
 
 create policy "events: usuario propio" on events
   for all using (auth.uid() = user_id);
+
+create policy "calendar_feeds: usuario propio lectura" on calendar_feeds
+  for select using (auth.uid() = user_id);
 
 create policy "contractors: usuario propio" on contractors
   for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
@@ -376,11 +396,27 @@ where id = 'UUID_DEL_USUARIO_ADMIN';
 
 Desde la app, las invitaciones se gestionan en `/admin/invitaciones`. El cliente nunca usa service role ni lee directamente `beta_invites`: crea, lista y revoca mediante RPCs con comprobación de admin. El código plano solo se muestra una vez al crearlo; después queda guardado solo el hash SHA-256 normalizado.
 
-### 4.3. Operaciones directas de base de datos
+### 4.3. Sincronización de calendario
+
+La agenda de eventos puede publicarse como feed privado `.ics/webcal` de solo lectura mediante Supabase Edge Function `calendar-feed`.
+
+- La tabla `calendar_feeds` guarda solo `token_hash`, nunca el token plano.
+- El token plano solo se muestra al crear el enlace; si se pierde, el usuario debe crear otro y desactivar el anterior.
+- La Edge Function pública no requiere JWT porque Apple/Google/Outlook no envían sesión de Supabase; calcula el hash SHA-256 del token recibido y consulta una RPC `security definer` que nunca recibe el token plano.
+- El feed solo incluye campos mínimos de eventos: nombre, inicio, fin, estado/categoría y proyecto asociado. No expone notas, importes, gastos, IRPF, contratantes sensibles ni `user_id`.
+- Google Calendar añade feeds por URL desde navegador de ordenador; Apple y Outlook soportan suscripción por URL `.ics/webcal`, aunque el refresco no es inmediato.
+
+Deploy:
+
+```bash
+supabase functions deploy calendar-feed --no-verify-jwt
+```
+
+### 4.4. Operaciones directas de base de datos
 
 Para agentes y mantenimiento, la vía preferida es Supabase MCP acotado al proyecto. Las operaciones manuales de BD que antes se hacían en SQL Editor pueden ejecutarse desde agente cuando el MCP expone las herramientas necesarias (`execute_sql`, `apply_migration`, logs, tablas), manteniendo la misma regla de seguridad: enseñar el SQL/migración exacta y esperar confirmación explícita antes de mutar producción. Si el MCP no está disponible, usar SQL Editor como fallback manual. Las reglas completas viven en `docs/project/process/supabase-db-access.md`: no guardar secretos, aplicar cambios como migraciones versionadas y ejecutar `notify pgrst, 'reload schema';` tras cambiar RPCs.
 
-### 4.4. Emails transaccionales
+### 4.5. Emails transaccionales
 
 Cachés usa Brevo para emails transaccionales en dos caminos separados:
 

@@ -19,7 +19,7 @@ generated: true
 
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento · backlog · p1 · initiative
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera · backlog · p1 · initiative
-- [[../issues/CACH-B0007|CACH-B0007]] — Calendario unificado e interaccion rapida · backlog · p1 · initiative
+- [[../issues/CACH-B0007|CACH-B0007]] — Calendarios claros y sincronizacion suscribible · backlog · p1 · initiative
 - [[../issues/CACH-B0009|CACH-B0009]] — Inteligencia financiera y features Pro · backlog · p2 · initiative
 - [[../issues/CACH-B0012|CACH-B0012]] — Perfil publico viralidad y referidos · backlog · p3 · initiative
 - [[../issues/CACH-0029|CACH-0029]] — Integrar helpers CACH-B0016 en flujos reales · done · p1 · slice
@@ -46,6 +46,10 @@ generated: true
 - [[../issues/CACH-0066|CACH-0066]] — Checklist compacto de primeros pasos · done · p1 · slice
 - [[../issues/CACH-0068|CACH-0068]] — Verificacion responsive PWA y cierre beta 21 · done · p1 · task
 - [[../issues/CACH-0074|CACH-0074]] — Historial user friendly de novedades beta · done · p1 · slice
+- [[../issues/CACH-0090|CACH-0090]] — Clarificar Agenda y Plan anual · done · p1 · slice
+- [[../issues/CACH-0091|CACH-0091]] — Rehacer visibilidad movil de calendarios · done · p1 · slice
+- [[../issues/CACH-0093|CACH-0093]] — UI de sincronizacion por proveedor · done · p1 · slice
+- [[../issues/CACH-0094|CACH-0094]] — QA y cierre de Beta 24 calendario · done · p1 · task
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes · done · p1 · slice
 - [[../issues/CACH-B0006|CACH-B0006]] — Onboarding y acceso beta · done · p1 · slice
 - [[../issues/CACH-B0014|CACH-B0014]] — Endurecer agenda cobros y captura del MVP · done · p1 · slice
@@ -72,6 +76,7 @@ generated: true
 - [[../issues/CACH-0058|CACH-0058]] — Versionar schema de contratantes y RLS · done · p1 · slice
 - [[../issues/CACH-0059|CACH-0059]] — Integrar hooks y portabilidad de contratantes · done · p1 · slice
 - [[../issues/CACH-0061|CACH-0061]] — Verificar regresion financiera y cierre tecnico beta 19 · done · p1 · task
+- [[../issues/CACH-0092|CACH-0092]] — Feed suscribible privado de eventos · done · p1 · slice
 - [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos · done · p1 · slice
 - [[../issues/CACH-B0017|CACH-B0017]] — Panel admin para invitaciones beta · done · p1 · slice
 
@@ -105,6 +110,7 @@ generated: true
 - [[../issues/CACH-0028|CACH-0028]] — Corregir sync iCloud y estructura versionada · done · p1 · slice
 - [[../issues/CACH-0036|CACH-0036]] — Profesionalizar flujo de ramas por beta · done · p1 · task
 - [[../issues/CACH-0037|CACH-0037]] — Consolidar PRD y sistema de diseno de Cachés · done · p1 · task
+- [[../issues/CACH-0089|CACH-0089]] — Preparar Beta 24 de calendario · done · p1 · task
 - [[../issues/CACH-B0015|CACH-B0015]] — Operativizar backlog releases y ramas en Product Brain · done · p1 · task
 - [[../issues/CACH-B0016|CACH-B0016]] — Refundacion operativa del Product Brain y tests B0014 · done · p1 · task
 - [[../issues/CACH-0080|CACH-0080]] — Inventariar gaps funcionales Lovable fuera de beta 23 · done · p2 · task
