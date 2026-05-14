@@ -5,7 +5,7 @@ id: RELEASE-0.1.0-beta.23
 title: Tokens Lovable y visual total
 lifecycle: active
 created: '2026-05-13'
-updated: '2026-05-13'
+updated: '2026-05-14'
 aliases:
   - RELEASE-0.1.0-beta.23
 tags:
@@ -18,7 +18,7 @@ release_phase: active
 release_current: true
 release_branch: release/0.1.0-beta.23
 release_tag: v0.1.0-beta.23
-release_pr: null
+release_pr: https://github.com/dignacioconde/culturApp/pull/110
 ---
 # RELEASE-0.1.0-beta.23 — Tokens Lovable y visual total
 
@@ -137,7 +137,7 @@ Validacion parcial ya ejecutada para `CACH-0076`: `lint`, `test`, `build`, `pb:g
 
 ## Checklist de salida
 
-- [ ] PR `release/0.1.0-beta.23` -> `main` abierta
+- [x] PR `release/0.1.0-beta.23` -> `main` abierta
 - [ ] CI en verde
 - [ ] PR mergeada en `main`
 - [ ] Tag `v0.1.0-beta.23` creado desde `main` si aplica
