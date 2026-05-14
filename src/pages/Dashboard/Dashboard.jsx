@@ -303,38 +303,42 @@ export default function Dashboard() {
     <PageWrapper title="Inicio">
       <div className="flex flex-col gap-4 md:gap-6">
 
-        <Card className="border-border-subtle bg-surface-card p-3 sm:p-4">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="grid grid-cols-[2.75rem_minmax(0,1fr)_2.75rem_6.5rem] items-center gap-2 sm:flex sm:gap-1">
-              <button onClick={prevMonth} className="flex min-h-11 min-w-11 items-center justify-center rounded-full text-text-secondary transition-colors hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2" aria-label="Mes anterior">
-                <ChevronLeft size={18} />
-              </button>
-              <span className="min-w-0 truncate text-center text-sm font-medium capitalize text-text-primary sm:min-w-[130px]">
-                {selectedMonthLabel}
-              </span>
-              <button onClick={nextMonth} className="flex min-h-11 min-w-11 items-center justify-center rounded-full text-text-secondary transition-colors hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2" aria-label="Mes siguiente">
-                <ChevronRight size={18} />
-              </button>
-              <Select
-                value={selectedDate.year()}
-                onChange={(e) => setSelectedDate((d) => d.year(Number(e.target.value)))}
-                className="min-h-11 py-2 font-data text-sm tabular-nums sm:ml-2 sm:min-h-0 sm:py-1 sm:text-xs"
-                aria-label="Año"
-              >
-                {YEARS.map((y) => <option key={y} value={y}>{y}</option>)}
-              </Select>
+        <Card className="border-border-subtle bg-surface-card p-2.5 sm:p-4">
+          <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex w-full items-center gap-2 sm:w-auto">
+              <div className="flex min-w-0 flex-1 items-center rounded-full border border-border-subtle bg-surface-muted p-1 sm:flex-none">
+                <button onClick={prevMonth} className="flex min-h-10 min-w-10 items-center justify-center rounded-full text-text-secondary transition-colors hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 sm:min-h-9 sm:min-w-9" aria-label="Mes anterior">
+                  <ChevronLeft size={18} />
+                </button>
+                <span className="min-w-0 flex-1 truncate px-2 text-center text-sm font-medium capitalize text-text-primary sm:min-w-[130px]">
+                  {selectedMonthLabel}
+                </span>
+                <button onClick={nextMonth} className="flex min-h-10 min-w-10 items-center justify-center rounded-full text-text-secondary transition-colors hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 sm:min-h-9 sm:min-w-9" aria-label="Mes siguiente">
+                  <ChevronRight size={18} />
+                </button>
+              </div>
+              <div className="w-[6.25rem] shrink-0 sm:w-24">
+                <Select
+                  value={selectedDate.year()}
+                  onChange={(e) => setSelectedDate((d) => d.year(Number(e.target.value)))}
+                  className="!min-h-10 !rounded-full !bg-surface-muted !py-2 !text-sm !shadow-none font-data tabular-nums sm:!min-h-9 sm:!py-1.5 sm:!text-xs"
+                  aria-label="Año"
+                >
+                  {YEARS.map((y) => <option key={y} value={y}>{y}</option>)}
+                </Select>
+              </div>
             </div>
 
-            <div className="inline-flex self-start rounded-full border border-border-subtle bg-surface-card p-1 text-sm">
+            <div className="inline-flex w-full rounded-full border border-border-subtle bg-surface-muted p-1 text-sm sm:w-auto">
               <button
                 onClick={() => setView('cash')}
-                className={`min-h-[44px] rounded-full px-3 py-2 font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 sm:min-h-[unset] sm:px-3 sm:py-1.5 ${view === 'cash' ? 'bg-text-primary text-surface-page shadow-sm' : 'text-text-secondary hover:text-text-primary'}`}
+                className={`min-h-[44px] flex-1 rounded-full px-3 py-2 font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 sm:min-h-[unset] sm:flex-none sm:px-3 sm:py-1.5 ${view === 'cash' ? 'bg-text-primary text-surface-page shadow-sm' : 'text-text-secondary hover:text-text-primary'}`}
               >
                 Caja del mes
               </button>
               <button
                 onClick={() => setView('work')}
-                className={`min-h-[44px] rounded-full px-3 py-2 font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 sm:min-h-[unset] sm:px-3 sm:py-1.5 ${view === 'work' ? 'bg-text-primary text-surface-page shadow-sm' : 'text-text-secondary hover:text-text-primary'}`}
+                className={`min-h-[44px] flex-1 rounded-full px-3 py-2 font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 sm:min-h-[unset] sm:flex-none sm:px-3 sm:py-1.5 ${view === 'work' ? 'bg-text-primary text-surface-page shadow-sm' : 'text-text-secondary hover:text-text-primary'}`}
               >
                 Trabajos
               </button>
