@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { AlertCircle, Building2, Edit, Mail, Phone, Plus, Search, Trash2 } from 'lucide-react'
 import { PageWrapper } from '../../components/layout/PageWrapper'
+import { Badge } from '../../components/ui/Badge'
 import { Card } from '../../components/ui/Card'
 import { Button } from '../../components/ui/Button'
 import { ConfirmDialog } from '../../components/ui/ConfirmDialog'
@@ -123,7 +124,7 @@ function ContractorForm({ initialData, loading, onCancel, onSubmit }) {
         placeholder="Condiciones habituales, contacto interno, observaciones..."
       />
 
-      {error && <p className="rounded-lg bg-[var(--color-red-light)] px-3 py-2 text-sm text-[var(--color-red)]">{error}</p>}
+      {error && <p className="rounded-lg bg-danger-soft px-3 py-2 text-sm font-medium text-danger">{error}</p>}
 
       <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
         <Button type="button" variant="secondary" onClick={onCancel} className="justify-center">
@@ -139,23 +140,23 @@ function ContractorForm({ initialData, loading, onCancel, onSubmit }) {
 
 function ContractorCard({ contractor, onEdit, onDelete }) {
   return (
-    <Card className="flex h-full min-w-0 flex-col p-5">
+    <Card className="card-lift flex h-full min-w-0 flex-col overflow-hidden border-border-subtle bg-surface-card p-5">
       <div className="flex items-start gap-3">
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[var(--color-paper-dark)] text-[var(--color-ink-muted)]">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-surface-page-dark text-text-secondary">
           <Building2 size={18} />
         </span>
         <div className="min-w-0 flex-1">
-          <h3 className="truncate text-sm font-semibold text-[var(--color-ink)]">{contractor.name}</h3>
+          <h3 className="truncate font-display text-base font-semibold leading-tight text-text-primary">{contractor.name}</h3>
           {contractor.billing_name && contractor.billing_name !== contractor.name && (
-            <p className="mt-0.5 truncate text-xs text-[var(--color-ink-muted)]">{contractor.billing_name}</p>
+            <p className="mt-0.5 truncate text-sm text-text-secondary">{contractor.billing_name}</p>
           )}
           {contractor.tax_id && (
-            <p className="mt-1 text-xs text-[var(--color-ink-muted)]">{contractor.tax_id}</p>
+            <Badge className="mt-2 bg-surface-muted text-text-secondary">{contractor.tax_id}</Badge>
           )}
         </div>
       </div>
 
-      <div className="mt-4 grid gap-2 text-sm text-[var(--color-ink-muted)]">
+      <div className="mt-4 grid gap-2 text-sm text-text-secondary">
         {contractor.email && (
           <p className="flex min-w-0 items-center gap-2">
             <Mail size={14} className="shrink-0" />
@@ -172,7 +173,7 @@ function ContractorCard({ contractor, onEdit, onDelete }) {
           <p className="line-clamp-2 text-xs leading-5">{contractor.billing_address}</p>
         )}
         {contractor.notes && (
-          <p className="line-clamp-2 rounded-lg bg-[var(--color-surface-alt)] px-3 py-2 text-xs leading-5">{contractor.notes}</p>
+          <p className="line-clamp-2 rounded-lg border border-border-subtle bg-surface-muted px-3 py-2 text-xs leading-5 text-text-primary">{contractor.notes}</p>
         )}
       </div>
 
@@ -186,7 +187,7 @@ function ContractorCard({ contractor, onEdit, onDelete }) {
           variant="ghost"
           size="sm"
           onClick={() => onDelete(contractor)}
-          className="text-[var(--color-red)] hover:bg-[var(--color-red-light)]"
+          className="text-danger hover:bg-danger-soft"
           aria-label={`Eliminar contratante ${contractor.name}`}
         >
           <Trash2 size={14} />
@@ -274,9 +275,11 @@ export default function ContractorList() {
   return (
     <PageWrapper title="Contratantes">
       <div className="flex max-w-6xl flex-col gap-5">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-          <div>
-            <p className="text-sm text-[var(--color-ink-muted)]">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div className="min-w-0">
+            <p className="text-xs font-medium uppercase tracking-[0.04em] text-accent-primary">Directorio operativo</p>
+            <h1 className="mt-1 font-display text-2xl font-semibold leading-tight text-text-primary">Contratantes</h1>
+            <p className="mt-2 text-sm text-text-secondary">
               {filteredContractors.length} de {contractors.length} contratantes
               {search ? ' con la búsqueda actual' : ''}
             </p>
@@ -287,21 +290,21 @@ export default function ContractorList() {
           </Button>
         </div>
 
-        <Card className="p-3 sm:p-4">
+        <Card className="border-border-subtle bg-surface-card p-3 sm:p-4">
           <div className="relative min-w-0">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-ink-muted)]" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary" />
             <input
               type="text"
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder="Buscar por nombre, fiscal, email o teléfono"
-              className="min-h-11 w-full rounded-lg border border-[var(--color-paper-mid)] py-2 pl-9 pr-3 text-base outline-none focus:border-[var(--color-primary-500)] sm:text-sm"
+              className="min-h-11 w-full rounded-lg border border-border-subtle bg-surface-card py-2 pl-9 pr-3 text-base text-text-primary outline-none placeholder:text-text-secondary/70 focus:border-accent-primary focus:ring-2 focus:ring-accent-primary/20 sm:text-sm"
             />
           </div>
         </Card>
 
         {error && (
-          <div className="flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          <div className="flex items-start gap-3 rounded-lg border border-danger-soft bg-danger-soft/70 px-4 py-3 text-sm text-danger">
             <AlertCircle size={18} className="mt-0.5 shrink-0" />
             <div>
               <p className="font-medium">
@@ -319,20 +322,20 @@ export default function ContractorList() {
         {loading ? (
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
             {[1, 2, 3].map((item) => (
-              <Card key={item} className="p-5">
-                <div className="h-4 w-2/3 rounded bg-[var(--color-paper-dark)]" />
-                <div className="mt-3 h-3 w-1/2 rounded bg-[var(--color-paper-dark)]" />
-                <div className="mt-5 h-3 w-1/3 rounded bg-[var(--color-paper-dark)]" />
+              <Card key={item} className="border-border-subtle bg-surface-card p-5">
+                <div className="h-4 w-2/3 rounded bg-surface-page-dark" />
+                <div className="mt-3 h-3 w-1/2 rounded bg-surface-page-dark" />
+                <div className="mt-5 h-3 w-1/3 rounded bg-surface-page-dark" />
               </Card>
             ))}
           </div>
         ) : filteredContractors.length === 0 ? (
-          <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-[var(--color-paper-mid)] bg-[var(--color-surface-alt)] px-4 py-14 text-center">
-            <Building2 size={36} className="text-[var(--color-ink-muted)]" />
-            <p className="mt-3 text-sm font-medium text-[var(--color-ink)]">
+          <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border-subtle bg-surface-muted px-4 py-14 text-center">
+            <Building2 size={36} className="text-text-secondary" />
+            <p className="mt-3 font-display text-lg font-semibold leading-tight text-text-primary">
               {search ? 'No hay contratantes que coincidan' : 'No hay contratantes todavía'}
             </p>
-            <p className="mt-1 max-w-sm text-sm text-[var(--color-ink-muted)]">
+            <p className="mt-1 max-w-sm text-sm text-text-secondary">
               {search
                 ? 'Ajusta la búsqueda para encontrar otro resultado.'
                 : 'Crea contratantes para reutilizarlos en proyectos y eventos sin repetir el cliente en cada trabajo.'}

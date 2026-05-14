@@ -13,7 +13,7 @@ Product Brain debe ayudar a implementar, no bloquear merges con proceso excesivo
 - Las release branches (`release/<version>`) se usan solo para releases multi-issue o estabilizaciones reales.
 - Una release activa no absorbe tareas nuevas por defecto: si la tarea no pertenece a esa release, se aplaza, va por flujo ligero desde `main`, o se anade explicitamente al documento de la release.
 - En releases beta activas, la rama remota compartida es `release/<version>`; las ramas de tarea son locales por defecto, prefieren `feat/` para funcionalidades nuevas, se revisan contra la release y se integran con squash.
-- Obsidian sync (`pb:push`, `pb:pull`, `pb:status`) es útil pero no es criterio bloqueante de merge si `pb:check` pasa.
+- Obsidian sync (`pb:push`, `pb:pull`, `pb:status`) es útil pero no es criterio bloqueante de merge si `pb:guard`/`pb:check` pasan según el alcance del cambio.
 - Los agentes solo deben leer `CURRENT_RELEASE`, `CURRENT_PLAN` y `BACKLOG` cuando la tarea pertenezca a una release activa o afecte planificación.
 - Los índices son secundarios/generados, no fuente de verdad manual.
 - La memoria solo guarda preferencias, decisiones duraderas y gotchas importantes, no historial operativo.
@@ -34,7 +34,11 @@ Nombre canónico del producto: **Cachés**. Usar `CACH` como prefijo de issues M
 ```bash
 npm run pb:init     # Inicializar Product Brain (primera vez)
 npm run pb:status   # Ver estado actual
+npm run pb:orient   # Orientación mínima para agentes
 npm run pb:check    # Validar frontmatter, índices y wikilinks internos
+npm run pb:guard    # Validación completa para docs/project/ o scripts/brain/
+npm run pb:ready-check -- CACH-XXXX # Antes de mover issue a ready
+npm run pb:close-check -- CACH-XXXX # Antes de cerrar issue como done
 npm run pb:pull    # Importar cambios del vault de iCloud
 npm run pb:push    # Exportar cambios al vault de iCloud
 npm run pb:capture # Capturar nota (argumento o stdin)
@@ -76,9 +80,9 @@ npm run pb:capture # Capturar nota (argumento o stdin)
 
 ## Lectura IA y consistencia
 
-- `docs/project/START_HERE.md` debe mantener una ruta mínima de lectura para agentes: leer START_HERE, elegir índice por tipo de tarea, abrir solo enlaces relevantes y ejecutar `npm run pb:check` antes de cerrar cambios.
+- `docs/project/START_HERE.md` debe mantener una ruta mínima de lectura para agentes: leer START_HERE, elegir índice por tipo de tarea, abrir solo enlaces relevantes y ejecutar `npm run pb:guard` antes de cerrar cambios en Product Brain.
 - Los IDs canónicos de issues Markdown son los nombres de archivo completos, por ejemplo `CACH-0026` y `CACH-B0001`. No usar wikilinks cortos como `CACH-026` o `CACH-B001`.
-- Antes de abrir PR que toque `docs/project/`, ejecutar `npm run pb:check`; el validador cubre frontmatter de issues, índices principales y wikilinks internos.
-- Para implementación, leer `CURRENT_RELEASE.md`, `CURRENT_PLAN.md`, `BACKLOG.md` y la issue `CACH-*` relacionada antes de tocar código. Si la tarea pertenece a una release, la rama sale de la rama de release activa.
+- Antes de abrir PR que toque `docs/project/`, ejecutar `npm run pb:guard`; `pb:check` queda como validación acotada útil para cambios pequeños.
+- Para implementación, usar `npm run pb:orient -- --json` y leer la issue `CACH-*` relacionada si existe. Leer `CURRENT_RELEASE.md`, `CURRENT_PLAN.md` o `BACKLOG.md` solo si la tarea pertenece a una release activa, afecta planificación o cambia el estado del tablero. Si la tarea pertenece a una release, la rama sale de la rama de release activa.
 
-Actualizado: 2026-05-13
+Actualizado: 2026-05-14

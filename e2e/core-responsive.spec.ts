@@ -224,9 +224,7 @@ async function expectContextActionBar(page: Page, entity: 'proyecto' | 'evento',
 }
 
 function contextNotesCard(page: Page) {
-  return page
-    .getByRole('heading', { name: 'Notas' })
-    .locator('xpath=ancestor::div[contains(@class, "rounded-lg") and contains(@class, "border")][1]')
+  return page.getByTestId('context-notes-card')
 }
 
 async function editAndClearContextNote(page: Page, nextNote: string) {

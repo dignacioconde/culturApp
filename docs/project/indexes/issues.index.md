@@ -5,7 +5,7 @@ id: PB-ISSUES-INDEX
 title: Issues Index
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-13
+updated: 2026-05-14
 aliases:
   - Issues Index
 tags:
@@ -58,6 +58,19 @@ generated: true
 - [[../issues/CACH-0068|CACH-0068]] — Verificacion responsive PWA y cierre beta 21
 - [[../issues/CACH-0074|CACH-0074]] — Historial user friendly de novedades beta
 - [[../issues/CACH-0075|CACH-0075]] — Bloquear ship de features sin release
+- [[../issues/CACH-0076|CACH-0076]] — Alinear tokens de diseno con export Lovable
+- [[../issues/CACH-0077|CACH-0077]] — Aplicar tokens Lovable al shell y navegacion
+- [[../issues/CACH-0078|CACH-0078]] — Pulir Trabajos y listas con visual Lovable acotada
+- [[../issues/CACH-0079|CACH-0079]] — Pulir Dashboard financiero con visual Lovable acotada
+- [[../issues/CACH-0080|CACH-0080]] — Inventariar gaps funcionales Lovable fuera de beta 23
+- [[../issues/CACH-0081|CACH-0081]] — Unificar visual Lovable tras comparacion real
+- [[../issues/CACH-0082|CACH-0082]] — Auditar visual total Lovable y matriz QA
+- [[../issues/CACH-0083|CACH-0083]] — Crear primitivas UI para visual total Lovable
+- [[../issues/CACH-0084|CACH-0084]] — Unificar detalles y formularios de proyectos y eventos
+- [[../issues/CACH-0085|CACH-0085]] — Unificar calendarios con visual Lovable sin cambiar comportamiento
+- [[../issues/CACH-0086|CACH-0086]] — Unificar pantallas secundarias operativas
+- [[../issues/CACH-0087|CACH-0087]] — Unificar admin gates y layout global
+- [[../issues/CACH-0088|CACH-0088]] — QA final de beta 23 visual total
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes

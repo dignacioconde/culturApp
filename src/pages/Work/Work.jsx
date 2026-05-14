@@ -17,87 +17,90 @@ const views = [
   { value: 'events', label: 'Eventos' },
 ]
 
-const linkButtonClass = 'inline-flex min-h-10 items-center justify-center gap-2 rounded-lg bg-[#C94035] px-4 py-2 text-sm font-medium leading-none text-white shadow-sm transition-colors hover:bg-[#A8342B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2'
-const secondaryLinkButtonClass = 'inline-flex min-h-10 items-center justify-center gap-2 rounded-lg border border-[#E2D9C2] bg-[#F5EFE0] px-4 py-2 text-sm font-medium leading-none text-[#211C18] shadow-sm transition-colors hover:bg-[#EBE3CE] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035] focus-visible:ring-offset-2'
+const EMPTY_LIST = []
+const linkButtonClass = 'inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-accent-primary px-4 py-2 text-sm font-medium leading-none text-primary-foreground shadow-sm transition-colors hover:bg-accent-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2'
+const secondaryLinkButtonClass = 'inline-flex min-h-10 items-center justify-center gap-2 rounded-full border border-border-subtle bg-surface-card px-4 py-2 text-sm font-medium leading-none text-text-primary shadow-sm transition-colors hover:bg-surface-page-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2'
 
 function QuietStatusBadge({ status }) {
   if (!status || status === 'confirmed') return null
   return <StatusBadge status={status} />
 }
 
-function EventRow({ event, projects = [], contractors = [], compact = false }) {
+function EventRow({ event, projects = EMPTY_LIST, contractors = EMPTY_LIST, compact = false }) {
   const contractor = getEventContractor(event, projects, contractors)
+  const accentColor = event.color ?? 'var(--accent-primary)'
 
   return (
     <Link
       to={`/events/${event.id}`}
-      className={`group flex min-w-0 items-center gap-3 rounded-lg border border-[#E2D9C2] bg-[#FDFBF6] px-3 py-3 transition-colors hover:border-[#C94035]/40 hover:bg-white ${compact ? '' : 'sm:px-4'}`}
+      className={`card-lift group flex min-w-0 overflow-hidden rounded-2xl border border-border-subtle bg-surface-card transition-colors hover:border-text-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 ${compact ? '' : ''}`}
     >
-      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#EBE3CE] text-[#5C5149]">
-        <Ticket size={16} />
-      </span>
-      <span className="min-w-0 flex-1">
-        <span className="flex min-w-0 items-center gap-2">
-          <span className="truncate text-sm font-medium text-[#211C18]">{event.name}</span>
-          <QuietStatusBadge status={event.status} />
+      <span className="w-1.5 shrink-0 transition-[width] duration-200 group-hover:w-2" style={{ backgroundColor: accentColor }} aria-hidden="true" />
+      <span className={`flex min-w-0 flex-1 items-center gap-3 px-3 py-3 ${compact ? '' : 'sm:px-4'}`}>
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-surface-page-dark text-text-secondary">
+          <Ticket size={16} />
         </span>
-        <span className="mt-0.5 block truncate text-xs text-[#5C5149]">
-          {formatDatetime(event.start_datetime)}
-          {contractor ? ` · ${contractor.name}` : ''}
+        <span className="min-w-0 flex-1">
+          <span className="flex min-w-0 items-center gap-2">
+            <span className="truncate text-sm font-medium text-text-primary">{event.name}</span>
+            <QuietStatusBadge status={event.status} />
+          </span>
+          <span className="mt-0.5 block truncate font-data text-xs text-text-secondary">
+            {formatDatetime(event.start_datetime)}
+            {contractor ? ` · ${contractor.name}` : ''}
+          </span>
         </span>
+        <ChevronRight size={16} className="shrink-0 text-text-secondary transition-transform group-hover:translate-x-0.5" />
       </span>
-      <ChevronRight size={16} className="shrink-0 text-[#8A7A6D] transition-transform group-hover:translate-x-0.5" />
     </Link>
   )
 }
 
-function ProjectBlock({ project, events, allProjects = [], contractors = [] }) {
+function ProjectBlock({ project, events = EMPTY_LIST, allProjects = EMPTY_LIST, contractors = EMPTY_LIST }) {
   const contractor = getProjectContractor(project, contractors)
 
   return (
-    <Card className="overflow-hidden">
-      <div className="flex flex-col gap-4 p-4 sm:p-5">
-        <div className="flex items-start gap-3">
-          <span
-            className="mt-1 h-3 w-3 shrink-0 rounded-full"
-            style={{ backgroundColor: project.color ?? '#4f98a3' }}
-            aria-hidden="true"
-          />
-          <div className="min-w-0 flex-1">
-            <div className="flex min-w-0 flex-wrap items-center gap-2">
-              <Link
-                to={`/projects/${project.id}`}
-                className="min-w-0 truncate text-base font-semibold text-[#211C18] hover:text-[#C94035] hover:underline"
-              >
-                {project.name}
-              </Link>
-              <QuietStatusBadge status={project.status} />
+    <Card className="card-lift overflow-hidden border-border-subtle bg-surface-card">
+      <div className="flex items-stretch">
+        <span className="w-1.5 shrink-0 transition-[width] duration-200" style={{ backgroundColor: project.color ?? '#4f98a3' }} aria-hidden="true" />
+        <div className="flex min-w-0 flex-1 flex-col gap-4 p-4 sm:p-5">
+          <div className="flex items-start gap-3">
+            <div className="min-w-0 flex-1">
+              <div className="flex min-w-0 flex-wrap items-center gap-2">
+                <Link
+                  to={`/projects/${project.id}`}
+                  className="min-w-0 truncate font-display text-lg font-semibold leading-tight text-text-primary hover:text-accent-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2"
+                >
+                  {project.name}
+                </Link>
+                <QuietStatusBadge status={project.status} />
+              </div>
+              <p className="mt-1 truncate font-data text-xs text-text-secondary sm:text-sm">
+                {contractor ? `${contractor.name} · ` : ''}
+                {formatDateRange(project.start_date, project.end_date)}
+              </p>
             </div>
-            <p className="mt-1 truncate text-sm text-[#5C5149]">
-              {contractor ? `${contractor.name} · ` : ''}
-              {formatDateRange(project.start_date, project.end_date)}
-            </p>
+            <Link
+              to={`/projects/${project.id}`}
+              className="inline-flex h-9 shrink-0 items-center justify-center rounded-full px-2 text-text-secondary hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary"
+              aria-label={`Abrir proyecto ${project.name}`}
+            >
+              <ChevronRight size={18} />
+            </Link>
           </div>
-          <Link
-            to={`/projects/${project.id}`}
-            className="inline-flex h-9 shrink-0 items-center justify-center rounded-lg px-2 text-[#5C5149] hover:bg-[#EBE3CE] hover:text-[#211C18] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C94035]"
-            aria-label={`Abrir proyecto ${project.name}`}
-          >
-            <ChevronRight size={18} />
-          </Link>
-        </div>
 
-        {events.length > 0 ? (
-          <div className="grid gap-2">
-            {events.map((event) => (
-              <EventRow key={event.id} event={event} projects={allProjects} contractors={contractors} compact />
-            ))}
-          </div>
-        ) : (
-          <div className="rounded-lg border border-dashed border-[#E2D9C2] bg-[#FDFBF6] px-3 py-3 text-sm text-[#8A7A6D]">
-            Sin eventos asociados todavía.
-          </div>
-        )}
+          {events.length > 0 ? (
+            <div className="grid gap-2">
+              {events.map((event) => (
+                <EventRow key={event.id} event={event} projects={allProjects} contractors={contractors} compact />
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-dashed border-border-subtle bg-surface-muted p-3 text-sm text-text-secondary">
+              Sin eventos asociados todavía.
+            </div>
+          )}
+        </div>
       </div>
     </Card>
   )
@@ -151,7 +154,7 @@ export default function Work() {
       <div className="flex flex-col gap-5">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div className="min-w-0">
-            <p className="text-sm text-[#5C5149]">
+            <p className="font-data text-xs text-text-secondary sm:text-sm">
               {projects.length} proyectos · {events.length} eventos
             </p>
           </div>
@@ -171,7 +174,7 @@ export default function Work() {
           </div>
         </div>
 
-        <div className="flex w-full gap-1 rounded-lg bg-[#EBE3CE] p-1 sm:w-fit" role="tablist" aria-label="Filtrar trabajos">
+        <div className="inline-flex w-full items-center gap-1 rounded-full border border-border-subtle bg-surface-card p-1 sm:w-fit" role="tablist" aria-label="Filtrar trabajos">
           {views.map((view) => (
             <button
               key={view.value}
@@ -179,10 +182,10 @@ export default function Work() {
               role="tab"
               aria-selected={currentView === view.value}
               onClick={() => setView(view.value)}
-              className={`min-h-10 flex-1 rounded-md px-3 text-sm font-medium transition-colors sm:flex-none sm:min-w-24 ${
+              className={`min-h-10 flex-1 rounded-full px-3 text-sm font-medium transition-colors sm:flex-none sm:min-w-24 ${
                 currentView === view.value
-                  ? 'bg-white text-[#211C18] shadow-sm'
-                  : 'text-[#5C5149] hover:text-[#211C18]'
+                  ? 'bg-text-primary text-primary-foreground shadow-sm'
+                  : 'text-text-secondary hover:text-text-primary'
               }`}
             >
               {view.label}
@@ -191,7 +194,7 @@ export default function Work() {
         </div>
 
         {error && (
-          <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          <div className="rounded-2xl border border-danger/20 bg-danger-soft px-4 py-3 text-sm text-danger">
             No hemos podido cargar todos los trabajos. Revisa la conexión y vuelve a intentarlo.
           </div>
         )}
@@ -199,18 +202,18 @@ export default function Work() {
         {loading ? (
           <div className="grid gap-3">
             {[1, 2, 3].map((item) => (
-              <Card key={item} className="p-5">
-                <div className="h-4 w-2/3 rounded bg-[#EBE3CE]" />
-                <div className="mt-3 h-3 w-1/2 rounded bg-[#EBE3CE]" />
-                <div className="mt-5 h-10 rounded bg-[#F5EFE0]" />
+              <Card key={item} className="border-border-subtle bg-surface-card p-5">
+                <div className="skeleton h-4 w-2/3" />
+                <div className="skeleton mt-3 h-3 w-1/2" />
+                <div className="skeleton mt-5 h-10" />
               </Card>
             ))}
           </div>
         ) : !hasAnyWork ? (
-          <Card className="p-6 text-center">
-            <Briefcase size={36} className="mx-auto text-[#8A7A6D]" />
-            <p className="mt-3 text-sm font-medium text-[#211C18]">No tienes ningún trabajo registrado.</p>
-            <p className="mx-auto mt-1 max-w-md text-sm text-[#5C5149]">
+          <Card className="border-dashed border-border-subtle bg-surface-muted/70 p-6 text-center">
+            <Briefcase size={36} className="mx-auto text-text-secondary" />
+            <p className="mt-3 font-display text-lg font-semibold leading-tight text-text-primary">No tienes ningún trabajo registrado.</p>
+            <p className="mx-auto mt-1 max-w-md text-sm text-text-secondary">
               Crea un proyecto si quieres agrupar varias fechas o un evento si es una cita concreta.
             </p>
             <div className="mt-4 flex flex-col justify-center gap-2 sm:flex-row">
@@ -225,13 +228,13 @@ export default function Work() {
             </div>
           </Card>
         ) : visibleProjectCount === 0 && visibleStandaloneCount === 0 ? (
-          <Card className="p-6 text-center">
-            <CalendarDays size={32} className="mx-auto text-[#8A7A6D]" />
-            <p className="mt-3 text-sm font-medium text-[#211C18]">No hay trabajos en esta vista.</p>
+          <Card className="border-dashed border-border-subtle bg-surface-muted/70 p-6 text-center">
+            <CalendarDays size={32} className="mx-auto text-text-secondary" />
+            <p className="mt-3 font-display text-lg font-semibold leading-tight text-text-primary">No hay trabajos en esta vista.</p>
             <button
               type="button"
               onClick={() => setView('all')}
-              className="mt-4 text-sm font-medium text-[#C94035] hover:underline"
+              className="mt-4 text-sm font-medium text-accent-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2"
             >
               Ver todo
             </button>
@@ -240,7 +243,7 @@ export default function Work() {
           <div className="grid gap-5">
             {showProjects && projects.length > 0 && (
               <section className="grid gap-3" aria-labelledby="work-projects-heading">
-                <h2 id="work-projects-heading" className="text-sm font-semibold text-[#211C18]">
+                <h2 id="work-projects-heading" className="font-display text-lg font-semibold leading-tight text-text-primary">
                   Proyectos
                 </h2>
                 <div className="grid gap-3 xl:grid-cols-2">
@@ -259,7 +262,7 @@ export default function Work() {
 
             {showEvents && standaloneEvents.length > 0 && (
               <section className="grid gap-3" aria-labelledby="work-events-heading">
-                <h2 id="work-events-heading" className="text-sm font-semibold text-[#211C18]">
+                <h2 id="work-events-heading" className="font-display text-lg font-semibold leading-tight text-text-primary">
                   Eventos sin proyecto
                 </h2>
                 <div className="grid gap-2 xl:grid-cols-2">

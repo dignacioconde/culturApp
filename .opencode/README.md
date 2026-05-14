@@ -1,7 +1,7 @@
 # Agentes OpenCode para CulturaApp
 
 Esta carpeta define agentes especializados para ejecutar CulturaApp con OpenCode.
-Todos usan `opencode/minimax-m2.5-free` como modelo por defecto.
+El frontmatter conserva `opencode/minimax-m2.5-free` como modelo OpenCode por defecto; el piloto de routing de modelos se describe más abajo.
 
 ## Sistema de memoria
 
@@ -13,7 +13,7 @@ Regla base: lee indices primero, carga detalle solo cuando sea relevante, no car
 
 `.memory/MEMORY.md` es un indice de memoria versionada. Leelo para decidir que memoria selectiva cargar por dominio; no cargues toda `.memory/` por defecto.
 
-**`cultura-docs` es el unico agente que escribe en memoria.** El lead lo activa cuando se detecta algo que merece persistirse: preferencias del usuario, correcciones, decisiones no obvias o recursos externos.
+**En OpenCode, `cultura-docs` es el unico agente que escribe en memoria.** El lead lo activa cuando otros agentes detectan algo que merece persistirse: preferencias del usuario, correcciones, decisiones no obvias o recursos externos. En trabajo local single-agent, el agente principal puede actualizar `.memory/` siguiendo `memory-protocol`.
 
 No guardes en memoria: convenciones de codigo, rutas de archivos, historial git o estado efimero de la tarea. Eso vive en `AGENTS.md`, el codigo y `AGENT_STATE.md`.
 
@@ -66,7 +66,7 @@ Este comando envuelve la peticion en un contrato operativo con objetivo, autonom
 
 Cuando el usuario pida ejecutar agentes, no hagas una revision manual previa del codigo salvo que sea imprescindible para construir el comando, definir ownership seguro o resolver un bloqueo real. Los agentes deben usar `AGENTS.md` como contrato corto, seguir `docs/agent-context-policy.md`, leer `.opencode/AGENT_STATE.md` como estado vivo y revisar el codigo necesario. El detalle adicional se carga bajo demanda; backlog, releases, historico, issues cerradas y Product Brain completo no se cargan por defecto.
 
-Cuando se descubra un problema nuevo, el flujo por defecto es: issue Product Brain `CACH-*` -> rama de tarea desde `main` actualizado -> agentes con contexto de la issue -> fix verificado -> commit -> push -> PR a `main` -> merge -> verificacion de produccion si aplica -> borrado de rama de trabajo -> cierre de la issue Product Brain con resumen/commit/verificaciones. GitHub Issues quedan como soporte operativo solo si el usuario las pide o una integracion externa las requiere. Toda issue resuelta debe quedar enlazada permanentemente al trabajo que la resuelve:
+Cuando se descubra un problema nuevo, el flujo por defecto fuera de una release activa es: issue Product Brain `CACH-*` -> rama de tarea desde `main` actualizado -> agentes con contexto de la issue -> fix verificado -> commit -> push -> PR a `main` -> merge -> verificacion de produccion si aplica -> borrado de rama de trabajo -> cierre de la issue Product Brain con resumen/commit/verificaciones. Si la tarea pertenece a una beta/release activa, la rama de tarea sale de `release/<version>` y se integra por squash en esa release antes de la PR final `release/<version>` -> `main`. GitHub Issues quedan como soporte operativo solo si el usuario las pide o una integracion externa las requiere. Toda issue resuelta debe quedar enlazada permanentemente al trabajo que la resuelve:
 - **Si hay PR abierta**: enlazar la issue en la descripcion de la PR con `Closes #N`, `Fixes #N` o equivalente; la issue permanece ABIERTA hasta merge y se cierra solo cuando la PR se mergee a `main`.
 - **Si no hay PR**: enlazarla desde el commit o comentario de cierre y cerrarla solo tras commit pusheado + comentario con resumen/commit/verificacion + memoria/docs declarada.
 

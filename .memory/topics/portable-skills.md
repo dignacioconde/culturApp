@@ -50,8 +50,8 @@
 
 ## 2026-05-06 - memory-orient: Briefing De Memoria Por Contexto De Tarea
 
-- Context: No existía una forma rápida de obtener solo la memoria relevante para una tarea concreta sin leer los 17 archivos completos. Análogo a `brain-orient` pero para `.memory/`.
-- Durable memory: `/memory-orient` lee `MEMORY.md` + `core.md`, identifica área de la tarea por keywords, y carga solo los archivos `.memory/` relevantes según tabla de routing (formularios → `topics/forms.md`, calendario → `projects/calendar.md`, etc.). Output: briefing < 20 líneas. Es read-only (no escribe memoria). Usar en paralelo con `brain-orient` al inicio de sesiones de planificación grandes.
+- Context: No existía una forma rápida de obtener solo la memoria relevante para una tarea concreta sin leer todos los archivos completos. Análogo a `product-brain-orient`, pero para `.memory/`.
+- Durable memory: `/memory-orient` lee `MEMORY.md` + `core.md`, identifica área de la tarea por keywords, y carga solo los archivos `.memory/` relevantes según tabla de routing (formularios → `topics/forms.md`, calendario → `projects/calendar.md`, etc.). Output: briefing < 20 líneas. Es read-only (no escribe memoria). Usar en paralelo con `product-brain-orient` al inicio de sesiones de planificación grandes.
 - Source: `.agents/skills/memory-orient/SKILL.md`; análisis 2026-05-06.
 
 ## 2026-05-03 - Memory Is Local Markdown And Lower Priority Than Canonical Docs

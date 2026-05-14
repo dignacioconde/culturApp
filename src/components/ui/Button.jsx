@@ -1,8 +1,8 @@
 const variants = {
-  primary: 'bg-[var(--color-red)] text-white shadow-sm hover:bg-[var(--color-red-hover)] active:bg-[var(--color-primary-800)] disabled:bg-[var(--color-primary-400)]',
-  secondary: 'border border-[var(--color-paper-mid)] bg-[var(--color-paper)] text-[var(--color-ink)] shadow-sm hover:bg-[var(--color-paper-dark)] hover:text-[var(--color-ink)] active:bg-[var(--color-paper-mid)] disabled:bg-[var(--color-paper-dark)] disabled:text-[var(--color-ink-muted)]',
-  danger: 'bg-[var(--color-red)] text-white shadow-sm hover:bg-[var(--color-red-hover)] active:bg-[var(--color-primary-800)] disabled:bg-[var(--color-primary-400)]',
-  ghost: 'text-[var(--color-ink-muted)] hover:bg-[var(--color-paper-dark)] hover:text-[var(--color-ink)] active:bg-[var(--color-paper-mid)] disabled:text-[var(--color-ink-muted)]',
+  primary: 'bg-accent-primary text-primary-foreground shadow-sm hover:bg-accent-primary-hover active:bg-accent-primary-hover disabled:bg-accent-primary/50',
+  secondary: 'border border-border-subtle bg-surface-card text-text-primary shadow-sm hover:bg-surface-page-dark hover:text-text-primary active:bg-border-subtle disabled:bg-surface-page-dark disabled:text-text-secondary',
+  danger: 'bg-danger text-destructive-foreground shadow-sm hover:bg-accent-primary-hover active:bg-accent-primary-hover disabled:bg-danger/50',
+  ghost: 'text-text-secondary hover:bg-surface-page-dark hover:text-text-primary active:bg-border-subtle disabled:text-text-secondary',
 }
 
 const sizes = {
@@ -18,7 +18,7 @@ export function Button({ children, variant = 'primary', size = 'md', className =
   return (
     <button
       type={type}
-      className={`inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-lg font-medium leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:shadow-none ${variantClass} ${sizeClass} ${className}`}
+      className={`inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-full font-medium leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:shadow-none ${variantClass} ${sizeClass} ${className}`}
       {...props}
     >
       {children}

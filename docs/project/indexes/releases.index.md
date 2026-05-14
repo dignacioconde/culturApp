@@ -5,7 +5,7 @@ id: PB-RELEASES-INDEX
 title: Releases Index
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-13
+updated: 2026-05-14
 aliases:
   - Releases Index
 tags:
@@ -32,6 +32,7 @@ generated: true
 - [[../releases/RELEASE-0.1.0-beta.20|RELEASE-0.1.0-beta.20]] — Hardening UX móvil financiera
 - [[../releases/RELEASE-0.1.0-beta.21|RELEASE-0.1.0-beta.21]] — Primera sesion guiada y PWA instalable
 - [[../releases/RELEASE-0.1.0-beta.22|RELEASE-0.1.0-beta.22]] — Historial de novedades beta
+- [[../releases/RELEASE-0.1.0-beta.23|RELEASE-0.1.0-beta.23]] — Tokens Lovable y visual total
 - [[../releases/RELEASE-0.1.0-beta.3|RELEASE-0.1.0-beta.3]] — Rediseño financiero del Dashboard
 - [[../releases/RELEASE-0.1.0-beta.4|RELEASE-0.1.0-beta.4]] — Planificacion anual de proyectos
 - [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] — Flujo profesional de ramas beta

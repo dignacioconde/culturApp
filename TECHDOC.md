@@ -68,14 +68,20 @@ Documento técnico de referencia del estado real del proyecto. Para Codex, la fu
 
 | Hook | Líneas | Responsabilidad |
 |------|--------|-----------------|
-| `useAuth.js` | 40 | Sesión, signIn, signUp, signOut, listener onAuthStateChange |
+| `useAuth.js` | 58 | Sesión, signIn, signUp, signOut, listener onAuthStateChange |
 | `useProjects.js` | 57 | CRUD proyectos + refetch callback |
 | `useEvents.js` | 63 | CRUD eventos, filtro opcional por projectId + refetch |
-| `useIncomes.js` | 66 | CRUD ingresos, filtros por projectId, eventId y eventIds |
+| `useIncomes.js` | 81 | CRUD ingresos, filtros por projectId, eventId y eventIds |
 | `useExpenses.js` | 66 | CRUD gastos, filtros por projectId, eventId y eventIds |
-| `useProfile.js` | 44 | Perfil profesional: lectura y actualización de `profiles` |
+| `useProfile.js` | 97 | Perfil profesional: lectura y actualización de `profiles` |
+| `useContractors.js` | 151 | CRUD contratantes y fallback si falta schema |
+| `useBetaInvites.js` | 177 | Invitaciones beta vía RPC/Edge Function |
+| `useFeedback.js` | 50 | Envío de feedback autenticado con consentimiento |
+| `useDataPortability.js` | 267 | Exportación/importación CSV con claves locales |
+| `useScrollLock.jsx` | 40 | Bloqueo coordinado de scroll en modales |
+| `useStandaloneMode.js` | 21 | Detección de modo standalone/PWA |
 
-Todos los hooks exponen `loading`, `error`, métodos CRUD y `refetch`. Los datos se devuelven con nombres específicos: `projects`, `events`, `incomes` o `expenses`.
+Los hooks CRUD core exponen `loading`, `error`, métodos de mutación y `refetch`; los hooks auxiliares exponen contratos específicos de su flujo.
 
 ### Páginas (`src/pages/`)
 
@@ -101,7 +107,7 @@ Todos los hooks exponen `loading`, `error`, métodos CRUD y `refetch`. Los datos
 | Archivo | Función |
 |---------|---------|
 | `constants.js` | PROJECT_STATUSES, EVENT_STATUSES, PROJECT_CATEGORIES, EVENT_CATEGORIES, EXPENSE_CATEGORIES, STATUS_COLORS, DEFAULT_PROJECT_COLORS |
-| `formatters.js` | `formatCurrency` (EUR, es-ES), `formatCurrencyPerHour`, `formatHours`, `formatDate`, `formatDateRange`, `formatDatetime`, `toDatetimeLocal` |
+| `formatters.js` | `parseDecimal`, `formatCurrency` (EUR, es-ES), `formatCurrencyPerHour`, `formatHours`, `formatDate`, `formatDateRange`, `formatDatetime`, `formatDatetimeCompact`, `formatTime`, `toDatetimeLocal` |
 
 ---
 
@@ -109,12 +115,12 @@ Todos los hooks exponen `loading`, `error`, métodos CRUD y `refetch`. Los datos
 
 | Métrica | Valor |
 |---------|-------|
-| Líneas totales de código fuente | ~4.420 |
-| Componentes React | 24 |
-| Hooks personalizados | 6 |
-| Vistas/Páginas | 12 |
-| Tablas en base de datos | 5 |
-| Rutas definidas | 12 |
+| Líneas totales de código fuente | ~12.200 |
+| Componentes React | 26 |
+| Hooks personalizados | 12 |
+| Vistas/Páginas | 19 |
+| Tablas en base de datos | 10 versionadas: 5 core de producto + auxiliares beta/admin/feedback |
+| Rutas definidas | 18 |
 | Skills portables | 19 |
 
 ---
@@ -128,10 +134,10 @@ Todos los hooks exponen `loading`, `error`, métodos CRUD y `refetch`. Los datos
 - CRUD completo de eventos (crear, leer, editar, eliminar)
 - CRUD completo de ingresos (añadir, editar, marcar como cobrado con `paid_date`)
 - CRUD completo de gastos (añadir, editar, marcar como deducible)
-- Dashboard con 5 KPIs + filtro por período + criterio de agrupación
-- Métrica de cobro bruto/hora: ingresos cobrados asociados a eventos, antes de IRPF, divididos entre horas de eventos con `end_datetime`
-- Lista de cobros pendientes (próximos 30 días)
-- Lista de proyectos activos
+- Dashboard actual con `Caja del mes` y `Trabajos`, centrado en ingresos/cobros previstos, cobrados, pendientes y vencidos
+- Métrica de cobro bruto/hora en detalles de evento/proyecto: ingresos cobrados asociados a eventos, antes de IRPF, divididos entre horas de eventos con `end_datetime`
+- Lista de próximos cobros y vencidos según el mes seleccionado
+- Lista de trabajos con cobros pendientes o próximos
 - Calendario de eventos con fecha/hora exacta, navegación controlada y creación desde huecos
 - Calendario de eventos con horario útil desde las 08:00, formato 24h y semana/día con scroll horizontal en móvil
 - Calendario de proyectos con rangos de fecha, navegación controlada y creación desde selección de días
@@ -144,7 +150,11 @@ Todos los hooks exponen `loading`, `error`, métodos CRUD y `refetch`. Los datos
 - ProjectDetail agrega ingresos/gastos del proyecto y de sus eventos en KPIs
 - ProjectDetail mantiene tablas editables solo para ingresos/gastos directos del proyecto
 - Búsqueda y filtros en listas de proyectos y eventos
+- Contratantes estructurados con fallback legacy de `client`
 - Gestión de perfil (nombre, profesión, tipo IRPF por defecto)
+- Panel admin de invitaciones beta con RPCs y envío por Edge Function/Brevo
+- Feedback autenticado con consentimiento
+- Portabilidad de datos CSV en `/data`
 - Sistema de notificaciones toast (éxito/error)
 - RLS habilitado en todas las tablas
 - Skills portables para Codex y Claude Code en `.agents/skills` con symlinks desde `.claude/skills`
@@ -275,7 +285,7 @@ La vista semana de `/calendar/events` quedó aceptada con scroll horizontal tras
 ### No implementado (fuera del alcance del MVP)
 
 - Paginación o virtualización de listas
-- Exportación de datos (CSV, PDF)
+- Exportación PDF avanzada
 - Notificaciones por email (cobros próximos, vencimientos)
 - Adjuntos en proyectos
 - Gastos recurrentes
@@ -290,13 +300,13 @@ La vista semana de `/calendar/events` quedó aceptada con scroll horizontal tras
 
 ### 1. Supabase (hacer antes de deploy)
 
-- [x] Ejecutar el SQL de creación de tablas (`profiles`, `projects`, `events`, `incomes`, `expenses`)
-- [x] Ejecutar políticas RLS en las 5 tablas
+- [x] Ejecutar el SQL de creación de tablas core y las migraciones versionadas (`profiles`, `projects`, `events`, `incomes`, `expenses`, `contractors`, beta invites, feedback)
+- [x] Ejecutar políticas RLS en todas las tablas versionadas
 - [x] Ejecutar el trigger `on_auth_user_created` para crear perfiles automáticamente
 - [x] Verificar que el trigger funciona registrando un usuario de prueba
 - [x] Probar CRUD de proyecto, evento, ingreso y gasto con ese usuario
 
-El SQL completo está en `AGENTS.md` → sección "SQL de inicialización de Supabase".
+El SQL base está en `README.md` y los cambios incrementales viven en `supabase/migrations/`.
 
 ### 2. Variables de entorno en Vercel
 
@@ -305,6 +315,7 @@ Añadir en el panel de Vercel → Settings → Environment Variables:
 ```
 VITE_SUPABASE_URL=<tu_url>
 VITE_SUPABASE_ANON_KEY=<tu_anon_key>
+VITE_APP_URL=https://app.caches.es
 ```
 
 ### 3. Build y deploy
@@ -318,8 +329,9 @@ VITE_SUPABASE_ANON_KEY=<tu_anon_key>
 
 ## Notas del deploy
 
-- **URL de producción**: https://culturapp-rho.vercel.app
-- **Variables configuradas en Vercel**: `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`
+- **URL de producción**: https://app.caches.es
+- **Alias temporal heredado**: https://culturapp-rho.vercel.app
+- **Variables configuradas en Vercel**: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` y `VITE_APP_URL`
 - **Build automático**: integración GitHub de Vercel (deploy en cada push a `main`)
 
 ---

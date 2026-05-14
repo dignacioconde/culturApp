@@ -40,8 +40,8 @@ export function ToastContainer({ toasts, onRemove }) {
         <div
           key={toast.id}
           role="status"
-          className={`flex w-full items-start gap-3 rounded-lg px-4 py-3 text-sm font-medium text-white shadow-lg ring-1 ring-black/10 transition-all
-            ${toast.type === 'error' ? 'bg-red-600' : 'bg-emerald-600'}`}
+          className={`flex w-full items-start gap-3 rounded-lg px-4 py-3 text-sm font-medium text-surface-page shadow-lg ring-1 ring-black/10 transition-all
+            ${toast.type === 'error' ? 'bg-danger' : 'bg-success'}`}
         >
           {toast.type === 'error' ? <XCircle size={18} className="mt-0.5 shrink-0" /> : <CheckCircle size={18} className="mt-0.5 shrink-0" />}
           <div className="min-w-0 flex-1">
@@ -55,7 +55,7 @@ export function ToastContainer({ toasts, onRemove }) {
                       toast.onAction?.()
                       onRemove(toast.id)
                     }}
-                    className="rounded-md bg-white/15 px-2.5 py-1 text-xs font-semibold text-white transition-colors hover:bg-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+                    className="rounded-md bg-surface-page/15 px-2.5 py-1 text-xs font-semibold text-surface-page transition-colors hover:bg-surface-page/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-surface-page/80"
                   >
                     {toast.actionLabel}
                   </button>
@@ -64,7 +64,7 @@ export function ToastContainer({ toasts, onRemove }) {
                   <button
                     type="button"
                     onClick={() => onRemove(toast.id)}
-                    className={`rounded-md bg-white px-2.5 py-1 text-xs font-semibold transition-colors hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 ${toast.type === 'error' ? 'text-red-700' : 'text-emerald-700'}`}
+                    className={`rounded-md bg-surface-page px-2.5 py-1 text-xs font-semibold transition-colors hover:bg-surface-page/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-surface-page/80 ${toast.type === 'error' ? 'text-danger' : 'text-success'}`}
                   >
                     {toast.dismissLabel}
                   </button>
@@ -77,7 +77,7 @@ export function ToastContainer({ toasts, onRemove }) {
               type="button"
               onClick={() => onRemove(toast.id)}
               aria-label="Cerrar aviso"
-              className="-mr-1 inline-flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-md text-white/75 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+              className="-mr-1 inline-flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-md text-surface-page/75 transition-colors hover:bg-surface-page/10 hover:text-surface-page focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-surface-page/80"
             >
               <X size={14} />
             </button>

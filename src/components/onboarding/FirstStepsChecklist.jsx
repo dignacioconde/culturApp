@@ -66,12 +66,12 @@ export function FirstStepsChecklist({ profile, projects, events, incomes, onNavi
   const ToggleIcon = expanded ? ChevronUp : ChevronDown
 
   return (
-    <Card className="p-3 sm:p-4">
+    <Card className="p-3 sm:p-4" data-testid="first-steps-checklist">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
-          <p className="text-xs font-medium uppercase tracking-[0.02em] text-[var(--color-red)]">Primeros pasos</p>
-          <h2 className="mt-1 text-sm font-semibold leading-snug text-[var(--color-ink)] sm:text-base">Deja Cachés listo para tu primer trabajo</h2>
-          <p className="mt-1 text-xs text-[var(--color-ink-muted)] sm:text-sm">
+          <p className="text-xs font-medium uppercase tracking-[0.02em] text-accent-primary">Primeros pasos</p>
+          <h2 className="mt-1 font-display text-sm font-semibold leading-snug text-text-primary sm:text-base">Deja Cachés listo para tu primer trabajo</h2>
+          <p className="mt-1 text-xs text-text-secondary sm:text-sm">
             {completed} de {steps.length} pasos listos. Puedes seguir a tu ritmo.
           </p>
         </div>
@@ -85,16 +85,16 @@ export function FirstStepsChecklist({ profile, projects, events, incomes, onNavi
         <button
           type="button"
           onClick={() => onNavigate(suggestedStep.path)}
-          className="flex min-h-12 min-w-0 items-center gap-2 rounded-lg border border-[var(--color-paper-mid)] bg-[#FDFBF6] px-3 py-2 text-left transition-colors hover:bg-[var(--color-paper)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2"
+          className="flex min-h-12 min-w-0 items-center gap-2 rounded-2xl border border-border-subtle bg-surface-muted px-3 py-2 text-left transition-colors hover:bg-surface-page focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2"
         >
-          <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ${suggestedStep.done ? 'bg-[#E8F4EF] text-[#2D6A4F]' : 'bg-[var(--color-paper)] text-[var(--color-ink-muted)]'}`}>
+          <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full ${suggestedStep.done ? 'bg-success-soft text-success' : 'bg-surface-page text-text-secondary'}`}>
             <SuggestedIcon size={15} />
           </span>
           <span className="min-w-0 flex-1">
-            <span className="block text-[0.6875rem] font-medium uppercase leading-none tracking-[0.02em] text-[var(--color-ink-muted)]">Siguiente</span>
-            <span className="mt-1 block truncate text-sm font-medium leading-tight text-[var(--color-ink)]">{suggestedStep.label}</span>
+            <span className="block text-[0.6875rem] font-medium uppercase leading-none tracking-[0.02em] text-text-secondary">Siguiente</span>
+            <span className="mt-1 block truncate text-sm font-medium leading-tight text-text-primary">{suggestedStep.label}</span>
           </span>
-          <ArrowRight size={15} className="shrink-0 text-[var(--color-ink-muted)]" />
+          <ArrowRight size={15} className="shrink-0 text-text-secondary" />
         </button>
         <button
           type="button"
@@ -102,7 +102,7 @@ export function FirstStepsChecklist({ profile, projects, events, incomes, onNavi
           aria-expanded={expanded}
           aria-controls="first-steps-list"
           aria-label={expanded ? 'Ocultar primeros pasos' : 'Mostrar primeros pasos'}
-          className="inline-flex min-h-12 items-center justify-center rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-paper)] text-[var(--color-ink-muted)] shadow-sm transition-colors hover:bg-[var(--color-paper-dark)] hover:text-[var(--color-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2"
+          className="inline-flex min-h-12 items-center justify-center rounded-full border border-border-subtle bg-surface-card text-text-secondary shadow-sm transition-colors hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2"
         >
           <ToggleIcon size={18} />
         </button>
@@ -117,17 +117,17 @@ export function FirstStepsChecklist({ profile, projects, events, incomes, onNavi
               key={step.label}
               type="button"
               onClick={() => onNavigate(step.path)}
-              className="flex min-h-12 min-w-0 items-start gap-2 rounded-lg border border-[var(--color-paper-mid)] bg-[#FDFBF6] p-2.5 text-left transition-colors hover:bg-[var(--color-paper)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2 sm:min-h-24 sm:gap-3 sm:p-3"
+              className="flex min-h-12 min-w-0 items-start gap-2 rounded-2xl border border-border-subtle bg-surface-muted p-2.5 text-left transition-colors hover:bg-surface-page focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 sm:min-h-24 sm:gap-3 sm:p-3"
             >
-              <span className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg sm:h-8 sm:w-8 ${step.done ? 'bg-[#E8F4EF] text-[#2D6A4F]' : 'bg-[var(--color-paper)] text-[var(--color-ink-muted)]'}`}>
+              <span className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full sm:h-8 sm:w-8 ${step.done ? 'bg-success-soft text-success' : 'bg-surface-page text-text-secondary'}`}>
                 <Icon size={17} />
               </span>
               <span className="min-w-0 flex-1">
                 <span className="flex items-start gap-2">
-                  <StatusIcon size={15} className={`mt-0.5 shrink-0 ${step.done ? 'text-[#2D6A4F]' : 'text-[var(--color-ink-muted)]'}`} />
-                  <span className="text-sm font-medium leading-snug text-[var(--color-ink)]">{step.label}</span>
+                  <StatusIcon size={15} className={`mt-0.5 shrink-0 ${step.done ? 'text-success' : 'text-text-secondary'}`} />
+                  <span className="text-sm font-medium leading-snug text-text-primary">{step.label}</span>
                 </span>
-                <span className="mt-1 hidden text-xs leading-5 text-[var(--color-ink-muted)] sm:block">{step.description}</span>
+                <span className="mt-1 hidden text-xs leading-5 text-text-secondary sm:block">{step.description}</span>
               </span>
             </button>
           )

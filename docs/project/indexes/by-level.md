@@ -5,7 +5,7 @@ id: PB-BY-LEVEL
 title: Issues por nivel
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-13
+updated: 2026-05-14
 aliases:
   - Issues por nivel
 tags:
@@ -61,6 +61,15 @@ generated: true
 - [[../issues/CACH-B0017|CACH-B0017]] — Panel admin para invitaciones beta · done · p1 · slice
 - [[../issues/CACH-B0019|CACH-B0019]] — Emails transaccionales beta con Brevo · done · p1 · slice
 - [[../issues/CACH-0033|CACH-0033]] — Vista anual en calendario de proyectos · done · p2 · slice
+- [[../issues/CACH-0077|CACH-0077]] — Aplicar tokens Lovable al shell y navegacion · done · p2 · slice
+- [[../issues/CACH-0078|CACH-0078]] — Pulir Trabajos y listas con visual Lovable acotada · done · p2 · slice
+- [[../issues/CACH-0079|CACH-0079]] — Pulir Dashboard financiero con visual Lovable acotada · done · p2 · slice
+- [[../issues/CACH-0081|CACH-0081]] — Unificar visual Lovable tras comparacion real · done · p2 · slice
+- [[../issues/CACH-0083|CACH-0083]] — Crear primitivas UI para visual total Lovable · done · p2 · slice
+- [[../issues/CACH-0084|CACH-0084]] — Unificar detalles y formularios de proyectos y eventos · done · p2 · slice
+- [[../issues/CACH-0085|CACH-0085]] — Unificar calendarios con visual Lovable sin cambiar comportamiento · done · p2 · slice
+- [[../issues/CACH-0086|CACH-0086]] — Unificar pantallas secundarias operativas · done · p2 · slice
+- [[../issues/CACH-0087|CACH-0087]] — Unificar admin gates y layout global · done · p2 · slice
 
 ## task
 
@@ -85,4 +94,8 @@ generated: true
 - [[../issues/CACH-B0015|CACH-B0015]] — Operativizar backlog releases y ramas en Product Brain · done · p1 · task
 - [[../issues/CACH-B0016|CACH-B0016]] — Refundacion operativa del Product Brain y tests B0014 · done · p1 · task
 - [[../issues/CACH-0048|CACH-0048]] — [Context] Compactar workflow OpenCode · done · p2 · task
+- [[../issues/CACH-0076|CACH-0076]] — Alinear tokens de diseno con export Lovable · done · p2 · task
+- [[../issues/CACH-0080|CACH-0080]] — Inventariar gaps funcionales Lovable fuera de beta 23 · done · p2 · task
+- [[../issues/CACH-0082|CACH-0082]] — Auditar visual total Lovable y matriz QA · done · p2 · task
+- [[../issues/CACH-0088|CACH-0088]] — QA final de beta 23 visual total · done · p2 · task
 - [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura · done · p2 · task

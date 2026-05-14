@@ -5,7 +5,7 @@ id: PB-DIGEST
 title: Product Brain Digest
 lifecycle: active
 created: 2026-05-05
-updated: 2026-05-13
+updated: 2026-05-14
 aliases:
   - Digest
   - Brain Digest
@@ -23,7 +23,7 @@ Resumen determinista generado desde Product Brain v2.
 
 ## Estado operacional
 
-- **Release activa:** No hay release activa en este momento.
+- **Release activa:** RELEASE-0.1.0-beta.23 — Tokens Lovable y visual total
 - **Últimos cortes:** `RELEASE-0.1.0-beta.10` — emails transaccionales beta con Brevo. Ver RELEASE-0.1.0-beta.10.
 
 `RELEASE-0.1.0-beta.12` — pulido proyecto-evento y borrados seguros. Ver RELEASE-0.1.0-beta.12.
@@ -47,7 +47,7 @@ Resumen determinista generado desde Product Brain v2.
 `RELEASE-0.1.0-beta.21` — primera sesion guiada y PWA instalable. Ver RELEASE-0.1.0-beta.21.
 
 `RELEASE-0.1.0-beta.22` — historial de novedades beta. Ver RELEASE-0.1.0-beta.22.
-- **Foco:** Beta 20 queda cerrada. El foco vuelve a evaluar el siguiente corte del ciclo `0.1` sin absorber tareas nuevas por defecto: o bien abrir una nueva beta para `CACH-B0004`, o mantener un corte pequeño de hardening si el feedback privado lo pide.
+- **Foco:** Beta 23 está activa en la rama `release/0.1.0-beta.23` como corte de sistema visual total: tokens Lovable, primitivas UI, pantallas core, detalles, calendarios, secundarias, admin/layout y QA final sin absorber funcionalidades Lovable nuevas.
 
 ## Prioridades del plan
 
@@ -120,4 +120,4 @@ _Sin entradas._
 
 ## Próxima acción
 
-Decidir si el próximo corte es `CACH-B0004` liquidación neta gasto-ingreso o un hardening pequeño derivado del feedback beta.
+Cerrar `RELEASE-0.1.0-beta.23`: PR `release/0.1.0-beta.23` -> `main`, CI verde, merge, tag `v0.1.0-beta.23` y verificacion de produccion si aplica.

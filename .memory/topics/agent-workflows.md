@@ -38,6 +38,7 @@ Agent execution:
 - Do not use subagents for trivial changes.
 - Model routing pilot: keep GPT-5.5 as lead/orchestrator/verifier for ambiguous, sensitive, multi-area, data/RLS, finance, security, release and final review work. Use GPT-5.3-Codex-Spark only as a fast worker for small, local, low-risk tasks with explicit ownership and objective verification; escalate to GPT-5.5 after failed verification, sensitive scope, more than 1 retry or overly broad diffs.
 - Parallel agents need isolated write ownership or explicit coordination through `.opencode/AGENT_STATE.md`.
+- For parallel release slices, freeze Product Brain issue IDs, titles, ownership and out-of-scope rules before launching code workers. If a docs worker runs concurrently, the lead must reconcile Product Brain against the accepted plan and the actual implementation before marking issues done; docs workers must not invent adjacent scope.
 - `.opencode/AGENT_STATE.md` is a live scratchboard; keep active signals and events empty after completed tasks.
 - Permanent history lives in GitHub issues, PRs and commits, not in `.opencode/AGENT_STATE.md` or `.memory/`.
 
@@ -57,8 +58,10 @@ Planning and implementation:
 Verification and closure:
 - Verification agents should verify from task, diff, acceptance criteria and relevant rules.
 - Visual/responsive tasks need route, viewport/condition, symptom or capture, and visual acceptance criteria.
+- When unifying UI from an external design export, compare target CSS/components/screenshots against the app before closing; token aliases alone do not prove the visual language is unified.
 - For `react-big-calendar`, verify toolbar, header and month rows/cells are visible.
 - Before closing any task, pass the learning loop: identify whether the work produced durable learning, update memory/docs/process when it did, or explicitly declare `Memoria: no aplica`.
+- In OpenCode, non-docs agents detect durable memory and route it to `@cultura-docs`; in local single-agent work, the lead agent may update `.memory/` directly following `memory-protocol`.
 - Do not close a tracked issue just because a local fix exists.
 - Resolved issues must stay linked to the PR or pushed commit that resolves them.
 - If there is an open PR, keep the issue open and use `Closes #N`, `Fixes #N` or equivalent in the PR body.
@@ -85,6 +88,14 @@ Agent supervision:
 - If no visible feedback appears, inspect the OpenCode run output/log before assuming failure.
 - `run-agent.mjs` and `run-parallel-agents.mjs` have timeouts; timeout output is diagnostic, not durable memory.
 - `.opencode/runs/current.json` is operational state for live runs; do not treat it as project history.
+
+## 2026-05-14 - Source Alignment Reviews Need Semantic Agents
+
+- Context: a source-alignment pass found that automated context checks can be green while semantic drift remains between AGENTS, Product Brain workflow, OpenCode prompts, skills, memory, README and TECHDOC.
+- Durable memory: when asked to review whether project sources are aligned, use a read-only multi-agent split by domain: context/agents, Product Brain workflow, technical facts, and skills/memory. Keep each agent question narrow and ask for file/line evidence plus minimal fixes.
+- Durable memory: review recurring drift seams explicitly: `main` vs `release/<version>` branching, `pb:check` vs `pb:guard`/ready/close checks, legacy skill names such as `brain-orient`, broad memory loading, dashboard finance contract, TECHDOC hook/table inventory, and README/SQL/bootstrap pointers.
+- Durable memory: integrate only minimal corrections into canonical sources first, then mirror supporting memory/skills/prompts. Verify with `npm run context:check`, `npm run pb:guard` when Product Brain is touched, `npm run verify:skills` when skills/prompts change, and `git diff --check`.
+- Durable memory: do not save full agent reports, command logs, branch state or chronological session summaries in `.memory/`; store reusable guardrails and the final source-of-truth alignment.
 
 ## Historical Notes
 

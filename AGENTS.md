@@ -25,7 +25,7 @@ Problema: necesitan visibilidad clara de proyectos, eventos, agenda, ingresos pr
 Modelo funcional:
 - Proyecto: agrupador con rango de fechas; aparece en calendario de proyectos.
 - Evento: ocurrencia con fecha y hora exactas; puede existir sin proyecto; aparece en calendario de eventos.
-- Ingresos y gastos: pueden vincularse a proyecto o evento. Dashboard y detalles agregan ambos niveles cuando corresponde.
+- Ingresos y gastos: pueden vincularse a proyecto o evento. Los detalles agregan ambos niveles cuando corresponde; el dashboard actual se centra en cobros/ingresos y trabajos.
 
 Stack principal: React 19, Vite 8, Tailwind v4, React Router 7, React Big Calendar, Day.js, Supabase JS y Vercel.
 
@@ -57,8 +57,9 @@ Datos y seguridad:
 
 Finanzas:
 - `incomes` y `expenses` se vinculan a proyecto o evento.
-- Dashboard agrega ingresos/gastos de eventos y proyectos directos.
-- Cobro bruto/hora usa solo ingresos cobrados con `event_id`, antes de IRPF, dividido entre horas de eventos con `end_datetime`.
+- Los detalles de proyecto agregan ingresos/gastos de eventos y registros directos del proyecto.
+- El dashboard actual muestra `Caja del mes` y `Trabajos`, centrado en ingresos/cobros previstos, cobrados, pendientes y vencidos; no usa gastos ni neto como KPIs principales.
+- Cobro bruto/hora, cuando aparezca en detalles o métricas específicas, usa solo ingresos cobrados con `event_id`, antes de IRPF, dividido entre horas de eventos con `end_datetime`.
 - No mezclar ingresos directos de proyecto en el numerador de €/h.
 
 Frontend y UX:
@@ -90,7 +91,7 @@ PR, release y verificación:
 - La PR debe incluir sección `Memoria`.
 - Si el cambio debe verse en producción, preview no basta: merge a `main`, verificar alias de producción y limpiar rama.
 - Si toca código de app: ejecutar `npm run lint` y `npm run build` cuando aplique.
-- Si toca `docs/project/`: ejecutar `npm run pb:check`.
+- Si toca `docs/project/` o `scripts/brain/`: ejecutar `npm run pb:guard`; `pb:check` sirve como validación rápida acotada.
 
 ## Agentes y Routing
 
@@ -116,7 +117,8 @@ npm run agents:plan -- "tarea"
 npm run agents:run -- "tarea"
 npm run agents:verify -- "contexto"
 npm run pb:check
-npm run verify:pr -- --base origin/main
+npm run verify:pr -- --base origin/main      # PR final a main
+npm run verify:pr -- --base origin/release/x # slice dentro de release
 npm run pb:guard
 ```
 

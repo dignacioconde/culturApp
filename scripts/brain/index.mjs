@@ -251,8 +251,8 @@ function writeBacklog(issues) {
 
 function writeSourceTouchpoints() {
   const rows = [
-    ['src/pages/Work.jsx, src/pages/ProjectDetail.jsx, src/pages/EventDetail.jsx', 'frontend', 'work, projects, events', '[[../context/ui-direction-v3-20260504]], [[../decisions/ADR-0001-project-event-finance-model]]', 'lint, build, responsive smoke'],
-    ['src/pages/Dashboard.jsx, src/hooks/useFinancialSummary.js', 'frontend/data', 'dashboard, finance', '[[../decisions/ADR-0006-gross-cache-per-hour]], [[../context/data-finance-model-20260504]]', 'lint, build, finance regression'],
+    ['src/pages/Work/Work.jsx, src/pages/Projects/ProjectDetail.jsx, src/pages/Events/EventDetail.jsx, src/pages/Projects/ProjectList.jsx, src/pages/Events/EventList.jsx', 'frontend', 'work, projects, events', '[[../context/ui-direction-v3-20260504]], [[../decisions/ADR-0001-project-event-finance-model]]', 'lint, build, responsive smoke'],
+    ['src/pages/Dashboard/**, src/lib/dashboardFinance.js', 'frontend/data', 'dashboard, finance', '[[../decisions/ADR-0006-gross-cache-per-hour]], [[../context/data-finance-model-20260504]]', 'lint, build, finance regression'],
     ['src/pages/Calendar*.jsx, src/components/*Calendar*', 'frontend', 'calendar, events, projects', '[[../knowledge/PB-ZK-20260504-rbc-height]], [[../context/ux-mobile-guardrails-20260504]]', 'desktop/mobile visual check'],
     ['src/hooks/**, supabase/migrations/**', 'data/security', 'supabase, finance, auth-onboarding', '[[../process/supabase-db-access]], [[../decisions/ADR-0004-profile-data-source-and-hooks]]', 'lint, build, test:db when relevant'],
     ['.opencode/**, .agents/skills/**, docs/agent-context-policy.md', 'brain', 'agents, product-brain', '[[../process/WORKFLOW]], [[../indexes/issues-open.index]]', 'verify:agents, verify:skills, context:check'],

@@ -19,11 +19,11 @@ release_current: true
 
 ## Release activa
 
-No hay release activa en este momento.
+`RELEASE-0.1.0-beta.23` — tokens Lovable y visual total. Ver [[RELEASE-0.1.0-beta.23]].
 
 ## Rama activa
 
-No aplica. Las siguientes tareas pequeñas salen de `main` salvo que se abra una nueva release.
+`release/0.1.0-beta.23`
 
 ## Últimos cortes
 
@@ -53,16 +53,28 @@ No aplica. Las siguientes tareas pequeñas salen de `main` salvo que se abra una
 
 ## Scope actual
 
-Sin scope activo. Beta 22 queda cerrada como corte ligero de confianza beta: historial de novedades user friendly y guardrail para no lanzar features sin release asignada.
+Beta 23 es un corte de sistema visual para alinear Cachés con el export Lovable `artistic-rhythm`: tokens base ya integrados y visual total por pantallas, sin importar su stack completo ni abrir funcionalidades nuevas.
 
 Issues incluidas:
 
-- No aplica hasta abrir nueva release.
+- [[../issues/CACH-0076|CACH-0076]] — Alinear tokens de diseno con export Lovable.
+- [[../issues/CACH-0077|CACH-0077]] — Aplicar tokens Lovable al shell y navegacion.
+- [[../issues/CACH-0078|CACH-0078]] — Pulir Trabajos y listas con visual Lovable acotada.
+- [[../issues/CACH-0079|CACH-0079]] — Pulir Dashboard financiero con visual Lovable acotada.
+- [[../issues/CACH-0080|CACH-0080]] — Inventariar gaps funcionales Lovable fuera de beta 23.
+- [[../issues/CACH-0081|CACH-0081]] — Unificar visual Lovable tras comparacion real.
+- [[../issues/CACH-0082|CACH-0082]] — Auditar visual total Lovable y matriz QA.
+- [[../issues/CACH-0083|CACH-0083]] — Crear primitivas UI para visual total Lovable.
+- [[../issues/CACH-0084|CACH-0084]] — Unificar detalles y formularios de proyectos y eventos.
+- [[../issues/CACH-0085|CACH-0085]] — Unificar calendarios con visual Lovable sin cambiar comportamiento.
+- [[../issues/CACH-0086|CACH-0086]] — Unificar pantallas secundarias operativas.
+- [[../issues/CACH-0087|CACH-0087]] — Unificar admin gates y layout global.
+- [[../issues/CACH-0088|CACH-0088]] — QA final de beta 23 visual total.
 
 ## Regla de trabajo para esta release
 
-No hay release activa. Las tareas fuera de release usan el flujo ligero desde `main`; si se abre una nueva beta, documentar primero release, scope, rama y criterios.
+Solo entra trabajo de tokens y visual total para `CACH-0076` a `CACH-0088`. Quedan fuera: import shadcn/Radix/TanStack, Supabase/RLS/data, formulas financieras, calendario custom, dark mode, command palette, FAB/sheets, origin-aware back nav, busqueda/tab de ano en Work, settings fiscal/preferencias nuevas, notificaciones y soporte/privacidad/about.
 
 ## Como cerrar esta release
 
-Beta 22 queda cerrada mediante PR #109, CI verde, tag `v0.1.0-beta.22` y smoke postdeploy basico. No hay release activa hasta abrir el siguiente corte.
+Abrir PR `release/0.1.0-beta.23` -> `main`, validar `lint`, `test`, `build`, `pb:guard`, `release:status`, `release:sync-check`, `verify:pr`, checks visuales de la matriz total y `git diff --check`. Si se mergea, crear tag `v0.1.0-beta.23` desde `main` y actualizar esta nota a "No hay release activa".

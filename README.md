@@ -40,10 +40,9 @@ Herramienta de gestión económica y de proyectos para trabajadores del sector c
 ### Dashboard financiero
 
 **Como trabajador cultural independiente,**
-- quiero ver un resumen de mis ingresos previstos y cobrados de este mes para saber cómo va el mes.
-- quiero ver mis gastos del mes y el beneficio neto estimado (cobrado menos gastos) para tener una foto rápida de mi situación económica.
-- quiero ver mi cobro bruto por hora antes de IRPF para entender cuánto estoy cobrando realmente por las horas de eventos ya cobrados.
-- quiero ver qué proyectos tengo activos ahora mismo sin tener que ir a la lista completa.
+- quiero ver la caja del mes: ingresos previstos, cobrados, pendientes y vencidos.
+- quiero ver qué trabajos tienen cobros próximos o pendientes sin entrar en cada detalle.
+- quiero separar la foto rápida de cobros del análisis de gastos, neto y cobro por hora, que se consulta en los detalles de proyecto o evento.
 
 ### Perfil y configuración
 
@@ -87,7 +86,7 @@ Ve a [supabase.com](https://supabase.com), crea un nuevo proyecto y anota la **U
 
 ### 2. Crear las tablas
 
-En el **editor SQL** de Supabase ejecuta el esquema actual. Si vienes de una versión anterior, borra antes las tablas existentes como indica `AGENTS.md`.
+En el **editor SQL** de Supabase ejecuta el esquema actual de este README y las migraciones versionadas de `supabase/migrations/`. Si vienes de una versión anterior, revisa esas migraciones antes de borrar o recrear tablas.
 
 ```sql
 create schema if not exists extensions;

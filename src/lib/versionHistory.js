@@ -128,7 +128,7 @@ export const VERSION_TONE_LABELS = {
 }
 
 export const VERSION_TONE_STYLES = {
-  new: 'bg-[var(--color-red-light)] text-[var(--color-red)]',
-  improved: 'bg-[var(--color-green-light)] text-[var(--color-green)]',
-  fixed: 'bg-[var(--color-info-100)] text-[var(--color-info-500)]',
+  new: 'bg-accent-soft text-accent-primary',
+  improved: 'bg-success-soft text-success',
+  fixed: 'bg-surface-muted text-text-cool',
 }
