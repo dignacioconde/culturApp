@@ -78,6 +78,7 @@ Los calendarios actuales están separados, pero no explican bien cuándo usar Ag
 
 - 2026-05-14: Beta 24 reabre la iniciativa como calendario claro y sincronización suscribible, manteniendo la separación decidida en `CACH-0056`.
 - 2026-05-14: Implementación local de Beta 24 completada: Agenda con lista visible, Plan anual móvil por mes, feed privado `.ics/webcal` de eventos y UI por Apple/Google/Outlook. Supabase remoto queda pendiente de aplicación/despliegue.
+- 2026-05-14: Beta 24 cerrada con feed remoto validado, revocación corregida y gestión de enlaces activos simplificada.
 
 ## Cambios de alcance y decisiones
 

@@ -14,17 +14,17 @@ tags:
   - beta
   - calendar
 generated: false
-release_phase: active
-release_current: true
+release_phase: released
+release_current: false
 release_branch: release/0.1.0-beta.24
 release_tag: v0.1.0-beta.24
-release_pr: null
+release_pr: https://github.com/dignacioconde/culturApp/pull/111
 ---
 # RELEASE-0.1.0-beta.24 — Calendario claro y sincronización suscribible
 
 ## Estado
 
-Active.
+Released.
 
 ## Rama de release
 
@@ -63,9 +63,9 @@ Hacer que Agenda y Plan anual sean más comprensibles y útiles en móvil, y per
 | [[../issues/CACH-0089|CACH-0089]] | Preparar Beta 24 de calendario | done | `release/0.1.0-beta.24` |
 | [[../issues/CACH-0090|CACH-0090]] | Clarificar Agenda y Plan anual | done | `release/0.1.0-beta.24` |
 | [[../issues/CACH-0091|CACH-0091]] | Rehacer visibilidad móvil de calendarios | done | `release/0.1.0-beta.24` |
-| [[../issues/CACH-0092|CACH-0092]] | Feed suscribible privado de eventos | done local; pendiente remoto | `release/0.1.0-beta.24` |
+| [[../issues/CACH-0092|CACH-0092]] | Feed suscribible privado de eventos | done | `release/0.1.0-beta.24` |
 | [[../issues/CACH-0093|CACH-0093]] | UI de sincronización por proveedor | done | `release/0.1.0-beta.24` |
-| [[../issues/CACH-0094|CACH-0094]] | QA y cierre de Beta 24 calendario | done local; pendiente PR/deploy | `release/0.1.0-beta.24` |
+| [[../issues/CACH-0094|CACH-0094]] | QA y cierre de Beta 24 calendario | done | `release/0.1.0-beta.24` |
 
 ## Fuera de alcance
 
@@ -101,8 +101,8 @@ Hacer que Agenda y Plan anual sean más comprensibles y útiles en móvil, y per
 ## Checklist de desarrollo
 
 - [x] Todas las issues estan en progreso o cerradas
-- [ ] Commits integrados en rama release
-- [ ] No hay cambios sueltos fuera de release
+- [x] Commits integrados en rama release
+- [x] No hay cambios sueltos fuera de release
 - [x] No hay issues sin `issue_workflow`
 - [x] No hay decisiones importantes sin documentar
 
@@ -119,18 +119,18 @@ Hacer que Agenda y Plan anual sean más comprensibles y útiles en móvil, y per
 
 ## Checklist de salida
 
-- [ ] PR `release/0.1.0-beta.24` -> `main` abierta
-- [ ] CI en verde
-- [ ] PR mergeada en `main`
-- [ ] Tag `v0.1.0-beta.24` creado desde `main`
-- [ ] Produccion verificada si aplica
-- [ ] Rama remota `release/0.1.0-beta.24` eliminada si aplica
-- [ ] Release notes actualizadas
-- [ ] Issues marcadas como `done`
-- [ ] Estado actual actualizado
-- [ ] Current Release actualizado
-- [ ] Backlog actualizado
-- [ ] Proximos pasos documentados
+- [x] PR `release/0.1.0-beta.24` -> `main` abierta
+- [x] CI en verde
+- [x] PR mergeada en `main`
+- [x] Tag `v0.1.0-beta.24` creado desde `main`
+- [x] Produccion verificada si aplica
+- [x] Rama remota `release/0.1.0-beta.24` eliminada si aplica
+- [x] Release notes actualizadas
+- [x] Issues marcadas como `done`
+- [x] Estado actual actualizado
+- [x] Current Release actualizado
+- [x] Backlog actualizado
+- [x] Proximos pasos documentados
 
 ## Release notes
 
@@ -138,14 +138,17 @@ Hacer que Agenda y Plan anual sean más comprensibles y útiles en móvil, y per
 
 - Enlaces privados suscribibles para llevar eventos de Cachés a calendarios externos compatibles.
 - Panel de sincronización por proveedor en Agenda.
+- Nueva entrada en Novedades para explicar el calendario suscribible.
 
 ### Cambiado
 
 - Agenda y Plan anual explican mejor sus usos y mejoran la lectura móvil.
+- La gestión de enlaces muestra solo enlaces activos; al desactivar uno desaparece de la lista y queda revocado en base de datos.
 
 ### Corregido
 
 - Se elimina el selector móvil poco útil como superficie principal y el detalle seleccionado deja de tapar el calendario.
+- La RPC de revocación cualifica `revoked_at` para evitar ambigüedad SQL.
 
 ### Eliminado
 
@@ -154,7 +157,8 @@ Hacer que Agenda y Plan anual sean más comprensibles y útiles en móvil, y per
 ### Tecnico
 
 - Nueva tabla `calendar_feeds`, RPCs seguras y Edge Function pública protegida por token privado.
+- `calendar-feed` calcula hash SHA-256 del token y la RPC pública recibe solo el hash.
 
 ## Resultado final
 
-Implementación local completada y validada. Pendiente antes de publicar: commit/PR, aplicar migración `20260514120000_calendar_feeds.sql` y desplegar `calendar-feed` en Supabase remoto sin JWT.
+Release publicada mediante PR #111 a `main` y tag `v0.1.0-beta.24`. Migraciones y Edge Function validadas con feed remoto `text/calendar`, revocación y regeneración de enlaces.

@@ -18,11 +18,11 @@ generated: false
 
 ## Foco actual
 
-Beta 24 está activa en la rama `release/0.1.0-beta.24` como corte solo de calendario: claridad entre Agenda y Plan anual, visibilidad móvil y sincronización suscribible de eventos con calendarios externos.
+No hay release activa. Beta 24 queda cerrada como corte de calendario claro y sincronización suscribible.
 
 ## Release activa
 
-[[../releases/RELEASE-0.1.0-beta.24|RELEASE-0.1.0-beta.24]] — calendario claro y sincronización suscribible.
+No hay release activa.
 
 Últimos cortes:
 
@@ -50,7 +50,7 @@ Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboa
 - Beta 21 cierra primera sesion guiada y PWA instalable.
 - Beta 22 cierra historial de novedades beta.
 - Beta 23 queda enfocada en unificacion visual total con `CACH-0076` a `CACH-0088`, sin cambios funcionales.
-- Beta 24 queda enfocada solo en calendario: Agenda/Plan más claros, móvil más escaneable y feed privado `.ics/webcal` de eventos.
+- Beta 24 cierra el corte de calendario: Agenda/Plan más claros, móvil más escaneable y feed privado `.ics/webcal` de eventos.
 
 ## Prioridades
 
@@ -70,8 +70,8 @@ Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboa
 
 ## Próximo checkpoint
 
-Cerrar `RELEASE-0.1.0-beta.24`: validar migración/Edge Function, calendario responsive, PR `release/0.1.0-beta.24` -> `main`, CI verde, merge, tag `v0.1.0-beta.24` y verificación de producción si aplica.
+Definir el siguiente corte beta según feedback real de calendario y prioridades pendientes del ciclo `0.1`.
 
 ## Siguiente release candidata
 
-Tras beta 24, reevaluar si el siguiente corte vuelve a `CACH-B0004` o si el feedback beta pide un hardening pequeño.
+Reevaluar si el siguiente corte vuelve a `CACH-B0004` o si el feedback beta pide un hardening pequeño.

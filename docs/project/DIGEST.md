@@ -23,7 +23,7 @@ Resumen determinista generado desde Product Brain v2.
 
 ## Estado operacional
 
-- **Release activa:** RELEASE-0.1.0-beta.24 — Calendario claro y sincronizacion suscribible
+- **Release activa:** No hay release activa.
 - **Últimos cortes:** `RELEASE-0.1.0-beta.10` — emails transaccionales beta con Brevo. Ver RELEASE-0.1.0-beta.10.
 
 `RELEASE-0.1.0-beta.12` — pulido proyecto-evento y borrados seguros. Ver RELEASE-0.1.0-beta.12.
@@ -49,7 +49,9 @@ Resumen determinista generado desde Product Brain v2.
 `RELEASE-0.1.0-beta.22` — historial de novedades beta. Ver RELEASE-0.1.0-beta.22.
 
 `RELEASE-0.1.0-beta.23` — tokens Lovable y visual total. Ver RELEASE-0.1.0-beta.23.
-- **Foco:** Beta 24 está activa en la rama `release/0.1.0-beta.24` como corte solo de calendario: claridad entre Agenda y Plan anual, visibilidad móvil y sincronización suscribible de eventos con calendarios externos.
+
+`RELEASE-0.1.0-beta.24` — calendario claro y sincronización suscribible. Ver RELEASE-0.1.0-beta.24.
+- **Foco:** No hay release activa. Beta 24 queda cerrada como corte de calendario claro y sincronización suscribible.
 
 ## Prioridades del plan
 
@@ -122,4 +124,4 @@ _Sin entradas._
 
 ## Próxima acción
 
-Cerrar `RELEASE-0.1.0-beta.24`: validar migración/Edge Function, calendario responsive, PR `release/0.1.0-beta.24` -> `main`, CI verde, merge, tag `v0.1.0-beta.24` y verificación de producción si aplica.
+Definir el siguiente corte beta según feedback real de calendario y prioridades pendientes del ciclo `0.1`.
