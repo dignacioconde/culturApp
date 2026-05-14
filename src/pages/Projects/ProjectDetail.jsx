@@ -27,16 +27,16 @@ import { isPaid, markPaid, markUnpaid, needsQuickPaidConfirmation, paymentDate }
 import { EXPENSE_CATEGORIES } from '../../lib/constants'
 
 const EMPTY_EXPENSE = { concept: '', amount: '', category: 'otros', expense_date: '', is_deductible: true }
-const compactPrimaryAction = 'inline-flex min-h-9 items-center justify-center gap-2 rounded-lg bg-[var(--color-red)] px-3 py-1.5 text-sm font-medium leading-none text-white shadow-sm transition-colors hover:bg-[var(--color-red-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2'
-const compactSecondaryAction = 'inline-flex min-h-9 items-center justify-center gap-2 rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-paper)] px-3 py-1.5 text-sm font-medium leading-none text-[var(--color-ink)] shadow-sm transition-colors hover:bg-[var(--color-paper-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2'
-const compactDangerActionDesktop = 'hidden sm:inline-flex min-h-9 items-center justify-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium leading-none text-[var(--color-red)] transition-colors hover:bg-[var(--color-red-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2'
+const compactPrimaryAction = 'inline-flex min-h-9 items-center justify-center gap-2 rounded-lg bg-accent-primary px-3 py-1.5 text-sm font-medium leading-none text-surface-page shadow-sm transition-colors hover:bg-accent-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2'
+const compactSecondaryAction = 'inline-flex min-h-9 items-center justify-center gap-2 rounded-lg border border-border-subtle bg-surface-page px-3 py-1.5 text-sm font-medium leading-none text-text-primary shadow-sm transition-colors hover:bg-surface-page-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2'
+const compactDangerActionDesktop = 'hidden sm:inline-flex min-h-9 items-center justify-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium leading-none text-danger transition-colors hover:bg-danger-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2'
 const incomeConceptLabel = (income) => income.concept?.trim() || 'Ingreso sin concepto'
 const incomeDueClass = (income) => {
-  if (!income.expected_date) return 'text-gray-400'
+  if (!income.expected_date) return 'text-text-secondary'
   const daysLeft = getDueDays(income.expected_date)
-  if (daysLeft < 0) return 'font-medium text-red-600'
-  if (daysLeft <= 7) return 'text-red-500'
-  return 'text-gray-400'
+  if (daysLeft < 0) return 'font-medium text-danger'
+  if (daysLeft <= 7) return 'text-warning'
+  return 'text-text-secondary'
 }
 
 const getEventHours = (event) => {
@@ -95,7 +95,7 @@ export default function ProjectDetail() {
   if (projectsLoading) {
     return (
       <PageWrapper title="Proyecto">
-        <p className="text-sm text-gray-400">Cargando proyecto...</p>
+        <p className="text-sm text-text-secondary">Cargando proyecto...</p>
       </PageWrapper>
     )
   }
@@ -105,8 +105,8 @@ export default function ProjectDetail() {
       <PageWrapper title="Proyecto">
         <div className="max-w-xl">
           <Card className="p-6">
-            <p className="text-sm font-medium text-gray-900">{projectsError ? 'No hemos podido cargar el proyecto.' : 'Proyecto no encontrado.'}</p>
-            <p className="text-sm text-gray-500 mt-1">Vuelve al listado para revisar tus proyectos disponibles.</p>
+            <p className="text-sm font-medium text-text-primary">{projectsError ? 'No hemos podido cargar el proyecto.' : 'Proyecto no encontrado.'}</p>
+            <p className="text-sm text-text-secondary mt-1">Vuelve al listado para revisar tus proyectos disponibles.</p>
             <Link to="/projects" className="inline-flex mt-4">
               <Button variant="secondary" size="sm">
                 <ArrowLeft size={14} /> Volver a proyectos
@@ -407,29 +407,29 @@ export default function ProjectDetail() {
   return (
     <PageWrapper title={project.name}>
       <div className="flex max-w-4xl flex-col gap-4 pb-[calc(5.75rem+env(safe-area-inset-bottom))] sm:gap-5 sm:pb-5">
-        <nav className="flex items-center gap-1.5 text-xs text-[var(--color-ink-muted)] breadcrumbs">
-          <Link to="/work" className="hover:text-[var(--color-ink)]">Trabajos</Link>
+        <nav className="flex items-center gap-1.5 text-xs text-text-secondary breadcrumbs">
+          <Link to="/work" className="hover:text-text-primary">Trabajos</Link>
           <span>/</span>
-          <Link to="/work?view=projects" className="hover:text-[var(--color-ink)]">Proyectos</Link>
+          <Link to="/work?view=projects" className="hover:text-text-primary">Proyectos</Link>
           <span>/</span>
-          <span className="text-[var(--color-ink)]">{project.name}</span>
+          <span className="text-text-primary">{project.name}</span>
         </nav>
-        <div className="rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-surface)] p-4 shadow-sm sm:p-5">
+        <div className="rounded-lg border border-border-subtle bg-surface-card p-4 shadow-sm sm:p-5">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
             <div className="flex items-start gap-3 sm:items-start">
-              <Link to="/work?view=projects" className="mt-1 shrink-0 text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]" aria-label="Volver a proyectos en trabajos">
+              <Link to="/work?view=projects" className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-text-secondary transition-colors hover:bg-surface-muted hover:text-text-primary" aria-label="Volver a proyectos en trabajos">
                 <ArrowLeft size={20} />
               </Link>
               <div className="min-w-0">
                 <div className="flex min-w-0 flex-wrap items-center gap-2">
                   <div className="h-3 w-3 shrink-0 rounded-full" style={{ backgroundColor: project.color ?? '#4f98a3' }} />
-                  <h2 className="min-w-0 truncate text-lg font-semibold text-[var(--color-ink)]">{project.name}</h2>
+                  <h2 className="min-w-0 truncate font-display text-xl font-semibold leading-7 text-text-primary">{project.name}</h2>
                   <QuietStatusBadge status={project.status} />
                 </div>
                 {projectContractor && (
-                  <p className="mt-1 text-sm text-[var(--color-ink-muted)]">{projectContractor.name}</p>
+                  <p className="mt-1 text-sm text-text-secondary">{projectContractor.name}</p>
                 )}
-                <p className="mt-1 text-xs text-[var(--color-ink-muted)]">
+                <p className="mt-1 text-xs text-text-secondary">
                   {project.category} · {formatDate(project.start_date)}{project.end_date && ` – ${formatDate(project.end_date)}`}
                 </p>
               </div>
@@ -454,19 +454,19 @@ export default function ProjectDetail() {
           </div>
         </div>
 
-        <Card className="bg-[var(--color-surface-alt)] p-4 sm:p-5">
+        <Card className="bg-surface-muted p-4 sm:p-5">
           <button
             type="button"
             onClick={() => setFinancialSummaryExpanded((prev) => !prev)}
             className="w-full flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4"
           >
             <div className="flex flex-col items-start text-left">
-              <h3 className="text-sm font-semibold text-[var(--color-ink)]">Resumen financiero</h3>
-              <p className="text-xs text-[var(--color-ink-muted)] mt-1">Incluye ingresos y gastos directos del proyecto y sus eventos.</p>
+              <h3 className="text-sm font-semibold text-text-primary">Resumen financiero</h3>
+              <p className="text-xs text-text-secondary mt-1">Incluye ingresos y gastos directos del proyecto y sus eventos.</p>
             </div>
             <div className="flex items-center justify-between w-full sm:w-auto sm:justify-end gap-3">
-              <p className="text-xs text-[var(--color-ink-muted)]">Cobrado: {formatCurrency(totalPaid)} · Pendiente: {formatCurrency(pendingAmount)}</p>
-              <ChevronDown size={16} className={`shrink-0 text-[var(--color-ink-muted)] transition-transform ${financialSummaryExpanded ? 'rotate-180' : ''}`} />
+              <p className="text-xs text-text-secondary">Cobrado: {formatCurrency(totalPaid)} · Pendiente: {formatCurrency(pendingAmount)}</p>
+              <ChevronDown size={16} className={`shrink-0 text-text-secondary transition-transform ${financialSummaryExpanded ? 'rotate-180' : ''}`} />
             </div>
           </button>
           <div className="grid grid-cols-3 gap-2 sm:gap-3">
@@ -475,12 +475,12 @@ export default function ProjectDetail() {
               { label: 'Pendiente', mobileLabel: 'Pend.', value: formatCurrency(pendingAmount) },
               { label: 'Beneficio neto', mobileLabel: 'Neto', value: formatCurrency(netProfit), highlight: true },
             ].map(({ label, mobileLabel, value, highlight }) => (
-              <div key={label} className={`rounded-lg border p-2.5 sm:p-4 ${highlight ? 'border-[var(--color-primary-200)] bg-[var(--color-red-light)]' : 'border-[var(--color-paper-mid)] bg-[var(--color-surface)]'}`}>
-                <p className="text-[11px] leading-tight text-[var(--color-ink-muted)] sm:text-xs">
+              <div key={label} className={`rounded-lg border p-2.5 sm:p-4 ${highlight ? 'border-danger-soft bg-danger-soft' : 'border-border-subtle bg-surface-card'}`}>
+                <p className="text-[11px] leading-tight text-text-secondary sm:text-xs">
                   <span className="sm:hidden">{mobileLabel}</span>
                   <span className="hidden sm:inline">{label}</span>
                 </p>
-                <p className={`mt-1 text-sm font-semibold leading-tight break-words sm:text-lg ${highlight ? 'text-[var(--color-primary-600)]' : 'text-[var(--color-ink)]'}`}>{value}</p>
+                <p className={`mt-1 font-data text-sm font-semibold leading-tight break-words sm:text-lg ${highlight ? 'text-accent-primary-hover' : 'text-text-primary'}`}>{value}</p>
               </div>
             ))}
           </div>
@@ -491,17 +491,17 @@ export default function ProjectDetail() {
             { label: 'Gastos registrados', value: formatCurrency(totalExpenses) },
             { label: 'Cobro bruto/hora', value: projectHours > 0 ? formatCurrencyPerHour(grossHourlyRate) : '—', detail: projectHours > 0 ? `Solo eventos cobrados · ${formatHours(projectHours)} h` : 'Sin eventos cobrados' },
           ].map(({ label, value, detail }) => (
-            <div key={label} className="rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-surface)] p-4">
-              <p className="text-xs text-[var(--color-ink-muted)]">{label}</p>
-              <p className="mt-1 text-base font-semibold text-[var(--color-ink)]">{value}</p>
-              {detail && <p className="mt-1 text-xs text-[var(--color-ink-muted)]">{detail}</p>}
+            <div key={label} className="rounded-lg border border-border-subtle bg-surface-card p-4">
+              <p className="text-xs text-text-secondary">{label}</p>
+              <p className="mt-1 font-data text-base font-semibold text-text-primary">{value}</p>
+              {detail && <p className="mt-1 text-xs text-text-secondary">{detail}</p>}
             </div>
           ))}
           </div>
           <button
             type="button"
             onClick={() => setFinancialSummaryExpanded((prev) => !prev)}
-            className="mt-3 text-xs font-medium text-[var(--color-primary-500)] hover:text-[var(--color-primary-600)]"
+            className="mt-3 inline-flex min-h-10 items-center rounded-full px-1 text-xs font-medium text-accent-primary hover:text-accent-primary-hover"
           >
             {financialSummaryExpanded ? 'Ocultar detalle financiero' : 'Ver detalle financiero'}
           </button>
@@ -511,10 +511,10 @@ export default function ProjectDetail() {
         <Card className="p-4 sm:p-5">
           <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-2">
-              <CalendarDays size={16} className="text-[var(--color-primary-500)]" />
+              <CalendarDays size={16} className="text-accent-primary" />
               <div>
-                <h3 className="text-sm font-semibold text-gray-900">Eventos asociados</h3>
-                <p className="text-xs text-gray-500 mt-1">Ocurrencias concretas dentro de este proyecto.</p>
+                <h3 className="text-sm font-semibold text-text-primary">Eventos asociados</h3>
+                <p className="text-xs text-text-secondary mt-1">Ocurrencias concretas dentro de este proyecto.</p>
               </div>
             </div>
             <Link to={createEventUrl} className={compactPrimaryAction}>
@@ -522,9 +522,9 @@ export default function ProjectDetail() {
             </Link>
           </div>
           {eventsLoading ? (
-            <p className="text-sm text-gray-400">Cargando eventos...</p>
+            <p className="text-sm text-text-secondary">Cargando eventos...</p>
           ) : events.length === 0 ? (
-            <div className="rounded-lg border border-dashed border-gray-200 p-4 text-sm text-gray-500">
+            <div className="rounded-lg border border-dashed border-border-subtle p-4 text-sm text-text-secondary">
               <p>No hay eventos asociados a este proyecto todavía.</p>
               <Link to={createEventUrl} className={`${compactPrimaryAction} mt-3`}>
                 <Plus size={14} /> Crear evento
@@ -539,13 +539,13 @@ export default function ProjectDetail() {
                 <Link
                   key={event.id}
                   to={`/events/${event.id}`}
-                  className="-mx-2 flex min-w-0 items-center justify-between gap-3 rounded-lg border-b border-gray-100 px-2 py-2 transition-colors last:border-0 hover:bg-gray-50"
+                  className="-mx-2 flex min-w-0 items-center justify-between gap-3 rounded-lg border-b border-border-subtle px-2 py-2 transition-colors last:border-0 hover:bg-surface-muted"
                 >
                   <div className="flex min-w-0 items-center gap-2">
                     <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: event.color ?? '#4f98a3' }} />
                     <div className="min-w-0">
-                      <p className="truncate text-sm font-medium text-gray-900">{event.name}</p>
-                      <p className="text-xs text-gray-400">
+                      <p className="truncate text-sm font-medium text-text-primary">{event.name}</p>
+                      <p className="text-xs text-text-secondary">
                         {formatDatetime(event.start_datetime)}
                         {eventContractor ? ` · ${eventContractor.name}` : ''}
                       </p>
@@ -564,21 +564,21 @@ export default function ProjectDetail() {
         <Card className="p-4 sm:p-5">
           <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h3 className="text-sm font-semibold text-gray-900">Ingresos del proyecto</h3>
-              <p className="text-xs text-gray-400 mt-0.5">No atribuibles a un evento concreto</p>
+              <h3 className="text-sm font-semibold text-text-primary">Ingresos del proyecto</h3>
+              <p className="text-xs text-text-secondary mt-0.5">No atribuibles a un evento concreto</p>
             </div>
           </div>
           {incomesLoading ? (
-            <p className="text-sm text-gray-400">Cargando ingresos...</p>
+            <p className="text-sm text-text-secondary">Cargando ingresos...</p>
           ) : directIncomes.length === 0 ? (
-            <div className="rounded-lg border border-dashed border-gray-200 p-4 text-sm text-gray-500">
+            <div className="rounded-lg border border-dashed border-border-subtle p-4 text-sm text-text-secondary">
               <p>No hay ingresos directos del proyecto registrados.</p>
             </div>
 ) : (
             <div className="md:relative md:overflow-x-auto">
               <table className="hidden md:table w-full min-w-[680px] text-sm">
                 <thead>
-                  <tr className="text-xs text-gray-400 border-b border-gray-100">
+                  <tr className="text-xs text-text-secondary border-b border-border-subtle">
                     <th className="text-left pb-2 font-medium">Concepto</th>
                     <th className="text-right pb-2 font-medium">Importe</th>
                     <th className="text-right pb-2 font-medium">IRPF</th>
@@ -591,21 +591,21 @@ export default function ProjectDetail() {
                   {directIncomes.map((income) => {
                     const isSaving = savingIncomeId === income.id
                     return (
-                      <tr key={income.id} className="border-b border-gray-50 last:border-0 group">
+                      <tr key={income.id} className="border-b border-border-subtle/70 last:border-0 group">
                         <td className="py-2">
-                          <button onClick={() => openEditIncome(income)} className="text-gray-900 hover:text-[var(--color-primary-500)] hover:underline text-left transition-colors">
+                          <button onClick={() => openEditIncome(income)} className="text-text-primary hover:text-accent-primary hover:underline text-left transition-colors">
                             {incomeConceptLabel(income)}
                           </button>
                         </td>
-                        <td className="py-2 text-right font-medium">{formatCurrency(income.amount)}</td>
-                        <td className="py-2 text-right text-gray-500">{income.tax_rate}%</td>
+                        <td className="py-2 text-right font-data font-medium">{formatCurrency(income.amount)}</td>
+                        <td className="py-2 text-right text-text-secondary">{income.tax_rate}%</td>
                         <td className="py-2 text-right">
                           {isPaid(income) ? (
-                            <p className="font-medium text-[#2D6A4F]">Cobrado</p>
+                            <p className="font-medium text-success">Cobrado</p>
                           ) : (
                             <>
                               <p className={incomeDueClass(income)}>{formatDueText(income.expected_date)}</p>
-                              {income.expected_date && <p className="text-xs text-gray-400">{formatDate(income.expected_date)}</p>}
+                              {income.expected_date && <p className="text-xs text-text-secondary">{formatDate(income.expected_date)}</p>}
                             </>
                           )}
                         </td>
@@ -615,11 +615,11 @@ export default function ProjectDetail() {
                             onClick={() => handleTogglePaid(income)}
                             disabled={Boolean(savingIncomeId)}
                             aria-label={`${isPaid(income) ? 'Marcar como pendiente' : 'Marcar como cobrado'} ${incomeConceptLabel(income)}`}
-                            className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 transition-colors hover:bg-[#F4FBF7] hover:text-green-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2D6A4F] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:text-gray-300 disabled:hover:bg-transparent"
+                            className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-text-secondary transition-colors hover:bg-success-soft hover:text-success focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:text-text-secondary/60 disabled:hover:bg-transparent"
                           >
                             {isSaving
-                              ? <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#2D6A4F] border-t-transparent" />
-                              : isPaid(income) ? <CheckCircle size={16} className="text-green-500" /> : <Circle size={16} />}
+                              ? <span className="h-4 w-4 animate-spin rounded-full border-2 border-success border-t-transparent" />
+                              : isPaid(income) ? <CheckCircle size={16} className="text-success" /> : <Circle size={16} />}
                           </button>
                         </td>
                         <td className="py-2 text-right">
@@ -627,7 +627,7 @@ export default function ProjectDetail() {
                             type="button"
                             onClick={() => requestDeleteIncome(income)}
                             aria-label={`Eliminar ${incomeConceptLabel(income)}`}
-                            className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-gray-300 opacity-0 transition-colors hover:text-red-500 focus:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2 group-hover:opacity-100"
+                            className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-text-secondary/60 opacity-0 transition-colors hover:text-danger focus:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 group-hover:opacity-100"
                           >
                             <Trash2 size={14} />
                           </button>
@@ -642,27 +642,27 @@ export default function ProjectDetail() {
                 {directIncomes.map((income) => {
                   const isSaving = savingIncomeId === income.id
                   return (
-                    <div key={income.id} className="flex items-center justify-between gap-2 border-b border-[var(--color-paper-mid)] py-2 last:border-0">
+                    <div key={income.id} className="flex items-center justify-between gap-2 border-b border-border-subtle py-2 last:border-0">
                       <button
                         type="button"
                         onClick={() => openEditIncome(income)}
                         className="min-w-0 flex-1 text-left"
                       >
-                        <span className="block truncate text-sm font-medium text-[var(--color-ink)]">{incomeConceptLabel(income)}</span>
-                        <span className={`mt-0.5 block text-xs ${isPaid(income) ? 'text-[var(--color-green)]' : incomeDueClass(income)}`}>
+                        <span className="block truncate text-sm font-medium text-text-primary">{incomeConceptLabel(income)}</span>
+                        <span className={`mt-0.5 block text-xs ${isPaid(income) ? 'text-success' : incomeDueClass(income)}`}>
                           {isPaid(income) ? 'Cobrado' : formatDueDescription(income.expected_date)}
                         </span>
                       </button>
-                      <span className="shrink-0 text-sm font-semibold text-[var(--color-ink)]">{formatCurrency(income.amount)}</span>
+                      <span className="shrink-0 font-data text-sm font-semibold text-text-primary">{formatCurrency(income.amount)}</span>
                       <button
                         type="button"
                         onClick={() => handleTogglePaid(income)}
                         disabled={Boolean(savingIncomeId)}
                         aria-label={`${isPaid(income) ? 'Marcar como pendiente' : 'Marcar como cobrado'} ${incomeConceptLabel(income)}`}
-                        className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-[var(--color-green)] transition-colors hover:bg-[var(--color-green-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-green)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:text-[var(--color-ink-muted)] disabled:hover:bg-transparent"
+                        className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-success transition-colors hover:bg-success-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:text-text-secondary disabled:hover:bg-transparent"
                       >
                         {isSaving
-                          ? <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#2D6A4F] border-t-transparent" />
+                          ? <span className="h-4 w-4 animate-spin rounded-full border-2 border-success border-t-transparent" />
                           : isPaid(income) ? <CheckCircle size={18} /> : <Circle size={18} />}
                       </button>
                     </div>
@@ -677,21 +677,21 @@ export default function ProjectDetail() {
         <Card className="p-4 sm:p-5">
           <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h3 className="text-sm font-semibold text-gray-900">Gastos del proyecto</h3>
-              <p className="text-xs text-gray-400 mt-0.5">No atribuibles a un evento concreto</p>
+              <h3 className="text-sm font-semibold text-text-primary">Gastos del proyecto</h3>
+              <p className="text-xs text-text-secondary mt-0.5">No atribuibles a un evento concreto</p>
             </div>
           </div>
           {expensesLoading ? (
-            <p className="text-sm text-gray-400">Cargando gastos...</p>
+            <p className="text-sm text-text-secondary">Cargando gastos...</p>
           ) : directExpenses.length === 0 ? (
-            <div className="rounded-lg border border-dashed border-gray-200 p-4 text-sm text-gray-500">
+            <div className="rounded-lg border border-dashed border-border-subtle p-4 text-sm text-text-secondary">
               <p>No hay gastos directos del proyecto registrados.</p>
             </div>
 ) : (
             <div className="md:relative md:overflow-x-auto">
               <table className="hidden md:table w-full min-w-[640px] text-sm">
                 <thead>
-                  <tr className="text-xs text-gray-400 border-b border-gray-100">
+                  <tr className="text-xs text-text-secondary border-b border-border-subtle">
                     <th className="text-left pb-2 font-medium">Concepto</th>
                     <th className="text-right pb-2 font-medium">Importe</th>
                     <th className="text-right pb-2 font-medium">Categoría</th>
@@ -702,26 +702,26 @@ export default function ProjectDetail() {
                 </thead>
                 <tbody>
                   {directExpenses.map((expense) => (
-                    <tr key={expense.id} className="border-b border-gray-50 last:border-0 group">
+                    <tr key={expense.id} className="border-b border-border-subtle/70 last:border-0 group">
                       <td className="py-2">
-                        <button onClick={() => openEditExpense(expense)} className="text-gray-900 hover:text-[var(--color-primary-500)] hover:underline text-left transition-colors">
+                        <button onClick={() => openEditExpense(expense)} className="text-text-primary hover:text-accent-primary hover:underline text-left transition-colors">
                           {expense.concept}
                         </button>
                       </td>
-                      <td className="py-2 text-right font-medium">{formatCurrency(expense.amount)}</td>
-                      <td className="py-2 text-right text-gray-500 capitalize">{expense.category}</td>
-                      <td className="py-2 text-right text-gray-500">{formatDate(expense.expense_date)}</td>
+                      <td className="py-2 text-right font-data font-medium">{formatCurrency(expense.amount)}</td>
+                      <td className="py-2 text-right text-text-secondary capitalize">{expense.category}</td>
+                      <td className="py-2 text-right text-text-secondary">{formatDate(expense.expense_date)}</td>
                       <td className="py-2 text-center">
                         {expense.is_deductible
-                          ? <CheckCircle size={14} className="text-green-500 mx-auto" />
-                          : <Circle size={14} className="text-gray-300 mx-auto" />}
+                          ? <CheckCircle size={14} className="text-success mx-auto" />
+                          : <Circle size={14} className="text-text-secondary/60 mx-auto" />}
                       </td>
                       <td className="py-2 text-right">
                         <button
                           type="button"
                           onClick={() => requestDeleteExpense(expense)}
                           aria-label={`Eliminar ${expense.concept || 'gasto'}`}
-                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-gray-300 opacity-0 transition-colors hover:text-red-500 focus:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2 group-hover:opacity-100"
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-text-secondary/60 opacity-0 transition-colors hover:text-danger focus:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 group-hover:opacity-100"
                         >
                           <Trash2 size={14} />
                         </button>
@@ -733,14 +733,14 @@ export default function ProjectDetail() {
               {/* Minimalista para móvil */}
               <div className="md:hidden flex flex-col gap-1">
                 {directExpenses.map((expense) => (
-                  <button key={expense.id} type="button" onClick={() => openEditExpense(expense)} className="flex items-center justify-between gap-3 border-b border-[var(--color-paper-mid)] py-2 text-left last:border-0">
+                  <button key={expense.id} type="button" onClick={() => openEditExpense(expense)} className="flex items-center justify-between gap-3 border-b border-border-subtle py-2 text-left last:border-0">
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate text-sm font-medium text-[var(--color-ink)]">{expense.concept}</span>
-                      <span className="mt-0.5 block truncate text-xs capitalize text-[var(--color-ink-muted)]">
+                      <span className="block truncate text-sm font-medium text-text-primary">{expense.concept}</span>
+                      <span className="mt-0.5 block truncate text-xs capitalize text-text-secondary">
                         {expense.category} · {formatDate(expense.expense_date)}
                       </span>
                     </span>
-                    <span className="shrink-0 text-sm font-semibold text-[var(--color-ink)]">{formatCurrency(expense.amount)}</span>
+                    <span className="shrink-0 font-data text-sm font-semibold text-text-primary">{formatCurrency(expense.amount)}</span>
                   </button>
                 ))}
               </div>
@@ -790,8 +790,8 @@ export default function ProjectDetail() {
             <Input label="Retención IRPF (%)" type="text" inputMode="decimal" value={incomeForm.tax_rate} onChange={(e) => setIncomeForm((p) => ({ ...p, tax_rate: e.target.value }))} />
             <Input label="Fecha prevista de cobro" type="date" value={incomeForm.expected_date} onChange={(e) => setIncomeForm((p) => ({ ...p, expected_date: e.target.value, paid_date: p.is_paid && !p.paid_date ? e.target.value : p.paid_date }))} />
             <div className="flex items-center gap-2">
-              <input type="checkbox" id="is_paid" checked={incomeForm.is_paid} onChange={(e) => setIncomeForm((p) => ({ ...p, is_paid: e.target.checked, paid_date: e.target.checked ? (p.paid_date ?? p.expected_date ?? '') : null }))} className="h-5 w-5 rounded border-[var(--color-paper-mid)] text-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]" />
-              <label htmlFor="is_paid" className="text-sm text-[var(--color-ink)]">Ya está cobrado</label>
+              <input type="checkbox" id="is_paid" checked={incomeForm.is_paid} onChange={(e) => setIncomeForm((p) => ({ ...p, is_paid: e.target.checked, paid_date: e.target.checked ? (p.paid_date ?? p.expected_date ?? '') : null }))} className="h-5 w-5 rounded border-border-subtle text-accent-primary focus:ring-accent-primary" />
+              <label htmlFor="is_paid" className="text-sm text-text-primary">Ya está cobrado</label>
             </div>
             {incomeForm.is_paid && (
               <Input label="Fecha real de cobro" type="date" value={incomeForm.paid_date ?? ''} onChange={(e) => setIncomeForm((p) => ({ ...p, paid_date: e.target.value }))} />
@@ -799,7 +799,7 @@ export default function ProjectDetail() {
           </div>
           <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
             {editingIncome && (
-              <Button type="button" variant="ghost" onClick={handleDeleteEditingIncome} className="justify-center text-[var(--color-red)] hover:bg-[var(--color-red-light)]">
+              <Button type="button" variant="ghost" onClick={handleDeleteEditingIncome} className="justify-center text-danger hover:bg-danger-soft">
                 Eliminar
               </Button>
             )}
@@ -820,12 +820,12 @@ export default function ProjectDetail() {
       >
         {pendingPaymentConfirmationIncome && (
           <div className="flex flex-col gap-4">
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-text-secondary">
               Este ingreso tiene un concepto poco claro. Confirma que quieres marcarlo como cobrado.
             </p>
-            <div className="rounded-lg border border-gray-100 bg-gray-50 p-3">
-              <p className="text-sm font-medium text-gray-900">{incomeConceptLabel(pendingPaymentConfirmationIncome)}</p>
-              <p className="mt-1 text-xs text-gray-500">
+            <div className="rounded-lg border border-border-subtle bg-surface-muted p-3">
+              <p className="text-sm font-medium text-text-primary">{incomeConceptLabel(pendingPaymentConfirmationIncome)}</p>
+              <p className="mt-1 text-xs text-text-secondary">
                 {formatDate(pendingPaymentConfirmationIncome.expected_date)} · {formatCurrency(pendingPaymentConfirmationIncome.amount)}
               </p>
             </div>
@@ -860,13 +860,13 @@ export default function ProjectDetail() {
             </Select>
             <Input label="Fecha *" type="date" value={expenseForm.expense_date} onChange={(e) => setExpenseForm((p) => ({ ...p, expense_date: e.target.value }))} required />
             <div className="flex items-center gap-2">
-              <input type="checkbox" id="is_deductible" checked={expenseForm.is_deductible} onChange={(e) => setExpenseForm((p) => ({ ...p, is_deductible: e.target.checked }))} className="h-5 w-5 rounded border-[var(--color-paper-mid)] text-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]" />
-              <label htmlFor="is_deductible" className="text-sm text-[var(--color-ink)]">Gasto deducible fiscalmente</label>
+              <input type="checkbox" id="is_deductible" checked={expenseForm.is_deductible} onChange={(e) => setExpenseForm((p) => ({ ...p, is_deductible: e.target.checked }))} className="h-5 w-5 rounded border-border-subtle text-accent-primary focus:ring-accent-primary" />
+              <label htmlFor="is_deductible" className="text-sm text-text-primary">Gasto deducible fiscalmente</label>
             </div>
           </div>
           <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
             {editingExpense && (
-              <Button type="button" variant="ghost" onClick={handleDeleteEditingExpense} className="justify-center text-[var(--color-red)] hover:bg-[var(--color-red-light)]">
+              <Button type="button" variant="ghost" onClick={handleDeleteEditingExpense} className="justify-center text-danger hover:bg-danger-soft">
                 Eliminar
               </Button>
             )}
@@ -895,14 +895,14 @@ export default function ProjectDetail() {
             onChange={(e) => setQuickIncomeForm((p) => ({ ...p, amount: e.target.value }))}
             required
           />
-          <label className="flex items-center gap-3 rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-surface-alt)] p-3">
+          <label className="flex items-center gap-3 rounded-lg border border-border-subtle bg-surface-muted p-3">
             <input
               type="checkbox"
               checked={quickIncomeForm.is_paid}
               onChange={(e) => setQuickIncomeForm((p) => ({ ...p, is_paid: e.target.checked }))}
-              className="h-5 w-5 rounded border-[var(--color-paper-mid)] text-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]"
+              className="h-5 w-5 rounded border-border-subtle text-accent-primary focus:ring-accent-primary"
             />
-            <span className="text-sm font-medium text-[var(--color-ink)]">Marcar como cobrado</span>
+            <span className="text-sm font-medium text-text-primary">Marcar como cobrado</span>
           </label>
           <div className="flex gap-3 justify-end">
             <Button type="button" variant="secondary" onClick={() => setQuickIncomeModal(false)}>Cancelar</Button>

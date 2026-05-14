@@ -2,7 +2,7 @@
 schema_version: 2
 kind: release
 id: RELEASE-0.1.0-beta.23
-title: Tokens Lovable y visual acotada
+title: Tokens Lovable y visual total
 lifecycle: active
 created: '2026-05-13'
 updated: '2026-05-13'
@@ -20,7 +20,7 @@ release_branch: release/0.1.0-beta.23
 release_tag: v0.1.0-beta.23
 release_pr: null
 ---
-# RELEASE-0.1.0-beta.23 — Tokens Lovable y visual acotada
+# RELEASE-0.1.0-beta.23 — Tokens Lovable y visual total
 
 ## Estado
 
@@ -32,20 +32,20 @@ Active.
 
 ## Ciclo
 
-`0.1` es el ciclo organizativo. `0.1.0-beta.23` es un corte pequeno para preparar compatibilidad visual con el diseno exportado desde Lovable y aplicar una capa visual acotada sin absorber su stack completo.
+`0.1` es el ciclo organizativo. `0.1.0-beta.23` es un corte para preparar compatibilidad visual con el diseno exportado desde Lovable y aplicar una unificacion visual total sin absorber su stack completo ni funcionalidades nuevas.
 
 ## Objetivo de la release
 
-Dejar versionada una capa de tokens y aliases visuales que permita trasladar estilo de `artistic-rhythm` a Cachés de forma incremental, y usarla en un pulido visual limitado de pantallas core sin cambios funcionales.
+Dejar versionada una capa de tokens, aliases y primitivas visuales que permita trasladar estilo de `artistic-rhythm` a Cachés, y usarla en un pulido visual total de la app sin cambios funcionales.
 
 ## Alcance funcional
 
 - Compatibilidad Tailwind con tokens semanticos del export Lovable.
 - Alias de fuentes, superficies, texto, acentos, estados y sidebar.
 - Utilidades visuales inertes para futuros componentes (`card-lift`, `skeleton`).
-- Visual acotada en shell/navegacion, Dashboard, Work y listas de proyectos/eventos existentes.
+- Visual total en shell/navegacion, Dashboard, Work, proyectos/eventos, calendarios, pantallas secundarias, auth/onboarding/settings y admin.
 - Inventario Product Brain de gaps funcionales Lovable que quedan fuera de beta 23.
-- Sin cambio funcional, redisenos masivos ni import de stack Lovable.
+- Sin cambio funcional, import de stack Lovable ni nuevas funcionalidades.
 
 ## Scope
 
@@ -55,6 +55,13 @@ Dejar versionada una capa de tokens y aliases visuales que permita trasladar est
 - [[../issues/CACH-0079|CACH-0079]] — Pulir Dashboard financiero con visual Lovable acotada.
 - [[../issues/CACH-0080|CACH-0080]] — Inventariar gaps funcionales Lovable fuera de beta 23.
 - [[../issues/CACH-0081|CACH-0081]] — Unificar visual Lovable tras comparacion real.
+- [[../issues/CACH-0082|CACH-0082]] — Auditar visual total Lovable y matriz QA.
+- [[../issues/CACH-0083|CACH-0083]] — Crear primitivas UI para visual total Lovable.
+- [[../issues/CACH-0084|CACH-0084]] — Unificar detalles y formularios de proyectos y eventos.
+- [[../issues/CACH-0085|CACH-0085]] — Unificar calendarios con visual Lovable sin cambiar comportamiento.
+- [[../issues/CACH-0086|CACH-0086]] — Unificar pantallas secundarias operativas.
+- [[../issues/CACH-0087|CACH-0087]] — Unificar admin gates y layout global.
+- [[../issues/CACH-0088|CACH-0088]] — QA final de beta 23 visual total.
 
 ## Issues incluidas
 
@@ -66,6 +73,13 @@ Dejar versionada una capa de tokens y aliases visuales que permita trasladar est
 | [[../issues/CACH-0079|CACH-0079]] | Pulir Dashboard financiero con visual Lovable acotada | done | `release/0.1.0-beta.23` |
 | [[../issues/CACH-0080|CACH-0080]] | Inventariar gaps funcionales Lovable fuera de beta 23 | done | `release/0.1.0-beta.23` |
 | [[../issues/CACH-0081|CACH-0081]] | Unificar visual Lovable tras comparacion real | done | `release/0.1.0-beta.23` |
+| [[../issues/CACH-0082|CACH-0082]] | Auditar visual total Lovable y matriz QA | done | `release/0.1.0-beta.23` |
+| [[../issues/CACH-0083|CACH-0083]] | Crear primitivas UI para visual total Lovable | done | `release/0.1.0-beta.23` |
+| [[../issues/CACH-0084|CACH-0084]] | Unificar detalles y formularios de proyectos y eventos | done | `release/0.1.0-beta.23` |
+| [[../issues/CACH-0085|CACH-0085]] | Unificar calendarios con visual Lovable sin cambiar comportamiento | done | `release/0.1.0-beta.23` |
+| [[../issues/CACH-0086|CACH-0086]] | Unificar pantallas secundarias operativas | done | `release/0.1.0-beta.23` |
+| [[../issues/CACH-0087|CACH-0087]] | Unificar admin gates y layout global | done | `release/0.1.0-beta.23` |
+| [[../issues/CACH-0088|CACH-0088]] | QA final de beta 23 visual total | done | `release/0.1.0-beta.23` |
 
 ## Fuera de alcance
 
@@ -82,7 +96,9 @@ Dejar versionada una capa de tokens y aliases visuales que permita trasladar est
 - Tailwind v4 debe aceptar los tokens `@theme inline` sin romper el build.
 - La visual acotada no debe alterar comportamiento, calculos ni rutas.
 - El lenguaje visual debe seguir siendo sobrio y operativo, no una landing decorativa.
-- El alcance visual debe quedarse en shell, Dashboard y listas; calendarios quedan fuera de esta beta.
+- La unificacion visual total no debe convertirse en funcionalidades Lovable nuevas.
+- Calendarios deben mantener altura real, `react-big-calendar`, `overflow-x-auto`, `touch-action: pan-x pan-y` y scroll horizontal movil.
+- Finanzas, datos, Supabase, auth y admin no deben cambiar contratos ni calculos.
 
 ## Decisiones relacionadas
 
@@ -115,6 +131,7 @@ Dejar versionada una capa de tokens y aliases visuales que permita trasladar est
 - [x] `npm run verify:pr -- --base origin/main`
 - [x] `git diff --check`
 - [x] Revision visual de `/dashboard`, `/work`, `/projects`, `/events`, `/settings`, `/login`, `/register` y `/onboarding` en 390x844, 768x1024 y 1440x900.
+- [x] Revision visual total de `/dashboard`, `/work`, `/projects`, `/projects/:id`, `/events`, `/events/:id`, `/calendar/events`, `/calendar/projects`, `/contractors`, `/settings`, `/data`, `/novedades`, `/login`, `/register`, `/onboarding` y `/admin/invitaciones` en 390x844, 768x1024 y 1440x900.
 
 Validacion parcial ya ejecutada para `CACH-0076`: `lint`, `test`, `build`, `pb:guard`, `release:status`, `release:sync-check`, `verify:pr` y `git diff --check`.
 
@@ -143,6 +160,7 @@ Validacion parcial ya ejecutada para `CACH-0076`: `lint`, `test`, `build`, `pb:g
 - Issues de visual acotada para shell/navegacion, Work/listas y Dashboard.
 - Inventario de gaps funcionales Lovable que quedan fuera de beta 23.
 - Slice de unificacion visual tras comparar contra el export Lovable real.
+- Issues de visual total `CACH-0082` a `CACH-0088` para cubrir primitivas, detalles, calendarios, secundarias, admin/layout y QA final.
 
 ### Cambiado
 
@@ -151,6 +169,8 @@ Validacion parcial ya ejecutada para `CACH-0076`: `lint`, `test`, `build`, `pb:g
 - `/work`, `/projects` y `/events` pulen listas, filtros, tarjetas, loading/error/empty states y metadatos sin cambiar CRUD ni datos.
 - `/dashboard` pule KPIs, panel "Ahora", controles e ingresos pendientes sin tocar formulas financieras.
 - `/settings`, `/login`, `/register` y `/onboarding` sustituyen restos visuales grises por superficies, texto, radios y acentos semanticos.
+- La release se amplia de visual acotada a visual total por decision explicita de producto, manteniendo fuera funcionalidades Lovable nuevas.
+- `/projects/:id`, `/events/:id`, calendarios, `/contractors`, `/data`, `/novedades`, gates y `/admin/invitaciones` migran a tokens Lovable sin cambiar datos, formulas ni rutas funcionales.
 
 ### Corregido
 
@@ -163,7 +183,7 @@ Validacion parcial ya ejecutada para `CACH-0076`: `lint`, `test`, `build`, `pb:g
 ### Tecnico
 
 - `src/index.css` queda preparado para clases como `bg-surface-page`, `text-text-primary`, `border-border-subtle`, `text-accent-primary` y `font-display`.
-- `CACH-0080` fija la frontera de alcance: beta 23 no incluye shadcn/Radix/TanStack, Supabase/RLS/data, formulas financieras, calendario custom ni dark mode.
+- `CACH-0080` fija la frontera de alcance funcional: beta 23 no incluye shadcn/Radix/TanStack, Supabase/RLS/data, formulas financieras, calendario custom ni dark mode.
 
 ## Resultado final
 

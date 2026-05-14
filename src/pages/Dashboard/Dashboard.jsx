@@ -122,9 +122,9 @@ const NOW_CARD_STYLES = {
     button: 'text-success hover:bg-success-soft',
   },
   upcoming: {
-    icon: 'bg-warning-soft text-[var(--color-warning-600)]',
-    badge: 'bg-warning-soft text-[var(--color-warning-600)]',
-    button: 'text-[var(--color-warning-600)] hover:bg-warning-soft',
+    icon: 'bg-warning-soft text-warning',
+    badge: 'bg-warning-soft text-warning',
+    button: 'text-warning hover:bg-warning-soft',
   },
   empty: {
     icon: 'bg-surface-muted text-text-secondary',
@@ -149,7 +149,7 @@ const getDueTone = (daysLeft) => {
   if (daysLeft <= 7) {
     return {
       row: 'border-warning-soft bg-warning-soft hover:border-warning',
-      text: 'font-medium text-[var(--color-warning-600)]',
+      text: 'font-medium text-warning',
     }
   }
 
@@ -306,13 +306,13 @@ export default function Dashboard() {
         <Card className="border-border-subtle bg-surface-card p-3 sm:p-4">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="grid grid-cols-[2.75rem_minmax(0,1fr)_2.75rem_6.5rem] items-center gap-2 sm:flex sm:gap-1">
-              <button onClick={prevMonth} className="flex min-h-11 items-center justify-center rounded-full text-text-secondary transition-colors hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2" aria-label="Mes anterior">
+              <button onClick={prevMonth} className="flex min-h-11 min-w-11 items-center justify-center rounded-full text-text-secondary transition-colors hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2" aria-label="Mes anterior">
                 <ChevronLeft size={18} />
               </button>
               <span className="min-w-0 truncate text-center text-sm font-medium capitalize text-text-primary sm:min-w-[130px]">
                 {selectedMonthLabel}
               </span>
-              <button onClick={nextMonth} className="flex min-h-11 items-center justify-center rounded-full text-text-secondary transition-colors hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2" aria-label="Mes siguiente">
+              <button onClick={nextMonth} className="flex min-h-11 min-w-11 items-center justify-center rounded-full text-text-secondary transition-colors hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2" aria-label="Mes siguiente">
                 <ChevronRight size={18} />
               </button>
               <Select
@@ -380,7 +380,7 @@ export default function Dashboard() {
           <>
             <Card className="border-border-subtle bg-surface-card p-3.5 md:hidden">
               <div className="flex items-start gap-3">
-                <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-warning-soft text-[var(--color-warning-600)]">
+                <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-warning-soft text-warning">
                   <CalendarDays size={18} />
                 </span>
                 <div className="min-w-0 flex-1">
@@ -401,7 +401,7 @@ export default function Dashboard() {
                 </div>
                 <div>
                   <p className="text-[11px] text-text-secondary">Pendiente</p>
-                  <p className={`truncate text-sm font-semibold text-[var(--color-warning-600)] ${AMOUNT_CLASS}`}>{formatCurrency(cashKpis.plannedPendingTotal)}</p>
+                  <p className={`truncate text-sm font-semibold text-warning ${AMOUNT_CLASS}`}>{formatCurrency(cashKpis.plannedPendingTotal)}</p>
                 </div>
                 <div>
                   <p className="text-[11px] text-text-secondary">Vencido</p>
@@ -453,7 +453,7 @@ export default function Dashboard() {
           <>
             <Card className="border-border-subtle bg-surface-card p-3.5 md:hidden">
               <div className="flex items-start gap-3">
-                <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-warning-soft text-[var(--color-warning-600)]">
+                <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-warning-soft text-warning">
                   <FolderOpen size={18} />
                 </span>
                 <div className="min-w-0 flex-1">
@@ -521,14 +521,14 @@ export default function Dashboard() {
                   Cobrado realmente este mes: <span className={`font-semibold text-text-primary ${AMOUNT_CLASS}`}>{formatCurrency(cashKpis.paidByCashDateTotal)}</span>
                 </p>
                 {cashKpis.paidMissingDateCount > 0 && (
-                  <p className="text-[var(--color-warning-600)]">
+                  <p className="text-warning">
                     {cashKpis.paidMissingDateCount} cobro{cashKpis.paidMissingDateCount === 1 ? '' : 's'} sin fecha real
                   </p>
                 )}
               </div>
               <div className="mb-2 flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
-                  <Clock size={16} className="text-[var(--color-warning-600)]" />
+                  <Clock size={16} className="text-warning" />
                   <h2 className="text-sm font-semibold text-text-primary">Próximos cobros</h2>
                 </div>
                 <span className="text-xs text-text-secondary capitalize">{selectedMonthLabel}</span>
@@ -727,7 +727,7 @@ export default function Dashboard() {
                               </div>
                               <div className="rounded-lg bg-warning-soft px-2 py-2 sm:rounded-none sm:bg-transparent sm:px-0 sm:py-0">
                                 <p className="text-text-secondary">Pendiente</p>
-                                <p className={`font-semibold text-[var(--color-warning-600)] ${AMOUNT_CLASS}`}>{formatCurrency(work.pending)}</p>
+                                <p className={`font-semibold text-warning ${AMOUNT_CLASS}`}>{formatCurrency(work.pending)}</p>
                               </div>
                               <div className="rounded-lg bg-danger-soft px-2 py-2 sm:rounded-none sm:bg-transparent sm:px-0 sm:py-0">
                                 <p className="text-text-secondary">Vencido</p>

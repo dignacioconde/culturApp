@@ -5,7 +5,7 @@ id: PB-BACKLOG
 title: Backlog operativo
 lifecycle: active
 created: 2026-05-05
-updated: 2026-05-13
+updated: 2026-05-14
 aliases:
   - Backlog operativo
   - Backlog
@@ -135,6 +135,13 @@ _Sin issues._
 | [[../issues/CACH-0079|CACH-0079]] | Pulir Dashboard financiero con visual Lovable acotada | RELEASE-0.1.0-beta.23 | Implementado en `src/pages/Dashboard/Dashboard.jsx` y `src/pages/Dashboard/KpiCard.jsx`: KPIs, panel "Ahora", controles, ingresos por cobrar, loading/error/empty states y modal de confirmacion usan tokens Lovable acotados sin tocar formulas ni hooks de datos. |
 | [[../issues/CACH-0080|CACH-0080]] | Inventariar gaps funcionales Lovable fuera de beta 23 | RELEASE-0.1.0-beta.23 | Inventario creado y scope de beta 23 actualizado para distinguir tokens + visual acotada de gaps funcionales Lovable que quedan como backlog futuro. |
 | [[../issues/CACH-0081|CACH-0081]] | Unificar visual Lovable tras comparacion real | RELEASE-0.1.0-beta.23 | Implementado como segunda pasada visual sobre la rama `release/0.1.0-beta.23`: estilos base, roles tipograficos, botones, cards, segmentos, shell, Work, Dashboard, listas, Settings, Auth y Onboarding quedan mas alineados con el export Lovable real sin tocar datos, hooks, rutas funcionales ni formulas financieras. |
+| [[../issues/CACH-0082|CACH-0082]] | Auditar visual total Lovable y matriz QA | RELEASE-0.1.0-beta.23 | Ejecutada con exploracion por agentes: detalles/formularios, calendarios, secundarias y Product Brain/release. La matriz queda integrada en `CACH-0088` y la release ampliada. |
+| [[../issues/CACH-0083|CACH-0083]] | Crear primitivas UI para visual total Lovable | RELEASE-0.1.0-beta.23 | Implementadas primitivas internas `Notice`, `EmptyState`, `SearchInput`, `CheckboxField`, `ActionTile`, `MetricTile`, `SectionHeader` e `IconButton` sin dependencias nuevas ni cambios funcionales. |
+| [[../issues/CACH-0084|CACH-0084]] | Unificar detalles y formularios de proyectos y eventos | RELEASE-0.1.0-beta.23 | Implementada por worker frontend en `src/pages/Projects/*` y `src/pages/Events/*`: detalles, formularios, modales, tablas/listas, checkboxes, swatches y acciones usan tokens Lovable sin tocar hooks, normalizadores, formulas ni CRUD. |
+| [[../issues/CACH-0085|CACH-0085]] | Unificar calendarios con visual Lovable sin cambiar comportamiento | RELEASE-0.1.0-beta.23 | Implementada por worker frontend en calendarios: `CalendarEvents`, `CalendarProjects` y `ProjectYearView` migran a tokens Lovable preservando wrappers de altura, scroll horizontal movil y `react-big-calendar`. |
+| [[../issues/CACH-0086|CACH-0086]] | Unificar pantallas secundarias operativas | RELEASE-0.1.0-beta.23 | Implementada por worker frontend en `/contractors`, `/data`, `/novedades` y `versionHistory`: cards, buscador, upload visual, avisos, empty/loading states, preview y badges migran a tokens Lovable sin tocar contratos de datos. |
+| [[../issues/CACH-0087|CACH-0087]] | Unificar admin gates y layout global | RELEASE-0.1.0-beta.23 | Implementada por worker frontend en `App.jsx`, admin de invitaciones y layout global: gates, loaders, top/bottom bars, sidebar, estados admin y codigo largo usan tokens Lovable sin cambiar auth, roles ni mutaciones. |
+| [[../issues/CACH-0088|CACH-0088]] | QA final de beta 23 visual total | RELEASE-0.1.0-beta.23 | QA final ejecutada sobre la beta 23 ampliada a visual total: workers integrados, barrido de restos legacy completado, matriz visual autenticada validada y calendario de eventos comprobado con scroll horizontal movil. |
 | [[../issues/CACH-B0018|CACH-B0018]] | Adaptador Codex-native para perfiles Cultura | RELEASE-0.1.0-beta.9 | Sin resultado documentado. |
 
 ## Regla de mantenimiento

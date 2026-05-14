@@ -28,7 +28,7 @@ function QuietStatusBadge({ status }) {
 
 function EventRow({ event, projects = EMPTY_LIST, contractors = EMPTY_LIST, compact = false }) {
   const contractor = getEventContractor(event, projects, contractors)
-  const accentColor = event.color ?? '#C94035'
+  const accentColor = event.color ?? 'var(--accent-primary)'
 
   return (
     <Link

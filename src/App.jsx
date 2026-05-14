@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, Link, useLocation } from 'react-router-dom'
+import { AlertTriangle, Drama, Home, RefreshCw, ShieldAlert } from 'lucide-react'
 import { useAuth } from './hooks/useAuth'
 import { useProfile } from './hooks/useProfile'
 import { ScrollLockProvider } from './hooks/useScrollLock'
@@ -19,10 +20,40 @@ import Settings from './pages/Settings/Settings'
 import Data from './pages/Data/Data'
 import Updates from './pages/Updates/Updates'
 import AdminInvites from './pages/Admin/AdminInvites'
+import { Button } from './components/ui/Button'
+
+function GateLoader({ label = 'Cargando...' }) {
+  return (
+    <div className="flex min-h-dvh items-center justify-center bg-surface-page px-4 text-text-secondary">
+      <div className="flex flex-col items-center gap-4 rounded-2xl border border-border-subtle bg-surface-card px-6 py-5 text-center shadow-sm">
+        <div className="relative flex h-11 w-11 items-center justify-center rounded-full bg-accent-soft text-accent-primary">
+          <Drama size={22} strokeWidth={1.6} aria-hidden="true" />
+          <span className="absolute inset-0 rounded-full border-2 border-accent-primary/20 border-t-accent-primary motion-safe:animate-spin" aria-hidden="true" />
+        </div>
+        <p className="text-sm font-medium">{label}</p>
+      </div>
+    </div>
+  )
+}
+
+function GateCard({ icon: Icon, title, description, action }) {
+  return (
+    <div className="flex min-h-dvh items-center justify-center bg-surface-page px-4 py-8">
+      <section className="w-full max-w-md rounded-2xl border border-border-subtle bg-surface-card p-6 text-center text-text-primary shadow-sm sm:p-8">
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-accent-soft text-accent-primary">
+          <Icon size={24} strokeWidth={1.8} aria-hidden="true" />
+        </div>
+        <h1 className="mt-4 font-display text-2xl font-semibold leading-tight">{title}</h1>
+        <p className="mt-3 text-sm leading-6 text-text-secondary">{description}</p>
+        {action && <div className="mt-6">{action}</div>}
+      </section>
+    </div>
+  )
+}
 
 function PrivateRoute({ children, requireAdmin = false }) {
   const { user, loading } = useAuth()
-  if (loading) return <div className="min-h-screen flex items-center justify-center text-sm text-gray-400">Cargando...</div>
+  if (loading) return <GateLoader />
   if (!user) return <Navigate to="/login" replace />
   return <ProfileGate user={user} requireAdmin={requireAdmin}>{children}</ProfileGate>
 }
@@ -38,26 +69,26 @@ function ProfileGate({ user, requireAdmin, children }) {
   }, [onboardingJustCompleted, refetch])
 
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center text-sm text-gray-400">Cargando perfil...</div>
+    return <GateLoader label="Cargando perfil..." />
   }
 
   if (error || !profile) {
     return (
-      <div className="min-h-screen bg-[var(--color-paper)] flex items-center justify-center p-4">
-        <div className="w-full max-w-md rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-surface)] p-6 text-center shadow-sm">
-          <h1 className="text-lg font-semibold text-[var(--color-ink)]">No hemos podido cargar tu perfil</h1>
-          <p className="mt-2 text-sm text-[var(--color-ink-muted)]">
-            Tu sesión está activa, pero falta la fila de perfil necesaria para usar Cachés. Vuelve a intentarlo y, si sigue igual, avísanos para repararlo.
-          </p>
-          <button
+      <GateCard
+        icon={AlertTriangle}
+        title="No hemos podido cargar tu perfil"
+        description="Tu sesión está activa, pero falta la fila de perfil necesaria para usar Cachés. Vuelve a intentarlo y, si sigue igual, avísanos para repararlo."
+        action={
+          <Button
             type="button"
             onClick={refetch}
-            className="mt-5 inline-flex min-h-10 items-center justify-center rounded-lg bg-[var(--color-red)] px-4 py-2 text-sm font-medium text-white hover:bg-[var(--color-red-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2"
+            className="mx-auto"
           >
+            <RefreshCw size={16} />
             Reintentar
-          </button>
-        </div>
-      </div>
+          </Button>
+        }
+      />
     )
   }
 
@@ -67,20 +98,20 @@ function ProfileGate({ user, requireAdmin, children }) {
 
   if (requireAdmin && profile.role !== 'admin') {
     return (
-      <div className="min-h-screen bg-[var(--color-paper)] flex items-center justify-center p-4">
-        <div className="w-full max-w-md rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-surface)] p-6 text-center shadow-sm">
-          <h1 className="text-lg font-semibold text-[var(--color-ink)]">No tienes acceso a esta zona</h1>
-          <p className="mt-2 text-sm text-[var(--color-ink-muted)]">
-            Esta pantalla es solo para cuentas administradoras de la beta.
-          </p>
+      <GateCard
+        icon={ShieldAlert}
+        title="No tienes acceso a esta zona"
+        description="Esta pantalla es solo para cuentas administradoras de la beta."
+        action={
           <Link
             to="/dashboard"
-            className="mt-5 inline-flex min-h-10 items-center justify-center rounded-lg bg-[var(--color-red)] px-4 py-2 text-sm font-medium text-white hover:bg-[var(--color-red-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-red)] focus-visible:ring-offset-2"
+            className="inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-accent-primary px-4 py-2 text-sm font-medium leading-none text-surface-page shadow-sm transition-colors hover:bg-accent-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2"
           >
+            <Home size={16} />
             Volver a Inicio
           </Link>
-        </div>
-      </div>
+        }
+      />
     )
   }
 

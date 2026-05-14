@@ -16,6 +16,20 @@ import { formatDate } from '../../lib/formatters'
 import { getDefaultSelectedMonth } from '../../lib/projectYearCalendar'
 import { AlertCircle, FolderOpen, Plus, X, ChevronDown, ChevronUp, ChevronLeft, ChevronRight } from 'lucide-react'
 
+function CalendarFeedback({ icon: Icon, tone = 'muted', children }) {
+  const tones = {
+    error: 'border-danger/30 bg-danger-soft text-danger',
+    muted: 'border-border-subtle bg-surface-muted text-text-secondary',
+  }
+
+  return (
+    <div className={`flex items-start gap-3 rounded-lg border px-4 py-3 text-sm ${tones[tone]}`}>
+      <Icon size={18} className="mt-0.5 shrink-0" />
+      <p>{children}</p>
+    </div>
+  )
+}
+
 // Detectar si es viewport móvil
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false)
@@ -69,25 +83,25 @@ export default function CalendarProjects() {
   return (
     <PageWrapper title="Calendario de proyectos">
       <div className="flex flex-col gap-4 lg:flex-row">
-        <div className="flex flex-1 flex-col rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-surface)] p-3 sm:p-4 lg:min-h-0">
+        <div className="flex flex-1 flex-col rounded-lg border border-border-subtle bg-surface-card p-3 shadow-sm sm:p-4 lg:min-h-0">
           <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-sm font-medium text-[var(--color-ink)]">{projects.length} proyectos</p>
-              <p className="text-xs text-[var(--color-ink-muted)]">Vista interna por rango de fechas</p>
+              <p className="text-sm font-medium text-text-primary">{projects.length} proyectos</p>
+              <p className="text-xs text-text-secondary">Vista interna por rango de fechas</p>
             </div>
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-              <div className="flex items-center justify-center gap-2 rounded-xl border border-[#E2D9C2] bg-[#FFFCF5] px-2 py-1">
+              <div className="flex items-center justify-center gap-2 rounded-lg border border-border-subtle bg-surface-muted px-2 py-1">
                 <button
                   onClick={() => changeYear(visibleYear - 1)}
-                  className="rounded-lg p-1.5 text-gray-600 hover:bg-[#F5EFE0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)]"
+                  className="rounded-lg p-1.5 text-text-secondary hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary"
                   aria-label="Año anterior"
                 >
                   <ChevronLeft size={20} />
                 </button>
-                <span className="min-w-16 text-center text-base font-semibold text-gray-900">{visibleYear}</span>
+                <span className="min-w-16 text-center text-base font-semibold text-text-primary">{visibleYear}</span>
                 <button
                   onClick={() => changeYear(visibleYear + 1)}
-                  className="rounded-lg p-1.5 text-gray-600 hover:bg-[#F5EFE0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)]"
+                  className="rounded-lg p-1.5 text-text-secondary hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary"
                   aria-label="Año siguiente"
                 >
                   <ChevronRight size={20} />
@@ -100,13 +114,14 @@ export default function CalendarProjects() {
             </div>
           </div>
           {error && (
-            <div className="mb-3 flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-              <AlertCircle size={18} className="mt-0.5 flex-shrink-0" />
-              <p>No se han podido cargar los proyectos del calendario.</p>
+            <div className="mb-3">
+              <CalendarFeedback icon={AlertCircle} tone="error">
+                No se han podido cargar los proyectos del calendario.
+              </CalendarFeedback>
             </div>
           )}
           {loading ? (
-            <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed border-gray-200 bg-gray-50 text-sm text-gray-400">
+            <div className="flex min-h-[420px] flex-1 items-center justify-center rounded-lg border border-dashed border-border-subtle bg-surface-muted text-sm text-text-secondary">
               Cargando planificación...
             </div>
           ) : (
@@ -119,9 +134,10 @@ export default function CalendarProjects() {
                 onSelectProject={setSelectedProject}
               />
               {projects.length === 0 && (
-                <div className="mt-3 flex items-center gap-2 rounded-lg border border-dashed border-gray-200 bg-gray-50 px-4 py-4 text-sm text-gray-500">
-                  <FolderOpen size={16} className="text-gray-400 flex-shrink-0" />
-                  No hay proyectos en esta cuenta. Crea el primero para verlo en la planificación anual.
+                <div className="mt-3">
+                  <CalendarFeedback icon={FolderOpen}>
+                    No hay proyectos en esta cuenta. Crea el primero para verlo en la planificación anual.
+                  </CalendarFeedback>
                 </div>
               )}
             </div>
@@ -133,7 +149,7 @@ export default function CalendarProjects() {
             const selectedContractor = getProjectContractor(selectedProject, contractors)
             return (
           <div className={`
-            w-full lg:w-80 bg-white rounded-xl border border-gray-200 p-5 flex flex-col gap-4
+            w-full lg:w-80 bg-surface-card rounded-lg border border-border-subtle p-5 flex flex-col gap-4 text-text-primary shadow-sm
             lg:relative
             ${isMobile ? 'fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom))] left-0 right-0 max-h-[calc(70dvh-4rem)] overflow-y-auto rounded-b-none border-b-0 shadow-lg z-30' : ''}
           `}>
@@ -141,25 +157,25 @@ export default function CalendarProjects() {
             {isMobile && (
               <button 
                 onClick={() => setPanelExpanded(!panelExpanded)}
-                className="flex w-full items-center justify-center py-2 text-gray-500 hover:text-gray-700"
+                className="flex w-full items-center justify-center py-2 text-text-secondary hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary"
               >
                 {panelExpanded ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
               </button>
             )}
             
             <div className="flex items-start justify-between">
-              <div className="w-3 h-3 rounded-full mt-1 flex-shrink-0" style={{ backgroundColor: selectedProject.color ?? '#4f98a3' }} />
-              <button onClick={() => setSelectedProject(null)} className="text-gray-400 hover:text-gray-600 -mr-1 -mt-1 p-1.5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)]" aria-label="Cerrar panel">
+              <div className="w-3 h-3 rounded-full mt-1 flex-shrink-0" style={{ backgroundColor: selectedProject.color ?? 'var(--color-project-1)' }} />
+              <button onClick={() => setSelectedProject(null)} className="-mr-1 -mt-1 rounded-lg p-1.5 text-text-secondary hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary" aria-label="Cerrar panel">
                 <X size={20} />
               </button>
             </div>
             <div className="min-w-0">
-              <h3 className="font-semibold text-gray-900 break-words">{selectedProject.name}</h3>
+              <h3 className="font-semibold text-text-primary break-words">{selectedProject.name}</h3>
               {selectedContractor && (
-                <p className="text-sm text-gray-500 mt-0.5 break-words">{selectedContractor.name}</p>
+                <p className="text-sm text-text-secondary mt-0.5 break-words">{selectedContractor.name}</p>
               )}
             </div>
-            <div className={`flex flex-col gap-2 text-sm text-gray-600 ${isMobile && !panelExpanded ? 'hidden' : ''}`}>
+            <div className={`flex flex-col gap-2 text-sm text-text-secondary ${isMobile && !panelExpanded ? 'hidden' : ''}`}>
               <div className="flex items-center justify-between gap-3">
                 <span>Estado</span>
                 <StatusBadge status={selectedProject.status} />

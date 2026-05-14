@@ -43,6 +43,38 @@ const messages = {
   showMore: (total) => `+${total} más`,
 }
 
+const calendarFrameClass = [
+  'rounded-lg border border-border-subtle bg-surface-card p-2 shadow-sm',
+  '[&_.rbc-calendar]:text-text-primary',
+  '[&_.rbc-toolbar]:gap-2 [&_.rbc-toolbar]:text-sm',
+  '[&_.rbc-toolbar_button]:rounded-full [&_.rbc-toolbar_button]:border-border-subtle [&_.rbc-toolbar_button]:bg-surface-card',
+  '[&_.rbc-toolbar_button]:text-text-secondary [&_.rbc-toolbar_button]:shadow-sm',
+  '[&_.rbc-toolbar_button:hover]:bg-surface-page-dark [&_.rbc-toolbar_button:hover]:text-text-primary',
+  '[&_.rbc-toolbar_button.rbc-active]:border-accent-primary [&_.rbc-toolbar_button.rbc-active]:bg-accent-primary [&_.rbc-toolbar_button.rbc-active]:text-surface-page',
+  '[&_.rbc-header]:border-border-subtle [&_.rbc-header]:py-2 [&_.rbc-header]:text-xs [&_.rbc-header]:font-semibold [&_.rbc-header]:text-text-secondary',
+  '[&_.rbc-month-view]:rounded-lg [&_.rbc-month-view]:border-border-subtle',
+  '[&_.rbc-time-view]:rounded-lg [&_.rbc-time-view]:border-border-subtle',
+  '[&_.rbc-time-content]:border-border-subtle',
+  '[&_.rbc-day-bg+_.rbc-day-bg]:border-border-subtle',
+  '[&_.rbc-off-range-bg]:bg-surface-muted',
+  '[&_.rbc-today]:bg-warning-soft',
+  '[&_.rbc-current-time-indicator]:bg-accent-primary',
+].join(' ')
+
+function CalendarFeedback({ icon: Icon, tone = 'muted', children }) {
+  const tones = {
+    error: 'border-danger/30 bg-danger-soft text-danger',
+    muted: 'border-border-subtle bg-surface-muted text-text-secondary',
+  }
+
+  return (
+    <div className={`flex items-start gap-3 rounded-lg border px-4 py-3 text-sm ${tones[tone]}`}>
+      <Icon size={18} className="mt-0.5 shrink-0" />
+      <p>{children}</p>
+    </div>
+  )
+}
+
 // Detectar si es viewport móvil
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false)
@@ -87,12 +119,13 @@ export default function CalendarEvents() {
 
   const eventStyleGetter = (event) => ({
     style: {
-      backgroundColor: event.resource.color ?? '#4f98a3',
+      backgroundColor: event.resource.color ?? 'var(--color-project-1)',
       borderRadius: '6px',
-      border: 'none',
-      color: '#fff',
+      border: '1px solid rgb(255 255 255 / 0.42)',
+      color: 'var(--surface-page)',
       fontSize: '12px',
-      padding: '2px 6px',
+      fontWeight: 600,
+      padding: '2px 7px',
     },
   })
 
@@ -136,11 +169,11 @@ export default function CalendarEvents() {
   return (
     <PageWrapper title="Calendario de eventos">
       <div className="flex flex-col gap-4 lg:flex-row lg:h-[calc(100vh-8rem)]">
-        <div className="flex flex-1 flex-col rounded-lg border border-[var(--color-paper-mid)] bg-[var(--color-surface)] p-3 sm:p-4 lg:min-h-0">
+        <div className="flex flex-1 flex-col rounded-lg border border-border-subtle bg-surface-card p-3 shadow-sm sm:p-4 lg:min-h-0">
           <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-sm font-medium text-[var(--color-ink)]">{events.length} eventos</p>
-              <p className="text-xs text-[var(--color-ink-muted)]">Calendario compartible con fecha y hora exactas.</p>
+              <p className="text-sm font-medium text-text-primary">{events.length} eventos</p>
+              <p className="text-xs text-text-secondary">Calendario compartible con fecha y hora exactas.</p>
             </div>
             <Button size="sm" onClick={() => openNewEvent()} className="w-full justify-center sm:w-auto">
               <Plus size={16} />
@@ -148,18 +181,19 @@ export default function CalendarEvents() {
             </Button>
           </div>
           {(error || projectsError) && (
-            <div className="mb-3 flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-              <AlertCircle size={18} className="mt-0.5 flex-shrink-0" />
-              <p>No se han podido cargar todos los datos del calendario.</p>
+            <div className="mb-3">
+              <CalendarFeedback icon={AlertCircle} tone="error">
+                No se han podido cargar todos los datos del calendario.
+              </CalendarFeedback>
             </div>
           )}
           {loading || projectsLoading ? (
-            <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed border-gray-200 bg-gray-50 text-sm text-gray-400">
+            <div className="flex h-[min(62dvh,520px)] min-h-[420px] flex-1 items-center justify-center rounded-lg border border-dashed border-border-subtle bg-surface-muted text-sm text-text-secondary sm:h-[560px] sm:min-h-[560px] lg:h-full lg:min-h-0">
               Cargando calendario...
             </div>
           ) : (
             <div className="flex flex-1 flex-col">
-              <div className="h-[min(62dvh,520px)] min-h-[420px] overflow-x-auto overflow-y-hidden sm:h-[560px] sm:min-h-[560px] lg:h-full lg:min-h-0">
+              <div className={`${calendarFrameClass} h-[min(62dvh,520px)] min-h-[420px] overflow-x-auto overflow-y-hidden [touch-action:pan-x_pan-y] sm:h-[560px] sm:min-h-[560px] lg:h-full lg:min-h-0`}>
                 <div className={`h-full ${timeGridMinWidth}`}>
                   <Calendar
                     localizer={localizer}
@@ -183,9 +217,10 @@ export default function CalendarEvents() {
                 </div>
               </div>
               {events.length === 0 && (
-                <div className="mt-3 flex items-center gap-2 rounded-lg border border-dashed border-gray-200 bg-gray-50 px-4 py-4 text-sm text-gray-500">
-                  <CalendarDays size={16} className="text-gray-400 flex-shrink-0" />
-                  No hay eventos en esta cuenta. Puedes moverte por meses o seleccionar un hueco para crear el primero.
+                <div className="mt-3">
+                  <CalendarFeedback icon={CalendarDays}>
+                    No hay eventos en esta cuenta. Puedes moverte por meses o seleccionar un hueco para crear el primero.
+                  </CalendarFeedback>
                 </div>
               )}
             </div>
@@ -197,7 +232,7 @@ export default function CalendarEvents() {
             const selectedContractor = getEventContractor(selectedEvent, projects, contractors)
             return (
           <div className={`
-            w-full lg:w-80 bg-white rounded-xl border border-gray-200 p-5 flex flex-col gap-4
+            w-full lg:w-80 bg-surface-card rounded-lg border border-border-subtle p-5 flex flex-col gap-4 text-text-primary shadow-sm
             lg:relative
             ${isMobile ? 'fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom))] left-0 right-0 max-h-[calc(70dvh-4rem)] overflow-y-auto rounded-b-none border-b-0 shadow-lg z-30' : ''}
           `}>
@@ -205,27 +240,27 @@ export default function CalendarEvents() {
             {isMobile && (
               <button 
                 onClick={() => setPanelExpanded(!panelExpanded)}
-                className="flex w-full items-center justify-center py-2 text-gray-500 hover:text-gray-700"
+                className="flex w-full items-center justify-center py-2 text-text-secondary hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary"
               >
                 {panelExpanded ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
               </button>
             )}
             
             <div className="flex items-start justify-between">
-              <div className="w-3 h-3 rounded-full mt-1 flex-shrink-0" style={{ backgroundColor: selectedEvent.color ?? '#4f98a3' }} />
-              <button onClick={() => setSelectedEvent(null)} className="text-gray-400 hover:text-gray-600 -mr-1 -mt-1 p-1.5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)]" aria-label="Cerrar panel">
+              <div className="w-3 h-3 rounded-full mt-1 flex-shrink-0" style={{ backgroundColor: selectedEvent.color ?? 'var(--color-project-1)' }} />
+              <button onClick={() => setSelectedEvent(null)} className="-mr-1 -mt-1 rounded-lg p-1.5 text-text-secondary hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary" aria-label="Cerrar panel">
                 <X size={20} />
               </button>
             </div>
             <div className="min-w-0">
-              <h3 className="font-semibold text-gray-900 break-words">{selectedEvent.name}</h3>
+              <h3 className="font-semibold text-text-primary break-words">{selectedEvent.name}</h3>
               {selectedContractor && (
-                <p className="text-sm text-gray-500 mt-0.5 break-words">
+                <p className="text-sm text-text-secondary mt-0.5 break-words">
                   {formatContractorDisplay(selectedContractor, { showInherited: true })}
                 </p>
               )}
             </div>
-            <div className={`flex flex-col gap-2 text-sm text-gray-600 ${isMobile && !panelExpanded ? 'hidden' : ''}`}>
+            <div className={`flex flex-col gap-2 text-sm text-text-secondary ${isMobile && !panelExpanded ? 'hidden' : ''}`}>
               <div className="flex items-center justify-between gap-3">
                 <span>Estado</span>
                 <StatusBadge status={selectedEvent.status} />
@@ -249,7 +284,7 @@ export default function CalendarEvents() {
                 return project ? (
                   <div className="flex items-start justify-between gap-3">
                     <span>Proyecto</span>
-                    <Link to={`/projects/${project.id}`} className="min-w-0 flex-1 break-words text-right text-[var(--color-primary-500)] hover:underline">
+                    <Link to={`/projects/${project.id}`} className="min-w-0 flex-1 break-words text-right text-accent-primary hover:underline">
                       {project.name}
                     </Link>
                   </div>

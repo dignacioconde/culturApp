@@ -4,7 +4,7 @@ export function KpiCard({ title, value, subtitle, icon: Icon, color = 'red', pro
   const colors = {
     red: 'bg-danger-soft text-danger ring-danger-soft',
     green: 'bg-success-soft text-success ring-success-soft',
-    amber: 'bg-warning-soft text-[var(--color-warning-600)] ring-warning-soft',
+    amber: 'bg-warning-soft text-warning ring-warning-soft',
   }
 
   const progressBg = {

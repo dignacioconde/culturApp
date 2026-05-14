@@ -88,8 +88,8 @@ export function ProjectForm({ initialData, contractors = [], onCreateContractor,
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       <section className="flex flex-col gap-3">
         <div>
-          <h3 className="text-sm font-semibold text-[var(--color-ink)]">Información básica</h3>
-          <p className="hidden sm:block text-sm text-[var(--color-ink-muted)] mt-1">Datos generales del contenedor del trabajo.</p>
+          <h3 className="font-display text-sm font-semibold text-text-primary">Información básica</h3>
+          <p className="hidden sm:block text-sm text-text-secondary mt-1">Datos generales del contenedor del trabajo.</p>
         </div>
         <Input
           label="Nombre del proyecto *"
@@ -122,10 +122,10 @@ export function ProjectForm({ initialData, contractors = [], onCreateContractor,
         </div>
       </section>
 
-      <section className="flex flex-col gap-3 border-t border-[var(--color-paper-mid)] pt-4">
+      <section className="flex flex-col gap-3 border-t border-border-subtle pt-4">
         <div>
-          <h3 className="text-sm font-semibold text-[var(--color-ink)]">Calendario</h3>
-          <p className="hidden sm:block text-sm text-[var(--color-ink-muted)] mt-1">Rango visible en el calendario interno de proyectos.</p>
+          <h3 className="font-display text-sm font-semibold text-text-primary">Calendario</h3>
+          <p className="hidden sm:block text-sm text-text-secondary mt-1">Rango visible en el calendario interno de proyectos.</p>
         </div>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <Input
@@ -146,13 +146,13 @@ export function ProjectForm({ initialData, contractors = [], onCreateContractor,
         </div>
       </section>
 
-      <section className="flex flex-col gap-3 border-t border-[var(--color-paper-mid)] pt-4">
+      <section className="flex flex-col gap-3 border-t border-border-subtle pt-4">
         <div>
-          <h3 className="text-sm font-semibold text-[var(--color-ink)]">Notas y color</h3>
-          <p className="hidden sm:block text-sm text-[var(--color-ink-muted)] mt-1">El color identifica el proyecto y sus rangos en calendario.</p>
+          <h3 className="font-display text-sm font-semibold text-text-primary">Notas y color</h3>
+          <p className="hidden sm:block text-sm text-text-secondary mt-1">El color identifica el proyecto y sus rangos en calendario.</p>
         </div>
         <div className="flex flex-col gap-2">
-          <label className="text-sm font-medium text-[var(--color-ink)]">Color en calendario</label>
+          <label className="text-sm font-medium text-text-primary">Color en calendario</label>
           <div className="flex gap-2 flex-wrap">
             {DEFAULT_PROJECT_COLORS.map((color) => (
               <button
@@ -160,7 +160,7 @@ export function ProjectForm({ initialData, contractors = [], onCreateContractor,
                 type="button"
                 aria-label={`Usar color ${color}`}
                 onClick={() => setForm((prev) => ({ ...prev, color }))}
-                className={`h-10 w-10 rounded-full transition-transform ${form.color === color ? 'scale-110 ring-2 ring-offset-2 ring-[var(--color-ink-muted)]' : 'hover:scale-105'}`}
+                className={`h-10 w-10 rounded-full transition-transform ${form.color === color ? 'scale-110 ring-2 ring-offset-2 ring-text-secondary' : 'hover:scale-105'}`}
                 style={{ backgroundColor: color }}
               />
             ))}
@@ -176,7 +176,7 @@ export function ProjectForm({ initialData, contractors = [], onCreateContractor,
         />
       </section>
 
-      {error && <p className="rounded-lg bg-[var(--color-red-light)] px-3 py-2 text-sm text-[var(--color-red)]">{error}</p>}
+      {error && <p className="rounded-lg bg-danger-soft px-3 py-2 text-sm text-danger">{error}</p>}
 
       <div className="flex flex-col-reverse sm:flex-row gap-3 sm:justify-end pt-1">
         <Button type="button" variant="secondary" onClick={onCancel} className="justify-center">

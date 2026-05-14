@@ -5,7 +5,7 @@ id: PB-CURRENT-PLAN
 title: Current Plan
 lifecycle: active
 created: '2026-05-05'
-updated: '2026-05-13'
+updated: '2026-05-14'
 aliases:
   - Current Plan
 tags:
@@ -18,11 +18,11 @@ generated: false
 
 ## Foco actual
 
-Beta 20 queda cerrada. El foco vuelve a evaluar el siguiente corte del ciclo `0.1` sin absorber tareas nuevas por defecto: o bien abrir una nueva beta para `CACH-B0004`, o mantener un corte pequeño de hardening si el feedback privado lo pide.
+Beta 23 está activa en la rama `release/0.1.0-beta.23` como corte de sistema visual total: tokens Lovable, primitivas UI, pantallas core, detalles, calendarios, secundarias, admin/layout y QA final sin absorber funcionalidades Lovable nuevas.
 
 ## Release activa
 
-No hay release activa en este momento.
+[[../releases/RELEASE-0.1.0-beta.23|RELEASE-0.1.0-beta.23]] — tokens Lovable y visual total.
 
 Últimos cortes:
 
@@ -47,6 +47,9 @@ Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboa
 - Beta 18 cierra `CACH-0054`, `CACH-0055` y `CACH-0056`: notas contextuales, quick forms financieros y calendario de eventos separado del plan anual.
 - Beta 19 cierra el primer corte de `CACH-B0004`: contratantes estructurados, schema/RLS, hooks, portabilidad, UX mínima y regresión financiera.
 - Beta 20 cierra `CACH-0063`: `BottomActionBar` compartido en detalles de proyecto y evento.
+- Beta 21 cierra primera sesion guiada y PWA instalable.
+- Beta 22 cierra historial de novedades beta.
+- Beta 23 queda enfocada en unificacion visual total con `CACH-0076` a `CACH-0088`, sin cambios funcionales.
 
 ## Prioridades
 
@@ -66,8 +69,8 @@ Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboa
 
 ## Próximo checkpoint
 
-Decidir si el próximo corte es `CACH-B0004` liquidación neta gasto-ingreso o un hardening pequeño derivado del feedback beta.
+Cerrar `RELEASE-0.1.0-beta.23`: PR `release/0.1.0-beta.23` -> `main`, CI verde, merge, tag `v0.1.0-beta.23` y verificacion de produccion si aplica.
 
 ## Siguiente release candidata
 
-Tras beta 20, evaluar `CACH-B0004` para liquidación neta gasto-ingreso o mantener otro corte de hardening si la beta privada lo pide.
+Tras beta 23, reevaluar si el siguiente corte vuelve a `CACH-B0004` o si el feedback beta pide un hardening pequeno.
