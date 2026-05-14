@@ -103,8 +103,24 @@ function jsonResponse(body: unknown) {
   return {
     status: 200,
     contentType: 'application/json',
-    headers: { 'cache-control': 'no-store' },
+    headers: {
+      'access-control-allow-origin': '*',
+      'access-control-allow-headers': 'authorization, apikey, content-type, x-client-info',
+      'cache-control': 'no-store',
+    },
     body: JSON.stringify(body),
+  }
+}
+
+function corsPreflightResponse() {
+  return {
+    status: 204,
+    headers: {
+      'access-control-allow-origin': '*',
+      'access-control-allow-methods': 'GET, POST, PATCH, OPTIONS',
+      'access-control-allow-headers': 'authorization, apikey, content-type, x-client-info',
+    },
+    body: '',
   }
 }
 
@@ -146,6 +162,11 @@ async function setupCoreResponsiveSmoke(page: Page) {
     const url = new URL(request.url())
     const table = url.pathname.split('/').pop()
     const method = request.method()
+
+    if (method === 'OPTIONS') {
+      await route.fulfill(corsPreflightResponse())
+      return
+    }
 
     if (table === 'create_calendar_feed') {
       const body = request.postDataJSON() as { feed_provider?: string; feed_label?: string }
@@ -378,11 +399,12 @@ test('calendario permite crear, copiar y desactivar feeds suscribibles', async (
   await page.goto('/calendar/events')
   const googleCard = page.locator('article').filter({ hasText: 'Google Calendar' })
   const outlookCard = page.locator('article').filter({ hasText: 'Outlook' })
+  await expect(googleCard.getByText('Sin enlaces activos')).toBeVisible()
 
   await googleCard.getByRole('button', { name: 'Crear enlace' }).click()
-  await expect(googleCard.getByText('1 activo')).toBeVisible()
-  await expect(googleCard.getByText('Enlaces')).toBeVisible()
+  await expect(googleCard.getByText('Enlaces', { exact: true })).toBeVisible()
   await expect(googleCard.getByText(/functions\/v1\/calendar-feed/)).toBeVisible()
+  await expect(googleCard.getByText('1 activo')).toBeVisible()
   await expect.poll(() => page.evaluate(() => (
     (window as Window & { __copiedCalendarLink?: string }).__copiedCalendarLink ?? ''
   ))).toContain('token=caches_google_1')
