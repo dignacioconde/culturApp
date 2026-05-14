@@ -401,5 +401,5 @@ test('calendario permite crear, copiar y desactivar feeds suscribibles', async (
 
   await googleCard.getByRole('button', { name: 'Desactivar' }).first().click()
   await expect(googleCard.getByText('1 activo')).toBeVisible()
-  await expect(googleCard.getByText('Desactivado', { exact: true })).toBeVisible()
+  await expect(googleCard.getByText('Desactivado', { exact: true })).toHaveCount(0)
 })

@@ -43,6 +43,7 @@ export function useCalendarFeeds(userId) {
       .from('calendar_feeds')
       .select('id,label,provider,scope,revoked_at,last_accessed_at,created_at')
       .eq('user_id', userId)
+      .is('revoked_at', null)
       .order('created_at', { ascending: false })
 
     setLoading(false)
@@ -112,9 +113,7 @@ export function useCalendarFeeds(userId) {
     }
 
     const revoked = data?.[0]
-    setFeeds((current) => current.map((feed) => (
-      feed.id === feedId ? { ...feed, revoked_at: revoked?.revoked_at ?? new Date().toISOString() } : feed
-    )))
+    setFeeds((current) => current.filter((feed) => feed.id !== feedId))
     setCreatedLinks((current) => {
       const next = { ...current }
       delete next[feedId]

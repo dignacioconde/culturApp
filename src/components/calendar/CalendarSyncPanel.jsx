@@ -25,16 +25,13 @@ const providers = [
 ]
 
 function activeFeedsForProvider(feeds, provider) {
-  return feeds.filter((feed) => feed.provider === provider && !feed.revoked_at)
+  return feeds.filter((feed) => feed.provider === provider)
 }
 
 function feedsForProvider(feeds, provider) {
   return feeds
     .filter((feed) => feed.provider === provider)
     .sort((first, second) => {
-      const firstRevoked = Boolean(first.revoked_at)
-      const secondRevoked = Boolean(second.revoked_at)
-      if (firstRevoked !== secondRevoked) return firstRevoked ? 1 : -1
       return new Date(second.created_at ?? 0).getTime() - new Date(first.created_at ?? 0).getTime()
     })
 }
@@ -147,7 +144,7 @@ export function CalendarSyncPanel({
 
               {providerFeeds.length === 0 ? (
                 <p className="border-t border-border-subtle pt-3 text-xs text-text-secondary">
-                  Aún no has creado enlaces para este proveedor.
+                  No tienes enlaces activos para este proveedor.
                 </p>
               ) : (
                 <div className="border-y border-border-subtle">
@@ -164,11 +161,8 @@ export function CalendarSyncPanel({
                             <div className="min-w-0">
                               <p className="text-sm font-semibold text-text-primary">{feed.label}</p>
                               <p className="mt-1 text-xs text-text-secondary">Creado {formatDatetime(feed.created_at)}</p>
-                              {feed.last_accessed_at && isActive && (
+                              {feed.last_accessed_at && (
                                 <p className="text-xs text-text-secondary">Último uso {formatDatetime(feed.last_accessed_at)}</p>
-                              )}
-                              {feed.revoked_at && (
-                                <p className="text-xs text-text-secondary">Desactivado {formatDatetime(feed.revoked_at)}</p>
                               )}
                             </div>
                             <span className={`rounded-full border px-2 py-0.5 text-[11px] font-semibold ${statusClass(isActive)}`}>
