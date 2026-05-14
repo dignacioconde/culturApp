@@ -29,7 +29,7 @@ Cada release es un corte pequeno y mergeable. Evitar ramas eternas.
 5. Revisar diff/log e integrar cada tarea en la release con squash.
 6. Validar lint, tests, build y `pb:check`.
 7. Abrir PR unica `release/x.y.z-channel.n` -> `main`.
-8. Tras mergear la PR, actualizar `main`, crear tag desde `main` y borrar la rama remota de release.
+8. Tras mergear la PR, actualizar `main`, crear tag desde `main`, crear GitHub Release desde ese tag y borrar la rama remota de release.
 9. Verificar produccion si aplica.
 
 ## TODO

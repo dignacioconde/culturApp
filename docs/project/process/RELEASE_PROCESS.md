@@ -152,12 +152,14 @@ git switch main
 git pull origin main
 git tag v0.1.0-beta.1
 git push origin v0.1.0-beta.1
+gh release create v0.1.0-beta.1 --verify-tag --prerelease --latest=false --title "v0.1.0-beta.1 — <titulo>" --notes-file <release-notes.md>
 git push origin --delete release/0.1.0-beta.1
 ```
 
 Despues:
 
 - mantener issues cerradas como `issue_workflow: done`;
+- crear GitHub Release desde el tag; el tag Git por si solo no aparece como Release en la UI de GitHub;
 - actualizar release a `release_phase: released`;
 - actualizar [[../releases/CURRENT_RELEASE|Current Release]];
 - actualizar estado del producto;

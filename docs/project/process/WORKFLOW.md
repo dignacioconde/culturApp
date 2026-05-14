@@ -135,6 +135,7 @@ Checklist minimo:
 - PR mergeada en `main`.
 - `main` actualizado en local.
 - Tag `vX.Y.Z-beta.N` creado desde `main`.
+- GitHub Release creada desde el tag; para betas usar `--prerelease --latest=false`.
 - Produccion verificada si aplica.
 - Rama remota `release/<version>` eliminada.
 - Documento de release actualizado como cerrado.

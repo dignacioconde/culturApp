@@ -52,6 +52,7 @@ Planning and implementation:
 - For active beta releases, agents create task branches locally from the active `release/<version>` branch, prefer `feat/` for new feature branches (`feature/` is legacy), do not push task branches by default, review diff/log against the release, and integrate completed work into the release via squash after local verification.
 - `npm run ship -- --execute --issue CACH-XXXX` must block `work_type: feature` issues with `release: null`; use `--allow-no-release` only for a deliberate lightweight exception and explain it in the issue/PR.
 - Release closure standard: consolidate implementation, Product Brain updates, generated indexes/digest, memory notes and validation status into the cleanest possible final history. Prefer a single clear release commit or squash-style merge result over scattered fixups; leave `main`/release branches clean, no uncommitted generated artifacts, no stray pushed task branches, and no unexplained git traces.
+- Git tags and GitHub Releases are different surfaces. When closing a beta tag `vX.Y.Z-beta.N`, create the corresponding GitHub Release from the existing tag with `--verify-tag --prerelease --latest=false` so the GitHub Releases UI matches Product Brain.
 - Commit format for CACH work: `<type>(CACH-XXXX): summary`.
 - Do not add `Co-Authored-By` or AI co-author lines to commits.
 
