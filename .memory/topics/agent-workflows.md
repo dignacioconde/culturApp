@@ -61,6 +61,7 @@ Verification and closure:
 - When unifying UI from an external design export, compare target CSS/components/screenshots against the app before closing; token aliases alone do not prove the visual language is unified.
 - For `react-big-calendar`, verify toolbar, header and month rows/cells are visible.
 - Before closing any task, pass the learning loop: identify whether the work produced durable learning, update memory/docs/process when it did, or explicitly declare `Memoria: no aplica`.
+- In OpenCode, non-docs agents detect durable memory and route it to `@cultura-docs`; in local single-agent work, the lead agent may update `.memory/` directly following `memory-protocol`.
 - Do not close a tracked issue just because a local fix exists.
 - Resolved issues must stay linked to the PR or pushed commit that resolves them.
 - If there is an open PR, keep the issue open and use `Closes #N`, `Fixes #N` or equivalent in the PR body.
@@ -87,6 +88,14 @@ Agent supervision:
 - If no visible feedback appears, inspect the OpenCode run output/log before assuming failure.
 - `run-agent.mjs` and `run-parallel-agents.mjs` have timeouts; timeout output is diagnostic, not durable memory.
 - `.opencode/runs/current.json` is operational state for live runs; do not treat it as project history.
+
+## 2026-05-14 - Source Alignment Reviews Need Semantic Agents
+
+- Context: a source-alignment pass found that automated context checks can be green while semantic drift remains between AGENTS, Product Brain workflow, OpenCode prompts, skills, memory, README and TECHDOC.
+- Durable memory: when asked to review whether project sources are aligned, use a read-only multi-agent split by domain: context/agents, Product Brain workflow, technical facts, and skills/memory. Keep each agent question narrow and ask for file/line evidence plus minimal fixes.
+- Durable memory: review recurring drift seams explicitly: `main` vs `release/<version>` branching, `pb:check` vs `pb:guard`/ready/close checks, legacy skill names such as `brain-orient`, broad memory loading, dashboard finance contract, TECHDOC hook/table inventory, and README/SQL/bootstrap pointers.
+- Durable memory: integrate only minimal corrections into canonical sources first, then mirror supporting memory/skills/prompts. Verify with `npm run context:check`, `npm run pb:guard` when Product Brain is touched, `npm run verify:skills` when skills/prompts change, and `git diff --check`.
+- Durable memory: do not save full agent reports, command logs, branch state or chronological session summaries in `.memory/`; store reusable guardrails and the final source-of-truth alignment.
 
 ## Historical Notes
 

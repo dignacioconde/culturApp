@@ -33,7 +33,7 @@ Close changes with practical verification: lint/build, targeted smoke tests, hig
 ## Procedure
 
 1. Identify what changed and map it to risk areas: UI, data, auth, financial logic, calendar, docs, skills, or deploy.
-2. Prefer `npm run verify:pr -- --base origin/main` for PR readiness and `npm run verify:ci` for the local equivalent of the required `app` CI job.
+2. Prefer `npm run verify:pr -- --base origin/main` for final PR readiness and `npm run verify:ci` for the local equivalent of the required `app` CI job. For task branches inside a release, use `npm run verify:pr -- --base origin/release/<version>` before squash.
 3. Run or request `npm run lint` and `npm run build` when a narrower check is enough or the full preflight is too broad for the task.
 4. For form changes, verify create/edit/delete paths, validation, loading/error states, and reset behavior.
 5. For data changes, verify event without project, project without events, project with mixed direct and event-linked incomes/expenses, pending income, paid income, and profile-missing 409 behavior if relevant.

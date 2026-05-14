@@ -88,7 +88,7 @@ Keep the briefing under 20 lines. If nothing relevant is found, say so explicitl
 
 ## Quality bar
 
-- Load the minimum files needed. Never load all 17 files unless explicitly asked.
+- Load the minimum files needed. Never load all memory files unless explicitly asked.
 - Extract facts, not file contents. Summarize durable constraints in 1-2 lines each.
 - Do not invent memory. Only report what is in the files.
 - Do not write or modify memory files. This skill is read-only.

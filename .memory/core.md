@@ -26,4 +26,4 @@ Repository-local memory for CulturaApp agents. This file is a compact map; detai
 ## Maintenance
 
 - Created: 2026-05-03
-- Last curated: 2026-05-05 — compact pass: 24 → 17 files, merged 7 obsolete/redundant entries.
+- Last curated: 2026-05-14 — alignment pass: context loading, Product Brain orientation, dashboard finance, release validation and skill routing.

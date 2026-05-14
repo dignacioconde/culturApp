@@ -33,10 +33,11 @@ La skill prioriza comandos e inspección mínima. No sustituye una revisión té
 - `.memory/MEMORY.md`
 - `.memory/topics/agent-workflows.md`
 - `docs/project/START_HERE.md`
-- `docs/project/releases/CURRENT_RELEASE.md`
+- `npm run pb:orient -- --json`
+- La release activa devuelta por `pb:orient`, si existe.
 - La issue `docs/project/issues/CACH-*.md` relacionada, si existe.
-- `docs/project/backlog/BACKLOG.md`
-- `docs/project/indexes/issues.index.md`
+- `docs/project/backlog/BACKLOG.md`, solo si cambia estado de tablero o hace falta resolver una incoherencia.
+- `docs/project/indexes/issues.index.md`, solo si necesitas localizar o crear IDs.
 - `docs/project/releases/RELEASE-*.md` de la release activa.
 
 Solo leer otros archivos si aparecen en el diff o son necesarios para resolver conflictos.
@@ -45,8 +46,9 @@ Solo leer otros archivos si aparecen en el diff o son necesarios para resolver c
 
 1. Orientar en paralelo:
    - `git status --short --branch`
-   - `sed -n '1,220p' docs/project/releases/CURRENT_RELEASE.md`
+   - `npm run pb:orient -- --json`
    - `sed -n '1,220p' .memory/topics/agent-workflows.md`
+   - Leer solo la release devuelta por `pb:orient` si hay release activa.
 2. Determinar:
    - release activa (`release_branch`)
    - rama actual
@@ -58,9 +60,9 @@ Solo leer otros archivos si aparecen en el diff o son necesarios para resolver c
    - `release: RELEASE-...`
    - criterios de aceptación ya marcados solo si están verificados por diff/contexto
 4. Actualizar trazabilidad mínima:
-   - `docs/project/releases/CURRENT_RELEASE.md`
    - release activa en `docs/project/releases/`
-   - `docs/project/backlog/BACKLOG.md`
+   - `docs/project/releases/CURRENT_RELEASE.md`, solo si cambia la release activa
+   - `docs/project/backlog/BACKLOG.md`, solo si cambia estado de tablero o hace falta resolver una incoherencia
    - regenerar índices/digest con scripts si cambian docs Product Brain
 5. Validar antes de integrar:
    - `npm run pb:guard` si toca `docs/project/`
@@ -102,7 +104,7 @@ Pendiente: PR release -> main / tag / producción si aplica
 
 - Cargar solo contexto mínimo y archivos tocados.
 - Cada cambio queda trazado a issue `CACH-*` y release si aplica.
-- `pb:check` y `git diff --check` pasan antes de commit final.
+- `pb:guard` y `git diff --check` pasan antes de commit final cuando toca Product Brain.
 - La rama de release queda limpia y sincronizada si se empuja.
 - El reporte final incluye commits y pendientes reales.
 

@@ -14,7 +14,7 @@ The goal is practical continuity across Codex, Claude Code, OpenCode, and other 
 ## When to use this skill
 
 - Use when the user says "recuerda", "guarda en memoria", "apunta", "forget", "olvida", "recall", "busca en memoria", "actualiza la memoria", or "memory".
-- Use when starting a task that may depend on durable project decisions, user preferences, previous tradeoffs, or known gotchas.
+- Use when closing a task with new durable learning, or when the user asks for an explicit memory operation. For task-start briefing, prefer `memory-orient`.
 - Use when a completed task produces reusable context that would help future agents avoid rediscovery.
 - Use when reviewing or cleaning `.memory/**`.
 

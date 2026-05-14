@@ -98,8 +98,11 @@ Las ramas de tarea son locales por defecto y se integran con squash despues de r
 ```bash
 git diff release/<version-or-name>...feat/<issue-id>-<short-name>
 git log --oneline release/<version-or-name>..feat/<issue-id>-<short-name>
+npm run verify:pr -- --base origin/release/<version-or-name>
 git merge --squash feat/<issue-id>-<short-name>
 ```
+
+Para una rama de tarea dentro de una release, la base de verificación es la propia release (`release/<version>` u `origin/release/<version>`), no `origin/main`. `origin/main` se usa para la PR final `release/<version>` -> `main`.
 
 Si hay release activa pero una tarea nueva no pertenece a ella, no sale de la release por defecto. Hay que aplazarla, ejecutarla por flujo ligero desde `main`, o anadirla explicitamente al documento de la release activa.
 
@@ -159,6 +162,8 @@ No es obligatorio para: hotfixes urgentes obvios, chores triviales, ajustes de c
 
 Campos opcionales: release, rama sugerida, riesgos, dependencias, notas técnicas, PR, commits.
 
+Además del cuerpo, toda issue debe usar el frontmatter v2 de `frontmatter-schema.md` (`schema_version: 2`, `kind: issue`, `lifecycle`, `issue_workflow`, `work_type`, `work_level`, `size`, `components`, etc.). No usar `type/status` top-level en documentos nuevos.
+
 ---
 
 ## Cuándo crear ADR
@@ -185,10 +190,13 @@ Si una issue hija descubre o consolida una regla transversal, no basta con dejar
 Son bloqueantes para PR o merge:
 
 - `npm run verify:pr -- --base origin/main` — preflight local de PR, incluyendo checks del job `app` y whitespace.
+- En ramas de tarea que nacen de una release, usar `npm run verify:pr -- --base origin/release/<version>` antes del squash; reservar `origin/main` para la PR final de la release.
 - `npm run lint` — si se toca código JS/TS y se ejecuta una validación acotada.
 - `npm run test` — requerido por CI `app`; no tratarlo como solo aviso.
 - `npm run build` — si se toca código de app o tooling que afecta build.
 - `npm run pb:guard` — si se toca `docs/project/` o `scripts/brain/`.
+- `npm run pb:ready-check -- CACH-XXXX` — antes de mover una issue a `ready`.
+- `npm run pb:close-check -- CACH-XXXX` — antes de marcar una issue como `done` o cerrar trabajo trazado.
 - Verificación DB remoto — si se toca `supabase/migrations/` o la feature depende de schema/policy/RPC nuevo: confirmar migración aplicada/verificada en remoto, o declarar explícitamente que la funcionalidad no está lista en producción.
 
 ### Solo aviso (no bloquean merge)

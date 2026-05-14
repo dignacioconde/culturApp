@@ -35,7 +35,8 @@ CIERRE DE ISSUE:
 - Toda issue resuelta debe quedar enlazada permanentemente al trabajo que la resuelve.
 - Si hay PR abierta: enlazar la issue en la descripcion de la PR con `Closes #N`, `Fixes #N` o equivalente; issue permanece ABIERTA hasta merge y se cierra solo cuando la PR se mergee a `main`.
 - Si no hay PR: enlazar desde commit o comentario y cerrar tras commit pusheado + comentario con resumen/commit/verificacion + memoria/docs declarada.
-- Si el cambio debe verse en la app publicada, mergea la PR a `main` cuando las verificaciones pasen y verifica produccion. Un preview de Vercel no cuenta como produccion.
+- Si el cambio debe verse en la app publicada, mergea la PR final a `main` cuando las verificaciones pasen y verifica produccion. Un preview de Vercel no cuenta como produccion.
+- Si trabajas dentro de una release, integra la rama de tarea por squash en `release/<version>` y deja la PR final `release/<version>` -> `main`.
 - Tras merge correcto contra `main`, confirma que la rama remota fue eliminada y borra la rama local desde `main` actualizado.
 
 SALIDA:
