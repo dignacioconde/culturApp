@@ -1,6 +1,7 @@
 import { CalendarCheck, Copy, ExternalLink, Link2, RefreshCw, ShieldCheck, Trash2 } from 'lucide-react'
 import { Button } from '../ui/Button'
 import { Notice } from '../ui/Notice'
+import { formatDatetime } from '../../lib/formatters'
 
 const providers = [
   {
@@ -25,6 +26,29 @@ const providers = [
 
 function activeFeedsForProvider(feeds, provider) {
   return feeds.filter((feed) => feed.provider === provider && !feed.revoked_at)
+}
+
+function feedsForProvider(feeds, provider) {
+  return feeds
+    .filter((feed) => feed.provider === provider)
+    .sort((first, second) => {
+      const firstRevoked = Boolean(first.revoked_at)
+      const secondRevoked = Boolean(second.revoked_at)
+      if (firstRevoked !== secondRevoked) return firstRevoked ? 1 : -1
+      return new Date(second.created_at ?? 0).getTime() - new Date(first.created_at ?? 0).getTime()
+    })
+}
+
+function statusClass(isActive) {
+  return isActive
+    ? 'border-success/30 bg-success-soft text-success'
+    : 'border-border-subtle bg-surface-muted text-text-secondary'
+}
+
+function activeCountLabel(count) {
+  if (count === 0) return 'Sin enlaces activos'
+  if (count === 1) return '1 activo'
+  return `${count} activos`
 }
 
 export function CalendarSyncPanel({
@@ -89,72 +113,109 @@ export function CalendarSyncPanel({
 
       <div className="grid gap-3 xl:grid-cols-3">
         {providers.map((provider) => {
-          const activeFeeds = activeFeedsForProvider(feeds, provider.id)
-          const latestFeed = activeFeeds[0]
-          const urls = latestFeed ? createdLinks[latestFeed.id] : null
+          const providerFeeds = feedsForProvider(feeds, provider.id)
+          const activeFeeds = activeFeedsForProvider(providerFeeds, provider.id)
           const isCreating = creatingProvider === provider.id
-          const isRevoking = latestFeed && revokingId === latestFeed.id
 
           return (
             <article key={provider.id} className="rounded-lg border border-border-subtle bg-surface-muted p-3">
               <div className="mb-3 flex items-start gap-2">
                 <Link2 size={18} className="mt-0.5 shrink-0 text-text-secondary" aria-hidden="true" />
-                <div className="min-w-0">
-                  <h3 className="text-sm font-semibold text-text-primary">{provider.title}</h3>
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="text-sm font-semibold text-text-primary">{provider.title}</h3>
+                    <span className={`rounded-full border px-2 py-0.5 text-[11px] font-semibold ${statusClass(activeFeeds.length > 0)}`}>
+                      {activeCountLabel(activeFeeds.length)}
+                    </span>
+                  </div>
                   <p className="mt-1 text-xs leading-5 text-text-secondary">{provider.text}</p>
                 </div>
               </div>
 
-              {latestFeed && (
-                <div className="mb-3 rounded-lg border border-border-subtle bg-surface-card px-3 py-2 text-xs text-text-secondary">
-                  <p className="font-medium text-text-primary">Enlace activo</p>
-                  {urls ? (
-                    <p className="mt-1 break-all font-mono text-[11px]">{urls.httpsUrl}</p>
-                  ) : (
-                    <p className="mt-1">Por seguridad, el enlace completo solo se muestra al crearlo.</p>
-                  )}
-                </div>
-              )}
-
-              <div className="flex flex-wrap gap-2">
-                {urls && provider.id === 'apple' && (
-                  <Button size="sm" className="min-h-10" onClick={() => window.location.assign(urls.webcalUrl)}>
-                    <ExternalLink size={15} />
-                    {provider.primaryLabel}
-                  </Button>
-                )}
-                {urls && (
-                  <Button variant="secondary" size="sm" className="min-h-10" onClick={() => copyUrl(urls.httpsUrl)}>
-                    <Copy size={15} />
-                    Copiar
-                  </Button>
-                )}
+              <div className="mb-3 flex flex-wrap gap-2">
                 <Button
-                  variant={latestFeed ? 'secondary' : 'primary'}
+                  variant={activeFeeds.length > 0 ? 'secondary' : 'primary'}
                   size="sm"
                   className="min-h-10"
                   onClick={() => handleCreate(provider.id)}
                   disabled={loading || isCreating}
                 >
                   <RefreshCw size={15} />
-                  {latestFeed ? 'Crear otro' : isCreating ? 'Creando…' : 'Crear enlace'}
+                  {isCreating ? 'Creando…' : activeFeeds.length > 0 ? 'Crear nuevo' : 'Crear enlace'}
                 </Button>
-                {latestFeed && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="min-h-10"
-                    onClick={() => handleRevoke(latestFeed.id)}
-                    disabled={Boolean(isRevoking)}
-                  >
-                    <Trash2 size={15} />
-                    {isRevoking ? 'Desactivando…' : 'Desactivar'}
-                  </Button>
-                )}
               </div>
 
-              {activeFeeds.length > 1 && (
-                <p className="mt-2 text-xs text-text-secondary">{activeFeeds.length} enlaces activos para este proveedor.</p>
+              {providerFeeds.length === 0 ? (
+                <p className="border-t border-border-subtle pt-3 text-xs text-text-secondary">
+                  Aún no has creado enlaces para este proveedor.
+                </p>
+              ) : (
+                <div className="border-y border-border-subtle">
+                  <p className="py-2 text-xs font-semibold uppercase tracking-wide text-text-secondary">Enlaces</p>
+                  <div className="divide-y divide-border-subtle">
+                    {providerFeeds.map((feed) => {
+                      const isActive = !feed.revoked_at
+                      const urls = createdLinks[feed.id]
+                      const isRevoking = revokingId === feed.id
+
+                      return (
+                        <div key={feed.id} className="py-3">
+                          <div className="flex flex-wrap items-start justify-between gap-2">
+                            <div className="min-w-0">
+                              <p className="text-sm font-semibold text-text-primary">{feed.label}</p>
+                              <p className="mt-1 text-xs text-text-secondary">Creado {formatDatetime(feed.created_at)}</p>
+                              {feed.last_accessed_at && isActive && (
+                                <p className="text-xs text-text-secondary">Último uso {formatDatetime(feed.last_accessed_at)}</p>
+                              )}
+                              {feed.revoked_at && (
+                                <p className="text-xs text-text-secondary">Desactivado {formatDatetime(feed.revoked_at)}</p>
+                              )}
+                            </div>
+                            <span className={`rounded-full border px-2 py-0.5 text-[11px] font-semibold ${statusClass(isActive)}`}>
+                              {isActive ? 'Activo' : 'Desactivado'}
+                            </span>
+                          </div>
+
+                          {isActive && urls && (
+                            <p className="mt-2 break-all font-mono text-[11px] text-text-secondary">{urls.httpsUrl}</p>
+                          )}
+                          {isActive && !urls && (
+                            <p className="mt-2 text-xs text-text-secondary">
+                              El enlace completo solo se muestra al crearlo. Si necesitas copiarlo otra vez, crea uno nuevo y desactiva este.
+                            </p>
+                          )}
+
+                          {isActive && (
+                            <div className="mt-2 flex flex-wrap gap-2">
+                              {urls && provider.id === 'apple' && (
+                                <Button size="sm" className="min-h-10" onClick={() => window.location.assign(urls.webcalUrl)}>
+                                  <ExternalLink size={15} />
+                                  {provider.primaryLabel}
+                                </Button>
+                              )}
+                              {urls && (
+                                <Button variant="secondary" size="sm" className="min-h-10" onClick={() => copyUrl(urls.httpsUrl)}>
+                                  <Copy size={15} />
+                                  Copiar
+                                </Button>
+                              )}
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="min-h-10"
+                                onClick={() => handleRevoke(feed.id)}
+                                disabled={Boolean(isRevoking)}
+                              >
+                                <Trash2 size={15} />
+                                {isRevoking ? 'Desactivando…' : 'Desactivar'}
+                              </Button>
+                            </div>
+                          )}
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
               )}
             </article>
           )

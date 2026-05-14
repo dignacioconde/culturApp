@@ -380,25 +380,26 @@ test('calendario permite crear, copiar y desactivar feeds suscribibles', async (
   const outlookCard = page.locator('article').filter({ hasText: 'Outlook' })
 
   await googleCard.getByRole('button', { name: 'Crear enlace' }).click()
-  await expect(googleCard.getByText('Enlace activo')).toBeVisible()
+  await expect(googleCard.getByText('1 activo')).toBeVisible()
+  await expect(googleCard.getByText('Enlaces')).toBeVisible()
   await expect(googleCard.getByText(/functions\/v1\/calendar-feed/)).toBeVisible()
   await expect.poll(() => page.evaluate(() => (
     (window as Window & { __copiedCalendarLink?: string }).__copiedCalendarLink ?? ''
   ))).toContain('token=caches_google_1')
   await dismissToasts(page)
 
-  await googleCard.getByRole('button', { name: 'Crear otro' }).click()
-  await expect(googleCard.getByText('2 enlaces activos para este proveedor.')).toBeVisible()
+  await googleCard.getByRole('button', { name: 'Crear nuevo' }).click()
+  await expect(googleCard.getByText('2 activos')).toBeVisible()
   await dismissToasts(page)
 
   await outlookCard.getByRole('button', { name: 'Crear enlace' }).click()
-  await expect(outlookCard.getByText('Enlace activo')).toBeVisible()
+  await expect(outlookCard.getByText('1 activo')).toBeVisible()
   await expect.poll(() => page.evaluate(() => (
     (window as Window & { __copiedCalendarLink?: string }).__copiedCalendarLink ?? ''
   ))).toContain('token=caches_outlook_3')
   await dismissToasts(page)
 
-  await googleCard.getByRole('button', { name: 'Desactivar' }).click()
-  await expect(googleCard.getByText('2 enlaces activos para este proveedor.')).toHaveCount(0)
-  await expect(googleCard.getByText('Enlace activo')).toBeVisible()
+  await googleCard.getByRole('button', { name: 'Desactivar' }).first().click()
+  await expect(googleCard.getByText('1 activo')).toBeVisible()
+  await expect(googleCard.getByText('Desactivado', { exact: true })).toBeVisible()
 })
