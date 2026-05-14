@@ -103,18 +103,55 @@ function jsonResponse(body: unknown) {
   return {
     status: 200,
     contentType: 'application/json',
-    headers: { 'cache-control': 'no-store' },
+    headers: {
+      'access-control-allow-origin': '*',
+      'access-control-allow-headers': 'authorization, apikey, content-type, x-client-info',
+      'cache-control': 'no-store',
+    },
     body: JSON.stringify(body),
+  }
+}
+
+function corsPreflightResponse() {
+  return {
+    status: 204,
+    headers: {
+      'access-control-allow-origin': '*',
+      'access-control-allow-methods': 'GET, POST, PATCH, OPTIONS',
+      'access-control-allow-headers': 'authorization, apikey, content-type, x-client-info',
+    },
+    body: '',
   }
 }
 
 async function setupCoreResponsiveSmoke(page: Page) {
   let projects = [{ ...project }]
   let events = [{ ...event }]
+  let calendarFeedCounter = 0
+  let calendarFeeds: Array<{
+    id: string
+    label: string
+    provider: string
+    scope: string
+    revoked_at: string | null
+    last_accessed_at: string | null
+    created_at: string
+  }> = []
 
   await page.addInitScript(({ key, value }) => {
     window.localStorage.setItem(key, JSON.stringify(value))
   }, { key: authStorageKey, value: authSession })
+
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: {
+        writeText: async (text: string) => {
+          ;(window as Window & { __copiedCalendarLink?: string }).__copiedCalendarLink = text
+        },
+      },
+    })
+  })
 
   await page.route('**/auth/v1/**', async (route) => {
     await route.fulfill(jsonResponse(authSession))
@@ -125,6 +162,39 @@ async function setupCoreResponsiveSmoke(page: Page) {
     const url = new URL(request.url())
     const table = url.pathname.split('/').pop()
     const method = request.method()
+
+    if (method === 'OPTIONS') {
+      await route.fulfill(corsPreflightResponse())
+      return
+    }
+
+    if (table === 'create_calendar_feed') {
+      const body = request.postDataJSON() as { feed_provider?: string; feed_label?: string }
+      calendarFeedCounter += 1
+      const provider = body.feed_provider ?? 'other'
+      const feed = {
+        id: `calendar-feed-${calendarFeedCounter}`,
+        label: body.feed_label ?? 'Cachés - Agenda',
+        provider,
+        scope: 'events',
+        revoked_at: null,
+        last_accessed_at: null,
+        created_at: new Date(2026, 4, 14, 10, calendarFeedCounter).toISOString(),
+      }
+      calendarFeeds = [feed, ...calendarFeeds]
+      await route.fulfill(jsonResponse([{ ...feed, feed_token: `caches_${provider}_${calendarFeedCounter}` }]))
+      return
+    }
+
+    if (table === 'revoke_calendar_feed') {
+      const body = request.postDataJSON() as { feed_id?: string }
+      const revokedAt = new Date(2026, 4, 14, 11, calendarFeedCounter).toISOString()
+      calendarFeeds = calendarFeeds.map((feed) => (
+        feed.id === body.feed_id ? { ...feed, revoked_at: feed.revoked_at ?? revokedAt } : feed
+      ))
+      await route.fulfill(jsonResponse([{ id: body.feed_id, revoked_at: revokedAt }]))
+      return
+    }
 
     if (table === 'profiles') {
       await route.fulfill(jsonResponse(profile))
@@ -163,6 +233,11 @@ async function setupCoreResponsiveSmoke(page: Page) {
       return
     }
 
+    if (table === 'calendar_feeds') {
+      await route.fulfill(jsonResponse(calendarFeeds))
+      return
+    }
+
     await route.fulfill(jsonResponse([]))
   })
 }
@@ -172,6 +247,13 @@ async function expectCalendarChrome(page: Page) {
   await expect(page.locator('.rbc-header').first()).toBeVisible()
   await expect(page.locator('.rbc-day-bg, .rbc-date-cell').first()).toBeVisible()
   await expect(page.locator('.rbc-event').first()).toBeVisible()
+}
+
+async function dismissToasts(page: Page) {
+  const closeButtons = page.getByLabel('Cerrar aviso')
+  while (await closeButtons.count()) {
+    await closeButtons.first().click()
+  }
 }
 
 async function expectQuickIncomeDialog(page: Page, isMobile: boolean) {
@@ -282,13 +364,15 @@ for (const viewport of viewports) {
     await expect(page.getByText('1 eventos')).toBeVisible()
     await expect(page.getByRole('button', { name: 'Nuevo evento' })).toBeVisible()
     await expectCalendarChrome(page)
-    await page.getByText('Ensayo general').first().click()
+    await page.locator('.rbc-event').first().click()
     await expect(page.getByRole('heading', { name: 'Ensayo general' })).toBeVisible()
 
     await page.goto('/calendar/events')
     await expect(page.getByRole('heading', { name: 'Calendario de eventos' })).toBeVisible()
     await expect(page.getByText('1 eventos')).toBeVisible()
     await expectCalendarChrome(page)
+    await expect(page.getByRole('heading', { name: 'Sincronizar con tu calendario' })).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Google Calendar' })).toBeVisible()
 
     await page.goto('/calendar/projects')
     await expect(page.getByRole('heading', { name: 'Calendario de proyectos' })).toBeVisible()
@@ -306,4 +390,38 @@ test('core responsive permite editar y limpiar notas contextuales', async ({ pag
 
   await page.goto(`/events/${eventId}`)
   await editAndClearContextNote(page, 'Nota actualizada de evento')
+})
+
+test('calendario permite crear, copiar y desactivar feeds suscribibles', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await setupCoreResponsiveSmoke(page)
+
+  await page.goto('/calendar/events')
+  const googleCard = page.locator('article').filter({ hasText: 'Google Calendar' })
+  const outlookCard = page.locator('article').filter({ hasText: 'Outlook' })
+  await expect(googleCard.getByText('Sin enlaces activos')).toBeVisible()
+
+  await googleCard.getByRole('button', { name: 'Crear enlace' }).click()
+  await expect(googleCard.getByText('Enlaces', { exact: true })).toBeVisible()
+  await expect(googleCard.getByText(/functions\/v1\/calendar-feed/)).toBeVisible()
+  await expect(googleCard.getByText('1 activo')).toBeVisible()
+  await expect.poll(() => page.evaluate(() => (
+    (window as Window & { __copiedCalendarLink?: string }).__copiedCalendarLink ?? ''
+  ))).toContain('token=caches_google_1')
+  await dismissToasts(page)
+
+  await googleCard.getByRole('button', { name: 'Crear nuevo' }).click()
+  await expect(googleCard.getByText('2 activos')).toBeVisible()
+  await dismissToasts(page)
+
+  await outlookCard.getByRole('button', { name: 'Crear enlace' }).click()
+  await expect(outlookCard.getByText('1 activo')).toBeVisible()
+  await expect.poll(() => page.evaluate(() => (
+    (window as Window & { __copiedCalendarLink?: string }).__copiedCalendarLink ?? ''
+  ))).toContain('token=caches_outlook_3')
+  await dismissToasts(page)
+
+  await googleCard.getByRole('button', { name: 'Desactivar' }).first().click()
+  await expect(googleCard.getByText('1 activo')).toBeVisible()
+  await expect(googleCard.getByText('Desactivado', { exact: true })).toHaveCount(0)
 })

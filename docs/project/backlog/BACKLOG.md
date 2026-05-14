@@ -53,7 +53,7 @@ _Sin issues._
 | [[../issues/CACH-B0001|CACH-B0001]] | Redisenar Trabajos y jerarquia proyecto-evento | feature | initiative | p1 | work, projects, events, design-system |
 | [[../issues/CACH-B0002|CACH-B0002]] | Simplificar experiencia mobile financiera | feature | initiative | p1 | finance, design-system |
 | [[../issues/CACH-B0004|CACH-B0004]] | Contratantes facturacion y liquidacion neta | feature | initiative | p1 | finance, design-system |
-| [[../issues/CACH-B0007|CACH-B0007]] | Calendario unificado e interaccion rapida | feature | initiative | p1 | calendar, design-system |
+| [[../issues/CACH-B0007|CACH-B0007]] | Calendarios claros y sincronizacion suscribible | feature | initiative | p1 | calendar, design-system |
 | [[../issues/CACH-B0008|CACH-B0008]] | PWA notificaciones y offline | feature | initiative | p2 | infra-deploy |
 | [[../issues/CACH-B0009|CACH-B0009]] | Inteligencia financiera y features Pro | feature | initiative | p2 | finance |
 | [[../issues/CACH-B0010|CACH-B0010]] | Tooling de agentes y modelos de desarrollo | chore | initiative | p2 | agents, infra-deploy |
@@ -119,6 +119,12 @@ _Sin issues._
 | [[../issues/CACH-0068|CACH-0068]] | Verificacion responsive PWA y cierre beta 21 | RELEASE-0.1.0-beta.21 | Implementado y cerrado en `RELEASE-0.1.0-beta.21`. La release queda lista para PR final, tag `v0.1.0-beta.21` y smoke postdeploy en `https://app.caches.es`; la instalacion real iPhone/Android queda como verificacion manual humana fuera del entorno del agente. |
 | [[../issues/CACH-0074|CACH-0074]] | Historial user friendly de novedades beta | RELEASE-0.1.0-beta.22 | Implementado y preparado para `RELEASE-0.1.0-beta.22`: `/novedades` muestra un historial user friendly de beta 15 a beta 21, con beta 21 destacada como última novedad. |
 | [[../issues/CACH-0075|CACH-0075]] | Bloquear ship de features sin release | RELEASE-0.1.0-beta.22 | Implementado en `scripts/ship.mjs` y documentado en `docs/project/process/WORKFLOW.md`, `docs/project/process/RELEASE_PROCESS.md` y `.memory/topics/agent-workflows.md`. |
+| [[../issues/CACH-0089|CACH-0089]] | Preparar Beta 24 de calendario | RELEASE-0.1.0-beta.24 | Beta 24 queda creada como release solo de calendario, con `CACH-B0007` reenfocada y slices `CACH-0089` a `CACH-0094` asociadas. |
+| [[../issues/CACH-0090|CACH-0090]] | Clarificar Agenda y Plan anual | RELEASE-0.1.0-beta.24 | Agenda y Plan anual comparten navegación clara, copy operativo y leyendas/resúmenes para que los colores tengan texto asociado. |
+| [[../issues/CACH-0091|CACH-0091]] | Rehacer visibilidad movil de calendarios | RELEASE-0.1.0-beta.24 | Agenda móvil añade lista accionable del periodo visible y el panel seleccionado vuelve al flujo normal. Plan anual móvil se simplifica en una vista por mes seleccionado. |
+| [[../issues/CACH-0092|CACH-0092]] | Feed suscribible privado de eventos | RELEASE-0.1.0-beta.24 | Implementación añadida: migración `calendar_feeds`, RPCs `create_calendar_feed`, `revoke_calendar_feed` y `get_calendar_feed_events`, Edge Function pública `calendar-feed` y builder ICS testeado. |
+| [[../issues/CACH-0093|CACH-0093]] | UI de sincronizacion por proveedor | RELEASE-0.1.0-beta.24 | Panel de sincronización añadido en `/calendar/events` con cards por proveedor, aviso de privacidad, creación/copia/apertura Apple y desactivación. |
+| [[../issues/CACH-0094|CACH-0094]] | QA y cierre de Beta 24 calendario | RELEASE-0.1.0-beta.24 | QA de Beta 24 completado. La app, Product Brain y smoke responsive pasan; migración y Edge Function verificadas con feed remoto y revocación funcional. |
 | [[../issues/CACH-B0003|CACH-B0003]] | Cobro rapido y gestion de pendientes | RELEASE-0.1.0-beta.5 | Released en RELEASE-0.1.0-beta.5 por ampliacion explicita de scope. Integrado en `main` mediante PR #84. |
 | [[../issues/CACH-B0005|CACH-B0005]] | Importacion exportacion y portabilidad de datos | RELEASE-0.1.0-beta.7 | Released en RELEASE-0.1.0-beta.7. Integrado en `main` mediante PR #86. |
 | [[../issues/CACH-B0006|CACH-B0006]] | Onboarding y acceso beta | RELEASE-0.1.0-beta.8 | Released en RELEASE-0.1.0-beta.8. Integrado en `main` mediante PR #87. |

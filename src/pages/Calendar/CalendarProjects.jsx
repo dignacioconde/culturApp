@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useMemo, useState } from 'react'
 import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
+import { CalendarPageNav } from '../../components/calendar/CalendarPageNav'
 import { ProjectYearView } from '../../components/calendar/ProjectYearView'
 import { PageWrapper } from '../../components/layout/PageWrapper'
 import { Button } from '../../components/ui/Button'
@@ -12,9 +13,10 @@ import { useAuth } from '../../hooks/useAuth'
 import { useContractors } from '../../hooks/useContractors'
 import { useProjects } from '../../hooks/useProjects'
 import { getProjectContractor } from '../../lib/contractors'
+import { STATUS_LABELS } from '../../lib/constants'
 import { formatDate } from '../../lib/formatters'
-import { getDefaultSelectedMonth } from '../../lib/projectYearCalendar'
-import { AlertCircle, FolderOpen, Plus, X, ChevronDown, ChevronUp, ChevronLeft, ChevronRight } from 'lucide-react'
+import { getDefaultSelectedMonth, getProjectsForMonth, MONTH_LABELS } from '../../lib/projectYearCalendar'
+import { AlertCircle, FolderOpen, Plus, X, ChevronLeft, ChevronRight } from 'lucide-react'
 
 function CalendarFeedback({ icon: Icon, tone = 'muted', children }) {
   const tones = {
@@ -30,31 +32,49 @@ function CalendarFeedback({ icon: Icon, tone = 'muted', children }) {
   )
 }
 
-// Detectar si es viewport móvil
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false)
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768)
-    check()
-    window.addEventListener('resize', check)
-    return () => window.removeEventListener('resize', check)
-  }, [])
-  return isMobile
+function ProjectColorLegend({ projects, monthLabel }) {
+  const visibleProjects = projects.slice(0, 8)
+  const hiddenCount = projects.length - visibleProjects.length
+
+  if (projects.length === 0) return null
+
+  return (
+    <section className="rounded-lg border border-border-subtle bg-surface-muted px-3 py-2">
+      <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-secondary">Proyectos en {monthLabel}</p>
+      <div className="flex flex-wrap gap-2">
+        {visibleProjects.map((project) => (
+          <span key={project.id} className="inline-flex max-w-full items-center gap-2 rounded-full border border-border-subtle bg-surface-card px-2.5 py-1 text-xs text-text-secondary">
+            <span className="size-2.5 shrink-0 rounded-full" style={{ backgroundColor: project.color ?? 'var(--color-project-1)' }} />
+            <span className="truncate">{project.name}</span>
+            <span className="shrink-0 text-text-secondary/80">{STATUS_LABELS[project.status] ?? project.status}</span>
+          </span>
+        ))}
+        {hiddenCount > 0 && (
+          <span className="inline-flex items-center rounded-full border border-border-subtle bg-surface-card px-2.5 py-1 text-xs font-medium text-text-secondary">
+            +{hiddenCount} más
+          </span>
+        )}
+      </div>
+    </section>
+  )
 }
 
 export default function CalendarProjects() {
   const { user } = useAuth()
   const { projects, loading, error, createProject } = useProjects(user?.id)
   const { contractors, findOrCreateContractor } = useContractors(user?.id)
-  const isMobile = useIsMobile()
   const [visibleYear, setVisibleYear] = useState(() => dayjs().year())
   const [selectedMonth, setSelectedMonth] = useState(() => dayjs().month())
   const [selectedProject, setSelectedProject] = useState(null)
   const [newModal, setNewModal] = useState(false)
   const [newProjectInitialData, setNewProjectInitialData] = useState(null)
   const [saving, setSaving] = useState(false)
-  const [panelExpanded, setPanelExpanded] = useState(false)
   const { toasts, addToast, removeToast } = useToast()
+
+  const selectedMonthProjects = useMemo(
+    () => getProjectsForMonth(projects, visibleYear, selectedMonth).map((project) => project.source),
+    [projects, selectedMonth, visibleYear]
+  )
 
   const handleCreate = async (formData) => {
     setSaving(true)
@@ -82,12 +102,13 @@ export default function CalendarProjects() {
 
   return (
     <PageWrapper title="Calendario de proyectos">
+      <CalendarPageNav />
       <div className="flex flex-col gap-4 lg:flex-row">
         <div className="flex flex-1 flex-col rounded-lg border border-border-subtle bg-surface-card p-3 shadow-sm sm:p-4 lg:min-h-0">
           <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-sm font-medium text-text-primary">{projects.length} proyectos</p>
-              <p className="text-xs text-text-secondary">Vista interna por rango de fechas</p>
+              <p className="text-xs text-text-secondary">Plan interno de proyectos por rango de fechas.</p>
             </div>
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
               <div className="flex items-center justify-center gap-2 rounded-lg border border-border-subtle bg-surface-muted px-2 py-1">
@@ -122,7 +143,7 @@ export default function CalendarProjects() {
           )}
           {loading ? (
             <div className="flex min-h-[420px] flex-1 items-center justify-center rounded-lg border border-dashed border-border-subtle bg-surface-muted text-sm text-text-secondary">
-              Cargando planificación...
+              Cargando planificación…
             </div>
           ) : (
             <div className="flex flex-1 flex-col gap-4">
@@ -133,6 +154,7 @@ export default function CalendarProjects() {
                 onSelectMonth={setSelectedMonth}
                 onSelectProject={setSelectedProject}
               />
+              <ProjectColorLegend projects={selectedMonthProjects} monthLabel={MONTH_LABELS[selectedMonth]} />
               {projects.length === 0 && (
                 <div className="mt-3">
                   <CalendarFeedback icon={FolderOpen}>
@@ -148,23 +170,9 @@ export default function CalendarProjects() {
           (() => {
             const selectedContractor = getProjectContractor(selectedProject, contractors)
             return (
-          <div className={`
-            w-full lg:w-80 bg-surface-card rounded-lg border border-border-subtle p-5 flex flex-col gap-4 text-text-primary shadow-sm
-            lg:relative
-            ${isMobile ? 'fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom))] left-0 right-0 max-h-[calc(70dvh-4rem)] overflow-y-auto rounded-b-none border-b-0 shadow-lg z-30' : ''}
-          `}>
-            {/* Toggle para móvil */}
-            {isMobile && (
-              <button 
-                onClick={() => setPanelExpanded(!panelExpanded)}
-                className="flex w-full items-center justify-center py-2 text-text-secondary hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary"
-              >
-                {panelExpanded ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
-              </button>
-            )}
-            
+          <div className="flex w-full flex-col gap-4 rounded-lg border border-border-subtle bg-surface-card p-5 text-text-primary shadow-sm lg:w-80 lg:self-start">
             <div className="flex items-start justify-between">
-              <div className="w-3 h-3 rounded-full mt-1 flex-shrink-0" style={{ backgroundColor: selectedProject.color ?? 'var(--color-project-1)' }} />
+              <div className="mt-1 size-3 shrink-0 rounded-full" style={{ backgroundColor: selectedProject.color ?? 'var(--color-project-1)' }} />
               <button onClick={() => setSelectedProject(null)} className="-mr-1 -mt-1 rounded-lg p-1.5 text-text-secondary hover:bg-surface-page-dark hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary" aria-label="Cerrar panel">
                 <X size={20} />
               </button>
@@ -175,7 +183,7 @@ export default function CalendarProjects() {
                 <p className="text-sm text-text-secondary mt-0.5 break-words">{selectedContractor.name}</p>
               )}
             </div>
-            <div className={`flex flex-col gap-2 text-sm text-text-secondary ${isMobile && !panelExpanded ? 'hidden' : ''}`}>
+            <div className="flex flex-col gap-2 text-sm text-text-secondary">
               <div className="flex items-center justify-between gap-3">
                 <span>Estado</span>
                 <StatusBadge status={selectedProject.status} />
@@ -195,7 +203,7 @@ export default function CalendarProjects() {
                 </div>
               )}
             </div>
-            <Link to={`/projects/${selectedProject.id}`} className={`mt-auto ${isMobile && !panelExpanded ? 'hidden' : ''}`}>
+            <Link to={`/projects/${selectedProject.id}`} className="mt-auto">
               <Button variant="secondary" size="sm" className="min-h-11 w-full justify-center sm:min-h-8">
                 Ver detalle completo
               </Button>

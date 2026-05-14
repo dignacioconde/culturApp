@@ -49,7 +49,9 @@ Resumen determinista generado desde Product Brain v2.
 `RELEASE-0.1.0-beta.22` — historial de novedades beta. Ver RELEASE-0.1.0-beta.22.
 
 `RELEASE-0.1.0-beta.23` — tokens Lovable y visual total. Ver RELEASE-0.1.0-beta.23.
-- **Foco:** Beta 23 está activa en la rama `release/0.1.0-beta.23` como corte de sistema visual total: tokens Lovable, primitivas UI, pantallas core, detalles, calendarios, secundarias, admin/layout y QA final sin absorber funcionalidades Lovable nuevas.
+
+`RELEASE-0.1.0-beta.24` — calendario claro y sincronización suscribible. Ver RELEASE-0.1.0-beta.24.
+- **Foco:** No hay release activa. Beta 24 queda cerrada como corte de calendario claro y sincronización suscribible.
 
 ## Prioridades del plan
 
@@ -83,7 +85,7 @@ _Sin entradas._
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | feature | initiative | p1 |
-| CACH-B0007 | Calendario unificado e interaccion rapida | feature | initiative | p1 |
+| CACH-B0007 | Calendarios claros y sincronizacion suscribible | feature | initiative | p1 |
 
 ## Issues abiertas
 
@@ -92,7 +94,7 @@ _Sin entradas._
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | backlog | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | backlog | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | backlog | feature | initiative | p1 |
-| CACH-B0007 | Calendario unificado e interaccion rapida | backlog | feature | initiative | p1 |
+| CACH-B0007 | Calendarios claros y sincronizacion suscribible | backlog | feature | initiative | p1 |
 | CACH-B0008 | PWA notificaciones y offline | backlog | feature | initiative | p2 |
 | CACH-B0009 | Inteligencia financiera y features Pro | backlog | feature | initiative | p2 |
 | CACH-B0010 | Tooling de agentes y modelos de desarrollo | backlog | chore | initiative | p2 |
@@ -122,4 +124,4 @@ _Sin entradas._
 
 ## Próxima acción
 
-Cerrar `RELEASE-0.1.0-beta.23`: PR `release/0.1.0-beta.23` -> `main`, CI verde, merge, tag `v0.1.0-beta.23` y verificacion de produccion si aplica.
+Definir el siguiente corte beta según feedback real de calendario y prioridades pendientes del ciclo `0.1`.

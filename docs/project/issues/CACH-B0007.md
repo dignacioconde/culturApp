@@ -2,10 +2,10 @@
 schema_version: 2
 kind: issue
 id: CACH-B0007
-title: Calendario unificado e interaccion rapida
+title: Calendarios claros y sincronizacion suscribible
 lifecycle: active
 created: '2026-05-04'
-updated: '2026-05-08'
+updated: '2026-05-14'
 aliases:
   - CACH-B0007
 tags:
@@ -31,33 +31,34 @@ adr: []
 release: null
 theme: core-work-ux
 ---
-# CACH-B0007 — Calendario unificado e interacción rápida
+# CACH-B0007 — Calendarios claros y sincronización suscribible
 
 ## Summary
 
-Mejorar el calendario para soportar eventos/proyectos juntos, filtros y acciones rápidas, respetando preferencias de fecha manual.
+Mejorar Agenda y Plan anual como calendarios separados, claros y accionables, con sincronización suscribible de eventos hacia calendarios externos.
 
 ## Context
 
-Agrupa #1, #2, #6, #20 y #36.
+Agrupa #1, #2, #6, #20 y #36. `CACH-0056` decidió no mantener una vista unificada porque mezclar eventos y proyectos empeoraba el modelo mental: eventos son ocurrencias con hora exacta; proyectos son rangos internos de trabajo.
 
 ## Problem
 
-Tener calendarios separados y detalles lentos puede dificultar la visión global del trabajo cultural. A la vez, el usuario prefiere fechas manuales y no conviene forzar selectores incómodos.
+Los calendarios actuales están separados, pero no explican bien cuándo usar Agenda o Plan anual. En móvil se pierde visibilidad por la falta de una lista accionable, las marcas de color no comunican suficiente contexto y la agenda no puede llevarse fácilmente al calendario habitual del usuario.
 
 ## Proposed Solution
 
-- Calendario con filtros para eventos, proyectos o ambos.
-- Proyectos con presencia visual más suave que eventos.
-- Modal al pulsar en calendario con resumen y navegación.
-- Evento de un día por defecto; rango solo si se activa.
+- Mantener Agenda de eventos y Plan anual de proyectos como superficies separadas, con navegación/copy común que explique el modelo.
+- Añadir leyendas y resúmenes rápidos que hagan útiles los colores sin depender solo de ellos.
+- Priorizar en móvil un patrón de calendario + lista accionable.
+- Añadir sincronización privada suscribible `.ics/webcal` para eventos, sin OAuth ni escritura en calendarios externos.
 - Disponibilidad como capa opcional futura.
 
 ## Acceptance Criteria
 
-- [ ] El calendario puede mostrar eventos y proyectos sin confundir jerarquías.
-- [ ] El usuario puede filtrar qué ve.
-- [ ] Pulsar un item abre resumen útil y acceso al detalle.
+- [ ] Agenda y Plan anual explican claramente la diferencia entre evento con hora y proyecto por rango.
+- [ ] En móvil, el usuario puede escanear el periodo seleccionado sin perder los eventos/proyectos en una rejilla difícil de leer.
+- [ ] Las marcas de color tienen leyenda o texto asociado y no son la única señal.
+- [ ] El usuario puede crear y revocar un enlace privado de sincronización de eventos.
 - [ ] Crear/editar fechas mantiene entrada manual clara.
 
 ## Related
@@ -75,17 +76,26 @@ Tener calendarios separados y detalles lentos puede dificultar la visión global
 
 ## Notas de progreso
 
+- 2026-05-14: Beta 24 reabre la iniciativa como calendario claro y sincronización suscribible, manteniendo la separación decidida en `CACH-0056`.
+- 2026-05-14: Implementación local de Beta 24 completada: Agenda con lista visible, Plan anual móvil por mes, feed privado `.ics/webcal` de eventos y UI por Apple/Google/Outlook. Supabase remoto queda pendiente de aplicación/despliegue.
+- 2026-05-14: Beta 24 cerrada con feed remoto validado, revocación corregida y gestión de enlaces activos simplificada.
 
 ## Cambios de alcance y decisiones
 
+- La vista unificada queda fuera de Beta 24. La sincronización v1 incluye solo eventos y es de solo lectura hacia calendarios externos.
 
 ## Bloqueos
 
 
 ## Validación ejecutada
 
-Pendiente hasta ejecutar la issue.
+- `npm run lint` OK.
+- `npm run test` OK.
+- `npm run build` OK.
+- `npm run test:e2e -- e2e/core-responsive.spec.ts` OK.
+- `npm run pb:guard` OK.
+- `npm run verify:pr -- --base origin/main` OK.
 
 ## Memoria
 
-No aplica por ahora.
+Memoria: ver `.memory/projects/calendar.md`.

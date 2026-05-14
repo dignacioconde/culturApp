@@ -53,6 +53,8 @@ No aplica.
 
 `RELEASE-0.1.0-beta.23` — tokens Lovable y visual total. Ver [[RELEASE-0.1.0-beta.23]].
 
+`RELEASE-0.1.0-beta.24` — calendario claro y sincronización suscribible. Ver [[RELEASE-0.1.0-beta.24]].
+
 ## Siguiente corte
 
 Pendiente de definir.

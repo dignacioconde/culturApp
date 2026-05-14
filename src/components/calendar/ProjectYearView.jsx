@@ -188,12 +188,12 @@ function ProjectTimelineSegment({ project, onSelectProject }) {
       title={title}
     >
       <span className="flex min-w-0 items-center gap-2">
-        {project.startsBeforeYear && <span aria-hidden="true">...</span>}
+        {project.startsBeforeYear && <span aria-hidden="true">…</span>}
         <span className="truncate">{project.title}</span>
         <span className="hidden shrink-0 text-[10px] font-medium opacity-85 md:inline">
           {getVisibleRangeLabel(project)}
         </span>
-        {project.endsAfterYear && <span aria-hidden="true">...</span>}
+        {project.endsAfterYear && <span aria-hidden="true">…</span>}
       </span>
     </button>
   )
@@ -288,7 +288,7 @@ function ProjectMonthProjectList({ projects, onSelectProject }) {
           onClick={() => onSelectProject(project.source)}
           className="flex w-full min-w-0 items-center gap-3 rounded-lg border border-border-subtle bg-surface-card px-4 py-3 text-left shadow-sm transition hover:bg-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary"
         >
-          <span className="h-3 w-3 shrink-0 rounded-full" style={{ backgroundColor: project.color }} />
+          <span className="size-3 shrink-0 rounded-full" style={{ backgroundColor: project.color }} />
           <span className="min-w-0 flex-1">
             <span className="block truncate text-sm font-semibold text-text-primary">{project.title}</span>
             <span className="block text-xs text-text-secondary">{getRangeLabel(project)}</span>
@@ -337,7 +337,7 @@ function ProjectMonthCard({ month, isSelected, onSelectMonth, onSelectProject })
             {month.projects.length === 1 ? '1 proyecto' : `${month.projects.length} proyectos`}
           </span>
         </span>
-        <span className={`h-3 w-3 rounded-full ${isSelected ? 'bg-accent-primary' : 'bg-border-subtle'}`} />
+        <span className={`size-3 rounded-full ${isSelected ? 'bg-accent-primary' : 'bg-border-subtle'}`} />
       </button>
 
       {visibleProjects.length > 0 && !isSelected && (
@@ -382,6 +382,52 @@ export function ProjectMobileYearList({ projects, year, selectedMonth, onSelectM
   )
 }
 
+export function ProjectMobileMonthFocus({ projects, year, selectedMonth, onSelectMonth, onSelectProject }) {
+  const months = useMemo(() => getProjectsByMonth(projects, year), [projects, year])
+  const monthProjects = useMemo(
+    () => getProjectsForMonth(projects, year, selectedMonth),
+    [projects, selectedMonth, year]
+  )
+
+  return (
+    <section className="space-y-3 md:hidden" aria-label={`Planificación mensual de proyectos ${year}`}>
+      <div className="-mx-1 overflow-x-auto px-1 pb-1 [touch-action:pan-x_pan-y]">
+        <div className="flex min-w-max gap-2">
+          {months.map((month) => (
+            <button
+              key={month.monthIndex}
+              type="button"
+              onClick={() => onSelectMonth(month.monthIndex)}
+              className={`min-h-11 min-w-20 rounded-lg border px-3 py-2 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary ${
+                selectedMonth === month.monthIndex
+                  ? 'border-accent-primary bg-accent-primary text-primary-foreground shadow-sm'
+                  : 'border-border-subtle bg-surface-card text-text-secondary'
+              }`}
+              aria-pressed={selectedMonth === month.monthIndex}
+            >
+              <span className="block text-xs font-semibold">{month.monthLabel.slice(0, 3)}</span>
+              <span className="block text-[11px]">{month.projects.length}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <article className="rounded-lg border border-border-subtle bg-surface-muted p-4">
+        <p className="text-xs font-semibold uppercase tracking-wide text-text-secondary">Mes seleccionado</p>
+        <h2 className="mt-1 text-lg font-semibold text-text-primary">
+          {MONTH_LABELS[selectedMonth]} {year}
+        </h2>
+        <p className="mt-1 text-sm text-text-secondary">
+          {monthProjects.length === 1 ? '1 proyecto activo' : `${monthProjects.length} proyectos activos`}
+        </p>
+        <div className="mt-3">
+          <ProjectMonthProjectList projects={monthProjects} onSelectProject={onSelectProject} />
+        </div>
+      </article>
+    </section>
+  )
+}
+
 export function ProjectYearView({ projects, year, selectedMonth, onSelectMonth, onSelectProject }) {
   return (
     <div className="space-y-4">
@@ -393,12 +439,7 @@ export function ProjectYearView({ projects, year, selectedMonth, onSelectMonth, 
         onSelectMonth={onSelectMonth}
         onSelectProject={onSelectProject}
       />
-      <ProjectMobileCompactGantt
-        projects={projects}
-        year={year}
-        onSelectProject={onSelectProject}
-      />
-      <ProjectMobileYearList
+      <ProjectMobileMonthFocus
         projects={projects}
         year={year}
         selectedMonth={selectedMonth}

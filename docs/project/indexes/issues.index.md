@@ -71,13 +71,19 @@ generated: true
 - [[../issues/CACH-0086|CACH-0086]] — Unificar pantallas secundarias operativas
 - [[../issues/CACH-0087|CACH-0087]] — Unificar admin gates y layout global
 - [[../issues/CACH-0088|CACH-0088]] — QA final de beta 23 visual total
+- [[../issues/CACH-0089|CACH-0089]] — Preparar Beta 24 de calendario
+- [[../issues/CACH-0090|CACH-0090]] — Clarificar Agenda y Plan anual
+- [[../issues/CACH-0091|CACH-0091]] — Rehacer visibilidad movil de calendarios
+- [[../issues/CACH-0092|CACH-0092]] — Feed suscribible privado de eventos
+- [[../issues/CACH-0093|CACH-0093]] — UI de sincronizacion por proveedor
+- [[../issues/CACH-0094|CACH-0094]] — QA y cierre de Beta 24 calendario
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes
 - [[../issues/CACH-B0004|CACH-B0004]] — Contratantes facturacion y liquidacion neta
 - [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos
 - [[../issues/CACH-B0006|CACH-B0006]] — Onboarding y acceso beta
-- [[../issues/CACH-B0007|CACH-B0007]] — Calendario unificado e interaccion rapida
+- [[../issues/CACH-B0007|CACH-B0007]] — Calendarios claros y sincronizacion suscribible
 - [[../issues/CACH-B0008|CACH-B0008]] — PWA notificaciones y offline
 - [[../issues/CACH-B0009|CACH-B0009]] — Inteligencia financiera y features Pro
 - [[../issues/CACH-B0010|CACH-B0010]] — Tooling de agentes y modelos de desarrollo

@@ -75,6 +75,7 @@ Documento técnico de referencia del estado real del proyecto. Para Codex, la fu
 | `useExpenses.js` | 66 | CRUD gastos, filtros por projectId, eventId y eventIds |
 | `useProfile.js` | 97 | Perfil profesional: lectura y actualización de `profiles` |
 | `useContractors.js` | 151 | CRUD contratantes y fallback si falta schema |
+| `useCalendarFeeds.js` | — | Enlaces privados `.ics/webcal` de solo lectura para eventos |
 | `useBetaInvites.js` | 177 | Invitaciones beta vía RPC/Edge Function |
 | `useFeedback.js` | 50 | Envío de feedback autenticado con consentimiento |
 | `useDataPortability.js` | 267 | Exportación/importación CSV con claves locales |
@@ -139,7 +140,7 @@ Los hooks CRUD core exponen `loading`, `error`, métodos de mutación y `refetch
 - Lista de próximos cobros y vencidos según el mes seleccionado
 - Lista de trabajos con cobros pendientes o próximos
 - Calendario de eventos con fecha/hora exacta, navegación controlada y creación desde huecos
-- Calendario de eventos con horario útil desde las 08:00, formato 24h y semana/día con scroll horizontal en móvil
+- Calendario de eventos con horario útil desde las 08:00, formato 24h, lista de eventos visibles y feed `.ics/webcal` privado revocable
 - Calendario de proyectos con rangos de fecha, navegación controlada y creación desde selección de días
 - Selectores propios grandes para estados, categorías, proyectos, fechas y horas; no quedan `<select>` nativos en páginas
 - Date picker y datetime picker custom que mantienen valores compatibles con Supabase (`YYYY-MM-DD`, `YYYY-MM-DDTHH:mm`)
@@ -153,6 +154,7 @@ Los hooks CRUD core exponen `loading`, `error`, métodos de mutación y `refetch
 - Contratantes estructurados con fallback legacy de `client`
 - Gestión de perfil (nombre, profesión, tipo IRPF por defecto)
 - Panel admin de invitaciones beta con RPCs y envío por Edge Function/Brevo
+- Feed público de calendario protegido por token privado; `calendar-feed` calcula el hash y la RPC solo recibe campos seguros
 - Feedback autenticado con consentimiento
 - Portabilidad de datos CSV en `/data`
 - Sistema de notificaciones toast (éxito/error)

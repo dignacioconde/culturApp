@@ -1,5 +1,23 @@
 export const VERSION_HISTORY = [
   {
+    version: '0.1.0-beta.24',
+    label: 'Beta 24',
+    date: '2026-05-14',
+    title: 'Calendario claro y sincronización',
+    summary: 'La Agenda y el Plan anual son más fáciles de entender, y ahora puedes llevar tus eventos a tu calendario habitual con enlaces privados.',
+    highlights: [
+      'Agenda de eventos con lista visible del periodo seleccionado.',
+      'Plan anual móvil centrado en meses y proyectos activos.',
+      'Enlaces privados suscribibles para Apple Calendar, Google Calendar, Outlook y calendarios compatibles.',
+    ],
+    details: [
+      'La sincronización es de solo lectura: Cachés sigue siendo la fuente de verdad.',
+      'Puedes crear varios enlaces activos y desactivarlos cuando quieras.',
+      'El feed incluye solo eventos y evita notas privadas, importes, IRPF y datos sensibles.',
+    ],
+    tone: 'new',
+  },
+  {
     version: '0.1.0-beta.23',
     label: 'Beta 23',
     date: '2026-05-14',
