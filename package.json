@@ -42,6 +42,7 @@
     "verify:ci": "node scripts/verify-ci.mjs",
     "verify:pr": "node scripts/verify-pr.mjs",
     "verify:brain": "node scripts/verify-brain.mjs",
+    "verify:version-history": "node scripts/verify-version-history.mjs",
     "verify:skills": "node scripts/verify-skills.mjs",
     "verify:agents": "node scripts/verify-agents.mjs",
     "test:brain": "npm run pb:check -- --strict --json && npm run verify:brain",

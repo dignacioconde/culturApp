@@ -160,6 +160,7 @@ Despues:
 
 - mantener issues cerradas como `issue_workflow: done`;
 - crear GitHub Release desde el tag; el tag Git por si solo no aparece como Release en la UI de GitHub;
+- actualizar `src/lib/versionHistory.js` si la beta contiene cambios visibles para usuarios; `/novedades` debe reflejar las betas publicadas desde `0.1.0-beta.22`;
 - actualizar release a `release_phase: released`;
 - actualizar [[../releases/CURRENT_RELEASE|Current Release]];
 - actualizar estado del producto;

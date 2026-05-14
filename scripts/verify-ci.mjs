@@ -6,6 +6,7 @@ const jsonOutput = process.argv.includes('--json')
 const steps = [
   ['npm', ['run', 'lint']],
   ['npm', ['run', 'test']],
+  ['npm', ['run', 'verify:version-history']],
   ['npm', ['run', 'build']],
   ['npm', ['run', 'pb:check', '--', '--strict', '--json']],
   ['npm', ['run', 'verify:brain']],

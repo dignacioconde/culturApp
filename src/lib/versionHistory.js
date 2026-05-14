@@ -1,5 +1,41 @@
 export const VERSION_HISTORY = [
   {
+    version: '0.1.0-beta.23',
+    label: 'Beta 23',
+    date: '2026-05-14',
+    title: 'Visual más coherente en toda la app',
+    summary: 'Cachés adopta una capa visual más uniforme para que navegación, trabajo diario y pantallas secundarias se sientan parte del mismo producto.',
+    highlights: [
+      'Tokens visuales alineados con la referencia Lovable.',
+      'Dashboard, trabajos, detalles, calendarios y ajustes con superficies y acentos más consistentes.',
+      'Sin cambios en datos, cálculos financieros ni comportamiento de calendarios.',
+    ],
+    details: [
+      'El shell privado, la barra superior y la navegación móvil comparten el nuevo lenguaje visual.',
+      'Quedan inventariados los gaps funcionales de Lovable que no entran en esta beta.',
+      'Las primitivas visuales preparan futuros componentes sin introducir un stack nuevo.',
+    ],
+    tone: 'improved',
+  },
+  {
+    version: '0.1.0-beta.22',
+    label: 'Beta 22',
+    date: '2026-05-13',
+    title: 'Historial de novedades beta',
+    summary: 'Ahora tienes una pantalla para revisar qué ha cambiado en Cachés sin leer notas técnicas ni bucear en GitHub.',
+    highlights: [
+      'Nueva ruta privada de Novedades.',
+      'Última versión destacada e historial reciente.',
+      'Accesos desde la barra superior, Ajustes y navegación desktop.',
+    ],
+    details: [
+      'El contenido se mantiene versionado junto al código.',
+      'El flujo de lanzamiento bloquea features sin release asignada salvo excepción explícita.',
+      'No añade Supabase, CMS ni gestión de leídos.',
+    ],
+    tone: 'new',
+  },
+  {
     version: '0.1.0-beta.21',
     label: 'Beta 21',
     date: '2026-05-13',

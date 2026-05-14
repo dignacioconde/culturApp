@@ -53,6 +53,7 @@ Planning and implementation:
 - `npm run ship -- --execute --issue CACH-XXXX` must block `work_type: feature` issues with `release: null`; use `--allow-no-release` only for a deliberate lightweight exception and explain it in the issue/PR.
 - Release closure standard: consolidate implementation, Product Brain updates, generated indexes/digest, memory notes and validation status into the cleanest possible final history. Prefer a single clear release commit or squash-style merge result over scattered fixups; leave `main`/release branches clean, no uncommitted generated artifacts, no stray pushed task branches, and no unexplained git traces.
 - Git tags and GitHub Releases are different surfaces. When closing a beta tag `vX.Y.Z-beta.N`, create the corresponding GitHub Release from the existing tag with `--verify-tag --prerelease --latest=false` so the GitHub Releases UI matches Product Brain.
+- User-facing beta changes are not derived automatically from Product Brain or GitHub Releases. For visible releases from `0.1.0-beta.22` onward, update `src/lib/versionHistory.js` so `/novedades` matches the published beta; `npm run verify:version-history` guards this in CI.
 - Commit format for CACH work: `<type>(CACH-XXXX): summary`.
 - Do not add `Co-Authored-By` or AI co-author lines to commits.
 

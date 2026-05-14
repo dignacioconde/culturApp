@@ -136,6 +136,7 @@ Checklist minimo:
 - `main` actualizado en local.
 - Tag `vX.Y.Z-beta.N` creado desde `main`.
 - GitHub Release creada desde el tag; para betas usar `--prerelease --latest=false`.
+- `/novedades` actualizado en `src/lib/versionHistory.js` si hay cambios visibles para usuarios beta.
 - Produccion verificada si aplica.
 - Rama remota `release/<version>` eliminada.
 - Documento de release actualizado como cerrado.
