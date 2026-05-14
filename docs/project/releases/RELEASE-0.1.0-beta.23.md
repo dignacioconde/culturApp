@@ -14,8 +14,8 @@ tags:
   - beta
   - design-system
 generated: false
-release_phase: active
-release_current: true
+release_phase: released
+release_current: false
 release_branch: release/0.1.0-beta.23
 release_tag: v0.1.0-beta.23
 release_pr: https://github.com/dignacioconde/culturApp/pull/110
@@ -24,7 +24,7 @@ release_pr: https://github.com/dignacioconde/culturApp/pull/110
 
 ## Estado
 
-Active.
+Released.
 
 ## Rama de release
 
@@ -138,11 +138,11 @@ Validacion parcial ya ejecutada para `CACH-0076`: `lint`, `test`, `build`, `pb:g
 ## Checklist de salida
 
 - [x] PR `release/0.1.0-beta.23` -> `main` abierta
-- [ ] CI en verde
-- [ ] PR mergeada en `main`
-- [ ] Tag `v0.1.0-beta.23` creado desde `main` si aplica
-- [ ] Produccion verificada o marcada no aplica
-- [ ] Rama remota `release/0.1.0-beta.23` eliminada si aplica
+- [x] CI en verde
+- [x] PR mergeada en `main`
+- [x] Tag `v0.1.0-beta.23` creado desde `main`
+- [x] Produccion verificada con smoke postdeploy
+- [x] Rama remota `release/0.1.0-beta.23` eliminada
 - [x] Release notes actualizadas
 - [x] Issues marcadas como `done`
 - [x] Estado actual actualizado
@@ -187,4 +187,4 @@ Validacion parcial ya ejecutada para `CACH-0076`: `lint`, `test`, `build`, `pb:g
 
 ## Resultado final
 
-Release implementada y validada en la rama `release/0.1.0-beta.23`. Pendiente abrir PR, merge a `main`, tag `v0.1.0-beta.23` y verificacion de produccion si aplica.
+Release publicada mediante PR #110 a `main` y tag `v0.1.0-beta.23`. Produccion verificada en `https://app.caches.es` con smoke postdeploy publico.

@@ -23,7 +23,7 @@ Resumen determinista generado desde Product Brain v2.
 
 ## Estado operacional
 
-- **Release activa:** RELEASE-0.1.0-beta.23 — Tokens Lovable y visual total
+- **Release activa:** No hay release activa.
 - **Últimos cortes:** `RELEASE-0.1.0-beta.10` — emails transaccionales beta con Brevo. Ver RELEASE-0.1.0-beta.10.
 
 `RELEASE-0.1.0-beta.12` — pulido proyecto-evento y borrados seguros. Ver RELEASE-0.1.0-beta.12.
@@ -47,6 +47,8 @@ Resumen determinista generado desde Product Brain v2.
 `RELEASE-0.1.0-beta.21` — primera sesion guiada y PWA instalable. Ver RELEASE-0.1.0-beta.21.
 
 `RELEASE-0.1.0-beta.22` — historial de novedades beta. Ver RELEASE-0.1.0-beta.22.
+
+`RELEASE-0.1.0-beta.23` — tokens Lovable y visual total. Ver RELEASE-0.1.0-beta.23.
 - **Foco:** Beta 23 está activa en la rama `release/0.1.0-beta.23` como corte de sistema visual total: tokens Lovable, primitivas UI, pantallas core, detalles, calendarios, secundarias, admin/layout y QA final sin absorber funcionalidades Lovable nuevas.
 
 ## Prioridades del plan
