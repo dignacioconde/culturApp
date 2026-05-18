@@ -44,6 +44,7 @@ Reglas:
 
 - `load_policy` indica cuándo puede cargarse el documento como contexto de agente.
 - `index_policy` indica si una futura capa de retrieval debería indexar contenido completo, solo metadata o nada.
+- `pb:retrieve` aplica estos campos como filtro local antes de puntuar resultados.
 - En Fase 1 ambos campos son opcionales para evitar migración masiva de documentos existentes.
 - Si faltan, se aplican las reglas por tipo de [[document-types-registry]] y `docs/agent-context-policy.md`.
 
@@ -105,6 +106,7 @@ theme: beta-trust | core-work-ux | finance-operations | portability-onboarding |
 - No usar `type/status` top-level en Product Brain v2.
 - Excluir `issue_workflow: done` del contexto por defecto salvo referencia explícita, auditoría o trazabilidad.
 - Excluir `release_phase: released`, prompts históricos y documentos `deprecated`, `historical` o `archived` del contexto por defecto salvo investigación explícita.
+- `pb:sdd-check` valida trazabilidad ligera de criterios y validación para issues ejecutables; no sustituye `pb:ready-check`.
 
 ## Relacionado
 

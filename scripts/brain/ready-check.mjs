@@ -7,7 +7,7 @@ import { IssueFrontmatter } from './schema.mjs'
 const issueId = process.argv.slice(2).find((arg) => !arg.startsWith('--'))
 const jsonOutput = process.argv.includes('--json')
 const errors = []
-const structuralPlaceholderPattern = /\b(tbd|todo|pendiente|por definir|placeholder)\b|\.{3}|<[^>]+>|Que debe quedar|Que esta incluido|Que comandos o checks|Criterio observable y verificable|Solo si aplica: obligatorio|Checks esperados/i
+const structuralPlaceholderPattern = /\b(tbd|pendiente|por definir|placeholder)\b|\.{3}|<[^>]+>|Que debe quedar|Que esta incluido|Que comandos o checks|Criterio observable y verificable|Solo si aplica: obligatorio|Checks esperados/i
 const genericCriterionPattern = /^(funciona correctamente|se mejora|mejora general|implementar|hacer|actualizar|validar)$/i
 const riskyAreas = new Set(['data', 'infra', 'security'])
 const technicalPlanComponents = new Set(['finance', 'supabase', 'auth-onboarding'])

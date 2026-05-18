@@ -142,7 +142,6 @@ generated: true
 
 ## product-brain
 
-- [[../issues/CACH-0095|CACH-0095]] — Validadores de policies documentales del Product Brain · backlog · p2 · task
 - [[../issues/CACH-0049|CACH-0049]] — Migrar Product Brain a v2 lean agile para agentes · done · p0 · task
 - [[../issues/CACH-0026|CACH-0026]] — Setup inicial Product Brain · done · p1 · task
 - [[../issues/CACH-0028|CACH-0028]] — Corregir sync iCloud y estructura versionada · done · p1 · slice
@@ -153,10 +152,11 @@ generated: true
 - [[../issues/CACH-B0015|CACH-B0015]] — Operativizar backlog releases y ramas en Product Brain · done · p1 · task
 - [[../issues/CACH-B0016|CACH-B0016]] — Refundacion operativa del Product Brain y tests B0014 · done · p1 · task
 - [[../issues/CACH-0080|CACH-0080]] — Inventariar gaps funcionales Lovable fuera de beta 23 · done · p2 · task
+- [[../issues/CACH-0095|CACH-0095]] — Validadores de policies documentales del Product Brain · done · p2 · task
+- [[../issues/CACH-0096|CACH-0096]] — Retrieval local y gate SDD ligero para Product Brain · done · p2 · slice
 
 ## agents
 
-- [[../issues/CACH-0095|CACH-0095]] — Validadores de policies documentales del Product Brain · backlog · p2 · task
 - [[../issues/CACH-B0010|CACH-B0010]] — Tooling de agentes y modelos de desarrollo · backlog · p2 · initiative
 - [[../issues/CACH-0039|CACH-0039]] — [Agents] Respetar permisos reales en lanzadores OpenCode · done · p0 · task
 - [[../issues/CACH-0040|CACH-0040]] — [Agents] Separar plan draft de ejecucion mutante · done · p0 · task
@@ -168,6 +168,8 @@ generated: true
 - [[../issues/CACH-B0015|CACH-B0015]] — Operativizar backlog releases y ramas en Product Brain · done · p1 · task
 - [[../issues/CACH-0048|CACH-0048]] — [Context] Compactar workflow OpenCode · done · p2 · task
 - [[../issues/CACH-0088|CACH-0088]] — QA final de beta 23 visual total · done · p2 · task
+- [[../issues/CACH-0095|CACH-0095]] — Validadores de policies documentales del Product Brain · done · p2 · task
+- [[../issues/CACH-0096|CACH-0096]] — Retrieval local y gate SDD ligero para Product Brain · done · p2 · slice
 - [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura · done · p2 · task
 
 ## design-system

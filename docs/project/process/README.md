@@ -30,6 +30,7 @@ Sistema operativo ligero para desarrollar Cachés desde el Product Brain.
 - [[id-policy]] — política única de IDs `CACH-NNNN`.
 - [[frontmatter-schema]] — schema humano del frontmatter validado por Zod.
 - [[document-types-registry]] — tipos documentales, políticas de carga e indexación.
+- [[retrieval-profiles]] — perfiles locales de `pb:retrieve` para orientar agentes sin RAG pesado.
 - [[weekly-review]] — revisión semanal ligera del brain.
 - [[release-flow]] — cortes pequeños y mergeables.
 - [[supabase-db-access]] — acceso directo seguro a Supabase con MCP y fallback SQL Editor.

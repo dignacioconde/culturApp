@@ -46,6 +46,7 @@ export const BaseFrontmatter = z.object({
   generated: z.boolean(),
   load_policy: loadPolicy.optional(),
   index_policy: indexPolicy.optional(),
+  context_type: contextType.optional(),
 }).passthrough()
 
 export const IssueFrontmatter = BaseFrontmatter.extend({
