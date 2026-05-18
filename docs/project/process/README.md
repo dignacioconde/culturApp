@@ -5,7 +5,7 @@ id: PB-PROCESS
 title: Process
 lifecycle: active
 created: '2026-05-05'
-updated: '2026-05-08'
+updated: '2026-05-18'
 aliases:
   - Process
   - Sistema operativo de producto
@@ -29,6 +29,7 @@ Sistema operativo ligero para desarrollar Cachés desde el Product Brain.
 - [[definition-of-done]] — salida mínima honesta de una issue.
 - [[id-policy]] — política única de IDs `CACH-NNNN`.
 - [[frontmatter-schema]] — schema humano del frontmatter validado por Zod.
+- [[document-types-registry]] — tipos documentales, políticas de carga e indexación.
 - [[weekly-review]] — revisión semanal ligera del brain.
 - [[release-flow]] — cortes pequeños y mergeables.
 - [[supabase-db-access]] — acceso directo seguro a Supabase con MCP y fallback SQL Editor.

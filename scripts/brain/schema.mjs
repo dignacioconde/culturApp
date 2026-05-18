@@ -21,6 +21,17 @@ export const releaseRef = z.string().regex(/^RELEASE-[0-9]+\.[0-9]+\.[0-9]+(?:-[
 export const nullableIssueRef = z.union([issueRef, z.null()])
 export const nullableRelease = z.union([releaseRef, z.null()])
 export const nullableTheme = z.union([z.enum(THEMES), z.null()])
+export const loadPolicy = z.enum(['default', 'profile_only', 'on_reference', 'do_not_load_by_default'])
+export const indexPolicy = z.enum(['index', 'index_metadata_only', 'no_index'])
+export const contextType = z.enum([
+  'current_state',
+  'architecture_context',
+  'constraint',
+  'product_context',
+  'design_context',
+  'technical_context',
+  'process_context',
+])
 
 export const BaseFrontmatter = z.object({
   schema_version: z.literal(2),
@@ -33,6 +44,8 @@ export const BaseFrontmatter = z.object({
   aliases: z.array(z.string()).default([]),
   tags: z.array(z.string()).default([]),
   generated: z.boolean(),
+  load_policy: loadPolicy.optional(),
+  index_policy: indexPolicy.optional(),
 }).passthrough()
 
 export const IssueFrontmatter = BaseFrontmatter.extend({
@@ -76,6 +89,11 @@ export const ReleaseStatusFrontmatter = BaseFrontmatter.extend({
   release_current: z.boolean(),
 })
 
+export const ContextFrontmatter = BaseFrontmatter.extend({
+  kind: z.literal('context'),
+  context_type: contextType.optional(),
+})
+
 export const FeedbackFrontmatter = BaseFrontmatter.extend({
   kind: z.literal('feedback'),
   feedback_source: z.enum(['widget', 'email', 'telegram', 'other']).optional(),
@@ -101,6 +119,7 @@ export function schemaForPath(relPath) {
     relPath !== 'releases/README.md' &&
     relPath !== 'releases/RELEASE_TEMPLATE.md'
   ) return ReleaseFrontmatter
+  if (relPath.startsWith('context/') && relPath !== 'context/README.md') return ContextFrontmatter
   if (relPath.startsWith('feedback/') && relPath !== 'feedback/.gitkeep') return FeedbackFrontmatter
   if (relPath.startsWith('inbox/') && relPath !== 'inbox/README.md') return CaptureFrontmatter
   return GenericFrontmatter
