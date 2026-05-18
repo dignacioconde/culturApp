@@ -5,7 +5,7 @@ id: PB-BY-COMPONENT
 title: Issues por componente
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-14
+updated: 2026-05-18
 aliases:
   - Issues por componente
 tags:
@@ -142,6 +142,7 @@ generated: true
 
 ## product-brain
 
+- [[../issues/CACH-0095|CACH-0095]] — Validadores de policies documentales del Product Brain · backlog · p2 · task
 - [[../issues/CACH-0049|CACH-0049]] — Migrar Product Brain a v2 lean agile para agentes · done · p0 · task
 - [[../issues/CACH-0026|CACH-0026]] — Setup inicial Product Brain · done · p1 · task
 - [[../issues/CACH-0028|CACH-0028]] — Corregir sync iCloud y estructura versionada · done · p1 · slice
@@ -155,6 +156,7 @@ generated: true
 
 ## agents
 
+- [[../issues/CACH-0095|CACH-0095]] — Validadores de policies documentales del Product Brain · backlog · p2 · task
 - [[../issues/CACH-B0010|CACH-B0010]] — Tooling de agentes y modelos de desarrollo · backlog · p2 · initiative
 - [[../issues/CACH-0039|CACH-0039]] — [Agents] Respetar permisos reales en lanzadores OpenCode · done · p0 · task
 - [[../issues/CACH-0040|CACH-0040]] — [Agents] Separar plan draft de ejecucion mutante · done · p0 · task

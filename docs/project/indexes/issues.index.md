@@ -5,7 +5,7 @@ id: PB-ISSUES-INDEX
 title: Issues Index
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-14
+updated: 2026-05-18
 aliases:
   - Issues Index
 tags:
@@ -77,6 +77,7 @@ generated: true
 - [[../issues/CACH-0092|CACH-0092]] — Feed suscribible privado de eventos
 - [[../issues/CACH-0093|CACH-0093]] — UI de sincronizacion por proveedor
 - [[../issues/CACH-0094|CACH-0094]] — QA y cierre de Beta 24 calendario
+- [[../issues/CACH-0095|CACH-0095]] — Validadores de policies documentales del Product Brain
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes

@@ -5,7 +5,7 @@ id: PB-BY-AREA
 title: Issues por area
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-14
+updated: 2026-05-18
 aliases:
   - Issues por area
 tags:
@@ -105,6 +105,7 @@ generated: true
 
 ## brain
 
+- [[../issues/CACH-0095|CACH-0095]] — Validadores de policies documentales del Product Brain · backlog · p2 · task
 - [[../issues/CACH-0049|CACH-0049]] — Migrar Product Brain a v2 lean agile para agentes · done · p0 · task
 - [[../issues/CACH-0026|CACH-0026]] — Setup inicial Product Brain · done · p1 · task
 - [[../issues/CACH-0028|CACH-0028]] — Corregir sync iCloud y estructura versionada · done · p1 · slice

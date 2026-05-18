@@ -5,7 +5,7 @@ id: PB-BACKLOG
 title: Backlog operativo
 lifecycle: active
 created: 2026-05-05
-updated: 2026-05-14
+updated: 2026-05-18
 aliases:
   - Backlog operativo
   - Backlog
@@ -54,6 +54,7 @@ _Sin issues._
 | [[../issues/CACH-B0002|CACH-B0002]] | Simplificar experiencia mobile financiera | feature | initiative | p1 | finance, design-system |
 | [[../issues/CACH-B0004|CACH-B0004]] | Contratantes facturacion y liquidacion neta | feature | initiative | p1 | finance, design-system |
 | [[../issues/CACH-B0007|CACH-B0007]] | Calendarios claros y sincronizacion suscribible | feature | initiative | p1 | calendar, design-system |
+| [[../issues/CACH-0095|CACH-0095]] | Validadores de policies documentales del Product Brain | chore | task | p2 | product-brain, agents |
 | [[../issues/CACH-B0008|CACH-B0008]] | PWA notificaciones y offline | feature | initiative | p2 | infra-deploy |
 | [[../issues/CACH-B0009|CACH-B0009]] | Inteligencia financiera y features Pro | feature | initiative | p2 | finance |
 | [[../issues/CACH-B0010|CACH-B0010]] | Tooling de agentes y modelos de desarrollo | chore | initiative | p2 | agents, infra-deploy |

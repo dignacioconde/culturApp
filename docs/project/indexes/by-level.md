@@ -5,7 +5,7 @@ id: PB-BY-LEVEL
 title: Issues por nivel
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-14
+updated: 2026-05-18
 aliases:
   - Issues por nivel
 tags:
@@ -77,6 +77,7 @@ generated: true
 
 ## task
 
+- [[../issues/CACH-0095|CACH-0095]] — Validadores de policies documentales del Product Brain · backlog · p2 · task
 - [[../issues/CACH-0039|CACH-0039]] — [Agents] Respetar permisos reales en lanzadores OpenCode · done · p0 · task
 - [[../issues/CACH-0040|CACH-0040]] — [Agents] Separar plan draft de ejecucion mutante · done · p0 · task
 - [[../issues/CACH-0049|CACH-0049]] — Migrar Product Brain a v2 lean agile para agentes · done · p0 · task
