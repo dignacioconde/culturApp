@@ -54,7 +54,6 @@ _Sin issues._
 | [[../issues/CACH-B0002|CACH-B0002]] | Simplificar experiencia mobile financiera | feature | initiative | p1 | finance, design-system |
 | [[../issues/CACH-B0004|CACH-B0004]] | Contratantes facturacion y liquidacion neta | feature | initiative | p1 | finance, design-system |
 | [[../issues/CACH-B0007|CACH-B0007]] | Calendarios claros y sincronizacion suscribible | feature | initiative | p1 | calendar, design-system |
-| [[../issues/CACH-0095|CACH-0095]] | Validadores de policies documentales del Product Brain | chore | task | p2 | product-brain, agents |
 | [[../issues/CACH-B0008|CACH-B0008]] | PWA notificaciones y offline | feature | initiative | p2 | infra-deploy |
 | [[../issues/CACH-B0009|CACH-B0009]] | Inteligencia financiera y features Pro | feature | initiative | p2 | finance |
 | [[../issues/CACH-B0010|CACH-B0010]] | Tooling de agentes y modelos de desarrollo | chore | initiative | p2 | agents, infra-deploy |
@@ -149,6 +148,8 @@ _Sin issues._
 | [[../issues/CACH-0086|CACH-0086]] | Unificar pantallas secundarias operativas | RELEASE-0.1.0-beta.23 | Implementada por worker frontend en `/contractors`, `/data`, `/novedades` y `versionHistory`: cards, buscador, upload visual, avisos, empty/loading states, preview y badges migran a tokens Lovable sin tocar contratos de datos. |
 | [[../issues/CACH-0087|CACH-0087]] | Unificar admin gates y layout global | RELEASE-0.1.0-beta.23 | Implementada por worker frontend en `App.jsx`, admin de invitaciones y layout global: gates, loaders, top/bottom bars, sidebar, estados admin y codigo largo usan tokens Lovable sin cambiar auth, roles ni mutaciones. |
 | [[../issues/CACH-0088|CACH-0088]] | QA final de beta 23 visual total | RELEASE-0.1.0-beta.23 | QA final ejecutada sobre la beta 23 ampliada a visual total: workers integrados, barrido de restos legacy completado, matriz visual autenticada validada y calendario de eventos comprobado con scroll horizontal movil. |
+| [[../issues/CACH-0095|CACH-0095]] | Validadores de policies documentales del Product Brain | null | Implementado y validado en la PR https://github.com/dignacioconde/culturApp/pull/112. |
+| [[../issues/CACH-0096|CACH-0096]] | Retrieval local y gate SDD ligero para Product Brain | null | Implementado y validado en la PR https://github.com/dignacioconde/culturApp/pull/112. |
 | [[../issues/CACH-B0018|CACH-B0018]] | Adaptador Codex-native para perfiles Cultura | RELEASE-0.1.0-beta.9 | Sin resultado documentado. |
 
 ## Regla de mantenimiento

@@ -41,7 +41,8 @@ Que esta incluido y que queda fuera.
 
 ## Criterios de aceptacion
 
-- [ ] Criterio observable y verificable desde comportamiento de usuario, sistema o datos.
+- [ ] AC1: Criterio observable y verificable desde comportamiento de usuario, sistema o datos.
+- [ ] AC2: Segundo criterio si hace falta separar otro resultado comprobable.
 
 ## Plan tecnico
 
@@ -49,7 +50,7 @@ Solo si aplica: obligatorio para `size: m`, datos/RLS/seguridad/infra, `finance`
 
 ## Validacion
 
-Checks esperados al terminar. Deben demostrar los criterios de aceptacion y ser especificos del dominio cuando toque datos, seguridad, infra, finanzas, Supabase, calendario o sistema visual.
+Checks esperados al terminar. Deben mencionar los IDs `AC1`, `AC2`, etc. que cubren y ser especificos del dominio cuando toque datos, seguridad, infra, finanzas, Supabase, calendario o sistema visual.
 
 ## Resultado
 

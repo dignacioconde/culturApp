@@ -47,9 +47,11 @@ docs/project/
 npm run pb:init      # Inicializar Product Brain (primera vez)
 npm run pb:status   # Ver estado actual y archivos pendientes
 npm run pb:orient    # Orientación mínima para agentes sin cargar todo el Brain
+npm run pb:retrieve  # Retrieval local por perfil/query/issue para orientar agentes
 npm run pb:check    # Validar frontmatter, índices y wikilinks internos
 npm run pb:guard     # Validación completa para cambios en docs/project/ o scripts/brain/
 npm run pb:ready-check -- CACH-XXXX # Antes de mover una issue a ready
+npm run pb:sdd-check -- CACH-XXXX # Gate SDD ligero de una issue ejecutable
 npm run pb:close-check -- CACH-XXXX # Antes de cerrar una issue como done
 npm run pb:pull     # Importar cambios del vault de iCloud
 npm run pb:push     # Exportar cambios al vault de iCloud

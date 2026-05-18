@@ -99,7 +99,6 @@ generated: true
 
 ## internal-agent-ops
 
-- [[../issues/CACH-0095|CACH-0095]] — Validadores de policies documentales del Product Brain · backlog · p2 · task
 - [[../issues/CACH-B0008|CACH-B0008]] — PWA notificaciones y offline · backlog · p2 · initiative
 - [[../issues/CACH-B0010|CACH-B0010]] — Tooling de agentes y modelos de desarrollo · backlog · p2 · initiative
 - [[../issues/CACH-0039|CACH-0039]] — [Agents] Respetar permisos reales en lanzadores OpenCode · done · p0 · task
@@ -115,6 +114,8 @@ generated: true
 - [[../issues/CACH-B0015|CACH-B0015]] — Operativizar backlog releases y ramas en Product Brain · done · p1 · task
 - [[../issues/CACH-B0016|CACH-B0016]] — Refundacion operativa del Product Brain y tests B0014 · done · p1 · task
 - [[../issues/CACH-0048|CACH-0048]] — [Context] Compactar workflow OpenCode · done · p2 · task
+- [[../issues/CACH-0095|CACH-0095]] — Validadores de policies documentales del Product Brain · done · p2 · task
+- [[../issues/CACH-0096|CACH-0096]] — Retrieval local y gate SDD ligero para Product Brain · done · p2 · slice
 
 ## none
 

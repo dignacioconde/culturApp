@@ -42,7 +42,10 @@ ok = run('npm', ['run', 'verify:brain']) && ok
 ok = run('npm', ['run', 'pb:index', '--', '--check', '--json']) && ok
 ok = run('npm', ['run', 'pb:digest', '--', '--check', '--json']) && ok
 
-if (issue && phase === 'ready') ok = run('npm', ['run', 'pb:ready-check', '--', issue, '--json']) && ok
+if (issue && phase === 'ready') {
+  ok = run('npm', ['run', 'pb:ready-check', '--', issue, '--json']) && ok
+  ok = run('npm', ['run', 'pb:sdd-check', '--', issue, '--json']) && ok
+}
 if (issue && phase === 'close') ok = run('npm', ['run', 'pb:close-check', '--', issue, '--json']) && ok
 
 if (jsonOutput) {

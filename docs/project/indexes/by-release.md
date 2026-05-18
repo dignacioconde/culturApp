@@ -21,7 +21,6 @@ generated: true
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera · backlog · p1 · initiative
 - [[../issues/CACH-B0004|CACH-B0004]] — Contratantes facturacion y liquidacion neta · backlog · p1 · initiative
 - [[../issues/CACH-B0007|CACH-B0007]] — Calendarios claros y sincronizacion suscribible · backlog · p1 · initiative
-- [[../issues/CACH-0095|CACH-0095]] — Validadores de policies documentales del Product Brain · backlog · p2 · task
 - [[../issues/CACH-B0008|CACH-B0008]] — PWA notificaciones y offline · backlog · p2 · initiative
 - [[../issues/CACH-B0009|CACH-B0009]] — Inteligencia financiera y features Pro · backlog · p2 · initiative
 - [[../issues/CACH-B0010|CACH-B0010]] — Tooling de agentes y modelos de desarrollo · backlog · p2 · initiative
@@ -39,6 +38,8 @@ generated: true
 - [[../issues/CACH-0050|CACH-0050]] — [Deploy] Tooling local-first de PR release y smoke · done · p1 · task
 - [[../issues/CACH-0053|CACH-0053]] — [Bug] Mantener foco al escribir feedback · done · p1 · task
 - [[../issues/CACH-0048|CACH-0048]] — [Context] Compactar workflow OpenCode · done · p2 · task
+- [[../issues/CACH-0095|CACH-0095]] — Validadores de policies documentales del Product Brain · done · p2 · task
+- [[../issues/CACH-0096|CACH-0096]] — Retrieval local y gate SDD ligero para Product Brain · done · p2 · slice
 
 ## RELEASE-0.1.0-beta.1
 

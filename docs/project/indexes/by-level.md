@@ -74,10 +74,10 @@ generated: true
 - [[../issues/CACH-0085|CACH-0085]] — Unificar calendarios con visual Lovable sin cambiar comportamiento · done · p2 · slice
 - [[../issues/CACH-0086|CACH-0086]] — Unificar pantallas secundarias operativas · done · p2 · slice
 - [[../issues/CACH-0087|CACH-0087]] — Unificar admin gates y layout global · done · p2 · slice
+- [[../issues/CACH-0096|CACH-0096]] — Retrieval local y gate SDD ligero para Product Brain · done · p2 · slice
 
 ## task
 
-- [[../issues/CACH-0095|CACH-0095]] — Validadores de policies documentales del Product Brain · backlog · p2 · task
 - [[../issues/CACH-0039|CACH-0039]] — [Agents] Respetar permisos reales en lanzadores OpenCode · done · p0 · task
 - [[../issues/CACH-0040|CACH-0040]] — [Agents] Separar plan draft de ejecucion mutante · done · p0 · task
 - [[../issues/CACH-0049|CACH-0049]] — Migrar Product Brain a v2 lean agile para agentes · done · p0 · task
@@ -105,4 +105,5 @@ generated: true
 - [[../issues/CACH-0080|CACH-0080]] — Inventariar gaps funcionales Lovable fuera de beta 23 · done · p2 · task
 - [[../issues/CACH-0082|CACH-0082]] — Auditar visual total Lovable y matriz QA · done · p2 · task
 - [[../issues/CACH-0088|CACH-0088]] — QA final de beta 23 visual total · done · p2 · task
+- [[../issues/CACH-0095|CACH-0095]] — Validadores de policies documentales del Product Brain · done · p2 · task
 - [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura · done · p2 · task

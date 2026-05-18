@@ -95,7 +95,6 @@ _Sin entradas._
 | CACH-B0002 | Simplificar experiencia mobile financiera | backlog | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | backlog | feature | initiative | p1 |
 | CACH-B0007 | Calendarios claros y sincronizacion suscribible | backlog | feature | initiative | p1 |
-| CACH-0095 | Validadores de policies documentales del Product Brain | backlog | chore | task | p2 |
 | CACH-B0008 | PWA notificaciones y offline | backlog | feature | initiative | p2 |
 | CACH-B0009 | Inteligencia financiera y features Pro | backlog | feature | initiative | p2 |
 | CACH-B0010 | Tooling de agentes y modelos de desarrollo | backlog | chore | initiative | p2 |

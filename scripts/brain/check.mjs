@@ -37,6 +37,9 @@ const generatedIndexes = [
   'indexes/source-touchpoints.md',
 ]
 
+const excludedLifecycles = new Set(['historical', 'deprecated', 'archived'])
+const activeLoadPolicies = new Set(['default', 'profile_only'])
+
 const boardColumns = new Map([
   ['inbox', 'Intake'],
   ['backlog', 'Backlog'],
@@ -91,6 +94,10 @@ function uniqueMatches(matches) {
   return [...new Set(matches)]
 }
 
+function hasHistoricalPromptGuardrail(doc) {
+  return /do not load by default|no cargar(?:lo|la|los|las)? por defecto|not current (?:agent )?instructions|no tratar(?:lo|la)? como instrucciones actuales|historical prompts are not current/i.test(doc.content)
+}
+
 if (!existsSync(brainRoot)) {
   addError(`No existe Product Brain: ${brainRoot}`)
 } else {
@@ -115,6 +122,31 @@ if (!existsSync(brainRoot)) {
       addError(`${doc.rel}: Product Brain v2 no permite type/status top-level; usar kind/lifecycle y campos de dominio`)
     }
 
+    if (doc.frontmatter?.context_type !== undefined && doc.frontmatter?.kind !== 'context') {
+      addError(`${doc.rel}: context_type solo esta permitido en documentos kind: context`)
+    }
+
+    if (excludedLifecycles.has(doc.frontmatter?.lifecycle)) {
+      if (activeLoadPolicies.has(doc.frontmatter?.load_policy)) {
+        addError(`${doc.rel}: lifecycle ${doc.frontmatter.lifecycle} no puede usar load_policy ${doc.frontmatter.load_policy}`)
+      }
+      if (doc.frontmatter?.index_policy === 'index') {
+        addError(`${doc.rel}: lifecycle ${doc.frontmatter.lifecycle} no puede usar index_policy index`)
+      }
+    }
+
+    if (doc.frontmatter?.kind === 'prompt' && doc.frontmatter?.lifecycle === 'historical') {
+      if (activeLoadPolicies.has(doc.frontmatter?.load_policy)) {
+        addError(`${doc.rel}: prompt historico no puede cargarse como contexto activo`)
+      }
+      if (doc.frontmatter?.index_policy === 'index') {
+        addError(`${doc.rel}: prompt historico no puede indexarse como contenido completo`)
+      }
+      if (!hasHistoricalPromptGuardrail(doc)) {
+        addError(`${doc.rel}: prompt historico debe declarar que no se carga por defecto ni son instrucciones actuales`)
+      }
+    }
+
     if (doc.frontmatter?.id) addLookup(byId, doc.frontmatter.id, doc.key)
     for (const alias of doc.frontmatter?.aliases ?? []) addLookup(byAlias, alias, doc.key)
 
@@ -128,6 +160,38 @@ if (!existsSync(brainRoot)) {
       } else if (validation.data.kind === 'release') {
         releases.set(validation.data.id, { ...doc, data: validation.data })
       }
+    }
+
+    if (
+      doc.frontmatter?.kind === 'issue' &&
+      ['done', 'wont_fix'].includes(doc.frontmatter?.issue_workflow) &&
+      activeLoadPolicies.has(doc.frontmatter?.load_policy)
+    ) {
+      addError(`${doc.rel}: issue ${doc.frontmatter.issue_workflow} no puede usar load_policy ${doc.frontmatter.load_policy}`)
+    }
+
+    if (
+      doc.frontmatter?.kind === 'issue' &&
+      ['done', 'wont_fix'].includes(doc.frontmatter?.issue_workflow) &&
+      doc.frontmatter?.index_policy === 'index'
+    ) {
+      addError(`${doc.rel}: issue ${doc.frontmatter.issue_workflow} debe usar index_metadata_only/no_index o dejar index_policy implicita`)
+    }
+
+    if (
+      doc.frontmatter?.kind === 'release' &&
+      ['released', 'deprecated', 'archived'].includes(doc.frontmatter?.release_phase) &&
+      activeLoadPolicies.has(doc.frontmatter?.load_policy)
+    ) {
+      addError(`${doc.rel}: release ${doc.frontmatter.release_phase} no puede usar load_policy ${doc.frontmatter.load_policy}`)
+    }
+
+    if (
+      doc.frontmatter?.kind === 'release' &&
+      ['released', 'deprecated', 'archived'].includes(doc.frontmatter?.release_phase) &&
+      doc.frontmatter?.index_policy === 'index'
+    ) {
+      addError(`${doc.rel}: release ${doc.frontmatter.release_phase} debe usar index_metadata_only/no_index o dejar index_policy implicita`)
     }
 
     if (doc.rel.startsWith('issues/') && doc.rel !== 'issues/README.md') {

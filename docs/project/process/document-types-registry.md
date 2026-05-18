@@ -37,6 +37,8 @@ context_type: current_state | architecture_context | constraint | product_contex
 
 Si los campos no existen, se aplican las reglas por tipo de este registry y la política canónica de carga de contexto.
 
+`pb:retrieve` usa estas reglas como filtro local determinista. No crea embeddings, chunks persistentes ni índices externos.
+
 ## Tipos documentales
 
 | kind | Ubicación habitual | Propósito | Carga por defecto | Indexación recomendada |
