@@ -1,15 +1,15 @@
 ---
 name: product-brain-sdd-review
-description: Review Product Brain CACH issues for lightweight spec-driven readiness before implementation. Use when asked for SDD review, spec readiness, issue readiness, requirements-to-validation traceability, or avoiding Product Brain token dump. Do not use to create issues, edit docs, implement code, or replace pb:ready-check.
+description: Review Product Brain CACH issues for progressive spec-driven readiness before implementation. Use when asked for SDD review, spec readiness, issue readiness, requirements-to-validation traceability, Nivel 2 readiness, or avoiding Product Brain token dump. Do not use to create issues, edit docs, implement code, or replace pb:ready-check.
 ---
 
 # Product Brain SDD Review
 
 ## Purpose
 
-Review whether a Product Brain issue is executable as a lightweight spec without turning Caches into a heavy spec framework.
+Review whether a Product Brain issue is executable as a progressive spec without turning Caches into a heavy spec framework.
 
-This skill is read-only by default. It checks semantic readiness: observable requirements, bounded scope, enough technical design for risky work, derivable tasks, validation traceability, and low risk of stale duplicated context.
+This skill is read-only by default. It checks semantic readiness: observable requirements, bounded scope, the right SDD level, enough technical design for risky work, derivable tasks, validation traceability, and low risk of stale duplicated context.
 
 ## When to use this skill
 
@@ -18,6 +18,7 @@ This skill is read-only by default. It checks semantic readiness: observable req
 - A feature, bug, or slice looks ambiguous even though `pb:ready-check` passes structurally.
 - A planner draft needs a quality pass before agents implement it.
 - You need to decide whether an idea should become a slice, spike, ADR, or remain deferred in the intake queue.
+- The issue may require SDD Nivel 2 because it is `size: m`, data/security/infra, finance/Supabase/auth/calendar, multi-component, multi-agent, multi-PR, or repeatedly ambiguous.
 
 ## When not to use this skill
 
@@ -37,8 +38,10 @@ This skill is read-only by default. It checks semantic readiness: observable req
 - Parent initiative, release document, ADRs, or source touchpoints only when referenced by the issue or needed to judge readiness.
 - `docs/project/process/definition-of-ready.md`
 - `docs/project/process/definition-of-done.md`
+- `docs/project/process/sdd-levels.md`
 - `docs/project/templates/ISSUE_TEMPLATE.md`
 - `scripts/brain/ready-check.mjs` when checking script-backed gates.
+- `scripts/brain/sdd-check.mjs` when checking SDD level gates.
 
 ## Procedure
 
@@ -49,19 +52,24 @@ This skill is read-only by default. It checks semantic readiness: observable req
    - Criteria describe observable behavior or user-visible/system-visible outcomes.
    - Criteria avoid placeholders, generic "works correctly" wording, and implementation-only chores without value.
    - For `feature` and `bug`, prefer scenario language such as `Cuando... entonces...` or `WHEN... THEN...` when it clarifies behavior, but do not require it mechanically.
-5. Judge design sufficiency:
+5. Judge SDD level:
+   - Nivel 1 is enough for `xs/s` low-risk work with objective, explicit scope, AC IDs and validation traceability.
+   - Nivel 2 is required for `size: m`, `area: data|security|infra`, components `finance|supabase|auth-onboarding|calendar`, multi-component work, multi-agent/PR work, or repeated ambiguity.
+   - Nivel 3 means create or update an ADR/decision plus executable child slices; do not use it by default.
+6. Judge design sufficiency:
    - `size: xs` can stay lightweight.
    - `size: m`, `area: data|security|infra`, components `finance|supabase|auth-onboarding`, or multi-component work should include a short `Plan tecnico` or equivalent notes.
    - The plan should name contracts, hooks, migrations, APIs, UX states, or affected modules when relevant, without freezing unnecessary implementation details.
-6. Judge task derivability:
+   - Nivel 2 should include `Escenarios SDD`, `Contrato tecnico`, AC-to-validation mapping, and `Riesgos y rollback` when data/security/infra/finance/Supabase/auth is involved.
+7. Judge task derivability:
    - An implementer can identify the first files/modules to inspect.
    - Dependencies, blockers, and out-of-scope items are explicit enough to avoid scope creep.
    - Initiatives are not treated as executable; recommend a slice when needed.
-7. Judge validation and traceability:
+8. Judge validation and traceability:
    - Each important criterion has a plausible automated, browser, manual, SQL/RLS, or review check.
    - Validation is specific to the domain, not only generic `lint/build`.
    - Close evidence should be possible without rewriting the spec after the fact.
-8. Judge drift and token discipline:
+9. Judge drift and token discipline:
    - The issue references ADRs, memory, source touchpoints, or process docs instead of copying long global rules.
    - The issue is small enough for one focused implementation pass.
    - No stale historical context is required to understand the executable work.
@@ -73,6 +81,7 @@ This skill is read-only by default. It checks semantic readiness: observable req
 Verdict: Ready | Ready with risks | Not ready
 
 Gaps:
+- Nivel SDD: ...
 - Requisitos: ...
 - Diseno tecnico: ...
 - Tareas derivables: ...

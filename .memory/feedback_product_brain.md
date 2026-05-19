@@ -9,6 +9,7 @@ Product Brain debe ayudar a implementar, no bloquear merges con proceso excesivo
 - Para orientar agentes, usar `npm run pb:orient -- --json` y abrir solo issue, parent, release o source-touchpoints relevantes.
 - `BACKLOG.md`, `DIGEST.md` e índices son generados o semi-generados; no editarlos a mano salvo emergencia, regenerar con `pb:index`/`pb:digest`.
 - Cierre y readiness se validan con `pb:ready-check CACH-XXXX` y `pb:close-check CACH-XXXX`.
+- SDD es progresivo por niveles: Nivel 1 sigue siendo issue ejecutable ligera; Nivel 2 se exige via `pb:sdd-check` para `size: m`, datos/seguridad/infra, finance/Supabase/auth/calendar, multi-componente, varios agentes/PRs o dolor repetido de ambiguedad. Contrato canonico: `docs/project/process/sdd-levels.md`.
 - Las tareas pequeñas (fixes, chores, mejoras menores) van directamente de `main` a `main` por PR. No requieren release activa ni release branch.
 - Las release branches (`release/<version>`) se usan solo para releases multi-issue o estabilizaciones reales.
 - Una release activa no absorbe tareas nuevas por defecto: si la tarea no pertenece a esa release, se aplaza, va por flujo ligero desde `main`, o se anade explicitamente al documento de la release.
@@ -38,6 +39,7 @@ npm run pb:orient   # Orientación mínima para agentes
 npm run pb:check    # Validar frontmatter, índices y wikilinks internos
 npm run pb:guard    # Validación completa para docs/project/ o scripts/brain/
 npm run pb:ready-check -- CACH-XXXX # Antes de mover issue a ready
+npm run pb:sdd-check -- CACH-XXXX # Gate SDD por niveles para issue ejecutable
 npm run pb:close-check -- CACH-XXXX # Antes de cerrar issue como done
 npm run pb:pull    # Importar cambios del vault de iCloud
 npm run pb:push    # Exportar cambios al vault de iCloud

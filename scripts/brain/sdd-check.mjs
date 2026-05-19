@@ -14,6 +14,8 @@ const structuralPlaceholderPattern = /\b(tbd|pendiente|por definir|placeholder)\
 const genericCriterionPattern = /^(funciona correctamente|se mejora|mejora general|implementar|hacer|actualizar|validar)$/i
 const riskyAreas = new Set(['data', 'infra', 'security'])
 const technicalPlanComponents = new Set(['finance', 'supabase', 'auth-onboarding'])
+const advancedSddComponents = new Set(['finance', 'supabase', 'auth-onboarding', 'calendar'])
+const rollbackComponents = new Set(['finance', 'supabase', 'auth-onboarding'])
 
 function fail(message) {
   errors.push(message)
@@ -47,6 +49,22 @@ function requiresTechnicalPlan(data) {
   )
 }
 
+function requiresAdvancedSdd(data) {
+  return (
+    data.size === 'm' ||
+    riskyAreas.has(data.area) ||
+    data.components.some((component) => advancedSddComponents.has(component)) ||
+    data.components.length > 1
+  )
+}
+
+function requiresRollbackPlan(data) {
+  return (
+    riskyAreas.has(data.area) ||
+    data.components.some((component) => rollbackComponents.has(component))
+  )
+}
+
 function explicitScope(scope) {
   return /\bIncluido\b/i.test(scope) && /Fuera de alcance/i.test(scope)
 }
@@ -54,6 +72,26 @@ function explicitScope(scope) {
 function validationMentionsAllCriteria(validation, ids) {
   const normalized = validation.toUpperCase()
   return ids.every((id) => normalized.includes(id))
+}
+
+function validationMapsAllCriteria(validation, ids) {
+  const lines = validation
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean)
+
+  return ids.every((id) => lines.some((line) => new RegExp(`\\b${id}\\b`, 'i').test(line)))
+}
+
+function hasScenarioShape(scenarios) {
+  return scenarios
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .some((line) => (
+      /\b(cuando|when|given|dado)\b/i.test(line) &&
+      /\b(entonces|then)\b/i.test(line)
+    ))
 }
 
 function validateIssueLinks(data) {
@@ -117,6 +155,29 @@ if (!issueId) {
         if (requiresTechnicalPlan(data)) {
           const plan = sectionContent(doc.content, ['Plan tecnico', 'Plan técnico', 'Technical Plan', 'Implementation Plan'])
           if (!meaningful(plan)) fail('Plan tecnico requerido para size m, area/componente de riesgo o trabajo multi-componente')
+        }
+
+        if (requiresAdvancedSdd(data)) {
+          const scenarios = sectionContent(doc.content, ['Escenarios SDD', 'Escenarios', 'Scenarios'])
+          if (!meaningful(scenarios) || !hasScenarioShape(scenarios)) {
+            fail('SDD Nivel 2 requiere Escenarios SDD con al menos un Cuando/Entonces o Given/When/Then')
+          }
+
+          const contract = sectionContent(doc.content, ['Contrato tecnico', 'Contrato técnico', 'Contrato', 'Technical Contract'])
+          if (!meaningful(contract)) {
+            fail('SDD Nivel 2 requiere Contrato tecnico con contratos, modulos, datos, scripts o estados afectados')
+          }
+
+          if (ids.length > 0 && !validationMapsAllCriteria(validation, ids)) {
+            fail(`SDD Nivel 2 requiere matriz ACn -> validacion para: ${ids.join(', ')}`)
+          }
+        }
+
+        if (requiresRollbackPlan(data)) {
+          const rollback = sectionContent(doc.content, ['Riesgos y rollback', 'Riesgos', 'Rollback'])
+          if (!meaningful(rollback)) {
+            fail('SDD Nivel 2 requiere Riesgos y rollback para datos, seguridad, infra, finanzas, Supabase o auth')
+          }
         }
 
         validateIssueLinks(data)

@@ -185,7 +185,7 @@ La carpeta `.agents/skills/` contiene la fuente única de workflows portables ba
 | `agent-context-maintenance` | Mantener higiene de contexto, prompts y presupuestos de carga. |
 | `product-brain-orient` | Orientar agentes sobre Product Brain v2 sin cargar todo el árbol. |
 | `product-brain-capture` | Capturar ideas, decisiones o contexto en Product Brain. |
-| `product-brain-sdd-review` | Revisar si una issue CACH está lista para ejecución con SDD ligero. |
+| `product-brain-sdd-review` | Revisar si una issue CACH está lista para ejecución con SDD por niveles. |
 | `caveman` | Modo de salida ultraconciso con excepciones de seguridad y exactitud. |
 | `react-doctor` | Ejecutar React Doctor como diagnóstico advisory de salud React. |
 

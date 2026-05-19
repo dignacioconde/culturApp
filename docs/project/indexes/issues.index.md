@@ -5,7 +5,7 @@ id: PB-ISSUES-INDEX
 title: Issues Index
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-18
+updated: 2026-05-19
 aliases:
   - Issues Index
 tags:
@@ -79,6 +79,7 @@ generated: true
 - [[../issues/CACH-0094|CACH-0094]] — QA y cierre de Beta 24 calendario
 - [[../issues/CACH-0095|CACH-0095]] — Validadores de policies documentales del Product Brain
 - [[../issues/CACH-0096|CACH-0096]] — Retrieval local y gate SDD ligero para Product Brain
+- [[../issues/CACH-0097|CACH-0097]] — Escalado SDD por niveles para Product Brain
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes

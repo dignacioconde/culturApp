@@ -18,10 +18,16 @@
 - Durable memory: `cultura-learning-loop` vive en `.agents/skills/cultura-learning-loop/SKILL.md` y convierte incidentes, conversaciones o brechas de proceso en causa raíz, guardrails, memoria/Product Brain/tests/docs y verificación. No es diario operativo ni memoria automática.
 - Source: `.agents/skills/cultura-learning-loop/SKILL.md`; incidente feedback/Supabase remoto 2026-05-12.
 
+## 2026-05-19 - product-brain-sdd-review: SDD Progresivo Por Niveles
+
+- Context: Se subio SDD de gate ligero a modelo progresivo por niveles para anticipar rework por ambiguedad sin adoptar un framework pesado.
+- Durable memory: `product-brain-sdd-review` revisa SDD Nivel 1/Nivel 2 de forma semantica read-only. Nivel 2 aplica a `size: m`, datos/seguridad/infra, finance/Supabase/auth/calendar, multi-componente, varios agentes/PRs o ambiguedad repetida; debe pedir escenarios, contrato tecnico, matriz AC-validacion y rollback cuando aplique.
+- Source: `.agents/skills/product-brain-sdd-review/SKILL.md`; `docs/project/process/sdd-levels.md`; `scripts/brain/sdd-check.mjs`; `docs/project/issues/CACH-0097.md`.
+
 ## 2026-05-12 - product-brain-sdd-review: SDD Ligero Sin Agente Nuevo
 
 - Context: Se hizo challenge con agentes docs/testing/review y experto SDD temporal sobre como encajar Product Brain con spec-driven development.
-- Durable memory: no crear agente OpenCode experto en SDD por defecto. Usar la skill portable `product-brain-sdd-review` como compuerta semantica read-only para revisar si una issue CACH es ejecutable: requisitos observables, plan tecnico cuando aplica, tareas derivables, validacion trazable y bajo riesgo de drift/token dump.
+- Durable memory: superseded por el modelo de SDD progresivo del 2026-05-19. Mantener la regla de no crear agente OpenCode experto en SDD por defecto; usar la skill portable `product-brain-sdd-review` como compuerta semantica read-only.
 - Source: `.agents/skills/product-brain-sdd-review/SKILL.md`; `docs/agent-skills-strategy.md`; `scripts/brain/ready-check.mjs`.
 
 ## 2026-05-03 - Skills Use A Single Source With Claude Symlinks
