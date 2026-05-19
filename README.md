@@ -528,7 +528,7 @@ Skills disponibles:
 | `agent-context-maintenance` | Mantener higiene de contexto, prompts y presupuestos de carga. |
 | `product-brain-orient` | Orientar agentes sobre Product Brain v2 sin cargar todo `docs/project/`. |
 | `product-brain-capture` | Capturar ideas, decisiones o contexto en Product Brain. |
-| `product-brain-sdd-review` | Revisar si una issue CACH está lista para ejecución con SDD ligero. |
+| `product-brain-sdd-review` | Revisar si una issue CACH está lista para ejecución con SDD por niveles. |
 | `caveman` | Modo de comunicación ultraconciso con excepciones para seguridad, datos y reviews. |
 | `react-doctor` | Ejecutar React Doctor como escaneo advisory de salud React. |
 

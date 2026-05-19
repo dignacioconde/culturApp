@@ -5,7 +5,7 @@ id: PB-BY-AREA
 title: Issues por area
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-18
+updated: 2026-05-19
 aliases:
   - Issues por area
 tags:
@@ -116,6 +116,7 @@ generated: true
 - [[../issues/CACH-0080|CACH-0080]] — Inventariar gaps funcionales Lovable fuera de beta 23 · done · p2 · task
 - [[../issues/CACH-0095|CACH-0095]] — Validadores de policies documentales del Product Brain · done · p2 · task
 - [[../issues/CACH-0096|CACH-0096]] — Retrieval local y gate SDD ligero para Product Brain · done · p2 · slice
+- [[../issues/CACH-0097|CACH-0097]] — Escalado SDD por niveles para Product Brain · done · p2 · slice
 
 ## security
 

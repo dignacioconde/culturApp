@@ -5,7 +5,7 @@ id: PB-PROCESS-WORKFLOW
 title: Workflow
 lifecycle: active
 created: '2026-05-05'
-updated: '2026-05-13'
+updated: '2026-05-19'
 aliases:
   - Workflow
   - Thin Product Brain Workflow
@@ -166,6 +166,16 @@ Campos opcionales: release, rama sugerida, riesgos, dependencias, notas técnica
 
 Además del cuerpo, toda issue debe usar el frontmatter v2 de `frontmatter-schema.md` (`schema_version: 2`, `kind: issue`, `lifecycle`, `issue_workflow`, `work_type`, `work_level`, `size`, `components`, etc.). No usar `type/status` top-level en documentos nuevos.
 
+### SDD por niveles
+
+Usar [[sdd-levels]] como compuerta progresiva:
+
+- Nivel 1: issue ejecutable ligera para tareas `xs/s` de bajo riesgo.
+- Nivel 2: spec slice para `size: m`, datos/RLS/seguridad/infra, finanzas, Supabase, auth, calendarios complejos, trabajo multi-componente, varios agentes/PRs o dolor repetido de ambiguedad.
+- Nivel 3: decision/ADR o dossier solo si una regla gobierna varias slices o releases.
+
+Antes de mover una issue a `ready`, `pb:guard --phase ready --issue CACH-XXXX` ejecuta `pb:ready-check` y `pb:sdd-check`. Si el cambio activa Nivel 2, la issue debe incluir escenarios, contrato tecnico, matriz `ACn -> validacion` y riesgos/rollback cuando aplique.
+
 ---
 
 ## Cuándo crear ADR
@@ -198,6 +208,7 @@ Son bloqueantes para PR o merge:
 - `npm run build` — si se toca código de app o tooling que afecta build.
 - `npm run pb:guard` — si se toca `docs/project/` o `scripts/brain/`.
 - `npm run pb:ready-check -- CACH-XXXX` — antes de mover una issue a `ready`.
+- `npm run pb:sdd-check -- CACH-XXXX` — gate SDD por niveles para issues ejecutables; tambien se ejecuta desde `pb:guard --phase ready --issue`.
 - `npm run pb:close-check -- CACH-XXXX` — antes de marcar una issue como `done` o cerrar trabajo trazado.
 - Verificación DB remoto — si se toca `supabase/migrations/` o la feature depende de schema/policy/RPC nuevo: confirmar migración aplicada/verificada en remoto, o declarar explícitamente que la funcionalidad no está lista en producción.
 

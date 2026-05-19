@@ -48,9 +48,28 @@ Que esta incluido y que queda fuera.
 
 Solo si aplica: obligatorio para `size: m`, datos/RLS/seguridad/infra, `finance`, `supabase`, `auth-onboarding` o cambios multi-componente. Mantener corto: contratos afectados, hooks/modulos esperados, migraciones, estados UX o riesgos de integracion. No copiar reglas globales ni cerrar una solucion innecesariamente.
 
+## Escenarios SDD
+
+Solo Nivel 2. Usar cuando haya riesgo o complejidad: `size: m`, datos/RLS/seguridad/infra, `finance`, `supabase`, `auth-onboarding`, `calendar`, cambios multi-componente, varios agentes/PRs o ambiguedad repetida.
+
+- Cuando <situacion observable>, entonces <resultado esperado>.
+
+## Contrato tecnico
+
+Solo Nivel 2. Nombrar contratos, modulos, hooks, schemas, policies, scripts, estados UX o superficies afectadas. Mantenerlo como mapa de trabajo, no como implementacion cerrada.
+
+## Riesgos y rollback
+
+Solo Nivel 2 cuando haya datos, seguridad, infra, finanzas, Supabase o auth. Indicar riesgo principal y como revertir, desactivar o verificar que no rompe produccion.
+
 ## Validacion
 
 Checks esperados al terminar. Deben mencionar los IDs `AC1`, `AC2`, etc. que cubren y ser especificos del dominio cuando toque datos, seguridad, infra, finanzas, Supabase, calendario o sistema visual.
+
+Para Nivel 2, usar matriz ligera:
+
+- AC1 -> check/evidencia concreta.
+- AC2 -> check/evidencia concreta.
 
 ## Resultado
 
