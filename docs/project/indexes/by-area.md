@@ -17,7 +17,6 @@ generated: true
 
 ## frontend
 
-- [[../issues/CACH-0103|CACH-0103]] — UX minima de liquidacion en detalles · backlog · p1 · slice
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento · backlog · p1 · initiative
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera · backlog · p1 · initiative
 - [[../issues/CACH-B0007|CACH-B0007]] — Calendarios claros y sincronizacion suscribible · backlog · p1 · initiative
@@ -51,6 +50,7 @@ generated: true
 - [[../issues/CACH-0091|CACH-0091]] — Rehacer visibilidad movil de calendarios · done · p1 · slice
 - [[../issues/CACH-0093|CACH-0093]] — UI de sincronizacion por proveedor · done · p1 · slice
 - [[../issues/CACH-0094|CACH-0094]] — QA y cierre de Beta 24 calendario · done · p1 · task
+- [[../issues/CACH-0103|CACH-0103]] — UX minima de liquidacion en detalles · done · p1 · slice
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes · done · p1 · slice
 - [[../issues/CACH-B0006|CACH-B0006]] — Onboarding y acceso beta · done · p1 · slice
 - [[../issues/CACH-B0014|CACH-B0014]] — Endurecer agenda cobros y captura del MVP · done · p1 · slice
@@ -70,18 +70,18 @@ generated: true
 
 ## data
 
-- [[../issues/CACH-0101|CACH-0101]] — Versionar schema y RLS de gastos repercutibles · backlog · p1 · slice
-- [[../issues/CACH-0102|CACH-0102]] — Integrar hooks y helpers de liquidacion neta · backlog · p1 · slice
-- [[../issues/CACH-0104|CACH-0104]] — QA financiera y cierre de Beta 25 · backlog · p1 · task
 - [[../issues/CACH-B0004|CACH-B0004]] — Contratantes facturacion y liquidacion neta · backlog · p1 · initiative
 - [[../issues/CACH-B0011|CACH-B0011]] — Categorias etiquetas y taxonomia · backlog · p2 · initiative
 - [[../issues/CACH-B0013|CACH-B0013]] — Gestion documental por proyecto evento · backlog · p3 · initiative
-- [[../issues/CACH-0100|CACH-0100]] — Definir contrato de liquidacion neta minima · ready · p1 · task
 - [[../issues/CACH-0057|CACH-0057]] — Definir modelo minimo de contratantes · done · p1 · task
 - [[../issues/CACH-0058|CACH-0058]] — Versionar schema de contratantes y RLS · done · p1 · slice
 - [[../issues/CACH-0059|CACH-0059]] — Integrar hooks y portabilidad de contratantes · done · p1 · slice
 - [[../issues/CACH-0061|CACH-0061]] — Verificar regresion financiera y cierre tecnico beta 19 · done · p1 · task
 - [[../issues/CACH-0092|CACH-0092]] — Feed suscribible privado de eventos · done · p1 · slice
+- [[../issues/CACH-0100|CACH-0100]] — Definir contrato de liquidacion neta minima · done · p1 · task
+- [[../issues/CACH-0101|CACH-0101]] — Versionar schema y RLS de gastos repercutibles · done · p1 · slice
+- [[../issues/CACH-0102|CACH-0102]] — Integrar hooks y helpers de liquidacion neta · done · p1 · slice
+- [[../issues/CACH-0104|CACH-0104]] — QA financiera y cierre de Beta 25 · done · p1 · task
 - [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos · done · p1 · slice
 - [[../issues/CACH-B0017|CACH-B0017]] — Panel admin para invitaciones beta · done · p1 · slice
 

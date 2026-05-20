@@ -6,6 +6,13 @@ type FinanceForm = {
   [key: string]: unknown
 }
 
+type ExpenseKind = 'internal' | 'reimbursable'
+
+type ExpenseForm = FinanceForm & {
+  expense_kind?: unknown
+  reimbursed_by_income_id?: unknown
+}
+
 type IncomeForm = FinanceForm & {
   tax_rate?: unknown
   is_paid?: boolean
@@ -18,14 +25,36 @@ type NormalizeResult<T> =
   | { payload: T; error: null }
   | { payload: null; error: FinanceValidationError }
 
-export function normalizeExpenseForm<T extends FinanceForm>(form: T): NormalizeResult<T & { amount: number }> {
+function normalizeExpenseKind(value: unknown): ExpenseKind {
+  return value === 'reimbursable' ? 'reimbursable' : 'internal'
+}
+
+function normalizeOptionalId(value: unknown): string | null {
+  const trimmed = String(value ?? '').trim()
+  return trimmed === '' ? null : trimmed
+}
+
+export function normalizeExpenseForm<T extends ExpenseForm>(
+  form: T,
+): NormalizeResult<T & { amount: number; expense_kind: ExpenseKind; reimbursed_by_income_id: string | null }> {
   const amount = parseDecimal(String(form.amount ?? ''))
+  const expenseKind = normalizeExpenseKind(form.expense_kind)
 
   if (amount === null || amount <= 0) {
     return { payload: null, error: 'amount' }
   }
 
-  return { payload: { ...form, amount }, error: null }
+  return {
+    payload: {
+      ...form,
+      amount,
+      expense_kind: expenseKind,
+      reimbursed_by_income_id: expenseKind === 'reimbursable'
+        ? normalizeOptionalId(form.reimbursed_by_income_id)
+        : null,
+    },
+    error: null,
+  }
 }
 
 export function normalizeIncomeForm<T extends IncomeForm>(

@@ -31,7 +31,7 @@ function createExportClient(rowsByTable = {}) {
 
 function createImportClient() {
   const inserts = []
-  const ids = { contractors: 0, projects: 0, events: 0 }
+  const ids = { contractors: 0, projects: 0, events: 0, incomes: 0 }
 
   return {
     inserts,
@@ -50,7 +50,7 @@ function createImportClient() {
         insert(payload) {
           inserts.push({ table, payload })
 
-          if (table === 'contractors' || table === 'projects' || table === 'events') {
+          if (table === 'contractors' || table === 'projects' || table === 'events' || table === 'incomes') {
             ids[table] += 1
             const id = `${table}-${ids[table]}`
             return {
@@ -132,6 +132,7 @@ describe('data portability Supabase contract', () => {
       }],
       incomes: [{
         row: 5,
+        key: 'i1',
         link: { type: 'event', key: 'e1' },
         payload: {
           concept: 'Caché',
@@ -232,6 +233,64 @@ describe('data portability Supabase contract', () => {
         name: 'Evento heredado',
         project_id: 'projects-1',
         contractor_id: 'contractors-1',
+        user_id: 'auth-user',
+      }),
+    })
+  })
+
+  it('resuelve gastos repercutibles contra income_key sin aceptar ownership importado', async () => {
+    const client = createImportClient()
+    const preview = {
+      valid: true,
+      errors: [],
+      hiddenErrorCount: 0,
+      contractors: [],
+      projects: [{
+        row: 2,
+        key: 'p1',
+        contractor: null,
+        payload: {
+          name: 'Proyecto',
+          start_date: '2026-05-01',
+        },
+      }],
+      events: [],
+      incomes: [{
+        row: 3,
+        key: 'i1',
+        link: { type: 'project', key: 'p1' },
+        payload: {
+          concept: 'Caché',
+          amount: 100,
+          user_id: 'csv-user',
+        },
+      }],
+      expenses: [{
+        row: 4,
+        link: { type: 'project', key: 'p1' },
+        reimbursedByIncomeKey: 'i1',
+        payload: {
+          concept: 'Transporte',
+          amount: 25,
+          expense_kind: 'reimbursable',
+          reimbursed_by_income_id: 'raw-income-id',
+          user_id: 'csv-user',
+        },
+      }],
+    }
+
+    const { data, error } = await commitPortableImport(client, 'auth-user', preview)
+
+    expect(error).toBeNull()
+    expect(data.inserted).toEqual({ contractors: 0, projects: 1, events: 0, incomes: 1, expenses: 1 })
+    expect(client.inserts).toContainEqual({
+      table: 'expenses',
+      payload: expect.objectContaining({
+        concept: 'Transporte',
+        project_id: 'projects-1',
+        event_id: null,
+        expense_kind: 'reimbursable',
+        reimbursed_by_income_id: 'incomes-1',
         user_id: 'auth-user',
       }),
     })

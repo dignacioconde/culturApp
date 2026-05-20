@@ -10,6 +10,7 @@ import { StatusBadge } from '../../components/ui/Badge'
 import { Modal } from '../../components/ui/Modal'
 import { ConfirmDialog } from '../../components/ui/ConfirmDialog'
 import { Input, Select } from '../../components/ui/Input'
+import { CheckboxField } from '../../components/ui/CheckboxField'
 import { useToast, ToastContainer } from '../../components/ui/Toast'
 import { EventForm } from './EventForm'
 import { useAuth } from '../../hooks/useAuth'
@@ -25,8 +26,17 @@ import { normalizeExpenseForm, normalizeIncomeForm } from '../../lib/financeForm
 import { formatDueDescription, formatDueText, getDueDays } from '../../lib/dueDates'
 import { isPaid, markPaid, markUnpaid, needsQuickPaidConfirmation, paymentDate } from '../../lib/payment'
 import { EXPENSE_CATEGORIES } from '../../lib/constants'
+import { getGrossHourlyRateSummary, getNetSettlementSummary, isReimbursableExpense } from '../../lib/netSettlement'
 
-const EMPTY_EXPENSE = { concept: '', amount: '', category: 'otros', expense_date: '', is_deductible: true }
+const EMPTY_EXPENSE = {
+  concept: '',
+  amount: '',
+  category: 'otros',
+  expense_date: '',
+  is_deductible: true,
+  expense_kind: 'internal',
+  reimbursed_by_income_id: '',
+}
 const compactPrimaryAction = 'inline-flex min-h-9 items-center justify-center gap-2 rounded-lg bg-accent-primary px-3 py-1.5 text-sm font-medium leading-none text-primary-foreground shadow-sm transition-colors hover:bg-accent-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2'
 const compactPrimaryActionDesktop = 'hidden sm:inline-flex min-h-9 items-center justify-center gap-2 rounded-lg bg-accent-primary px-3 py-1.5 text-sm font-medium leading-none text-primary-foreground shadow-sm transition-colors hover:bg-accent-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2'
 const compactSecondaryActionDesktop = 'hidden sm:inline-flex min-h-9 items-center justify-center gap-2 rounded-lg border border-border-subtle bg-surface-page px-3 py-1.5 text-sm font-medium leading-none text-text-primary shadow-sm transition-colors hover:bg-surface-page-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2'
@@ -40,12 +50,6 @@ const incomeDueClass = (income) => {
   return 'text-text-secondary'
 }
 
-const getEventHours = (event) => {
-  if (!event.end_datetime) return 0
-  const minutes = (new Date(event.end_datetime).getTime() - new Date(event.start_datetime).getTime()) / 60000
-  return minutes > 0 ? minutes / 60 : 0
-}
-  
 function QuietStatusBadge({ status }) {
   if (!status || status === 'confirmed') return null
   return <StatusBadge status={status} />
@@ -91,7 +95,13 @@ export default function EventDetail() {
   const [expenseForm, setExpenseForm] = useState(() => createExpenseForm())
   const [savingExpense, setSavingExpense] = useState(false)
   const [quickExpenseModal, setQuickExpenseModal] = useState(false)
-  const quickExpenseDefault = () => ({ concept: event?.name || 'Gasto', amount: '', category: 'otros' })
+  const quickExpenseDefault = () => ({
+    concept: event?.name || 'Gasto',
+    amount: '',
+    category: 'otros',
+    expense_kind: 'internal',
+    reimbursed_by_income_id: '',
+  })
   const [quickExpenseForm, setQuickExpenseForm] = useState(() => quickExpenseDefault())
   const [financialSummaryExpanded, setFinancialSummaryExpanded] = useState(false)
 
@@ -121,15 +131,16 @@ export default function EventDetail() {
     )
   }
 
-  const totalGross = incomes.reduce((acc, i) => acc + Number(i.amount), 0)
-  const paidIncomes = incomes.filter((i) => isPaid(i))
-  const totalPaid = paidIncomes.reduce((acc, i) => acc + Number(i.amount), 0)
-  const pendingAmount = totalGross - totalPaid
-  const totalRetentions = paidIncomes.reduce((acc, i) => acc + Number(i.amount) * (Number(i.tax_rate) / 100), 0)
-  const totalExpenses = expenses.reduce((acc, e) => acc + Number(e.amount), 0)
-  const eventHours = getEventHours(event)
-  const grossHourlyRate = eventHours > 0 ? totalPaid / eventHours : 0
-  const netProfit = totalPaid - totalRetentions - totalExpenses
+  const settlement = getNetSettlementSummary({ incomes, expenses })
+  const hourlySummary = getGrossHourlyRateSummary({ incomes, events: [event] })
+  const totalGross = settlement.grossTotal
+  const totalPaid = settlement.paidTotal
+  const pendingAmount = settlement.pendingTotal
+  const totalRetentions = settlement.retentionTotal
+  const totalExpenses = settlement.totalExpenses
+  const operationalNet = settlement.operationalNet
+  const eventHours = hourlySummary.hours
+  const grossHourlyRate = hourlySummary.grossHourlyRate
   const openQuickIncome = () => {
     setQuickIncomeForm(quickIncomeDefault())
     setQuickIncomeModal(true)
@@ -189,6 +200,8 @@ export default function EventDetail() {
       category: quickExpenseForm.category || 'otros',
       expense_date: eventDate,
       is_deductible: true,
+      expense_kind: quickExpenseForm.expense_kind,
+      reimbursed_by_income_id: quickExpenseForm.reimbursed_by_income_id,
     })
     if (validationError) {
       addToast('Pon un importe mayor que 0.', 'error')
@@ -216,6 +229,8 @@ export default function EventDetail() {
       category: expense.category,
       expense_date: expense.expense_date ?? '',
       is_deductible: expense.is_deductible,
+      expense_kind: expense.expense_kind ?? 'internal',
+      reimbursed_by_income_id: '',
     })
     setExpenseModal(true)
   }
@@ -476,11 +491,10 @@ export default function EventDetail() {
               <ChevronDown size={16} className={`shrink-0 text-text-secondary transition-transform ${financialSummaryExpanded ? 'rotate-180' : ''}`} />
             </div>
           </button>
-          <div className="grid grid-cols-3 gap-2 sm:gap-3">
+          <div className="grid grid-cols-2 gap-2 sm:gap-3">
             {[
               { label: 'Cobrado', mobileLabel: 'Cobrado', value: formatCurrency(totalPaid) },
               { label: 'Pendiente', mobileLabel: 'Pend.', value: formatCurrency(pendingAmount) },
-              { label: 'Beneficio neto', mobileLabel: 'Neto', value: formatCurrency(netProfit), highlight: true },
             ].map(({ label, mobileLabel, value, highlight }) => (
               <div key={label} className={`rounded-lg border p-2.5 sm:p-4 ${highlight ? 'border-danger-soft bg-danger-soft' : 'border-border-subtle bg-surface-card'}`}>
                 <p className="text-[11px] leading-tight text-text-secondary sm:text-xs">
@@ -491,11 +505,12 @@ export default function EventDetail() {
               </div>
             ))}
           </div>
-          <div className={`${financialSummaryExpanded ? 'mt-3 grid' : 'hidden'} grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4`}>
+          <div className={`${financialSummaryExpanded ? 'mt-3 grid' : 'hidden'} grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5`}>
             {[
               { label: 'Ingresos previstos', value: formatCurrency(totalGross) },
               { label: 'IRPF sobre cobrado', value: formatCurrency(totalRetentions) },
               { label: 'Gastos registrados', value: formatCurrency(totalExpenses) },
+              { label: 'Neto operativo', value: formatCurrency(operationalNet) },
               { label: 'Cobro bruto/hora', value: eventHours > 0 ? formatCurrencyPerHour(grossHourlyRate) : '—', detail: eventHours > 0 ? `${formatHours(eventHours)} h` : null },
             ].map(({ label, value, detail }) => (
               <div key={label} className="rounded-lg border border-border-subtle bg-surface-card p-4">
@@ -669,7 +684,6 @@ export default function EventDetail() {
                     <th className="text-right pb-2 font-medium">Importe</th>
                     <th className="text-right pb-2 font-medium">Categoría</th>
                     <th className="text-right pb-2 font-medium">Fecha</th>
-                    <th className="text-center pb-2 font-medium">Deducible</th>
                     <th className="pb-2" />
                   </tr>
                 </thead>
@@ -682,16 +696,14 @@ export default function EventDetail() {
                           className="text-text-primary hover:text-accent-primary hover:underline text-left transition-colors"
                         >
                           {expense.concept}
+                          {isReimbursableExpense(expense) && (
+                            <span className="ml-2 rounded-full bg-accent-soft px-2 py-0.5 text-[11px] font-medium text-accent-primary">Repercutible</span>
+                          )}
                         </button>
                       </td>
                       <td className="py-2 text-right font-data font-medium">{formatCurrency(expense.amount)}</td>
                       <td className="py-2 text-right text-text-secondary capitalize">{expense.category}</td>
                       <td className="py-2 text-right text-text-secondary">{formatDate(expense.expense_date)}</td>
-                      <td className="py-2 text-center">
-                        {expense.is_deductible
-                          ? <CheckCircle size={14} className="text-success mx-auto" />
-                          : <Circle size={14} className="text-text-secondary/60 mx-auto" />}
-                      </td>
                       <td className="py-2 text-right">
                         <button
                           type="button"
@@ -719,6 +731,7 @@ export default function EventDetail() {
                       <span className="block truncate text-sm font-medium text-text-primary">{expense.concept}</span>
                       <span className="mt-0.5 block truncate text-xs capitalize text-text-secondary">
                         {expense.category} · {formatDate(expense.expense_date)}
+                        {isReimbursableExpense(expense) ? ' · Repercutible' : ''}
                       </span>
                     </span>
                     <span className="shrink-0 font-data text-sm font-semibold text-text-primary">{formatCurrency(expense.amount)}</span>
@@ -896,12 +909,16 @@ export default function EventDetail() {
               onChange={(e) => setExpenseForm((p) => ({ ...p, expense_date: e.target.value }))}
               required
             />
-            <div className="flex items-center gap-2">
-              <input type="checkbox" id="is_deductible" checked={expenseForm.is_deductible}
-                onChange={(e) => setExpenseForm((p) => ({ ...p, is_deductible: e.target.checked }))}
-                className="h-5 w-5 rounded border-border-subtle text-accent-primary focus:ring-accent-primary" />
-              <label htmlFor="is_deductible" className="text-sm text-text-primary">Gasto deducible fiscalmente</label>
-            </div>
+            <CheckboxField
+              id="expense-reimbursable"
+              label="Repercutir al cliente"
+              checked={expenseForm.expense_kind === 'reimbursable'}
+              onChange={(e) => setExpenseForm((p) => ({
+                ...p,
+                expense_kind: e.target.checked ? 'reimbursable' : 'internal',
+                reimbursed_by_income_id: '',
+              }))}
+            />
           </div>
           <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
             {editingExpense && (

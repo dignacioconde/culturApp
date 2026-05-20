@@ -66,6 +66,7 @@ export async function commitPortableImport(client, userId, preview) {
   const projectIds = new Map()
   const projectContractorIds = new Map()
   const eventIds = new Map()
+  const incomeIds = new Map()
 
   try {
     const existingContractors = await client
@@ -193,12 +194,18 @@ export async function commitPortableImport(client, userId, preview) {
         continue
       }
 
-      const { error } = await client
+      const { data, error } = await client
         .from('incomes')
         .insert({ ...income.payload, project_id: projectId, event_id: eventId, user_id: userId })
+        .select('id')
+        .single()
 
-      if (error) failures.push({ row: income.row, entity: 'income', error })
-      else inserted.incomes += 1
+      if (error) {
+        failures.push({ row: income.row, entity: 'income', error })
+      } else {
+        inserted.incomes += 1
+        if (income.key) incomeIds.set(income.key, data.id)
+      }
     }
 
     for (const expense of preview.expenses) {
@@ -208,10 +215,23 @@ export async function commitPortableImport(client, userId, preview) {
         failures.push({ row: expense.row, entity: 'expense', error: portabilityError('No se ha podido resolver el vínculo importado.') })
         continue
       }
+      const reimbursedByIncomeId = expense.reimbursedByIncomeKey
+        ? incomeIds.get(expense.reimbursedByIncomeKey)
+        : null
+      if (expense.reimbursedByIncomeKey && !reimbursedByIncomeId) {
+        failures.push({ row: expense.row, entity: 'expense', error: portabilityError('No se ha podido resolver el ingreso repercutido importado.') })
+        continue
+      }
 
       const { error } = await client
         .from('expenses')
-        .insert({ ...expense.payload, project_id: projectId, event_id: eventId, user_id: userId })
+        .insert({
+          ...expense.payload,
+          project_id: projectId,
+          event_id: eventId,
+          reimbursed_by_income_id: reimbursedByIncomeId,
+          user_id: userId,
+        })
 
       if (error) failures.push({ row: expense.row, entity: 'expense', error })
       else inserted.expenses += 1

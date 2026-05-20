@@ -219,8 +219,12 @@ create table expenses (
   category text default 'otros',
   expense_date date,
   is_deductible boolean default true,
+  expense_kind text not null default 'internal',
+  reimbursed_by_income_id uuid references public.incomes(id) on delete set null,
   created_at timestamptz default now(),
-  constraint chk_expense_link check (project_id is not null or event_id is not null)
+  constraint chk_expense_link check (project_id is not null or event_id is not null),
+  constraint expenses_expense_kind_check check (expense_kind in ('internal', 'reimbursable')),
+  constraint expenses_reimbursement_link_check check (expense_kind = 'reimbursable' or reimbursed_by_income_id is null)
 );
 ```
 
@@ -256,10 +260,48 @@ create policy "contractors: usuario propio" on contractors
   for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
 create policy "incomes: usuario propio" on incomes
-  for all using (auth.uid() = user_id);
+  for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
 create policy "expenses: usuario propio" on expenses
-  for all using (auth.uid() = user_id);
+  for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+```
+
+### 3.1. Validación de gastos repercutibles
+
+```sql
+create or replace function validate_expense_reimbursement_link()
+returns trigger as $$
+declare
+  linked_income record;
+begin
+  if new.reimbursed_by_income_id is null then
+    return new;
+  end if;
+
+  if new.expense_kind <> 'reimbursable' then
+    raise exception 'A reimbursed income can only be linked from a reimbursable expense.';
+  end if;
+
+  select user_id, project_id, event_id
+    into linked_income
+    from public.incomes
+    where id = new.reimbursed_by_income_id;
+
+  if not found
+    or linked_income.user_id is distinct from new.user_id
+    or linked_income.project_id is distinct from new.project_id
+    or linked_income.event_id is distinct from new.event_id then
+    raise exception 'Expense and linked income must share user and project/event scope.';
+  end if;
+
+  return new;
+end;
+$$ language plpgsql set search_path = public;
+
+create trigger expenses_validate_reimbursement_link
+  before insert or update of user_id, project_id, event_id, expense_kind, reimbursed_by_income_id
+  on public.expenses
+  for each row execute function validate_expense_reimbursement_link();
 ```
 
 ### 4. Trigger para crear el perfil al registrarse

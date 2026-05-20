@@ -60,11 +60,13 @@ export const EXPENSE_CSV_HEADERS = [
   'id',
   'project_id',
   'event_id',
+  'reimbursed_by_income_id',
   'concept',
   'amount',
   'category',
   'expense_date',
   'is_deductible',
+  'expense_kind',
   'created_at',
 ] as const
 

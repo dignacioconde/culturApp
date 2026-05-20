@@ -5,7 +5,7 @@ id: CACH-B0002
 title: Simplificar experiencia mobile financiera
 lifecycle: active
 created: '2026-05-04'
-updated: '2026-05-13'
+updated: '2026-05-20'
 aliases:
   - CACH-B0002
 tags:
@@ -118,6 +118,8 @@ Deuda residual:
 ## Notas de progreso
 
 2026-05-13: Se consolida el aprendizaje de los slices cerrados en [[../decisions/ADR-0016-ux-mobile-financiera-operativa-acciones-contextuales|ADR-0016]] y se crea [[CACH-0063|CACH-0063]] como deuda residual concreta.
+
+2026-05-20: Proximo corte previsto para beta 26: simplificar selectores y manejo diario, reducir botones visibles y favorecer acciones contextuales UX-friendly. Mantener el principio de operativa diaria ligera aprendido en beta 25.
 
 ## Cambios de alcance y decisiones
 

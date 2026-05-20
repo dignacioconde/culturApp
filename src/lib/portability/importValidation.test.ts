@@ -29,6 +29,7 @@ describe('validateCsvImport', () => {
       }),
       csvRow({
         entity: 'income',
+        income_key: 'i1',
         event_key: 'e1',
         concept: 'Caché',
         amount: '1.234,56',
@@ -38,11 +39,13 @@ describe('validateCsvImport', () => {
       }),
       csvRow({
         entity: 'expense',
-        project_key: 'p1',
+        event_key: 'e1',
         concept: 'Transporte',
         amount: '45,10',
         expense_date: '2026-05-12',
         is_deductible: 'no',
+        expense_kind: 'repercutible',
+        reimbursed_by_income_key: 'i1',
       }),
     ]))
 
@@ -55,6 +58,8 @@ describe('validateCsvImport', () => {
     expect(preview.incomes[0].payload.tax_rate).toBe(15.5)
     expect(preview.incomes[0]).not.toHaveProperty('project_id')
     expect(preview.expenses[0].payload.is_deductible).toBe(false)
+    expect(preview.expenses[0].payload.expense_kind).toBe('reimbursable')
+    expect(preview.expenses[0].reimbursedByIncomeKey).toBe('i1')
   })
 
   it('acepta CSV legacy sin columnas de contratante', () => {
@@ -151,6 +156,29 @@ describe('validateCsvImport', () => {
     expect(preview.errors.some((item) => item.message.includes('00000000-0000-0000-0000-000000000000'))).toBe(true)
   })
 
+  it('valida enlaces de gastos repercutibles por income_key del mismo vínculo', () => {
+    const { preview } = validateCsvImport(importCsv([
+      csvRow({ entity: 'project', project_key: 'p1', name: 'Uno', start_date: '2026-05-01' }),
+      csvRow({ entity: 'project', project_key: 'p2', name: 'Dos', start_date: '2026-05-01' }),
+      csvRow({ entity: 'income', income_key: 'i1', project_key: 'p1', concept: 'Caché', amount: '100' }),
+      csvRow({ entity: 'expense', project_key: 'p2', concept: 'Gasto', amount: '10', expense_kind: 'reimbursable', reimbursed_by_income_key: 'i1' }),
+      csvRow({ entity: 'expense', project_key: 'p1', concept: 'Otro', amount: '10', expense_kind: 'internal', reimbursed_by_income_key: 'i1' }),
+    ]))
+
+    expect(preview.valid).toBe(false)
+    expect(preview.errors.some((item) => item.message.includes('mismo project_key'))).toBe(true)
+    expect(preview.errors.some((item) => item.message.includes('Solo los gastos repercutibles'))).toBe(true)
+  })
+
+  it('rechaza reimbursed_by_income_id crudo en importación', () => {
+    const headers = [...IMPORT_HEADERS, 'reimbursed_by_income_id'].join(';')
+    const { preview, error } = validateCsvImport(`${headers}\n${csvRow({ entity: 'project', project_key: 'p1', name: 'Proyecto', start_date: '2026-05-01' })};raw-id\n`)
+
+    expect(error?.message).toContain('plantilla')
+    expect(preview.valid).toBe(false)
+    expect(preview.errors.some((item) => item.column === 'reimbursed_by_income_id')).toBe(true)
+  })
+
   it('rechaza fechas, datetimes y decimales inválidos', () => {
     const { preview } = validateCsvImport(importCsv([
       csvRow({ entity: 'project', project_key: 'p1', name: 'Proyecto', start_date: '2026-02-30' }),
@@ -187,6 +215,6 @@ describe('validateCsvImport', () => {
 
     const headers = [...IMPORT_HEADERS, ...Array.from({ length: 10 }, (_, index) => `extra_${index}`)]
     const tooManyColumns = validateCsvImport(`${headers.join(';')}\n${headers.map(() => '').join(';')}\n`)
-    expect(tooManyColumns.preview.errors.some((item) => item.message.includes('30 columnas'))).toBe(true)
+    expect(tooManyColumns.preview.errors.some((item) => item.message.includes('36 columnas'))).toBe(true)
   })
 })

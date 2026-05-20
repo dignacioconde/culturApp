@@ -48,6 +48,7 @@
     "verify:version-history": "node scripts/verify-version-history.mjs",
     "verify:skills": "node scripts/verify-skills.mjs",
     "verify:agents": "node scripts/verify-agents.mjs",
+    "verify:supabase:migrations": "node scripts/verify-supabase-migrations.mjs",
     "test:brain": "npm run pb:check -- --strict --json && npm run verify:brain",
     "test": "vitest run",
     "test:watch": "vitest",

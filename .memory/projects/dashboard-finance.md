@@ -22,3 +22,10 @@
 - Durable memory: project-level dashboard accounting includes direct project incomes plus incomes from child events; child events with a project must not be duplicated as separate financial works.
 - Durable memory: the current dashboard is a receivables/work view (`Caja del mes` + `Trabajos`) based on incomes and events/projects; it does not use expenses, net profit or hourly rate as primary KPIs.
 - Schema caveat: with the current `expenses` table, CulturaApp can show registered expenses, but cannot truthfully detect overdue outgoing payments because expenses do not have `is_paid`, `paid_date`, or `due_date`.
+
+## 2026-05-20 - Daily Finance UX Must Avoid Accounting Depth
+
+- Context: beta 25 added net-settlement support for internal vs reimbursable expenses, but the first UI pass exposed too much operational accounting for daily use.
+- Durable memory: daily project/event finance UX should stay maximally simple. Ask only for fields users naturally need in the moment; hide accounting depth such as expense-to-income links unless a clear workflow proves it is needed.
+- Durable memory: for expenses, prefer a human checkbox such as `Repercutir al cliente` over technical selectors. Keep net settlement as secondary context under an expanded detail, not as a primary KPI competing with `Cobrado` and `Pendiente`.
+- Source: direct user feedback during `RELEASE-0.1.0-beta.25`; `CACH-0103`; `docs/project/decisions/ADR-0016-ux-mobile-financiera-operativa-acciones-contextuales.md`.

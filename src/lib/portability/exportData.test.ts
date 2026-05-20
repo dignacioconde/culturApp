@@ -21,7 +21,7 @@ describe('export portability helpers', () => {
       projects: [{ id: 'p1', user_id: 'u1', name: '+Proyecto', start_date: '2026-05-01' }],
       events: [{ id: 'e1', user_id: 'u1', project_id: 'p1', name: 'Evento', start_datetime: '2026-05-10T06:00:00.000Z' }],
       incomes: [{ id: 'i1', user_id: 'u1', event_id: 'e1', concept: 'Caché', amount: 100 }],
-      expenses: [{ id: 'x1', user_id: 'u1', project_id: 'p1', concept: 'Material', amount: 10 }],
+      expenses: [{ id: 'x1', user_id: 'u1', project_id: 'p1', concept: 'Material', amount: 10, expense_kind: 'reimbursable', reimbursed_by_income_id: 'i1' }],
     })
 
     expect(csvFiles.projects.content).not.toContain('user_id')
@@ -29,6 +29,8 @@ describe('export portability helpers', () => {
     expect(csvFiles.projects.content).toContain("'+Proyecto")
     expect(csvFiles.events.content).toContain('project_id')
     expect(csvFiles.incomes.content).toContain('event_id')
+    expect(csvFiles.expenses.content).toContain('reimbursed_by_income_id')
+    expect(csvFiles.expenses.content).toContain('reimbursable')
   })
 
   it('resume recuentos por entidad', () => {

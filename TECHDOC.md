@@ -344,6 +344,8 @@ VITE_APP_URL=https://app.caches.es
 
 **`user_id` duplicado en `incomes` y `expenses`**: Además de `project_id`, estas tablas guardan `user_id` para poder aplicar RLS directamente sin hacer joins. Esto es intencional.
 
+**Gastos repercutibles**: `expenses.expense_kind` distingue `internal` y `reimbursable`. `reimbursed_by_income_id` puede enlazar un gasto repercutible a un ingreso del mismo `user_id` y del mismo alcance `project_id`/`event_id`; la validación vive en la migración `20260520120000_reimbursable_expenses.sql`.
+
 **No acceder a localStorage manualmente**: Supabase JS gestiona la persistencia de sesión del cliente. No almacenar datos sensibles propios en el navegador.
 
 **Fechas**: almacenamiento en ISO 8601 (`YYYY-MM-DD`) en Supabase, presentación en `DD/MM/YYYY` via `formatDate()` de `lib/formatters.js`. No mezclar formatos.

@@ -17,10 +17,6 @@ generated: true
 
 ## backlog
 
-- [[../issues/CACH-0101|CACH-0101]] — Versionar schema y RLS de gastos repercutibles · backlog · p1 · slice
-- [[../issues/CACH-0102|CACH-0102]] — Integrar hooks y helpers de liquidacion neta · backlog · p1 · slice
-- [[../issues/CACH-0103|CACH-0103]] — UX minima de liquidacion en detalles · backlog · p1 · slice
-- [[../issues/CACH-0104|CACH-0104]] — QA financiera y cierre de Beta 25 · backlog · p1 · task
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento · backlog · p1 · initiative
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera · backlog · p1 · initiative
 - [[../issues/CACH-B0004|CACH-B0004]] — Contratantes facturacion y liquidacion neta · backlog · p1 · initiative
@@ -83,6 +79,11 @@ generated: true
 - [[../issues/CACH-0093|CACH-0093]] — UI de sincronizacion por proveedor · done · p1 · slice
 - [[../issues/CACH-0094|CACH-0094]] — QA y cierre de Beta 24 calendario · done · p1 · task
 - [[../issues/CACH-0099|CACH-0099]] — Preparar Beta 25 de liquidacion neta · done · p1 · task
+- [[../issues/CACH-0100|CACH-0100]] — Definir contrato de liquidacion neta minima · done · p1 · task
+- [[../issues/CACH-0101|CACH-0101]] — Versionar schema y RLS de gastos repercutibles · done · p1 · slice
+- [[../issues/CACH-0102|CACH-0102]] — Integrar hooks y helpers de liquidacion neta · done · p1 · slice
+- [[../issues/CACH-0103|CACH-0103]] — UX minima de liquidacion en detalles · done · p1 · slice
+- [[../issues/CACH-0104|CACH-0104]] — QA financiera y cierre de Beta 25 · done · p1 · task
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes · done · p1 · slice
 - [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos · done · p1 · slice
 - [[../issues/CACH-B0006|CACH-B0006]] — Onboarding y acceso beta · done · p1 · slice
@@ -111,7 +112,3 @@ generated: true
 - [[../issues/CACH-0097|CACH-0097]] — Escalado SDD por niveles para Product Brain · done · p2 · slice
 - [[../issues/CACH-0098|CACH-0098]] — Metricas locales para retrieval y SDD · done · p2 · slice
 - [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura · done · p2 · task
-
-## ready
-
-- [[../issues/CACH-0100|CACH-0100]] — Definir contrato de liquidacion neta minima · ready · p1 · task

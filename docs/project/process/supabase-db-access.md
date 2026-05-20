@@ -5,7 +5,7 @@ id: PB-PROCESS-SUPABASE-DB-ACCESS
 title: Acceso directo seguro a Supabase
 lifecycle: active
 created: '2026-05-07'
-updated: '2026-05-08'
+updated: '2026-05-20'
 aliases:
   - Supabase DB Access
   - Acceso Supabase MCP
@@ -71,9 +71,11 @@ rollback;
 ```bash
 npx supabase migration repair <version> --status applied --linked
 npx supabase migration list --linked
+npm run verify:supabase:migrations
 ```
 
 - Si una feature o release depende de una tabla, policy, trigger o RPC nueva, no marcarla como verificada en producción hasta confirmar el remoto con SQL read-only y smoke real o transaccional con `rollback`.
+- Si el MCP esta en modo lectura, la CLI enlazada puede servir como fallback con token local. Antes de ejecutar un `db push` real, hacer siempre `--dry-run` y confirmar que solo aparece la migracion esperada. Tras la aplicacion, repetir `npm run verify:supabase:migrations`.
 - Si la migración remota queda pendiente, la release puede estar code-complete, pero la funcionalidad afectada no está released funcionalmente; documentarlo como pendiente o bloqueante.
 - Después de cambiar RPCs o schema consumido por PostgREST, ejecutar:
 

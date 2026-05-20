@@ -30,3 +30,13 @@ Durable memory:
 - Si una release deja la migración remota pendiente, la feature puede estar code-complete, pero no released funcionalmente.
 - Si un hotfix remoto incluye SQL no reflejado en migraciones locales, versionar el delta o confirmar que ya queda cubierto por una migración existente.
 - Si se aplica una migración versionada a mano por SQL Editor, confirmar el schema con SQL read-only, refrescar PostgREST con `notify pgrst, 'reload schema';` y ejecutar `npx supabase migration repair <version> --status applied --linked` antes de cerrar la tarea.
+
+## 2026-05-20 - Supabase Remote Migration Must Be A Release Gate
+
+Contexto: en beta 25 el checkbox `Repercutir al cliente` falló porque el frontend enviaba `expenses.expense_kind`, pero la migración remota todavía no estaba aplicada. El MCP estaba en modo lectura y hubo que aplicar la migración por Supabase CLI enlazada.
+
+Durable memory:
+- Si una release toca `supabase/migrations/`, ejecutar `npx supabase migration list --linked` y `npm run verify:supabase:migrations` antes de decir que el flujo está listo para probarse contra remoto.
+- Si `db push --dry-run` muestra migraciones antiguas aplicadas manualmente pero no registradas, verificar objetos con SQL read-only y reparar historial con `npx supabase migration repair ... --status applied --linked`.
+- No ejecutar comandos remotos de Supabase CLI en paralelo; el rol temporal `cli_login_postgres` puede dar falsos fallos de autenticación.
+- Cierre válido tras migración: historial remoto incluye la versión, columnas/triggers/policies existen por SQL read-only y `npm run verify:supabase:migrations` termina OK.

@@ -27,7 +27,9 @@ release_current: true
 
 ## Estado
 
-Activa. Siguiente corte de `CACH-B0004` tras contratantes estructurados, acotado a liquidacion neta minima sin facturacion completa.
+Activa en QA local. Siguiente corte de `CACH-B0004` tras contratantes estructurados, acotado a liquidacion neta minima sin facturacion completa.
+
+Implementacion preparada: contrato, migracion local/remota, helpers, portabilidad y UX minima. Pendiente antes de publication-ready: PR a `main`, CI, tag y publicacion.
 
 ## Scope
 

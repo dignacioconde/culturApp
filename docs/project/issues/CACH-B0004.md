@@ -79,7 +79,7 @@ Quedan fuera de beta 25: facturacion legal completa, numeracion de facturas, PDF
 ## Acceptance Criteria
 
 - [x] El diseño de datos diferencia cliente/contratante de texto libre.
-- [ ] Se puede calcular liquidación neta cuando un gasto repercute sobre un ingreso.
+- [x] Se puede calcular liquidación neta cuando un gasto repercute sobre un ingreso.
 - [ ] La opción de unificar ingresos/gastos a nivel proyecto no rompe eventos independientes.
 - [ ] La decisión individual vs colaborativa queda resuelta antes de multiusuario.
 
@@ -103,6 +103,10 @@ Quedan fuera de beta 25: facturacion legal completa, numeracion de facturas, PDF
 
 2026-05-20: Se activa `RELEASE-0.1.0-beta.25` como segundo corte de la iniciativa, limitado a liquidacion neta minima y gastos repercutibles.
 
+2026-05-20: Implementacion local de Beta 25 preparada: contrato, migracion local, helpers, portabilidad y UX minima de liquidacion neta en detalles.
+
+2026-05-20: Migracion remota Supabase de Beta 25 aplicada y verificada. Tambien se reparo el historial remoto de migraciones antiguas ya aplicadas manualmente para que `npx supabase db push --linked --dry-run` detecte drift real.
+
 ## Cambios de alcance y decisiones
 
 Beta 19 no implementa liquidación neta ni facturación completa. Es una base de datos/UX para contratantes reutilizables.
@@ -117,7 +121,7 @@ Beta 25 no implementa facturas, IVA, PDF, CRM ni cambios de dashboard. Su salida
 - `npm run lint` OK.
 - `npm run test` OK.
 - `npm run build` OK.
-- Verificación remota Supabase pendiente.
+- Verificación remota Supabase OK: `migration list`, columnas/trigger en `expenses` y `db push --linked --dry-run` sin pendientes.
 
 ## Memoria
 

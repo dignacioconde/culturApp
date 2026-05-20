@@ -34,6 +34,9 @@ export const OPTIONAL_IMPORT_HEADERS = [
   'email',
   'phone',
   'billing_address',
+  'income_key',
+  'expense_kind',
+  'reimbursed_by_income_key',
 ] as const
 
 export const IMPORT_HEADERS = [
@@ -41,10 +44,10 @@ export const IMPORT_HEADERS = [
   ...OPTIONAL_IMPORT_HEADERS,
 ] as const
 
-export const FORBIDDEN_IMPORT_HEADERS = ['id', 'user_id', 'created_at', 'project_id', 'event_id', 'contractor_id'] as const
+export const FORBIDDEN_IMPORT_HEADERS = ['id', 'user_id', 'created_at', 'project_id', 'event_id', 'contractor_id', 'reimbursed_by_income_id'] as const
 export const MAX_IMPORT_BYTES = 1024 * 1024
 export const MAX_IMPORT_ROWS = 500
-export const MAX_IMPORT_COLUMNS = 30
+export const MAX_IMPORT_COLUMNS = 36
 export const MAX_IMPORT_CELL_LENGTH = 5000
 export const MAX_DISPLAYED_ERRORS = 100
 
@@ -106,7 +109,9 @@ export type ImportEvent = {
 
 export type ImportFinanceRow = {
   row: number
+  key?: string
   link: { type: 'project' | 'event'; key: string }
+  reimbursedByIncomeKey?: string | null
   payload: {
     concept: string
     amount: number
@@ -117,6 +122,7 @@ export type ImportFinanceRow = {
     category?: string
     expense_date?: string | null
     is_deductible?: boolean
+    expense_kind?: 'internal' | 'reimbursable'
   }
 }
 
@@ -207,6 +213,19 @@ function parseBoolean(value: string | undefined, fallback: boolean): boolean | n
   if (['true', '1', 'yes', 'si', 'sí', 'paid', 'pagado'].includes(raw)) return true
   if (['false', '0', 'no', 'unpaid', 'pendiente'].includes(raw)) return false
   return null
+}
+
+function validateExpenseKind(
+  errorsByRow: Map<number, ImportError[]>,
+  row: number,
+  rawKind: string | undefined,
+): 'internal' | 'reimbursable' {
+  const value = compact(rawKind).toLowerCase()
+  if (value === '') return 'internal'
+  if (['internal', 'interno'].includes(value)) return 'internal'
+  if (['reimbursable', 'repercutible'].includes(value)) return 'reimbursable'
+  addError(errorsByRow, row, 'expense_kind', 'Usa internal/reimbursable o interno/repercutible.')
+  return 'internal'
 }
 
 function addError(errorsByRow: Map<number, ImportError[]>, row: number, column: string | undefined, message: string) {
@@ -338,6 +357,7 @@ export function validateCsvImport(text: string, options: { fileSize?: number } =
   const contractorKeyRows = new Map<string, number[]>()
   const projectKeyRows = new Map<string, number[]>()
   const eventKeyRows = new Map<string, number[]>()
+  const incomeKeyRows = new Map<string, number[]>()
 
   rows.forEach((row) => {
     if (row.values?.length > MAX_IMPORT_COLUMNS) {
@@ -383,11 +403,17 @@ export function validateCsvImport(text: string, options: { fileSize?: number } =
       if (eventKey === '') addError(errorsByRow, row.row, 'event_key', 'event_key es obligatorio.')
       else eventKeyRows.set(eventKey, [...(eventKeyRows.get(eventKey) ?? []), row.row])
     }
+
+    if (row.entity === 'income') {
+      const incomeKey = compact(row.record.income_key)
+      if (incomeKey !== '') incomeKeyRows.set(incomeKey, [...(incomeKeyRows.get(incomeKey) ?? []), row.row])
+    }
   }
 
   const duplicateContractorKeys = new Set([...contractorKeyRows.entries()].filter(([, rowNumbers]) => rowNumbers.length > 1).map(([key]) => key))
   const duplicateProjectKeys = new Set([...projectKeyRows.entries()].filter(([, rowNumbers]) => rowNumbers.length > 1).map(([key]) => key))
   const duplicateEventKeys = new Set([...eventKeyRows.entries()].filter(([, rowNumbers]) => rowNumbers.length > 1).map(([key]) => key))
+  const duplicateIncomeKeys = new Set([...incomeKeyRows.entries()].filter(([, rowNumbers]) => rowNumbers.length > 1).map(([key]) => key))
 
   for (const key of duplicateContractorKeys) {
     for (const row of contractorKeyRows.get(key) ?? []) {
@@ -404,6 +430,12 @@ export function validateCsvImport(text: string, options: { fileSize?: number } =
   for (const key of duplicateEventKeys) {
     for (const row of eventKeyRows.get(key) ?? []) {
       addError(errorsByRow, row, 'event_key', `event_key duplicado: ${key}.`)
+    }
+  }
+
+  for (const key of duplicateIncomeKeys) {
+    for (const row of incomeKeyRows.get(key) ?? []) {
+      addError(errorsByRow, row, 'income_key', `income_key duplicado: ${key}.`)
     }
   }
 
@@ -453,6 +485,10 @@ export function validateCsvImport(text: string, options: { fileSize?: number } =
       if (row.entity === 'expense') {
         validateDateField(errorsByRow, row.row, row.record, 'expense_date')
         if (parseBoolean(row.record.is_deductible, true) === null) addError(errorsByRow, row.row, 'is_deductible', 'Usa true/false, sí/no o 1/0.')
+        const expenseKind = validateExpenseKind(errorsByRow, row.row, row.record.expense_kind)
+        if (compact(row.record.reimbursed_by_income_key) && expenseKind !== 'reimbursable') {
+          addError(errorsByRow, row.row, 'reimbursed_by_income_key', 'Solo los gastos repercutibles pueden enlazarse a un ingreso.')
+        }
       }
     }
   }
@@ -500,6 +536,31 @@ export function validateCsvImport(text: string, options: { fileSize?: number } =
     }
     if (eventKey && !validEventKeys.has(eventKey)) {
       addError(errorsByRow, row.row, 'event_key', `No existe un event_key válido en el archivo: ${eventKey}.`)
+    }
+  }
+
+  const validIncomeRowsByKey = new Map(
+    rows
+      .filter((row) => row.entity === 'income' && compact(row.record.income_key) && !rowHasErrors(errorsByRow, row.row))
+      .map((row) => [compact(row.record.income_key), row]),
+  )
+
+  for (const row of rows) {
+    if (row.entity !== 'expense') continue
+    const reimbursedByIncomeKey = compact(row.record.reimbursed_by_income_key)
+    if (!reimbursedByIncomeKey) continue
+
+    const incomeRow = validIncomeRowsByKey.get(reimbursedByIncomeKey)
+    if (!incomeRow) {
+      addError(errorsByRow, row.row, 'reimbursed_by_income_key', `No existe un income_key válido en el archivo: ${reimbursedByIncomeKey}.`)
+      continue
+    }
+
+    if (
+      compact(incomeRow.record.project_key) !== compact(row.record.project_key) ||
+      compact(incomeRow.record.event_key) !== compact(row.record.event_key)
+    ) {
+      addError(errorsByRow, row.row, 'reimbursed_by_income_key', 'El ingreso enlazado debe pertenecer al mismo project_key o event_key.')
     }
   }
 
@@ -575,6 +636,7 @@ export function validateCsvImport(text: string, options: { fileSize?: number } =
       const eventKey = optionalText(row.record.event_key)
       preview.incomes.push({
         row: row.row,
+        key: optionalText(row.record.income_key) ?? undefined,
         link: projectKey ? { type: 'project', key: projectKey } : { type: 'event', key: eventKey as string },
         payload: {
           concept: compact(row.record.concept),
@@ -593,12 +655,14 @@ export function validateCsvImport(text: string, options: { fileSize?: number } =
       preview.expenses.push({
         row: row.row,
         link: projectKey ? { type: 'project', key: projectKey } : { type: 'event', key: eventKey as string },
+        reimbursedByIncomeKey: optionalText(row.record.reimbursed_by_income_key),
         payload: {
           concept: compact(row.record.concept),
           amount: validateAmount(errorsByRow, row.row, row.record.amount) as number,
           category: withDefault(row.record.category, 'otros'),
           expense_date: optionalText(row.record.expense_date),
           is_deductible: parseBoolean(row.record.is_deductible, true) as boolean,
+          expense_kind: validateExpenseKind(errorsByRow, row.row, row.record.expense_kind),
         },
       })
     }

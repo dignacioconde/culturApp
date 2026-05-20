@@ -68,9 +68,7 @@ _Sin entradas._
 
 ### Ready
 
-| ID | Título | Tipo | Nivel | P |
-|---|---|---|---|---|
-| CACH-0100 | Definir contrato de liquidacion neta minima | spike | task | p1 |
+_Sin entradas._
 
 ### In progress
 
@@ -84,10 +82,6 @@ _Sin entradas._
 
 | ID | Título | Tipo | Nivel | P |
 |---|---|---|---|---|
-| CACH-0101 | Versionar schema y RLS de gastos repercutibles | feature | slice | p1 |
-| CACH-0102 | Integrar hooks y helpers de liquidacion neta | feature | slice | p1 |
-| CACH-0103 | UX minima de liquidacion en detalles | feature | slice | p1 |
-| CACH-0104 | QA financiera y cierre de Beta 25 | chore | task | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | feature | initiative | p1 |
@@ -97,11 +91,6 @@ _Sin entradas._
 
 | ID | Título | Workflow | Tipo | Nivel | P |
 |---|---|---|---|---|---|
-| CACH-0100 | Definir contrato de liquidacion neta minima | ready | spike | task | p1 |
-| CACH-0101 | Versionar schema y RLS de gastos repercutibles | backlog | feature | slice | p1 |
-| CACH-0102 | Integrar hooks y helpers de liquidacion neta | backlog | feature | slice | p1 |
-| CACH-0103 | UX minima de liquidacion en detalles | backlog | feature | slice | p1 |
-| CACH-0104 | QA financiera y cierre de Beta 25 | backlog | chore | task | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | backlog | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | backlog | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | backlog | feature | initiative | p1 |
@@ -117,7 +106,7 @@ _Sin entradas._
 
 | ID | Título | Updated | Estado |
 |---|---|---|---|
-| ADR-0016 | UX móvil financiera: operativa primero y acciones contextuales | 2026-05-13 | Accepted |
+| ADR-0016 | UX móvil financiera: operativa primero y acciones contextuales | 2026-05-20 | Accepted |
 | ADR-0014 | Beta feedback propio y Plausible comentado | 2026-05-11 | Superseded |
 | ADR-0015 | Feedback simple propio y PostHog diferido | 2026-05-11 | Accepted |
 | ADR-0001 | Mantener el modelo proyecto-evento con finanzas en ambos niveles | 2026-05-08 | Accepted |

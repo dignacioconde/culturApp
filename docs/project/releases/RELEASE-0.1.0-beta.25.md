@@ -44,7 +44,7 @@ Permitir que Cachés represente de forma minima cuando un gasto repercute sobre 
 - Definir el contrato minimo de liquidacion neta: gasto interno, gasto repercutible y enlace opcional gasto -> ingreso.
 - Versionar schema/RLS para guardar la relacion sin cruzar usuarios ni romper datos existentes.
 - Integrar helpers y hooks para calcular resumen bruto, retencion, gastos internos, gastos repercutibles y neto operativo.
-- Mostrar liquidacion neta en detalles de proyecto y evento como contexto, no como nuevo KPI principal del dashboard.
+- Mostrar liquidacion neta en detalles de proyecto y evento como contexto expandible, no como KPI principal ni como carga diaria.
 - Mantener compatibilidad con export/import de datos y con contratantes estructurados de beta 19.
 
 ## Scope
@@ -61,11 +61,11 @@ Permitir que Cachés represente de forma minima cuando un gasto repercute sobre 
 | Issue | Titulo | Workflow | Rama |
 |---|---|---|---|
 | [[../issues/CACH-0099|CACH-0099]] | Preparar Beta 25 de liquidacion neta | done | `release/0.1.0-beta.25` |
-| [[../issues/CACH-0100|CACH-0100]] | Definir contrato de liquidacion neta minima | ready | `feat/CACH-0100-net-settlement-contract` |
-| [[../issues/CACH-0101|CACH-0101]] | Versionar schema y RLS de gastos repercutibles | backlog | `feat/CACH-0101-reimbursable-expenses-schema` |
-| [[../issues/CACH-0102|CACH-0102]] | Integrar hooks y helpers de liquidacion neta | backlog | `feat/CACH-0102-net-settlement-hooks` |
-| [[../issues/CACH-0103|CACH-0103]] | UX minima de liquidacion en detalles | backlog | `feat/CACH-0103-net-settlement-detail-ux` |
-| [[../issues/CACH-0104|CACH-0104]] | QA financiera y cierre de Beta 25 | backlog | `release/0.1.0-beta.25` |
+| [[../issues/CACH-0100|CACH-0100]] | Definir contrato de liquidacion neta minima | done | `release/0.1.0-beta.25` |
+| [[../issues/CACH-0101|CACH-0101]] | Versionar schema y RLS de gastos repercutibles | done | `release/0.1.0-beta.25` |
+| [[../issues/CACH-0102|CACH-0102]] | Integrar hooks y helpers de liquidacion neta | done | `release/0.1.0-beta.25` |
+| [[../issues/CACH-0103|CACH-0103]] | UX minima de liquidacion en detalles | done | `release/0.1.0-beta.25` |
+| [[../issues/CACH-0104|CACH-0104]] | QA financiera y cierre de Beta 25 | done | `release/0.1.0-beta.25` |
 
 ## Fuera de alcance
 
@@ -79,6 +79,7 @@ Permitir que Cachés represente de forma minima cuando un gasto repercute sobre 
 ## Riesgos
 
 - El concepto de liquidacion neta puede confundirse con beneficio contable; la UI debe nombrarlo como resumen operativo del trabajo.
+- La UI no debe pedir al usuario que enlace gastos a ingresos en la operativa diaria; ese soporte queda en datos/portabilidad hasta que exista una necesidad clara.
 - El enlace gasto -> ingreso debe impedir cruces de usuario y mantener `project_id`/`event_id` coherentes.
 - Las migraciones deben ser aditivas y reversibles: no borrar `client`, ingresos, gastos ni contratantes existentes.
 - El dashboard no debe empezar a mezclar gastos o neto como KPI principal por accidente.
@@ -100,21 +101,21 @@ Permitir que Cachés represente de forma minima cuando un gasto repercute sobre 
 
 ## Checklist de desarrollo
 
-- [ ] Todas las issues estan en progreso o cerradas
-- [ ] Commits integrados en rama release
-- [ ] No hay cambios sueltos fuera de release
+- [x] Todas las issues estan en progreso o cerradas
+- [x] Commits integrados en rama release
+- [x] No hay cambios sueltos fuera de release
 - [ ] No hay issues sin `issue_workflow`
-- [ ] Decisiones importantes documentadas
+- [x] Decisiones importantes documentadas
 
 ## Checklist de estabilizacion
 
-- [ ] `npm run lint`
-- [ ] `npm run test`
-- [ ] `npm run build`
-- [ ] `npm run pb:guard`
-- [ ] `npm run verify:pr -- --base origin/main`
-- [ ] Smoke financiero de proyecto y evento con gasto interno y gasto repercutible
-- [ ] Estado remoto de migracion Supabase documentado como aplicado/verificado o pendiente/bloqueante
+- [x] `npm run lint`
+- [x] `npm run test`
+- [x] `npm run build`
+- [x] `npm run pb:guard`
+- [x] `npm run verify:pr -- --base origin/main`
+- [x] Smoke financiero de proyecto y evento con gasto interno y gasto repercutible
+- [x] Estado remoto de migracion Supabase documentado como aplicado/verificado o pendiente/bloqueante
 
 ## Checklist de salida
 
@@ -135,12 +136,15 @@ Permitir que Cachés represente de forma minima cuando un gasto repercute sobre 
 
 ### Aniadido
 
-- Planificado: resumen operativo de liquidacion neta en detalles de proyecto y evento.
-- Planificado: soporte minimo para gastos repercutibles enlazados a ingresos.
+- Resumen operativo de liquidacion neta en el detalle expandido de proyecto y evento.
+- Soporte minimo para marcar gastos repercutibles sin pedir modelado contable diario.
+- Soporte tecnico para enlace gasto -> ingreso en schema/import, reservado para usos futuros o datos avanzados.
+- Helper puro `netSettlement` y tests de regresion financiera.
 
 ### Cambiado
 
-- Planificado segun contrato de `CACH-0100`.
+- `useExpenses` sanea payloads para que `user_id` siga saliendo del usuario autenticado.
+- Export/import conserva los nuevos campos de gastos repercutibles sin aceptar ownership ni FKs crudas en CSV de importacion.
 
 ### Corregido
 
@@ -152,8 +156,16 @@ Permitir que Cachés represente de forma minima cuando un gasto repercute sobre 
 
 ### Tecnico
 
-- Planificado: migracion aditiva de gastos repercutibles, helpers puros y pruebas de regresion financiera.
+- Migracion local aditiva `20260520120000_reimbursable_expenses.sql`.
+- Policies de `incomes` y `expenses` explicitadas con `with check`.
+- Trigger de coherencia para impedir enlaces gasto -> ingreso entre usuarios o alcances distintos.
+- Migracion remota Supabase aplicada y verificada el 2026-05-20 tras confirmacion humana.
+- Historial remoto de migraciones reparado para versiones antiguas ya aplicadas manualmente; `npx supabase db push --linked --dry-run` queda en `Remote database is up to date`.
 
 ## Resultado final
 
-Pendiente hasta cerrar la release.
+Implementacion local y migracion remota preparadas en `release/0.1.0-beta.25`. Pendiente cierre final: PR a `main`, CI, tag y publicacion.
+
+## Siguiente corte
+
+Beta 26 queda orientada a simplificar selectores y acciones: menos botones visibles, menos decisiones técnicas en formularios y más acciones contextuales UX-friendly para que el manejo diario sea más ligero.

@@ -1,6 +1,20 @@
 import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '../supabaseClient'
 
+function normalizeExpensePayload(expenseData) {
+  const payload = { ...expenseData }
+  delete payload.user_id
+  const expenseKind = payload.expense_kind === 'reimbursable' ? 'reimbursable' : 'internal'
+
+  return {
+    ...payload,
+    expense_kind: expenseKind,
+    reimbursed_by_income_id: expenseKind === 'reimbursable' && payload.reimbursed_by_income_id
+      ? payload.reimbursed_by_income_id
+      : null,
+  }
+}
+
 export function useExpenses(userId, { projectId = null, eventId = null, eventIds = null } = {}) {
   const [expenses, setExpenses] = useState([])
   const [loading, setLoading] = useState(true)
@@ -34,9 +48,10 @@ export function useExpenses(userId, { projectId = null, eventId = null, eventIds
   }, [userId, fetchExpenses])
 
   const createExpense = async (expenseData) => {
+    const payload = normalizeExpensePayload(expenseData)
     const { data, error } = await supabase
       .from('expenses')
-      .insert({ ...expenseData, user_id: userId })
+      .insert({ ...payload, user_id: userId })
       .select()
       .single()
 
@@ -45,9 +60,10 @@ export function useExpenses(userId, { projectId = null, eventId = null, eventIds
   }
 
   const updateExpense = async (id, expenseData) => {
+    const payload = normalizeExpensePayload(expenseData)
     const { data, error } = await supabase
       .from('expenses')
-      .update(expenseData)
+      .update(payload)
       .eq('id', id)
       .select()
       .single()
