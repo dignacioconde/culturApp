@@ -19,7 +19,7 @@ release_phase: active
 release_current: true
 release_branch: release/0.1.0-beta.25
 release_tag: null
-release_pr: null
+release_pr: https://github.com/dignacioconde/culturApp/pull/114
 ---
 # RELEASE-0.1.0-beta.25 — Liquidacion neta minima
 
@@ -104,7 +104,7 @@ Permitir que Cachés represente de forma minima cuando un gasto repercute sobre 
 - [x] Todas las issues estan en progreso o cerradas
 - [x] Commits integrados en rama release
 - [x] No hay cambios sueltos fuera de release
-- [ ] No hay issues sin `issue_workflow`
+- [x] No hay issues sin `issue_workflow`
 - [x] Decisiones importantes documentadas
 
 ## Checklist de estabilizacion
@@ -119,18 +119,18 @@ Permitir que Cachés represente de forma minima cuando un gasto repercute sobre 
 
 ## Checklist de salida
 
-- [ ] PR `release/0.1.0-beta.25` -> `main` abierta
+- [x] PR `release/0.1.0-beta.25` -> `main` abierta
 - [ ] CI en verde
 - [ ] PR mergeada en `main`
 - [ ] Tag `v0.1.0-beta.25` creado desde `main`
 - [ ] Produccion verificada si aplica
 - [ ] Rama remota `release/0.1.0-beta.25` eliminada si aplica
-- [ ] Release notes actualizadas
-- [ ] Issues marcadas como `done`
-- [ ] Estado actual actualizado
-- [ ] Current Release actualizado
-- [ ] Backlog actualizado
-- [ ] Proximos pasos documentados
+- [x] Release notes actualizadas
+- [x] Issues marcadas como `done`
+- [x] Estado actual actualizado
+- [x] Current Release actualizado
+- [x] Backlog actualizado
+- [x] Proximos pasos documentados
 
 ## Release notes
 
