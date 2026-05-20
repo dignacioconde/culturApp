@@ -50,6 +50,10 @@ _Sin issues._
 
 | ID | Titulo | Tipo | Nivel | P | Componentes |
 |---|---|---|---|---|---|
+| [[../issues/CACH-0101|CACH-0101]] | Versionar schema y RLS de gastos repercutibles | feature | slice | p1 | finance, supabase |
+| [[../issues/CACH-0102|CACH-0102]] | Integrar hooks y helpers de liquidacion neta | feature | slice | p1 | finance, projects, events |
+| [[../issues/CACH-0103|CACH-0103]] | UX minima de liquidacion en detalles | feature | slice | p1 | finance, projects, events, design-system |
+| [[../issues/CACH-0104|CACH-0104]] | QA financiera y cierre de Beta 25 | chore | task | p1 | finance, projects, events, product-brain |
 | [[../issues/CACH-B0001|CACH-B0001]] | Redisenar Trabajos y jerarquia proyecto-evento | feature | initiative | p1 | work, projects, events, design-system |
 | [[../issues/CACH-B0002|CACH-B0002]] | Simplificar experiencia mobile financiera | feature | initiative | p1 | finance, design-system |
 | [[../issues/CACH-B0004|CACH-B0004]] | Contratantes facturacion y liquidacion neta | feature | initiative | p1 | finance, design-system |
@@ -63,7 +67,9 @@ _Sin issues._
 
 ## Ready
 
-_Sin issues._
+| ID | Titulo | Tipo | Nivel | P | Componentes |
+|---|---|---|---|---|---|
+| [[../issues/CACH-0100|CACH-0100]] | Definir contrato de liquidacion neta minima | spike | task | p1 | finance, projects, events |
 
 ## In progress
 
@@ -125,6 +131,7 @@ _Sin issues._
 | [[../issues/CACH-0092|CACH-0092]] | Feed suscribible privado de eventos | RELEASE-0.1.0-beta.24 | Implementación añadida: migración `calendar_feeds`, RPCs `create_calendar_feed`, `revoke_calendar_feed` y `get_calendar_feed_events`, Edge Function pública `calendar-feed` y builder ICS testeado. |
 | [[../issues/CACH-0093|CACH-0093]] | UI de sincronizacion por proveedor | RELEASE-0.1.0-beta.24 | Panel de sincronización añadido en `/calendar/events` con cards por proveedor, aviso de privacidad, creación/copia/apertura Apple y desactivación. |
 | [[../issues/CACH-0094|CACH-0094]] | QA y cierre de Beta 24 calendario | RELEASE-0.1.0-beta.24 | QA de Beta 24 completado. La app, Product Brain y smoke responsive pasan; migración y Edge Function verificadas con feed remoto y revocación funcional. |
+| [[../issues/CACH-0099|CACH-0099]] | Preparar Beta 25 de liquidacion neta | RELEASE-0.1.0-beta.25 | Beta 25 queda creada como release activa para liquidacion neta minima, con `CACH-0100` a `CACH-0104` asociadas y `CACH-0100` como primer slice listo. |
 | [[../issues/CACH-B0003|CACH-B0003]] | Cobro rapido y gestion de pendientes | RELEASE-0.1.0-beta.5 | Released en RELEASE-0.1.0-beta.5 por ampliacion explicita de scope. Integrado en `main` mediante PR #84. |
 | [[../issues/CACH-B0005|CACH-B0005]] | Importacion exportacion y portabilidad de datos | RELEASE-0.1.0-beta.7 | Released en RELEASE-0.1.0-beta.7. Integrado en `main` mediante PR #86. |
 | [[../issues/CACH-B0006|CACH-B0006]] | Onboarding y acceso beta | RELEASE-0.1.0-beta.8 | Released en RELEASE-0.1.0-beta.8. Integrado en `main` mediante PR #87. |

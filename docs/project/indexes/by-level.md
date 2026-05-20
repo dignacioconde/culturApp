@@ -30,6 +30,9 @@ generated: true
 
 ## slice
 
+- [[../issues/CACH-0101|CACH-0101]] — Versionar schema y RLS de gastos repercutibles · backlog · p1 · slice
+- [[../issues/CACH-0102|CACH-0102]] — Integrar hooks y helpers de liquidacion neta · backlog · p1 · slice
+- [[../issues/CACH-0103|CACH-0103]] — UX minima de liquidacion en detalles · backlog · p1 · slice
 - [[../issues/CACH-0028|CACH-0028]] — Corregir sync iCloud y estructura versionada · done · p1 · slice
 - [[../issues/CACH-0029|CACH-0029]] — Integrar helpers CACH-B0016 en flujos reales · done · p1 · slice
 - [[../issues/CACH-0031|CACH-0031]] — Corregir ajustes UX movil detectados en exploracion · done · p1 · slice
@@ -80,6 +83,8 @@ generated: true
 
 ## task
 
+- [[../issues/CACH-0104|CACH-0104]] — QA financiera y cierre de Beta 25 · backlog · p1 · task
+- [[../issues/CACH-0100|CACH-0100]] — Definir contrato de liquidacion neta minima · ready · p1 · task
 - [[../issues/CACH-0039|CACH-0039]] — [Agents] Respetar permisos reales en lanzadores OpenCode · done · p0 · task
 - [[../issues/CACH-0040|CACH-0040]] — [Agents] Separar plan draft de ejecucion mutante · done · p0 · task
 - [[../issues/CACH-0049|CACH-0049]] — Migrar Product Brain a v2 lean agile para agentes · done · p0 · task
@@ -100,6 +105,7 @@ generated: true
 - [[../issues/CACH-0075|CACH-0075]] — Bloquear ship de features sin release · done · p1 · task
 - [[../issues/CACH-0089|CACH-0089]] — Preparar Beta 24 de calendario · done · p1 · task
 - [[../issues/CACH-0094|CACH-0094]] — QA y cierre de Beta 24 calendario · done · p1 · task
+- [[../issues/CACH-0099|CACH-0099]] — Preparar Beta 25 de liquidacion neta · done · p1 · task
 - [[../issues/CACH-B0015|CACH-B0015]] — Operativizar backlog releases y ramas en Product Brain · done · p1 · task
 - [[../issues/CACH-B0016|CACH-B0016]] — Refundacion operativa del Product Brain y tests B0014 · done · p1 · task
 - [[../issues/CACH-0048|CACH-0048]] — [Context] Compactar workflow OpenCode · done · p2 · task

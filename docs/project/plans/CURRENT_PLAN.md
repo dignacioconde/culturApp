@@ -5,7 +5,7 @@ id: PB-CURRENT-PLAN
 title: Current Plan
 lifecycle: active
 created: '2026-05-05'
-updated: '2026-05-14'
+updated: '2026-05-20'
 aliases:
   - Current Plan
 tags:
@@ -18,11 +18,13 @@ generated: false
 
 ## Foco actual
 
-No hay release activa. Beta 24 queda cerrada como corte de calendario claro y sincronización suscribible.
+Beta 25 activa: liquidacion neta minima como siguiente corte de `CACH-B0004`, sin abrir facturacion completa ni cambiar KPIs principales del dashboard.
 
 ## Release activa
 
-No hay release activa.
+[[../releases/RELEASE-0.1.0-beta.25|RELEASE-0.1.0-beta.25]] — Liquidacion neta minima.
+
+Rama: `release/0.1.0-beta.25`.
 
 Últimos cortes:
 
@@ -57,7 +59,7 @@ Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboa
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
 2. Mantener el feedback beta simple antes de introducir analitica de producto.
 3. No introducir PostHog, Plausible ni analitica de eventos sin issue/ADR posterior.
-4. No abrir liquidacion neta, facturacion completa ni CRM salvo issue nueva con criterios de datos/RLS.
+4. En Beta 25, avanzar solo liquidacion neta minima: facturacion completa, PDF, IVA, CRM y colaboracion siguen fuera de scope.
 
 ## Plan operativo
 
@@ -70,8 +72,8 @@ Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboa
 
 ## Próximo checkpoint
 
-Definir el siguiente corte beta según feedback real de calendario y prioridades pendientes del ciclo `0.1`.
+Cerrar `CACH-0100` y confirmar el contrato de datos antes de mover schema, hooks o UI de liquidacion neta.
 
 ## Siguiente release candidata
 
-Reevaluar si el siguiente corte vuelve a `CACH-B0004` o si el feedback beta pide un hardening pequeño.
+Activa: [[../releases/RELEASE-0.1.0-beta.25|RELEASE-0.1.0-beta.25]]. El siguiente corte se define despues de validar si Beta 25 completa liquidacion neta minima o necesita estabilizacion.

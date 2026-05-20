@@ -34,11 +34,17 @@ generated: true
 
 ## CACH-B0004 — Contratantes facturacion y liquidacion neta
 
+- [[../issues/CACH-0101|CACH-0101]] — Versionar schema y RLS de gastos repercutibles · backlog · p1 · slice
+- [[../issues/CACH-0102|CACH-0102]] — Integrar hooks y helpers de liquidacion neta · backlog · p1 · slice
+- [[../issues/CACH-0103|CACH-0103]] — UX minima de liquidacion en detalles · backlog · p1 · slice
+- [[../issues/CACH-0104|CACH-0104]] — QA financiera y cierre de Beta 25 · backlog · p1 · task
+- [[../issues/CACH-0100|CACH-0100]] — Definir contrato de liquidacion neta minima · ready · p1 · task
 - [[../issues/CACH-0057|CACH-0057]] — Definir modelo minimo de contratantes · done · p1 · task
 - [[../issues/CACH-0058|CACH-0058]] — Versionar schema de contratantes y RLS · done · p1 · slice
 - [[../issues/CACH-0059|CACH-0059]] — Integrar hooks y portabilidad de contratantes · done · p1 · slice
 - [[../issues/CACH-0060|CACH-0060]] — Anadir UX minima de contratantes en proyectos y eventos · done · p1 · slice
 - [[../issues/CACH-0061|CACH-0061]] — Verificar regresion financiera y cierre tecnico beta 19 · done · p1 · task
+- [[../issues/CACH-0099|CACH-0099]] — Preparar Beta 25 de liquidacion neta · done · p1 · task
 
 ## CACH-B0007 — Calendarios claros y sincronizacion suscribible
 

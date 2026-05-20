@@ -17,6 +17,7 @@ generated: true
 
 ## frontend
 
+- [[../issues/CACH-0103|CACH-0103]] — UX minima de liquidacion en detalles · backlog · p1 · slice
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento · backlog · p1 · initiative
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera · backlog · p1 · initiative
 - [[../issues/CACH-B0007|CACH-B0007]] — Calendarios claros y sincronizacion suscribible · backlog · p1 · initiative
@@ -69,9 +70,13 @@ generated: true
 
 ## data
 
+- [[../issues/CACH-0101|CACH-0101]] — Versionar schema y RLS de gastos repercutibles · backlog · p1 · slice
+- [[../issues/CACH-0102|CACH-0102]] — Integrar hooks y helpers de liquidacion neta · backlog · p1 · slice
+- [[../issues/CACH-0104|CACH-0104]] — QA financiera y cierre de Beta 25 · backlog · p1 · task
 - [[../issues/CACH-B0004|CACH-B0004]] — Contratantes facturacion y liquidacion neta · backlog · p1 · initiative
 - [[../issues/CACH-B0011|CACH-B0011]] — Categorias etiquetas y taxonomia · backlog · p2 · initiative
 - [[../issues/CACH-B0013|CACH-B0013]] — Gestion documental por proyecto evento · backlog · p3 · initiative
+- [[../issues/CACH-0100|CACH-0100]] — Definir contrato de liquidacion neta minima · ready · p1 · task
 - [[../issues/CACH-0057|CACH-0057]] — Definir modelo minimo de contratantes · done · p1 · task
 - [[../issues/CACH-0058|CACH-0058]] — Versionar schema de contratantes y RLS · done · p1 · slice
 - [[../issues/CACH-0059|CACH-0059]] — Integrar hooks y portabilidad de contratantes · done · p1 · slice
@@ -111,6 +116,7 @@ generated: true
 - [[../issues/CACH-0036|CACH-0036]] — Profesionalizar flujo de ramas por beta · done · p1 · task
 - [[../issues/CACH-0037|CACH-0037]] — Consolidar PRD y sistema de diseno de Cachés · done · p1 · task
 - [[../issues/CACH-0089|CACH-0089]] — Preparar Beta 24 de calendario · done · p1 · task
+- [[../issues/CACH-0099|CACH-0099]] — Preparar Beta 25 de liquidacion neta · done · p1 · task
 - [[../issues/CACH-B0015|CACH-B0015]] — Operativizar backlog releases y ramas en Product Brain · done · p1 · task
 - [[../issues/CACH-B0016|CACH-B0016]] — Refundacion operativa del Product Brain y tests B0014 · done · p1 · task
 - [[../issues/CACH-0080|CACH-0080]] — Inventariar gaps funcionales Lovable fuera de beta 23 · done · p2 · task

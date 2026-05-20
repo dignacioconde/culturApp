@@ -5,7 +5,7 @@ id: PB-DIGEST
 title: Product Brain Digest
 lifecycle: active
 created: 2026-05-05
-updated: 2026-05-18
+updated: 2026-05-20
 aliases:
   - Digest
   - Brain Digest
@@ -23,7 +23,7 @@ Resumen determinista generado desde Product Brain v2.
 
 ## Estado operacional
 
-- **Release activa:** No hay release activa.
+- **Release activa:** RELEASE-0.1.0-beta.25 — Liquidacion neta minima
 - **Últimos cortes:** `RELEASE-0.1.0-beta.10` — emails transaccionales beta con Brevo. Ver RELEASE-0.1.0-beta.10.
 
 `RELEASE-0.1.0-beta.12` — pulido proyecto-evento y borrados seguros. Ver RELEASE-0.1.0-beta.12.
@@ -51,14 +51,14 @@ Resumen determinista generado desde Product Brain v2.
 `RELEASE-0.1.0-beta.23` — tokens Lovable y visual total. Ver RELEASE-0.1.0-beta.23.
 
 `RELEASE-0.1.0-beta.24` — calendario claro y sincronización suscribible. Ver RELEASE-0.1.0-beta.24.
-- **Foco:** No hay release activa. Beta 24 queda cerrada como corte de calendario claro y sincronización suscribible.
+- **Foco:** Beta 25 activa: liquidacion neta minima como siguiente corte de `CACH-B0004`, sin abrir facturacion completa ni cambiar KPIs principales del dashboard.
 
 ## Prioridades del plan
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
 2. Mantener el feedback beta simple antes de introducir analitica de producto.
 3. No introducir PostHog, Plausible ni analitica de eventos sin issue/ADR posterior.
-4. No abrir liquidacion neta, facturacion completa ni CRM salvo issue nueva con criterios de datos/RLS.
+4. En Beta 25, avanzar solo liquidacion neta minima: facturacion completa, PDF, IVA, CRM y colaboracion siguen fuera de scope.
 
 ## Tablero
 
@@ -68,7 +68,9 @@ _Sin entradas._
 
 ### Ready
 
-_Sin entradas._
+| ID | Título | Tipo | Nivel | P |
+|---|---|---|---|---|
+| CACH-0100 | Definir contrato de liquidacion neta minima | spike | task | p1 |
 
 ### In progress
 
@@ -82,6 +84,10 @@ _Sin entradas._
 
 | ID | Título | Tipo | Nivel | P |
 |---|---|---|---|---|
+| CACH-0101 | Versionar schema y RLS de gastos repercutibles | feature | slice | p1 |
+| CACH-0102 | Integrar hooks y helpers de liquidacion neta | feature | slice | p1 |
+| CACH-0103 | UX minima de liquidacion en detalles | feature | slice | p1 |
+| CACH-0104 | QA financiera y cierre de Beta 25 | chore | task | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | feature | initiative | p1 |
@@ -91,6 +97,11 @@ _Sin entradas._
 
 | ID | Título | Workflow | Tipo | Nivel | P |
 |---|---|---|---|---|---|
+| CACH-0100 | Definir contrato de liquidacion neta minima | ready | spike | task | p1 |
+| CACH-0101 | Versionar schema y RLS de gastos repercutibles | backlog | feature | slice | p1 |
+| CACH-0102 | Integrar hooks y helpers de liquidacion neta | backlog | feature | slice | p1 |
+| CACH-0103 | UX minima de liquidacion en detalles | backlog | feature | slice | p1 |
+| CACH-0104 | QA financiera y cierre de Beta 25 | backlog | chore | task | p1 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | backlog | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | backlog | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | backlog | feature | initiative | p1 |
@@ -124,4 +135,4 @@ _Sin entradas._
 
 ## Próxima acción
 
-Definir el siguiente corte beta según feedback real de calendario y prioridades pendientes del ciclo `0.1`.
+Cerrar `CACH-0100` y confirmar el contrato de datos antes de mover schema, hooks o UI de liquidacion neta.
