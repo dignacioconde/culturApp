@@ -1,0 +1,203 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "level1_ok",
+      "issue_id": "CACH-9901",
+      "title": "Fixture Nivel 1 OK",
+      "frontmatter": {
+        "work_type": "chore",
+        "work_level": "slice",
+        "issue_workflow": "ready",
+        "priority": "p2",
+        "size": "xs",
+        "area": "brain",
+        "components": ["product-brain"],
+        "parent": null,
+        "related": [],
+        "depends_on": [],
+        "blocked_by": [],
+        "adr": [],
+        "release": null,
+        "theme": "internal-agent-ops"
+      },
+      "sections": {
+        "Objetivo": "Validar un fixture sencillo de SDD Nivel 1.",
+        "Alcance": "Incluido:\n\n- Una issue ejecutable de bajo riesgo.\n\nFuera de alcance:\n\n- Casos Nivel 2.",
+        "Criterios de aceptacion": "- [ ] AC1: El fixture Nivel 1 pasa los checks basicos.",
+        "Validacion": "- AC1 -> `npm run pb:ready-check -- CACH-9901` y `npm run pb:sdd-check -- CACH-9901`."
+      },
+      "expect": {
+        "ready_ok": true,
+        "sdd_ok": true
+      }
+    },
+    {
+      "id": "level2_ok",
+      "issue_id": "CACH-9902",
+      "title": "Fixture Nivel 2 OK",
+      "frontmatter": {
+        "work_type": "chore",
+        "work_level": "slice",
+        "issue_workflow": "ready",
+        "priority": "p2",
+        "size": "s",
+        "area": "brain",
+        "components": ["product-brain", "agents"],
+        "parent": null,
+        "related": [],
+        "depends_on": [],
+        "blocked_by": [],
+        "adr": [],
+        "release": null,
+        "theme": "internal-agent-ops"
+      },
+      "sections": {
+        "Objetivo": "Validar un fixture completo de SDD Nivel 2.",
+        "Alcance": "Incluido:\n\n- Una issue multi-componente con escenarios y contrato.\n\nFuera de alcance:\n\n- Datos, Supabase o produccion.",
+        "Criterios de aceptacion": "- [ ] AC1: El fixture Nivel 2 pasa los checks avanzados.",
+        "Plan tecnico": "El fixture afecta `scripts/brain/` y Product Brain como contrato documental.",
+        "Escenarios SDD": "- Cuando la issue sea multi-componente, entonces `pb:sdd-check` exige Nivel 2.",
+        "Contrato tecnico": "- Scripts locales de Product Brain.\n- Sin estado persistente ni servicios externos.",
+        "Validacion": "- AC1 -> `npm run pb:sdd-check -- CACH-9902`."
+      },
+      "expect": {
+        "ready_ok": true,
+        "sdd_ok": true
+      }
+    },
+    {
+      "id": "ac_without_id",
+      "issue_id": "CACH-9903",
+      "title": "Fixture AC sin ID",
+      "frontmatter": {
+        "work_type": "chore",
+        "work_level": "slice",
+        "issue_workflow": "ready",
+        "priority": "p2",
+        "size": "xs",
+        "area": "brain",
+        "components": ["product-brain"],
+        "parent": null,
+        "related": [],
+        "depends_on": [],
+        "blocked_by": [],
+        "adr": [],
+        "release": null,
+        "theme": "internal-agent-ops"
+      },
+      "sections": {
+        "Objetivo": "Validar que SDD detecta criterios sin identificador.",
+        "Alcance": "Incluido:\n\n- Un criterio sin ACn.\n\nFuera de alcance:\n\n- Validar Nivel 2.",
+        "Criterios de aceptacion": "- [ ] El fixture deberia fallar por no incluir ACn.",
+        "Validacion": "- AC1 -> `npm run pb:sdd-check -- CACH-9903`."
+      },
+      "expect": {
+        "ready_ok": true,
+        "sdd_ok": false,
+        "sdd_errors_contain": ["Criterio sin identificador ACn"]
+      }
+    },
+    {
+      "id": "level2_missing_scenarios",
+      "issue_id": "CACH-9904",
+      "title": "Fixture Nivel 2 sin escenarios",
+      "frontmatter": {
+        "work_type": "chore",
+        "work_level": "slice",
+        "issue_workflow": "ready",
+        "priority": "p2",
+        "size": "s",
+        "area": "brain",
+        "components": ["product-brain", "agents"],
+        "parent": null,
+        "related": [],
+        "depends_on": [],
+        "blocked_by": [],
+        "adr": [],
+        "release": null,
+        "theme": "internal-agent-ops"
+      },
+      "sections": {
+        "Objetivo": "Validar que Nivel 2 exige escenarios.",
+        "Alcance": "Incluido:\n\n- Una issue multi-componente sin escenarios.\n\nFuera de alcance:\n\n- Datos o Supabase.",
+        "Criterios de aceptacion": "- [ ] AC1: El fixture falla si no hay escenarios.",
+        "Plan tecnico": "El fixture afecta scripts y Product Brain.",
+        "Contrato tecnico": "- Scripts locales de Product Brain.",
+        "Validacion": "- AC1 -> `npm run pb:sdd-check -- CACH-9904`."
+      },
+      "expect": {
+        "ready_ok": true,
+        "sdd_ok": false,
+        "sdd_errors_contain": ["SDD Nivel 2 requiere Escenarios SDD"]
+      }
+    },
+    {
+      "id": "rollback_required_missing",
+      "issue_id": "CACH-9905",
+      "title": "Fixture rollback requerido",
+      "frontmatter": {
+        "work_type": "chore",
+        "work_level": "slice",
+        "issue_workflow": "ready",
+        "priority": "p2",
+        "size": "s",
+        "area": "data",
+        "components": ["supabase"],
+        "parent": null,
+        "related": [],
+        "depends_on": [],
+        "blocked_by": [],
+        "adr": [],
+        "release": null,
+        "theme": "internal-agent-ops"
+      },
+      "sections": {
+        "Objetivo": "Validar que datos/Supabase exige rollback.",
+        "Alcance": "Incluido:\n\n- Una issue de datos sin rollback.\n\nFuera de alcance:\n\n- Mutaciones reales.",
+        "Criterios de aceptacion": "- [ ] AC1: El fixture falla si no hay rollback.",
+        "Plan tecnico": "El fixture simula una superficie Supabase sin tocar remoto.",
+        "Escenarios SDD": "- Cuando una issue toca Supabase, entonces debe declarar rollback.",
+        "Contrato tecnico": "- Schema Supabase simulado.\n- Checks locales.",
+        "Validacion": "- AC1 -> revisar error de `pb:sdd-check` y `test:db` simulado."
+      },
+      "expect": {
+        "ready_ok": true,
+        "sdd_ok": false,
+        "sdd_errors_contain": ["Riesgos y rollback"]
+      }
+    },
+    {
+      "id": "backlog_warning",
+      "issue_id": "CACH-9906",
+      "title": "Fixture backlog advisory",
+      "frontmatter": {
+        "work_type": "chore",
+        "work_level": "slice",
+        "issue_workflow": "backlog",
+        "priority": "p2",
+        "size": "s",
+        "area": "brain",
+        "components": ["product-brain"],
+        "parent": null,
+        "related": [],
+        "depends_on": [],
+        "blocked_by": [],
+        "adr": [],
+        "release": null,
+        "theme": "internal-agent-ops"
+      },
+      "sections": {
+        "Objetivo": "Validar que backlog no requiere SDD ejecutable.",
+        "Alcance": "Pendiente hasta ready.",
+        "Criterios de aceptacion": "- [ ] AC1: Backlog solo produce warning.",
+        "Validacion": "Pendiente hasta ready."
+      },
+      "expect": {
+        "run_ready": false,
+        "sdd_ok": true,
+        "sdd_warnings_contain": ["no requiere SDD ejecutable"]
+      }
+    }
+  ]
+}

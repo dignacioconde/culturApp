@@ -48,6 +48,7 @@ npm run pb:init      # Inicializar Product Brain (primera vez)
 npm run pb:status   # Ver estado actual y archivos pendientes
 npm run pb:orient    # Orientación mínima para agentes sin cargar todo el Brain
 npm run pb:retrieve  # Retrieval local por perfil/query/issue para orientar agentes
+npm run pb:metrics   # Métricas advisory de retrieval local y gates SDD
 npm run pb:check    # Validar frontmatter, índices y wikilinks internos
 npm run pb:guard     # Validación completa para cambios en docs/project/ o scripts/brain/
 npm run pb:ready-check -- CACH-XXXX # Antes de mover una issue a ready
@@ -78,6 +79,8 @@ Leer además solo si aplica:
 Ejecutar `npm run pb:guard` antes de cerrar cambios en `docs/project/` o `scripts/brain/`. Para cambios documentales acotados, `npm run pb:check` sigue siendo útil como validación rápida.
 
 La coherencia issue-release, el tablero, los wikilinks e indices se validan con `pb:guard`/`pb:check`. Si se mueven issues, ADRs, knowledge o releases, ejecutar tambien `npm run pb:index`. Antes de pasar una issue a `ready`, usar `pb:ready-check CACH-XXXX` y `pb:sdd-check CACH-XXXX`; antes de marcarla como `done`, usar `pb:close-check CACH-XXXX`.
+
+Cuando cambien `pb:retrieve`, `pb:ready-check`, `pb:sdd-check` o las politicas de contexto/SDD, ejecutar tambien `npm run pb:metrics`. Es advisory: no forma parte de `pb:guard` ni bloquea CI por latencia/calidad salvo fixtures criticos rotos.
 
 Los IDs canónicos de issues son los nombres de archivo completos, por ejemplo `CACH-0026` y `CACH-B0001`. No usar formas cortas como `CACH-026` o `CACH-B001` en wikilinks.
 

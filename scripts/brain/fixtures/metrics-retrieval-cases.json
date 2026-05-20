@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "iterations": 3,
+  "limit": 10,
+  "cases": [
+    {
+      "id": "planning_rag_sdd",
+      "profile": "planning",
+      "query": "rag sdd retrieval Product Brain",
+      "expected_top10": [
+        "process/retrieval-profiles.md",
+        "process/sdd-levels.md"
+      ],
+      "forbidden_top10": [
+        "issues/CACH-0096.md"
+      ]
+    },
+    {
+      "id": "implementation_cach_0097",
+      "profile": "implementation",
+      "issue": "CACH-0097",
+      "expected_top10": [
+        "issues/CACH-0097.md",
+        "issues/CACH-0096.md",
+        "process/sdd-levels.md",
+        "decisions/ADR-0010-frontmatter-schema.md"
+      ]
+    },
+    {
+      "id": "planning_finance_supabase",
+      "profile": "planning",
+      "query": "finanzas supabase contratantes liquidacion",
+      "expected_top10": [
+        "issues/CACH-B0004.md",
+        "process/supabase-db-access.md",
+        "decisions/ADR-0001-project-event-finance-model.md"
+      ]
+    },
+    {
+      "id": "implementation_cach_b0004",
+      "profile": "implementation",
+      "issue": "CACH-B0004",
+      "expected_top10": [
+        "issues/CACH-B0004.md",
+        "context/data-finance-model-20260504.md",
+        "decisions/ADR-0001-project-event-finance-model.md"
+      ]
+    }
+  ]
+}

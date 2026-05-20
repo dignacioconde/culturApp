@@ -28,6 +28,12 @@ npm run pb:retrieve -- --profile implementation --issue CACH-0095 --json
 
 La salida devuelve documentos candidatos con `rel`, `id`, `title`, `kind`, `score` y `reason`. El score solo ordena contexto probable; no sustituye `pb:orient`, la issue ejecutable ni las reglas de carga de `docs/agent-context-policy.md`.
 
+## Metricas
+
+`npm run pb:metrics` mide casos golden de retrieval y fixtures de SDD/ready-check. Es un check advisory para comparar tendencia de calidad y latencia cuando cambien `pb:retrieve`, `pb:ready-check`, `pb:sdd-check` o las politicas de contexto. No se ejecuta desde `pb:guard` ni CI como bloqueo por ahora.
+
+Para consumo automatico de JSON, usar `npm run --silent pb:metrics -- --json` para evitar la cabecera informativa de `npm run`.
+
 ## Perfiles
 
 | Perfil | Uso | Tipos preferidos |

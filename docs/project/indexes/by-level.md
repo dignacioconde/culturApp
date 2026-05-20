@@ -5,7 +5,7 @@ id: PB-BY-LEVEL
 title: Issues por nivel
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-19
+updated: 2026-05-20
 aliases:
   - Issues por nivel
 tags:
@@ -76,6 +76,7 @@ generated: true
 - [[../issues/CACH-0087|CACH-0087]] — Unificar admin gates y layout global · done · p2 · slice
 - [[../issues/CACH-0096|CACH-0096]] — Retrieval local y gate SDD ligero para Product Brain · done · p2 · slice
 - [[../issues/CACH-0097|CACH-0097]] — Escalado SDD por niveles para Product Brain · done · p2 · slice
+- [[../issues/CACH-0098|CACH-0098]] — Metricas locales para retrieval y SDD · done · p2 · slice
 
 ## task
 

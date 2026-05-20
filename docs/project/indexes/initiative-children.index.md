@@ -5,7 +5,7 @@ id: PB-INITIATIVE-CHILDREN
 title: Initiative Children Index
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-19
+updated: 2026-05-20
 aliases:
   - Initiative Children Index
 tags:
@@ -70,6 +70,7 @@ _Sin children._
 - [[../issues/CACH-0095|CACH-0095]] — Validadores de policies documentales del Product Brain · done · p2 · task
 - [[../issues/CACH-0096|CACH-0096]] — Retrieval local y gate SDD ligero para Product Brain · done · p2 · slice
 - [[../issues/CACH-0097|CACH-0097]] — Escalado SDD por niveles para Product Brain · done · p2 · slice
+- [[../issues/CACH-0098|CACH-0098]] — Metricas locales para retrieval y SDD · done · p2 · slice
 
 ## CACH-B0011 — Categorias etiquetas y taxonomia
 

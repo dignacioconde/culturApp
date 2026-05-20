@@ -5,7 +5,7 @@ id: PB-BACKLOG
 title: Backlog operativo
 lifecycle: active
 created: 2026-05-05
-updated: 2026-05-19
+updated: 2026-05-20
 aliases:
   - Backlog operativo
   - Backlog
@@ -151,6 +151,7 @@ _Sin issues._
 | [[../issues/CACH-0095|CACH-0095]] | Validadores de policies documentales del Product Brain | null | Implementado y validado en la PR https://github.com/dignacioconde/culturApp/pull/112. |
 | [[../issues/CACH-0096|CACH-0096]] | Retrieval local y gate SDD ligero para Product Brain | null | Implementado y validado en la PR https://github.com/dignacioconde/culturApp/pull/112. |
 | [[../issues/CACH-0097|CACH-0097]] | Escalado SDD por niveles para Product Brain | null | Implementado localmente: SDD pasa de gate ligero a SDD progresivo por niveles, con Nivel 2 documentado y exigible por `pb:sdd-check` para futuras issues ejecutables de mayor riesgo. |
+| [[../issues/CACH-0098|CACH-0098]] | Metricas locales para retrieval y SDD | null | Implementado `pb:metrics` como check advisory local para retrieval y SDD. Incluye casos golden versionados, fixtures temporales de SDD/ready-check, baseline versionada y salida humana/JSON para comparaciones futuras. |
 | [[../issues/CACH-B0018|CACH-B0018]] | Adaptador Codex-native para perfiles Cultura | RELEASE-0.1.0-beta.9 | Sin resultado documentado. |
 
 ## Regla de mantenimiento

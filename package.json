@@ -31,6 +31,7 @@
     "pb:migrate-v2": "node scripts/brain/migrate-v2.mjs",
     "pb:orient": "node scripts/brain/orient.mjs",
     "pb:retrieve": "node scripts/brain/retrieve.mjs",
+    "pb:metrics": "node scripts/brain/metrics.mjs",
     "pb:ready-check": "node scripts/brain/ready-check.mjs",
     "pb:sdd-check": "node scripts/brain/sdd-check.mjs",
     "pb:close-check": "node scripts/brain/close-check.mjs",

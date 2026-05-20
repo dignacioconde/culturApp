@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "mode": "advisory",
+  "retrieval": {
+    "cases": {
+      "planning_rag_sdd": {
+        "hit_rate_at_10": 1,
+        "mrr": 1,
+        "expected_missing_count": 0,
+        "forbidden_hits_count": 0,
+        "count": 10,
+        "excluded_count": 126,
+        "p95_ms": 71
+      },
+      "implementation_cach_0097": {
+        "hit_rate_at_10": 1,
+        "mrr": 1,
+        "expected_missing_count": 0,
+        "forbidden_hits_count": 0,
+        "count": 10,
+        "excluded_count": 128,
+        "p95_ms": 79
+      },
+      "planning_finance_supabase": {
+        "hit_rate_at_10": 1,
+        "mrr": 1,
+        "expected_missing_count": 0,
+        "forbidden_hits_count": 0,
+        "count": 10,
+        "excluded_count": 126,
+        "p95_ms": 67
+      },
+      "implementation_cach_b0004": {
+        "hit_rate_at_10": 1,
+        "mrr": 1,
+        "expected_missing_count": 0,
+        "forbidden_hits_count": 0,
+        "count": 10,
+        "excluded_count": 130,
+        "p95_ms": 73
+      }
+    }
+  },
+  "sdd": {
+    "cases": {
+      "level1_ok": {
+        "ready_ok": true,
+        "sdd_ok": true,
+        "ready_duration_ms": 58,
+        "sdd_duration_ms": 58
+      },
+      "level2_ok": {
+        "ready_ok": true,
+        "sdd_ok": true,
+        "ready_duration_ms": 70,
+        "sdd_duration_ms": 66
+      },
+      "ac_without_id": {
+        "ready_ok": true,
+        "sdd_ok": false,
+        "ready_duration_ms": 58,
+        "sdd_duration_ms": 58
+      },
+      "level2_missing_scenarios": {
+        "ready_ok": true,
+        "sdd_ok": false,
+        "ready_duration_ms": 58,
+        "sdd_duration_ms": 58
+      },
+      "rollback_required_missing": {
+        "ready_ok": true,
+        "sdd_ok": false,
+        "ready_duration_ms": 58,
+        "sdd_duration_ms": 58
+      },
+      "backlog_warning": {
+        "ready_ok": null,
+        "sdd_ok": true,
+        "ready_duration_ms": null,
+        "sdd_duration_ms": 58
+      }
+    }
+  }
+}
