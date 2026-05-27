@@ -1,5 +1,23 @@
 export const VERSION_HISTORY = [
   {
+    version: '0.1.0-beta.25',
+    label: 'Beta 25',
+    date: '2026-05-27',
+    title: 'Liquidación neta mínima',
+    summary: 'Los detalles de proyecto y evento pueden mostrar un resumen operativo con cobros, retenciones, gastos internos, gastos repercutibles y neto.',
+    highlights: [
+      'Nuevo resumen de liquidación neta en detalles de trabajos.',
+      'Gastos repercutibles diferenciados de los gastos internos.',
+      'Importación y exportación preparadas para conservar estos datos.',
+    ],
+    details: [
+      'El dashboard principal sigue centrado en cobros e ingresos previstos.',
+      'No añade facturas, IVA, numeración legal ni contabilidad completa.',
+      'La migración remota de Supabase quedó aplicada y verificada para la beta.',
+    ],
+    tone: 'new',
+  },
+  {
     version: '0.1.0-beta.24',
     label: 'Beta 24',
     date: '2026-05-14',

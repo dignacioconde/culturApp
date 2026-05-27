@@ -15,17 +15,17 @@ tags:
   - finance
   - data
 generated: false
-release_phase: active
-release_current: true
+release_phase: released
+release_current: false
 release_branch: release/0.1.0-beta.25
-release_tag: null
+release_tag: v0.1.0-beta.25
 release_pr: https://github.com/dignacioconde/culturApp/pull/114
 ---
 # RELEASE-0.1.0-beta.25 — Liquidacion neta minima
 
 ## Estado
 
-Activa.
+Released.
 
 ## Rama de release
 
@@ -120,11 +120,11 @@ Permitir que Cachés represente de forma minima cuando un gasto repercute sobre 
 ## Checklist de salida
 
 - [x] PR `release/0.1.0-beta.25` -> `main` abierta
-- [ ] CI en verde
-- [ ] PR mergeada en `main`
-- [ ] Tag `v0.1.0-beta.25` creado desde `main`
-- [ ] Produccion verificada si aplica
-- [ ] Rama remota `release/0.1.0-beta.25` eliminada si aplica
+- [x] CI en verde
+- [x] PR mergeada en `main`
+- [x] Tag `v0.1.0-beta.25` creado desde `main`
+- [x] Produccion verificada si aplica
+- [x] Rama remota `release/0.1.0-beta.25` eliminada si aplica
 - [x] Release notes actualizadas
 - [x] Issues marcadas como `done`
 - [x] Estado actual actualizado
@@ -164,7 +164,7 @@ Permitir que Cachés represente de forma minima cuando un gasto repercute sobre 
 
 ## Resultado final
 
-Implementacion local y migracion remota preparadas en `release/0.1.0-beta.25`. Pendiente cierre final: PR a `main`, CI, tag y publicacion.
+Release publicada mediante PR #114 a `main` y tag `v0.1.0-beta.25`. Migracion remota Supabase aplicada/verificada y produccion comprobada tras el despliegue.
 
 ## Siguiente corte
 

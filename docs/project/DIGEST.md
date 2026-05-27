@@ -5,7 +5,7 @@ id: PB-DIGEST
 title: Product Brain Digest
 lifecycle: active
 created: 2026-05-05
-updated: 2026-05-20
+updated: 2026-05-27
 aliases:
   - Digest
   - Brain Digest
@@ -23,7 +23,7 @@ Resumen determinista generado desde Product Brain v2.
 
 ## Estado operacional
 
-- **Release activa:** RELEASE-0.1.0-beta.25 — Liquidacion neta minima
+- **Release activa:** No active release.
 - **Últimos cortes:** `RELEASE-0.1.0-beta.10` — emails transaccionales beta con Brevo. Ver RELEASE-0.1.0-beta.10.
 
 `RELEASE-0.1.0-beta.12` — pulido proyecto-evento y borrados seguros. Ver RELEASE-0.1.0-beta.12.
@@ -51,6 +51,8 @@ Resumen determinista generado desde Product Brain v2.
 `RELEASE-0.1.0-beta.23` — tokens Lovable y visual total. Ver RELEASE-0.1.0-beta.23.
 
 `RELEASE-0.1.0-beta.24` — calendario claro y sincronización suscribible. Ver RELEASE-0.1.0-beta.24.
+
+`RELEASE-0.1.0-beta.25` — liquidacion neta minima. Ver RELEASE-0.1.0-beta.25.
 - **Foco:** Beta 25 activa: liquidacion neta minima como siguiente corte de `CACH-B0004`, sin abrir facturacion completa ni cambiar KPIs principales del dashboard.
 
 ## Prioridades del plan
