@@ -5,7 +5,7 @@ id: PB-CURRENT-PLAN
 title: Current Plan
 lifecycle: active
 created: '2026-05-05'
-updated: '2026-05-20'
+updated: '2026-05-27'
 aliases:
   - Current Plan
 tags:
@@ -18,13 +18,13 @@ generated: false
 
 ## Foco actual
 
-Beta 25 activa: liquidacion neta minima como siguiente corte de `CACH-B0004`, sin abrir facturacion completa ni cambiar KPIs principales del dashboard.
+Sin release activa. Beta 25 queda publicada y el siguiente corte se define desde backlog.
 
 ## Release activa
 
-[[../releases/RELEASE-0.1.0-beta.25|RELEASE-0.1.0-beta.25]] — Liquidacion neta minima.
+No active release.
 
-Rama: `release/0.1.0-beta.25`.
+Rama: no active release branch.
 
 Últimos cortes:
 
@@ -53,13 +53,14 @@ Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboa
 - Beta 22 cierra historial de novedades beta.
 - Beta 23 queda enfocada en unificacion visual total con `CACH-0076` a `CACH-0088`, sin cambios funcionales.
 - Beta 24 cierra el corte de calendario: Agenda/Plan más claros, móvil más escaneable y feed privado `.ics/webcal` de eventos.
+- Beta 25 cierra liquidacion neta minima: resumen operativo en detalles, gastos repercutibles, schema/RLS y portabilidad sin abrir facturacion completa.
 
 ## Prioridades
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
 2. Mantener el feedback beta simple antes de introducir analitica de producto.
 3. No introducir PostHog, Plausible ni analitica de eventos sin issue/ADR posterior.
-4. En Beta 25, avanzar solo liquidacion neta minima: facturacion completa, PDF, IVA, CRM y colaboracion siguen fuera de scope.
+4. Definir el siguiente corte manteniendo facturacion completa, PDF, IVA, CRM y colaboracion fuera de scope salvo issue/release explicita.
 
 ## Plan operativo
 
@@ -72,8 +73,8 @@ Beta 13: [[../releases/RELEASE-0.1.0-beta.13|RELEASE-0.1.0-beta.13]] — dashboa
 
 ## Próximo checkpoint
 
-Cerrar `CACH-0100` y confirmar el contrato de datos antes de mover schema, hooks o UI de liquidacion neta.
+Definir la siguiente beta candidata y confirmar scope antes de abrir nueva rama de release.
 
 ## Siguiente release candidata
 
-Activa: [[../releases/RELEASE-0.1.0-beta.25|RELEASE-0.1.0-beta.25]]. El siguiente corte se define despues de validar si Beta 25 completa liquidacion neta minima o necesita estabilizacion.
+Pendiente de definir desde backlog.

@@ -53,14 +53,14 @@ Resumen determinista generado desde Product Brain v2.
 `RELEASE-0.1.0-beta.24` — calendario claro y sincronización suscribible. Ver RELEASE-0.1.0-beta.24.
 
 `RELEASE-0.1.0-beta.25` — liquidacion neta minima. Ver RELEASE-0.1.0-beta.25.
-- **Foco:** Beta 25 activa: liquidacion neta minima como siguiente corte de `CACH-B0004`, sin abrir facturacion completa ni cambiar KPIs principales del dashboard.
+- **Foco:** Sin release activa. Beta 25 queda publicada y el siguiente corte se define desde backlog.
 
 ## Prioridades del plan
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
 2. Mantener el feedback beta simple antes de introducir analitica de producto.
 3. No introducir PostHog, Plausible ni analitica de eventos sin issue/ADR posterior.
-4. En Beta 25, avanzar solo liquidacion neta minima: facturacion completa, PDF, IVA, CRM y colaboracion siguen fuera de scope.
+4. Definir el siguiente corte manteniendo facturacion completa, PDF, IVA, CRM y colaboracion fuera de scope salvo issue/release explicita.
 
 ## Tablero
 
@@ -126,4 +126,4 @@ _Sin entradas._
 
 ## Próxima acción
 
-Cerrar `CACH-0100` y confirmar el contrato de datos antes de mover schema, hooks o UI de liquidacion neta.
+Definir la siguiente beta candidata y confirmar scope antes de abrir nueva rama de release.
