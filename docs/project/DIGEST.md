@@ -5,7 +5,7 @@ id: PB-DIGEST
 title: Product Brain Digest
 lifecycle: active
 created: 2026-05-05
-updated: 2026-05-18
+updated: 2026-05-20
 aliases:
   - Digest
   - Brain Digest
@@ -23,7 +23,7 @@ Resumen determinista generado desde Product Brain v2.
 
 ## Estado operacional
 
-- **Release activa:** No hay release activa.
+- **Release activa:** RELEASE-0.1.0-beta.25 — Liquidacion neta minima
 - **Últimos cortes:** `RELEASE-0.1.0-beta.10` — emails transaccionales beta con Brevo. Ver RELEASE-0.1.0-beta.10.
 
 `RELEASE-0.1.0-beta.12` — pulido proyecto-evento y borrados seguros. Ver RELEASE-0.1.0-beta.12.
@@ -51,14 +51,14 @@ Resumen determinista generado desde Product Brain v2.
 `RELEASE-0.1.0-beta.23` — tokens Lovable y visual total. Ver RELEASE-0.1.0-beta.23.
 
 `RELEASE-0.1.0-beta.24` — calendario claro y sincronización suscribible. Ver RELEASE-0.1.0-beta.24.
-- **Foco:** No hay release activa. Beta 24 queda cerrada como corte de calendario claro y sincronización suscribible.
+- **Foco:** Beta 25 activa: liquidacion neta minima como siguiente corte de `CACH-B0004`, sin abrir facturacion completa ni cambiar KPIs principales del dashboard.
 
 ## Prioridades del plan
 
 1. Mantener el ciclo `0.1` enfocado en confianza, portabilidad y primera sesion.
 2. Mantener el feedback beta simple antes de introducir analitica de producto.
 3. No introducir PostHog, Plausible ni analitica de eventos sin issue/ADR posterior.
-4. No abrir liquidacion neta, facturacion completa ni CRM salvo issue nueva con criterios de datos/RLS.
+4. En Beta 25, avanzar solo liquidacion neta minima: facturacion completa, PDF, IVA, CRM y colaboracion siguen fuera de scope.
 
 ## Tablero
 
@@ -106,7 +106,7 @@ _Sin entradas._
 
 | ID | Título | Updated | Estado |
 |---|---|---|---|
-| ADR-0016 | UX móvil financiera: operativa primero y acciones contextuales | 2026-05-13 | Accepted |
+| ADR-0016 | UX móvil financiera: operativa primero y acciones contextuales | 2026-05-20 | Accepted |
 | ADR-0014 | Beta feedback propio y Plausible comentado | 2026-05-11 | Superseded |
 | ADR-0015 | Feedback simple propio y PostHog diferido | 2026-05-11 | Accepted |
 | ADR-0001 | Mantener el modelo proyecto-evento con finanzas en ambos niveles | 2026-05-08 | Accepted |
@@ -124,4 +124,4 @@ _Sin entradas._
 
 ## Próxima acción
 
-Definir el siguiente corte beta según feedback real de calendario y prioridades pendientes del ciclo `0.1`.
+Cerrar `CACH-0100` y confirmar el contrato de datos antes de mover schema, hooks o UI de liquidacion neta.

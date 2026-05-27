@@ -5,7 +5,7 @@ id: CACH-B0004
 title: Contratantes facturacion y liquidacion neta
 lifecycle: active
 created: '2026-05-04'
-updated: '2026-05-13'
+updated: '2026-05-20'
 aliases:
   - CACH-B0004
 tags:
@@ -65,10 +65,21 @@ El modelo actual cubre ingresos/gastos por proyecto o evento, pero no expresa bi
 
 Quedan fuera de beta 19: facturas emitidas, liquidación neta gasto-ingreso, CRM ligero, colaboración multiusuario y cambios de fórmulas financieras.
 
+`RELEASE-0.1.0-beta.25` continua la iniciativa con liquidacion neta minima:
+
+- [[CACH-0099|CACH-0099]] — Preparar Beta 25 de liquidacion neta.
+- [[CACH-0100|CACH-0100]] — Definir contrato de liquidacion neta minima.
+- [[CACH-0101|CACH-0101]] — Versionar schema y RLS de gastos repercutibles.
+- [[CACH-0102|CACH-0102]] — Integrar hooks y helpers de liquidacion neta.
+- [[CACH-0103|CACH-0103]] — UX minima de liquidacion en detalles.
+- [[CACH-0104|CACH-0104]] — QA financiera y cierre de Beta 25.
+
+Quedan fuera de beta 25: facturacion legal completa, numeracion de facturas, PDF, IVA, CRM, pagos, conciliacion bancaria, colaboracion multiusuario y cambios de KPIs principales del dashboard.
+
 ## Acceptance Criteria
 
-- [ ] El diseño de datos diferencia cliente/contratante de texto libre.
-- [ ] Se puede calcular liquidación neta cuando un gasto repercute sobre un ingreso.
+- [x] El diseño de datos diferencia cliente/contratante de texto libre.
+- [x] Se puede calcular liquidación neta cuando un gasto repercute sobre un ingreso.
 - [ ] La opción de unificar ingresos/gastos a nivel proyecto no rompe eventos independientes.
 - [ ] La decisión individual vs colaborativa queda resuelta antes de multiusuario.
 
@@ -90,9 +101,17 @@ Quedan fuera de beta 19: facturas emitidas, liquidación neta gasto-ingreso, CRM
 
 2026-05-13: Implementación local de beta 19 preparada: schema/RLS local, hook, portabilidad y UX mínima de contratantes. Quedan pendientes verificación remota Supabase y smoke autenticado antes de considerar la release production-ready.
 
+2026-05-20: Se activa `RELEASE-0.1.0-beta.25` como segundo corte de la iniciativa, limitado a liquidacion neta minima y gastos repercutibles.
+
+2026-05-20: Implementacion local de Beta 25 preparada: contrato, migracion local, helpers, portabilidad y UX minima de liquidacion neta en detalles.
+
+2026-05-20: Migracion remota Supabase de Beta 25 aplicada y verificada. Tambien se reparo el historial remoto de migraciones antiguas ya aplicadas manualmente para que `npx supabase db push --linked --dry-run` detecte drift real.
+
 ## Cambios de alcance y decisiones
 
 Beta 19 no implementa liquidación neta ni facturación completa. Es una base de datos/UX para contratantes reutilizables.
+
+Beta 25 no implementa facturas, IVA, PDF, CRM ni cambios de dashboard. Su salida esperada es un resumen operativo de liquidacion en detalles y soporte minimo de datos para gastos repercutibles.
 
 ## Bloqueos
 
@@ -102,7 +121,7 @@ Beta 19 no implementa liquidación neta ni facturación completa. Es una base de
 - `npm run lint` OK.
 - `npm run test` OK.
 - `npm run build` OK.
-- Verificación remota Supabase pendiente.
+- Verificación remota Supabase OK: `migration list`, columnas/trigger en `expenses` y `db push --linked --dry-run` sin pendientes.
 
 ## Memoria
 

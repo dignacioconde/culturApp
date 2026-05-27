@@ -78,6 +78,12 @@ generated: true
 - [[../issues/CACH-0092|CACH-0092]] — Feed suscribible privado de eventos · done · p1 · slice
 - [[../issues/CACH-0093|CACH-0093]] — UI de sincronizacion por proveedor · done · p1 · slice
 - [[../issues/CACH-0094|CACH-0094]] — QA y cierre de Beta 24 calendario · done · p1 · task
+- [[../issues/CACH-0099|CACH-0099]] — Preparar Beta 25 de liquidacion neta · done · p1 · task
+- [[../issues/CACH-0100|CACH-0100]] — Definir contrato de liquidacion neta minima · done · p1 · task
+- [[../issues/CACH-0101|CACH-0101]] — Versionar schema y RLS de gastos repercutibles · done · p1 · slice
+- [[../issues/CACH-0102|CACH-0102]] — Integrar hooks y helpers de liquidacion neta · done · p1 · slice
+- [[../issues/CACH-0103|CACH-0103]] — UX minima de liquidacion en detalles · done · p1 · slice
+- [[../issues/CACH-0104|CACH-0104]] — QA financiera y cierre de Beta 25 · done · p1 · task
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes · done · p1 · slice
 - [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos · done · p1 · slice
 - [[../issues/CACH-B0006|CACH-B0006]] — Onboarding y acceso beta · done · p1 · slice

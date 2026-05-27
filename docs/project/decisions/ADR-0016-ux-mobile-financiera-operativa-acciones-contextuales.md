@@ -5,7 +5,7 @@ id: ADR-0016
 title: 'UX móvil financiera: operativa primero y acciones contextuales'
 lifecycle: active
 created: '2026-05-13'
-updated: '2026-05-13'
+updated: '2026-05-20'
 aliases:
   - ADR-0016
 tags:
@@ -35,8 +35,10 @@ La UX móvil financiera de Cachés sigue estas reglas:
 
 - El dashboard móvil prioriza operativa diaria: estado "Ahora", próximos trabajos y cobros urgentes antes que KPIs completos.
 - Los KPIs financieros completos son secundarios en móvil; deben ser compactos y no dominar el primer pantallazo.
-- Los detalles de proyecto y evento muestran por defecto un resumen financiero compacto con `Cobrado`, `Pendiente` y `Neto`.
+- Los detalles de proyecto y evento muestran por defecto un resumen financiero compacto centrado en `Cobrado` y `Pendiente`.
 - El detalle financiero ampliado queda bajo demanda cuando haya métricas secundarias.
+- La liquidación neta, gastos internos/repercutibles y vínculos contables se tratan como contexto secundario; no deben competir con la operativa diaria ni pedir profundidad si el usuario no la busca.
+- En gastos, priorizar controles humanos y mínimos como `Repercutir al cliente` antes que selectores técnicos de tipo o enlaces manuales a ingresos.
 - En móvil, ingresos y gastos se presentan como listas compactas y accionables, no como tablas densas.
 - Las acciones frecuentes usan quick actions o modales ligeros con concepto editable, importe y estado cobrado/pendiente cuando aplique.
 - Las acciones destructivas no viven como acción principal y siempre requieren confirmación explícita.

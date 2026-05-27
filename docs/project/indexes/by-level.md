@@ -58,6 +58,9 @@ generated: true
 - [[../issues/CACH-0091|CACH-0091]] — Rehacer visibilidad movil de calendarios · done · p1 · slice
 - [[../issues/CACH-0092|CACH-0092]] — Feed suscribible privado de eventos · done · p1 · slice
 - [[../issues/CACH-0093|CACH-0093]] — UI de sincronizacion por proveedor · done · p1 · slice
+- [[../issues/CACH-0101|CACH-0101]] — Versionar schema y RLS de gastos repercutibles · done · p1 · slice
+- [[../issues/CACH-0102|CACH-0102]] — Integrar hooks y helpers de liquidacion neta · done · p1 · slice
+- [[../issues/CACH-0103|CACH-0103]] — UX minima de liquidacion en detalles · done · p1 · slice
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes · done · p1 · slice
 - [[../issues/CACH-B0005|CACH-B0005]] — Importacion exportacion y portabilidad de datos · done · p1 · slice
 - [[../issues/CACH-B0006|CACH-B0006]] — Onboarding y acceso beta · done · p1 · slice
@@ -100,6 +103,9 @@ generated: true
 - [[../issues/CACH-0075|CACH-0075]] — Bloquear ship de features sin release · done · p1 · task
 - [[../issues/CACH-0089|CACH-0089]] — Preparar Beta 24 de calendario · done · p1 · task
 - [[../issues/CACH-0094|CACH-0094]] — QA y cierre de Beta 24 calendario · done · p1 · task
+- [[../issues/CACH-0099|CACH-0099]] — Preparar Beta 25 de liquidacion neta · done · p1 · task
+- [[../issues/CACH-0100|CACH-0100]] — Definir contrato de liquidacion neta minima · done · p1 · task
+- [[../issues/CACH-0104|CACH-0104]] — QA financiera y cierre de Beta 25 · done · p1 · task
 - [[../issues/CACH-B0015|CACH-B0015]] — Operativizar backlog releases y ramas en Product Brain · done · p1 · task
 - [[../issues/CACH-B0016|CACH-B0016]] — Refundacion operativa del Product Brain y tests B0014 · done · p1 · task
 - [[../issues/CACH-0048|CACH-0048]] — [Context] Compactar workflow OpenCode · done · p2 · task

@@ -66,10 +66,27 @@ describe('finance form payloads', () => {
       concept: 'Taxi',
       amount: ',5',
       category: 'transporte',
+      expense_kind: 'reimbursable',
+      reimbursed_by_income_id: 'income-1',
     })
 
     expect(error).toBeNull()
     expect(payload?.amount).toBe(0.5)
+    expect(payload?.expense_kind).toBe('reimbursable')
+    expect(payload?.reimbursed_by_income_id).toBe('income-1')
+  })
+
+  it('limpia el ingreso enlazado si el gasto es interno', () => {
+    const { payload, error } = normalizeExpenseForm({
+      concept: 'Taxi',
+      amount: '10',
+      expense_kind: 'internal',
+      reimbursed_by_income_id: 'income-1',
+    })
+
+    expect(error).toBeNull()
+    expect(payload?.expense_kind).toBe('internal')
+    expect(payload?.reimbursed_by_income_id).toBeNull()
   })
 
   it('rechaza importes no positivos', () => {

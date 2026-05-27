@@ -5,7 +5,7 @@ id: PB-RELEASES-INDEX
 title: Releases Index
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-14
+updated: 2026-05-20
 aliases:
   - Releases Index
 tags:
@@ -34,6 +34,7 @@ generated: true
 - [[../releases/RELEASE-0.1.0-beta.22|RELEASE-0.1.0-beta.22]] — Historial de novedades beta
 - [[../releases/RELEASE-0.1.0-beta.23|RELEASE-0.1.0-beta.23]] — Tokens Lovable y visual total
 - [[../releases/RELEASE-0.1.0-beta.24|RELEASE-0.1.0-beta.24]] — Calendario claro y sincronizacion suscribible
+- [[../releases/RELEASE-0.1.0-beta.25|RELEASE-0.1.0-beta.25]] — Liquidacion neta minima
 - [[../releases/RELEASE-0.1.0-beta.3|RELEASE-0.1.0-beta.3]] — Rediseño financiero del Dashboard
 - [[../releases/RELEASE-0.1.0-beta.4|RELEASE-0.1.0-beta.4]] — Planificacion anual de proyectos
 - [[../releases/RELEASE-0.1.0-beta.5|RELEASE-0.1.0-beta.5]] — Flujo profesional de ramas beta

@@ -5,7 +5,7 @@ id: PB-CURRENT-RELEASE
 title: Current Release
 lifecycle: active
 created: '2026-05-05'
-updated: '2026-05-14'
+updated: '2026-05-20'
 aliases:
   - Current Release
 tags:
@@ -13,17 +13,40 @@ tags:
   - release
   - current
 generated: false
-release_current: false
+release_current: true
 ---
 # Current Release
 
 ## Release activa
 
-No hay release activa.
+[[RELEASE-0.1.0-beta.25|RELEASE-0.1.0-beta.25]] — Liquidacion neta minima.
 
 ## Rama activa
 
-No aplica.
+`release/0.1.0-beta.25`
+
+## Estado
+
+Activa en QA local. Siguiente corte de `CACH-B0004` tras contratantes estructurados, acotado a liquidacion neta minima sin facturacion completa.
+
+Implementacion preparada: contrato, migracion local/remota, helpers, portabilidad y UX minima. PR #114 abierta como draft hacia `main`; pendiente antes de publication-ready: CI, merge, tag y publicacion.
+
+## Scope
+
+- [[../issues/CACH-0099|CACH-0099]] — Preparar Beta 25 de liquidacion neta.
+- [[../issues/CACH-0100|CACH-0100]] — Definir contrato de liquidacion neta minima.
+- [[../issues/CACH-0101|CACH-0101]] — Versionar schema y RLS de gastos repercutibles.
+- [[../issues/CACH-0102|CACH-0102]] — Integrar hooks y helpers de liquidacion neta.
+- [[../issues/CACH-0103|CACH-0103]] — UX minima de liquidacion en detalles.
+- [[../issues/CACH-0104|CACH-0104]] — QA financiera y cierre de Beta 25.
+
+## Reglas de trabajo
+
+- Las ramas de tarea salen de `release/0.1.0-beta.25`.
+- No empujar rama remota ni tocar Supabase remoto sin confirmacion humana.
+- Los slices de datos/finanzas requieren SDD, `pb:ready-check` antes de mover a `ready` y verificacion RLS.
+- El dashboard mensual conserva `Caja del mes` y `Trabajos`; no convertir gastos/neto en KPI principal de este corte.
+- `cobro bruto/hora` mantiene su regla actual: solo ingresos cobrados con `event_id` y horas de eventos.
 
 ## Últimos cortes
 
@@ -57,4 +80,4 @@ No aplica.
 
 ## Siguiente corte
 
-Pendiente de definir.
+Pendiente tras cerrar Beta 25.

@@ -81,6 +81,12 @@ generated: true
 - [[../issues/CACH-0096|CACH-0096]] — Retrieval local y gate SDD ligero para Product Brain
 - [[../issues/CACH-0097|CACH-0097]] — Escalado SDD por niveles para Product Brain
 - [[../issues/CACH-0098|CACH-0098]] — Metricas locales para retrieval y SDD
+- [[../issues/CACH-0099|CACH-0099]] — Preparar Beta 25 de liquidacion neta
+- [[../issues/CACH-0100|CACH-0100]] — Definir contrato de liquidacion neta minima
+- [[../issues/CACH-0101|CACH-0101]] — Versionar schema y RLS de gastos repercutibles
+- [[../issues/CACH-0102|CACH-0102]] — Integrar hooks y helpers de liquidacion neta
+- [[../issues/CACH-0103|CACH-0103]] — UX minima de liquidacion en detalles
+- [[../issues/CACH-0104|CACH-0104]] — QA financiera y cierre de Beta 25
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes

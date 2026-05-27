@@ -5,7 +5,7 @@ id: PB-PROCESS-WORKFLOW
 title: Workflow
 lifecycle: active
 created: '2026-05-05'
-updated: '2026-05-19'
+updated: '2026-05-20'
 aliases:
   - Workflow
   - Thin Product Brain Workflow
@@ -210,7 +210,7 @@ Son bloqueantes para PR o merge:
 - `npm run pb:ready-check -- CACH-XXXX` — antes de mover una issue a `ready`.
 - `npm run pb:sdd-check -- CACH-XXXX` — gate SDD por niveles para issues ejecutables; tambien se ejecuta desde `pb:guard --phase ready --issue`.
 - `npm run pb:close-check -- CACH-XXXX` — antes de marcar una issue como `done` o cerrar trabajo trazado.
-- Verificación DB remoto — si se toca `supabase/migrations/` o la feature depende de schema/policy/RPC nuevo: confirmar migración aplicada/verificada en remoto, o declarar explícitamente que la funcionalidad no está lista en producción.
+- Verificación DB remoto — si se toca `supabase/migrations/` o la feature depende de schema/policy/RPC nuevo: confirmar migración aplicada/verificada en remoto, o declarar explícitamente que la funcionalidad no está lista en producción. Cuando haya CLI enlazada, ejecutar `npx supabase migration list --linked` y `npm run verify:supabase:migrations`; antes de cerrar debe quedar sin migraciones pendientes o mostrar solo la migración intencionada antes de aplicarla.
 
 ### Solo aviso (no bloquean merge)
 
@@ -224,6 +224,8 @@ Si se toca UI: verificar en navegador en la ruta afectada, con viewport relevant
 ### Validación de Supabase remoto
 
 Si el cambio introduce o depende de objetos nuevos de Supabase, el smoke mockeado no basta para cerrar la funcionalidad como producción verificada. Antes de marcar una release como `released`, confirmar el schema remoto con SQL read-only, revisar RLS/policies cuando aplique y ejecutar un smoke real o transaccional con `rollback` del flujo afectado.
+
+Si el MCP esta en modo lectura y se usa Supabase CLI como fallback, no ejecutar comandos CLI remotos en paralelo: el rol temporal `cli_login_postgres` puede producir carreras de autenticacion. Tras aplicar o reparar migraciones, repetir `npm run verify:supabase:migrations` en solitario y exigir OK.
 
 ---
 
