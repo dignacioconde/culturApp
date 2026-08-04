@@ -90,8 +90,8 @@ PR, release y verificación:
 - Antes de abrir PR: revisar issue/contexto, diff y commits contra base; actualizar memoria durable o declarar `Memoria: no aplica`.
 - La PR debe incluir sección `Memoria`.
 - Si el cambio debe verse en producción, preview no basta: merge a `main`, verificar alias de producción y limpiar rama.
-- Si toca código de app: ejecutar `npm run lint` y `npm run build` cuando aplique.
-- Si toca `docs/project/` o `scripts/brain/`: ejecutar `npm run pb:guard`; `pb:check` sirve como validación rápida acotada.
+- Si toca código de app: ejecutar `pnpm lint` y `pnpm build` cuando aplique.
+- Si toca `docs/project/` o `scripts/brain/`: ejecutar `pnpm pb:guard`; `pb:check` sirve como validación rápida acotada.
 
 ## Agentes y Routing
 
@@ -110,16 +110,16 @@ Si el usuario pide `caveman`, `menos tokens` o respuesta breve, aplica salida co
 ## Comandos Esenciales
 
 ```bash
-npm run dev
-npm run lint
-npm run build
-npm run agents:plan -- "tarea"
-npm run agents:run -- "tarea"
-npm run agents:verify -- "contexto"
-npm run pb:check
-npm run verify:pr -- --base origin/main      # PR final a main
-npm run verify:pr -- --base origin/release/x # slice dentro de release
-npm run pb:guard
+pnpm dev
+pnpm lint
+pnpm build
+pnpm agents:plan -- "tarea"
+pnpm agents:run -- "tarea"
+pnpm agents:verify -- "contexto"
+pnpm pb:check
+pnpm verify:pr -- --base origin/main      # PR final a main
+pnpm verify:pr -- --base origin/release/x # slice dentro de release
+pnpm pb:guard
 ```
 
 ## Detalle Bajo Demanda

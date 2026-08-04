@@ -5,7 +5,7 @@ id: PB-BACKLOG
 title: Backlog operativo
 lifecycle: active
 created: 2026-05-05
-updated: 2026-05-20
+updated: 2026-08-03
 aliases:
   - Backlog operativo
   - Backlog
@@ -162,4 +162,4 @@ _Sin issues._
 
 ## Regla de mantenimiento
 
-No edites este tablero a mano salvo emergencia: ejecuta `npm run pb:index`. Si el tablero y las issues divergen, `npm run pb:check` falla.
+No edites este tablero a mano salvo emergencia: ejecuta `pnpm pb:index`. Si el tablero y las issues divergen, `pnpm pb:check` falla.

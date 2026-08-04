@@ -3,33 +3,33 @@
 React Doctor es una herramienta externa de diagnóstico para proyectos React. En CulturaApp se usa como escaneo advisory de salud del frontend: detecta patrones de React, accesibilidad, rendimiento, arquitectura y dead code, pero no sustituye las validaciones propias del repo.
 
 - Repositorio upstream: https://github.com/millionco/react-doctor
-- Integración local: scripts npm en `package.json`
+- Integración local: scripts pnpm en `package.json`
 - Skill portable: `.agents/skills/react-doctor/SKILL.md`
 - Exposición Claude Code: `.claude/skills/react-doctor -> ../../.agents/skills/react-doctor`
 
 ## Comandos
 
 ```bash
-npm run doctor:react
-npm run doctor:react:diff
+pnpm doctor:react
+pnpm doctor:react:diff
 ```
 
 `doctor:react` ejecuta un escaneo completo:
 
 ```bash
-npx -y react-doctor@latest . --full --offline --fail-on none
+pnpm dlx react-doctor@latest . --full --offline --fail-on none
 ```
 
 `doctor:react:diff` ejecuta un escaneo acotado a cambios contra `main`:
 
 ```bash
-npx -y react-doctor@latest . --diff main --offline --fail-on none
+pnpm dlx react-doctor@latest . --diff main --offline --fail-on none
 ```
 
 ## Decisiones De Integración
 
-- Se usa `npx -y react-doctor@latest` para evitar añadir una dependencia fija al proyecto en esta fase.
-- Se añade `--offline` para evitar telemetría o score remoto; aun así, `npx` puede descargar el paquete desde npm si no está cacheado.
+- Se usa `pnpm dlx react-doctor@latest` para evitar añadir una dependencia fija al proyecto en esta fase.
+- Se añade `--offline` para evitar telemetría o score remoto; aun así, `pnpm dlx` puede descargar el paquete desde el registro si no está cacheado.
 - Se añade `--fail-on none` porque por ahora React Doctor es una señal de calidad, no una compuerta de CI.
 - No se vendorea código, reglas ni skill text de React Doctor. La skill local resume el workflow adaptado a CulturaApp.
 - Si se convierte en check de CI, hay que fijar una versión concreta en lugar de usar `@latest`.
@@ -44,10 +44,10 @@ npx -y react-doctor@latest . --diff main --offline --fail-on none
 
 No lo uses como sustituto de:
 
-- `npm run lint`
-- `npm run build`
-- `npm run test` cuando aplique
-- `npm run pb:check` si se toca `docs/project/`
+- `pnpm lint`
+- `pnpm build`
+- `pnpm test` cuando aplique
+- `pnpm pb:check` si se toca `docs/project/`
 - Las skills específicas de CulturaApp para frontend, datos/finanzas, seguridad, testing o review.
 
 ## Baseline Inicial
@@ -85,10 +85,10 @@ El score puede cambiar aunque el código no cambie si `react-doctor@latest` aña
 Comandos ejecutados al integrar:
 
 ```bash
-npm run doctor:react
-npm run doctor:react:diff
+pnpm doctor:react
+pnpm doctor:react:diff
 python3 /Users/diconde/.codex/skills/.system/skill-creator/scripts/quick_validate.py .agents/skills/react-doctor
-npm run verify:skills
+pnpm verify:skills
 git diff --check
 ```
 

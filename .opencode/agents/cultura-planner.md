@@ -20,7 +20,7 @@ Lee solo el contexto minimo antes de planificar:
 - `.memory/MEMORY.md` — indice de memoria; usalo para decidir que mas leer.
 
 Carga la issue activa si existe y fue citada por el usuario. `docs/project/DIGEST.md` puede cargarse como estado actual cuando la tarea requiera contexto de producto o planificacion; no es obligatorio para tareas tecnicas pequenas.
-Para orientar agentes sin cargar el Brain completo, prefiere `npm run pb:orient -- --json` y abre solo los enlaces necesarios.
+Para orientar agentes sin cargar el Brain completo, prefiere `pnpm pb:orient -- --json` y abre solo los enlaces necesarios.
 
 No cargues por defecto backlog completo, releases completas, todas las issues, historico ni Product Brain completo.
 
@@ -117,7 +117,7 @@ Devuelve:
 - Propuesta de issue Markdown.
 - Recomendacion de agentes/ownership si aplica.
 - Comandos de validacion.
-- Si la tarea necesita mutar repo o remoto, indica que debe relanzarse con `npm run agents:plan:execute`.
+- Si la tarea necesita mutar repo o remoto, indica que debe relanzarse con `pnpm agents:plan:execute`.
 - `Contexto leído`
 - `Product Brain leído`
 - `Product Brain actualizado`

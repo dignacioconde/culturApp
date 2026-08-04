@@ -23,7 +23,7 @@ El brain tenia frontmatter util, pero `release` aceptaba strings libres y el val
 
 ## Decision
 
-El schema autoritativo vive en `scripts/brain/schema.mjs` y se valida con Zod desde `npm run pb:check`.
+El schema autoritativo vive en `scripts/brain/schema.mjs` y se valida con Zod desde `pnpm pb:check`.
 
 Las issues usan frontmatter v2 plano: `schema_version`, `kind`, `id`, `title`, `lifecycle`, `work_type`, `work_level`, `issue_workflow`, `priority`, `size`, `area`, `components`, `parent`, `release` y `theme`.
 

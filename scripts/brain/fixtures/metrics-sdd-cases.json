@@ -25,7 +25,7 @@
         "Objetivo": "Validar un fixture sencillo de SDD Nivel 1.",
         "Alcance": "Incluido:\n\n- Una issue ejecutable de bajo riesgo.\n\nFuera de alcance:\n\n- Casos Nivel 2.",
         "Criterios de aceptacion": "- [ ] AC1: El fixture Nivel 1 pasa los checks basicos.",
-        "Validacion": "- AC1 -> `npm run pb:ready-check -- CACH-9901` y `npm run pb:sdd-check -- CACH-9901`."
+        "Validacion": "- AC1 -> `pnpm pb:ready-check -- CACH-9901` y `pnpm pb:sdd-check -- CACH-9901`."
       },
       "expect": {
         "ready_ok": true,
@@ -59,7 +59,7 @@
         "Plan tecnico": "El fixture afecta `scripts/brain/` y Product Brain como contrato documental.",
         "Escenarios SDD": "- Cuando la issue sea multi-componente, entonces `pb:sdd-check` exige Nivel 2.",
         "Contrato tecnico": "- Scripts locales de Product Brain.\n- Sin estado persistente ni servicios externos.",
-        "Validacion": "- AC1 -> `npm run pb:sdd-check -- CACH-9902`."
+        "Validacion": "- AC1 -> `pnpm pb:sdd-check -- CACH-9902`."
       },
       "expect": {
         "ready_ok": true,
@@ -90,7 +90,7 @@
         "Objetivo": "Validar que SDD detecta criterios sin identificador.",
         "Alcance": "Incluido:\n\n- Un criterio sin ACn.\n\nFuera de alcance:\n\n- Validar Nivel 2.",
         "Criterios de aceptacion": "- [ ] El fixture deberia fallar por no incluir ACn.",
-        "Validacion": "- AC1 -> `npm run pb:sdd-check -- CACH-9903`."
+        "Validacion": "- AC1 -> `pnpm pb:sdd-check -- CACH-9903`."
       },
       "expect": {
         "ready_ok": true,
@@ -124,7 +124,7 @@
         "Criterios de aceptacion": "- [ ] AC1: El fixture falla si no hay escenarios.",
         "Plan tecnico": "El fixture afecta scripts y Product Brain.",
         "Contrato tecnico": "- Scripts locales de Product Brain.",
-        "Validacion": "- AC1 -> `npm run pb:sdd-check -- CACH-9904`."
+        "Validacion": "- AC1 -> `pnpm pb:sdd-check -- CACH-9904`."
       },
       "expect": {
         "ready_ok": true,

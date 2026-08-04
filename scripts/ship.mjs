@@ -86,8 +86,8 @@ if (policy.warning) console.warn(`[ship] Aviso: ${policy.warning}`)
 if (!execute) {
   console.log('[ship] Dry-run: no se hacen push, PR, merge ni deploy.')
   if (!policy.ok) console.log(`[ship] --execute quedaria bloqueado: ${policy.message}`)
-  console.log(`[ship] Ejecutaria: npm run verify:pr -- --base ${base}${issue ? ` --issue ${issue}` : ''}`)
-  console.log(`[ship] Generaria PR body: npm run pr:body -- ${issue ? `--issue ${issue} ` : ''}--base ${base}`)
+  console.log(`[ship] Ejecutaria: pnpm verify:pr -- --base ${base}${issue ? ` --issue ${issue}` : ''}`)
+  console.log(`[ship] Generaria PR body: pnpm pr:body -- ${issue ? `--issue ${issue} ` : ''}--base ${base}`)
   console.log('[ship] Para abrir PR, relanza con --execute tras revisar el diff.')
   process.exit(0)
 }
@@ -97,8 +97,8 @@ if (['main', 'master'].includes(currentBranch)) block('no abras PR directamente 
 if (!policy.ok) block(policy.message)
 requireCleanWorktree()
 
-runRequired('npm', ['run', 'verify:pr', '--', '--base', base, ...(issue ? ['--issue', issue] : [])])
+runRequired('pnpm', ['verify:pr', '--', '--base', base, ...(issue ? ['--issue', issue] : [])])
 runRequired('git', ['push', '-u', 'origin', 'HEAD'])
-const body = runRequired('npm', ['run', 'pr:body', '--', ...(issue ? ['--issue', issue] : []), '--base', base], { capture: true }).stdout.trim()
+const body = runRequired('pnpm', ['pr:body', '--', ...(issue ? ['--issue', issue] : []), '--base', base], { capture: true }).stdout.trim()
 if (!body) block('pr:body genero una descripcion vacia')
 runRequired('gh', ['pr', 'create', '--base', base.replace(/^origin\//, ''), '--head', currentBranch, '--title', title, '--body', body])

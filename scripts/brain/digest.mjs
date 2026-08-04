@@ -201,7 +201,7 @@ if (jsonOutput) {
     console.log('[pb:digest] OK: DIGEST.md esta fresco')
   } else {
     console.error('[pb:digest] stale: DIGEST.md')
-    console.error('[pb:digest] DIGEST.md no esta fresco; ejecuta npm run pb:digest')
+    console.error('[pb:digest] DIGEST.md no esta fresco; ejecuta pnpm pb:digest')
   }
 } else {
   console.log(`[pb:digest] DIGEST.md ${changed ? 'generado' : 'sin cambios'} en docs/project/DIGEST.md`)

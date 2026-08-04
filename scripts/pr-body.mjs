@@ -48,7 +48,7 @@ ${result && !/pendiente/i.test(result) ? result : '- Pendiente de completar por 
 
 ## Validation
 
-${validation && !/pendiente/i.test(validation) ? validation : '- [ ] `npm run verify:pr -- --base ' + base + '`'}
+${validation && !/pendiente/i.test(validation) ? validation : '- [ ] `pnpm verify:pr -- --base ' + base + '`'}
 
 ## Deploy
 

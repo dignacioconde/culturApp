@@ -159,8 +159,9 @@ Los hooks CRUD core exponen `loading`, `error`, métodos de mutación y `refetch
 - Portabilidad de datos CSV en `/data`
 - Sistema de notificaciones toast (éxito/error)
 - RLS habilitado en todas las tablas
+- pnpm 11.20.0 como gestor de paquetes unico en local, CI y Vercel
 - Skills portables para Codex y Claude Code en `.agents/skills` con symlinks desde `.claude/skills`
-- React Doctor integrado como escaneo advisory reproducible mediante `npm run doctor:react` y `npm run doctor:react:diff`
+- React Doctor integrado como escaneo advisory reproducible mediante `pnpm doctor:react` y `pnpm doctor:react:diff`
 - Agentes OpenCode especializados en `.opencode/agents` para frontend, datos, testing, review, release y documentacion
 
 ### Skills portables Codex/Claude
@@ -200,21 +201,25 @@ Reglas de mantenimiento:
 
 Validación realizada:
 
-- `npm run verify:skills` pasa para el catálogo y symlinks.
+- `pnpm verify:skills` pasa para el catálogo y symlinks.
 - `quick_validate.py` pasa para `.agents/skills/react-doctor`.
 - `git diff --check` pasa.
-- No se vendorearon dependencias ni scripts externos; React Doctor se invoca con `npx`.
+- No se vendorearon dependencias ni scripts externos; React Doctor se invoca con `pnpm dlx`.
 
 ### React Doctor
 
 React Doctor está documentado en `docs/react-doctor.md` y se integra con dos scripts:
 
 ```bash
-npm run doctor:react
-npm run doctor:react:diff
+pnpm doctor:react
+pnpm doctor:react:diff
 ```
 
-La integración usa `npx -y react-doctor@latest` con `--offline` y `--fail-on none`, por lo que actúa como diagnóstico advisory y no como compuerta de CI. El baseline inicial del 12/05/2026 fue `77 / 100 Great` con `react-doctor v0.1.6`.
+La integración usa `pnpm dlx react-doctor@latest` con `--offline` y `--fail-on none`, por lo que actúa como diagnóstico advisory y no como compuerta de CI. El baseline inicial del 12/05/2026 fue `77 / 100 Great` con `react-doctor v0.1.6`.
+
+### Dependencias y seguridad
+
+El repositorio usa exclusivamente `pnpm-lock.yaml`; CI y Vercel instalan con `pnpm install --frozen-lockfile`. `pnpm-workspace.yaml` fuerza temporalmente `react-router@8.3.0` para corregir GHSA-qwww-vcr4-c8h2 mientras `react-router-dom@7.18.2` todavía declara `react-router@7.18.2`. El override requiere Node `>=22.22.0` y React/React DOM `>=19.2.7`; debe retirarse cuando `react-router-dom` publique una versión compatible y corregida sin override.
 
 Categorías principales detectadas en el baseline: arquitectura/Tailwind, dead code, performance, state/effects y accesibilidad. Para convertirlo en check de CI hay que fijar una versión concreta y decidir un umbral explícito.
 
@@ -239,7 +244,7 @@ Verificacion inicial realizada el 29/04/2026 y set completo con agentes UX verif
 Uso recomendado:
 
 ```bash
-npm run agents:run -- "Describe la tarea"
+pnpm agents:run -- "Describe la tarea"
 ```
 
 Este comando usa `cultura-lead` como dispatcher minimo y envuelve la peticion en una directriz estandar con objetivo, autonomia, alcance, ownership, verificacion y salida esperada. La plantilla esta en `.opencode/AGENT_TASK_TEMPLATE.md`.
@@ -255,7 +260,7 @@ Los subagentes no se lanzan directamente con `opencode run --agent cultura-testi
 Para ejecutar revisiones en paralelo se incluye el script:
 
 ```bash
-npm run agents:parallel -- "Describe la tarea"
+pnpm agents:parallel -- "Describe la tarea"
 ```
 
 El script lanza varios procesos `opencode run --agent cultura-lead` a la vez, cada uno delegado a un unico subagente. Por defecto usa `cultura-data`, `cultura-testing`, `cultura-review` y `cultura-security` en modo solo lectura, y guarda resultados en `.opencode/runs/<timestamp>/`. Para escritura paralela existe `--write`, pero solo debe usarse con ownership disjunto por archivos o modulos.
@@ -322,7 +327,7 @@ VITE_APP_URL=https://app.caches.es
 
 ### 3. Build y deploy
 
-- [x] `npm run build` sin errores en local
+- [x] `pnpm build` sin errores en local
 - [x] Conectar repo de GitHub a Vercel
 - [x] Verificar que Vercel detecta Vite como framework
 - [x] Primer deploy y smoke test del flujo de registro → login → crear proyecto

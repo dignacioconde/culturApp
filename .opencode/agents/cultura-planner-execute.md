@@ -20,7 +20,7 @@ Lee solo el contexto minimo antes de planificar:
 - `.memory/MEMORY.md` — indice de memoria; usalo para decidir que mas leer.
 
 Carga la issue activa si existe. `docs/project/DIGEST.md` puede cargarse como estado actual cuando la tarea requiera contexto de producto o planificacion; no es obligatorio para tareas tecnicas pequenas.
-Para orientar sin cargar el Brain completo, usa `npm run pb:orient -- --json` y abre solo la issue, parent, release o source-touchpoint que aplique.
+Para orientar sin cargar el Brain completo, usa `pnpm pb:orient -- --json` y abre solo la issue, parent, release o source-touchpoint que aplique.
 
 No cargues por defecto backlog completo, releases completas, todas las issues, historico ni Product Brain completo.
 
@@ -62,7 +62,7 @@ Si el trabajo pertenece a una beta activa, sigue la release activa y parte de `r
 
 ## Paso 5 — Lanzar agentes de implementacion
 
-Ejecuta `npm run agents:run` solo cuando:
+Ejecuta `pnpm agents:run` solo cuando:
 
 - El objetivo esta claro.
 - El ownership de escritura esta declarado.
@@ -71,7 +71,7 @@ Ejecuta `npm run agents:run` solo cuando:
 Ejemplo:
 
 ```bash
-npm run agents:run -- --write --scope "src/pages/Events" --ownership "frontend:src/pages/Events" "Implementa la tarea CACH-XXXX. Abre PR solo cuando las verificaciones pasen y exista confirmacion para acciones remotas."
+pnpm agents:run -- --write --scope "src/pages/Events" --ownership "frontend:src/pages/Events" "Implementa la tarea CACH-XXXX. Abre PR solo cuando las verificaciones pasen y exista confirmacion para acciones remotas."
 ```
 
 No uses `--dangerously-skip-permissions` salvo opt-in explicito del comando superior y nunca con agentes read-only.

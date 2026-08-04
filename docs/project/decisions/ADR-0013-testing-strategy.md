@@ -29,9 +29,9 @@ La cobertura objetivo es quirurgica: proteger flujos que si fallan destruyen con
 
 ## Consecuencias
 
-- `npm run test` corre la suite en proyectos `utc` y `madrid`.
-- `npm run test:e2e` existe con un flujo humo `.skip` hasta tener seed/auth e2e.
-- `npm run test:db` queda preparado para Supabase CLI.
+- `pnpm test` corre la suite en proyectos `utc` y `madrid`.
+- `pnpm test:e2e` existe con un flujo humo `.skip` hasta tener seed/auth e2e.
+- `pnpm test:db` queda preparado para Supabase CLI.
 
 ## Relacionado
 

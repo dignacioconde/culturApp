@@ -98,7 +98,7 @@ Si hay release activa pero una tarea nueva no pertenece a ella, elegir una de es
 - ejecutarla por flujo ligero desde `main`;
 - anadirla explicitamente al documento de la release activa.
 
-El flujo `npm run ship -- --execute --issue CACH-XXXX` bloquea features con `release: null`. Para una feature pequena que salga deliberadamente fuera de release, usar `--allow-no-release` y explicar la excepcion en la issue/PR.
+El flujo `pnpm ship -- --execute --issue CACH-XXXX` bloquea features con `release: null`. Para una feature pequena que salga deliberadamente fuera de release, usar `--allow-no-release` y explicar la excepcion en la issue/PR.
 
 ```bash
 git fetch --prune origin
@@ -127,9 +127,9 @@ Las ramas de tarea son locales por defecto. Subirlas al remoto es una excepcion 
 Antes de abrir PR de release:
 
 - todas las issues del scope estan en `issue_workflow: done` o tienen un bloqueo documentado;
-- `npm run verify:pr -- --base origin/main` pasa o se documenta por que no aplica;
-- `npm run release:sync-check` no detecta desfase entre release activa, rama y `main`;
-- `npm run pb:guard` pasa si toca Product Brain;
+- `pnpm verify:pr -- --base origin/main` pasa o se documenta por que no aplica;
+- `pnpm release:sync-check` no detecta desfase entre release activa, rama y `main`;
+- `pnpm pb:guard` pasa si toca Product Brain;
 - QA visual/responsive/accesibilidad hecho si toca UI;
 - release notes completas;
 - ADRs creadas para decisiones importantes.

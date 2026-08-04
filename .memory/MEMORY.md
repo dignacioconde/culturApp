@@ -19,6 +19,7 @@ Mapa estructurado ampliado: [core.md](core.md)
 ## Infraestructura y CI
 
 - [Branch protection y CI](feedback_branch_protection.md) — Branch protection activo en main; job `app` requerido; agentes no pueden mergear con CI rojo
+- [Tooling de dependencias](projects/tooling-dependencies.md) — pnpm 11.20.0 es el gestor unico; lockfile, Node minimo y override temporal de React Router
 
 ## Feedback y preferencias
 

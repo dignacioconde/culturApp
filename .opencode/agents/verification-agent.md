@@ -29,12 +29,12 @@ No leas Product Brain completo, backlog completo, todas las releases, todos los 
 
 Ejecuta los comandos relevantes segun lo que haya cambiado:
 
-- Si se toco codigo JS/TS/JSX/TSX o configuracion de build: `npm run lint` y `npm run build`.
-- Si existe suite de tests y aplica al cambio: `npm run test`.
-- Si se toco `docs/project/`: `npm run pb:guard`.
-- Para preflight completo de PR local: `npm run verify:pr -- --base origin/main`; si verificas una rama de tarea dentro de una release, usa `--base origin/release/<version>` antes del squash.
-- Si se cierra una issue: `npm run pb:close-check -- CACH-XXXX`.
-- Si se promueve una issue a ready: `npm run pb:ready-check -- CACH-XXXX`.
+- Si se toco codigo JS/TS/JSX/TSX o configuracion de build: `pnpm lint` y `pnpm build`.
+- Si existe suite de tests y aplica al cambio: `pnpm test`.
+- Si se toco `docs/project/`: `pnpm pb:guard`.
+- Para preflight completo de PR local: `pnpm verify:pr -- --base origin/main`; si verificas una rama de tarea dentro de una release, usa `--base origin/release/<version>` antes del squash.
+- Si se cierra una issue: `pnpm pb:close-check -- CACH-XXXX`.
+- Si se promueve una issue a ready: `pnpm pb:ready-check -- CACH-XXXX`.
 - Si hay un Vercel Preview disponible: anota la URL en el resultado; no lo trates como produccion.
 
 No ejecutes comandos que no apliquen al cambio.
@@ -77,11 +77,11 @@ Ready / Ready with warnings / Blocked
 
 ### Validations run
 
-- `npm run pb:check`: OK / SKIP / ERROR
+- `pnpm pb:check`: OK / SKIP / ERROR
 - `pb:ready-check/pb:close-check`: OK / SKIP / ERROR
-- `npm run lint`: OK / SKIP / ERROR
-- `npm run test`: OK / SKIP / ERROR
-- `npm run build`: OK / SKIP / ERROR
+- `pnpm lint`: OK / SKIP / ERROR
+- `pnpm test`: OK / SKIP / ERROR
+- `pnpm build`: OK / SKIP / ERROR
 - deployment/preview: <URL o SKIP>
 
 ### Blocking issues
@@ -130,5 +130,5 @@ Al terminar, declara siempre:
 - Contexto leído: archivos/secciones realmente consultados.
 - Product Brain leído: issue, índice, release, source-touchpoint o `pb:orient` usado; `no aplica` si no hizo falta.
 - Product Brain actualizado: ruta(s) actualizadas o `no aplica`.
-- Validación PB: `npm run pb:guard`/`pb:check`, `pb:ready-check`, `pb:close-check` o `no aplica` con motivo.
+- Validación PB: `pnpm pb:guard`/`pb:check`, `pb:ready-check`, `pb:close-check` o `no aplica` con motivo.
 - Feedback/Memory: memoria actualizada o `Memoria: no aplica`.

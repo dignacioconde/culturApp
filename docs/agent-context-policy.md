@@ -120,7 +120,7 @@ These are maintenance targets, not hard build limits:
 
 ## Token Metrics
 
-Use `npm run context:metrics` before broad prompt, agent, memory, or workflow changes. It reports approximate prompt tokens using `chars / 4`; this is a cheap proxy, not provider billing.
+Use `pnpm context:metrics` before broad prompt, agent, memory, or workflow changes. It reports approximate prompt tokens using `chars / 4`; this is a cheap proxy, not provider billing.
 
 Targets:
 

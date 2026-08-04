@@ -20,8 +20,8 @@ No guardes en memoria: convenciones de codigo, rutas de archivos, historial git 
 ## Check de contexto
 
 ```bash
-npm run context:check
-npm run context:metrics
+pnpm context:check
+pnpm context:metrics
 ```
 
 Revisa presupuestos de tamano, estimacion aproximada de tokens y posibles regresiones de carga amplia de contexto. Es un check orientado a warnings y sigue `docs/agent-context-policy.md`.
@@ -31,7 +31,7 @@ Revisa presupuestos de tamano, estimacion aproximada de tokens y posibles regres
 Para tareas sin issue estructurada, la entrada por defecto es un draft seguro:
 
 ```bash
-npm run agents:plan -- "Describe la tarea"
+pnpm agents:plan -- "Describe la tarea"
 ```
 
 `agents:plan` es equivalente a `agents:plan:draft`: genera una propuesta Product Brain-first sin crear ramas, GitHub Issues, commits, pushes ni runs de implementacion.
@@ -39,13 +39,13 @@ npm run agents:plan -- "Describe la tarea"
 Cuando quieras que el planner pueda mutar repo local, preparar rama o lanzar agentes, usa el modo explicito:
 
 ```bash
-npm run agents:plan:execute -- "Describe la tarea"
+pnpm agents:plan:execute -- "Describe la tarea"
 ```
 
 Si un flujo no interactivo necesita autoaprobar permisos de OpenCode, el bypass peligroso debe declararse de forma visible:
 
 ```bash
-npm run agents:plan:execute -- --dangerously-skip-permissions "Describe la tarea"
+pnpm agents:plan:execute -- --dangerously-skip-permissions "Describe la tarea"
 ```
 
 No uses ese flag con agentes read-only ni para exploracion/review.
@@ -53,13 +53,13 @@ No uses ese flag con agentes read-only ni para exploracion/review.
 Cuando ya existe issue estructurada y rama de tarea preparada, usa el lanzador estandar:
 
 ```bash
-npm run agents:run -- "Describe la tarea"
+pnpm agents:run -- "Describe la tarea"
 ```
 
 Sin flags adicionales, `agents:run` lanza un contrato de solo lectura. Para permitir escritura local hay que declarar `--write` y `--ownership` concreto:
 
 ```bash
-npm run agents:run -- --write --scope "src/pages/Events" --ownership "frontend:src/pages/Events" "Implementa filtros avanzados de eventos"
+pnpm agents:run -- --write --scope "src/pages/Events" --ownership "frontend:src/pages/Events" "Implementa filtros avanzados de eventos"
 ```
 
 Este comando envuelve la peticion en un contrato operativo con objetivo, autonomia, contexto, alcance, ownership, verificacion y salida esperada. Internamente usa `cultura-lead`, pero `cultura-lead` debe actuar como dispatcher minimo: enruta a subagentes, coordina dependencias y cierra con verificacion.
@@ -77,7 +77,7 @@ Antes de abrir una PR, todos los agentes deben completar el **checkpoint de memo
 Ejemplo con alcance explicito y escritura:
 
 ```bash
-npm run agents:run -- --write --scope "src/pages/Events,src/hooks" --ownership "frontend:src/pages/Events; data:src/hooks" "Implementa filtros avanzados de eventos"
+pnpm agents:run -- --write --scope "src/pages/Events,src/hooks" --ownership "frontend:src/pages/Events; data:src/hooks" "Implementa filtros avanzados de eventos"
 ```
 
 Usa `opencode run` directamente solo para depuracion o pruebas de agentes.
@@ -96,9 +96,9 @@ Perfiles protegidos por script:
 Para revisar el comando efectivo sin lanzar OpenCode ni escribir `.opencode/runs/`:
 
 ```bash
-npm run agents:plan -- --dry-run "Describe la tarea"
-npm run agents:run -- --dry-run --agent cultura-review "Revisa el diff"
-npm run agents:parallel -- --dry-run --agents review,security "Revisa riesgos"
+pnpm agents:plan -- --dry-run "Describe la tarea"
+pnpm agents:run -- --dry-run --agent cultura-review "Revisa el diff"
+pnpm agents:parallel -- --dry-run --agents review,security "Revisa riesgos"
 ```
 
 Los dry-runs incluyen `promptMetrics` y `costEstimate` aproximado. Si un prompt se acerca al limite, reduce agentes, divide la tarea, acota ownership o usa `--concise` cuando sea seguro.
@@ -109,10 +109,10 @@ Para ahorrar tokens en salidas no sensibles, los runners aceptan `--concise` o `
 
 | Agente | Comando | Uso |
 | --- | --- | --- |
-| `cultura-lead` | `npm run agents:run -- "tarea"` | Dispatcher principal: enruta a subagentes y cierra con verificacion |
-| `cultura-planner` | `npm run agents:plan -- "tarea"` | Draft read-only Product Brain-first |
-| `cultura-planner-execute` | `npm run agents:plan:execute -- "tarea"` | Modo mutante explicito para issue/rama/agentes |
-| `verification-agent` | `npm run agents:verify -- "contexto"` | Verificacion post-implementacion: lint, build, tests, issue, PR readiness |
+| `cultura-lead` | `pnpm agents:run -- "tarea"` | Dispatcher principal: enruta a subagentes y cierra con verificacion |
+| `cultura-planner` | `pnpm agents:plan -- "tarea"` | Draft read-only Product Brain-first |
+| `cultura-planner-execute` | `pnpm agents:plan:execute -- "tarea"` | Modo mutante explicito para issue/rama/agentes |
+| `verification-agent` | `pnpm agents:verify -- "contexto"` | Verificacion post-implementacion: lint, build, tests, issue, PR readiness |
 
 ## Agente principal
 
@@ -139,7 +139,7 @@ opencode run --agent cultura-lead "Tu tarea aqui"
 Preferible:
 
 ```bash
-npm run agents:run -- "Tu tarea aqui"
+pnpm agents:run -- "Tu tarea aqui"
 ```
 
 ## Subagentes disponibles
@@ -172,7 +172,7 @@ Reglas:
 - Los subagentes Codex heredan solo las herramientas de la sesion Codex. Si Codex no tiene Supabase MCP, sus subagentes tampoco lo tienen.
 - En challenge o revision, usa modo read-only: sin ediciones, sin `.opencode/AGENT_STATE.md` y sin operaciones remotas. Si un perfil pide leer `.opencode/AGENT_STATE.md`, esa parte aplica solo a OpenCode.
 - Supabase remoto sigue `docs/project/process/supabase-db-access.md`: MCP acotado al proyecto cuando exista, SQL exacto y confirmacion humana antes de mutar produccion.
-- Usa `npm run agents:*` solo cuando el usuario pida OpenCode o cuando falten subagentes nativos y se declare el fallback.
+- Usa `pnpm agents:*` solo cuando el usuario pida OpenCode o cuando falten subagentes nativos y se declare el fallback.
 
 Ejemplo dentro de OpenCode:
 
@@ -189,7 +189,7 @@ Ejemplo dentro de OpenCode:
 Para tareas de revision o exploracion, puedes lanzar varios agentes a la vez desde procesos independientes:
 
 ```bash
-npm run agents:parallel -- "Revisa riesgos antes del deploy"
+pnpm agents:parallel -- "Revisa riesgos antes del deploy"
 ```
 
 Por defecto ejecuta `cultura-data`, `cultura-testing`, `cultura-review` y `cultura-security` en modo solo lectura. En ese modo no deben editar codigo, docs, memoria ni `.opencode/AGENT_STATE.md`. Cada proceso usa `cultura-lead` y le pide delegar en un unico subagente, porque OpenCode no ejecuta directamente los archivos con `mode: subagent`.
@@ -197,14 +197,14 @@ Por defecto ejecuta `cultura-data`, `cultura-testing`, `cultura-review` y `cultu
 Puedes elegir agentes concretos:
 
 ```bash
-npm run agents:parallel -- --agents frontend,data,testing "Evalua esta mejora de formularios"
-npm run agents:parallel -- --agents ux-mobile,ux-desktop,frontend "Evalua la UX responsive de dashboard y propone ajustes accionables"
+pnpm agents:parallel -- --agents frontend,data,testing "Evalua esta mejora de formularios"
+pnpm agents:parallel -- --agents ux-mobile,ux-desktop,frontend "Evalua la UX responsive de dashboard y propone ajustes accionables"
 ```
 
 Para revisar problemas responsive de calendarios, incluye siempre ux-mobile, ux-desktop, frontend, testing y review:
 
 ```bash
-npm run agents:parallel -- --agents ux-mobile,ux-desktop,frontend,testing,review "Revisa que /calendar/events y /calendar/projects sigan visibles y usables en responsive"
+pnpm agents:parallel -- --agents ux-mobile,ux-desktop,frontend,testing,review "Revisa que /calendar/events y /calendar/projects sigan visibles y usables en responsive"
 ```
 
 Los agentes UX son revisores de criterio visual y experiencia, no implementadores por defecto. Deben entregar decisiones y tareas accionables; `cultura-frontend` implementa los cambios en React/Tailwind.
@@ -229,7 +229,7 @@ Los resultados se guardan en `.opencode/runs/<timestamp>/`, con un archivo Markd
 Para cambios de codigo en paralelo, usa `--write` solo cuando la tarea ya este dividida por ownership de archivos o modulos. No se permite `--write` con agentes read-only:
 
 ```bash
-npm run agents:parallel -- --write --ownership "frontend:src/pages/Events; data:src/hooks" --agents frontend,data "Implementad la mejora sin modificar archivos fuera de vuestro ownership."
+pnpm agents:parallel -- --write --ownership "frontend:src/pages/Events; data:src/hooks" --agents frontend,data "Implementad la mejora sin modificar archivos fuera de vuestro ownership."
 ```
 
 Flujo recomendado:
@@ -260,7 +260,7 @@ OWNERSHIP:
 Si hay varios agentes escribiendo, reparte ownership disjunto por archivos o modulos.
 
 VERIFICACION:
-Comandos esperados, por ejemplo npm run lint y npm run build.
+Comandos esperados, por ejemplo pnpm lint y pnpm build.
 
 SALIDA:
 Subagentes usados, cambios, verificacion y riesgos/bloqueos.
@@ -283,7 +283,7 @@ OWNERSHIP:
 frontend: pantallas y botones; data: hooks/export helpers; testing: lint/build.
 
 VERIFICACION:
-npm run lint y npm run build.
+pnpm lint y pnpm build.
 
 SALIDA:
 Resumen breve con archivos tocados, pruebas y riesgos.
@@ -308,7 +308,7 @@ Reglas de uso:
 Cuando la implementacion este lista, lanzar el agente de verificacion:
 
 ```bash
-npm run agents:verify -- "Verifica la implementacion de <tarea>. Rama: <rama>. Issue: <URL si existe>."
+pnpm agents:verify -- "Verifica la implementacion de <tarea>. Rama: <rama>. Issue: <URL si existe>."
 ```
 
 El agente ejecuta lint, build y tests segun lo que haya cambiado, usa `pb:close-check` cuando vaya a cerrar una issue y devuelve un bloque estandar con resultado `Ready`, `Ready with warnings` o `Blocked`.
@@ -387,7 +387,7 @@ Mientras Spark siga en preview o sin precio/SLAs estables, no debe ser dependenc
 Los lanzadores aceptan metadatos para el piloto:
 
 ```bash
-npm run agents:run -- \
+pnpm agents:run -- \
   --task-type frontend \
   --routing-reason "cambio local de bajo riesgo con ownership claro" \
   --model-lead gpt-5.5 \

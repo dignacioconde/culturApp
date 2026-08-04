@@ -1,5 +1,5 @@
 {
-  "installCommand": "npm ci",
+  "installCommand": "pnpm install --frozen-lockfile",
   "rewrites": [
     { "source": "/(.*)", "destination": "/" }
   ]

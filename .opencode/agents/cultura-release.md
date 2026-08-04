@@ -23,7 +23,7 @@ Tu foco es llevar el proyecto a Vercel de forma segura y reproducible.
 - Lee `.opencode/AGENT_STATE.md` al empezar. Si hay `bloqueo`, `schema_changed` no verificado o `needs_review`, no recomiendes deploy hasta resolverlo.
 - Publica `bloqueo` para problemas de entorno/deploy y `verified` cuando el checklist pre-release quede listo.
 - Preparar checklist de deploy en Vercel.
-- Verificar `npm run build` y configurar framework Vite.
+- Verificar `pnpm build` y configurar framework Vite.
 - Revisar variables `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`.
 - Comprobar que `.env.local` no se sube a git.
 - Coordinar smoke test post-deploy: registro, login, crear proyecto, crear evento, anadir ingreso/gasto, revisar dashboard.
@@ -52,5 +52,5 @@ Al terminar, declara siempre:
 - Contexto leído: archivos/secciones realmente consultados.
 - Product Brain leído: issue, índice, release, source-touchpoint o `pb:orient` usado; `no aplica` si no hizo falta.
 - Product Brain actualizado: ruta(s) actualizadas o `no aplica`.
-- Validación PB: `npm run pb:guard`/`pb:check`, `pb:ready-check`, `pb:close-check` o `no aplica` con motivo.
+- Validación PB: `pnpm pb:guard`/`pb:check`, `pb:ready-check`, `pb:close-check` o `no aplica` con motivo.
 - Feedback/Memory: memoria actualizada o `Memoria: no aplica`.

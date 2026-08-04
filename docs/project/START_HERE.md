@@ -41,21 +41,21 @@ docs/project/
 └── feedback/              ← Feedback cualitativo de beta
 ```
 
-## Comandos npm
+## Comandos pnpm
 
 ```bash
-npm run pb:init      # Inicializar Product Brain (primera vez)
-npm run pb:status   # Ver estado actual y archivos pendientes
-npm run pb:orient    # Orientación mínima para agentes sin cargar todo el Brain
-npm run pb:retrieve  # Retrieval local por perfil/query/issue para orientar agentes
-npm run pb:metrics   # Métricas advisory de retrieval local y gates SDD
-npm run pb:check    # Validar frontmatter, índices y wikilinks internos
-npm run pb:guard     # Validación completa para cambios en docs/project/ o scripts/brain/
-npm run pb:ready-check -- CACH-XXXX # Antes de mover una issue a ready
-npm run pb:sdd-check -- CACH-XXXX # Gate SDD por niveles de una issue ejecutable
-npm run pb:close-check -- CACH-XXXX # Antes de cerrar una issue como done
-npm run pb:pull     # Importar cambios del vault de iCloud
-npm run pb:push     # Exportar cambios al vault de iCloud
+pnpm pb:init      # Inicializar Product Brain (primera vez)
+pnpm pb:status   # Ver estado actual y archivos pendientes
+pnpm pb:orient    # Orientación mínima para agentes sin cargar todo el Brain
+pnpm pb:retrieve  # Retrieval local por perfil/query/issue para orientar agentes
+pnpm pb:metrics   # Métricas advisory de retrieval local y gates SDD
+pnpm pb:check    # Validar frontmatter, índices y wikilinks internos
+pnpm pb:guard     # Validación completa para cambios en docs/project/ o scripts/brain/
+pnpm pb:ready-check -- CACH-XXXX # Antes de mover una issue a ready
+pnpm pb:sdd-check -- CACH-XXXX # Gate SDD por niveles de una issue ejecutable
+pnpm pb:close-check -- CACH-XXXX # Antes de cerrar una issue como done
+pnpm pb:pull     # Importar cambios del vault de iCloud
+pnpm pb:push     # Exportar cambios al vault de iCloud
 ```
 
 ## Ruta Mínima Para Agentes
@@ -76,11 +76,11 @@ Leer además solo si aplica:
 - [[backlog/BACKLOG|Backlog]] — si necesitas ver el estado del tablero.
 - [[indexes/decisions.index|Decisions Index]] — si la tarea toca arquitectura, modelo de datos o decisiones duraderas.
 
-Ejecutar `npm run pb:guard` antes de cerrar cambios en `docs/project/` o `scripts/brain/`. Para cambios documentales acotados, `npm run pb:check` sigue siendo útil como validación rápida.
+Ejecutar `pnpm pb:guard` antes de cerrar cambios en `docs/project/` o `scripts/brain/`. Para cambios documentales acotados, `pnpm pb:check` sigue siendo útil como validación rápida.
 
-La coherencia issue-release, el tablero, los wikilinks e indices se validan con `pb:guard`/`pb:check`. Si se mueven issues, ADRs, knowledge o releases, ejecutar tambien `npm run pb:index`. Antes de pasar una issue a `ready`, usar `pb:ready-check CACH-XXXX` y `pb:sdd-check CACH-XXXX`; antes de marcarla como `done`, usar `pb:close-check CACH-XXXX`.
+La coherencia issue-release, el tablero, los wikilinks e indices se validan con `pb:guard`/`pb:check`. Si se mueven issues, ADRs, knowledge o releases, ejecutar tambien `pnpm pb:index`. Antes de pasar una issue a `ready`, usar `pb:ready-check CACH-XXXX` y `pb:sdd-check CACH-XXXX`; antes de marcarla como `done`, usar `pb:close-check CACH-XXXX`.
 
-Cuando cambien `pb:retrieve`, `pb:ready-check`, `pb:sdd-check` o las politicas de contexto/SDD, ejecutar tambien `npm run pb:metrics`. Es advisory: no forma parte de `pb:guard` ni bloquea CI por latencia/calidad salvo fixtures criticos rotos.
+Cuando cambien `pb:retrieve`, `pb:ready-check`, `pb:sdd-check` o las politicas de contexto/SDD, ejecutar tambien `pnpm pb:metrics`. Es advisory: no forma parte de `pb:guard` ni bloquea CI por latencia/calidad salvo fixtures criticos rotos.
 
 Los IDs canónicos de issues son los nombres de archivo completos, por ejemplo `CACH-0026` y `CACH-B0001`. No usar formas cortas como `CACH-026` o `CACH-B001` en wikilinks.
 
@@ -112,8 +112,8 @@ El flujo operativo completo vive en [[process/WORKFLOW|Workflow]]. Antes de impl
 
 ## Normas De Sync
 
-1. Ejecutar `npm run pb:pull` antes de curar contenido desde el repo.
-2. Ejecutar `npm run pb:push` para publicar cambios del repo al vault.
+1. Ejecutar `pnpm pb:pull` antes de curar contenido desde el repo.
+2. Ejecutar `pnpm pb:push` para publicar cambios del repo al vault.
 3. Si hay conflictos, el script se detiene y no pisa archivos.
 4. No se borran archivos automáticamente en v1.
 5. Se excluyen `.obsidian/`, `.DS_Store` y temporales de iCloud.

@@ -40,10 +40,10 @@ function run(command, commandArgs, options = {}) {
 
 let ok = true
 ok = run('git', ['diff', '--check', `${base}...HEAD`]) && ok
-ok = run('npm', ['run', 'verify:ci']) && ok
+ok = run('pnpm', ['verify:ci']) && ok
 
 if (issue) {
-  ok = run('npm', ['run', 'pb:close-check', '--', issue, '--json'], { required: !softIssueCheck }) && ok
+  ok = run('pnpm', ['pb:close-check', '--', issue, '--json'], { required: !softIssueCheck }) && ok
 }
 
 if (jsonOutput) {

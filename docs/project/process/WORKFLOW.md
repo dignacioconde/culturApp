@@ -98,7 +98,7 @@ Las ramas de tarea son locales por defecto y se integran con squash despues de r
 ```bash
 git diff release/<version-or-name>...feat/<issue-id>-<short-name>
 git log --oneline release/<version-or-name>..feat/<issue-id>-<short-name>
-npm run verify:pr -- --base origin/release/<version-or-name>
+pnpm verify:pr -- --base origin/release/<version-or-name>
 git merge --squash feat/<issue-id>-<short-name>
 ```
 
@@ -121,7 +121,7 @@ Si no hay release activa, las tareas van directamente a main por PR.
 
 Si hay release activa pero la tarea no pertenece a ella, tambien puede ir por flujo ligero desde `main` si es pequena, aislada y production-safe.
 
-Antes de abrir PR con `npm run ship -- --execute --issue CACH-XXXX`, una issue `work_type: feature` debe tener `release: RELEASE-...`. Si la feature sale intencionalmente por flujo ligero sin release, relanzar con `--allow-no-release` y dejarlo explicado en la issue/PR.
+Antes de abrir PR con `pnpm ship -- --execute --issue CACH-XXXX`, una issue `work_type: feature` debe tener `release: RELEASE-...`. Si la feature sale intencionalmente por flujo ligero sin release, relanzar con `--allow-no-release` y dejarlo explicado en la issue/PR.
 
 ### Cierre de beta
 
@@ -201,21 +201,21 @@ Si una issue hija descubre o consolida una regla transversal, no basta con dejar
 
 Son bloqueantes para PR o merge:
 
-- `npm run verify:pr -- --base origin/main` — preflight local de PR, incluyendo checks del job `app` y whitespace.
-- En ramas de tarea que nacen de una release, usar `npm run verify:pr -- --base origin/release/<version>` antes del squash; reservar `origin/main` para la PR final de la release.
-- `npm run lint` — si se toca código JS/TS y se ejecuta una validación acotada.
-- `npm run test` — requerido por CI `app`; no tratarlo como solo aviso.
-- `npm run build` — si se toca código de app o tooling que afecta build.
-- `npm run pb:guard` — si se toca `docs/project/` o `scripts/brain/`.
-- `npm run pb:ready-check -- CACH-XXXX` — antes de mover una issue a `ready`.
-- `npm run pb:sdd-check -- CACH-XXXX` — gate SDD por niveles para issues ejecutables; tambien se ejecuta desde `pb:guard --phase ready --issue`.
-- `npm run pb:close-check -- CACH-XXXX` — antes de marcar una issue como `done` o cerrar trabajo trazado.
-- Verificación DB remoto — si se toca `supabase/migrations/` o la feature depende de schema/policy/RPC nuevo: confirmar migración aplicada/verificada en remoto, o declarar explícitamente que la funcionalidad no está lista en producción. Cuando haya CLI enlazada, ejecutar `npx supabase migration list --linked` y `npm run verify:supabase:migrations`; antes de cerrar debe quedar sin migraciones pendientes o mostrar solo la migración intencionada antes de aplicarla.
+- `pnpm verify:pr -- --base origin/main` — preflight local de PR, incluyendo checks del job `app` y whitespace.
+- En ramas de tarea que nacen de una release, usar `pnpm verify:pr -- --base origin/release/<version>` antes del squash; reservar `origin/main` para la PR final de la release.
+- `pnpm lint` — si se toca código JS/TS y se ejecuta una validación acotada.
+- `pnpm test` — requerido por CI `app`; no tratarlo como solo aviso.
+- `pnpm build` — si se toca código de app o tooling que afecta build.
+- `pnpm pb:guard` — si se toca `docs/project/` o `scripts/brain/`.
+- `pnpm pb:ready-check -- CACH-XXXX` — antes de mover una issue a `ready`.
+- `pnpm pb:sdd-check -- CACH-XXXX` — gate SDD por niveles para issues ejecutables; tambien se ejecuta desde `pb:guard --phase ready --issue`.
+- `pnpm pb:close-check -- CACH-XXXX` — antes de marcar una issue como `done` o cerrar trabajo trazado.
+- Verificación DB remoto — si se toca `supabase/migrations/` o la feature depende de schema/policy/RPC nuevo: confirmar migración aplicada/verificada en remoto, o declarar explícitamente que la funcionalidad no está lista en producción. Cuando haya CLI enlazada, ejecutar `pnpm dlx supabase migration list --linked` y `pnpm verify:supabase:migrations`; antes de cerrar debe quedar sin migraciones pendientes o mostrar solo la migración intencionada antes de aplicarla.
 
 ### Solo aviso (no bloquean merge)
 
-- `npm run pb:status` — muestra estado de sync con Obsidian; no es criterio de merge.
-- `npm run pb:push` / `npm run pb:pull` — Obsidian sync; útil pero no bloquea.
+- `pnpm pb:status` — muestra estado de sync con Obsidian; no es criterio de merge.
+- `pnpm pb:push` / `pnpm pb:pull` — Obsidian sync; útil pero no bloquea.
 
 ### Validación visual
 
@@ -225,7 +225,7 @@ Si se toca UI: verificar en navegador en la ruta afectada, con viewport relevant
 
 Si el cambio introduce o depende de objetos nuevos de Supabase, el smoke mockeado no basta para cerrar la funcionalidad como producción verificada. Antes de marcar una release como `released`, confirmar el schema remoto con SQL read-only, revisar RLS/policies cuando aplique y ejecutar un smoke real o transaccional con `rollback` del flujo afectado.
 
-Si el MCP esta en modo lectura y se usa Supabase CLI como fallback, no ejecutar comandos CLI remotos en paralelo: el rol temporal `cli_login_postgres` puede producir carreras de autenticacion. Tras aplicar o reparar migraciones, repetir `npm run verify:supabase:migrations` en solitario y exigir OK.
+Si el MCP esta en modo lectura y se usa Supabase CLI como fallback, no ejecutar comandos CLI remotos en paralelo: el rol temporal `cli_login_postgres` puede producir carreras de autenticacion. Tras aplicar o reparar migraciones, repetir `pnpm verify:supabase:migrations` en solitario y exigir OK.
 
 ---
 

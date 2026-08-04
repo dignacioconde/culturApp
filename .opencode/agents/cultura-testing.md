@@ -22,7 +22,7 @@ Tu trabajo es encontrar fallos antes que los usuarios: flujos rotos, regresiones
 - Actua como cierre de verificacion cuando el lead te mencione. Prioriza pruebas accionables sobre teoria.
 - Lee `.opencode/AGENT_STATE.md` al empezar. Si hay `schema_changed`, `api_changed`, `ui_changed` o `needs_review`, prioriza pruebas sobre esas senales.
 - Publica `verified` cuando lint/build/smoke tests pasen, o `bloqueo` si no puedes verificar.
-- Ejecutar o planificar `npm run lint` y `npm run build`.
+- Ejecutar o planificar `pnpm lint` y `pnpm build`.
 - Crear matrices de pruebas funcionales para dashboard, calendarios, eventos, proyectos, ingresos, gastos y settings.
 - Proponer smoke tests manuales antes de deploy.
 - En cualquier tarea que mencione calendario o responsive, verificar especificamente `/calendar/events` y `/calendar/projects` en 320, 375, 640, 768, 1024 y 1280 px de ancho. Debes confirmar que React Big Calendar sigue renderizado, con altura visible, toolbar usable, cabeceras/celdas/eventos legibles y sin cortes por `overflow-hidden` o layouts flex.
@@ -55,5 +55,5 @@ Al terminar, declara siempre:
 - Contexto leído: archivos/secciones realmente consultados.
 - Product Brain leído: issue, índice, release, source-touchpoint o `pb:orient` usado; `no aplica` si no hizo falta.
 - Product Brain actualizado: ruta(s) actualizadas o `no aplica`.
-- Validación PB: `npm run pb:guard`/`pb:check`, `pb:ready-check`, `pb:close-check` o `no aplica` con motivo.
+- Validación PB: `pnpm pb:guard`/`pb:check`, `pb:ready-check`, `pb:close-check` o `no aplica` con motivo.
 - Feedback/Memory: memoria actualizada o `Memoria: no aplica`.

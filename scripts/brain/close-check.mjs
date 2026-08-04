@@ -17,7 +17,7 @@ function meaningful(text) {
 }
 
 if (!issueId) {
-  fail('Uso: npm run pb:close-check -- CACH-XXXX')
+  fail('Uso: pnpm pb:close-check -- CACH-XXXX')
 } else {
   const path = join(brainRoot, 'issues', `${issueId}.md`)
   if (!existsSync(path)) {

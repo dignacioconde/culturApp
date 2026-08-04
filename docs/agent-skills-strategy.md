@@ -58,7 +58,7 @@ Current portable-skill setup:
 - Added `memory-protocol` as a portable Markdown memory workflow with `.memory/` as the auditable local store.
 - Added `react-doctor` as an advisory external React health workflow with project-local npm scripts and a dedicated guide in `docs/react-doctor.md`.
 
-No third-party skill text, dependencies, or external scanner code were vendored. `react-doctor` is invoked through npm scripts with `npx` and documented as an advisory external scanner.
+No third-party skill text, dependencies, or external scanner code were vendored. `react-doctor` is invoked through pnpm scripts with `pnpm dlx` and documented as an advisory external scanner.
 
 ## How To Use From Codex
 
@@ -116,7 +116,7 @@ After creating or updating skills, run:
 ```bash
 python3 /Users/diconde/.codex/skills/.system/skill-creator/scripts/quick_validate.py .agents/skills/<skill-name>
 python3 /Users/diconde/.codex/skills/.system/skill-creator/scripts/quick_validate.py .agents/templates/portable-skill
-npm run verify:skills
+pnpm verify:skills
 git diff --check
 ```
 

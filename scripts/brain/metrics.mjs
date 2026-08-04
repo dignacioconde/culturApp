@@ -251,7 +251,7 @@ function runSddCase(testCase, tempRoot) {
 function compareWithBaseline(metrics, baseline) {
   const warnings = []
   if (!baseline) {
-    warnings.push('baseline ausente; ejecuta npm run pb:metrics -- --update-baseline para crearla')
+    warnings.push('baseline ausente; ejecuta pnpm pb:metrics -- --update-baseline para crearla')
     return warnings
   }
 

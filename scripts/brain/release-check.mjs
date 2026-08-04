@@ -13,7 +13,7 @@ function fail(message) {
 }
 
 if (!releaseId) {
-  fail('Uso: npm run pb:release-check -- RELEASE-X.Y.Z-beta.N')
+  fail('Uso: pnpm pb:release-check -- RELEASE-X.Y.Z-beta.N')
 } else {
   const file = join(brainRoot, 'releases', `${releaseId}.md`)
   if (!existsSync(file)) {

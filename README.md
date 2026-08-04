@@ -63,7 +63,8 @@ Herramienta de gestión económica y de proyectos para trabajadores del sector c
 
 ## Requisitos previos
 
-- Node.js 18 o superior
+- Node.js 22.22 o superior (Node 24 recomendado, igual que CI)
+- pnpm 11.20.0
 - Cuenta en [Supabase](https://supabase.com) (gratuita)
 
 ---
@@ -73,8 +74,11 @@ Herramienta de gestión económica y de proyectos para trabajadores del sector c
 ```bash
 git clone https://github.com/tu-usuario/culturapp.git
 cd culturapp
-npm install
+npm install --global pnpm@11.20.0 # Solo si pnpm no esta instalado
+pnpm install
 ```
+
+`pnpm-lock.yaml` es el unico lockfile del proyecto. La version de pnpm queda fijada en `package.json` y en CI.
 
 ---
 
@@ -519,19 +523,19 @@ Si `VITE_APP_URL` apunta a `localhost`, `127.0.0.1` u otra URL local, el registr
 ## Arrancar en local
 
 ```bash
-npm run dev
+pnpm dev
 # → http://localhost:5173
 ```
 
 | Comando | Descripción |
 |---------|-------------|
-| `npm run dev` | Servidor de desarrollo con HMR |
-| `npm run build` | Build de producción |
-| `npm run preview` | Preview del build |
-| `npm run lint` | Linting con ESLint |
-| `npm run doctor:react` | Escaneo completo advisory con React Doctor |
-| `npm run doctor:react:diff` | Escaneo advisory de cambios React contra `main` |
-| `npm run verify:skills` | Valida catálogo y symlinks de skills portables |
+| `pnpm dev` | Servidor de desarrollo con HMR |
+| `pnpm build` | Build de producción |
+| `pnpm preview` | Preview del build |
+| `pnpm lint` | Linting con ESLint |
+| `pnpm doctor:react` | Escaneo completo advisory con React Doctor |
+| `pnpm doctor:react:diff` | Escaneo advisory de cambios React contra `main` |
+| `pnpm verify:skills` | Valida catálogo y symlinks de skills portables |
 
 ### React Doctor
 
@@ -574,7 +578,7 @@ Skills disponibles:
 | `caveman` | Modo de comunicación ultraconciso con excepciones para seguridad, datos y reviews. |
 | `react-doctor` | Ejecutar React Doctor como escaneo advisory de salud React. |
 
-Las skills son instruction-only por defecto. `react-doctor` es la excepción de tooling externo: invoca `npx -y react-doctor@latest` mediante scripts npm, sin vendorear código ni añadir dependencia fija.
+Las skills son instruction-only por defecto. `react-doctor` es la excepción de tooling externo: invoca `pnpm dlx react-doctor@latest` mediante scripts pnpm, sin vendorear código ni añadir dependencia fija.
 
 ---
 

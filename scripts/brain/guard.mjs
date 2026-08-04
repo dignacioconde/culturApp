@@ -37,16 +37,16 @@ function run(command, commandArgs) {
 }
 
 let ok = true
-ok = run('npm', ['run', 'pb:check', '--', '--strict', '--json']) && ok
-ok = run('npm', ['run', 'verify:brain']) && ok
-ok = run('npm', ['run', 'pb:index', '--', '--check', '--json']) && ok
-ok = run('npm', ['run', 'pb:digest', '--', '--check', '--json']) && ok
+ok = run('pnpm', ['pb:check', '--', '--strict', '--json']) && ok
+ok = run('pnpm', ['verify:brain']) && ok
+ok = run('pnpm', ['pb:index', '--', '--check', '--json']) && ok
+ok = run('pnpm', ['pb:digest', '--', '--check', '--json']) && ok
 
 if (issue && phase === 'ready') {
-  ok = run('npm', ['run', 'pb:ready-check', '--', issue, '--json']) && ok
-  ok = run('npm', ['run', 'pb:sdd-check', '--', issue, '--json']) && ok
+  ok = run('pnpm', ['pb:ready-check', '--', issue, '--json']) && ok
+  ok = run('pnpm', ['pb:sdd-check', '--', issue, '--json']) && ok
 }
-if (issue && phase === 'close') ok = run('npm', ['run', 'pb:close-check', '--', issue, '--json']) && ok
+if (issue && phase === 'close') ok = run('pnpm', ['pb:close-check', '--', issue, '--json']) && ok
 
 if (jsonOutput) {
   console.log(JSON.stringify({ ok, issue: issue ?? null, phase: phase ?? null, results }, null, 2))

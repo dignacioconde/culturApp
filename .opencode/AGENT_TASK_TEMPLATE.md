@@ -12,7 +12,7 @@ No preguntes salvo bloqueo real: credenciales, accion destructiva, cambio remoto
 CONTEXTO:
 Usa `AGENTS.md` como contrato corto y `docs/agent-context-policy.md` como politica canonica. Lee `.opencode/AGENT_STATE.md` como estado vivo.
 Carga memoria, Product Brain, backlog, releases o historico solo si son relevantes para la tarea y desde archivos/secciones concretas.
-Si necesitas orientar Product Brain, usa `npm run pb:orient -- --json` y abre solo la issue, parent, release o source-touchpoint relevante.
+Si necesitas orientar Product Brain, usa `pnpm pb:orient -- --json` y abre solo la issue, parent, release o source-touchpoint relevante.
 Si la tarea toca formularios, selectores o calendarios, revisa bajo demanda las lecciones documentadas sobre `Input.jsx`, horarios desde 08:00 y semana movil.
 
 ALCANCE:
@@ -26,7 +26,7 @@ Si hay varios agentes escribiendo, reparte ownership disjunto.
 Ejemplo: frontend -> src/pages/Events; data -> src/hooks; docs -> README.md.
 
 VERIFICACION:
-Indica comandos esperados. Por defecto, npm run lint y npm run build si se toca codigo.
+Indica comandos esperados. Por defecto, pnpm lint y pnpm build si se toca codigo.
 
 MEMORIA PRE-PR:
 Si el siguiente paso es abrir PR, revisa issue, diff y commits contra base. Actualiza `.memory/` si hay contexto durable o declara `Memoria: no aplica`. No abras PR hasta que esa decision este reflejada.
@@ -60,7 +60,7 @@ OWNERSHIP:
 frontend -> src/pages/Events; data -> src/hooks/useEvents.js; testing -> verificacion.
 
 VERIFICACION:
-npm run lint y npm run build.
+pnpm lint y pnpm build.
 
 MEMORIA PRE-PR:
 Actualizar memoria si aparecen preferencias, decisiones duraderas o gotchas; si no, declarar no aplica.

@@ -2,7 +2,7 @@
 import { spawnSync } from 'node:child_process'
 import { repoRoot } from './brain/lib.mjs'
 
-const result = spawnSync('npx', ['supabase', 'db', 'push', '--linked', '--dry-run'], {
+const result = spawnSync('pnpm', ['dlx', 'supabase', 'db', 'push', '--linked', '--dry-run'], {
   cwd: repoRoot,
   encoding: 'utf8',
 })
@@ -11,7 +11,7 @@ const output = [result.stdout, result.stderr].filter(Boolean).join('\n').trim()
 if (output) console.log(output)
 
 if (result.error) {
-  console.error(`[verify:supabase:migrations] ERROR: no se pudo ejecutar npx supabase: ${result.error.message}`)
+  console.error(`[verify:supabase:migrations] ERROR: no se pudo ejecutar pnpm dlx supabase: ${result.error.message}`)
   process.exit(1)
 }
 

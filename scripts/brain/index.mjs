@@ -220,7 +220,7 @@ function writeBacklog(issues) {
     '',
     '## Regla de mantenimiento',
     '',
-    'No edites este tablero a mano salvo emergencia: ejecuta `npm run pb:index`. Si el tablero y las issues divergen, `npm run pb:check` falla.',
+    'No edites este tablero a mano salvo emergencia: ejecuta `pnpm pb:index`. Si el tablero y las issues divergen, `pnpm pb:check` falla.',
   ].join('\n')
   const file = join(brainRoot, 'backlog', 'BACKLOG.md')
   const { updated } = generatedDates(file, body, defaultBacklogCreated)
@@ -381,7 +381,7 @@ if (jsonOutput) {
     console.log('[pb:index] OK: indices y backlog generados estan frescos')
   } else {
     for (const file of stale) console.error(`[pb:index] stale: ${file}`)
-    console.error(`[pb:index] ${stale.length} archivo(s) generado(s) no estan frescos; ejecuta npm run pb:index`)
+    console.error(`[pb:index] ${stale.length} archivo(s) generado(s) no estan frescos; ejecuta pnpm pb:index`)
   }
 } else {
   console.log(`[pb:index] Indices v2 actualizados (${changed} archivo(s) cambiados)`)

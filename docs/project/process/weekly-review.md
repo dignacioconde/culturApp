@@ -38,5 +38,5 @@ Checklist de 15-20 minutos para que el Product Brain no se convierta en decorado
 
 ## Validacion
 
-- Ejecutar `npm run pb:check`.
-- Ejecutar `npm run pb:index` si se han movido issues, ADRs, knowledge o releases.
+- Ejecutar `pnpm pb:check`.
+- Ejecutar `pnpm pb:index` si se han movido issues, ADRs, knowledge o releases.

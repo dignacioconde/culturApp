@@ -36,7 +36,7 @@ Opciones:
   --scope "src/hooks,src/pages" Alcance permitido o esperado
   --ownership "frontend:src/pages; data:src/hooks"
   --write                      Permite escritura local; requiere ownership concreto
-  --verify "npm run lint && npm run build"
+  --verify "pnpm lint && pnpm build"
   --task-type frontend|data|docs     Tipo de tarea para telemetria. Por defecto: unspecified
   --routing-reason "bajo riesgo"     Motivo de routing de modelos para el run
   --model-lead gpt-5.5               Modelo esperado para lead/orquestador
@@ -50,8 +50,8 @@ Opciones:
   --help                       Muestra esta ayuda.
 
 Ejemplos:
-  npm run agents:run -- --dry-run --agent cultura-review "Revisa riesgos"
-  npm run agents:run -- --write --scope "src/pages/Events" --ownership "frontend:src/pages/Events" "Implementa filtros de eventos"
+  pnpm agents:run -- --dry-run --agent cultura-review "Revisa riesgos"
+  pnpm agents:run -- --write --scope "src/pages/Events" --ownership "frontend:src/pages/Events" "Implementa filtros de eventos"
 `)
 }
 
@@ -61,7 +61,7 @@ function parseArgs(argv) {
     title: "cultura-task",
     scope: DEFAULT_SCOPE,
     ownership: DEFAULT_OWNERSHIP,
-    verify: "npm run lint y npm run build si se toca codigo.",
+    verify: "pnpm lint y pnpm build si se toca codigo.",
     taskType: "unspecified",
     routingReason: "sin motivo declarado",
     models: { ...MODEL_DEFAULTS },
@@ -219,7 +219,7 @@ function buildContract(options) {
     "",
     "CONTEXTO:",
     "Usa AGENTS.md como contrato corto y docs/agent-context-policy.md como politica canonica de carga. Lee .opencode/AGENT_STATE.md como estado vivo solo si el modo permite coordinar ejecucion; carga memoria, Product Brain, backlog, releases o historico solo bajo demanda y desde archivos/secciones concretas.",
-    "Para orientar Product Brain sin cargarlo completo, usa npm run pb:orient -- --json y abre solo issue, parent, release o source-touchpoints relevantes.",
+    "Para orientar Product Brain sin cargarlo completo, usa pnpm pb:orient -- --json y abre solo issue, parent, release o source-touchpoints relevantes.",
     "",
     "ALCANCE:",
     options.scope,

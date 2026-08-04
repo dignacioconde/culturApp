@@ -103,7 +103,7 @@ function validateIssueLinks(data) {
 }
 
 if (!issueId) {
-  fail('Uso: npm run pb:sdd-check -- CACH-XXXX')
+  fail('Uso: pnpm pb:sdd-check -- CACH-XXXX')
 } else {
   const path = join(brainRoot, 'issues', `${issueId}.md`)
   if (!existsSync(path)) {

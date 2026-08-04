@@ -39,9 +39,9 @@ Requiere:
 
 Gates:
 
-- `npm run pb:ready-check -- CACH-XXXX`
-- `npm run pb:sdd-check -- CACH-XXXX`
-- `npm run pb:metrics` como regresion advisory cuando cambie el tooling de retrieval/SDD.
+- `pnpm pb:ready-check -- CACH-XXXX`
+- `pnpm pb:sdd-check -- CACH-XXXX`
+- `pnpm pb:metrics` como regresion advisory cuando cambie el tooling de retrieval/SDD.
 
 ## Nivel 2 - Spec slice
 

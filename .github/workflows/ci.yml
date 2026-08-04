@@ -15,19 +15,23 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.20.0
+          run_install: false
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run test
-      - run: npm run verify:version-history
-      - run: npm run build
-      - run: npm run pb:check -- --strict --json
-      - run: npm run verify:brain
-      - run: npm run verify:skills
-      - run: npm run verify:agents
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm test
+      - run: pnpm verify:version-history
+      - run: pnpm build
+      - run: pnpm pb:check -- --strict --json
+      - run: pnpm verify:brain
+      - run: pnpm verify:skills
+      - run: pnpm verify:agents
       - name: Check committed whitespace
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
@@ -41,10 +45,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.20.0
+          run_install: false
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
-      - run: npm ci
-      - run: npx playwright install --with-deps chromium
-      - run: npm run test:e2e -- --reporter=html
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm test:e2e --reporter=html

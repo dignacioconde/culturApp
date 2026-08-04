@@ -22,13 +22,13 @@ Capturas rápidas pendientes de curar. Desde móvil, si la idea está verde, ent
 Crear una nota simple:
 
 ```bash
-npm run pb:capture -- "texto de la idea o feedback"
+pnpm pb:capture -- "texto de la idea o feedback"
 ```
 
 Crear una nota con titulo y tags:
 
 ```bash
-npm run pb:capture -- --title "Feedback beta cobros" --tag beta,feedback "La usuaria no entiende si el cache esta cobrado"
+pnpm pb:capture -- --title "Feedback beta cobros" --tag beta,feedback "La usuaria no entiende si el cache esta cobrado"
 ```
 
 El comando crea un Markdown en `docs/project/inbox/` con timestamp de segundos y slug. Si coinciden dos capturas en el mismo segundo, anade sufijo incremental para no pisar archivos.

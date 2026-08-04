@@ -31,9 +31,9 @@ Opciones:
   --help                        Muestra esta ayuda.
 
 Ejemplos:
-  npm run agents:plan -- "quiero filtrar eventos por categoria"
-  npm run agents:plan:draft -- "el calendario en movil no muestra bien las semanas"
-  npm run agents:plan:execute -- "anadir exportacion de ingresos a CSV desde el dashboard"
+  pnpm agents:plan -- "quiero filtrar eventos por categoria"
+  pnpm agents:plan:draft -- "el calendario en movil no muestra bien las semanas"
+  pnpm agents:plan:execute -- "anadir exportacion de ingresos a CSV desde el dashboard"
 `)
 }
 
@@ -110,7 +110,7 @@ function buildDraftContract(prompt, options) {
     prompt,
     "",
     "MODO:",
-    "Solo lectura. No edites archivos, no crees issues, no crees ramas, no ejecutes git/gh, no hagas push y no lances npm run agents:run.",
+    "Solo lectura. No edites archivos, no crees issues, no crees ramas, no ejecutes git/gh, no hagas push y no lances pnpm agents:run.",
     ...conciseBlock(options.concise),
     "",
     "OBJETIVO:",
@@ -119,10 +119,10 @@ function buildDraftContract(prompt, options) {
     "REGLAS:",
     "1. Lee AGENTS.md, docs/agent-context-policy.md y .memory/MEMORY.md como indice.",
     "2. Carga solo memoria o detalle relevante. No cargues backlog, releases completas, historico ni Product Brain completo por defecto.",
-    "3. Para contexto Product Brain, prefiere npm run pb:orient -- --json y abre solo enlaces relevantes.",
+    "3. Para contexto Product Brain, prefiere pnpm pb:orient -- --json y abre solo enlaces relevantes.",
     "4. Si recomiendas crear una issue, entrega frontmatter Product Brain v2 plano y cuerpo como propuesta, no lo escribas.",
     "5. GitHub es soporte operativo, no fuente primaria de backlog. Product Brain primero.",
-    "6. Si la tarea requiere ejecucion mutante, indica que debe relanzarse con npm run agents:plan:execute.",
+    "6. Si la tarea requiere ejecucion mutante, indica que debe relanzarse con pnpm agents:plan:execute.",
     "",
     "SALIDA:",
     "Devuelve una propuesta concisa y verificable. No arranques agentes de implementacion.",
@@ -142,11 +142,11 @@ function buildExecuteContract(prompt, options) {
     "Sigue el protocolo del agente cultura-planner-execute:",
     "1. Lee AGENTS.md, docs/agent-context-policy.md y .memory/MEMORY.md como indice.",
     "2. Clasifica el dominio y carga solo memoria o detalle relevante. No cargues backlog, release, historico ni Product Brain completo por defecto; DIGEST solo si la tarea requiere contexto de producto o planificacion.",
-    "3. Para contexto Product Brain, prefiere npm run pb:orient -- --json y abre solo enlaces relevantes.",
+    "3. Para contexto Product Brain, prefiere pnpm pb:orient -- --json y abre solo enlaces relevantes.",
     "4. Product Brain primero: crea o actualiza issue Markdown v2 en docs/project/issues/ salvo que ya exista una issue relacionada.",
     "5. Crea GitHub Issue solo si el usuario lo pidio explicitamente o si la ejecucion inmediata con PR lo requiere.",
     "6. Prepara una rama desde main actualizado o desde la release activa si aplica; si el worktree esta sucio, reporta bloqueo.",
-    "7. Lanza npm run agents:run con --write y --ownership concreto solo si el scope de escritura esta claro.",
+    "7. Lanza pnpm agents:run con --write y --ownership concreto solo si el scope de escritura esta claro.",
     "",
     "SALIDA:",
     "Incluye: Contexto leído; Product Brain leído; Product Brain actualizado; Validación PB; Feedback/Memory.",

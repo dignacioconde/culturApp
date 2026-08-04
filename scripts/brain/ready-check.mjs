@@ -12,7 +12,7 @@ const genericCriterionPattern = /^(funciona correctamente|se mejora|mejora gener
 const riskyAreas = new Set(['data', 'infra', 'security'])
 const technicalPlanComponents = new Set(['finance', 'supabase', 'auth-onboarding'])
 const specificValidationComponents = new Set(['finance', 'supabase', 'calendar', 'design-system'])
-const genericValidationCommands = ['npm run lint', 'npm run build', 'npm run pb:check', 'npm run pb:guard', 'git diff --check']
+const genericValidationCommands = ['pnpm lint', 'pnpm build', 'pnpm pb:check', 'pnpm pb:guard', 'git diff --check']
 
 function fail(message) {
   errors.push(message)
@@ -63,7 +63,7 @@ function hasSpecificValidation(data, validation) {
 }
 
 if (!issueId) {
-  fail('Uso: npm run pb:ready-check -- CACH-XXXX')
+  fail('Uso: pnpm pb:ready-check -- CACH-XXXX')
 } else {
   const path = join(brainRoot, 'issues', `${issueId}.md`)
   if (!existsSync(path)) {

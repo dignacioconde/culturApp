@@ -3,10 +3,10 @@
  * agents:status — Muestra el estado de agentes en ejecución y permite ver sus logs.
  * 
  * Uso:
- *   npm run agents:status              Muestra agentes activos y último output
- *   npm run agents:status --logs       Muestra logs recientes de la última ejecución
- *   npm run agents:status --watch   Modo watch (actualiza cada 5s)
- *   npm run agents:status --clear  Limpia ejecuciones antiguas
+ *   pnpm agents:status              Muestra agentes activos y último output
+ *   pnpm agents:status --logs       Muestra logs recientes de la última ejecución
+ *   pnpm agents:status --watch   Modo watch (actualiza cada 5s)
+ *   pnpm agents:status --clear  Limpia ejecuciones antiguas
  */
 import { readdir, stat, readFile, unlink } from "node:fs/promises"
 import { dirname, join, resolve } from "node:path"
@@ -18,15 +18,15 @@ const RUNS_DIR = resolve(repoRoot, ".opencode/runs")
 
 function usage() {
   console.log(`Uso:
-  npm run agents:status              Muestra agentes activos y último output
-  npm run agents:status --logs       Muestra logs recientes de la última ejecución
-  npm run agents:status --watch     Modo watch (actualiza cada 5s)
-  npm run agents:status --clear    Limpia ejecuciones antiguas
+  pnpm agents:status              Muestra agentes activos y último output
+  pnpm agents:status --logs       Muestra logs recientes de la última ejecución
+  pnpm agents:status --watch     Modo watch (actualiza cada 5s)
+  pnpm agents:status --clear    Limpia ejecuciones antiguas
 
 Ejemplos:
-  npm run agents:status
-  npm run agents:status --logs
-  npm run agents:status --watch
+  pnpm agents:status
+  pnpm agents:status --logs
+  pnpm agents:status --watch
 `)
 }
 

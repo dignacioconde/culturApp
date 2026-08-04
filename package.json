@@ -3,12 +3,13 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "packageManager": "pnpm@11.20.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "doctor:react": "npx -y react-doctor@latest . --full --offline --fail-on none",
-    "doctor:react:diff": "npx -y react-doctor@latest . --diff main --offline --fail-on none",
+    "doctor:react": "pnpm dlx react-doctor@latest . --full --offline --fail-on none",
+    "doctor:react:diff": "pnpm dlx react-doctor@latest . --diff main --offline --fail-on none",
     "context:check": "node scripts/check-agent-context.mjs",
     "context:metrics": "node scripts/check-agent-context.mjs",
     "agents:plan": "node .opencode/scripts/run-planner.mjs --draft",
@@ -49,7 +50,7 @@
     "verify:skills": "node scripts/verify-skills.mjs",
     "verify:agents": "node scripts/verify-agents.mjs",
     "verify:supabase:migrations": "node scripts/verify-supabase-migrations.mjs",
-    "test:brain": "npm run pb:check -- --strict --json && npm run verify:brain",
+    "test:brain": "pnpm pb:check -- --strict --json && pnpm verify:brain",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
@@ -60,10 +61,10 @@
     "@supabase/supabase-js": "^2.104.1",
     "dayjs": "^1.11.20",
     "lucide-react": "^1.9.0",
-    "react": "^19.2.5",
+    "react": "^19.2.8",
     "react-big-calendar": "^1.19.4",
-    "react-dom": "^19.2.5",
-    "react-router-dom": "^7.14.2"
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.2"
   },
   "devDependencies": {
     "@emnapi/core": "^1.10.0",

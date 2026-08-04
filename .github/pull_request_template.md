@@ -8,8 +8,8 @@
 
 ## Verificacion
 
-- [ ] `npm run lint` si aplica
-- [ ] `npm run build` si aplica
+- [ ] `pnpm lint` si aplica
+- [ ] `pnpm build` si aplica
 - [ ] Verificacion visual/manual si aplica
 
 ## Cierre de issues

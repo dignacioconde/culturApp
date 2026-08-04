@@ -25,12 +25,12 @@ Eso dejo duplicados huerfanos en iCloud, por ejemplo numeraciones antiguas y cop
 
 ## Decision
 
-`npm run pb:push` conserva el modo seguro por defecto: exporta nuevos y modificados sin borrar nada del vault.
+`pnpm pb:push` conserva el modo seguro por defecto: exporta nuevos y modificados sin borrar nada del vault.
 
 Cuando se quiera que el vault refleje borrados del repo, usar:
 
 ```bash
-npm run pb:push -- --delete
+pnpm pb:push -- --delete
 ```
 
 Ese flag exporta cambios y borra del vault los archivos que ya no existan en el repo.
@@ -39,7 +39,7 @@ Ese flag exporta cambios y borra del vault los archivos que ya no existan en el 
 
 - La sincronizacion destructiva es explicita.
 - La curacion del inbox puede borrar entradas en repo y luego limpiar el vault con `--delete`.
-- Antes de usar `--delete`, hay que revisar `npm run pb:status`.
+- Antes de usar `--delete`, hay que revisar `pnpm pb:status`.
 
 ## Alternatives Considered
 
