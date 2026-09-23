@@ -176,7 +176,6 @@ generated: true
 ## agents
 
 - [[../issues/CACH-B0010|CACH-B0010]] — Tooling de agentes y modelos de desarrollo · backlog · p2 · initiative
-- [[../issues/CACH-0105|CACH-0105]] — Memoria v2 compacta y medible · review · p2 · slice
 - [[../issues/CACH-0039|CACH-0039]] — [Agents] Respetar permisos reales en lanzadores OpenCode · done · p0 · task
 - [[../issues/CACH-0040|CACH-0040]] — [Agents] Separar plan draft de ejecucion mutante · done · p0 · task
 - [[../issues/CACH-0049|CACH-0049]] — Migrar Product Brain a v2 lean agile para agentes · done · p0 · task
@@ -191,6 +190,7 @@ generated: true
 - [[../issues/CACH-0096|CACH-0096]] — Retrieval local y gate SDD ligero para Product Brain · done · p2 · slice
 - [[../issues/CACH-0097|CACH-0097]] — Escalado SDD por niveles para Product Brain · done · p2 · slice
 - [[../issues/CACH-0098|CACH-0098]] — Metricas locales para retrieval y SDD · done · p2 · slice
+- [[../issues/CACH-0105|CACH-0105]] — Memoria v2 compacta y medible · done · p2 · slice
 - [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura · done · p2 · task
 
 ## design-system
@@ -238,7 +238,6 @@ generated: true
 
 - [[../issues/CACH-B0008|CACH-B0008]] — PWA notificaciones y offline · backlog · p2 · initiative
 - [[../issues/CACH-B0010|CACH-B0010]] — Tooling de agentes y modelos de desarrollo · backlog · p2 · initiative
-- [[../issues/CACH-0105|CACH-0105]] — Memoria v2 compacta y medible · review · p2 · slice
 - [[../issues/CACH-0039|CACH-0039]] — [Agents] Respetar permisos reales en lanzadores OpenCode · done · p0 · task
 - [[../issues/CACH-0040|CACH-0040]] — [Agents] Separar plan draft de ejecucion mutante · done · p0 · task
 - [[../issues/CACH-0049|CACH-0049]] — Migrar Product Brain a v2 lean agile para agentes · done · p0 · task
@@ -251,6 +250,7 @@ generated: true
 - [[../issues/CACH-0075|CACH-0075]] — Bloquear ship de features sin release · done · p1 · task
 - [[../issues/CACH-0092|CACH-0092]] — Feed suscribible privado de eventos · done · p1 · slice
 - [[../issues/CACH-0094|CACH-0094]] — QA y cierre de Beta 24 calendario · done · p1 · task
+- [[../issues/CACH-0105|CACH-0105]] — Memoria v2 compacta y medible · done · p2 · slice
 - [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura · done · p2 · task
 
 ## email

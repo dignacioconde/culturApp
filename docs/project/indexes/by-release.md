@@ -27,7 +27,6 @@ generated: true
 - [[../issues/CACH-B0011|CACH-B0011]] — Categorias etiquetas y taxonomia · backlog · p2 · initiative
 - [[../issues/CACH-B0012|CACH-B0012]] — Perfil publico viralidad y referidos · backlog · p3 · initiative
 - [[../issues/CACH-B0013|CACH-B0013]] — Gestion documental por proyecto evento · backlog · p3 · initiative
-- [[../issues/CACH-0105|CACH-0105]] — Memoria v2 compacta y medible · review · p2 · slice
 - [[../issues/CACH-0049|CACH-0049]] — Migrar Product Brain a v2 lean agile para agentes · done · p0 · task
 - [[../issues/CACH-0026|CACH-0026]] — Setup inicial Product Brain · done · p1 · task
 - [[../issues/CACH-0028|CACH-0028]] — Corregir sync iCloud y estructura versionada · done · p1 · slice
@@ -43,6 +42,7 @@ generated: true
 - [[../issues/CACH-0096|CACH-0096]] — Retrieval local y gate SDD ligero para Product Brain · done · p2 · slice
 - [[../issues/CACH-0097|CACH-0097]] — Escalado SDD por niveles para Product Brain · done · p2 · slice
 - [[../issues/CACH-0098|CACH-0098]] — Metricas locales para retrieval y SDD · done · p2 · slice
+- [[../issues/CACH-0105|CACH-0105]] — Memoria v2 compacta y medible · done · p2 · slice
 
 ## RELEASE-0.1.0-beta.1
 
