@@ -5,7 +5,7 @@ id: PB-DIGEST
 title: Product Brain Digest
 lifecycle: active
 created: 2026-05-05
-updated: 2026-05-27
+updated: 2026-09-23
 aliases:
   - Digest
   - Brain Digest

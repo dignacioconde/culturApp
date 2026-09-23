@@ -24,6 +24,10 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm memory:check
+      - name: Benchmark memory retrieval (advisory)
+        continue-on-error: true
+        run: pnpm memory:benchmark
       - run: pnpm lint
       - run: pnpm test
       - run: pnpm verify:version-history

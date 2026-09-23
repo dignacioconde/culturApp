@@ -23,9 +23,17 @@ This policy does not redefine Product Brain. Product Brain remains the canonical
 - Product Brain: `docs/project/` for product, planning, issues, releases, and decisions.
 - Context loading: this file.
 - Agent entry contract: `AGENTS.md`.
-- Project memory: `.memory/`, versioned in git.
+- Project memory: durable, reviewed Markdown in `.memory/`, versioned in git.
 
 Runtime, private, or session memory must live outside `.memory/` or be ignored by git.
+
+## Memory Retrieval
+
+- `.memory/MEMORY.md` is the only routing map.
+- Use `pnpm memory:route -- "<task>" --json` and read only its destinations.
+- The router selects at most three files within an estimated 2,000-token bundle; unmatched tasks use `core.md` only.
+- Compatibility stubs and superseded facts are not active retrieval context.
+- Use `pnpm memory:check` for structure and `pnpm memory:benchmark -- --strict` after routing changes.
 
 ## Role Policy
 
@@ -78,7 +86,7 @@ Do not load by default:
 
 Read:
 - `.memory/MEMORY.md`.
-- The relevant memory file or docs index.
+- The destinations selected for the task.
 - The canonical source before writing.
 - The destination file before editing it.
 

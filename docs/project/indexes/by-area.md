@@ -5,7 +5,7 @@ id: PB-BY-AREA
 title: Issues por area
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-20
+updated: 2026-09-23
 aliases:
   - Issues por area
 tags:
@@ -101,6 +101,7 @@ generated: true
 - [[../issues/CACH-0051|CACH-0051]] — [Deploy] Dominio publico de app y estrategia multientorno · done · p1 · task
 - [[../issues/CACH-0067|CACH-0067]] — PWA instalable basica y navegacion standalone · done · p1 · slice
 - [[../issues/CACH-0075|CACH-0075]] — Bloquear ship de features sin release · done · p1 · task
+- [[../issues/CACH-0105|CACH-0105]] — Memoria v2 compacta y medible · done · p2 · slice
 - [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura · done · p2 · task
 
 ## docs

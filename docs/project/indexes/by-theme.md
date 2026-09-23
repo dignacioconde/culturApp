@@ -5,7 +5,7 @@ id: PB-BY-THEME
 title: Issues por tema
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-20
+updated: 2026-09-23
 aliases:
   - Issues por tema
 tags:
@@ -124,6 +124,7 @@ generated: true
 - [[../issues/CACH-0096|CACH-0096]] — Retrieval local y gate SDD ligero para Product Brain · done · p2 · slice
 - [[../issues/CACH-0097|CACH-0097]] — Escalado SDD por niveles para Product Brain · done · p2 · slice
 - [[../issues/CACH-0098|CACH-0098]] — Metricas locales para retrieval y SDD · done · p2 · slice
+- [[../issues/CACH-0105|CACH-0105]] — Memoria v2 compacta y medible · done · p2 · slice
 
 ## none
 

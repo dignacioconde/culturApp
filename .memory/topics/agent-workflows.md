@@ -1,110 +1,22 @@
-# Agent Workflows
+# Workflows de agentes
 
-Purpose:
-- Durable workflow memory for agent orchestration, planning, verification and parallel execution.
-- Not a run log.
-- Not a history of every agent execution.
+Cargar solo para agentes, planificación, PR/release o mantenimiento de contexto.
 
-Load policy:
-- Load only for agent workflow, planning, orchestration, prompt design, release workflow or memory-maintenance tasks.
-- Do not load for normal app implementation unless the task touches agents, workflows, PR/release process or memory rules.
-- Historical notes below are traceability, not current instructions.
+## Fuentes canónicas
 
-Canonical references:
-- Context loading policy: `docs/agent-context-policy.md`.
-- Agent entry contract: `AGENTS.md`.
-- OpenCode workflow details: `.opencode/README.md`.
-- Product Brain workflow: `docs/project/process/WORKFLOW.md`.
+- Contexto: `docs/agent-context-policy.md`.
+- Ejecución OpenCode: `.opencode/README.md`.
+- Producto y releases: `docs/project/process/WORKFLOW.md`.
+- Supabase remoto: `docs/project/process/supabase-db-access.md`.
 
-## Durable Rules
+## Gotchas duraderos
 
-Context loading:
-- Read indexes first; load detail only when task-relevant.
-- Use `AGENTS.md` as short entry contract.
-- Use `docs/agent-context-policy.md` as canonical context-loading policy.
-- Keep prompts compact; link to policy instead of duplicating it.
-- Do not turn reference paths into mandatory read lists.
-- Product Brain is canonical for product, planning, issues, releases and decisions, but full Product Brain is not loaded by default.
-- Use `npm run context:metrics` and runner `promptMetrics` as the cheap cost proxy for agent/context changes; split tasks or reduce agents when prompt estimates grow.
-
-Agent execution:
-- When the user asks to run OpenCode agents, launch the repository workflow directly.
-- When the user asks for Codex agents, use native Codex subagents when available; OpenCode profiles may be used as role context, but they are not permission enforcement.
-- In Codex-native challenge or review, load only the relevant `.opencode/agents/<role>.md` profile, keep agents read-only, avoid `.opencode/AGENT_STATE.md`, and do not run `npm run agents:*` unless OpenCode is explicitly requested.
-- `npm run agents:plan` is draft/read-only by default. Use `npm run agents:plan:execute` only when the user explicitly wants a mutating planning flow.
-- OpenCode runners must not pass `--dangerously-skip-permissions` by default. Dangerous permission bypass is explicit opt-in and is prohibited for read-only agents.
-- `agents:run` and `agents:parallel` require `--write` plus concrete `--ownership` before workers can edit files; review, security and UX agents stay read-only.
-- Do only the minimum manual prep needed to form a safe command, scope and ownership.
-- Do not use subagents for trivial changes.
-- Model routing pilot: keep GPT-5.5 as lead/orchestrator/verifier for ambiguous, sensitive, multi-area, data/RLS, finance, security, release and final review work. Use GPT-5.3-Codex-Spark only as a fast worker for small, local, low-risk tasks with explicit ownership and objective verification; escalate to GPT-5.5 after failed verification, sensitive scope, more than 1 retry or overly broad diffs.
-- Parallel agents need isolated write ownership or explicit coordination through `.opencode/AGENT_STATE.md`.
-- For parallel release slices, freeze Product Brain issue IDs, titles, ownership and out-of-scope rules before launching code workers. If a docs worker runs concurrently, the lead must reconcile Product Brain against the accepted plan and the actual implementation before marking issues done; docs workers must not invent adjacent scope.
-- `.opencode/AGENT_STATE.md` is a live scratchboard; keep active signals and events empty after completed tasks.
-- Permanent history lives in GitHub issues, PRs and commits, not in `.opencode/AGENT_STATE.md` or `.memory/`.
-
-Planning and implementation:
-- New product work should be traceable to Product Brain issue/release context when applicable.
-- Product Brain v2 is Product Brain-first and repo-native: orient with `npm run pb:orient -- --json`, then read only the related issue, parent, release or source-touchpoint. Agents must not recreate v1 `type/status` issue frontmatter.
-- Product Brain-aware agents close with `Contexto leído`, `Product Brain leído`, `Product Brain actualizado`, `Validación PB` and `Feedback/Memory`.
-- Use `pb:ready-check CACH-XXXX` before treating a slice/task as ready, and `pb:close-check CACH-XXXX` before closing current work.
-- Work that belongs to an active release branches from the release branch; small fixes may branch from `main` when outside release scope.
-- Active release does not mean every new task belongs to it: if the task is outside release scope, postpone it, use the lightweight `main` -> PR flow, or add it explicitly to the release document first.
-- For active beta releases, agents create task branches locally from the active `release/<version>` branch, prefer `feat/` for new feature branches (`feature/` is legacy), do not push task branches by default, review diff/log against the release, and integrate completed work into the release via squash after local verification.
-- `npm run ship -- --execute --issue CACH-XXXX` must block `work_type: feature` issues with `release: null`; use `--allow-no-release` only for a deliberate lightweight exception and explain it in the issue/PR.
-- Release closure standard: consolidate implementation, Product Brain updates, generated indexes/digest, memory notes and validation status into the cleanest possible final history. Prefer a single clear release commit or squash-style merge result over scattered fixups; leave `main`/release branches clean, no uncommitted generated artifacts, no stray pushed task branches, and no unexplained git traces.
-- Git tags and GitHub Releases are different surfaces. When closing a beta tag `vX.Y.Z-beta.N`, create the corresponding GitHub Release from the existing tag with `--verify-tag --prerelease --latest=false` so the GitHub Releases UI matches Product Brain.
-- User-facing beta changes are not derived automatically from Product Brain or GitHub Releases. For visible releases from `0.1.0-beta.22` onward, update `src/lib/versionHistory.js` so `/novedades` matches the published beta; `npm run verify:version-history` guards this in CI.
-- Commit format for CACH work: `<type>(CACH-XXXX): summary`.
-- Do not add `Co-Authored-By` or AI co-author lines to commits.
-
-Verification and closure:
-- Verification agents should verify from task, diff, acceptance criteria and relevant rules.
-- Visual/responsive tasks need route, viewport/condition, symptom or capture, and visual acceptance criteria.
-- When unifying UI from an external design export, compare target CSS/components/screenshots against the app before closing; token aliases alone do not prove the visual language is unified.
-- For `react-big-calendar`, verify toolbar, header and month rows/cells are visible.
-- Before closing any task, pass the learning loop: identify whether the work produced durable learning, update memory/docs/process when it did, or explicitly declare `Memoria: no aplica`.
-- In OpenCode, non-docs agents detect durable memory and route it to `@cultura-docs`; in local single-agent work, the lead agent may update `.memory/` directly following `memory-protocol`.
-- Do not close a tracked issue just because a local fix exists.
-- Resolved issues must stay linked to the PR or pushed commit that resolves them.
-- If there is an open PR, keep the issue open and use `Closes #N`, `Fixes #N` or equivalent in the PR body.
-- If there is no PR, close only after pushed commit plus comment with summary, commit/branch, verification and memory/docs status.
-- If the user expects the change in the live app, preview is not enough: merge to `main`, verify production alias and clean branches.
-
-Remote database operations:
-- Prefer Supabase MCP for direct CulturaApp database diagnostics and operations when available; use SQL Editor as manual fallback when the current agent session lacks MCP access.
-- For production mutations, agents must show the exact SQL or migration and wait for explicit human confirmation before executing.
-- Do not store or paste PATs, connection strings, service role keys, passwords or `.env.local` values in repo, memory, issues, prompts or PRs.
-- Canonical workflow: `docs/project/process/supabase-db-access.md`.
-- Releases/features that touch `supabase/migrations/**` need an explicit remote DB state before closure: `aplicado/verificado` or `pendiente/bloquea funcionalidad`. Do not mark Supabase persistence as production-verified from mock-only smoke tests.
-
-Memory hygiene:
-- Before opening a PR, review task context, diff and commits against base.
-- Update `.memory/` only for durable preferences, product decisions, recurring gotchas or workflow rules.
-- If nothing durable changed, declare `Memoria: no aplica`.
-- Do not store run logs, branch lists, commit histories, closed-issue summaries or temporary state in `.memory/`.
-- Store reusable lessons, not execution history.
-
-Agent supervision:
-- Before launching a duplicate agent, check whether an existing process is still active.
-- Before killing a process, identify whether it is making progress.
-- If no visible feedback appears, inspect the OpenCode run output/log before assuming failure.
-- `run-agent.mjs` and `run-parallel-agents.mjs` have timeouts; timeout output is diagnostic, not durable memory.
-- `.opencode/runs/current.json` is operational state for live runs; do not treat it as project history.
-
-## 2026-05-14 - Source Alignment Reviews Need Semantic Agents
-
-- Context: a source-alignment pass found that automated context checks can be green while semantic drift remains between AGENTS, Product Brain workflow, OpenCode prompts, skills, memory, README and TECHDOC.
-- Durable memory: when asked to review whether project sources are aligned, use a read-only multi-agent split by domain: context/agents, Product Brain workflow, technical facts, and skills/memory. Keep each agent question narrow and ask for file/line evidence plus minimal fixes.
-- Durable memory: review recurring drift seams explicitly: `main` vs `release/<version>` branching, `pb:check` vs `pb:guard`/ready/close checks, legacy skill names such as `brain-orient`, broad memory loading, dashboard finance contract, TECHDOC hook/table inventory, and README/SQL/bootstrap pointers.
-- Durable memory: integrate only minimal corrections into canonical sources first, then mirror supporting memory/skills/prompts. Verify with `npm run context:check`, `npm run pb:guard` when Product Brain is touched, `npm run verify:skills` when skills/prompts change, and `git diff --check`.
-- Durable memory: do not save full agent reports, command logs, branch state or chronological session summaries in `.memory/`; store reusable guardrails and the final source-of-truth alignment.
-
-## Historical Notes
-
-- 2026-05-03: OpenCode workflow, task template, shared state and issue-resolution process were introduced and refined. Sources: `.opencode/README.md`, `.opencode/AGENT_TASK_TEMPLATE.md`, git history around commits `71ff8fa`, `5ce937f`, `1033955`, `62b247e`, `c67348e`.
-- 2026-05-03: Memory should not mirror every task; GitHub issues, PRs and commits are the operational history.
-- 2026-05-04: PR/issue linking, production verification and branch cleanup became part of the closure workflow. Sources: issues `#21`, `#22`, `#24`, PRs `#19`, `#23`.
-- 2026-05-05: `verification-agent` was added for post-implementation verification when code, UI, build/config/deploy or PR readiness has meaningful risk.
-- 2026-05-05: Product Brain workflow became the product source of truth for issues, releases, plans and decisions.
-- 2026-05-06: Agent timeouts and `.opencode/runs/current.json` were added to prevent invisible long-running executions.
-- 2026-05-06: Earlier notes about per-agent `AGENTS.md` digests are superseded by current policy: compact `AGENTS.md` plus `docs/agent-context-policy.md` and detail under demand.
+- Si el usuario pide OpenCode, usar el workflow del repositorio. No delegar cambios triviales.
+- Los workers que escriben necesitan ownership explícito; revisión, seguridad y UX permanecen read-only.
+- `.opencode/AGENT_STATE.md` y `.opencode/runs/` son estado operativo, no memoria ni historial.
+- Orientar Product Brain con `pnpm pb:orient -- --json`; abrir solo issue, parent, release o source-touchpoint relevante.
+- `main` está protegida: el check requerido es `app`; no exigir `e2e`, no usar bypass y no mergear con CI rojo.
+- Antes de cerrar, verificar contra tarea, diff y criterios; los cambios visuales requieren ruta, viewport y comprobación visual.
+- Si el cambio debe verse publicado, la preview no basta: merge a `main`, smoke del dominio de producción y limpieza de rama.
+- Las migraciones remotas deben quedar `aplicadas/verificadas` o declararse bloqueantes; un smoke con mocks no prueba persistencia Supabase.
+- Guardar aquí reglas reutilizables, nunca reportes de agentes, commits, ramas o cronologías de sesión.
