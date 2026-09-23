@@ -1,19 +1,7 @@
-# Topic Memories
+# Memoria transversal
 
-Use this folder for cross-cutting durable memories that apply across CulturaApp work.
+- [agent-workflows.md](agent-workflows.md) — gotchas de ejecución y cierre.
+- [forms.md](forms.md) — formularios y controles compartidos.
+- [portable-skills.md](portable-skills.md) — skills y protocolo portable.
 
-Create files with lowercase kebab-case names, for example:
-
-- `agent-workflows.md`
-- `forms.md`
-- `portable-skills.md`
-- `supabase-rls.md`
-- `testing.md`
-
-Each detailed memory should be one dated `##` entry with context, durable memory, and source when available.
-
-## Current Topic Files
-
-- [agent-workflows.md](agent-workflows.md): durable OpenCode orchestration, verification, PR/release closure and memory hygiene rules. Not a run log.
-- [forms.md](forms.md): Custom selectors/date controls and mobile UX lessons.
-- [portable-skills.md](portable-skills.md): Portable `SKILL.md` setup and memory protocol.
+Crear archivos nuevos solo cuando el conocimiento sea durable, no tenga fuente canónica mejor y no encaje aquí.

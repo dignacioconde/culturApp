@@ -1,102 +1,77 @@
 ---
 name: memory-orient
-description: Fast task-scoped memory briefing for CulturaApp. Reads only the .memory/ files relevant to the current task and returns a compact summary of constraints, gotchas, and preferences that affect it. Use at the start of any implementation or planning task instead of loading all memory files.
+description: Fast task-scoped memory briefing for CulturaApp. Routes through .memory/MEMORY.md and loads only relevant durable memory. Use at the start of implementation or planning; do not use to write, compact, or replace Product Brain context.
 ---
 
 # Memory Orient
 
 ## Purpose
 
-Read the minimal subset of `.memory/` files relevant to a specific task and return a compact briefing. Equivalent to `product-brain-orient` but for accumulated project memory (preferences, gotchas, decisions) rather than the Product Brain.
-
-The goal is to avoid loading all 17 memory files when only 2-3 are relevant, and to ensure the key constraints reach the agent quickly.
+Return a compact briefing from the smallest relevant subset of `.memory/`. The routing index is the only area-to-file map; this skill must not duplicate it.
 
 ## When to use this skill
 
-- At the start of any implementation or planning task to get the memory context scoped to that task.
-- When launching `memory-orient` in parallel with `product-brain-orient` before a planning session.
-- When an agent asks "what should I know about this area from memory?".
-- Trigger phrases: "¿qué dice la memoria sobre X?", "orienta memoria", "memory-orient", "qué restricciones hay para", "resumen de memoria para".
+- At the start of implementation or planning when durable project memory may affect the task.
+- For requests such as "orienta memoria", "qué dice la memoria sobre X" or "qué restricciones hay para X".
+- Alongside `product-brain-orient` when both durable lessons and current product context matter.
 
 ## When not to use this skill
 
-- Do not use to write or update memory (use `memory-protocol` for that).
-- Do not use to compact or curate memory (use `compact-memory` for that).
-- Do not use when you need Product Brain context — use `product-brain-orient` for that.
+- Do not write or curate memory; use `memory-protocol` or `compact-memory`.
+- Do not use it as Product Brain, source-code or issue retrieval.
+- Do not load all memory files to improve confidence.
 
-## Inputs
+## Inputs to inspect
 
-- Task description or area keywords (from the current conversation or task prompt)
-- `.memory/MEMORY.md` (index)
-- `.memory/core.md` (compact map)
-- Selected files from `.memory/topics/` and `.memory/projects/` based on task area
-
-## Routing table (area → memory files)
-
-Read the index first, then load only the files that match the task area:
-
-| Task area | Load these files |
-|-----------|-----------------|
-| Formularios, selectores, date pickers | `.memory/topics/forms.md` |
-| Calendario, react-big-calendar, eventos UI | `.memory/projects/calendar.md` |
-| Dashboard, KPIs, cobro/hora, finanzas | `.memory/projects/dashboard-finance.md` |
-| Settings, perfil de usuario, tax_rate | `.memory/projects/settings.md` |
-| Routing, Vercel, SPA, deploy | `.memory/projects/routing-deploy.md` |
-| Mobile UX, modales, scroll, viewport | `.memory/lessons_mobile_modals.md` |
-| Agentes, OpenCode, workflow, PR, issues | `.memory/topics/agent-workflows.md` |
-| Skills portables, .agents/skills | `.memory/topics/portable-skills.md` |
-| Estado general del MVP, hitos, gaps | `.memory/projects/culturaapp-status.md` |
-| Reglas de trabajo, autonomía, Product Brain | `.memory/feedback_product_brain.md` |
-| Branch protection, CI, merge | `.memory/feedback_branch_protection.md` |
-
-If the task spans multiple areas, load all matching files.
+- The current task description.
+- `.memory/MEMORY.md` as the routing source.
+- Only the files returned by `pnpm memory:route -- "<task>" --json`.
 
 ## Procedure
 
-1. Read `.memory/MEMORY.md` to confirm the current index.
-2. Read `.memory/core.md` to get the compact map.
-3. Identify task area from the task description keywords.
-4. Load only the matching files from the routing table above.
-5. If the task area is unclear or generic, load `core.md` only and ask for clarification or note that full memory can be loaded with `memory-protocol`.
-6. Extract only the facts, rules, and gotchas directly relevant to the task. Skip historical narrative.
-7. Return the briefing.
+1. Read `.memory/MEMORY.md`.
+2. Run `pnpm memory:route -- "<task>" --json` with a short task description.
+3. Read only `selectedFiles`; never substitute a folder-wide read.
+4. Extract constraints, gotchas and preferences that directly affect the task.
+5. Report matched signals, files read, estimated tokens and any gap or stale fact.
+6. If the command is unavailable, follow the index table manually and use its fallback row when no signal matches.
 
 ## Output format
 
-```
-## Memory briefing: <task area>
+```md
+## Memory briefing: <area>
 
-**Files read**: <list of files loaded>
+Files read: <paths> · Estimated tokens: <number>
+Matched signals: <signals or fallback>
 
-**Relevant constraints**:
-- <constraint 1>
-- <constraint 2>
-...
+Constraints:
+- <only relevant facts>
 
-**Gotchas**:
-- <gotcha 1>
-...
-
-**Preferences**:
-- <preference 1>
-...
-
-**Gaps**: <any missing or stale memory worth noting, or "none">
+Gotchas: <facts or none>
+Preferences: <facts or none>
+Gaps: <facts or none>
 ```
 
-Keep the briefing under 20 lines. If nothing relevant is found, say so explicitly rather than padding.
+Keep the briefing under 20 lines.
 
 ## Quality bar
 
-- Load the minimum files needed. Never load all memory files unless explicitly asked.
-- Extract facts, not file contents. Summarize durable constraints in 1-2 lines each.
-- Do not invent memory. Only report what is in the files.
-- Do not write or modify memory files. This skill is read-only.
+- The index and selected files fit within the router budget.
+- Every reported fact exists in the files read.
+- Generic tasks use only the fallback; multi-area tasks use at most three detail files.
+- Current instructions and canonical sources outrank memory.
+
+## Common mistakes to avoid
+
+- Recreating a routing table in this skill.
+- Reading `core.md`, `me.md` or every detail file by default.
+- Treating compatibility stubs, history or session state as current memory.
+- Hiding a routing gap instead of reporting it.
+
+## Safety notes
+
+This skill is read-only. It must not access secrets, private runtime memory, external services or remote systems.
 
 ## Product Brain v2 Contract
 
-When this workflow touches Product Brain, use flat v2 frontmatter: `schema_version: 2`, `kind`, `lifecycle`, and domain fields such as `issue_workflow`, `work_type`, `work_level`, `size`, `components`, `parent`, `release`, and `theme`. Do not create new `type/status` top-level Product Brain documents.
-
-Prefer `npm run pb:orient -- --json` before reading Product Brain detail. Read only the related issue, parent, release, ADR or source-touchpoint. Generated files such as `DIGEST.md` and generated indexes are regenerated by scripts, not edited manually.
-
-Close every Product Brain-aware response with: `Contexto leído`, `Product Brain leído`, `Product Brain actualizado`, `Validación PB`, and `Feedback/Memory`.
+When Product Brain is relevant, use `pnpm pb:orient -- --json` and read only the related issue, parent, release or source-touchpoint. Do not load Product Brain broadly or recreate legacy v1 fields.

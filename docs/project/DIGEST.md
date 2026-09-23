@@ -5,7 +5,7 @@ id: PB-DIGEST
 title: Product Brain Digest
 lifecycle: active
 created: 2026-05-05
-updated: 2026-05-27
+updated: 2026-09-23
 aliases:
   - Digest
   - Brain Digest
@@ -78,7 +78,9 @@ _Sin entradas._
 
 ### Review / Verify
 
-_Sin entradas._
+| ID | Título | Tipo | Nivel | P |
+|---|---|---|---|---|
+| CACH-0105 | Memoria v2 compacta y medible | chore | slice | p2 |
 
 ### Backlog (p1)
 
@@ -93,6 +95,7 @@ _Sin entradas._
 
 | ID | Título | Workflow | Tipo | Nivel | P |
 |---|---|---|---|---|---|
+| CACH-0105 | Memoria v2 compacta y medible | review | chore | slice | p2 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | backlog | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | backlog | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | backlog | feature | initiative | p1 |

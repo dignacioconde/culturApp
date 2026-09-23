@@ -5,7 +5,7 @@ id: PB-BY-AREA
 title: Issues por area
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-20
+updated: 2026-09-23
 aliases:
   - Issues por area
 tags:
@@ -93,6 +93,7 @@ generated: true
 
 - [[../issues/CACH-B0008|CACH-B0008]] — PWA notificaciones y offline · backlog · p2 · initiative
 - [[../issues/CACH-B0010|CACH-B0010]] — Tooling de agentes y modelos de desarrollo · backlog · p2 · initiative
+- [[../issues/CACH-0105|CACH-0105]] — Memoria v2 compacta y medible · review · p2 · slice
 - [[../issues/CACH-0039|CACH-0039]] — [Agents] Respetar permisos reales en lanzadores OpenCode · done · p0 · task
 - [[../issues/CACH-0040|CACH-0040]] — [Agents] Separar plan draft de ejecucion mutante · done · p0 · task
 - [[../issues/CACH-B0020|CACH-B0020]] — Validar dominio de email transaccional y cambiar remitentes definitivos · done · p0 · task

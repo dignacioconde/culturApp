@@ -5,7 +5,7 @@ id: PB-BY-LEVEL
 title: Issues por nivel
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-20
+updated: 2026-09-23
 aliases:
   - Issues por nivel
 tags:
@@ -30,6 +30,7 @@ generated: true
 
 ## slice
 
+- [[../issues/CACH-0105|CACH-0105]] — Memoria v2 compacta y medible · review · p2 · slice
 - [[../issues/CACH-0028|CACH-0028]] — Corregir sync iCloud y estructura versionada · done · p1 · slice
 - [[../issues/CACH-0029|CACH-0029]] — Integrar helpers CACH-B0016 en flujos reales · done · p1 · slice
 - [[../issues/CACH-0031|CACH-0031]] — Corregir ajustes UX movil detectados en exploracion · done · p1 · slice

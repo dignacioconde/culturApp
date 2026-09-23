@@ -5,7 +5,7 @@ id: PB-BACKLOG
 title: Backlog operativo
 lifecycle: active
 created: 2026-05-05
-updated: 2026-08-03
+updated: 2026-09-23
 aliases:
   - Backlog operativo
   - Backlog
@@ -71,7 +71,9 @@ _Sin issues._
 
 ## Review / Verify
 
-_Sin issues._
+| ID | Titulo | Tipo | Nivel | P | Componentes |
+|---|---|---|---|---|---|
+| [[../issues/CACH-0105|CACH-0105]] | Memoria v2 compacta y medible | chore | slice | p2 | agents, infra-deploy |
 
 ## Done
 

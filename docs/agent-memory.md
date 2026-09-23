@@ -1,95 +1,61 @@
 # Agent Memory
 
-CulturaApp now has a portable memory protocol for agents that need durable context across sessions. It is intentionally small, local, and inspectable:
+Cachés keeps a small, portable memory for durable project context:
 
-- Real skill: `.agents/skills/memory-protocol/SKILL.md`
-- Claude Code exposure: `.claude/skills/memory-protocol`
-- Memory files: `.memory/`
-- Supporting references: `.agents/skills/memory-protocol/references/`
+- Storage: reviewed Markdown under `.memory/`, versioned in git.
+- Routing source: `.memory/MEMORY.md`.
+- Read workflow: `.agents/skills/memory-orient/SKILL.md`.
+- Write workflow: `.agents/skills/memory-protocol/SKILL.md`.
+- Runtime, private and session memory: outside `.memory/` or ignored by git.
 
-## Why This Exists
+## Model
 
-Agents working on CulturaApp often need to remember stable preferences, decisions, gotchas, and project-area context that are too small for `AGENTS.md` but too useful to rediscover repeatedly.
+The index maps task signals to active files. `pnpm memory:route -- "<task>"` normalizes case and accents, combines matching areas, and returns at most three files inside a 2,000-token estimate. A task without matches receives only `core.md`.
 
-The memory protocol keeps that knowledge in Markdown so it can be reviewed in diffs, edited by humans, and removed without touching a database or external service.
+Memory remains lower authority than current user instructions, `AGENTS.md`, code, tests, migrations and canonical documentation. Product Brain remains the source for product planning, issues, releases and decisions.
 
-## Conceptual Inspiration
+## Content contract
 
-This approach is conceptually inspired by `hanfang/claude-memory-skill`, an MIT-licensed project that demonstrates a simple Markdown-based memory pattern for agents. The adapted CulturaApp version uses the same broad idea of hierarchical plain-text memory, but it does not copy the upstream skill text, install scripts, commands, or Claude-specific integration.
+Store only durable preferences, decisions and recurring gotchas. Keep one reusable fact per bullet or dated section and point to the canonical source instead of copying it.
 
-Source: https://github.com/hanfang/claude-memory-skill
+For facts likely to change, use:
 
-## Design Principles
-
-- Plain Markdown is the storage layer.
-- No database, embeddings, semantic search, hidden cache, or external service.
-- Memory is auditable through git.
-- Humans can edit or delete memory directly.
-- `AGENTS.md`, source code, migrations, tests, and current user instructions remain higher authority than memory.
-- The skill is portable: Codex and Claude Code read the same `.agents/skills/memory-protocol` source, with Claude exposed by symlink.
-
-## File Layout
-
-```text
-.memory/
-  core.md
-  me.md
-  topics/
-    README.md
-  projects/
-    README.md
+```md
+- **namespace.key:** value. _(fuente: path-or-URL; verificado: YYYY-MM-DD[; revisar: YYYY-MM-DD])_
 ```
 
-`core.md` is the quick map. It should stay short and point to detailed files.
+Replace a keyed fact in place when it changes. Do not retain the previous value in memory; git already provides history.
 
-`me.md` stores durable collaboration preferences explicitly relevant to the repo.
+Do not store conversations, scratch notes, task progress, telemetry, branch or commit lists, production data, personal data, credentials or secrets.
 
-`topics/` stores reusable cross-cutting memories, such as testing, forms, Supabase RLS, or agent workflows.
+## Structure
 
-`projects/` stores app-area memories, such as calendar behavior, dashboard finance calculations, events, projects, or settings.
+- `core.md`: fallback rules for generic tasks.
+- `me.md`: durable collaboration preferences.
+- `topics/`: reusable cross-cutting knowledge.
+- `projects/`: app-area knowledge.
+- Compatibility paths: explicitly marked `do_not_load_by_default` and never routed.
 
-## How Agents Should Use It
-
-1. Read `.memory/core.md` and `.memory/me.md` when memory may affect the task.
-2. Follow only relevant pointers into `topics/` or `projects/`.
-3. Use `rg` and explicit file names for lookup; do not rely on semantic search.
-4. Save durable entries as dated `##` blocks.
-5. Update `core.md` only when the memory map changes or a summary becomes stale.
-6. Report which memory files influenced the task when that context matters.
-
-## What Belongs In Memory
-
-- Stable user collaboration preferences.
-- Decisions that explain why the app works a certain way.
-- Repeated pitfalls, especially around React Big Calendar, Supabase RLS, forms, and finance calculations.
-- Links to issues, commits, files, or docs that future agents should find quickly.
-- Brief summaries of resolved incidents when the lesson is reusable.
-
-## What Does Not Belong In Memory
-
-- Secrets, tokens, keys, passwords, cookies, or `.env.local` values.
-- Raw customer or production data.
-- Sensitive personal information.
-- Temporary scratch notes for the current task.
-- Canonical rules that should live in `AGENTS.md`.
-- Test expectations that should live in tests.
-- Product documentation that should live in `docs/` or `README.md`.
-
-## Curation Rules
-
-- Keep entries neutral and factual.
-- Date detailed memories.
-- Prefer one useful sentence over a long narrative.
-- Remove stale or misleading entries when discovered.
-- Ask before saving sensitive, personal, ambiguous, or surprising information.
-- Honor explicit user requests to forget local memory.
-
-## Compatibility
-
-The source of truth is `.agents/skills/memory-protocol`. Claude Code gets the same skill through:
+## Commands
 
 ```bash
-.claude/skills/memory-protocol -> ../../.agents/skills/memory-protocol
+pnpm memory:route -- "tarea"       # selected files, signals and estimated cost
+pnpm memory:route -- "tarea" --json
+pnpm memory:check                  # blocking structural validation
+pnpm memory:check -- --json
+pnpm memory:benchmark              # advisory report
+pnpm memory:benchmark -- --strict  # enforce retrieval targets locally
 ```
 
-Do not duplicate the skill into `.claude/skills`. If a future tool cannot follow symlinks, treat any copy as temporary and document the compatibility issue.
+`memory:check` validates routes, links, orphans, compatibility markers and volatile keys. `memory:benchmark` measures deterministic precision, coverage, file count and estimated tokens against fixed scenarios. It writes no history or generated memory files.
+
+## Design references
+
+The implementation adapts ideas rather than source text:
+
+- relevance under a token budget: https://github.com/Aider-AI/aider/blob/main/aider/website/docs/repomap.md
+- conditional routing metadata: https://github.com/continuedev/continue/blob/main/docs/customize/deep-dives/rules.mdx
+- atomic memory observations: https://github.com/modelcontextprotocol/servers/blob/main/src/memory/README.md
+- deterministic memory evaluation: https://github.com/AlekseiMarchenko/agent-memory-benchmark
+
+The repository deliberately avoids load-all memory banks, embeddings, external stores and LLM-based judges.

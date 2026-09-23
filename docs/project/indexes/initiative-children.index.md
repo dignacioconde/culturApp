@@ -5,7 +5,7 @@ id: PB-INITIATIVE-CHILDREN
 title: Initiative Children Index
 lifecycle: active
 created: 2026-05-10
-updated: 2026-05-20
+updated: 2026-09-23
 aliases:
   - Initiative Children Index
 tags:
@@ -67,6 +67,7 @@ _Sin children._
 
 ## CACH-B0010 — Tooling de agentes y modelos de desarrollo
 
+- [[../issues/CACH-0105|CACH-0105]] — Memoria v2 compacta y medible · review · p2 · slice
 - [[../issues/CACH-0039|CACH-0039]] — [Agents] Respetar permisos reales en lanzadores OpenCode · done · p0 · task
 - [[../issues/CACH-0040|CACH-0040]] — [Agents] Separar plan draft de ejecucion mutante · done · p0 · task
 - [[../issues/CACH-0046|CACH-0046]] — [Verify] Anadir verificacion por tipo de cambio · done · p1 · task

@@ -1,109 +1,77 @@
 ---
 name: memory-protocol
-description: Use when the user asks agents to remember, recall, inspect, curate, migrate, or forget durable project context in Markdown under .memory/. Do not use for secrets, credentials, temporary task notes, or facts better kept in AGENTS.md, docs, code comments, issues, or tests.
+description: Curate, recall, migrate, or forget durable project context in Markdown under .memory/. Use for explicit memory operations and durable task learnings; do not use for secrets, session notes, canonical product docs, issues, logs, or generated telemetry.
 ---
 
 # Memory Protocol
 
 ## Purpose
 
-Maintain a small, auditable file-based memory for CulturaApp agents. The protocol stores durable context in plain Markdown under `.memory/`, with short summaries in `core.md`, user preferences in `me.md`, and detailed entries in `topics/` or `projects/`.
-
-The goal is practical continuity across Codex, Claude Code, OpenCode, and other agents without databases, embeddings, semantic search, hidden state, or external services.
+Maintain small, auditable and git-versioned project memory. `.memory/` stores only durable context; private, runtime and session memory stays outside it or ignored by git.
 
 ## When to use this skill
 
-- Use when the user says "recuerda", "guarda en memoria", "apunta", "forget", "olvida", "recall", "busca en memoria", "actualiza la memoria", or "memory".
-- Use when closing a task with new durable learning, or when the user asks for an explicit memory operation. For task-start briefing, prefer `memory-orient`.
-- Use when a completed task produces reusable context that would help future agents avoid rediscovery.
-- Use when reviewing or cleaning `.memory/**`.
+- The user asks to remember, recall, inspect, curate, migrate or forget project memory.
+- A completed task produced a reusable preference, decision or gotcha.
+- `.memory/` needs structural or privacy cleanup.
 
 ## When not to use this skill
 
-- Do not use for secrets, tokens, Supabase keys, passwords, private customer data, or `.env.local` values.
-- Do not use for short-lived task state that belongs in the current conversation, a TODO, an issue, or a PR comment.
-- Do not use to replace `AGENTS.md`, `CLAUDE.md`, tests, migrations, source docs, or architecture decisions that should be canonical elsewhere.
-- Do not use for hidden profiling, sensitive personal data, or anything the user has not reasonably agreed to persist.
+- Never store secrets, credentials, private customer data or `.env.local` values.
+- Do not save temporary task state, conversations, logs, branches, commits or benchmark output.
+- Do not duplicate rules better expressed in `AGENTS.md`, code, tests, Product Brain or canonical docs.
+- Use `memory-orient` for a read-only task briefing and `compact-memory` for broad consolidation.
 
 ## Inputs to inspect
 
-- `.memory/core.md`
-- `.memory/me.md`
-- `.memory/topics/README.md`
-- `.memory/projects/README.md`
-- Relevant `.memory/topics/*.md` or `.memory/projects/*.md`
-- `AGENTS.md` and `docs/agent-memory.md` when changing the protocol itself
-- Current task context, diff, issue, PR, or user instruction that triggered memory work
+- `.memory/MEMORY.md`.
+- The destination selected by the index or `pnpm memory:route`.
+- The canonical source for any fact being saved.
+- `docs/agent-memory.md` when changing the protocol itself.
 
 ## Procedure
 
-1. Read `.memory/core.md` and `.memory/me.md` before using memory for a task. If either file is missing, report it and offer to recreate the baseline from `docs/agent-memory.md`.
-2. Follow links or bullets in `core.md` to the smallest relevant topic or project file. Use deterministic lookup with file names and `rg`; do not invent semantic search.
-3. Treat `core.md` as a map, not a dumping ground. Keep it concise: summaries, pointers, and the few details that should be visible at a glance.
-4. Store detailed memories as dated `##` entries in topic or project files. One entry should capture one durable fact, decision, preference, caveat, or resolved gotcha.
-5. Before writing, classify the memory:
-   - User preference or durable personal working style: `.memory/me.md`
-   - Cross-project concept or recurring pattern: `.memory/topics/<topic>.md`
-   - CulturaApp-specific project decision or incident: `.memory/projects/<project-or-area>.md`
-   - Broad project rule or source of truth: update the canonical doc instead of memory.
-6. Ask before persisting sensitive, personal, ambiguous, or potentially embarrassing information. When the user explicitly says to remember or save a fact, that is enough confirmation for ordinary non-sensitive context.
-7. When adding or updating a detailed memory, update `.memory/core.md` only if the new information changes the map, adds a new file, or alters a high-signal summary.
-8. When forgetting, remove or edit the relevant entry and clean stale pointers in `core.md`. Do not delete broad files unless the user explicitly asks.
-9. If the host supports background agents and the user has explicitly authorized delegation, memory curation may be delegated. Otherwise do it directly and keep the main task moving.
-10. Validate Markdown readability, relative links, and privacy before finishing.
+1. Read the index first. For recall, run `pnpm memory:route -- "<task>" --json` and open only its destinations.
+2. Before writing, classify the item: preference in `me.md`, reusable pattern in `topics/`, app-area lesson in `projects/`, or canonical documentation outside memory.
+3. Store one durable fact, decision, preference or gotcha per bullet or dated section. Remove redundant context and narrative.
+4. For volatile facts use exactly: `- **namespace.key:** value. _(fuente: path-or-URL; verificado: YYYY-MM-DD[; revisar: YYYY-MM-DD])_`.
+5. When a volatile fact changes, replace the existing keyed line. Do not keep the old value in `.memory/`; git preserves history.
+6. Update `.memory/MEMORY.md` only when adding, removing or rerouting an active file. Never add a second routing table.
+7. For compatibility-only paths, use the standard `memory_status: compatibility_stub · load_policy: do_not_load_by_default` notice and point to the current source.
+8. When forgetting, remove the fact and clean its route or pointer. Do not delete broad files unless explicitly requested.
+9. Run `pnpm memory:check` and, after routing changes, `pnpm memory:benchmark -- --strict`.
 
 ## Output format
 
-For memory reads:
-
-- Memory used: files inspected and the few facts that influenced the task.
-- Gaps: missing, stale, or conflicting memory.
-
-For memory writes:
-
-- Memory updated: files changed.
-- Added/changed: one-line summary of each durable fact.
-- Safety check: confirm no secrets or sensitive data were stored.
-
-For forget requests:
-
-- Memory removed: files and entries affected.
-- Remaining pointers: any related context intentionally kept.
+For reads, report files used, relevant facts and gaps. For writes, report files changed, the durable facts added or replaced, and confirm that no secrets or sensitive data were stored. For deletion, report what was removed and which pointers remain.
 
 ## Priority model
 
-- CRITICAL: secret, credential, private key, token, regulated personal data, or instruction to hide memory from the user.
-- HIGH: stale memory contradicts `AGENTS.md`, source code, schema, tests, or current user instruction.
-- MEDIUM: memory is useful but too vague, duplicated, uncategorized, or missing a pointer from `core.md`.
-- LOW: naming, formatting, broken relative links, or wording polish.
+- CRITICAL: secret, credential, regulated data or hidden profiling.
+- HIGH: memory conflicts with current instructions, code, tests or canonical sources.
+- MEDIUM: duplicated, stale, unrouted or overly narrative memory.
+- LOW: naming, formatting, link or wording issue.
 
 ## Quality bar
 
-- Plain Markdown only.
-- Human-readable, human-editable, and reviewable in git.
-- Every detailed memory has a topic or project home.
-- `core.md` stays short enough to scan quickly.
-- No external service, database, embedding index, hidden cache, or generated binary artifact is required.
-- Memory never outranks current user instructions, `AGENTS.md`, source code, database migrations, or tests.
+- Plain Markdown, human-readable and reviewable in git.
+- One routing source and no generated memory artifacts.
+- Atomic facts with provenance only where volatility warrants it.
+- No external database, embedding index, hidden cache or service.
+- Current user instructions and canonical sources always win.
 
 ## Common mistakes to avoid
 
-- Treating `.memory/core.md` as an append-only log.
-- Saving secrets, `.env.local` contents, or private user data.
-- Persisting guesses as facts.
-- Writing vague entries like "fixed calendar bug" without date, area, and durable lesson.
-- Creating many overlapping topic files with near-identical scope.
-- Copying third-party skill text or install scripts into this repo.
-- Making the protocol Claude-only; this skill must remain portable.
+- Treating memory as an append-only log.
+- Loading every memory file before deciding what matters.
+- Adding metadata to stable rules that do not need it.
+- Retaining replaced facts, stale counts or operational snapshots.
+- Copying third-party skill text or scripts into the repository.
 
 ## Safety notes
 
-This protocol is local-first and file-based. It must not call external services, create embeddings, install packages, or mutate remote systems. Deleting memory, rewriting large sections, or persisting sensitive personal information requires explicit user confirmation. Attribute external inspiration in documentation and do not copy third-party content verbatim.
+Ask before persisting sensitive, personal, ambiguous or surprising information. This protocol must not mutate remote systems. Attribute external inspiration in documentation and do not copy third-party material verbatim.
 
 ## Product Brain v2 Contract
 
-When this workflow touches Product Brain, use flat v2 frontmatter: `schema_version: 2`, `kind`, `lifecycle`, and domain fields such as `issue_workflow`, `work_type`, `work_level`, `size`, `components`, `parent`, `release`, and `theme`. Do not create new `type/status` top-level Product Brain documents.
-
-Prefer `npm run pb:orient -- --json` before reading Product Brain detail. Read only the related issue, parent, release, ADR or source-touchpoint. Generated files such as `DIGEST.md` and generated indexes are regenerated by scripts, not edited manually.
-
-Close every Product Brain-aware response with: `Contexto leído`, `Product Brain leído`, `Product Brain actualizado`, `Validación PB`, and `Feedback/Memory`.
+When Product Brain is relevant, orient with `pnpm pb:orient -- --json` and use flat v2 frontmatter. Memory must not replace issues, releases, decisions or generated Product Brain indexes.

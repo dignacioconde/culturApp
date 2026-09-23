@@ -1,23 +1,9 @@
-# Project-Area Memories
+# Memoria por área
 
-Use this folder for durable memories tied to CulturaApp routes, features, incidents, or product areas.
+- [calendar.md](calendar.md) — altura y UX de calendarios.
+- [dashboard-finance.md](dashboard-finance.md) — reglas financieras.
+- [email-ops.md](email-ops.md) — entrega y redirecciones de email.
+- [routing-deploy.md](routing-deploy.md) — SPA, PWA y despliegue.
+- [settings.md](settings.md) — perfil e IRPF.
 
-Possible files:
-
-- `calendar.md`
-- `culturaapp-status.md`
-- `dashboard-finance.md`
-- `events.md`
-- `projects.md`
-- `settings.md`
-
-Prefer this folder when the memory is about a specific app area rather than a reusable topic.
-
-## Current Project Files
-
-- [culturaapp-status.md](culturaapp-status.md): high-level implementation timeline and commit-backed state.
-- [calendar.md](calendar.md): React Big Calendar layout gotchas and accepted mobile week UX caveats.
-- [dashboard-finance.md](dashboard-finance.md): dashboard KPI definitions and fixed calculation issues.
-- [email-ops.md](email-ops.md): Supabase Auth, Brevo, transactional email and sender validation gotchas.
-- [routing-deploy.md](routing-deploy.md): Vercel SPA fallback, protected-route refresh behavior, and deploy status caveat.
-- [settings.md](settings.md): profile access via hook and 409/profile trigger caveat.
+`culturaapp-status.md` se conserva solo para compatibilidad; el estado actual vive en `TECHDOC.md` y Product Brain.
