@@ -19,6 +19,17 @@ Detalle bajo demanda de la sección "Handoff y Orquestación" de `AGENTS.md`. Gu
 4. **Integrar**: solo tras `aprobar`, el cerebro integra la rama worker (merge o cherry-pick) y borra el worktree.
 5. **Handoff** (`/handoff`): actualiza `docs/handoff.md`.
 
+## Comandos de Claude Code
+
+| Comando | Qué hace |
+| --- | --- |
+| `/task-plan <objetivo> [--codex]` | Subagente `task-splitter` escribe `docs/tasks/T-xxx-*.md`; el cerebro las valida y, con `--codex` o si tocan datos, pide revisión a Codex. |
+| `/delegate <T-xxx> [alias] [--no-fallback]` | Llama a `delegate_task`; si pasa, `status: review`. Rechaza tareas de auth/RLS/migraciones/secretos/finanzas. |
+| `/task-review <T-xxx> [--codex]` | Revisa la rama worker contra los criterios, re-ejecuta la verificación y emite veredicto. Integra con `cherry-pick` solo tras confirmación del usuario y nunca en `main`. |
+| `/handoff [nota]` | Reescribe `docs/handoff.md` con el estado real (git, tareas, ramas worker, consumo). |
+
+Definidos en `.claude/commands/` y `.claude/agents/task-splitter.md`. Se llaman `task-plan`/`task-review` porque `/plan` y `/review` ya existen en Claude Code.
+
 ## Pedir a Codex (MCP `codex`)
 
 Herramientas del servidor `tools/codex-bridge/` (siempre `--sandbox read-only`):
