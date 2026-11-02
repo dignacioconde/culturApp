@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
-import { capitalize, slugify } from './text.mjs'
+import { capitalize, slugify, truncate } from './text.mjs'
 
 test('capitalize', () => {
   assert.equal(capitalize('cachés'), 'Cachés')
@@ -19,4 +19,20 @@ test('slugify', () => {
   assert.equal(slugify(''), '')
   assert.equal(slugify('   '), '')
   assert.equal(slugify('¿?¡...'), '')
+})
+
+test('truncate', () => {
+  assert.equal(truncate('Hola mundo', 20), 'Hola mundo')
+  assert.equal(truncate('Hola mundo', 10), 'Hola mundo')
+  assert.equal(truncate('Hola mundo', 9), 'Hola mun…')
+  assert.equal(truncate('Hola mundo', 6), 'Hola …')
+  assert.equal(truncate('Hola mundo', 5), 'Hola…')
+  assert.equal(truncate('Hola mundo', 2), 'H…')
+  assert.equal(truncate('Hola mundo', 1), '…')
+  assert.equal(truncate('Hola mundo', 0), '')
+  assert.equal(truncate('Hola mundo', -1), '')
+  assert.equal(truncate('', 5), '')
+  assert.equal(truncate('', 0), '')
+  assert.equal(truncate('a', 1), 'a')
+  assert.equal(truncate('ab', 1), '…')
 })

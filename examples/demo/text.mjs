@@ -16,3 +16,10 @@ export function slugify(text) {
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
 }
+
+/** Recorta el texto a max caracteres y termina en … cuando no cabe. */
+export function truncate(text, max) {
+  if (max <= 0) return ''
+  if (text.length <= max) return text
+  return text.slice(0, max - 1) + '…'
+}
