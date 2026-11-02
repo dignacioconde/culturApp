@@ -15,6 +15,7 @@ CACH-0106 — Montar la orquestación multi-modelo (cerebros Claude/Codex, obrer
 
 ## Pendiente (siguiente paso concreto)
 
+- Fases 1–3 se integran en `main` por PR (squash). Para la Fase 4, crear rama nueva desde `main` actualizado (no reutilizar `chore/cach-0106-multi-model-orchestration`).
 - Fase 4: comandos `.claude/commands/` (`/task-plan`, `/delegate`, `/task-review`, `/handoff`) y subagente `task-splitter`.
 
 ## Decisiones tomadas
