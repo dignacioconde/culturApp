@@ -109,6 +109,7 @@ generated: true
 
 - [[../issues/CACH-0047|CACH-0047]] — [Skills] Actualizar catalogo y symlinks de skills · done · p1 · task
 - [[../issues/CACH-0048|CACH-0048]] — [Context] Compactar workflow OpenCode · done · p2 · task
+- [[../issues/CACH-0107|CACH-0107]] — Guía de estudio de React con ejemplos reales de Cachés · done · p3 · slice
 
 ## brain
 

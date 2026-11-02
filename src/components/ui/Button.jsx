@@ -12,6 +12,7 @@ const sizes = {
 }
 
 export function Button({ children, variant = 'primary', size = 'md', className = '', type = 'button', ...props }) {
+  // Props: aspecto reutilizable + props nativas (onClick, disabled, aria-*, etc.).
   const variantClass = variants[variant] ?? variants.primary
   const sizeClass = sizes[size] ?? sizes.md
 

@@ -30,6 +30,7 @@ export default function ProjectList() {
   const hasFilters = Boolean(search || filterStatus || filterCategory)
   const categoryLabels = useMemo(() => Object.fromEntries(PROJECT_CATEGORIES.map((c) => [c.value, c.label])), [])
 
+  // "filtered" se deriva de projects y los filtros: no necesita otro useState.
   const filtered = projects.filter((p) => {
     const query = search.trim().toLowerCase()
     const contractor = getProjectContractor(p, contractors)
@@ -51,6 +52,7 @@ export default function ProjectList() {
   }
 
   const handleCreate = async (formData) => {
+    // El formulario entrega datos; esta página decide cómo guardarlos y dar feedback.
     setSaving(true)
     const { error } = await createProject(formData)
     setSaving(false)
@@ -201,6 +203,7 @@ export default function ProjectList() {
         )}
       </div>
 
+      {/* La página pasa funciones al formulario como props; él no consulta Supabase. */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Nuevo proyecto">
         <ProjectForm
           contractors={contractors}

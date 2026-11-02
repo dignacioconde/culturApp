@@ -7,10 +7,13 @@ const authRedirectBaseUrl = resolveAuthRedirectBaseUrl(import.meta.env.VITE_APP_
 })
 
 export function useAuth() {
+  // Un hook guarda estado y lógica reutilizable; cada componente que lo llama
+  // recibe su propio estado, sincronizado aquí con la misma sesión de Supabase.
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    // El efecto se ejecuta tras el render: carga la sesión y escucha cambios futuros.
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null)
       setLoading(false)
@@ -20,6 +23,7 @@ export function useAuth() {
       setUser(session?.user ?? null)
     })
 
+    // React llama a esta limpieza al desmontar el componente (y al verificar efectos en desarrollo).
     return () => subscription.unsubscribe()
   }, [])
 

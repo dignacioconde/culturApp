@@ -12,6 +12,7 @@ export function ContextNotesCard({
   onSave,
   savingLabel = 'Guardando...',
 }) {
+  // "notes" llega del padre; "draft" guarda lo que se escribe antes de confirmar.
   const currentNotes = notes ?? ''
   const hasNotes = currentNotes.trim().length > 0
   const [editing, setEditing] = useState(false)
@@ -32,6 +33,7 @@ export function ContextNotesCard({
   }
 
   const saveNotes = async (nextNotes = draft) => {
+    // El padre aporta onSave: el componente reutilizable desconoce la entidad y Supabase.
     setSaving(true)
     setError('')
     try {

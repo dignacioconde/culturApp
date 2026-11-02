@@ -18,6 +18,7 @@ const EMPTY_FORM = {
 }
 
 export function ProjectForm({ initialData, contractors = [], onCreateContractor, onSubmit, onCancel, loading }) {
+  // Estado local del formulario: cada tecla actualiza "form" y vuelve a dibujar los campos.
   const [form, setForm] = useState({
     ...EMPTY_FORM,
     ...initialData,
@@ -33,11 +34,13 @@ export function ProjectForm({ initialData, contractors = [], onCreateContractor,
 
   const handleChange = (e) => {
     const { name, value } = e.target
+    // El atributo name identifica qué propiedad actualizar sin crear un handler por campo.
     setForm((prev) => ({ ...prev, [name]: value }))
     setError('')
   }
 
   const handleSubmit = async (e) => {
+    // Evita la recarga HTML normal; React gestiona validación y guardado.
     e.preventDefault()
     if (!form.name.trim()) {
       setError('Pon un nombre para identificar el proyecto.')
@@ -72,6 +75,7 @@ export function ProjectForm({ initialData, contractors = [], onCreateContractor,
       contractorId = data.id
     }
 
+    // new_contractor_name es solo para la interfaz; la tabla projects no tiene ese campo.
     const payload = { ...form }
     delete payload.new_contractor_name
     await onSubmit({

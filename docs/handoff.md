@@ -4,21 +4,19 @@ Estado vivo para pasar trabajo entre agentes (Claude Code, Codex, otra sesión).
 
 ## Objetivo actual
 
-CACH-0106 — Orquestación multi-modelo. Las 6 fases están implementadas; falta mergear la PR de las fases 4–6 (rama `chore/cach-0106-orchestration-commands`).
+Sin release activa (beta 25 publicada). CACH-0107 (guía de estudio de React con comentarios didácticos) en PR. Siguiente paso de producto: elegir la iniciativa P1 que define la beta 26.
 
 ## Hecho
 
-- Fases 1–3 en `main` (PR #117): capa de contexto, MCP `codex`, MCP `cheap-worker` con registro de consumo.
-- Fase 4: comandos `/task-plan`, `/delegate`, `/task-review`, `/handoff`, subagente `task-splitter` y diagrama `docs/orchestration-architecture.html`.
-- Fase 5: `scripts/profiles.sh` (`pnpm profiles`), opcional.
-- Fase 6: demo real en `examples/demo/` (T-001 y T-002 delegadas a `deepseek-free`, revisadas con Codex e integradas; 0 USD), guía `tools/README.md`, issue CACH-0106 en `done`.
-- Arreglos surgidos de la demo: `changed_files` de `cheap-worker` y `git worktree remove --force` en `/task-review`.
+- CACH-0106 (orquestación multi-modelo) cerrada: fases 1–3 en PR #117 y fases 4–6 en PR #118, ambas en `main`.
+- CACH-0107: guía `docs/learning/react-stack-caches.md`, comentarios didácticos (solo comentarios) en `src/`, enlace en `TECHDOC.md` y preferencia en `.memory/me.md`.
 
 ## Pendiente (siguiente paso concreto)
 
-- Mergear la PR de las fases 4–6 tras el OK del usuario y CI verde; después borrar la rama y el worktree `culturApp-orchestra`.
-- Usuario: borrar la rama remota `chore/cach-0106-multi-model-orchestration` (ya mergeada) y aprobar los MCP `codex` y `cheap-worker` al abrir `claude`.
-- Primer uso real: `/task-plan` sobre una tarea pequeña de la app (tests o boilerplate) y revisar `usage_report` tras unas semanas.
+- Revisar y mergear la PR de CACH-0107 (rama `docs/cach-0107-react-learning-guide`) con CI verde.
+- Usuario: elegir la iniciativa P1 para la beta 26 (B0001 Trabajos, B0002 móvil financiera, B0004 contratantes/facturación, B0007 calendarios).
+- Usuario: aprobar los MCP `codex` y `cheap-worker` al abrir `claude`; primer uso real de `/task-plan` sobre una tarea pequeña.
+- Triar las 4 notas antiguas de `docs/project/inbox/`.
 
 ## Decisiones tomadas
 
@@ -27,20 +25,20 @@ CACH-0106 — Orquestación multi-modelo. Las 6 fases están implementadas; falt
 - Cadena de fallback: gratuitos OpenCode → DeepSeek directo → Ollama → OpenRouter (OpenRouter con ~2 céntimos de margen; recargar solo si hace falta).
 - Perfiles (`pnpm profiles`) se mantienen como opcionales: el usuario tiene una sola cuenta de Claude y una de ChatGPT.
 - Dependencias MCP (`@modelcontextprotocol/sdk`, `zod`, `yaml`) como devDependencies del raíz: un solo `pnpm install`; la app no las importa.
+- Comentarios didácticos de React: breves, en español, solo en decisiones y flujos relevantes; la guía es la referencia larga.
 
 ## Ficheros tocados
 
-- Fase 6: `examples/demo/**`, `docs/tasks/T-001-*.md`, `docs/tasks/T-002-*.md`, `tools/README.md`, `tools/cheap-worker/worker.mjs`, `.claude/commands/task-review.md`, `package.json`, `AGENTS.md`, `docs/project/issues/CACH-0106.md`.
-- Fases 4–5: `.claude/commands/*.md`, `.claude/agents/task-splitter.md`, `.agents/skills/cultura-agent-orchestration/SKILL.md`, `scripts/profiles.sh`, `docs/orchestration.md`, `docs/orchestration-architecture.html`.
-- Fases 1–3: ver PR #117.
+- CACH-0107: `docs/learning/react-stack-caches.md`, `docs/project/issues/CACH-0107.md`, índices de `docs/project/`, `TECHDOC.md`, `.memory/me.md`, comentarios en `src/main.jsx`, `src/App.jsx`, `src/hooks/useAuth.js`, `src/hooks/useProjects.js`, `src/components/ui/{Button,ContextNotesCard,Input}.jsx`, `src/pages/Projects/{ProjectForm,ProjectList}.jsx`, `src/pages/Work/Work.jsx`.
 
 ## Riesgos / dudas
 
 - Los MCP `codex` y `cheap-worker` aparecen como «Pending approval» hasta aprobarlos al abrir `claude` en el repo (y otra vez por cada perfil).
 - Modelos gratuitos: límites de uso y posible uso de prompts por el proveedor; no delegar código sensible.
 - `/task-review` integra con `cherry-pick` en la rama actual; si es `main`, debe parar.
-- `/handoff` reescribe este fichero: revisar su diff antes de commitear (en la demo quitó un riesgo vigente).
+- `/handoff` reescribe este fichero: revisar su diff antes de commitear.
 - La config local de git del repo tiene `user.name = Codex`: los commits hechos desde aquí salen con esa autoría. Es preexistente; cambiarla es decisión del usuario.
+- Los comentarios didácticos pueden quedar desfasados si cambia el código; al tocar esos archivos, revisar el comentario y la sección de la guía que lo cita.
 
 ## Último agente y modelo que trabajó
 

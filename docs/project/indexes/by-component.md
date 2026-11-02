@@ -26,6 +26,7 @@ generated: true
 - [[../issues/CACH-0078|CACH-0078]] — Pulir Trabajos y listas con visual Lovable acotada · done · p2 · slice
 - [[../issues/CACH-0081|CACH-0081]] — Unificar visual Lovable tras comparacion real · done · p2 · slice
 - [[../issues/CACH-0082|CACH-0082]] — Auditar visual total Lovable y matriz QA · done · p2 · task
+- [[../issues/CACH-0107|CACH-0107]] — Guía de estudio de React con ejemplos reales de Cachés · done · p3 · slice
 
 ## projects
 
@@ -44,6 +45,7 @@ generated: true
 - [[../issues/CACH-0081|CACH-0081]] — Unificar visual Lovable tras comparacion real · done · p2 · slice
 - [[../issues/CACH-0082|CACH-0082]] — Auditar visual total Lovable y matriz QA · done · p2 · task
 - [[../issues/CACH-0084|CACH-0084]] — Unificar detalles y formularios de proyectos y eventos · done · p2 · slice
+- [[../issues/CACH-0107|CACH-0107]] — Guía de estudio de React con ejemplos reales de Cachés · done · p3 · slice
 
 ## events
 

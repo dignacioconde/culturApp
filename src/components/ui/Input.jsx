@@ -82,6 +82,7 @@ function DateInput({
   'aria-describedby': ariaDescribedBy,
   ...props
 }) {
+  // useId une label, campo y error con un identificador estable y accesible.
   const generatedId = useId()
   const inputId = id ?? generatedId
   const errorId = error ? `${inputId}-error` : undefined
@@ -93,6 +94,7 @@ function DateInput({
   const todayValue = formatDateValue(new Date())
   const selectedValue = selectedDate ? formatDateValue(selectedDate) : ''
   const selectedDisplayValue = selectedDate ? formatDateDisplay(selectedDate) : ''
+  // useRef conserva una referencia al DOM sin provocar renders al cambiar.
   const rootRef = useRef(null)
 
   useEffect(() => {
@@ -300,6 +302,8 @@ function DateTimeInput({
 
   const emitChange = (nextDate, nextTime) => {
     const nextValue = nextDate ? `${nextDate}T${nextTime || defaultTime}` : ''
+    // Adaptamos el control compuesto al contrato onChange({ target: { name, value } })
+    // que ya usa handleChange en los formularios de proyectos y eventos.
     onChange?.({
       target: { name, value: nextValue },
       currentTarget: { name, value: nextValue },

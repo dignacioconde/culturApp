@@ -14,6 +14,7 @@ Durable collaboration preferences and user-provided context for CulturaApp agent
 - For frontend or visual changes, start the local app when feasible and inspect the result instead of relying only on code review, lint, or build output.
 - For mobile UI, avoid long vertical-scroll onboarding/checklist panels by default; prefer compact, collapsible, dismissible patterns and keep one clear next action visible.
 - Prefer token-aware agent work: measure context/prompt size with repository metrics, reduce broad loading, split oversized tasks, and use concise output when it is safe.
+- Al explicar cambios de React, partir de conceptos básicos y usar ejemplos reales de Cachés; mantener comentarios didácticos en decisiones y flujos relevantes. La guía de estudio vive en `docs/learning/react-stack-caches.md`.
 
 ## Privacy Boundary
 

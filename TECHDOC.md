@@ -2,6 +2,8 @@
 
 Documento técnico de referencia del estado real del proyecto. Para Codex, la fuente principal de contexto es `AGENTS.md`; `CLAUDE.md` se mantiene como espejo para Claude Code.
 
+Si empiezas con React o quieres repasar cómo se conectan las piezas de este repositorio, sigue la [guía de estudio con ejemplos reales](docs/learning/react-stack-caches.md). Incluye un recorrido desde `index.html` hasta Supabase y señala los comentarios didácticos añadidos al código.
+
 ---
 
 ## Stack y versiones
