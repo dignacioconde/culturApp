@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "env": {
+    "MCP_TOOL_TIMEOUT": "3600000",
+    "CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT": "3600000"
+  },
+  "enabledMcpjsonServers": ["codex"]
+}

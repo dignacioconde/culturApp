@@ -23,8 +23,10 @@ Detalle bajo demanda de la sección "Handoff y Orquestación" de `AGENTS.md`. Gu
 
 Herramientas del servidor `tools/codex-bridge/` (siempre `--sandbox read-only`):
 
-- `codex_ask(prompt, cwd?, timeout_s?)` — pregunta libre con acceso de lectura al repo.
-- `codex_review(base?, commit?, uncommitted?, prompt?, cwd?, timeout_s?)` — envuelve `codex review`.
+- `codex_ask(prompt, model?, cwd?, timeout_s?)` — pregunta libre con acceso de lectura al repo (`codex exec --sandbox read-only --ephemeral`).
+- `codex_review(base? | commit? | uncommitted?, prompt?, cwd?, timeout_s?)` — exactamente un objetivo. Sin `prompt` usa `codex review` nativo; con `prompt` usa `codex exec` en solo lectura sobre el mismo diff (`codex review` 0.166 no admite prompt junto a `--base/--commit/--uncommitted`).
+- `cwd` es relativo a la raíz del repo y no puede salir de ella; se eliminan `OPENAI_API_KEY`/`CODEX_API_KEY` del entorno para usar siempre el login de la CLI.
+- Smoke test: `pnpm smoke:codex` (sin coste) o `pnpm smoke:codex -- --live` (una llamada real).
 
 Prompts tipo:
 
