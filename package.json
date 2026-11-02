@@ -50,6 +50,7 @@
     "verify:pr": "node scripts/verify-pr.mjs",
     "smoke:codex": "node tools/codex-bridge/smoke.mjs",
     "smoke:worker": "node tools/cheap-worker/test/smoke.mjs",
+    "profiles": "bash scripts/profiles.sh",
     "verify:brain": "node scripts/verify-brain.mjs",
     "verify:version-history": "node scripts/verify-version-history.mjs",
     "verify:skills": "node scripts/verify-skills.mjs",

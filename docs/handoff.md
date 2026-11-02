@@ -9,11 +9,11 @@ CACH-0106 — Montar la orquestación multi-modelo (cerebros Claude/Codex, obrer
 ## Hecho
 
 - Fases 1–3 en `main` (PR #117): capa de contexto, MCP `codex`, MCP `cheap-worker` con registro de consumo.
+- Fase 5 (misma rama): `scripts/profiles.sh` + `pnpm profiles` (perfiles con `CLAUDE_CONFIG_DIR`/`CODEX_HOME`). Verificado con carpetas temporales: el perfil nuevo no hereda conectores de claude.ai ni login de Codex; `default` mantiene la config normal.
 - Fase 4 (rama `chore/cach-0106-orchestration-commands`): comandos `/task-plan`, `/delegate`, `/task-review`, `/handoff` y subagente `task-splitter`; la skill `cultura-agent-orchestration` apunta a ellos. Verificado con el CLI `claude`: `/delegate` sin argumentos responde con el uso y `task-splitter` aparece como subagente.
 
 ## Pendiente (siguiente paso concreto)
 
-- Fase 5: `scripts/profiles.sh` (perfiles de Claude Code con `CLAUDE_CONFIG_DIR`).
 - Fase 6: demo `examples/demo/` (plan → delegate → review → handoff), `tools/README.md`, cierre de memoria e issue CACH-0106; una sola PR para fases 4–6.
 - Usuario: borrar la rama remota `chore/cach-0106-multi-model-orchestration` (ya mergeada); aprobar los MCP `codex` y `cheap-worker` al abrir `claude`.
 
@@ -27,6 +27,7 @@ CACH-0106 — Montar la orquestación multi-modelo (cerebros Claude/Codex, obrer
 ## Ficheros tocados
 
 - Fase 1: `AGENTS.md`, `CLAUDE.md`, `docs/handoff.md`, `docs/decisions.md`, `docs/orchestration.md`, `docs/tasks/*`, `.env.example`, `docs/project/issues/CACH-0106.md`.
+- Fase 5: `scripts/profiles.sh`, `package.json`, `docs/orchestration.md`.
 - Fase 4: `.claude/commands/*.md`, `.claude/agents/task-splitter.md`, `.agents/skills/cultura-agent-orchestration/SKILL.md`, `docs/orchestration.md`.
 - Fase 3: `tools/cheap-worker/**`, `config/models.yaml`, `.mcp.json`, `.claude/settings.json`, `package.json`, `.env.example`, `docs/orchestration.md`, `docs/decisions.md`.
 - Fase 2: `tools/codex-bridge/{server,smoke}.mjs`, `tools/lib/run.mjs`, `.mcp.json`, `.claude/settings.json`, `package.json`, `pnpm-lock.yaml`, `docs/orchestration.md`.

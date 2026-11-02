@@ -75,6 +75,20 @@ Qué delegar: boilerplate, tests, refactors simples de 1–3 ficheros, docs. Qu�
 
 Tras revisar: `git worktree remove .worktrees/T-xxx-<alias>` y, si se descarta, `git branch -D worker/T-xxx-<alias>`.
 
+## Perfiles (`scripts/profiles.sh`)
+
+Separa cuentas o configuraciones de las CLIs oficiales (p. ej. personal y trabajo) sin tocar credenciales: cada perfil es un `CLAUDE_CONFIG_DIR` en `~/.claude-profiles/<perfil>` y un `CODEX_HOME` en `~/.codex-profiles/<perfil>`. `default` es la configuración normal.
+
+```bash
+pnpm profiles new trabajo            # crea el perfil; luego login en cada CLI
+pnpm profiles claude trabajo         # abre claude con ese perfil (dentro: /login)
+pnpm profiles codex trabajo login
+eval "$(pnpm -s profiles env trabajo)"   # perfil para toda la shell actual
+pnpm profiles list | which
+```
+
+`CLAUDE_CONFIG_DIR` no se puede fijar en `.claude/settings.json` del proyecto: hay que exportarlo antes de lanzar `claude`. Cada perfil aprueba de nuevo los MCP del proyecto. Úsalo para separar cuentas, no para rotarlas y esquivar límites de uso.
+
 ## Timeouts
 
 - `.claude/settings.json` fija `MCP_TOOL_TIMEOUT` y `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT` a 1 h para tareas largas.
