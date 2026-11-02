@@ -213,9 +213,11 @@ async function resetWorktree(dir, baseSha) {
   await mustGit(dir, ['clean', '-fd', '-e', 'node_modules'])
 }
 
+// Sin trim(): en `--porcelain` la primera columna puede ser un espacio (" M ruta").
 async function changedFiles(dir) {
-  const status = await mustGit(dir, ['status', '--porcelain', ...EXCLUDE_NODE_MODULES])
-  return status ? status.split('\n').map((line) => line.slice(3)) : []
+  const result = await git(dir, ['status', '--porcelain', ...EXCLUDE_NODE_MODULES])
+  if (result.code !== 0) throw new Error(`git status falló:\n${result.stderr}`)
+  return result.stdout.split('\n').filter(Boolean).map((line) => line.slice(3))
 }
 
 function containsSecret(diff, env) {
