@@ -1,6 +1,6 @@
 # Orquestación multi-modelo — guía de agentes
 
-Detalle bajo demanda de la sección "Handoff y Orquestación" de `AGENTS.md`. Guía de instalación y uso para humanos: `tools/README.md`.
+Detalle bajo demanda de la sección "Handoff y Orquestación" de `AGENTS.md`. Guía de instalación y uso para humanos: `tools/README.md`. Diagrama de arquitectura: [`orchestration-architecture.html`](orchestration-architecture.html) (ábrelo en el navegador).
 
 ## Roles
 
