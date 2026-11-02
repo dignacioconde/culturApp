@@ -5,7 +5,7 @@ id: PB-DIGEST
 title: Product Brain Digest
 lifecycle: active
 created: 2026-05-05
-updated: 2026-09-23
+updated: 2026-11-02
 aliases:
   - Digest
   - Brain Digest
@@ -74,7 +74,9 @@ _Sin entradas._
 
 ### In progress
 
-_Sin entradas._
+| ID | Título | Tipo | Nivel | P |
+|---|---|---|---|---|
+| CACH-0106 | Orquestación multi-modelo con cerebros y obreros baratos | chore | slice | p2 |
 
 ### Review / Verify
 
@@ -93,6 +95,7 @@ _Sin entradas._
 
 | ID | Título | Workflow | Tipo | Nivel | P |
 |---|---|---|---|---|---|
+| CACH-0106 | Orquestación multi-modelo con cerebros y obreros baratos | in_progress | chore | slice | p2 |
 | CACH-B0001 | Redisenar Trabajos y jerarquia proyecto-evento | backlog | feature | initiative | p1 |
 | CACH-B0002 | Simplificar experiencia mobile financiera | backlog | feature | initiative | p1 |
 | CACH-B0004 | Contratantes facturacion y liquidacion neta | backlog | feature | initiative | p1 |

@@ -5,7 +5,7 @@ id: PB-BY-STATUS
 title: Issues por workflow
 lifecycle: active
 created: 2026-05-10
-updated: 2026-09-23
+updated: 2026-11-02
 aliases:
   - Issues por workflow
 tags:
@@ -113,3 +113,7 @@ generated: true
 - [[../issues/CACH-0098|CACH-0098]] — Metricas locales para retrieval y SDD · done · p2 · slice
 - [[../issues/CACH-0105|CACH-0105]] — Memoria v2 compacta y medible · done · p2 · slice
 - [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura · done · p2 · task
+
+## in_progress
+
+- [[../issues/CACH-0106|CACH-0106]] — Orquestación multi-modelo con cerebros y obreros baratos · in_progress · p2 · slice

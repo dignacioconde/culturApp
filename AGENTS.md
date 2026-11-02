@@ -107,6 +107,16 @@ Cuando el usuario pida OpenCode agents, usa el flujo estipulado en `.opencode/RE
 
 Si el usuario pide `caveman`, `menos tokens` o respuesta breve, aplica salida concisa solo donde sea seguro; no comprimas seguridad/RLS, finanzas, SQL, migraciones, reviews con evidencia ni verificaciones exactas.
 
+## Handoff y Orquestación Multi-modelo
+
+- Al empezar: lee `docs/handoff.md`. Al terminar: actualízalo (apartados fijos, sin borrar decisiones vigentes) y anota agente/modelo.
+- Cerebros (planifican/revisan): Claude Code y Codex, solo vía sus CLIs oficiales. Obreros (implementan): modelos baratos con API key propia u Ollama, vía MCP `cheap-worker`.
+- Tareas delegables: `docs/tasks/T-xxx-nombre.md` con contexto mínimo, ficheros, criterios verificables y comando de verificación.
+- Los obreros trabajan en rama `worker/T-xxx-*`; nunca hacen merge. Un cerebro revisa y decide.
+- Decisiones de tooling de agentes: `docs/decisions.md`. Detalle y prompts: `docs/orchestration.md`.
+- Tests: `pnpm test` (Vitest), `pnpm lint`, `pnpm build`; demo: `node --test examples/demo`.
+- Nunca secretos en código: `.env` (ignorado) con plantilla `.env.example`.
+
 ## Comandos Esenciales
 
 ```bash

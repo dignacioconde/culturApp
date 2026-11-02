@@ -5,7 +5,7 @@ id: PB-ISSUES-INDEX
 title: Issues Index
 lifecycle: active
 created: 2026-05-10
-updated: 2026-09-23
+updated: 2026-11-02
 aliases:
   - Issues Index
 tags:
@@ -88,6 +88,7 @@ generated: true
 - [[../issues/CACH-0103|CACH-0103]] — UX minima de liquidacion en detalles
 - [[../issues/CACH-0104|CACH-0104]] — QA financiera y cierre de Beta 25
 - [[../issues/CACH-0105|CACH-0105]] — Memoria v2 compacta y medible
+- [[../issues/CACH-0106|CACH-0106]] — Orquestación multi-modelo con cerebros y obreros baratos
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes
