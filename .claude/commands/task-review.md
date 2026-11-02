@@ -14,7 +14,7 @@ Argumentos: $ARGUMENTS
 3. Ejecuta tú el comando de `## Verificación` dentro del worktree para confirmar que pasa.
 4. Pide segunda opinión a Codex con `codex_review` (`commit: <sha de la rama>`, `cwd: <worktree>`, `prompt: "Revisa contra los criterios de docs/tasks/<fichero>. Prioriza bugs, regresiones y cambios fuera de alcance."`) si se pasó `--codex` o si el diff toca hooks, datos, más de un fichero o lógica no trivial.
 5. Veredicto, con motivos concretos (fichero:línea):
-   - **aprobar**: explica cómo integrarlo y **pide confirmación al usuario** antes de hacerlo. Al confirmar: si la rama actual es `main`, para y pide crear una rama de trabajo; si no, `git cherry-pick <sha>` en la rama actual, `git worktree remove .worktrees/<nombre>`, `git branch -D worker/<nombre>` y `status: done` en la tarea.
+   - **aprobar**: explica cómo integrarlo y **pide confirmación al usuario** antes de hacerlo. Al confirmar: si la rama actual es `main`, para y pide crear una rama de trabajo; si no, `git cherry-pick <sha>` en la rama actual, `git worktree remove --force .worktrees/<nombre>` (el worktree tiene un enlace a `node_modules` sin seguimiento), `git branch -D worker/<nombre>` y `status: done` en la tarea.
    - **pedir cambios**: añade a la tarea una sección `## Revisión` con los cambios concretos y pon `status: redo`; siguiente paso `/delegate <T-xxx>`.
    - **rehacer con modelo mejor**: igual que pedir cambios, sugiriendo un alias más capaz de `list_models` o implementarla tú si no es delegable.
 6. Si el veredicto no es aprobar, el worktree se queda para inspección; indica cómo borrarlo.

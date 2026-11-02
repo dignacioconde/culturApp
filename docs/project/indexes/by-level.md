@@ -30,7 +30,6 @@ generated: true
 
 ## slice
 
-- [[../issues/CACH-0106|CACH-0106]] — Orquestación multi-modelo con cerebros y obreros baratos · in_progress · p2 · slice
 - [[../issues/CACH-0028|CACH-0028]] — Corregir sync iCloud y estructura versionada · done · p1 · slice
 - [[../issues/CACH-0029|CACH-0029]] — Integrar helpers CACH-B0016 en flujos reales · done · p1 · slice
 - [[../issues/CACH-0031|CACH-0031]] — Corregir ajustes UX movil detectados en exploracion · done · p1 · slice
@@ -82,6 +81,7 @@ generated: true
 - [[../issues/CACH-0097|CACH-0097]] — Escalado SDD por niveles para Product Brain · done · p2 · slice
 - [[../issues/CACH-0098|CACH-0098]] — Metricas locales para retrieval y SDD · done · p2 · slice
 - [[../issues/CACH-0105|CACH-0105]] — Memoria v2 compacta y medible · done · p2 · slice
+- [[../issues/CACH-0106|CACH-0106]] — Orquestación multi-modelo con cerebros y obreros baratos · done · p2 · slice
 
 ## task
 

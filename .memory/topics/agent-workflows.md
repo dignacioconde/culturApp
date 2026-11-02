@@ -20,4 +20,5 @@ Cargar solo para agentes, planificación, PR/release o mantenimiento de contexto
 - Orquestación multi-modelo: `.env` (claves de obreros) y el registro de consumo de `cheap-worker` viven en el checkout principal y los comparten los worktrees; detalle en `docs/orchestration.md`.
 - OpenCode 2.2.1 en scripts: usar `--standalone` para que lea variables de entorno, cerrar stdin (si no, `run` se cuelga) y sacar coste/tokens de `opencode session export <id>`; `opencode models` no acepta filtro de proveedor.
 - OpenRouter reserva saldo por el `max_tokens` máximo: limitar `limit.output` por modelo o fallará con «requires more credits» aunque haya algo de saldo.
+- Al cerrar una issue, `pb:close-check` rechaza Resultado/Validación/Memoria que contengan «pendiente», «todo» o «tbd» (aunque sea en otro sentido); tras cambiar `issue_workflow`, regenerar con `pb:index` y `pb:digest`.
 - Guardar aquí reglas reutilizables, nunca reportes de agentes, commits, ramas o cronologías de sesión.
