@@ -114,7 +114,7 @@ Si el usuario pide `caveman`, `menos tokens` o respuesta breve, aplica salida co
 - Tareas delegables: `docs/tasks/T-xxx-nombre.md` con contexto mínimo, ficheros, criterios verificables y comando de verificación.
 - Los obreros trabajan en rama `worker/T-xxx-*`; nunca hacen merge. Un cerebro revisa y decide.
 - Decisiones de tooling de agentes: `docs/decisions.md`. Detalle y prompts: `docs/orchestration.md`.
-- Tests: `pnpm test` (Vitest), `pnpm lint`, `pnpm build`; demo: `node --test examples/demo`.
+- Tests: `pnpm test` (Vitest), `pnpm lint`, `pnpm build`; demo: `pnpm test:demo`.
 - Nunca secretos en código: `.env` (ignorado) con plantilla `.env.example`.
 
 ## Comandos Esenciales
