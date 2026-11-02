@@ -49,6 +49,7 @@
     "verify:ci": "node scripts/verify-ci.mjs",
     "verify:pr": "node scripts/verify-pr.mjs",
     "smoke:codex": "node tools/codex-bridge/smoke.mjs",
+    "smoke:worker": "node tools/cheap-worker/test/smoke.mjs",
     "verify:brain": "node scripts/verify-brain.mjs",
     "verify:version-history": "node scripts/verify-version-history.mjs",
     "verify:skills": "node scripts/verify-skills.mjs",
@@ -89,6 +90,7 @@
     "tailwindcss": "^4.2.4",
     "vite": "^8.0.10",
     "vitest": "^4.1.5",
+    "yaml": "^2.9.1",
     "zod": "^4.4.3"
   }
 }

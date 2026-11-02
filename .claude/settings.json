@@ -4,5 +4,8 @@
     "MCP_TOOL_TIMEOUT": "3600000",
     "CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT": "3600000"
   },
-  "enabledMcpjsonServers": ["codex"]
+  "enabledMcpjsonServers": [
+    "codex",
+    "cheap-worker"
+  ]
 }

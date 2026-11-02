@@ -38,3 +38,10 @@ Formato: fecha · decisión · motivo · alternativas descartadas. Si una decisi
 - Decisión: `cheap-worker` y `codex-bridge` se escriben en Node (ESM) con `@modelcontextprotocol/sdk`.
 - Motivo: el repo ya es Node/pnpm; no hay `uv` ni Python moderno por defecto.
 - Descartado: Python + FastMCP.
+
+## ADR-006 — Consumo de obreros desde la sesión de OpenCode
+
+- Fecha: 2026-11-02
+- Decisión: tras cada intento, `cheap-worker` lee `opencode session export <id>` y registra coste y tokens en `logs/worker.jsonl` del checkout principal, junto a `.env`.
+- Motivo: en OpenCode 2.2.1 `run --format json` no siempre emite el evento final con tokens; el export trae el coste calculado por OpenCode. Compartir `.env` y logs entre worktrees evita duplicar claves y fragmentar el informe.
+- Descartado: consultar saldos de cada proveedor (solo algunos tienen API, sin desglose por tarea); estimar coste con precios de `config/models.yaml`.

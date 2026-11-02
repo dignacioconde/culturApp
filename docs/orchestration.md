@@ -44,11 +44,25 @@ Prompts tipo:
 
 ## Delegar a obreros (MCP `cheap-worker`)
 
-- `list_models()` — alias, proveedor, id, coste aproximado y usos recomendados (`config/models.yaml`).
-- `delegate_task(task_file, model?, timeout_s?)` — devuelve rama, diff, salida de verificación, `passed`, intentos y modelo usado.
-- `usage_report()` — resumen de `logs/worker.jsonl` (éxitos, fallos, tokens, coste).
+- `list_models()` — alias, id de OpenCode, posición en la cadena, disponibilidad (clave en `.env`, Ollama arrancado), coste aproximado y usos (`config/models.yaml`).
+- `delegate_task(task_file, model?, no_fallback?, max_retries?, timeout_s?, budget_s?, base?)` — crea `.worktrees/T-xxx-<alias>` (rama `worker/T-xxx-<alias>`, sufijo `-2`… si ya existe), ejecuta `opencode run`, corre el comando de `## Verificación`, reintenta con el error y recorre la cadena. Si pasa, commitea en la rama worker. Devuelve rama, commit, diff, intentos, modelo usado y coste. Nunca hace merge.
+- `usage_report(days?)` — resumen de `logs/worker.jsonl` por modelo: intentos, éxitos, fallos, tokens y coste real.
+
+Cadena por defecto: gratuitos de OpenCode → DeepSeek directo → Ollama → OpenRouter. Los modelos sin clave en `.env` (o sin Ollama) se saltan.
+
+Detalles de funcionamiento:
+
+- `.env` y `logs/` viven en el **checkout principal** (el que contiene `.git`), así sirven desde cualquier worktree.
+- OpenCode corre con una config aislada (`OPENCODE_CONFIG` temporal): salida limitada a 8192 tokens por modelo (OpenRouter reserva saldo por el máximo), proveedor Ollama, sin `webfetch`, sin leer `.env` y sin `git commit/push/merge/reset/checkout`.
+- El obrero recibe un entorno mínimo: solo la clave del proveedor que usa.
+- Antes de commitear se escanea el diff en busca de claves; si aparece una, no se commitea (`secret_blocked`).
+- Consumo: `opencode run --format json` no siempre emite tokens, así que tras cada intento se lee `opencode session export <id>` (coste y tokens acumulados de la sesión). Cada intento es una línea en `logs/worker.jsonl`.
+- El worktree enlaza `node_modules` del repo para que la verificación funcione sin reinstalar.
+- Smoke test: `pnpm smoke:worker` (sin coste) o `pnpm smoke:worker -- --live [--model <alias>]`.
 
 Qué delegar: boilerplate, tests, refactors simples de 1–3 ficheros, docs. Qué no delegar: auth, RLS, migraciones, secretos, cálculos financieros, cambios multi-módulo.
+
+Tras revisar: `git worktree remove .worktrees/T-xxx-<alias>` y, si se descarta, `git branch -D worker/T-xxx-<alias>`.
 
 ## Timeouts
 
