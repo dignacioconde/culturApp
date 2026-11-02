@@ -1,6 +1,6 @@
 # Orquestación multi-modelo — guía de agentes
 
-Detalle bajo demanda de la sección "Handoff y Orquestación" de `AGENTS.md`. Guía de instalación y uso para humanos: `tools/README.md`.
+Detalle bajo demanda de la sección "Handoff y Orquestación" de `AGENTS.md`. Guía de instalación y uso para humanos: `tools/README.md`. Diagrama de arquitectura: [`orchestration-architecture.html`](orchestration-architecture.html) (ábrelo en el navegador).
 
 ## Roles
 
@@ -18,6 +18,17 @@ Detalle bajo demanda de la sección "Handoff y Orquestación" de `AGENTS.md`. Gu
 3. **Revisar** (`/task-review T-xxx`): un cerebro lee el diff y, si es delicado, pide opinión a Codex. Veredicto: `aprobar` / `pedir cambios` / `rehacer con modelo mejor`.
 4. **Integrar**: solo tras `aprobar`, el cerebro integra la rama worker (merge o cherry-pick) y borra el worktree.
 5. **Handoff** (`/handoff`): actualiza `docs/handoff.md`.
+
+## Comandos de Claude Code
+
+| Comando | Qué hace |
+| --- | --- |
+| `/task-plan <objetivo> [--codex]` | Subagente `task-splitter` escribe `docs/tasks/T-xxx-*.md`; el cerebro las valida y, con `--codex` o si tocan datos, pide revisión a Codex. |
+| `/delegate <T-xxx> [alias] [--no-fallback]` | Llama a `delegate_task`; si pasa, `status: review`. Rechaza tareas de auth/RLS/migraciones/secretos/finanzas. |
+| `/task-review <T-xxx> [--codex]` | Revisa la rama worker contra los criterios, re-ejecuta la verificación y emite veredicto. Integra con `cherry-pick` solo tras confirmación del usuario y nunca en `main`. |
+| `/handoff [nota]` | Reescribe `docs/handoff.md` con el estado real (git, tareas, ramas worker, consumo). |
+
+Definidos en `.claude/commands/` y `.claude/agents/task-splitter.md`. Se llaman `task-plan`/`task-review` porque `/plan` y `/review` ya existen en Claude Code.
 
 ## Pedir a Codex (MCP `codex`)
 
@@ -63,6 +74,20 @@ Detalles de funcionamiento:
 Qué delegar: boilerplate, tests, refactors simples de 1–3 ficheros, docs. Qué no delegar: auth, RLS, migraciones, secretos, cálculos financieros, cambios multi-módulo.
 
 Tras revisar: `git worktree remove .worktrees/T-xxx-<alias>` y, si se descarta, `git branch -D worker/T-xxx-<alias>`.
+
+## Perfiles (`scripts/profiles.sh`)
+
+Separa cuentas o configuraciones de las CLIs oficiales (p. ej. personal y trabajo) sin tocar credenciales: cada perfil es un `CLAUDE_CONFIG_DIR` en `~/.claude-profiles/<perfil>` y un `CODEX_HOME` en `~/.codex-profiles/<perfil>`. `default` es la configuración normal.
+
+```bash
+pnpm profiles new trabajo            # crea el perfil; luego login en cada CLI
+pnpm profiles claude trabajo         # abre claude con ese perfil (dentro: /login)
+pnpm profiles codex trabajo login
+eval "$(pnpm -s profiles env trabajo)"   # perfil para toda la shell actual
+pnpm profiles list | which
+```
+
+`CLAUDE_CONFIG_DIR` no se puede fijar en `.claude/settings.json` del proyecto: hay que exportarlo antes de lanzar `claude`. Cada perfil aprueba de nuevo los MCP del proyecto. Úsalo para separar cuentas, no para rotarlas y esquivar límites de uso.
 
 ## Timeouts
 

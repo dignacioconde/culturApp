@@ -60,17 +60,20 @@ No sustituye las skills de dominio. Si la tarea es frontend, datos, seguridad, t
    - Si ya hay issue/rama/contexto, usa `npm run agents:run -- "<tarea>"`.
    - Para revision paralela read-only, usa `npm run agents:parallel -- --agents <lista> "<tarea>"`.
    - Para cierre, usa `npm run agents:verify -- "<contexto>"`.
-5. Siempre coordina por dominio:
+5. Para delegar implementacion acotada en modelos baratos (Claude Code con MCP `cheap-worker`):
+   - Usa `/task-plan <objetivo>` para crear tareas atomicas en `docs/tasks/`, `/delegate T-xxx` para ejecutarlas en worktree aislado y `/task-review T-xxx` para revisar antes de integrar.
+   - Nunca delegues auth, RLS, migraciones, secretos ni calculos financieros. Detalle en `docs/orchestration.md`.
+6. Siempre coordina por dominio:
    - UI, rutas, formularios, calendarios, responsive: frontend/UX.
    - Datos, hooks, Supabase, finanzas: data.
    - Auth, RLS, secretos, privacidad: security.
    - Checks, release readiness, regression matrix: testing.
    - Docs, Product Brain, memoria, skills: docs/release.
-6. Integra resultados:
+7. Integra resultados:
    - Contrasta recomendaciones entre agentes.
    - Decide y edita localmente o integra parches sin pisar cambios ajenos.
    - Ejecuta verificaciones acordes al cambio.
-7. Cierre:
+8. Cierre:
    - Resume agentes usados, hallazgos incorporados, cambios, verificaciones y riesgos.
    - Antes de PR, declarar `Memoria: actualizada` o `Memoria: no aplica`.
 
