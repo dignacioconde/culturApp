@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "codex": {
+      "command": "node",
+      "args": [
+        "tools/codex-bridge/server.mjs"
+      ]
+    },
+    "cheap-worker": {
+      "command": "node",
+      "args": [
+        "tools/cheap-worker/server.mjs"
+      ]
+    }
+  }
+}

@@ -26,3 +26,7 @@ supabase/.temp/
 # Product Brain
 docs/project/.obsidian/
 .product-brain-sync-state.json
+
+# Orquestación multi-modelo (CACH-0106)
+.worktrees/
+logs/

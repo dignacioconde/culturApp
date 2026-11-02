@@ -1,0 +1,91 @@
+# Modelos obreros de cheap-worker (CACH-0106). Ver docs/orchestration.md.
+#
+# - model: id de OpenCode `<proveedor>/<modelo>` (comprobar con `opencode models --standalone`).
+# - env: variable de .env que activa el modelo; null = no necesita clave.
+# - cost: USD por millón de tokens (models.dev, 2026-11). Solo informativo: el coste
+#   real de cada intento lo registra OpenCode y queda en logs/worker.jsonl.
+# - context/output: límites que se fijan en la config aislada de OpenCode. Limitar la
+#   salida evita que OpenRouter reserve saldo para 256k tokens por llamada.
+
+defaults:
+  max_retries: 2          # intentos extra con el mismo modelo si falla la verificación
+  timeout_s: 900          # por intento del obrero
+  verify_timeout_s: 300   # por ejecución del comando de verificación
+  budget_s: 3000          # tope total de delegate_task (< timeout MCP de 1 h)
+  output_tokens: 8192
+
+# Orden de fallback: gratis → barato directo → local → intermediario.
+chain:
+  - deepseek-free
+  - glm-free
+  - deepseek
+  - ollama
+  - or-deepseek
+
+models:
+  deepseek-free:
+    model: opencode/deepseek-v4.1-flash-free
+    env: null
+    cost: { input: 0, output: 0 }
+    context: 200000
+    uses: [boilerplate, tests, refactor simple, docs]
+    notes: Gratuito con límites de uso; el proveedor puede usar los prompts.
+
+  glm-free:
+    model: opencode/glm-5.3-flash-free
+    env: null
+    cost: { input: 0, output: 0 }
+    context: 200000
+    uses: [boilerplate, tests, docs]
+    notes: Gratuito con límites de uso; el proveedor puede usar los prompts.
+
+  deepseek:
+    model: deepseek/deepseek-flash
+    env: DEEPSEEK_API_KEY
+    cost: { input: 0.15, output: 0.6, cache_read: 0.003 }
+    context: 1048576
+    uses: [tests, refactor simple, bugs acotados]
+    notes: API directa. Razona antes de responder (los tokens de razonamiento cuentan como salida).
+
+  ollama:
+    model: ollama/qwen2.5-coder:7b
+    env: null
+    cost: { input: 0, output: 0 }
+    context: 32768
+    uses: [boilerplate, docs]
+    notes: Local; requiere `ollama serve` y `ollama pull qwen2.5-coder:7b`.
+
+  or-deepseek:
+    model: openrouter/deepseek/deepseek-v4.1-flash
+    env: OPENROUTER_API_KEY
+    cost: { input: 0.045, output: 0.5, cache_read: 0.006 }
+    context: 1048576
+    uses: [tests, refactor simple]
+
+  or-qwen-coder:
+    model: openrouter/qwen/qwen3-coder-next
+    env: OPENROUTER_API_KEY
+    cost: { input: 0.12, output: 0.8, cache_read: 0.07 }
+    context: 262144
+    uses: [refactor, tests]
+
+  or-glm:
+    model: openrouter/z-ai/glm-5.3-flash
+    env: OPENROUTER_API_KEY
+    cost: { input: 0.0285, output: 0.0923 }
+    context: 1048576
+    uses: [boilerplate, docs]
+
+  qwen-coder:
+    model: alibaba/qwen3-coder-flash
+    env: DASHSCOPE_API_KEY
+    cost: { input: 0.3, output: 1.5, cache_read: 0.06 }
+    context: 1000000
+    uses: [refactor, tests]
+
+  glm:
+    model: zai/glm-5.3-flash
+    env: ZHIPU_API_KEY
+    cost: { input: 0.15, output: 0.5, cache_read: 0.03 }
+    context: 1000000
+    uses: [boilerplate, docs]

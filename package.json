@@ -48,6 +48,8 @@
     "smoke:postdeploy": "node scripts/post-deploy-smoke.mjs",
     "verify:ci": "node scripts/verify-ci.mjs",
     "verify:pr": "node scripts/verify-pr.mjs",
+    "smoke:codex": "node tools/codex-bridge/smoke.mjs",
+    "smoke:worker": "node tools/cheap-worker/test/smoke.mjs",
     "verify:brain": "node scripts/verify-brain.mjs",
     "verify:version-history": "node scripts/verify-version-history.mjs",
     "verify:skills": "node scripts/verify-skills.mjs",
@@ -73,6 +75,7 @@
     "@emnapi/core": "^1.10.0",
     "@emnapi/runtime": "^1.10.0",
     "@eslint/js": "^10.0.1",
+    "@modelcontextprotocol/sdk": "^1.32.2",
     "@playwright/test": "^1.59.1",
     "@tailwindcss/vite": "^4.2.4",
     "@types/react": "^19.2.14",
@@ -87,6 +90,7 @@
     "tailwindcss": "^4.2.4",
     "vite": "^8.0.10",
     "vitest": "^4.1.5",
-    "zod": "^4.3.6"
+    "yaml": "^2.9.1",
+    "zod": "^4.4.3"
   }
 }
