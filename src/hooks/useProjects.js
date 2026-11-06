@@ -2,10 +2,12 @@ import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '../supabaseClient'
 
 export function useProjects(userId) {
+  // Estos cambios de estado provocan un nuevo render de la página que usa el hook.
   const [projects, setProjects] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
+  // useCallback conserva esta función entre renders mientras no cambie userId.
   const fetchProjects = useCallback(async () => {
     setLoading(true)
     const { data, error } = await supabase
@@ -14,6 +16,7 @@ export function useProjects(userId) {
       .eq('user_id', userId)
       .order('start_date', { ascending: true })
 
+    // El filtro limita la consulta y RLS en Supabase protege los datos en el servidor.
     if (error) setError(error)
     else setProjects(data)
     setLoading(false)
@@ -21,6 +24,7 @@ export function useProjects(userId) {
 
   useEffect(() => {
     if (!userId) return
+    // Consultamos cuando ya conocemos al usuario o cambia la función de consulta.
     queueMicrotask(fetchProjects)
   }, [userId, fetchProjects])
 
@@ -31,6 +35,7 @@ export function useProjects(userId) {
       .select()
       .single()
 
+    // La forma funcional recibe el estado más reciente, incluso tras una operación asíncrona.
     if (!error) setProjects((prev) => [...prev, data])
     return { data, error }
   }

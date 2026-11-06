@@ -52,7 +52,9 @@ function GateCard({ icon: Icon, title, description, action }) {
 }
 
 function PrivateRoute({ children, requireAdmin = false }) {
+  // "children" es la página envuelta por esta guarda en la tabla de rutas.
   const { user, loading } = useAuth()
+  // Esperamos a conocer la sesión antes de decidir si redirigir al login.
   if (loading) return <GateLoader />
   if (!user) return <Navigate to="/login" replace />
   return <ProfileGate user={user} requireAdmin={requireAdmin}>{children}</ProfileGate>
@@ -64,6 +66,7 @@ function ProfileGate({ user, requireAdmin, children }) {
   const isOnboardingRoute = location.pathname === '/onboarding'
   const onboardingJustCompleted = location.state?.onboardingCompleted === true
 
+  // Al volver del onboarding, releemos el perfil para evaluar el dato actualizado.
   useEffect(() => {
     if (onboardingJustCompleted) refetch()
   }, [onboardingJustCompleted, refetch])
@@ -129,6 +132,7 @@ export default function App() {
   return (
     <ScrollLockProvider>
       <BrowserRouter>
+        {/* React Router elige el elemento cuya URL coincide; :id es un parámetro de ruta. */}
         <Routes>
         <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
         <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />

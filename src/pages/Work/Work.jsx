@@ -107,16 +107,19 @@ function ProjectBlock({ project, events = EMPTY_LIST, allProjects = EMPTY_LIST, 
 }
 
 export default function Work() {
+  // La página compone hooks de datos; las consultas a Supabase viven en src/hooks.
   const { user } = useAuth()
   const { projects, loading: projectsLoading, error: projectsError } = useProjects(user?.id)
   const { events, loading: eventsLoading, error: eventsError } = useEvents(user?.id)
   const { contractors, loading: contractorsLoading, error: contractorsError, schemaReady: contractorsSchemaReady } = useContractors(user?.id)
   const [searchParams, setSearchParams] = useSearchParams()
 
+  // El filtro está en la URL: se conserva al recargar y se puede compartir.
   const currentView = views.some((view) => view.value === searchParams.get('view'))
     ? searchParams.get('view')
     : 'all'
 
+  // Derivamos un índice de los eventos recibidos; useMemo lo recalcula si cambian.
   const eventsByProject = useMemo(() => {
     const grouped = new Map()
     events.forEach((event) => {
@@ -129,6 +132,7 @@ export default function Work() {
   }, [events])
 
   const projectIds = useMemo(() => new Set(projects.map((project) => project.id)), [projects])
+  // Un evento sin proyecto (o con proyecto no cargado) aparece por separado.
   const standaloneEvents = useMemo(
     () => events.filter((event) => !event.project_id || !projectIds.has(event.project_id)),
     [events, projectIds]
@@ -199,6 +203,7 @@ export default function Work() {
           </div>
         )}
 
+        {/* Renderizado condicional: carga, vacío o contenido según los datos actuales. */}
         {loading ? (
           <div className="grid gap-3">
             {[1, 2, 3].map((item) => (

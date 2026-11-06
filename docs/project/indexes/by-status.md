@@ -114,3 +114,4 @@ generated: true
 - [[../issues/CACH-0105|CACH-0105]] — Memoria v2 compacta y medible · done · p2 · slice
 - [[../issues/CACH-0106|CACH-0106]] — Orquestación multi-modelo con cerebros y obreros baratos · done · p2 · slice
 - [[../issues/CACH-B0018|CACH-B0018]] — Adaptador Codex-native para perfiles Cultura · done · p2 · task
+- [[../issues/CACH-0107|CACH-0107]] — Guía de estudio de React con ejemplos reales de Cachés · done · p3 · slice

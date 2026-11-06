@@ -89,6 +89,7 @@ generated: true
 - [[../issues/CACH-0104|CACH-0104]] — QA financiera y cierre de Beta 25
 - [[../issues/CACH-0105|CACH-0105]] — Memoria v2 compacta y medible
 - [[../issues/CACH-0106|CACH-0106]] — Orquestación multi-modelo con cerebros y obreros baratos
+- [[../issues/CACH-0107|CACH-0107]] — Guía de estudio de React con ejemplos reales de Cachés
 - [[../issues/CACH-B0001|CACH-B0001]] — Redisenar Trabajos y jerarquia proyecto-evento
 - [[../issues/CACH-B0002|CACH-B0002]] — Simplificar experiencia mobile financiera
 - [[../issues/CACH-B0003|CACH-B0003]] — Cobro rapido y gestion de pendientes
